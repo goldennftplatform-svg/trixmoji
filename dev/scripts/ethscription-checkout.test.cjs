@@ -218,3 +218,22 @@ test('production diagnostics classify failures without exposing credentials or e
  assert.ok(!logs[0].includes(secret))
  assert.equal(diagnostics.report('minter-manifest', new Error('The phunk minter file is missing.')).reason, 'minter_file_missing')
 })
+
+test('Blobs bridge preserves runtime strong-read endpoint with legacy events', () => {
+ let context
+ const bridge = load('api/lib/ethscriptions-blobs.js', { '@netlify/blobs': { setEnvironmentContext: value => { context = value } } }, {
+  process: { env: { NETLIFY_BLOBS_CONTEXT: Buffer.from(JSON.stringify({ siteID: 'site', token: 'runtime', edgeURL: 'https://cached.example', uncachedEdgeURL: 'https://uncached.example' })).toString('base64') } }
+ })
+ bridge.connect({ headers: { 'X-Nf-Site-Id': 'site' }, blobs: Buffer.from(JSON.stringify({ token: 'event', url: 'https://cached.example' })).toString('base64') })
+ assert.equal(context.uncachedEdgeURL, 'https://uncached.example')
+ assert.equal(context.token, 'event')
+})
+
+test('legacy Blobs bridge uses direct API without cached-only reads and fails closed without credentials', () => {
+ let context
+ const bridge = load('api/lib/ethscriptions-blobs.js', { '@netlify/blobs': { setEnvironmentContext: value => { context = value } } }, { process: { env: {} } })
+ bridge.connect({ headers: { 'x-nf-site-id': 'site' }, blobs: { token: 'event', url: 'https://cached.example' } })
+ assert.equal(context.edgeURL, undefined)
+ assert.equal(context.apiURL, 'https://api.netlify.com')
+ assert.throws(() => bridge.connect({}), { name: 'MissingBlobsEnvironmentError' })
+})
