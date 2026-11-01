@@ -9,15 +9,17 @@ https://github.com/goldennftplatform-svg/auction-house/tree/main/trixmoji
 
 Run `npm ci --ignore-scripts`, `npm test`, and `npm run sandbox` from the companion project's `trixmoji` directory. Open http://127.0.0.1:8895 on that computer.
 
-## 1,000-piece catalogue
+## 10,000-piece collection explorer
 
-The public catalogue below has artwork #0–999. The local interactive lab has been simplified to **10 test pieces (#0–9)** for easier escrow testing: Seller has six, Buyer and Bidder each have two. Use MY WALLET, MY ESCROW, FOR SALE, AUCTIONS, and ALL PIECES. Deposit automatically advances five local cooldown blocks by default. RESET 10 TEST PIECES restores starting assets and fake balances. These are simulated assets, not existing mainnet inventory.
+The public catalogue below has artwork #0–9999 with trait filters. The local interactive lab has **10 test pieces (#0–9)** for easier escrow testing: Seller has six, Buyer and Bidder each have two; Friend starts empty and can receive gifts through SEND TO FRIEND. Use MY WALLET, MY ESCROW, FOR SALE, AUCTIONS, and ALL PIECES. Deposit automatically advances five local cooldown blocks by default. RESET 10 TEST PIECES restores starting assets and fake balances. These are simulated assets, not existing mainnet inventory.
 
 A shareable, read-only catalogue is included at:
 
 https://trixmoji.netlify.app/classic/pages/phunk-market-preview.html
 
-This URL becomes available after Netlify publishes the corresponding commit. It has 1,000 real artwork previews, pagination, number search, and enlarged image viewing. It accepts no payments, has no wallet signer, and does not claim the artwork is minted or offered for resale. The separate PRIMARY MINT link leads to the existing real-money mint.
+This URL updates after Netlify publishes the corresponding commit. It now has 10,000 real artwork previews, 40-card pagination, ID/trait/token search, multi-select trait filters, sorting, enlarged images, and trait frequencies. Multiple selected values within one category are OR; different categories are AND. The 315 trait values across 12 categories come from the supplied V2 metadata. This is not a value estimate or rarity rank. The catalogue accepts no payments, has no wallet signer, and does not claim artwork is minted or offered for resale. The separate PRIMARY MINT link leads to the existing real-money mint.
+
+The compact trait catalogue is committed as `assets/data/phunk-catalog.json` (~561 KB). Regenerate with `node dev/scripts/build-phunk-catalog.cjs` when the sibling `TRIX-PHUNKS/assets-v2` metadata is available. Netlify uses the committed index and does not need the original metadata folder at build time. Metadata royalty fields are deliberately excluded from pricing.
 
 ## Small live pilot, after production work is completed
 
