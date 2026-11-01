@@ -11,7 +11,7 @@ Run `npm ci --ignore-scripts`, `npm test`, and `npm run sandbox` from the compan
 
 ## 1,000-piece catalogue
 
-The local lab now has artwork #0–999, displayed 40 per page. Use GO TO PHUNK to reach a specific number. All 1,000 are simulated test assets, not existing mainnet inventory.
+The public catalogue below has artwork #0–999. The local interactive lab has been simplified to **10 test pieces (#0–9)** for easier escrow testing: Seller has six, Buyer and Bidder each have two. Use MY WALLET, MY ESCROW, FOR SALE, AUCTIONS, and ALL PIECES. Deposit automatically advances five local cooldown blocks by default. RESET 10 TEST PIECES restores starting assets and fake balances. These are simulated assets, not existing mainnet inventory.
 
 A shareable, read-only catalogue is included at:
 
