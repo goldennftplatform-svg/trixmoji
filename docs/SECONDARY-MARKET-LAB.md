@@ -9,6 +9,24 @@ https://github.com/goldennftplatform-svg/auction-house/tree/main/trixmoji
 
 Run `npm ci --ignore-scripts`, `npm test`, and `npm run sandbox` from the companion project's `trixmoji` directory. Open http://127.0.0.1:8895 on that computer.
 
+## 1,000-piece catalogue
+
+The local lab now has artwork #0–999, displayed 40 per page. Use GO TO PHUNK to reach a specific number. All 1,000 are simulated test assets, not existing mainnet inventory.
+
+A shareable, read-only catalogue is included at:
+
+https://trixmoji.netlify.app/classic/pages/phunk-market-preview.html
+
+This URL becomes available after Netlify publishes the corresponding commit. It has 1,000 real artwork previews, pagination, number search, and enlarged image viewing. It accepts no payments, has no wallet signer, and does not claim the artwork is minted or offered for resale. The separate PRIMARY MINT link leads to the existing real-money mint.
+
+## Small live pilot, after production work is completed
+
+Showing 1,000 pictures does not require pre-minting them. Selling a particular piece requires it to exist as an Ethscription, be owned by the seller, and be deposited into the verified resale contract.
+
+Before a live pilot, the missing production wallet adapter, protected verifier service and listing index must be implemented; the contract needs review and separate deployment. Then begin with one already-minted, explicitly selected piece and two consenting wallets. Verify the deposit and five-block cooldown, actual indexed custody, price and 2.5% royalty, seller-authorized listing, purchase, indexed buyer ownership, and seller withdrawal. Test cancellation/return separately. Auction settlement also needs a caller transaction after expiry.
+
+Do not enable all 1,000 catalogue items as sales merely because their images exist. Gate live listing creation and quote signing to explicitly approved pilot asset IDs until the end-to-end mainnet behavior is proven. No mainnet resale address or production signer is configured by this preview change.
+
 This test UI executes Solidity on a disposable local EVM using generated accounts/fake ETH. It demonstrates deposit, five-block cooldown, listing, buying, cancelling/returning, auctions, outbid refunds, settlement, royalties, and withdrawals. It does not connect a real browser wallet or move existing Phunks.
 
 **There is no live resale address yet. Do not send your real Ethscriptions to the local sandbox contract address or to the mint contract as a resale deposit.**
