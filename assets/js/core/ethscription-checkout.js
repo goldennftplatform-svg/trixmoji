@@ -148,6 +148,7 @@
   try { rows = records() } catch (e) { host.textContent = e.message; return }
   if (!rows.length) return
   var title = document.createElement('h2'); title.textContent = 'YOUR SAVED MINTS'; host.appendChild(title)
+  var galleryLink = document.createElement('a'); galleryLink.href = '/ethscriptions/past#mine'; galleryLink.textContent = 'OPEN MY COLLECTION · CONNECT WALLET'; galleryLink.className = 'btn'; host.appendChild(galleryLink)
   var note = document.createElement('p'); note.textContent = 'Saved in this browser. Checking never submits a payment. Keep transaction hashes if you change devices.'; host.appendChild(note)
   rows.forEach(function (r) {
    var card = document.createElement('div'); card.className = 'card'

@@ -94,6 +94,13 @@ async function requireIndexedMint(sent) {
   return indexed
 }
 
+async function indexedOwnership(hash, wallet) {
+  if (!isHash(hash) || !isAddr(wallet)) throw new Error('Invalid ownership query.')
+  const indexed = await indexerGet('/ethscriptions/' + hash)
+  if (!same(indexed.transaction_hash, hash) || !isAddr(indexed.current_owner)) throw new Error('Ownership is not available from the indexer.')
+  return { currentOwner: indexed.current_owner, owned: same(indexed.current_owner, wallet) }
+}
+
 async function readCreation(id) {
   if (!isHash(id)) throw new Error('An ethscription id is the 0x transaction that created it.')
   const found = await txAndReceipt(id)
@@ -201,5 +208,6 @@ module.exports = {
   readPhunkMint,
   requireMinter,
   requireUniqueContent,
-  requireIndexedMint
+  requireIndexedMint,
+  indexedOwnership
 }

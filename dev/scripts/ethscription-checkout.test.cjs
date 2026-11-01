@@ -99,9 +99,9 @@ function backend(live = true) {
    const next = await fn(structuredClone(state)); if (next) state = next; return state
   } }
  }, { process: env })
- return { chain, state: () => state, call: async (body, method = 'POST') => {
+ return { chain, state: () => state, call: async (body, method = 'POST', query = {}) => {
   let result, status
-  await handler({ method, body }, { status: function (s) { status = s; return this }, json: x => { result = x } })
+  await handler({ method, body, query }, { status: function (s) { status = s; return this }, json: x => { result = x } })
   return { status, ...result }
  } }
 }
@@ -260,4 +260,28 @@ test('real Blobs SDK bypasses cached ambient endpoint when supplied explicit req
   if (old === undefined) delete process.env.NETLIFY_BLOBS_CONTEXT
   else process.env.NETLIFY_BLOBS_CONTEXT = old
  }
+})
+
+test('wallet gallery shows only settled purchases and distinguishes current ownership', async () => {
+ const b = backend(false)
+ b.state().listings.push(
+  { id: '0123456789abcdef', collectionId: '45b48eca99f938b7', state: 'settled', buyer, ethscriptionId: hash, tokenNo: 419, priceWei: '200000000000000', preview: '/assets/ethscriptions/phunks/img/419.png' },
+  { id: '1123456789abcdef', collectionId: '45b48eca99f938b7', state: 'held', buyer, secret: 'pending-private' },
+  { id: '2123456789abcdef', collectionId: '45b48eca99f938b7', state: 'settled', buyer: merkle.info().creator })
+ b.chain.indexedOwnership = async () => ({ currentOwner: buyer, owned: true })
+ let response = await b.call(null, 'GET', { wallet: buyer.toUpperCase().replace('0X', '0x') })
+ assert.equal(response.ok, true)
+ assert.equal(response.gallery.total, 1)
+ assert.equal(response.gallery.items[0].tokenNo, 419)
+ assert.equal(response.gallery.items[0].ownership, 'owned')
+ assert.ok(!JSON.stringify(response).includes('pending-private'))
+ b.chain.indexedOwnership = async () => ({ currentOwner: merkle.info().creator, owned: false })
+ response = await b.call(null, 'GET', { wallet: buyer })
+ assert.equal(response.gallery.items[0].ownership, 'transferred')
+ b.chain.indexedOwnership = async () => { throw new Error('indexer unavailable') }
+ response = await b.call(null, 'GET', { wallet: buyer })
+ assert.equal(response.gallery.items[0].ownership, 'unavailable')
+ assert.equal(response.gallery.items[0].preview, '/assets/ethscriptions/phunks/img/419.png')
+ assert.equal((await b.call(null, 'GET', { wallet: 'invalid' })).status, 400)
+ assert.equal((await b.call(null, 'GET', { wallet: buyer, page: '-1' })).status, 400)
 })

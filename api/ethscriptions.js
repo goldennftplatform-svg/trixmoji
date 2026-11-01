@@ -418,11 +418,43 @@ function claimTx(state, hash, listingId) {
   return true
 }
 
+async function walletGallery(state, wallet, page) {
+  // These are public, settled purchase receipts, not account authentication.
+  // Never disclose pending reservations or claim purchase history is current ownership.
+  const receipts = state.listings.filter(function (row) {
+    return row.collectionId === PHUNK_ID && row.state === 'settled' && chain.same(row.buyer, wallet)
+  }).slice().reverse()
+  const rows = receipts.slice(page * 20, page * 20 + 20)
+  const items = await Promise.all(rows.map(async function (row) {
+    const item = publicRow(row)
+    try {
+      const check = await chain.indexedOwnership(row.ethscriptionId, wallet)
+      item.ownership = check.owned ? 'owned' : 'transferred'
+      item.currentOwner = check.currentOwner
+    } catch (_) {
+      item.ownership = 'unavailable'
+      item.currentOwner = ''
+    }
+    return item
+  }))
+  return { address: wallet, page, total: receipts.length, hasMore: (page + 1) * 20 < receipts.length, items,
+    note: 'Purchase history from this mint site. Current ownership is checked against the Ethscriptions indexer. Incoming transfers and purchases on other sites are not included.' }
+}
+
 async function handler(req, res) {
   if (req.method === 'GET') {
     if (rateLimitOrReject(req, res, { prefix: 'es-read', perMinute: 60, perDay: 4000 })) return
     let stage = 'account-session'
     try {
+      if (req.query && req.query.wallet !== undefined) {
+        const wallet = String(req.query.wallet).trim()
+        const page = Number(req.query.page || 0)
+        if (!chain.isAddr(wallet) || !Number.isSafeInteger(page) || page < 0 || page > 500) return fail(res, 400, 'Enter a valid Ethereum wallet and page.')
+        stage = 'wallet-gallery-storage'
+        const state = await withBoard(async function () { return null })
+        stage = 'wallet-gallery-indexer'
+        return res.status(200).json({ ok: true, gallery: await walletGallery(state, wallet, page) })
+      }
       const user = await currentUser(req)
       stage = 'board-storage'
       const state = await withBoard(async function (board) {

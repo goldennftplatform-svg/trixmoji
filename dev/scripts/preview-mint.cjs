@@ -13,6 +13,7 @@ http.createServer(async (req, res) => {
    if (req.method !== 'GET') { res.writeHead(405); res.end('Read-only preview'); return }
    res.status = n => { res.statusCode = n; return res }
    res.json = data => { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(data)) }
+   req.query = Object.fromEntries(url.searchParams)
    await handler(req, res); return
   }
   const rel = url.pathname === '/ethscriptions/past' ? '/classic/pages/ethscriptions.html' : url.pathname

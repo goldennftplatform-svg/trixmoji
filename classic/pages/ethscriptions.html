@@ -10,6 +10,7 @@
   @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
   html, body { margin:0; min-height:100%; background:#070500; color:#f6e7b2; font-family:VT323, 'Courier New', monospace; }
   .wrap, .wrap * { box-sizing:border-box; }
+  [hidden] { display:none !important; }
   .wrap { max-width:980px; margin:0 auto; padding:28px 16px 80px; }
   h1 {
    margin:0; text-align:center; letter-spacing:6px; font-size:clamp(36px, 7vw, 64px); font-weight:normal;
@@ -140,6 +141,8 @@
   </div>
   <div class="box view" id="view-mine">
    <h2>MY COLLECTION</h2>
+   <div id="walletGallery"></div>
+   <details style="margin-top:24px"><summary>DOSWAPZ account collections and escrow listings</summary>
    <p class="note" id="mineNote" style="text-align:left">Log in on Account. This view is the collections you launched and the pieces in your wallet.</p>
    <h2>LAUNCHED</h2>
    <div class="board" id="mineDrops"></div>
@@ -149,7 +152,8 @@
    <p class="note" style="text-align:left">You paid. The picture stays blank until escrow sends the piece to your wallet.</p>
    <div class="board" id="mineIncoming"></div>
    <h2>LISTED BY ME</h2>
-   <div class="board" id="mineSelling"></div>
+    <div class="board" id="mineSelling"></div>
+   </details>
   </div>
   <div class="box view" id="view-activity">
    <h2>ACTIVITY</h2>
@@ -230,6 +234,7 @@
   </div>
  </div>
   <script src="/assets/js/core/ethscription-checkout.js?v=20261101"></script>
+  <script src="/assets/js/core/phunk-wallet-gallery.js?v=20261101"></script>
   <script>
   var ESCROW = '0x15e85a85B7026875d3529EF0c6de2723C285DA11'
   var PHUNK_ID = '45b48eca99f938b7'
