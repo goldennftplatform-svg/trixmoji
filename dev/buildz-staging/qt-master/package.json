@@ -1,0 +1,15 @@
+{
+  "name": "quantum-trader-token-scout",
+  "version": "4.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "live": "node live-scout.js",
+    "paper": "node scout.js",
+    "dashboard": "node dashboard.js"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.98.4",
+    "bs58": "^6.0.0"
+  }
+}

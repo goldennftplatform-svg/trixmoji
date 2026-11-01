@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+ <title>DOSWAPZ // FUTURE · EPOCH DIAL</title>
+ <meta name="description" content="Future Epoch Dial — counter-spinning rings, sealed rune icons. Coming soon.">
+ <meta name="robots" content="noindex">
+ <link rel="stylesheet" href="/assets/css/era-transition.css?v=20260805y">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap');
+
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ html, body {
+ width: 100%; height: 100%;
+ overflow: hidden;
+ background: #000;
+ color: rgba(230, 235, 255, 0.9);
+ font-family: 'Inter', system-ui, sans-serif;
+ }
+ #dosDocsChip, .dos-docs-chip, .price-ticker { display: none !important; }
+
+ .space {
+ position: fixed; inset: 0; z-index: 0;
+ background:
+ radial-gradient(ellipse 80% 60% at 50% 45%, #0a0c18 0%, #03040a 50%, #000 85%);
+ }
+
+ /* Top label only — Epoch Dial */
+ .era-tag {
+ position: fixed;
+ top: max(14px, env(safe-area-inset-top, 0px));
+ left: 50%;
+ transform: translateX(-50%);
+ z-index: 40;
+ font-size: 11px;
+ letter-spacing: 0.42em;
+ text-transform: uppercase;
+ color: rgba(220, 230, 255, 0.55);
+ font-weight: 400;
+ pointer-events: none;
+ white-space: nowrap;
+ }
+
+ .stage {
+ position: fixed; inset: 0; z-index: 5;
+ display: grid; place-items: center;
+ padding: 12px 12px 72px;
+ pointer-events: none;
+ }
+
+ .dial {
+ position: relative;
+ width: min(92vmin, 720px);
+ height: min(92vmin, 720px);
+ pointer-events: none;
+ }
+
+ /* Imagine base (clean rings) + soft animated video wash */
+ .dial-base {
+ position: absolute; inset: 0;
+ border-radius: 50%;
+ overflow: hidden;
+ pointer-events: none;
+ background: #000;
+ box-shadow: 0 0 80px rgba(120, 140, 220, 0.12);
+ }
+ .dial-base img,
+ .dial-base video {
+ position: absolute; inset: 0;
+ width: 100%; height: 100%;
+ object-fit: cover;
+ display: block;
+ }
+ /* Dual-stack arm video: crossfade at loop point = seamless (no hard reset glitch) */
+ .dial-base video {
+ opacity: 0;
+ mix-blend-mode: screen;
+ transition: opacity 0.85s linear;
+ will-change: opacity;
+ }
+ .dial-base video.is-live {
+ opacity: 0.55;
+ }
+ .dial-base video.is-prep {
+ opacity: 0;
+ }
+
+ /* Counter-rotating rings of real rune images */
+ .ring {
+ position: absolute; inset: 0;
+ pointer-events: none;
+ }
+ .ring-outer {
+ animation: epoch-cw 70s linear infinite;
+ }
+ .ring-inner {
+ animation: epoch-ccw 48s linear infinite;
+ }
+ @keyframes epoch-cw { to { transform: rotate(360deg); } }
+ @keyframes epoch-ccw { to { transform: rotate(-360deg); } }
+
+ /* Keep each rune upright while its ring spins */
+ .ring-outer .rune {
+ animation: epoch-ccw 70s linear infinite;
+ }
+ .ring-inner .rune {
+ animation: epoch-cw 48s linear infinite;
+ }
+
+ .rune {
+ position: absolute;
+ left: 50%; top: 50%;
+ width: 12.5%;
+ height: 12.5%;
+ margin: 0;
+ padding: 0;
+ border: 0;
+ background: transparent;
+ cursor: pointer;
+ pointer-events: auto;
+ transform: translate(-50%, -50%);
+ border-radius: 50%;
+ -webkit-tap-highlight-color: transparent;
+ z-index: 20;
+ }
+ .ring-inner .rune {
+ width: 9.5%;
+ height: 9.5%;
+ }
+ .rune img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ border-radius: 50%;
+ display: block;
+ pointer-events: none;
+ filter: drop-shadow(0 0 8px rgba(180, 200, 255, 0.25));
+ transition: filter .2s, transform .2s, opacity .2s;
+ opacity: 0.88;
+ }
+ .rune:hover img,
+ .rune:focus-visible img {
+ opacity: 1;
+ filter: drop-shadow(0 0 16px rgba(220, 230, 255, 0.65));
+ transform: scale(1.08);
+ }
+ .rune:focus-visible { outline: none; }
+ .rune .tip {
+ position: absolute;
+ left: 50%;
+ top: calc(100% + 2px);
+ transform: translateX(-50%);
+ font-size: 8px;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ white-space: nowrap;
+ color: rgba(230, 235, 255, 0.75);
+ text-shadow: 0 1px 6px #000;
+ opacity: 0;
+ pointer-events: none;
+ transition: opacity .15s;
+ }
+ .rune:hover .tip,
+ .rune:focus-visible .tip { opacity: 1; }
+
+ .era {
+ position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
+ z-index: 40; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+ }
+ .era a {
+ font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+ text-decoration: none; color: rgba(200, 210, 255, 0.32);
+ border: 1px solid rgba(255,255,255,0.1);
+ padding: 7px 12px; border-radius: 999px;
+ background: rgba(0,0,0,0.45);
+ }
+ .era a:hover { color: #fff; border-color: rgba(255,255,255,0.28); }
+ .era a.here { color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.2); }
+
+ .backdrop {
+ position: fixed; inset: 0; z-index: 80;
+ background: rgba(0,0,0,0.55);
+ opacity: 0; pointer-events: none;
+ transition: opacity .3s ease;
+ }
+ .backdrop.show { opacity: 1; pointer-events: auto; }
+
+ .oracle {
+ position: fixed; left: 50%; top: 50%;
+ transform: translate(-50%, -48%) scale(0.96);
+ z-index: 90;
+ width: min(380px, 90vw);
+ padding: 32px 28px 26px;
+ text-align: center;
+ border-radius: 28px;
+ background: linear-gradient(165deg, rgba(255,255,255,0.12), rgba(8, 10, 22, 0.94));
+ border: 1px solid rgba(220, 230, 255, 0.22);
+ box-shadow: 0 40px 100px rgba(0,0,0,0.7);
+ backdrop-filter: blur(22px);
+ opacity: 0; pointer-events: none;
+ transition: opacity .35s ease, transform .4s cubic-bezier(0.16, 1, 0.3, 1);
+ }
+ .oracle.show {
+ opacity: 1; pointer-events: auto;
+ transform: translate(-50%, -50%) scale(1);
+ }
+ .oracle .soon {
+ font-size: 10px; letter-spacing: 0.34em; text-transform: uppercase;
+ color: rgba(200, 210, 255, 0.5); margin-bottom: 12px;
+ }
+ .oracle .seal-preview {
+ width: 72px; height: 72px; border-radius: 50%;
+ margin: 0 auto 14px;
+ object-fit: cover;
+ box-shadow: 0 0 24px rgba(160, 180, 255, 0.35);
+ }
+ .oracle h2 {
+ font-family: 'Cormorant Garamond', Georgia, serif;
+ font-weight: 300; font-size: 30px;
+ letter-spacing: 0.06em;
+ color: rgba(245, 248, 255, 0.95);
+ margin-bottom: 8px;
+ }
+ .oracle .name {
+ font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+ color: rgba(200, 215, 255, 0.75); margin-bottom: 14px;
+ }
+ .oracle p {
+ font-weight: 300; font-size: 14px; line-height: 1.6;
+ color: rgba(180, 190, 220, 0.65); margin-bottom: 20px;
+ }
+ .oracle button {
+ appearance: none;
+ border: 1px solid rgba(220, 230, 255, 0.28);
+ background: rgba(255,255,255,0.07);
+ color: rgba(230, 235, 255, 0.85);
+ font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+ padding: 10px 18px; border-radius: 999px; cursor: pointer;
+ font-family: inherit;
+ }
+ .oracle button:hover {
+ background: rgba(255,255,255,0.14); color: #fff;
+ }
+
+ @media (max-width: 520px) {
+ .rune .tip { display: none; }
+ .rune { width: 14%; height: 14%; }
+ .ring-inner .rune { width: 11%; height: 11%; }
+ }
+
+ @media (prefers-reduced-motion: reduce) {
+ .ring-outer, .ring-inner, .ring-outer .rune, .ring-inner .rune {
+ animation: none !important;
+ }
+ }
+ </style>
+</head>
+<body data-no-scroll="1" data-no-era-rail>
+ <div class="space" aria-hidden="true"></div>
+
+ <div class="era-tag">Epoch Dial</div>
+
+ <div class="stage">
+ <div class="dial" id="dial">
+ <div class="dial-base">
+ <img src="/assets/images/future/epoch-dial-rings.jpg" alt="" draggable="false">
+ <!-- Two copies of the arm clip; we crossfade A↔B so the loop never hard-resets -->
+ <video
+ id="epochVideoA"
+ class="is-live"
+ src="/assets/video/future/epoch-dial.mp4"
+ muted playsinline preload="auto"
+ aria-hidden="true"
+ ></video>
+ <video
+ id="epochVideoB"
+ class="is-prep"
+ src="/assets/video/future/epoch-dial.mp4"
+ muted playsinline preload="auto"
+ aria-hidden="true"
+ ></video>
+ </div>
+
+ <!-- Outer ring: site runes (spin clockwise) -->
+ <div class="ring ring-outer" id="ringOuter" aria-label="Outer epoch seals"></div>
+
+ <!-- Inner ring: more seals (spin counter-clockwise) -->
+ <div class="ring ring-inner" id="ringInner" aria-label="Inner epoch seals"></div>
+ </div>
+ </div>
+
+ <nav class="era">
+ <a href="/portal.html" data-no-era data-plain data-no-transition="true">Time machine</a>
+ <a href="/past" id="eraPast" data-era="past" data-no-era data-plain data-no-transition="true">Past</a>
+ <a href="/present" id="eraPresent" data-era="orbit" data-no-era data-plain data-no-transition="true">Present</a>
+ <a class="here" href="/future" id="eraFuture" data-era="future" data-no-era data-plain data-no-transition="true">Future</a>
+ </nav>
+
+ <div class="backdrop" id="backdrop" hidden></div>
+ <div class="oracle" id="oracle" role="dialog" aria-modal="true" aria-labelledby="oracleTitle" hidden>
+ <div class="soon">Coming soon</div>
+ <img class="seal-preview" id="oracleSeal" src="" alt="">
+ <h2 id="oracleTitle">Not yet.</h2>
+ <div class="name" id="oracleName">—</div>
+ <p>
+ This rune is etched into the Epoch Dial, but the chamber is not open.
+ Return when the light hardens into architecture.
+ </p>
+ <button type="button" id="oracleClose">Understood</button>
+ </div>
+
+ <script src="/assets/js/core/era-portal.js?v=20260815glitch"></script>
+ <script src="/assets/js/core/era-transition.js?v=20260815glitch"></script>
+ <script>
+ (function () {
+ if (window.DOSWAPZ_ERA) DOSWAPZ_ERA.set('future');
+
+ var RUNES = '/assets/images/future/runes/';
+
+ /* Site destinations → rune image assets (reusable site icons) */
+ var OUTER = [
+ { label: 'Swap', icon: 'icon-swap.jpg' },
+ { label: 'Arcade', icon: 'icon-arcade.jpg' },
+ { label: 'Harbinger', icon: 'icon-harbinger.jpg' },
+ { label: 'Bridge', icon: 'icon-bridge.jpg' },
+ { label: 'Attic', icon: 'icon-attic.jpg' },
+ { label: 'I See You', icon: 'icon-iseeyou.jpg' },
+ { label: 'Pond', icon: 'icon-pond.jpg' },
+ { label: 'Basement', icon: 'icon-basement.jpg' },
+ { label: 'Mint', icon: 'icon-mint.jpg' },
+ { label: 'Gallery', icon: 'icon-epoch.jpg' },
+ { label: 'Degen$', icon: 'icon-arcade.jpg' },
+ { label: 'Hardwear', icon: 'icon-bridge.jpg' },
+ { label: 'Vision', icon: 'icon-harbinger.jpg' },
+ { label: 'Lily Pad', icon: 'icon-pond.jpg' },
+ { label: 'Nodes', icon: 'icon-epoch.jpg' },
+ { label: 'Scores', icon: 'icon-attic.jpg' }
+ ];
+
+ var INNER = [
+ { label: 'White Market', icon: 'icon-epoch.jpg' },
+ { label: 'Memory Swap', icon: 'icon-swap.jpg' },
+ { label: 'Quiet Mint', icon: 'icon-mint.jpg' },
+ { label: 'Oracle Vault', icon: 'icon-harbinger.jpg' },
+ { label: 'Haze Protocol', icon: 'icon-iseeyou.jpg' },
+ { label: 'Unbuilt Room', icon: 'icon-basement.jpg' },
+ { label: 'Afterimage', icon: 'icon-attic.jpg' },
+ { label: 'Perpetual Calm', icon: 'icon-pond.jpg' },
+ { label: 'Orbit Zero', icon: 'icon-bridge.jpg' },
+ { label: 'Soft Choir', icon: 'icon-harbinger.jpg' },
+ { label: 'Epoch Bridge', icon: 'icon-bridge.jpg' },
+ { label: 'Seal Market', icon: 'icon-epoch.jpg' }
+ ];
+
+ /* Seamless arm-video loop: crossfade between two players before the hard cut */
+ (function seamlessArmLoop() {
+ var a = document.getElementById('epochVideoA');
+ var b = document.getElementById('epochVideoB');
+ if (!a || !b) return;
+
+ var FADE = 0.9; // seconds of overlap before end
+ var active = a;
+ var idle = b;
+ var crossfading = false;
+
+ function safePlay(v) {
+ var p = v.play();
+ if (p && p.catch) p.catch(function () {});
+ }
+
+ function arm(v, live) {
+ v.classList.toggle('is-live', !!live);
+ v.classList.toggle('is-prep', !live);
+ }
+
+ function boot() {
+ try { a.currentTime = 0; } catch (e) {}
+ try { b.currentTime = 0; } catch (e) {}
+ arm(a, true);
+ arm(b, false);
+ safePlay(a);
+ // keep idle warm/decoded but paused until handoff
+ try { b.pause(); } catch (e2) {}
+ }
+
+ function handoff() {
+ if (crossfading) return;
+ var cur = active;
+ var next = idle;
+ if (!isFinite(cur.duration) || cur.duration < 1.5) return;
+
+ crossfading = true;
+ try { next.currentTime = 0; } catch (e) {}
+ arm(next, true); // fade in
+ arm(cur, false); // fade out
+ safePlay(next);
+
+ // after fade, freeze the old one and swap roles
+ window.setTimeout(function () {
+ try { cur.pause(); } catch (e3) {}
+ try { cur.currentTime = 0; } catch (e4) {}
+ active = next;
+ idle = cur;
+ crossfading = false;
+ }, Math.round(FADE * 1000) + 40);
+ }
+
+ function tick() {
+ var cur = active;
+ if (!cur || cur.paused || !isFinite(cur.duration) || cur.duration < 1.5) {
+ requestAnimationFrame(tick);
+ return;
+ }
+ // start crossfade near the end — never let native `loop` snap the arm
+ if (!crossfading && cur.currentTime >= cur.duration - FADE - 0.05) {
+ handoff();
+ }
+ requestAnimationFrame(tick);
+ }
+
+ a.addEventListener('loadeddata', boot);
+ b.addEventListener('loadeddata', function () { /* warm decode */ });
+ // no native loop — we own the seam
+ a.loop = false;
+ b.loop = false;
+
+ boot();
+ requestAnimationFrame(tick);
+
+ document.body.addEventListener('pointerdown', function () {
+ safePlay(active);
+ }, { once: true });
+
+ document.addEventListener('visibilitychange', function () {
+ if (!document.hidden) safePlay(active);
+ });
+ })();
+
+ var outerEl = document.getElementById('ringOuter');
+ var innerEl = document.getElementById('ringInner');
+ var outerNodes = [];
+ var innerNodes = [];
+
+ function placeRune(ringEl, item, index, total, ringFrac, bucket) {
+ var btn = document.createElement('button');
+ btn.type = 'button';
+ btn.className = 'rune';
+ btn.dataset.label = item.label;
+ btn.dataset.icon = RUNES + item.icon;
+ btn.dataset.angle = (index / total) * 360;
+ btn.dataset.ring = ringFrac;
+ btn.setAttribute('aria-label', item.label + ' — coming soon');
+ btn.innerHTML =
+ '<img src="' + RUNES + item.icon + '" alt="">' +
+ '<span class="tip">' + item.label + '</span>';
+ btn.addEventListener('click', function () {
+ openSoon(item.label, RUNES + item.icon);
+ });
+ ringEl.appendChild(btn);
+ bucket.push(btn);
+ }
+
+ OUTER.forEach(function (item, i) {
+ placeRune(outerEl, item, i, OUTER.length, 0.84, outerNodes);
+ });
+ INNER.forEach(function (item, i) {
+ placeRune(innerEl, item, i, INNER.length, 0.58, innerNodes);
+ });
+
+ function layoutRing(nodes, ringEl) {
+ var box = ringEl.getBoundingClientRect();
+ // ringEl rotates — measure dial instead for stable coords in ring local space
+ var dial = document.getElementById('dial').getBoundingClientRect();
+ var size = Math.min(dial.width, dial.height);
+ var cx = size / 2;
+ var cy = size / 2;
+ var R = size / 2;
+ // Position in local ring coordinates (before CSS rotate)
+ // ring is inset 0 so same size as dial
+ nodes.forEach(function (node) {
+ var ring = parseFloat(node.dataset.ring);
+ var angle = parseFloat(node.dataset.angle);
+ var rad = (angle - 90) * Math.PI / 180;
+ var r = ring * R;
+ // Use % of ring container
+ var x = 50 + (ring * 50) * Math.cos(rad);
+ var y = 50 + (ring * 50) * Math.sin(rad);
+ node.style.left = x + '%';
+ node.style.top = y + '%';
+ });
+ }
+
+ function layout() {
+ layoutRing(outerNodes, outerEl);
+ layoutRing(innerNodes, innerEl);
+ }
+ layout();
+ window.addEventListener('resize', layout);
+
+ /* Coming soon */
+ var oracle = document.getElementById('oracle');
+ var backdrop = document.getElementById('backdrop');
+ var oracleName = document.getElementById('oracleName');
+ var oracleSeal = document.getElementById('oracleSeal');
+ var oracleClose = document.getElementById('oracleClose');
+
+ function openSoon(label, iconSrc) {
+ oracleName.textContent = label;
+ oracleSeal.src = iconSrc;
+ oracleSeal.alt = label;
+ oracle.hidden = false;
+ backdrop.hidden = false;
+ void oracle.offsetWidth;
+ oracle.classList.add('show');
+ backdrop.classList.add('show');
+ oracleClose.focus();
+ }
+ function closeSoon() {
+ oracle.classList.remove('show');
+ backdrop.classList.remove('show');
+ setTimeout(function () {
+ oracle.hidden = true;
+ backdrop.hidden = true;
+ }, 300);
+ }
+ oracleClose.addEventListener('click', closeSoon);
+ backdrop.addEventListener('click', closeSoon);
+ document.addEventListener('keydown', function (e) {
+ if (e.key === 'Escape' && oracle.classList.contains('show')) closeSoon();
+ });
+
+ function wireEra(id, era) {
+ var el = document.getElementById(id);
+ if (!el) return;
+ el.addEventListener('click', function (e) {
+ e.preventDefault();
+ if (window.DOSWAPZ_ERA && DOSWAPZ_ERA.travelTo) {
+ DOSWAPZ_ERA.travelTo(era, DOSWAPZ_ERA.hubFor(era));
+ } else {
+ window.location.href = el.getAttribute('href');
+ }
+ });
+ }
+ wireEra('eraPast', 'past');
+ wireEra('eraPresent', 'orbit');
+ })();
+ </script>
+</body>
+</html>

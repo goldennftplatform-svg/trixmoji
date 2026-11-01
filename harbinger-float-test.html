@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function () {
+ if (location.protocol === 'file:') {
+ location.replace('http://127.0.0.1:8890/harbinger-float-test.html');
+ }
+ })();
+ </script>
+ <title>H4RB1NG3R</title>
+ <meta name="robots" content="noindex">
+ <link rel="stylesheet" href="/assets/css/harbinger-llm.css">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ * { box-sizing: border-box; }
+ html, body {
+ margin: 0;
+ min-height: 100%;
+ background: #000;
+ color: #8fd;
+ font-family: 'VT323', Consolas, monospace;
+ }
+ body {
+ background:
+ radial-gradient(ellipse 70% 50% at 50% 45%, rgba(40, 20, 80, 0.4), transparent 70%),
+ #000;
+ }
+ .wrap {
+ max-width: 640px;
+ margin: 0 auto;
+ padding: 24px 16px 48px;
+ text-align: center;
+ }
+ h1 {
+ font-size: 28px;
+ letter-spacing: 0.32em;
+ color: #6cf;
+ margin: 0 0 12px;
+ text-shadow: 0 0 18px rgba(80, 200, 255, 0.35);
+ }
+ /* Head is real HTML so it always paints even if JS fails */
+ .head-block {
+ position: relative;
+ width: min(380px, 90vw);
+ height: min(460px, 58vh);
+ min-height: 340px;
+ margin: 0 auto 12px;
+ }
+ /* Shards behind head - only visible outside the face (no void clutter) */
+ #stage {
+ position: absolute;
+ inset: 0;
+ z-index: 1;
+ pointer-events: none;
+ }
+ .head-img {
+ position: absolute;
+ left: 50%;
+ top: 50%;
+ transform: translate(-50%, -50%);
+ width: min(320px, 78vw);
+ height: auto;
+ max-height: 92%;
+ object-fit: contain;
+ z-index: 5;
+ pointer-events: none;
+ filter:
+ drop-shadow(0 0 22px rgba(80, 200, 230, 0.4))
+ drop-shadow(0 0 48px rgba(120, 70, 220, 0.25));
+ /* stationary - no bob/shake */
+ }
+ .llm-wrap {
+ max-width: 480px;
+ margin: 0 auto;
+ text-align: left;
+ }
+ .llm-wrap .hb-llm-terminal {
+ border-color: rgba(100, 220, 220, 0.28);
+ background: rgba(0, 8, 16, 0.75);
+ padding: 14px;
+ }
+ .llm-wrap .hb-llm-status {
+ color: #6cf;
+ letter-spacing: 0.14em;
+ font-size: 16px;
+ margin-bottom: 10px;
+ }
+ .llm-wrap .hb-chat-log {
+ border-color: rgba(100, 220, 220, 0.16);
+ min-height: 88px;
+ max-height: 180px;
+ margin-bottom: 12px;
+ }
+ .llm-wrap .hb-chat-line.user { color: #6cf; }
+ .llm-wrap .hb-chat-line.harbinger { color: #9fe; }
+ .llm-wrap .hb-chat-line.system { color: #567; }
+ .llm-wrap .hb-chat-input {
+ border-color: rgba(100, 220, 220, 0.35);
+ color: #9fe;
+ background: #000;
+ }
+ .llm-wrap .hb-chat-send {
+ border-color: rgba(100, 220, 220, 0.45);
+ color: #8fd;
+ background: rgba(0, 30, 40, 0.6);
+ }
+ .llm-wrap .hb-chat-send:hover:not(:disabled) {
+ color: #ff6;
+ border-color: #ff6;
+ }
+ .boot-err {
+ color: #fa6;
+ font-size: 15px;
+ margin-top: 10px;
+ display: none;
+ }
+ </style>
+</head>
+<body>
+ <div class="wrap">
+ <h1>H4RB1NG3R</h1>
+
+ <div class="head-block">
+ <!-- Visible without JS -->
+ <img
+ class="head-img"
+ id="hbHeadImg"
+ src="/assets/images/harbinger/head-float-core.png?v=face14"
+ alt="Harbinger"
+ width="320"
+ height="470"
+ />
+ <!-- Shards only (optional FX) -->
+ <div id="stage" aria-hidden="true"></div>
+ </div>
+
+ <div class="llm-wrap">
+ <div class="hb-llm-terminal">
+ <div id="hbLlmStatus" class="hb-llm-status">ASK THE HARBINGER</div>
+ <div id="hbChatLog" class="hb-chat-log" aria-live="polite"></div>
+ <form class="hb-chat-form" id="hbChatForm" autocomplete="off">
+ <input
+ type="text"
+ id="hbChatInput"
+ class="hb-chat-input"
+ name="harbinger-ask"
+ placeholder="ask the harbinger..."
+ maxlength="2000"
+ />
+ <button type="submit" id="hbChatSend" class="hb-chat-send">SEND</button>
+ </form>
+ </div>
+ </div>
+ <p class="boot-err" id="bootErr"></p>
+ </div>
+
+ <script src="/assets/js/harbinger/harbinger-float.js?v=outer16"></script>
+ <script src="/assets/js/harbinger/harbinger-llm.js?v=llm2"></script>
+ <script>
+ (function () {
+ var head = document.getElementById('hbHeadImg');
+ var err = document.getElementById('bootErr');
+ var fallbacks = [
+ '/assets/images/harbinger/head-float-core.png?v=face14',
+ '/assets/images/harbinger/front.png?v=face14',
+ '/assets/images/harbinger/face-head-crop.jpg?v=face14'
+ ];
+ var fi = 0;
+ head.onerror = function () {
+ fi += 1;
+ if (fi < fallbacks.length) {
+ head.src = fallbacks[fi];
+ } else {
+ err.style.display = 'block';
+ err.textContent = 'Head image failed to load. Open http://127.0.0.1:8890/harbinger-float-test.html (server must be running).';
+ }
+ };
+
+ function boot() {
+ try {
+ var stage = document.getElementById('stage');
+ if (window.HARBINGER_FLOAT && stage) {
+ // shards-only mode: no second head image inside float engine
+ HARBINGER_FLOAT.mount(stage, {
+ shardsOnly: true,
+ width: stage.clientWidth || 380,
+ height: stage.clientHeight || 460
+ });
+ }
+ } catch (e) {
+ err.style.display = 'block';
+ err.textContent = 'FX error: ' + (e.message || e);
+ }
+ try {
+ if (window.HARBINGER_LLM) {
+ HARBINGER_LLM.bindUi({
+ status: 'hbLlmStatus',
+ log: 'hbChatLog',
+ input: 'hbChatInput',
+ send: 'hbChatSend',
+ form: 'hbChatForm'
+ });
+ }
+ } catch (e2) {
+ err.style.display = 'block';
+ err.textContent = (err.textContent ? err.textContent + ' * ' : '') + 'Chat error: ' + (e2.message || e2);
+ }
+ }
+
+ if (document.readyState === 'complete') boot();
+ else window.addEventListener('load', boot);
+ })();
+ </script>
+<script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+</body>
+</html>

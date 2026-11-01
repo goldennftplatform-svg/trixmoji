@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function () {
+ if (location.protocol === 'file:') {
+ location.replace('http://localhost:8890/harbinger-face-test.html');
+ }
+ })();
+ </script>
+ <title>H4RB1NG3R - 3D head test</title>
+ <meta name="robots" content="noindex">
+ <link rel="stylesheet" href="/assets/css/harbinger-llm.css">
+ <style>
+ * { box-sizing: border-box; }
+ html, body {
+ margin: 0;
+ min-height: 100%;
+ background: #000000;
+ color: #9fd;
+ font-family: Consolas, monospace;
+ }
+ .wrap {
+ max-width: 800px;
+ margin: 0 auto;
+ padding: 28px 16px 48px;
+ text-align: center;
+ }
+ h1 { font-size: 18px; color: #6cf; letter-spacing: 0.2em; margin: 0 0 8px; }
+ .sub { color: #6a8; font-size: 13px; margin-bottom: 22px; line-height: 1.5; }
+ #hbFaceMount {
+ width: 400px;
+ height: 400px;
+ max-width: 96vw;
+ max-height: 70vh;
+ margin: 0 auto;
+ position: relative;
+ background: transparent;
+ }
+ #hud {
+ margin: 16px auto 0;
+ max-width: 400px;
+ text-align: left;
+ font-size: 12px;
+ color: #7a9;
+ padding: 10px 12px;
+ border: 1px solid rgba(102, 204, 255, 0.2);
+ background: rgba(0, 0, 0, 0.35);
+ }
+ .ok { color: #6f6; }
+ .warn { color: #fa6; }
+ </style>
+</head>
+<body>
+ <div class="wrap">
+ <h1>H4RB1NG3R - 3D HEAD TEST</h1>
+ <p class="sub">Multi-angle crystalline head * black page only * mouse = angle + tilt + light</p>
+ <div id="hbFaceMount" aria-label="Harbinger 3D head test"></div>
+ <div id="hud">Loading...</div>
+ </div>
+
+ <script src="/assets/js/config/harbinger-config.js"></script>
+ <script src="/assets/js/harbinger/harbinger-face.js"></script>
+ <script>
+ window.addEventListener('load', function () {
+ var mount = document.getElementById('hbFaceMount');
+ var hud = document.getElementById('hud');
+ var cfg = window.DOSWAPZ_HARBINGER_CONFIG || {};
+
+ HARBINGER_FACE.mount(mount, {
+ comingSoon: false,
+ headUrl: cfg.headUrl,
+ images: cfg.images,
+ theme: 'classic'
+ });
+
+ function tick() {
+ var ready = mount.classList.contains('hb-face-ready');
+ hud.innerHTML =
+ 'Head: <span class="' + (ready ? 'ok' : 'warn') + '">' + (ready ? 'ready' : 'loading') + '</span><br>' +
+ 'Angles: front * left * right * top * 3/4<br>' +
+ 'Move mouse over head - swap angle, tilt, pink light follow pointer';
+ requestAnimationFrame(tick);
+ }
+ tick();
+ });
+ </script>
+<script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+</body>
+</html>

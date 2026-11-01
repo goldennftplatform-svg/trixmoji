@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quantus Mining Dashboard</title>
+<style>
+:root{--bg:#070b12;--panel:#0d1420;--line:#1b2a3d;--text:#e8f0f8;--muted:#8da0b5;--accent:#56d6a0;--warn:#f3c969;--bad:#ff7272}
+*{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at top,#111d2d 0,#070b12 45%);color:var(--text);font-family:Inter,system-ui,Segoe UI,Arial,sans-serif}
+.wrap{max-width:1200px;margin:auto;padding:28px}.top{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:22px}
+h1{margin:0;font-size:30px}.sub{color:var(--muted);margin-top:5px}.pill{padding:9px 13px;border:1px solid var(--line);border-radius:999px;background:#0b111b}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--bad);margin-right:8px}.live .dot{background:var(--accent);box-shadow:0 0 14px #56d6a0}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:linear-gradient(180deg,#101a28,#0b111b);border:1px solid var(--line);border-radius:16px;padding:18px;min-height:122px}.label{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}.num{font-size:31px;font-weight:800;margin-top:9px}.small{font-size:12px;color:var(--muted);margin-top:5px}
+.section{margin-top:18px;background:#0b111b;border:1px solid var(--line);border-radius:16px;padding:18px}.section h2{font-size:17px;margin:0 0 14px}
+.cols{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}.rows{display:grid;gap:8px}.row{display:flex;justify-content:space-between;padding:10px 12px;background:#0a1019;border-radius:10px}.row span:first-child{color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:9px;border-bottom:1px solid #172435}th{color:var(--muted);font-weight:600}
+.notice{padding:13px;border-radius:12px;background:#121c2a;border:1px solid var(--line);line-height:1.5}.good{border-color:#245b49}.warn{border-color:#665425}.bad{border-color:#633737}
+pre{max-height:300px;overflow:auto;white-space:pre-wrap;color:#b7c6d6;background:#060a10;padding:12px;border-radius:10px;font-size:11px}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.cols{grid-template-columns:1fr}}@media(max-width:520px){.grid{grid-template-columns:1fr}.wrap{padding:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div><h1>⛏️ Quantus Mining Dashboard</h1><div class="sub">Live view of the miner's log — updated automatically</div></div>
+    <div id="status" class="pill"><span class="dot"></span>Waiting for miner</div>
+  </div>
+
+  <div class="grid">
+    <div class="card"><div class="label">Chain blocks observed</div><div id="imported" class="num">0</div><div class="small">“Imported #...” events in the log</div></div>
+    <div class="card"><div class="label">Mining jobs</div><div id="jobs" class="num">0</div><div class="small">Jobs broadcast to the mining engine</div></div>
+    <div class="card"><div class="label">Solutions found</div><div id="solutions" class="num">0</div><div class="small">Only counted when the miner reports a found solution</div></div>
+    <div class="card"><div class="label">Peers</div><div id="peers" class="num">—</div><div class="small">Latest peer count reported</div></div>
+  </div>
+
+  <div class="cols">
+    <div class="section">
+      <h2>What is actually happening?</h2>
+      <div id="explain" class="notice">
+        Waiting for a log. Start the Quantus miner with the updated launcher.
+      </div>
+      <div class="rows" style="margin-top:12px">
+        <div class="row"><span>Latest chain block</span><b id="best">—</b></div>
+        <div class="row"><span>Latest finalized block</span><b id="finalized">—</b></div>
+        <div class="row"><span>Latest mining job</span><b id="job">—</b></div>
+        <div class="row"><span>Latest difficulty</span><b id="difficulty">—</b></div>
+        <div class="row"><span>Last event</span><b id="last">—</b></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Important distinction</h2>
+      <div class="notice warn">
+        <b>Imported blocks ≠ blocks you personally mined.</b><br><br>
+        “🏆 Imported #27940” means your node saw/imported that blockchain block. A personal mining win should be identified by an explicit solution/found/share event from the miner. This dashboard keeps those counters separate.
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Recent mining activity</h2>
+    <table><thead><tr><th>Time</th><th>Event</th><th>Details</th></tr></thead><tbody id="activity"></tbody></table>
+  </div>
+
+  <div class="section">
+    <h2>Raw miner output</h2>
+    <pre id="raw">No log data yet.</pre>
+  </div>
+</div>
+<script>
+async function update(){
+  try{
+    const r=await fetch('/api/status?ts='+Date.now()); const d=await r.json();
+    const live=d.running;
+    document.getElementById('status').className='pill '+(live?'live':'');
+    document.getElementById('status').innerHTML='<span class="dot"></span>'+(live?'Miner output active':'No recent miner output');
+    for(const [id,val] of Object.entries({imported:d.imported,jobs:d.jobs,solutions:d.solutions,peers:d.peers??'—',best:d.best??'—',finalized:d.finalized??'—',job:d.job??'—',difficulty:d.difficulty??'—',last:d.last??'—'})) document.getElementById(id).textContent=val;
+    document.getElementById('explain').innerHTML=d.solutions>0
+      ? '<b>🎉 The log reports at least one mining solution.</b> See the recent activity below for details.'
+      : '<b>🟡 Your miner is connected and generating/broadcasting mining jobs.</b><br><br>The supplied log shows many jobs being broadcast, but it does <b>not</b> contain an explicit “solution found” event. So we should not label the imported chain blocks as coins you mined.';
+    document.getElementById('raw').textContent=d.raw||'No log data yet.';
+    document.getElementById('activity').innerHTML=(d.activity||[]).map(x=>`<tr><td>${x.time}</td><td>${x.type}</td><td>${x.detail}</td></tr>`).join('');
+  }catch(e){
+    document.getElementById('status').innerHTML='<span class="dot"></span>Dashboard server offline';
+  }
+}
+update(); setInterval(update,2000);
+</script>
+</body>
+</html>

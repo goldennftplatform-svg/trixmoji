@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DOSWAPZ // MAIL GATE</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&display=swap">
+  <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260913q">
+  <link rel="stylesheet" href="/assets/css/geoffwatch.css?v=20260913daily">
+  <style>
+    .addr-row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:6px 0; }
+    .addr-row code { color:#ffff66; word-break:break-all; }
+    .addr-row button { font:inherit; background:#000; color:#00ff00; border:1px solid #00aa00; padding:2px 8px; cursor:pointer; }
+    #btcRow { display:none; }
+    #payload { white-space:pre-wrap; border:1px solid #003300; padding:10px; min-height:70px; color:#00aa00; }
+  </style>
+</head>
+<body>
+  <div class="dos-screen">
+    <div class="vignette"></div>
+    <header>
+      <div class="doswap"><a href="/past">DOSWAPZ</a></div>
+      <div class="menu-prompt">C:\MAIL\DOSWAPZ.COM&gt;<span class="cursor">_</span></div>
+      <div class="status" id="health">EMAIL SECURITY GATEWAY * DOSWAPZ.COM</div>
+    </header>
+    <div class="toolbar">
+      <span class="pill dim"><a href="/past">HUB</a></span>
+      <span class="pill hot" id="sendPill">PAY TO PASS</span>
+      <span class="pill dim" id="walletChip">WALLET: OFF</span>
+    </div>
+    <p class="note">
+      <strong>MAIL GATE IS LIVE.</strong>
+      Pay the fee to a published DOSWAPZ treasury, sign the payload, then the gate opens.
+      No seeds. No keys stored. Wallet auto-disconnects after a pass.
+    </p>
+
+    <section>
+      <h2>// 01 TREASURIES * PAY HERE</h2>
+      <div class="addr-row">SOL <span id="feeSol">0.01 SOL</span> <code id="addrSol">5tJbQX5vRxDyHNEXdAmLEWtKR8EyrDTRdYtBFqujmpAc</code> <button type="button" id="btnCopySol">COPY</button></div>
+      <div class="addr-row">ETH <span id="feeEth">0.0002 ETH</span> <code id="addrEth">0x5be58476DF379BAdc88b552F603db227C0D95bac</code> <button type="button" id="btnCopyEth">COPY</button></div>
+      <div class="addr-row">BTC <span id="feeBtc">0.0001 BTC</span> <code id="addrBtc">bc1qtwqxrsj8ur8zyp9ku47dx6ljhc9dxmjc8j4t2g</code> <button type="button" id="btnCopyBtc">COPY</button></div>
+    </section>
+
+    <section>
+      <h2>// 02 PAY THE GATE</h2>
+      <div class="toolbar">
+        <select id="chain" style="font:inherit;background:#000;color:#00ff00;border:2px solid #00ff00;padding:6px 10px">
+          <option value="sol">SOLANA</option>
+          <option value="eth">ETHEREUM</option>
+          <option value="btc">BITCOIN</option>
+        </select>
+        <button type="button" id="btnConnect">[ CONNECT WALLET ]</button>
+        <button type="button" id="btnPay">[ PAY FEE ]</button>
+      </div>
+      <div class="note" id="quoteLine">PAY 0.01 SOL</div>
+      <div id="btcRow">
+        <input id="btcTxid" placeholder="BTC txid after you send" style="font:inherit;background:#000;color:#00ff00;border:2px solid #00ff00;padding:6px 10px;width:min(640px,100%)">
+      </div>
+      <div class="note" id="payStatus"></div>
+      <div class="note">txid <span id="payTxid">-</span></div>
+    </section>
+
+    <section>
+      <h2>// 03 MESSAGE</h2>
+      <div class="toolbar">
+        <input id="from" placeholder="you@example.com" style="font:inherit;background:#000;color:#00ff00;border:2px solid #00ff00;padding:6px 10px;min-width:220px">
+        <input id="to" placeholder="hello@doswapz.com" value="hello@doswapz.com" style="font:inherit;background:#000;color:#00ff00;border:2px solid #00ff00;padding:6px 10px;min-width:220px">
+      </div>
+      <div class="toolbar">
+        <input id="subject" placeholder="subject" style="font:inherit;background:#000;color:#00ff00;border:2px solid #00ff00;padding:6px 10px;width:100%;max-width:640px">
+      </div>
+      <textarea id="body" placeholder="message body" style="font:inherit;background:#000;color:#00ff00;border:2px solid #00ff00;padding:8px;width:100%;min-height:90px"></textarea>
+      <div class="toolbar"><button type="button" id="btnPass">[ SIGN + PASS GATE ]</button></div>
+      <pre id="payload">Pay first. Then sign. Then the gate opens.</pre>
+      <div class="note" id="gateStatus"></div>
+    </section>
+
+    <section>
+      <h2>// 04 POLICY</h2>
+      <ul class="reads">
+        <li>NO PAYMENT TO THE PUBLISHED ADDRESS = YOU DO NOT GET THROUGH.</li>
+        <li>SOL and ETH: connect wallet, pay, sign. BTC: send, paste txid, file.</li>
+        <li>NO PRIVATE KEYS STORED. NO SEED PHRASES ASKED.</li>
+        <li>SMTP mailbox delivery is optional. Payment + signature is the gate.</li>
+      </ul>
+    </section>
+    <footer>DOSWAPZ * PAST SIGNAL * <a href="/past">RETURN TO SYSTEM MENU</a></footer>
+  </div>
+  <script src="/assets/js/core/era-portal.js?v=20260912pretty"></script>
+  <script src="/assets/js/mail/mail-gate.js?v=20260912gate"></script>
+</body>
+</html>

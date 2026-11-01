@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>VANTABLACK // TOKEN LAUNCHER</title>
+ <meta name="robots" content="noindex">
+ <meta name="description" content="Basement token launcher - multi-chain. Solana curve/SPL + EVM ERC-20 on Ethereum, Base, Arbitrum, Polygon, Robinhood Chain. Wallet-signed. Off the record.">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='20' fill='%23ff66cc' text-anchor='middle'%3ETL%3C/text%3E%3C/svg%3E">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --basement: #9944ff;
+ --basement-dim: #5522aa;
+ --pink: #ff66cc;
+ --green: #00ff41;
+ }
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0;
+ min-height: 100%;
+ background: #000;
+ color: #ddbbff;
+ font-family: 'VT323', monospace;
+ }
+
+ .dos-screen {
+ min-height: 100vh;
+ padding: 18px 14px 72px;
+ position: relative;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0, transparent 3px,
+ rgba(153, 68, 255, 0.045) 3px, rgba(153, 68, 255, 0.045) 5px
+ );
+ pointer-events: none;
+ z-index: 2;
+ }
+
+ .wrap {
+ max-width: 640px;
+ margin: 0 auto;
+ position: relative;
+ z-index: 5;
+ }
+
+ .header {
+ text-align: center;
+ margin-bottom: 16px;
+ }
+
+ .header h1 {
+ margin: 0;
+ font-size: 28px;
+ letter-spacing: 5px;
+ color: #ddbbff;
+ text-shadow: 0 0 10px var(--basement);
+ }
+
+ .header .sub {
+ font-size: 16px;
+ color: var(--pink);
+ letter-spacing: 3px;
+ margin-top: 4px;
+ }
+
+ .badge {
+ display: inline-block;
+ margin-top: 10px;
+ font-size: 14px;
+ color: var(--pink);
+ border: 2px solid var(--pink);
+ padding: 2px 12px;
+ letter-spacing: 3px;
+ }
+
+ .panel {
+ border: 3px solid var(--basement);
+ background: rgba(18, 0, 31, 0.85);
+ padding: 20px 18px;
+ margin: 16px 0;
+ box-shadow: 0 0 16px rgba(153, 68, 255, 0.25);
+ }
+
+ .panel h2 {
+ margin: 0 0 12px;
+ font-size: 20px;
+ color: #ffaa00;
+ letter-spacing: 3px;
+ }
+
+ .field {
+ margin-bottom: 14px;
+ }
+
+ .field label {
+ display: block;
+ font-size: 15px;
+ color: #cc88ff;
+ letter-spacing: 2px;
+ margin-bottom: 4px;
+ }
+
+ .field input[type="text"],
+ .field input[type="number"] {
+ width: 100%;
+ background: #0a0014;
+ border: 2px solid var(--basement-dim);
+ color: #ddbbff;
+ font-family: inherit;
+ font-size: 20px;
+ padding: 6px 10px;
+ outline: none;
+ }
+
+ .field input:focus {
+ border-color: var(--pink);
+ }
+
+ .field .hint {
+ font-size: 13px;
+ color: #8866aa;
+ margin-top: 4px;
+ letter-spacing: 1px;
+ }
+
+ .field-check {
+ display: flex;
+ align-items: flex-start;
+ gap: 8px;
+ font-size: 15px;
+ color: #cc88ff;
+ letter-spacing: 1px;
+ margin: 12px 0;
+ }
+
+ .field-check input {
+ margin-top: 3px;
+ accent-color: var(--pink);
+ }
+
+ .wallet-row {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ gap: 10px;
+ margin-bottom: 8px;
+ }
+
+ .wallet-addr {
+ font-size: 18px;
+ color: var(--green);
+ letter-spacing: 2px;
+ }
+
+ .btn {
+ font-family: inherit;
+ font-size: 17px;
+ cursor: pointer;
+ border: 2px solid var(--basement);
+ background: #1a0033;
+ color: #ddbbff;
+ padding: 6px 16px;
+ text-decoration: none;
+ display: inline-block;
+ letter-spacing: 2px;
+ }
+
+ .btn:hover {
+ border-color: var(--pink);
+ color: var(--pink);
+ }
+
+ .btn-pink {
+ border-color: var(--pink);
+ color: var(--pink);
+ font-size: 20px;
+ padding: 8px 22px;
+ width: 100%;
+ margin-top: 8px;
+ }
+
+ .btn-pink:disabled {
+ opacity: 0.45;
+ cursor: not-allowed;
+ }
+
+ .btn-pink:not(:disabled):hover {
+ background: #2a0044;
+ color: #ffddff;
+ }
+
+ .status {
+ margin-top: 12px;
+ font-size: 16px;
+ letter-spacing: 1px;
+ min-height: 22px;
+ }
+
+ .warn {
+ font-size: 14px;
+ color: #ff8888;
+ letter-spacing: 1px;
+ line-height: 1.4;
+ margin-top: 12px;
+ border-top: 1px solid #442266;
+ padding-top: 12px;
+ }
+
+ .result {
+ display: none;
+ margin-top: 16px;
+ padding: 14px;
+ border: 2px solid var(--green);
+ background: rgba(0, 40, 0, 0.35);
+ }
+
+ .result h3 {
+ margin: 0 0 8px;
+ color: var(--green);
+ font-size: 18px;
+ letter-spacing: 3px;
+ }
+
+ .mint-box {
+ font-size: 15px;
+ word-break: break-all;
+ color: #aaffaa;
+ margin: 8px 0;
+ padding: 8px;
+ border: 1px solid #004400;
+ background: #000;
+ }
+
+ .result-actions {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 8px;
+ margin-top: 12px;
+ }
+
+ .result-actions .btn {
+ border-color: #ffaa00;
+ color: #ffaa00;
+ }
+
+ .nav {
+ text-align: center;
+ margin-top: 24px;
+ }
+
+ .nav .btn {
+ margin: 4px;
+ border-color: #00ff41;
+ color: #00ff41;
+ }
+
+ .steps {
+ margin: 0;
+ padding: 0 0 0 18px;
+ font-size: 15px;
+ color: #aa88cc;
+ line-height: 1.5;
+ }
+
+ .steps li { margin: 4px 0; }
+
+ .mode-tabs {
+ display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap;
+ }
+ .mode-tab {
+ font-family: inherit; font-size: 15px; letter-spacing: 2px;
+ border: 2px solid var(--basement-dim); background: #0a0014; color: #aa88cc;
+ padding: 6px 12px; cursor: pointer;
+ }
+ .mode-tab.active { border-color: var(--pink); color: var(--pink); background: #12001a; }
+ .mode-tab.recommended::after { content: ' ◆'; color: #ffaa00; }
+ input[type="file"] {
+ width: 100%; background: #0a0014; border: 2px solid var(--basement-dim);
+ color: #ddbbff; font-family: inherit; font-size: 15px; padding: 8px;
+ }
+ .chain-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+ gap: 8px;
+ }
+ .chain-card {
+ font-family: inherit;
+ text-align: left;
+ border: 2px solid #2a1a44;
+ background: #08060c;
+ color: #ddbbff;
+ padding: 10px 10px 8px;
+ cursor: pointer;
+ letter-spacing: 1px;
+ }
+ .chain-card:hover { border-color: var(--basement); }
+ .chain-card.selected {
+ border-color: var(--pink);
+ background: #12001a;
+ box-shadow: 0 0 10px rgba(255, 102, 204, 0.2);
+ }
+ .chain-card .cname { font-size: 16px; color: #eee; display: block; }
+ .chain-card .cmeta { display: none; }
+ .chain-card.hood .cname { color: #ffff00; }
+ .chain-card.sol .cname { color: var(--green); }
+ .chain-card.selected.hood { border-color: #ffff00; }
+ .field select {
+ width: 100%;
+ background: #0a0014;
+ border: 2px solid var(--basement-dim);
+ color: #ddbbff;
+ font-family: inherit;
+ font-size: 18px;
+ padding: 6px 10px;
+ }
+ </style>
+</head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+ <div class="wrap">
+ <div class="header">
+ <h1>VANTABLACK LAUNCHER</h1>
+ <div class="sub">BASEMENT * MULTI-CHAIN</div>
+ <div class="badge">VANTABLACK MARKET * 18+</div>
+ </div>
+
+ <div class="panel">
+ <h2>1 * TARGET CHAIN</h2>
+ <div class="chain-grid" id="chainGrid"></div>
+ <p class="warn" style="margin-top:10px;border:0;padding:0;">
+ Solana: curve / classic SPL. EVM + Robinhood (4663): ERC-20 deploy or list existing contract.
+ </p>
+ </div>
+
+ <div class="panel">
+ <h2>2 * LAUNCH MODE</h2>
+ <div class="mode-tabs">
+ <button type="button" class="mode-tab recommended active" data-launch-mode="curve">CURVE LAUNCH</button>
+ <button type="button" class="mode-tab" data-launch-mode="classic">CLASSIC SPL</button>
+ <button type="button" class="mode-tab" data-launch-mode="erc20">ERC-20</button>
+ </div>
+ <p class="warn" id="modeHint">
+ <strong>Curve (recommended on Solana):</strong> Trix-style create - creator keeps 100% supply, optional dev buy, graduates near $69k. Site launch fee 0.02 SOL to DOSWAPZ.
+ </p>
+ </div>
+
+ <div class="panel">
+ <h2>3 * WALLET</h2>
+ <div class="wallet-row">
+ <button type="button" class="btn" id="connectWalletBtn">CONNECT WALLET</button>
+ <span class="wallet-addr" id="walletAddr"> - </span>
+ </div>
+ </div>
+
+ <div class="panel" id="curveLaunchPanel">
+ <h2>CURVE TOKEN (SOLANA)</h2>
+ <ol class="steps">
+ <li>Upload image + metadata to IPFS.</li>
+ <li>Token launches on bonding curve - progress bar shows path to graduation.</li>
+ <li>Creator-favored: you keep 100% of the token. Site takes 0.02 SOL launch fee (Trix-style cut).</li>
+ <li>Optional extra dev buy in SOL on create (default 0.01).</li>
+ <li>Auto-lists on Vantablack Market with live curve chart.</li>
+ </ol>
+ <div class="field">
+ <label for="curveTokenName">NAME</label>
+ <input type="text" id="curveTokenName" maxlength="32" placeholder="Basement Coin" autocomplete="off">
+ </div>
+ <div class="field">
+ <label for="curveTokenSymbol">SYMBOL</label>
+ <input type="text" id="curveTokenSymbol" maxlength="10" placeholder="BSMT" autocomplete="off">
+ </div>
+ <div class="field">
+ <label for="curveTokenDesc">DESCRIPTION</label>
+ <input type="text" id="curveTokenDesc" maxlength="120" placeholder="Off-the-record basement energy." autocomplete="off">
+ </div>
+ <div class="field">
+ <label for="curveTokenImage">TOKEN IMAGE (PNG/JPG)</label>
+ <input type="file" id="curveTokenImage" accept="image/png,image/jpeg,image/webp">
+ </div>
+ <div class="field">
+ <label for="curveDevBuy">DEV BUY (SOL)</label>
+ <input type="number" id="curveDevBuy" value="0.01" min="0" max="5" step="0.01">
+ <div class="hint">Initial buy on the curve at launch - 0 = create only.</div>
+ </div>
+ <button type="button" class="btn btn-pink" id="launchCurveBtn" disabled>LAUNCH CURVE TOKEN</button>
+ <div class="status" id="curveLaunchStatus">Connect wallet to begin.</div>
+ <div class="result" id="curveLaunchResult" style="display:none;">
+ <h3>CURVE TOKEN LIVE</h3>
+ <div>Mint:</div>
+ <div class="mint-box" id="curveResultMint"></div>
+ <div>Tx: <span id="curveResultSig"></span></div>
+ <div class="result-actions">
+ <a class="btn" id="curveMarketBtn" href="/classic/pages/basement/vantablack/market.html">VANTABLACK MARKET -> </a>
+ </div>
+ </div>
+ </div>
+
+ <div class="panel" id="evmLaunchPanel" style="display:none;">
+ <h2>ERC-20 TOKEN (EVM / ROBINHOOD)</h2>
+ <ol class="steps">
+ <li>Connect MetaMask (or compatible) on the target chain.</li>
+ <li>Deploy a fixed-supply ERC-20 - full supply to your wallet. Site launch fee 0.0008 ETH to DOSWAPZ.</li>
+ <li>Or paste an existing contract to list it on Vantablack.</li>
+ <li>Use DOSWAPZ Bridge to move liquidity in/out of Robinhood Chain.</li>
+ </ol>
+ <div class="field">
+ <label for="evmTokenName">NAME</label>
+ <input type="text" id="evmTokenName" maxlength="32" placeholder="Basement Coin" autocomplete="off">
+ </div>
+ <div class="field">
+ <label for="evmTokenSymbol">SYMBOL</label>
+ <input type="text" id="evmTokenSymbol" maxlength="10" placeholder="BSMT" autocomplete="off">
+ </div>
+ <div class="field">
+ <label for="evmTokenDecimals">DECIMALS</label>
+ <input type="number" id="evmTokenDecimals" value="18" min="0" max="18" step="1">
+ </div>
+ <div class="field">
+ <label for="evmTokenSupply">INITIAL SUPPLY</label>
+ <input type="text" id="evmTokenSupply" value="1000000000" autocomplete="off">
+ <div class="hint">Whole tokens minted to your wallet on deploy.</div>
+ </div>
+ <button type="button" class="btn btn-pink" id="launchEvmBtn" disabled>DEPLOY ERC-20 + LIST</button>
+ <div class="field" style="margin-top:16px;">
+ <label for="evmExistingAddr">OR LIST EXISTING CONTRACT</label>
+ <input type="text" id="evmExistingAddr" maxlength="42" placeholder="0x..." autocomplete="off" spellcheck="false">
+ </div>
+ <button type="button" class="btn" id="listEvmBtn" disabled style="width:100%;margin-top:8px;border-color:var(--pink);color:var(--pink);">LIST EXISTING ON VANTABLACK</button>
+ <div class="status" id="evmLaunchStatus">Select EVM chain * connect wallet.</div>
+ <div class="result" id="evmLaunchResult" style="display:none;">
+ <h3>ERC-20 LIVE / LISTED</h3>
+ <div>Contract:</div>
+ <div class="mint-box" id="evmResultMint"></div>
+ <div>Tx: <span id="evmResultSig"></span></div>
+ <div class="result-actions">
+ <a class="btn" id="evmMarketBtn" href="/classic/pages/basement/vantablack/market.html">VANTABLACK MARKET -> </a>
+ <a class="btn" id="evmBridgeBtn" href="/classic/pages/doswapz/bridge.html">BRIDGE -> </a>
+ <a class="btn" id="evmExplorerBtn" href="#" target="_blank" rel="noopener">EXPLORER -> </a>
+ </div>
+ </div>
+ </div>
+
+ <div class="panel" id="classicLaunchPanel" style="display:none;">
+ <h2>CLASSIC SPL TOKEN (SOLANA)</h2>
+ <ol class="steps">
+ <li>Direct SPL mint - 100% supply to your wallet. Site launch fee 0.02 SOL (same cut as Trix-style create).</li>
+ <li>Revoke mint authority recommended for fixed supply.</li>
+ </ol>
+ <div class="field">
+ <label for="tokenName">NAME</label>
+ <input type="text" id="tokenName" maxlength="32" placeholder="Crypto Mom Coin" autocomplete="off">
+ </div>
+ <div class="field">
+ <label for="tokenSymbol">SYMBOL</label>
+ <input type="text" id="tokenSymbol" maxlength="10" placeholder="MOM" autocomplete="off">
+ </div>
+ <div class="field">
+ <label for="tokenDecimals">DECIMALS</label>
+ <input type="number" id="tokenDecimals" value="9" min="0" max="9" step="1">
+ <div class="hint">Usually 9 on Solana (like SOL).</div>
+ </div>
+ <div class="field">
+ <label for="tokenSupply">INITIAL SUPPLY</label>
+ <input type="text" id="tokenSupply" placeholder="1000000000" autocomplete="off">
+ <div class="hint">Whole tokens - e.g. 1,000,000,000 minted to your wallet.</div>
+ </div>
+ <label class="field-check">
+ <input type="checkbox" id="revokeMint" checked>
+ <span>Revoke mint authority after launch (fixed supply - recommended)</span>
+ </label>
+ <button type="button" class="btn btn-pink" id="launchTokenBtn" disabled>LAUNCH ON SOLANA</button>
+ <div class="status" id="launchStatus">Connect wallet to begin.</div>
+
+ <div class="result" id="launchResult">
+ <h3>TOKEN LIVE</h3>
+ <div>Mint address:</div>
+ <div class="mint-box" id="resultMint"></div>
+ <div>Tx: <span id="resultSig"></span></div>
+ <div class="result-actions">
+ <a class="btn" id="marketListBtn" href="/classic/pages/doswapz/swap.html">SWAP ON DOSWAPZ -> </a>
+ <a class="btn" id="swapTokenBtn" href="/classic/pages/doswapz/swap.html">SWAP RAIL -> </a>
+ </div>
+ </div>
+ </div>
+
+ <div class="nav">
+ <a href="/classic/pages/basement/vantablack/market.html" class="btn"><- VANTABLACK MARKET</a>
+ <a href="/classic/pages/doswapz/bridge.html" class="btn">BRIDGE</a>
+ <a href="/classic/pages/basement.html" class="btn">BASEMENT</a>
+ <a href="/classic/hub.html" class="btn">HUB</a>
+ </div>
+ </div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+ <script src="/assets/js/config/chains-config.js"></script>
+ <script src="/assets/js/config/vantablack-config.js"></script>
+ <script src="/assets/js/basement/vantablack-market.js"></script>
+ <script src="/assets/js/basement/vb-erc20-artifact.js"></script>
+ <script src="/assets/js/basement/token-launcher-multichain.js"></script>
+ <script type="module" src="/assets/js/basement/token-launcher.js"></script>
+ <script type="module" src="/assets/js/basement/token-launcher-curve.js"></script>
+ <script type="module" src="/assets/js/basement/token-launcher-evm.js"></script>
+ <script src="/assets/js/core/page-transition.js" data-page-transition="1"></script>
+ <script src="/assets/js/core/site-shell.js?v=20260715d" data-site-shell="1"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.wrap' });
+ </script>
+ </body>
+</html>

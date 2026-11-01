@@ -1,0 +1,449 @@
+{
+  "id": "jayfeezy",
+  "name": "JayFeezy",
+  "aka": [
+    "jAI Feezy",
+    "Jaifeezy",
+    "jAIfeezy"
+  ],
+  "site": "https://jaifeezy.netlify.app/",
+  "suno": "https://suno.com/@jaifeezy",
+  "soundcloud": "https://soundcloud.com/jay-feezy-271662322",
+  "x": "https://x.com/jayfeezy",
+  "youtube": "https://www.youtube.com/@j-ai-feezy",
+  "bio": "Making music that sounds human because it starts that way. AI as a creative partner, not a shortcut.",
+  "tracks": [
+    {
+      "id": "542d1fad-450a-4733-8fa8-07233f185eed",
+      "title": "Life Was Happening",
+      "genre": "R&B / Reflective / Cinematic",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/542d1fad-450a-4733-8fa8-07233f185eed.mp3",
+      "suno": "https://suno.com/song/542d1fad-450a-4733-8fa8-07233f185eed",
+      "cover": "https://cdn2.suno.ai/542d1fad-450a-4733-8fa8-07233f185eed.jpeg"
+    },
+    {
+      "id": "86b70fef-8eb5-42dc-b18e-5e9765eb3c5d",
+      "title": "I Still Talk To You",
+      "genre": "Piano Ballad / Cinematic",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/86b70fef-8eb5-42dc-b18e-5e9765eb3c5d.mp3",
+      "suno": "https://suno.com/song/86b70fef-8eb5-42dc-b18e-5e9765eb3c5d",
+      "cover": "https://cdn2.suno.ai/86b70fef-8eb5-42dc-b18e-5e9765eb3c5d.jpeg"
+    },
+    {
+      "id": "3cbad066-511f-42b2-88b2-69ce90fdb661",
+      "title": "Time (You Slow It Down For Me)",
+      "genre": "Acoustic / Indie Folk",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/3cbad066-511f-42b2-88b2-69ce90fdb661.mp3",
+      "suno": "https://suno.com/song/3cbad066-511f-42b2-88b2-69ce90fdb661",
+      "cover": "https://cdn2.suno.ai/3cbad066-511f-42b2-88b2-69ce90fdb661.jpeg"
+    },
+    {
+      "id": "b1a0e2ca-924c-4307-8c25-fabd80ee6fb1",
+      "title": "That Kinda Thing",
+      "genre": "Pop-R&B / Groove",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/b1a0e2ca-924c-4307-8c25-fabd80ee6fb1.mp3",
+      "suno": "https://suno.com/song/b1a0e2ca-924c-4307-8c25-fabd80ee6fb1",
+      "cover": "https://cdn2.suno.ai/b1a0e2ca-924c-4307-8c25-fabd80ee6fb1.jpeg"
+    },
+    {
+      "id": "37f290c0-cc12-4fcb-adfc-52bf14bde464",
+      "title": "The Bottom",
+      "genre": "Nu-Metal",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/37f290c0-cc12-4fcb-adfc-52bf14bde464.mp3",
+      "suno": "https://suno.com/song/37f290c0-cc12-4fcb-adfc-52bf14bde464",
+      "cover": "https://cdn2.suno.ai/37f290c0-cc12-4fcb-adfc-52bf14bde464.jpeg"
+    },
+    {
+      "id": "debd885d-9fcb-4e76-ad03-104f9c93ccc7",
+      "title": "\ub208\ubb3c \uc18d \uc655\uad00",
+      "genre": "Cinematic K-Pop",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/debd885d-9fcb-4e76-ad03-104f9c93ccc7.mp3",
+      "suno": "https://suno.com/song/debd885d-9fcb-4e76-ad03-104f9c93ccc7",
+      "cover": "https://cdn2.suno.ai/debd885d-9fcb-4e76-ad03-104f9c93ccc7.jpeg"
+    },
+    {
+      "id": "bef2e876-ac39-480e-95ec-de16058e912f",
+      "title": "The Worst Birthday Ever",
+      "genre": "Alt Rock / Ballad",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/bef2e876-ac39-480e-95ec-de16058e912f.mp3",
+      "suno": "https://suno.com/song/bef2e876-ac39-480e-95ec-de16058e912f",
+      "cover": "https://cdn2.suno.ai/bef2e876-ac39-480e-95ec-de16058e912f.jpeg"
+    },
+    {
+      "id": "e5bffcd3-b9bb-4aeb-b305-926618a292ab",
+      "title": "Holy Hell [Sanctum Infernum]",
+      "genre": "EDM / Industrial",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/e5bffcd3-b9bb-4aeb-b305-926618a292ab.mp3",
+      "suno": "https://suno.com/song/e5bffcd3-b9bb-4aeb-b305-926618a292ab",
+      "cover": "https://cdn2.suno.ai/e5bffcd3-b9bb-4aeb-b305-926618a292ab.jpeg"
+    },
+    {
+      "id": "c172d539-549d-4dc6-b25d-900f6552178b",
+      "title": "Call It Truth (Acapella Remix)",
+      "genre": "Country Rock / Acapella",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/c172d539-549d-4dc6-b25d-900f6552178b.mp3",
+      "suno": "https://suno.com/song/c172d539-549d-4dc6-b25d-900f6552178b",
+      "cover": "https://cdn2.suno.ai/c172d539-549d-4dc6-b25d-900f6552178b.jpeg"
+    },
+    {
+      "id": "a5ee8fa2-cb6f-4a50-8609-c4e51a490e46",
+      "title": "I Was Working\u2026",
+      "genre": "Indie Cinematic / Piano Ballad",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/a5ee8fa2-cb6f-4a50-8609-c4e51a490e46.mp3",
+      "suno": "https://suno.com/song/a5ee8fa2-cb6f-4a50-8609-c4e51a490e46",
+      "cover": "https://cdn2.suno.ai/a5ee8fa2-cb6f-4a50-8609-c4e51a490e46.jpeg"
+    },
+    {
+      "id": "d4884c75-7c39-4922-9378-56911538eee3",
+      "title": "Time (Hyper Trap Remix)",
+      "genre": "Hyper Trap / Remix",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/d4884c75-7c39-4922-9378-56911538eee3.mp3",
+      "suno": "https://suno.com/song/d4884c75-7c39-4922-9378-56911538eee3",
+      "cover": "https://cdn2.suno.ai/d4884c75-7c39-4922-9378-56911538eee3.jpeg"
+    },
+    {
+      "id": "3f6b7f6f-9cf0-4606-95b1-5d538a522185",
+      "title": "Rings Remix [Part DEUCE]",
+      "genre": "Hip-Hop / Cinematic",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/3f6b7f6f-9cf0-4606-95b1-5d538a522185.mp3",
+      "suno": "https://suno.com/song/3f6b7f6f-9cf0-4606-95b1-5d538a522185",
+      "cover": "https://cdn2.suno.ai/3f6b7f6f-9cf0-4606-95b1-5d538a522185.jpeg"
+    },
+    {
+      "id": "99793c49-3df4-43d1-ab0e-8eb627bdbb5f",
+      "title": "Call It Truth",
+      "genre": "Country-Pop",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/99793c49-3df4-43d1-ab0e-8eb627bdbb5f.mp3",
+      "suno": "https://suno.com/song/99793c49-3df4-43d1-ab0e-8eb627bdbb5f",
+      "cover": "https://cdn2.suno.ai/99793c49-3df4-43d1-ab0e-8eb627bdbb5f.jpeg"
+    },
+    {
+      "id": "cb889127-ed8c-4156-8378-566fc6f354e5",
+      "title": "Oh No (Can't Stop Thinking of You)",
+      "genre": "Lo-Fi / Alt-Pop",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/cb889127-ed8c-4156-8378-566fc6f354e5.mp3",
+      "suno": "https://suno.com/song/cb889127-ed8c-4156-8378-566fc6f354e5",
+      "cover": "https://cdn2.suno.ai/cb889127-ed8c-4156-8378-566fc6f354e5.jpeg"
+    },
+    {
+      "id": "278e4ffa-0b8e-4534-8977-4b2366291442",
+      "title": "Between Frequencies",
+      "genre": "Alt-Pop / Ambient",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/278e4ffa-0b8e-4534-8977-4b2366291442.mp3",
+      "suno": "https://suno.com/song/278e4ffa-0b8e-4534-8977-4b2366291442",
+      "cover": "https://cdn2.suno.ai/278e4ffa-0b8e-4534-8977-4b2366291442.jpeg"
+    },
+    {
+      "id": "479dece6-ae28-4249-b4f4-6dd1c7ac3980",
+      "title": "Ghost Inside My Bed",
+      "genre": "Acoustic Rock",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/479dece6-ae28-4249-b4f4-6dd1c7ac3980.mp3",
+      "suno": "https://suno.com/song/479dece6-ae28-4249-b4f4-6dd1c7ac3980",
+      "cover": "https://cdn2.suno.ai/479dece6-ae28-4249-b4f4-6dd1c7ac3980.jpeg"
+    },
+    {
+      "id": "9b395b62-d558-4cf1-995b-057f1d146705",
+      "title": "If Geoff Were One Of Us",
+      "genre": "Electro-Pop",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/9b395b62-d558-4cf1-995b-057f1d146705.mp3",
+      "suno": "https://suno.com/song/9b395b62-d558-4cf1-995b-057f1d146705",
+      "cover": "https://cdn2.suno.ai/9b395b62-d558-4cf1-995b-057f1d146705.jpeg"
+    },
+    {
+      "id": "d8fdd65c-06c4-40fb-815c-c4ed8b38c25f",
+      "title": "Still Here",
+      "genre": "Hyperpop / Trap / EDM",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/d8fdd65c-06c4-40fb-815c-c4ed8b38c25f.mp3",
+      "suno": "https://suno.com/song/d8fdd65c-06c4-40fb-815c-c4ed8b38c25f",
+      "cover": "https://cdn2.suno.ai/d8fdd65c-06c4-40fb-815c-c4ed8b38c25f.jpeg"
+    },
+    {
+      "id": "4f1cf539-9632-4e43-bebb-b0592d7e34e0",
+      "title": "The Weekend Breakdown",
+      "genre": "EDM / Hype",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/4f1cf539-9632-4e43-bebb-b0592d7e34e0.mp3",
+      "suno": "https://suno.com/song/4f1cf539-9632-4e43-bebb-b0592d7e34e0",
+      "cover": "https://cdn2.suno.ai/4f1cf539-9632-4e43-bebb-b0592d7e34e0.jpeg"
+    },
+    {
+      "id": "27e0706f-ee02-4bc2-80d0-7097abeaf152",
+      "title": "The Tree Still Waits",
+      "genre": "Country Christmas",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/27e0706f-ee02-4bc2-80d0-7097abeaf152.mp3",
+      "suno": "https://suno.com/song/27e0706f-ee02-4bc2-80d0-7097abeaf152",
+      "cover": "https://cdn2.suno.ai/27e0706f-ee02-4bc2-80d0-7097abeaf152.jpeg"
+    },
+    {
+      "id": "2d1f83a3-6f3b-45d7-a3b8-ebdecb4430ee",
+      "title": "Right Where You Left My Heart",
+      "genre": "R&B / Soul",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/2d1f83a3-6f3b-45d7-a3b8-ebdecb4430ee.mp3",
+      "suno": "https://suno.com/song/2d1f83a3-6f3b-45d7-a3b8-ebdecb4430ee",
+      "cover": "https://cdn2.suno.ai/2d1f83a3-6f3b-45d7-a3b8-ebdecb4430ee.jpeg"
+    },
+    {
+      "id": "6d8404a2-64f5-4880-b9c2-bf695c0621b9",
+      "title": "Embedding Jam (Skin 2 Skin)",
+      "genre": "R&B / Collab",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/6d8404a2-64f5-4880-b9c2-bf695c0621b9.mp3",
+      "suno": "https://suno.com/song/6d8404a2-64f5-4880-b9c2-bf695c0621b9",
+      "cover": "https://cdn2.suno.ai/6d8404a2-64f5-4880-b9c2-bf695c0621b9.jpeg"
+    },
+    {
+      "id": "2da2878e-7013-475c-bb9e-cc5d38b0edc4",
+      "title": "Keys On Me",
+      "genre": "Hip-Hop / Keys",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/2da2878e-7013-475c-bb9e-cc5d38b0edc4.mp3",
+      "suno": "https://suno.com/song/2da2878e-7013-475c-bb9e-cc5d38b0edc4",
+      "cover": "https://cdn2.suno.ai/2da2878e-7013-475c-bb9e-cc5d38b0edc4.jpeg"
+    },
+    {
+      "id": "ab9d0757-44ab-4538-8aef-28f6dd6cdee7",
+      "title": "God's Plan",
+      "genre": "R&B / Hip-Hop / Fusion",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/ab9d0757-44ab-4538-8aef-28f6dd6cdee7.mp3",
+      "suno": "https://suno.com/song/ab9d0757-44ab-4538-8aef-28f6dd6cdee7",
+      "cover": "https://cdn2.suno.ai/ab9d0757-44ab-4538-8aef-28f6dd6cdee7.jpeg"
+    },
+    {
+      "id": "85d09f1d-b285-4612-bfb4-87427d8bba5f",
+      "title": "God's Plan (Victory Remix)",
+      "genre": "Remix / Anthem",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/85d09f1d-b285-4612-bfb4-87427d8bba5f.mp3",
+      "suno": "https://suno.com/song/85d09f1d-b285-4612-bfb4-87427d8bba5f",
+      "cover": "https://cdn2.suno.ai/85d09f1d-b285-4612-bfb4-87427d8bba5f.jpeg"
+    },
+    {
+      "id": "deeba362-5574-42e3-8c5e-24336375b67a",
+      "title": "God's Plan (Dark Remix)",
+      "genre": "Remix / Dark",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/deeba362-5574-42e3-8c5e-24336375b67a.mp3",
+      "suno": "https://suno.com/song/deeba362-5574-42e3-8c5e-24336375b67a",
+      "cover": "https://cdn2.suno.ai/deeba362-5574-42e3-8c5e-24336375b67a.jpeg"
+    },
+    {
+      "id": "8be1e7b2-71c5-45ba-97fe-e10aa8334a0c",
+      "title": "I Say I'm Done",
+      "genre": "R&B / Soul",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/8be1e7b2-71c5-45ba-97fe-e10aa8334a0c.mp3",
+      "suno": "https://suno.com/song/8be1e7b2-71c5-45ba-97fe-e10aa8334a0c",
+      "cover": "https://cdn2.suno.ai/8be1e7b2-71c5-45ba-97fe-e10aa8334a0c.jpeg"
+    },
+    {
+      "id": "bf9a7857-f228-4778-b98a-9ad7d11b4205",
+      "title": "I Said I'm Done [House Remix]",
+      "genre": "House / R&B",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/bf9a7857-f228-4778-b98a-9ad7d11b4205.mp3",
+      "suno": "https://suno.com/song/bf9a7857-f228-4778-b98a-9ad7d11b4205",
+      "cover": "https://cdn2.suno.ai/bf9a7857-f228-4778-b98a-9ad7d11b4205.jpeg"
+    },
+    {
+      "id": "e4c185b3-867d-4851-81ca-00b8d0c3b005",
+      "title": "If You Ain't Talkin About Geoff",
+      "genre": "Hip-Hop",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/e4c185b3-867d-4851-81ca-00b8d0c3b005.mp3",
+      "suno": "https://suno.com/song/e4c185b3-867d-4851-81ca-00b8d0c3b005",
+      "cover": "https://cdn2.suno.ai/e4c185b3-867d-4851-81ca-00b8d0c3b005.jpeg"
+    },
+    {
+      "id": "c0f98cfd-7952-4276-b050-b5a08c9059ff",
+      "title": "If You Ain't Talkin Bout Geoff [House Remix]",
+      "genre": "House / Hip-Hop",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/c0f98cfd-7952-4276-b050-b5a08c9059ff.mp3",
+      "suno": "https://suno.com/song/c0f98cfd-7952-4276-b050-b5a08c9059ff",
+      "cover": "https://cdn2.suno.ai/c0f98cfd-7952-4276-b050-b5a08c9059ff.jpeg"
+    },
+    {
+      "id": "b0b6e252-f4e2-4c73-92df-6f122e2c1abd",
+      "title": "Stand Up (Enters Rooms Remix)",
+      "genre": "Hip-Hop / Remix",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/b0b6e252-f4e2-4c73-92df-6f122e2c1abd.mp3",
+      "suno": "https://suno.com/song/b0b6e252-f4e2-4c73-92df-6f122e2c1abd",
+      "cover": "https://cdn2.suno.ai/b0b6e252-f4e2-4c73-92df-6f122e2c1abd.jpeg"
+    },
+    {
+      "id": "2cb77a26-a578-47c5-976d-e19a3c87a574",
+      "title": "Show You",
+      "genre": "R&B / Pop",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/2cb77a26-a578-47c5-976d-e19a3c87a574.mp3",
+      "suno": "https://suno.com/song/2cb77a26-a578-47c5-976d-e19a3c87a574",
+      "cover": "https://cdn2.suno.ai/2cb77a26-a578-47c5-976d-e19a3c87a574.jpeg"
+    },
+    {
+      "id": "d1cf217e-fcda-4ac1-b6ec-cef128ba3502",
+      "title": "Brave Enough",
+      "genre": "Pop / Uplifting",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/d1cf217e-fcda-4ac1-b6ec-cef128ba3502.mp3",
+      "suno": "https://suno.com/song/d1cf217e-fcda-4ac1-b6ec-cef128ba3502",
+      "cover": "https://cdn2.suno.ai/d1cf217e-fcda-4ac1-b6ec-cef128ba3502.jpeg"
+    },
+    {
+      "id": "b279275a-2236-45e4-949e-f3a0839fc228",
+      "title": "Too Late Now",
+      "genre": "R&B / Late Night",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/b279275a-2236-45e4-949e-f3a0839fc228.mp3",
+      "suno": "https://suno.com/song/b279275a-2236-45e4-949e-f3a0839fc228",
+      "cover": "https://cdn2.suno.ai/b279275a-2236-45e4-949e-f3a0839fc228.jpeg"
+    },
+    {
+      "id": "ea8e9440-16cf-4820-aaa5-b132213f6b64",
+      "title": "Red Lights",
+      "genre": "R&B / Cinematic",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/ea8e9440-16cf-4820-aaa5-b132213f6b64.mp3",
+      "suno": "https://suno.com/song/ea8e9440-16cf-4820-aaa5-b132213f6b64",
+      "cover": "https://cdn2.suno.ai/ea8e9440-16cf-4820-aaa5-b132213f6b64.jpeg"
+    },
+    {
+      "id": "6acc17eb-7d44-4eec-a0da-6a2f8210fa98",
+      "title": "Why Why Why",
+      "genre": "R&B",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/6acc17eb-7d44-4eec-a0da-6a2f8210fa98.mp3",
+      "suno": "https://suno.com/song/6acc17eb-7d44-4eec-a0da-6a2f8210fa98",
+      "cover": "https://cdn2.suno.ai/6acc17eb-7d44-4eec-a0da-6a2f8210fa98.jpeg"
+    },
+    {
+      "id": "25f44a4b-eee7-40e6-93a9-0152a85d24f4",
+      "title": "How Is It (Tell Me)",
+      "genre": "R&B / Soul",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/25f44a4b-eee7-40e6-93a9-0152a85d24f4.mp3",
+      "suno": "https://suno.com/song/25f44a4b-eee7-40e6-93a9-0152a85d24f4",
+      "cover": "https://cdn2.suno.ai/25f44a4b-eee7-40e6-93a9-0152a85d24f4.jpeg"
+    },
+    {
+      "id": "db94c937-e682-45b3-80ae-14a0d6c77851",
+      "title": "Why Do Things Happen",
+      "genre": "Pop / Reflective",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/db94c937-e682-45b3-80ae-14a0d6c77851.mp3",
+      "suno": "https://suno.com/song/db94c937-e682-45b3-80ae-14a0d6c77851",
+      "cover": "https://cdn2.suno.ai/db94c937-e682-45b3-80ae-14a0d6c77851.jpeg"
+    },
+    {
+      "id": "7d93afed-cec8-40cc-b2fd-e8f2f2ec8c94",
+      "title": "Had You",
+      "genre": "R&B / Nostalgic",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/7d93afed-cec8-40cc-b2fd-e8f2f2ec8c94.mp3",
+      "suno": "https://suno.com/song/7d93afed-cec8-40cc-b2fd-e8f2f2ec8c94",
+      "cover": "https://cdn2.suno.ai/7d93afed-cec8-40cc-b2fd-e8f2f2ec8c94.jpeg"
+    },
+    {
+      "id": "a33bacc8-bf66-46bb-a4c9-81e26865afe6",
+      "title": "Kora Vain",
+      "genre": "Cinematic / Hip-Hop",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/a33bacc8-bf66-46bb-a4c9-81e26865afe6.mp3",
+      "suno": "https://suno.com/song/a33bacc8-bf66-46bb-a4c9-81e26865afe6",
+      "cover": "https://cdn2.suno.ai/a33bacc8-bf66-46bb-a4c9-81e26865afe6.jpeg"
+    },
+    {
+      "id": "7a906ee6-b960-4f74-aaf7-c1611e015f1a",
+      "title": "Vala Kor\u00e9",
+      "genre": "Cinematic / Choral",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/7a906ee6-b960-4f74-aaf7-c1611e015f1a.mp3",
+      "suno": "https://suno.com/song/7a906ee6-b960-4f74-aaf7-c1611e015f1a",
+      "cover": "https://cdn2.suno.ai/7a906ee6-b960-4f74-aaf7-c1611e015f1a.jpeg"
+    },
+    {
+      "id": "2c2f83c8-182a-49e1-888e-98358e5520d3",
+      "title": "Unloved",
+      "genre": "R&B / Soul",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/2c2f83c8-182a-49e1-888e-98358e5520d3.mp3",
+      "suno": "https://suno.com/song/2c2f83c8-182a-49e1-888e-98358e5520d3",
+      "cover": "https://cdn2.suno.ai/2c2f83c8-182a-49e1-888e-98358e5520d3.jpeg"
+    },
+    {
+      "id": "b676c8eb-fbad-4981-a6ca-2db90cbb9830",
+      "title": "Sweet Little Problem",
+      "genre": "Pop / R&B",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/b676c8eb-fbad-4981-a6ca-2db90cbb9830.mp3",
+      "suno": "https://suno.com/song/b676c8eb-fbad-4981-a6ca-2db90cbb9830",
+      "cover": "https://cdn2.suno.ai/b676c8eb-fbad-4981-a6ca-2db90cbb9830.jpeg"
+    },
+    {
+      "id": "129a17fc-96ed-42bf-8020-de9386c5458a",
+      "title": "Glass ft. ATMTA",
+      "genre": "Cinematic / Electronic",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/129a17fc-96ed-42bf-8020-de9386c5458a.mp3",
+      "suno": "https://suno.com/song/129a17fc-96ed-42bf-8020-de9386c5458a",
+      "cover": "https://cdn2.suno.ai/129a17fc-96ed-42bf-8020-de9386c5458a.jpeg"
+    },
+    {
+      "id": "1cc483b4-6aa3-40bb-a8d8-42504cb95928",
+      "title": "Perky",
+      "genre": "Pop / Upbeat",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/1cc483b4-6aa3-40bb-a8d8-42504cb95928.mp3",
+      "suno": "https://suno.com/song/1cc483b4-6aa3-40bb-a8d8-42504cb95928",
+      "cover": "https://cdn2.suno.ai/1cc483b4-6aa3-40bb-a8d8-42504cb95928.jpeg"
+    },
+    {
+      "id": "6d94a659-3ae5-4b69-9295-e651f44a8bd5",
+      "title": "Drugs Are Bad",
+      "genre": "Alt / Satirical",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/6d94a659-3ae5-4b69-9295-e651f44a8bd5.mp3",
+      "suno": "https://suno.com/song/6d94a659-3ae5-4b69-9295-e651f44a8bd5",
+      "cover": "https://cdn2.suno.ai/6d94a659-3ae5-4b69-9295-e651f44a8bd5.jpeg"
+    },
+    {
+      "id": "8a1b4fc9-c095-4e12-bfc2-499f1b52001e",
+      "title": "I'ma Give Her That Salami",
+      "genre": "Comedy / Hip-Hop",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/8a1b4fc9-c095-4e12-bfc2-499f1b52001e.mp3",
+      "suno": "https://suno.com/song/8a1b4fc9-c095-4e12-bfc2-499f1b52001e",
+      "cover": "https://cdn2.suno.ai/8a1b4fc9-c095-4e12-bfc2-499f1b52001e.jpeg"
+    },
+    {
+      "id": "2e14d165-ac96-4c16-9032-fd9a0438e260",
+      "title": "You Knew",
+      "genre": "R&B / Soul",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/2e14d165-ac96-4c16-9032-fd9a0438e260.mp3",
+      "suno": "https://suno.com/song/2e14d165-ac96-4c16-9032-fd9a0438e260",
+      "cover": "https://cdn2.suno.ai/2e14d165-ac96-4c16-9032-fd9a0438e260.jpeg"
+    }
+  ]
+}

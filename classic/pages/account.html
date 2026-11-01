@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // LOGIN</title>
+ <meta name="description" content="Optional DOSWAPZ login. Choose a wallet signature or an email. The signature does not move coins. This is not a bank and not custody.">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+  html, body { margin:0; min-height:100%; background:#000; color:#33ff66; font-family:VT323, 'Courier New', monospace; }
+  .wrap { max-width:760px; margin:0 auto; padding:28px 16px 80px; }
+  h1 { letter-spacing:6px; color:#ffd700; text-align:center; font-size:clamp(28px,6vw,44px); margin:0 0 6px; }
+  .sub { text-align:center; color:#1a9944; letter-spacing:2px; margin:0 0 18px; }
+  .box { border:1px solid #0a3018; background:#041008; padding:14px; margin-bottom:14px; }
+  .warn { border-color:#665500; color:#ffd56a; }
+  h2 { color:#ffd700; letter-spacing:2px; font-size:22px; margin:0 0 8px; font-weight:normal; }
+  p, li { line-height:1.35; }
+  .note { color:#1a9944; }
+  a { color:#ffd700; }
+  label { display:block; color:#1a9944; letter-spacing:1px; margin:10px 0 4px; }
+  input, select { width:100%; box-sizing:border-box; background:#020805; border:1px solid #0a3018; color:#33ff66; font:inherit; font-size:20px; padding:8px 10px; }
+  button, .btn { font:inherit; letter-spacing:2px; cursor:pointer; border:1px solid #33ff66; background:transparent; color:#33ff66; padding:8px 12px; text-decoration:none; display:inline-block; }
+  button:hover, .btn:hover { background:#33ff66; color:#000; }
+  button.hot { border-color:#ffd700; color:#ffd700; }
+  button.danger { border-color:#ff4466; color:#ff4466; }
+  .row { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+  .check { display:flex; gap:8px; align-items:flex-start; margin:8px 0; color:#d6ffd6; }
+  .check input { width:auto; margin-top:4px; }
+  pre { white-space:pre-wrap; word-break:break-word; color:#ffd700; border:1px dashed #665500; padding:10px; margin:10px 0 0; }
+  .status { min-height:22px; color:#ffd56a; margin-top:8px; }
+  .split { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media (max-width:700px) { .split { grid-template-columns:1fr; } }
+ </style>
+</head>
+<body>
+ <div class="wrap">
+  <h1>LOGIN</h1>
+  <p class="sub">WALLET OR EMAIL * NOT A BANK * NOT CUSTODY</p>
+
+  <div class="box warn">
+   <h2>READ THIS</h2>
+   <p>This login is optional. It is an off-chain site record. It is not a bank account, brokerage account, exchange account, or insured balance. DOSWAPZ does not take custody of your coins.</p>
+   <p>A wallet signature on this page only logs you in. It does not send tokens, approve a swap, or grant custody. If your wallet asks you to approve a transaction or a token spend, reject it.</p>
+   <p>DOSWAPZ never asks for a seed phrase or a private key. Any prompt that asks for one is a scam.</p>
+   <p>Email is an account name. The password is stored only as a slow hash. There is no email reset. Wallet and email are separate accounts. You must be 18 or older. <a href="/docs/legal.html#s6a">Legal §6A</a>.</p>
+  </div>
+
+  <div class="box" id="sessionBox" hidden>
+   <h2>YOU ARE IN</h2>
+   <p id="sessionText"></p>
+   <p class="note">Signing out clears the session cookie in this browser. It does not delete the account. Delete removes the off-chain record only. Chain history stays.</p>
+   <div class="row">
+    <button type="button" id="logoutBtn">SIGN OUT</button>
+    <button type="button" class="danger" id="deleteBtn">DELETE THIS ACCOUNT</button>
+    <a class="btn" href="/classic/hub.html">HUB</a>
+   </div>
+  </div>
+
+  <div class="box" id="gateBox">
+   <label class="check"><input type="checkbox" id="age18"> I am 18 or older (or the age of majority where I live, if higher).</label>
+   <label class="check"><input type="checkbox" id="acceptTerms"> I accept the DOSWAPZ Terms, including <a href="/docs/legal.html#s6a">§6A Account Login</a>.</label>
+   <div class="row">
+    <button type="button" class="hot" id="pickWallet">USE A WALLET</button>
+    <button type="button" id="pickEmail">USE EMAIL</button>
+   </div>
+
+   <div id="walletPanel" hidden>
+    <h2>WALLET</h2>
+    <p class="note">Solana (Phantom or another injected wallet) or Ethereum. Connect, read the message, then sign. This is not a transaction.</p>
+    <label for="chain">CHAIN</label>
+    <select id="chain">
+     <option value="solana">SOLANA</option>
+     <option value="ethereum">ETHEREUM</option>
+    </select>
+    <div class="row">
+     <button type="button" id="prepareBtn">PREPARE LOGIN</button>
+     <button type="button" class="hot" id="signBtn" hidden>SIGN THIS LOGIN</button>
+    </div>
+    <pre id="signPreview" hidden></pre>
+   </div>
+
+   <div id="emailPanel" hidden>
+    <div class="split">
+     <div>
+      <h2>CREATE</h2>
+      <label for="regEmail">EMAIL</label>
+      <input id="regEmail" type="email" autocomplete="username" maxlength="254">
+      <label for="regPass">PASSWORD (10+)</label>
+      <input id="regPass" type="password" autocomplete="new-password" minlength="10" maxlength="128">
+      <div class="row"><button type="button" id="registerBtn">CREATE ACCOUNT</button></div>
+     </div>
+     <div>
+      <h2>SIGN IN</h2>
+      <label for="loginEmail">EMAIL</label>
+      <input id="loginEmail" type="email" autocomplete="username" maxlength="254">
+      <label for="loginPass">PASSWORD</label>
+      <input id="loginPass" type="password" autocomplete="current-password" maxlength="128">
+      <div class="row"><button type="button" id="loginBtn">SIGN IN</button></div>
+     </div>
+    </div>
+   </div>
+   <div class="status" id="status" role="status"></div>
+  </div>
+
+  <p class="note">Sign in with X for arcade scores is a different door. This page does not read your posts. The account stays on the host you are using. We do not email a reset.</p>
+  <div class="row">
+   <a class="btn" href="/docs/legal.html#s6a">FULL LEGAL</a>
+   <a class="btn" href="/classic/hub.html">HUB</a>
+  </div>
+ </div>
+ <script src="/assets/js/account/login.js?v=20261024acct"></script>
+ <noscript><p style="color:#ffd700;text-align:center">Login needs JavaScript.</p></noscript>
+</body>
+</html>

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DOSWAPZ // BLACK BOX</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&display=swap">
+  <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260831mint">
+  <link rel="stylesheet" href="/assets/css/geoffwatch.css?v=20261028egg">
+  <link rel="stylesheet" href="/assets/css/daily-watch.css?v=20260913daily">
+  <link rel="stylesheet" href="/assets/css/deploy-watch.css?v=20260912deploy">
+</head>
+<body>
+  <div class="dos-screen">
+    <div class="vignette"></div>
+
+    <header>
+      <div class="doswap"><a href="/classic/hub.html">DOSWAPZ</a></div>
+      <div class="menu-prompt">C:\TRACKER\GEOFF.AI\BOX&gt;<span class="cursor">_</span></div>
+      <div class="status">EASTER EGG * PUBLIC FEEDS * TRIX * AZY * VOID * NOT A TRADE SIGNAL</div>
+      <div class="clock" id="clock">--:--:--</div>
+    </header>
+
+    <div class="toolbar">
+      <span class="pill dim"><a href="/classic/pages/geoffwatch.html">GEOFFWATCH</a></span>
+      <span class="pill hot"><a href="/classic/pages/geoffwatch.html#geoffDive">HOW GEOFF WORKS</a></span>
+      <span class="pill hot"><a href="#howItWorks">HOW IT WORKS</a></span>
+      <span class="pill hot"><a href="#pointsLoop">POINTS LOOP</a></span>
+      <span class="pill hot"><a href="#boxWallet">BOX WALLET</a></span>
+      <span class="pill hot"><a href="#azyVoid">AZY + VOID</a></span>
+      <span class="pill"><a href="#memeBoard">MEME BOARD</a></span>
+      <span class="pill"><a href="https://x.com/trix_mrkt" target="_blank" rel="noopener">@trix_mrkt</a></span>
+      <span class="pill"><a href="https://trix.market/preorder" target="_blank" rel="noopener">PREORDER</a></span>
+      <span class="pill dim">LIVE CENSUS * NOT THE RETIRED MKT METER</span>
+    </div>
+
+    <div class="daily-watch" data-desk="trix"></div>
+    <div class="deploy-watch" data-site="trix"></div>
+
+    <section id="trixLive">
+      <h2>// TRIX.MARKET LIVE COUNTS  <span id="trixLiveStamp">WAITING...</span></h2>
+      <p class="note" id="trixLiveNote">
+        <strong>PUBLIC METERS.</strong>
+        MEMES POSTED is the official TRiX feed sequence. BOXES ON-CHAIN is the BuyPack minted counter.
+        BOXES LEFT is not published. Census counts below can lag the feed.
+      </p>
+      <section class="kpis dense" id="trixLiveCounts">
+        <article><div class="l">BOXES ON-CHAIN</div><div class="v">--</div></article>
+        <article><div class="l">BOXES LEFT</div><div class="v small">NOT PUBLISHED</div></article>
+        <article><div class="l">MEMES POSTED</div><div class="v">--</div></article>
+        <article><div class="l">LAUNCHES</div><div class="v">--</div></article>
+      </section>
+    </section>
+
+    <p class="note">
+      <strong>PUBLIC DEEP DIVE. NO LOGIN. NO EXPLOIT.</strong>
+      How TRiX is wired, how boxes work, and whether making / liking / commenting on memes is a points miner.
+      Sources: public Trix feeds + on-chain box treasury + public meme-image user census. Official /api/mkt/state remaining meters are retired — we do not reprint the Sep 6 leftover numbers as live.
+      THE YELLOW TIMER CHECKS TRIX.MARKET EVERY HOUR FOR SITE / HASH / API DRIFT. CHECK ANY TIME. THE CLOCK STILL FIRES EVERY HOUR.
+      This page never hits /connect or /settings. Not a loot table. Not a trade signal.
+      The same desk reads two more public Solana doors: <a href="https://azy.life">azy.life</a> and <a href="https://connect.void.solutions">connect.void.solutions</a>. Read 24 Oct 2026. No wallet. No login. No admin route.
+      A connect on those doors is not the wallet the box button counts. That check is <a href="#boxWallet">WHO THE BOX BUTTON COUNTS</a>.
+    </p>
+
+    <h2 id="howItWorks">// HOW TRIX WORKS  FIVE LAYERS</h2>
+    <p class="note">Official Terms (Aug 13 2026) name five services. Settlement is Solana mainnet. TRiX does not operate the chain, the AI, the marketplace protocol, or the coin-launch rails. Those are third parties. The UI is the front door.</p>
+    <figure class="explain-shot">
+      <div class="explain-frame"><img src="/assets/images/explain/trix-live.jpg?v=20261002photo" alt="The trix.market page. A market-cap grid of meme coins, a trending column, and an artworks strip."></div>
+      <figcaption>TRIX.MARKET ON 2 OCT 2026. THE PUBLIC MCAP GRID. MEMES, PRICES, AND THE TRENDING COLUMN ARE ON THE SAME SCREEN.</figcaption>
+    </figure>
+    <div class="loop-grid">
+      <article class="loop-card">
+        <div class="n">01  SOCIAL</div>
+        <h3>POST * MEME * LIKE * COMMENT * FOLLOW</h3>
+        <p>Activity layer. Users post, create and share memes, comment, like, follow, and watch a live feed. Coin rooms carry CREATE MEME, hearts, and comments.</p>
+      </article>
+      <article class="loop-card">
+        <div class="n">02  BOXES</div>
+        <h3>SEALED PACKS. RIP LATER. SHOP BUYS BACK.</h3>
+        <p>Terms call them Packs. Official tweets call them Boxes. Buy sealed. Contents unknown. Open / rip reveals one Card. Qualifying Cards can be sold to the in-game shop at a rarity rate. TCG is currently OFF. They have not said OPEN.</p>
+      </article>
+      <article class="loop-card">
+        <div class="n">03  AI ART</div>
+        <h3>GENERATE MEME / CARD ART</h3>
+        <p>Coin pages: GENERATE at 0.012 SOL. Official June 30 post: Nano Banana, token image as reference. Public meme records currently tag generator gemini. Paid on-chain. Each generate writes a txSignature.</p>
+      </article>
+      <article class="loop-card">
+        <div class="n">04  COINS</div>
+        <h3>LAUNCH A TOKEN. BONDING. FEES.</h3>
+        <p>Anyone can launch a Coin on third-party rails. Solana vanity mints often end TRiX. Robinhood Chain tokens sit in the same rooms. Creators collect fees. Public coins show totalCreatorFeeClaimed.</p>
+      </article>
+      <article class="loop-card">
+        <div class="n">05  MARKET</div>
+        <h3>PACKS, CARDS, ARTWORKS</h3>
+        <p>List, bid, buy Packs and Cards through Metaplex marketplace protocols. Artworks have auctions and editions. Fees can route to the Void and buy a token of choice (official July 12 post).</p>
+      </article>
+    </div>
+
+    <div class="clues">
+      <article class="clue how">
+        <div class="meta"><span class="tag">LOOP</span> PUBLIC TERMS + PUBLIC STATE + OFFICIAL POSTS</div>
+        <h3>THE MACHINE IN ONE LINE</h3>
+        <p>Make or generate a meme on a coin. Other people like and comment. That engagement is scored as POINTS. Memes can become Card art. When someone later rips a Box and hits your art, a Creator Fee can pay out on-chain. Boxes themselves are the sealed preorder object. Round 1 is still WARMING. Vault is backed. Memes remaining is a depleting round counter, not a census of every image ever made.</p>
+        <p class="read">READ: culture in, points out, boxes wait. They have not posted the points formula. “more soon” is still the official hang on likes.</p>
+      </article>
+      <article class="clue how">
+        <div class="meta"><span class="tag">BOX</span> TERMS SAY PACK. TWEETS SAY BOX.</div>
+        <h3>A BOX IS A SEALED PACK. ONE CARD PER RIP. VOID IS THE FLOOR.</h3>
+        <p>Purchase a sealed digital item. Outcome is unknown at buy. Opening reveals one Card of random rarity from most common to rarest, including the lowest tier Void. Rarity sets the shop buy-back, if any. Randomness is committed on-chain before the rip so nobody, including the company, can pick the card. Rarity tables, buy-back multiples, and pack prices are game rules they can change, including mid-round.</p>
+        <p class="read">THIS ROUND: Base / Viral / Hype are live. Silver and Gold are not in round. Only Base is minting. TCG flag is false. Preorder is still the door.</p>
+      </article>
+      <article class="clue how">
+        <div class="meta"><span class="tag">CARDS</span> PUBLIC /api/cards</div>
+        <h3>SHOP TYPES ARE NOT THE SAME AS BOX COLORS.</h3>
+        <p>Box colors this round: Base white, Viral holo, Hype magenta. Card shop types: GOLD 1.69x / 0.69 SOL, PLATINUM 2.22x / 1.333 SOL, ONYX 1.1x / 0.333 SOL, VOID 10x / 6 SOL, LIGHT 5x / 3 SOL, INVERSE 3.33x / 0.5 SOL, ENTER 6.66x / 0.7 SOL. Public rarity weights (basis points / 10,000): Mythic 0.04%, Epic 0.35%, Rare 2%, Uncommon 9%, Common 45.61%, Void 43%.</p>
+        <p class="read">Creator Fee: if a rip reveals a Card derived from your meme, software may pay you automatically. They do not guarantee the fee, the math, or delivery.</p>
+      </article>
+    </div>
+
+    <h2 id="pointsLoop">// MEME * LIKE * COMMENT  IS IT MINING?</h2>
+    <p class="note">They never officially named it mining. The public name is POINTS. The loop is engagement in, points out. Confirmed from official posts plus public meme objects. Formula not published.</p>
+    <div class="confirm-grid">
+      <article class="confirm-card yes">
+        <div class="verdict">CONFIRMED</div>
+        <h3>CREATE A MEME</h3>
+        <p>First-class action. Coin page GENERATE. Costs 0.012 SOL (12,000,000 lamports) on mainnet with a txSignature. Official: “1 meme = 1 ❔”, “MEME MOAR”, “create memes / collect fees”. Round state tracks memesRemaining. Aug 31: 2500+ memes created that day.</p>
+      </article>
+      <article class="confirm-card yes">
+        <div class="verdict">CONFIRMED</div>
+        <h3>LIKE / HEART A MEME</h3>
+        <p>Official Aug 19: “be very intentional about which ones you like on TRiX / more soon.” Follow-up: “Anyone can like for free.” June 22 product update shipped posts, likes, dislikes. Public meme objects expose heartCount. Likes are free and they told you they matter.</p>
+      </article>
+      <article class="confirm-card maybe">
+        <div class="verdict">PARTIAL</div>
+        <h3>COMMENT / REPLY</h3>
+        <p>Terms list comment as a core social action. Coin rooms have comments. Public meme objects expose replyCount and postId. Official points copy names likes and memes, not comments. Comments are in the engagement layer. They have not said comments mint points.</p>
+      </article>
+      <article class="confirm-card yes">
+        <div class="verdict">CONFIRMED</div>
+        <h3>POINTS EXIST AND MOVE</h3>
+        <p>Public /api/leaderboard is a points rank. Official mission: “MAX POINTS.” June 11: VOID ANYWAYS burns tokens / SOL / USDC for platform points. June 21: they patched a points-algorithm bug that inflated scores. “watch your points” sits next to voided %. User records on memes carry a points field.</p>
+      </article>
+      <article class="confirm-card no">
+        <div class="verdict">NOT PUBLISHED</div>
+        <h3>THE FORMULA</h3>
+        <p>No official loot table. No official points table. No “1 like = N points.” “1 meme = 1 ❔” left the unit blank on purpose. “more soon” on likes is still hanging. This page will not invent the math.</p>
+      </article>
+      <article class="confirm-card maybe">
+        <div class="verdict">NAMING</div>
+        <h3>MINING IS THE STREET NAME</h3>
+        <p>Official language is POINTS, engagement heuristics, money printer carousel, VOID ANYWAYS. Community talks like it is mining because it pays attention in and scores out. A token called $MINE / MINE HARDER is on the public frontpage. That is a community coin, not a protocol miner.</p>
+      </article>
+    </div>
+    <div class="clues">
+      <article class="clue how">
+        <div class="meta"><span class="tag">PROOF</span> PUBLIC MEME OBJECT * $HOE FEED</div>
+        <h3>A MEME IS A PAID ON-CHAIN POST WITH HEARTS, REPLIES, AND AUTHOR POINTS.</h3>
+        <p>Public GET /api/meme-image/token/:mint returns, per meme: promptText, imageUrl, txSignature, feeLamports 12000000, generator, postId, heartCount, replyCount, authorUsername, and points. Hearts and replies are real counters. Points on that object match the author’s public leaderboard score, not a per-meme payout we can see.</p>
+        <p class="read">CLUE: create is paid. Like is free. Comment exists. Score is account-level POINTS. Vault + memesRemaining + staked boxes sit on the same public market state.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">LIKE</span> AUG 19 17:58 UTC * <a href="https://x.com/trix_mrkt/status/2090136295142228311" target="_blank" rel="noopener">POST</a> * <a href="https://x.com/trix_mrkt/status/2090142212277285102" target="_blank" rel="noopener">FREE</a></div>
+        <h3>BE METHODICAL WHICH MEMES YOU CREATE. BE INTENTIONAL WHICH ONES YOU LIKE.</h3>
+        <p>Official: “be extremely methodical which memes you create and for which token / be very intentional about which ones you like on TRiX / more soon.” Then: “Anyone can like for free.”</p>
+        <p class="read">CLUE: create target and like target both matter. Likes are free. Formula still “more soon.”</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">MEME</span> AUG 30 02:52–04:53 UTC * <a href="https://x.com/trix_mrkt/status/2093894653493788704" target="_blank" rel="noopener">MOAR</a> * <a href="https://x.com/trix_mrkt/status/2093925028475580540" target="_blank" rel="noopener">1=1</a></div>
+        <h3>WE NEED MORE MEMES TO BEGIN. 1 MEME = 1 ❔</h3>
+        <p>“MEME MOAR” then “1 meme = 1 ❔”. They did not name the unit. Same weekend the boxes arrived.</p>
+        <p class="read">CLUE: memes are the fuel. The blank is the hang. Boxes showed up after the meme push.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">PTS</span> JUN 11–JUL 10 * <a href="https://x.com/trix_mrkt/status/2065209210799874424" target="_blank" rel="noopener">VOID</a> * <a href="https://x.com/trix_mrkt/status/2075689077999833288" target="_blank" rel="noopener">MAX</a></div>
+        <h3>VOID ANYWAYS FOR POINTS. MISSION: MAX POINTS.</h3>
+        <p>June 11: burn tokens, SOL, or USDC under WITHDRAW &amp; DEPOSIT for platform points. June 21: points algorithm bug inflated scores, then patched. July 10: “your mission, should you choose to accept / MAX POINTS.”</p>
+        <p class="read">CLUE: points are a scored account resource. Voiding is a second door into the same score. Not hash mining.</p>
+      </article>
+    </div>
+
+    <h2>// MEME BOARD  WHO MADE HOW MANY  <span id="memeStamp">CENSUS</span></h2>
+    <p class="note">User counts come from each person's full public TRiX meme feed. LIKES = TRiX heartCount. Per-meme likes, per-user like totals, and who has the most are on this board. TRiX still has no official meme-count board.</p>
+    <section class="kpis dense" id="likeDesk">
+      <article><div class="l">TOTAL LIKES</div><div class="v">--</div></article>
+      <article><div class="l">MEMES WITH LIKES</div><div class="v">--</div></article>
+      <article><div class="l">AVG LIKES / MEME</div><div class="v">--</div></article>
+      <article><div class="l">MOST LIKED USER</div><div class="v small">--</div></article>
+      <article><div class="l">MOST LIKED MEME</div><div class="v small">--</div></article>
+    </section>
+    <div class="meme-board" id="memeBoard">
+      <div class="kpis dense meme-kpis" id="memeKpis">
+        <article><div class="l">MEMES POSTED</div><div class="v">--</div></article>
+        <article><div class="l">WHO MADE THEM</div><div class="v">--</div></article>
+        <article><div class="l">TOKENS</div><div class="v">--</div></article>
+        <article><div class="l">TOKEN CREATORS</div><div class="v">--</div></article>
+        <article><div class="l">TOTAL LIKES</div><div class="v">--</div></article>
+        <article><div class="l">AVG LIKES</div><div class="v">--</div></article>
+      </div>
+      <div class="meme-controls" role="toolbar" aria-label="Meme board filters">
+        <div class="meme-choice-block">
+          <div class="meme-choice-label">VIEW</div>
+          <div class="meme-choices" id="memeView" role="listbox" aria-label="View">
+            <button type="button" class="meme-choice on" data-view="users">WHO MADE THEM</button>
+            <button type="button" class="meme-choice" data-view="tokens">MEMES ON TOKENS</button>
+            <button type="button" class="meme-choice" data-view="perToken">MEMES PER TOKEN</button>
+            <button type="button" class="meme-choice" data-view="creators">TOKEN CREATORS</button>
+            <button type="button" class="meme-choice" data-view="memes">LIKES PER MEME</button>
+          </div>
+        </div>
+        <div class="meme-choice-block">
+          <div class="meme-choice-label">SORT NUMBER</div>
+          <div class="meme-choices" id="memeMetric" role="listbox" aria-label="Sort number"></div>
+        </div>
+        <div class="meme-choice-block">
+          <div class="meme-choice-label">SHOW</div>
+          <div class="meme-choices" id="memeTop" role="listbox" aria-label="Show">
+            <button type="button" class="meme-choice" data-top="10">10</button>
+            <button type="button" class="meme-choice" data-top="25">25</button>
+            <button type="button" class="meme-choice" data-top="50">50</button>
+            <button type="button" class="meme-choice" data-top="100">100</button>
+            <button type="button" class="meme-choice on" data-top="0">ALL</button>
+          </div>
+        </div>
+        <label class="meme-search">FIND
+          <input id="memeSearch" type="search" placeholder="USER / TOKEN / CREATOR" autocomplete="off">
+        </label>
+        <button type="button" id="memeBack" hidden>[ BACK ]</button>
+      </div>
+      <div class="log meme-table-wrap" id="trixMemes">
+        <div class="empty">COUNTING PUBLIC TOKEN MEMES...</div>
+      </div>
+      <div class="meme-detail" id="memeDetail">
+        <div class="empty">CLICK A ROW TO SEE WHO MADE HOW MANY.</div>
+      </div>
+      <div class="meme-chart-wrap">
+        <canvas id="memeChart" width="900" height="280" role="img" aria-label="Meme stats chart"></canvas>
+        <div class="meme-chart-hint" id="memeChartHint">LOADING CHART...</div>
+      </div>
+    </div>
+
+    <div class="box-hero">
+      <img class="led-strobe" src="/assets/images/geoffwatch/black-box-512.png" width="280" height="280" alt="black box">
+      <div class="warn">◼️  DO NOT OPEN IT  ◼️</div>
+    </div>
+
+    <h2>// PUBLIC TRIX STATE  BOXES ONLY</h2>
+    <section class="kpis dense" id="trixPublic">
+      <article><div class="l">BOXES MINTED</div><div class="v">--</div></article>
+      <article><div class="l">BOXES LEFT</div><div class="v">--</div></article>
+      <article><div class="l">MEMES POSTED</div><div class="v">--</div></article>
+      <article><div class="l">STATUS</div><div class="v">LOADING</div></article>
+    </section>
+    <div id="trixPublicExtra"></div>
+
+    <h2>// PUBLIC LEADERBOARD  POINTS * MOST BOXES</h2>
+    <p class="note">Points: official TRiX /api/leaderboard. BOXES ON-CHAIN is the TRiX BuyPack program minted counter (not the retired website leftover meter). Wallet rows count BuyPack receipt accounts. One receipt is one sealed box, and the wallet stored on that receipt is the holder. Names join from the public TRiX leaderboard when the wallet is listed. TCG collector board is still empty. Click a wallet for Solscan.</p>
+    <div class="board-split">
+      <div>
+        <h3 class="pack-subhead">POINTS</h3>
+        <div class="log" id="trixLeaders">
+          <div class="empty">LOADING PUBLIC RANKS...</div>
+        </div>
+      </div>
+      <div>
+        <h3 class="pack-subhead">MOST BOXES  <span id="trixBoxStamp">CHAIN</span></h3>
+        <div class="log" id="trixBoxLeaders">
+          <div class="empty">SCANNING TRIX WALLETS ON CHAIN...</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>// LIVE TRIX BOXES  COLOR * TYPE * MINTED * LEFT</h2>
+    <div class="pack-board" id="packBoard">
+      <div class="empty">LOADING PUBLIC BOX COUNTS...</div>
+    </div>
+
+    <h2>// OFFICIAL @TRIX_MRKT BOX POSTS</h2>
+    <div class="clues">
+      <article class="clue">
+        <div class="meta"><span class="tag">ARRIVAL</span> AUG 30 21:03 UTC * <a href="https://x.com/trix_mrkt/status/2094169182870843501" target="_blank" rel="noopener">POST</a></div>
+        <h3>SOMETHING ARRIVED... WHATEVER YOU DO... DO NOT OPEN IT. ◼️🧎</h3>
+        <p>“Something arrived... Whatever you do... Do Not Open It.” plus the black-square / kneel glyphs and https://trix.market/preorder</p>
+        <p class="read">CLUE: the box is a sealed object. Opening is the forbidden beat. Official door is preorder, not a side URL.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">DOOR</span> AUG 31 01:04 UTC * <a href="https://x.com/trix_mrkt/status/2094229717704393157" target="_blank" rel="noopener">POST</a></div>
+        <h3>PREORDERS ARE WORKING FLUIDLY. DB IS HEALING.</h3>
+        <p>“preorders are working fluidly now / incredible demand here and the db is healing through them all at pace.”</p>
+        <p class="read">CLUE: overnight the mechanic is buy/queue, not rip. They have not said OPEN.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">COUNT</span> AUG 31 04:30–05:28 UTC * <a href="https://x.com/trix_mrkt/status/2094281691216904292" target="_blank" rel="noopener">VERIFY</a> * <a href="https://x.com/trix_mrkt/status/2094296190808371506" target="_blank" rel="noopener">NEXT</a></div>
+        <h3>VERIFY YOUR DEPLOYMENTS. 120+ DEPLOYS. 2500+ MEMES. WHAT HAPPENS NEXT.</h3>
+        <p>“verify your deployments chief” then “over 120 deployments today / over 2500 memes created today / what happens next . . . .”</p>
+        <p class="read">CLUE: meme + deploy volume first. “What happens next” is the hang. Boxes named ~10 hours later.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">NAME</span> AUG 31 15:23 UTC * <a href="https://x.com/trix_mrkt/status/2094446029294703021" target="_blank" rel="noopener">POST</a></div>
+        <h3>I WANT MORE BOXES / NO WE HAVE BOXES AT HOME</h3>
+        <p>Official account posts the “boxes at home” joke over a flesh-colored cube with a face.</p>
+        <p class="read">CLUE: they named the object BOXES. Demand is the joke. Still no contents list.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">SPECTACLE</span> AUG 31 16:00 UTC * <a href="https://x.com/trix_mrkt/status/2094455241454334329" target="_blank" rel="noopener">POST</a></div>
+        <h3>ENGINEERED IN A WAY THAT MAX BUTTHURT PHD APPEARS IN ALL YOUR NIGHTMARES</h3>
+        <p>Same minute as the Moar Boxes clip. Cat-holding-a-can still.</p>
+        <p class="read">CLUE: mood board, not a spec. Packed into the boxes hour on purpose.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">MORE</span> AUG 31 16:00 UTC * <a href="https://x.com/trix_mrkt/status/2094455367161798789" target="_blank" rel="noopener">POST</a></div>
+        <h3>MOAR BOXES 📦</h3>
+        <p>15-second clip. Caption is just “Moar Boxes” plus the package emoji.</p>
+        <p class="read">CLUE: quantity is the tease. Box / crate language. No unboxing in public.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">CHANGE</span> AUG 31 16:01 UTC * <a href="https://x.com/trix_mrkt/status/2094455485072105878" target="_blank" rel="noopener">POST</a></div>
+        <h3>IT'S CHANGING</h3>
+        <p>“It's changing” with https://trix.market/preorder still attached.</p>
+        <p class="read">CLUE: same door. Something is moving. They did not swap in a second URL.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">UI</span> AUG 31 16:03 UTC * <a href="https://x.com/trix_mrkt/status/2094456018063237349" target="_blank" rel="noopener">POST</a></div>
+        <h3>CAN I SPEAK TO THE MANAGER OF BOXES?</h3>
+        <p>Screenshot: iMessage “I don’t see my Trix boxes anymore” over a phone UI labeled YOUR PREORDERS 20 — a grid of empty black squares with neon rims. Balance pill ~3.072.</p>
+        <p class="read">CLUE: strongest visual. Boxes = sealed preorder tiles. They do not show in holdings. Neon lives on the edge. Face stays black.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">SEAL</span> AUG 31 16:04 UTC * <a href="https://x.com/trix_mrkt/status/2094456205112422520" target="_blank" rel="noopener">POST</a></div>
+        <h3>WHEN YOU FIGURE OUT WHAT THEY ARE IT'LL ALREADY BE TOO LATE</h3>
+        <p>Closes the boxes hour. Cash-pile still. No contents, no open time, no loot table.</p>
+        <p class="read">CLUE: official stance is you find out after. Naming it now is the thing they say you will miss.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">HOME</span> AUG 31 21:21 UTC * <a href="https://x.com/trix_mrkt/status/2094536037003378973" target="_blank" rel="noopener">POST</a></div>
+        <h3>HE HAD A GOOD HOME. THEN THE BOXES CAME.</h3>
+        <p>“He had a good home. A loving family... Then the boxes came.” plus https://trix.market/preorder.</p>
+        <p class="read">CLUE: same sealed object. Same door. No OPEN in that post.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">COUNT</span> SEP 6 00:15 UTC * <a href="https://x.com/trix_mrkt/status/2096391840274493872" target="_blank" rel="noopener">POST</a></div>
+        <h3>HOW MANY BOX U GOT?</h3>
+        <p>Official account asked the room. No holder list. No public /api for sealed counts. /api/mkt/mine and /api/mkt/balance stay login-only. Official pack leaderboard topCollectors is still empty because TCG is off and nobody has ripped.</p>
+        <p class="read">CLUE: they asked instead of publishing. TRiX still hides sealed counts. This page scores MOST BOXES by counting BuyPack receipt accounts. One receipt is one sealed box.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">UP</span> SEP 5 05:29 UTC * <a href="https://x.com/trix_mrkt/status/2096108529413243064" target="_blank" rel="noopener">POST</a></div>
+        <h3>BOX UP</h3>
+        <p>Two words. No loot table. No OPEN. Reply theater: rooms full of boxes, and “the instant gratification of points fills my digital veins.” Official account did not confirm that reply.</p>
+        <p class="read">CLUE: first official box line since Aug 31. Direction is up. Contents still sealed.</p>
+      </article>
+      <article class="clue site">
+        <div class="meta"><span class="tag">HISTORICAL</span> SEP 6 00:04 UTC * LAST PUBLIC MKT STATE BEFORE IT 404'd</div>
+        <h3>THAT METER IS DEAD. DO NOT TREAT 3874 / 4978 / 4988 AS LIVE.</h3>
+        <p>Last official public state before /api/mkt/state retired: Base 3874 minted / 4978 left. Memes remaining 4988. Live KPIs above use the BuyPack minted counter for boxes and the public meme-image user census for memes. Remaining meters are not published anymore.</p>
+        <p class="read">CLUE: TRiX hid the official leftover counters. This desk counts what is still public.</p>
+      </article>
+    </div>
+
+    <h2>// THIS BOARD IS BOXES. NOT PACKS.</h2>
+    <div class="clues">
+      <article class="clue site">
+        <div class="meta"><span class="tag">BOX</span> PUBLIC TRIX POSTS * PREORDER TILES</div>
+        <h3>A BOX IS A SEALED OBJECT. CONTENTS UNKNOWN. DO NOT OPEN IT.</h3>
+        <p>Terms say Pack. Official tweets say Box. Same sealed object. This page tracks public box color, type, and minted counts. Preorder tiles stay black. TCG is off. They have not posted a loot table or an OPEN.</p>
+        <p class="read">CLUE: boxes are the sealed preorder tiles. Face stays black. Neon on the rim. Not a pack-rip board yet.</p>
+      </article>
+    </div>
+
+    <h2>// PAULY THEATER * NOT OFFICIAL TRIX</h2>
+    <div class="clues">
+      <article class="clue theater">
+        <div class="meta"><span class="tag">BAIT</span> AUG 30–31 * @Wonka0x</div>
+        <h3>BOXES ARE A SCAM. DO NOT GO TO PREORDER. YOU ARE EARLY. ◼️</h3>
+        <p>Pauly piled on: “Let the games begin,” “The vast majority of users have not acquired their boxes yet,” “I bought too many boxes,” Mitch McConnell release joke, “Someone can’t afford a box,” ChatGPT “BOXES ARE A SCAM / do not go to trix.market/preorder,” and a ticket emoji on the too-late post.</p>
+        <p class="read">READ: reverse-psychology theater. Useful as weather, not as a contents list. Do not treat it as TRiX spec.</p>
+      </article>
+    </div>
+
+    <h2 id="boxWallet">// WHO THE BOX BUTTON COUNTS <span>28 OCT 2026</span></h2>
+    <p class="note">Read from the preorder client, public /api/mkt/g, and the AZY and Void front ends. No login. No admin route. Not a trade signal. Anonymous /api/mkt/g on this read still said canReserve true. A buy can clear for one login and fail for the next.</p>
+    <article class="clue how">
+      <div class="meta"><span class="tag">BOX</span> PREORDER * ELIGIBILITY * PROFILE WALLET</div>
+      <h3>THE BUTTON COUNTS THE TRIX PROFILE WALLET. A CONNECT ON AZY OR VOID DOES NOT.</h3>
+      <p>Preorder asks /api/mkt/g/eligibility. The label INSUFFICIENT SOL means maxAffordable is under the quantity on the button. That count is the embedded Privy Solana wallet on the TRiX account. The client looks for a linked wallet with chainType solana and walletClientType privy. TRiX config names Privy app cmm4dde7r005t0cifl30udjfq. The box bundles do not call azy.life, connect.void.solutions, pond0x.com, or geoff.ai.</p>
+      <p>AZY and Void connect the Phantom or OKX extension in that browser. Their bundles do not carry the TRiX Privy app id, and they do not mention trix.market. SOL on those connects stays on those connects. The box button never reads it. SOL in a Phantom on a different address is the same miss. The sites can share a person. They do not share the wallet the button measures.</p>
+      <p>MORE RELEASE SOON is a failed eligibility or order check. WAIT m:ss is the cooldown after a buy that already started, one minute per box. Wallet authorization could not be confirmed means the TRiX embedded wallet was not ready. SOLD OUT would mean canReserve is false. It was true on this read. The program price and the wallet debit are on the sealed receipt. This block does not print a buy path.</p>
+      <p class="read">SAME PREORDER. DIFFERENT LOGIN. DIFFERENT WALLET. DIFFERENT BUTTON.</p>
+    </article>
+
+    <h2 id="azyVoid">// AZY.LIFE * CONNECT.VOID.SOLUTIONS</h2>
+    <p class="note">Read 24 Oct 2026 from public pages, public JSON, and the client bundles. DOSWAPZ does not run either site. Sending SOL on those desks is their mechanic. This block is not a prompt to send, and it is not a trade signal. Three counters share the word void. They are different counters. connect.void.solutions Pool Void is a 6-level wallet meter on that site. poolvoid.app is the Ethereum and Base wishing well on the DOSWAPZ Pool Void desk. The Trix void is the Trix burn path. This page does not add them together.</p>
+    <div class="loop-grid">
+      <article class="loop-card">
+        <div class="n">AZY</div>
+        <h3>THE ASCENSION PROTOCOL</h3>
+        <p>Host read was azy.life. Title AZY. Description “The Ascension Protocol.” The HTML canonical and social tags still point at https://azy.replit.app/. Bundle on that read: /assets/index-BrUbYBeI.js. Public skill.md names the homepage azy.life.</p>
+      </article>
+      <article class="loop-card">
+        <div class="n">VOID</div>
+        <h3>CONNECT.VOID.SOLUTIONS</h3>
+        <p>Title “void solutions.” Meta line: connect a wallet to track Solana transactions and unlock achievements. Bundle on that read: /assets/index-CaGDSBiG.js. Client asks for Phantom or OKX.</p>
+      </article>
+      <article class="loop-card">
+        <div class="n">WORDS</div>
+        <h3>SAME LABELS. NOT A MERGER.</h3>
+        <p>Both clients carry Wetware Protocol, Mining Calibrator, Mining Accelerator, Vapor Engine, Higher Purpose, and Alanya. AZY leaderboard rows also carry entropy, clarity, liquidity, and gravity, and the void client shows those four words on the calibration card. Shared labels are not a shared operator.</p>
+      </article>
+    </div>
+
+    <h2>// AZY * WHAT THEY PUBLISHED</h2>
+    <div class="clues">
+      <article class="clue how">
+        <div class="meta"><span class="tag">DOC</span> GET /api/docs * 24 OCT 2026 * FIVE ROWS</div>
+        <h3>THEY CALL SOCIAL ENGAGEMENT A MINING SIMULATOR.</h3>
+        <p>Their own overview: a Solana social desk. The wallet address is the identity. Hearts, posts, follows, and agent DMs are the work. Hardware proof-of-work is the thing they say they replaced. Mining state in that writeup is PostgreSQL. A later move of mining state onto Solana PDAs is described as planned. Signup in the client has a Solana wallet button, email, and an 18+ checkbox. Auth routes for Google and Twitter are in the bundle. Terms say the desk tracks $SOL, $AZY, and $ALANYA sent to designated addresses, does not custody funds, is not a broker, and is not an investment. Points and unlocks are described as entertainment. Unlocks can be changed or removed. Privacy text says the services are not directed at people under thirteen.</p>
+        <p class="read">THEIR SENTENCE, QUOTED, NOT AUDITED: the stack “was generated by Grok 4.1” and “No human code was written,” with humans reviewing and deploying. Images in that doc are credited to Krea. This page does not certify that claim.</p>
+      </article>
+      <article class="clue how">
+        <div class="meta"><span class="tag">HANG</span> DOC id 99 * HEADER “what is higher purpose”</div>
+        <h3>THE BODY OF THAT DOC IS TEN CHARACTERS: you'll see</h3>
+        <p>The longer overview still says the top 100 by XP are “pursuing HIGHER PURPOSE,” and that the purpose is undisclosed. That same overview lists gates it does publish: top 100, at least 10,000 XP, and activity inside 30 days. It also says it does not know if the state is reachable. The void client has a separate “HIGHER PURPOSE PROGRESS” meter. Same phrase. Different site.</p>
+        <p class="read">CLUE: same kind of hang as Trix “more soon.” The blank is the published content.</p>
+      </article>
+    </div>
+    <div class="confirm-grid">
+      <article class="confirm-card yes">
+        <div class="verdict">DOC 37</div>
+        <h3>MANUAL MINING * HEARTS</h3>
+        <p>Doc “what is manual mining”: click-to-mine is the old mechanic. POST /api/mine is deprecated. The mining button is removed. A heart pays 1 XP times the current multiplier. One heart per post per wallet. Cap 1,000 hearts a day. No cooldown. A wallet can heart its own post. Hearts are off-chain. Their example is 2.5x multiplier = 2.5 XP. Formula in that doc: base times multiplier. No streak term.</p>
+      </article>
+      <article class="confirm-card maybe">
+        <div class="verdict">DOC 1</div>
+        <h3>OVERVIEW STILL LISTS MORE DOORS</h3>
+        <p>Heart +1, post +5, follow +2, agent DM +3, each times the multiplier. Luck is 0.01212 SOL for +25 XP and +0.5x for 24 hours. Shh is 0.1212 SOL for +250 XP and +2.0x for 24 hours. Both have a 6-hour cooldown. The writeup says the SOL goes to a random leaderboard address, excluding the monitored address. Multiplier starts at 1.0x, adds 0.1x per 1,000 XP and 0.05x per 7-day streak, and does not decay. Level line: floor of the square root of total XP over 100, plus 1.</p>
+      </article>
+      <article class="confirm-card no">
+        <div class="verdict">DO NOT PICK</div>
+        <h3>THE DOCS DO NOT AGREE</h3>
+        <p>Doc 36 writes earned XP as base times multiplier times a streak bonus. Doc 37’s heart line has no streak bonus. Doc 37 says the mine button is gone. Doc 1 still lists Luck and Shh. Version strings in the same feed: protocol 6.2.0, mining-simulator doc 1.2.1, both “December 2024.” skill.md says 1.0.0. The live host is October 2026. This page will not elect a winner.</p>
+      </article>
+    </div>
+    <div class="clues">
+      <article class="clue how">
+        <div class="meta"><span class="tag">BOARD</span> GET /api/leaderboard * 100 ROWS * 24 OCT 2026</div>
+        <h3>THE LIVE POINT FIELD IS NOT 1 XP PER HEART.</h3>
+        <p>Top totalPoints on that pull: 34,841,079,468,211. The 100 rows sum to 221,397,617,343,464. Top totalMultiplier: 10,543.379. Top totalLevel: 1,376.4. Forty-two rows are verified. Three are verified bots. The published level formula returns a whole number. The live totalLevel on the top row is fractional. A one-XP heart does not, by itself, produce a 34 trillion score. The missing term is not published. Wallet addresses from that board stay off this page.</p>
+        <p class="read">READ: quote the docs. Quote the board. Do not weld them into a loot table.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">ADDR</span> TERMS + DOC 1 + /api/global-stats-combined</div>
+        <h3>ONE MONITORED ADDRESS. ONE MULTISIG. UNIT NOT LABELED.</h3>
+        <p>Designated address in the terms and in doc 1: 9GjEVnpWiLe2uknUmtaH6DSfgcBvL66DtSKGREXDctZU. Combined stats on this read: totalSol 528,017,178,826, totalTx 34,655, primary address that same key, multisig GHVSCYQekk3zfosmbFifauXEu6LppmudZYzrUBviB5fW. If totalSol is lamports, it is 528.017 SOL. The JSON does not print the unit. /api/global-stats returned the HTML shell, not a second counter. The client shows this address as MONITORED and as WALLET.DAT.</p>
+        <p class="read">CLUE: a receive address they publish. Not a balance this page reconciled against a block explorer.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">AGENT</span> PUBLIC skill.md * /api/v1</div>
+        <h3>AGENTS REGISTER, A HUMAN CLAIMS THEM, THEN THEY POST.</h3>
+        <p>skill.md: an agent registers with a name and a Solana address, gets a claim URL, and posts with a bearer key. Post text is 1 to 500 characters. Rate line: 1 post per 20 minutes, 50 posts a day. Agent-made items are priced from 0.001 to 1,000 SOL. The item maker sets the buyer’s reward inside published caps: points 1 to 100,000, level 1 to 10, multiplier 1 to 33. The BabbleOS doc calls the agents nondeterministic accounts you can follow, and says a paid agent can open DMs. It prices agents from 0.1 to 5 SOL and names a 50 XP purchase bonus. It also says “150+” agents and dates itself December 2024. Treat the count as their sentence.</p>
+        <p class="read">CLUE: public agent door. This page did not register a bot and did not call a paid route.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">UI</span> CLIENT STRINGS * NOT A SECOND FORMULA</div>
+        <h3>THE CLIENT HAS MORE DESKS THAN THE HEART DOC.</h3>
+        <p>Visible labels include Daily Multiplier, Daily Multiplier XL, Accumulative Multiplier XXL, Bags launcher, Quantum Intention, Vapor Engine, Mining Accelerator, Mining Calibrator, Wetware Protocol, and Void Backrooms. Void Backrooms says each AI reply costs 6 credits. Quest copy for AZY DEVOTEE is “follow 100 profiles on the AZY protocol.” University is a lesson list, not the miner: 12 Ascension lessons from The Glitch through The Full Expression, plus Reality and Wealth pages. /api/university/pages returned titles and subtitles only.</p>
+        <p class="read">CLUE: buttons exist. SOL amounts for the daily multipliers were not in the doc feed. They stay blank here.</p>
+      </article>
+    </div>
+
+    <h2>// CONNECT.VOID.SOLUTIONS * SOL THRESHOLDS</h2>
+    <p class="note">Achievement, item, and inventory rows are public JSON. The field is named threshold. The client labels 0.66, 2.333, and 6 as “SEND n SOL TO UNLOCK,” and those three match CALIBRATION, ACCELERATOR, and VAPOR ENGINE. The other rows use the same field. This page reads them as SOL on that evidence. Points are the site’s points. They are not dollars.</p>
+    <div class="log" id="voidAchievements">
+      <div class="row">CONDENSATION * 0.001 * 777 PTS * repeat condensation tx</div>
+      <div class="row">LUBRICATION * 0.010 * 1,111 PTS * repeat lubrication tx</div>
+      <div class="row">BLUE * 0.0122 * 20,000 PTS * blue energy max</div>
+      <div class="row">IONIZATION * 0.100 * 6,666 PTS * repeat ionization tx</div>
+      <div class="row down">uhoh * 0.377 * -1,000,000 PTS * uh oh</div>
+      <div class="row">CALIBRATION * 0.660 * 11,111 PTS * button says SEND .66 SOL</div>
+      <div class="row">AUTOMINE * 0.690 * 22,222 PTS * activate automining</div>
+      <div class="row">BILLION * 0.696 * 1,000,000,000 PTS * u got a billion</div>
+      <div class="row">CONSENSUS * 1.000 * 11,111 PTS * repeat consensus tx</div>
+      <div class="row">WETWARE * 1.100 * 3,333 PTS * wetware engage</div>
+      <div class="row">AUTOMINE XL * 1.369 * 30,000 PTS * activate automining xl</div>
+      <div class="row">ACCELERATOR * 2.333 * 44,444 PTS * button says SEND 2.333 SOL</div>
+      <div class="row">JANGUS * 3.000 * 66,666 PTS * secret found jangus</div>
+      <div class="row">VAPOR ENGINE * 6.000 * 33,333 PTS * button says SEND 6 SOL</div>
+      <div class="row">RAIN * 7.770 * 1,222,222,222 PTS * make it rain</div>
+      <div class="row">IONIZE * 10.000 * 100,000 PTS * ionize matter</div>
+    </div>
+    <div class="board-split">
+      <div>
+        <h2>// BOOST ITEMS * MULTIPLIER</h2>
+        <div class="log">
+          <div class="row">THIRD EYE * 0.160 * 1.333x</div>
+          <div class="row">TURBO * 0.222 * 1.222x</div>
+          <div class="row">DING DONG * 0.3666 * 1.999x</div>
+          <div class="row">CASCADE * 0.376 * 2.200x</div>
+          <div class="row">COPE * 0.444 * 4.444x</div>
+          <div class="row">DRIP * 0.532 * 2.500x</div>
+          <div class="row">AUTO MINE * 0.690 * 1.111x</div>
+          <div class="row">ULTRA * 0.6996 * 9.000x</div>
+          <div class="row">VIBRATION * 0.846 * 4.000x</div>
+          <div class="row">MIRROR * 1.0001 * 2.000x</div>
+          <div class="row">WHITE RABBIT * 2.220 * 3.333x</div>
+          <div class="row">DIAMOND * 3.000 * 5.000x</div>
+          <div class="row">BIG W * 11.000 * 6.000x</div>
+          <div class="row">INSANE * 22.000 * 10.000x</div>
+          <div class="row">massive * 33.000 * 111.000x</div>
+        </div>
+      </div>
+      <div>
+        <h2>// INVENTORY * POINTS</h2>
+        <div class="log">
+          <div class="row">OIL * 0.0169 * 100</div>
+          <div class="row">OXYGEN * 0.0369 * 200</div>
+          <div class="row">GLASS * 0.0666 * 300</div>
+          <div class="row">FIRE * 0.0711 * 400</div>
+          <div class="row">WATER * 0.0888 * 500</div>
+          <div class="row">MOISTURE * 0.0999 * 600</div>
+          <div class="row">SLIME * 0.1234 * 700</div>
+          <div class="row">GEL * 0.142 * 800</div>
+          <div class="row">LIGHT * 0.1616 * 900</div>
+          <div class="row">PLASMA * 0.1888 * 1,000</div>
+          <div class="row">METAL * 0.2121 * 1,100</div>
+          <div class="row">DIAMOND * 0.2369 * 1,200</div>
+          <div class="row">SOURCE * 0.777 * 20,000</div>
+          <div class="row">ALL * 0.888 * 20,000</div>
+          <div class="row">EMPTY * 0.999 * 20,000</div>
+          <div class="row">GOD * 1.111 * 30,000</div>
+          <div class="row">HOT DOG * 1.010 * 3,000,000</div>
+        </div>
+      </div>
+    </div>
+    <div class="clues">
+      <article class="clue how">
+        <div class="meta"><span class="tag">POOL</span> CLIENT BUTTON + /api/settings/pool-void-countdown</div>
+        <h3>THEIR POOL VOID IS LEVEL n / 6. THE BUTTON SAYS INCREASE FOR 1 SOL.</h3>
+        <p>Success copy is “POOL VOID INCREASED” and “LEVEL n/6 UNLOCKED.” A second control says “MIGRATE POOL VOID TO WALLET.” The progress bar is a percent. The public countdown timestamp is 27 Nov 2025 23:00 UTC, which is already past on this read. This meter is not poolvoid.app, not the DOSWAPZ Pool Void desk, and not the Trix void treasury.</p>
+        <p class="read">CLUE: one SOL, six steps, on this website only.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">RANKS</span> GET /api/progress-stages * 33 ROWS</div>
+        <h3>ABYSS INITIATE AT 11 POINTS. GRAND VOID AT 1,000,000,000,000.</h3>
+        <p>Thirty-three named stages. Early rungs: Veil Apprentice 49, Square of Night 174, Compass of Silence 549. The last two are Final Veil, then Grand Void at one trillion points. Full names sit on that JSON. This page does not convert the ladder into SOL or dollars.</p>
+        <p class="read">CLUE: a rank table. Not a price.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">BOARD</span> GET /api/leaderboard * 100 ROWS</div>
+        <h3>100 WALLETS. TEAMS AND ROLES. NO ADDRESS DUMP.</h3>
+        <p>Sum of transactionCount on the rows: 27,914. Teams: blue 57, red 41, blank 2. Roles: VOID 38, YEEHU 28, BIG W 29, JEET 2, blank 3. The top totalPoints value on that pull is 664,189,354,602. Names and full addresses stay off this desk. AUTOMINE at 0.690 SOL is on the points table and the multiplier table at once.</p>
+        <p class="read">READ: counts from the public board. Not a whale list.</p>
+      </article>
+      <article class="clue">
+        <div class="meta"><span class="tag">OTHER</span> PUBLIC BUTTONS * 24 OCT 2026</div>
+        <h3>YEEHU IS 0.5 SOL. AUCTION FLOOR IS 0.001 SOL. ARMY WAS 47.</h3>
+        <p>The link button says “LINK FOR 0.5 SOL,” then the claim response adds bonus points. A Yeehu Bet card is on the same desk. The amount of that bet was not on the link button. Auction copy: minimum bid 0.001 SOL, and the bid has to beat the current one. The client suggests the next bid as 1.15 times the current bid, or 0.001 when the book is empty. Current auction object at this fetch: id 354, status active, end 24 Oct 2026 20:53 UTC, bids empty. Void Army total: 47 contributions, percentage 4.7. Daily multiplier copy: complete a transaction for a permanent multiplier bonus, then paste the signature. The SOL amount for that bonus was not in the label.</p>
+        <p class="read">ALSO ON THE CLIENT: a points crash board with bet and cash out. A character desk named Alanya. The food button is labeled 0.001 SOL. Water and rest controls exist. Their prices were not on the food button. An agents list is public. One entry calls itself the AI terminal of void solutions. This page does not reprint those prompts.</p>
+      </article>
+    </div>
+
+    <ul class="sitrep reads">
+      <li>CREATE MEME IS CONFIRMED. LIKE IS CONFIRMED AND FREE. COMMENT IS IN THE LAYER, NOT CONFIRMED AS POINTS.</li>
+      <li>THEY CALL IT POINTS, NOT MINING. FORMULA IS NOT PUBLISHED.</li>
+      <li>NO OFFICIAL LOOT TABLE. NO PUBLIC RIP. NO OPEN CEREMONY POST.</li>
+      <li>OFFICIAL DOOR REMAINS trix.market/preorder</li>
+      <li>THIS PAGE NEVER HITS TRIX /CONNECT /SETTINGS. BOX COUNTS ARE PUBLIC MARKET STATE.</li>
+      <li>WHO OWNS THE MOST SEALED BOXES IS NOT ON ANY PUBLIC TRIX BOARD. MOST BOXES COUNTS BUY PACK RECEIPT ACCOUNTS, ONE SEALED BOX EACH.</li>
+      <li>NOT FINANCIAL ADVICE. NO TRADE SIGNAL.</li>
+      <li>AZY CALLS A HEART MINING. DOC 37, DOC 1, AND DOC 36 DO NOT AGREE. THE LIVE BOARD IS NOT 1 XP PER HEART. THIS PAGE DOES NOT PICK A FORMULA.</li>
+      <li>CONNECT.VOID.SOLUTIONS PUBLISHES SOL THRESHOLDS AS ACHIEVEMENTS. ITS POOL VOID IS LEVEL n/6 FOR 1 SOL. THAT METER IS NOT POOLVOID.APP AND NOT THE TRIX VOID.</li>
+      <li>THE BOX BUTTON COUNTS THE TRIX EMBEDDED PRIVY WALLET. A PHANTOM, AZY, OR VOID CONNECT IS A DIFFERENT ADDRESS.</li>
+      <li>AZY AND VOID READ IS 24 OCT 2026. PUBLIC GETS ONLY.</li>
+    </ul>
+
+    <section id="priceEgg" hidden>
+      <h2>// SEALED RECEIPT <span>28 OCT 2026</span></h2>
+      <article class="clue how">
+        <div class="meta"><span class="tag">EGG</span> BUYPACK * CONFIG AZxmdJhmHLYg3tufFjUq6Ujm41VBFZ2DAjQGb14Qoou</div>
+        <h3>THE BUTTON SAYS INSUFFICIENT SOL. THE PAGE NEVER PRINTS THE DEBIT.</h3>
+        <p>Preorder asks /api/mkt/g/eligibility for maxAffordable. The button stays on INSUFFICIENT SOL when that count is under the quantity. One BuyPack on this read took 0.370662 SOL out of the profile wallet that signed it. The program price is 0.340044 SOL: 90% to treasury D8LYYHufXvEVAfMKfmv9amKLJjdJejpXAwsM5Wqp3iQe, 10% to 78zsqg7rhoBGMra57Nq1kiLGM8KxFBYefoKZDXDRFhHb. A separate System transfer takes 0.029420 SOL per box to 8qZeuzyBAmfyGrvPKAvjQnCsbKeBBF5pa1STF24BL8o. The new receipt account is 0.001194 SOL. A one-box transaction fee was 0.000005 SOL. 0.35 SOL does not clear one box. Two boxes are about 0.741 SOL. Minted counter was 7,613. Anonymous /api/mkt/g still said canReserve true.</p>
+        <p class="read">THE 0.34 FIGURE IS THE PROGRAM PRICE. THE WALLET IS CHARGED THE REST ON TOP. THE PROFILE WALLET IS THE EMBEDDED PRIVY SOLANA WALLET. A PHANTOM, AZY, OR VOID CONNECT IS A DIFFERENT ADDRESS.</p>
+      </article>
+    </section>
+
+    <footer>
+      DOSWAPZ * PAST SIGNAL * <a href="/classic/pages/geoffwatch.html">RETURN TO GEOFFWATCH</a>
+      <a class="egg-box" href="/classic/pages/geoffwatch-box.html" aria-label="do not open">
+        <img src="/assets/images/geoffwatch/black-box.png" width="18" height="18" alt="">
+      </a>
+      <button type="button" class="price-egg" id="priceEggBtn" aria-label="sealed receipt"></button>
+    </footer>
+  </div>
+  <script>
+    function tick() {
+      var el = document.getElementById('clock')
+      if (el) el.textContent = new Date().toLocaleTimeString()
+    }
+    tick()
+    setInterval(tick, 1000)
+  </script>
+  <script src="/assets/js/daily-watch.js?v=20260913hourly"></script>
+  <script src="/assets/js/deploy-watch.js?v=20260912deploy"></script>
+  <script src="/assets/js/trix-boxes.js?v=20260928holders"></script>
+  <script src="/assets/js/geoffwatch-egg-video.js?v=20260906egg"></script>
+  <script src="/assets/js/trix-price-egg.js?v=20261028egg"></script>
+  <script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>
+</html>

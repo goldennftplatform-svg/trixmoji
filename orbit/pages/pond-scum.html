@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong> Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong> Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>DOSWAPZ // POND SCUM // ORBIT</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css?v=20260805v">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css?v=20260805v">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css?v=20260805v">
+  <link rel="stylesheet" href="/assets/css/era-present-soft.css?v=neonvoid2">
+ <link rel="stylesheet" href="/assets/css/era-transition.css?v=20260805v">
+ <link rel="stylesheet" href="/assets/css/pond-protocol.css?v=20260929explain">
+ <link rel="stylesheet" href="/assets/css/daily-watch.css?v=20260919hwonder">
+ <link rel="stylesheet" href="/assets/css/deploy-watch.css?v=20260912deploy">
+ <style class="page-classic-styles">
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ /* orbit: :root stripped */
+ * { box-sizing: border-box; }
+
+ /* orbit: global html,body stripped */
+
+ .dos-screen { position:relative; min-height:0; background:transparent; padding:0; }
+
+ /* orbit: scanlines stripped */
+
+ /* orbit: .header stripped */
+
+ .content { max-width: 720px; margin: 18px auto 0; padding: 0 8px; }
+
+ /* orbit: .subhead stripped */
+
+ .pond-global {
+ border: 2px solid var(--panel-accent); background: rgba(20, 20, 0, 0.45);
+ padding: 10px 12px; text-align: center; font-size: 14px;
+ margin-bottom: 16px; letter-spacing: 0.5px;
+ }
+
+ .pond-global .highlight { color: var(--panel-accent); text-shadow: 0 0 6px var(--panel-accent); }
+
+ .dossier-box, .mining-box, .swap-box {
+ border: 3px solid var(--panel-accent); background: transparent;
+ padding: 14px; margin-bottom: 16px;
+ }
+
+ .mining-box { border-color: #66ccff; background: rgba(0, 18, 28, 0.55); }
+
+ .section-label {
+ text-align: center; font-size: 14px; color: var(--panel-accent);
+ margin-bottom: 8px; letter-spacing: 2px;
+ }
+
+ .mining-box .section-label { color: #66ccff; }
+
+ .dossier-row-wide {
+ grid-template-columns: 1fr;
+ gap: 4px;
+ }
+
+ .dossier-row-wide .dossier-val { text-align: left; }
+
+ .health-bar-wrap { width: 100%; }
+
+ .health-bar {
+ height: 14px; border: 1px solid var(--panel-accent);
+ background: transparent; overflow: hidden;
+ }
+
+ .health-bar-fill {
+ height: 100%;
+ background: linear-gradient(90deg, #006600, var(--panel-accent), var(--panel-accent));
+ box-shadow: 0 0 8px rgba(0, 255, 65, 0.45);
+ transition: width 180ms linear;
+ }
+
+ .health-bar-label {
+ margin-top: 4px; font-size: 14px; color: var(--panel-accent); text-align: right;
+ }
+
+ .mining-notes {
+ margin: 12px 0 0; padding: 0 0 0 18px;
+ font-size: 14px; color: #88ddff; line-height: 1.4;
+ }
+
+ .mining-notes li { margin: 4px 0; }
+ .mining-note-empty { list-style: none; margin-left: -18px; color: #006688; font-style: italic; }
+
+ .swap-box { border-color: var(--panel-accent); background: rgba(20, 20, 0, 0.25); }
+
+ .swap-note {
+ text-align: center; font-size: 12px; color: var(--panel-accent);
+ margin-bottom: 10px; line-height: 1.35;
+ }
+
+ .swap-frame-wrap {
+ width: 100%;
+ border: 1px solid rgba(255,255,255,0.14); background: rgba(0,0,0,0.35);
+ padding: 12px 10px 14px;
+ }
+
+ #dossierSwapPanel { text-align: center; }
+ #dossierSwapPanel .ds-row {
+ display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+ align-items: center; margin: 8px 0;
+ }
+ #dossierSwapPanel select,
+ #dossierSwapPanel input[type="number"],
+ #dossierSwapPanel input[type="text"] {
+ background: #0a0e12;
+ color: #f0ffe8;
+ border: 2px solid var(--panel-accent);
+ padding: 6px 8px;
+ font-family: inherit;
+ font-size: 16px;
+ max-width: 100%;
+ -webkit-text-fill-color: #f0ffe8;
+ opacity: 1;
+ }
+ #dossierSwapPanel select {
+ min-width: 140px;
+ font-weight: 600;
+ color: #f5fff0 !important;
+ -webkit-text-fill-color: #f5fff0 !important;
+ background: #0a0e12 !important;
+ }
+ #dossierSwapPanel select option,
+ #dossierSwapPanel select optgroup {
+ background: #101820 !important;
+ color: #f5fff0 !important;
+ -webkit-text-fill-color: #f5fff0 !important;
+ font-weight: 600 !important;
+ }
+ #dossierSwapPanel input[type="number"] { width: 120px; }
+ #dossierSwapPanel .ds-arrow { color: #ffff00; font-size: 18px; margin: 4px 0; letter-spacing: 2px; }
+ #dossierSwapPanel .ds-meta {
+ font-size: 12px; color: #aaffaa; margin: 6px 0; line-height: 1.35;
+ word-break: break-all;
+ }
+ #dossierSwapPanel .ds-route { color: #ffff66; font-size: 12px; }
+ #dossierSwapPanel .ds-status { min-height: 18px; font-size: 13px; margin: 8px 0; color: #00cc00; }
+ #dossierSwapPanel .ds-vault { color: #88ff88; font-size: 11px; letter-spacing: 0.5px; }
+ #dossierSwapPanel .ds-balance { color: #66ccff; font-size: 13px; }
+ #dossierSwapPanel .ds-tx a,
+ #dossierSwapPanel a#dsTxLink {
+ color: #6cf; font-size: 13px; display: none; margin-top: 6px;
+ }
+ #dossierSwapPanel .ds-auto {
+ margin-top: 14px; padding: 12px 10px; border: 2px solid #ffff00;
+ background: rgba(30, 30, 0, 0.35);
+ }
+ #dossierSwapPanel .ds-auto.ds-auto-active {
+ border-color: #00ff66; background: rgba(0, 40, 20, 0.45);
+ box-shadow: 0 0 12px rgba(0, 255, 100, 0.15);
+ }
+ #dossierSwapPanel .ds-auto label { font-size: 12px; color: #cccc66; margin: 0 6px; }
+ #dossierSwapPanel .ds-auto .ds-auto-title {
+ font-size: 15px; color: #ffff00; letter-spacing: 2px; margin-bottom: 6px;
+ }
+ #dossierSwapPanel .ds-auto .ds-auto-sub {
+ font-size: 11px; color: #aaffaa; line-height: 1.35; margin-bottom: 8px;
+ }
+ #dossierSwapPanel #dsAutoLog {
+ text-align: left; font-size: 11px; color: #88aa88; max-height: 120px;
+ overflow: auto; border: 1px solid rgba(255,255,0,0.2); padding: 6px;
+ margin-top: 8px; white-space: pre-wrap; font-family: Consolas, monospace;
+ }
+ #dossierSwapPanel .ds-rail-tag {
+ display: inline-block; padding: 2px 8px; border: 1px solid #ffff00;
+ color: #ffff00; font-size: 11px; letter-spacing: 1px; margin-bottom: 6px;
+ }
+
+ .wallet-row { text-align: center; margin: 8px 0; }
+ .wallet-paste { margin: 10px 0; text-align: center; }
+
+ .wallet-paste input {
+ width: 100%; max-width: 520px;
+ background: transparent; color: rgba(255,255,255,0.38); border: 2px solid var(--panel-accent);
+ padding: 6px 8px; font-family: inherit; font-size: 16px;
+ }
+
+ .dossier-grid {
+ margin-top: 14px; border-top: 1px solid rgba(255,255,255,0.14); padding-top: 10px;
+ }
+
+ .dossier-row {
+ display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+ padding: 6px 0; border-bottom: 1px solid #002200; font-size: 18px;
+ }
+
+ .dossier-key { color: #9dff9d !important; letter-spacing: 1px; }
+ .dossier-val { color: #e8ffe8 !important; text-align: right; word-break: break-word; }
+
+ .dossier-empty {
+ text-align: center; color: #006600; font-style: italic; padding: 20px 8px;
+ }
+
+ .dossier-raw {
+ margin-top: 12px; border: 1px solid rgba(255,255,255,0.14); background: transparent;
+ padding: 8px; font-size: 12px; color: rgba(255,255,255,0.35);
+ white-space: pre-wrap; word-break: break-all;
+ max-height: 180px; overflow: auto;
+ }
+
+ .status-line {
+ font-size: 13px; min-height: 16px; text-align: center;
+ margin: 8px 0; color: #00cc00;
+ }
+
+ .btn {
+ font-size: 16px; color: rgba(255,255,255,0.38); background: transparent;
+ border: 2px solid rgba(255,255,255,0.38); padding: 5px 14px;
+ text-decoration: none; margin: 0 4px; display: inline-block; cursor: pointer;
+ }
+
+ .btn:hover { background: rgba(255,255,255,0.14); color: var(--panel-accent); border-color: var(--panel-accent); }
+ .small-btn { padding: 3px 8px; font-size: 13px; }
+
+ .disclaimer {
+ margin: 12px auto; padding: 10px 12px; border: 2px solid var(--panel-accent);
+ background: rgba(40, 30, 0, 0.35); font-size: 12px; line-height: 1.28; text-align: left;
+ }
+
+ .disclaimer-title {
+ color: var(--panel-accent); margin-bottom: 4px; letter-spacing: 1px;
+ text-align: center; font-size: 13px;
+ }
+
+ .field-notes { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.4; margin-top: 10px; }
+ .field-notes dt { color: var(--panel-accent); margin-top: 6px; }
+ .buttons { text-align: center; margin-top: 20px; }
+ .footer { margin-top: 18px; font-size: 13px; color: rgba(255,255,255,0.35); text-align: center; letter-spacing: 1px; }
+ .vignette {
+ position: fixed; inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.58) 84%);
+ pointer-events: none; z-index: 5;
+ }
+ .glitch-layer {
+ position: fixed; inset: 0; pointer-events: none; z-index: 20; mix-blend-mode: screen;
+ }
+ </style>
+</head>
+<body id="screen" class="orbit-void-inner">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+ <span class="crumb-zone">POND SCUM</span>
+ <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+ <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+ <div class="core-glow"></div>
+ <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+ <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ <div class="orbit-line" style="width:min(34vmin,34vw);height:min(34vmin,34vh)"></div>
+ </div>
+
+ <main class="stage" id="content">
+ <h1 class="hollow-title" id="orbitTitle">POND SCUM</h1>
+ <p class="hollow-sub" id="stageSub">dossier terminal<span class="cursor-blink">|</span></p>
+</main>
+
+ <div class="orbit-panel accent-pond" id="orbitPanel">
+<div class="subhead">
+ POND DOSSIER TERMINAL * SOFT WALLET SIGN ONLY * NO FUNDS<br>
+ SWAP EMBEDDED ON DOSWAPZ - NOT POND0X.COM
+ </div>
+
+ <div id="pondGlobalStats" class="pond-global">LOADING POND PROTOCOL STATS...</div>
+
+ <div class="daily-watch" data-desk="pond"></div>
+ <div class="deploy-watch" data-site="pond"></div>
+
+ <section id="pondProtocol" class="protocol-dive">
+  <div class="protocol-pills">
+    <a class="hot" href="#pondProtocol">HOW IT WORKS</a>
+    <a href="#dossierGrid">DOSSIER</a>
+    <a href="#miningGrid">MINING</a>
+    <a href="#dossierSwapPanel">OLD RAILS SWAP</a>
+    <a href="https://www.pond0x.com/" target="_blank" rel="noopener">POND0X.COM</a>
+    <a href="https://docs.pond0x.com/terms" target="_blank" rel="noopener">TERMS</a>
+    <a href="https://www.hwonder.com/" target="_blank" rel="noopener">HWONDER.COM</a>
+    <a href="https://github.com/hWonderOfTheWorld" target="_blank" rel="noopener">HWONDER GH</a>
+    <a href="https://github.com/GeoffAi" target="_blank" rel="noopener">GEOFFAI GH</a>
+    <a href="/orbit/pages/geoffwatch.html">GEOFFWATCH</a>
+  </div>
+  <h2>// HOW POND0X WORKS  PUBLIC RUNDOWN</h2>
+  <p class="note">
+    <strong>LEAVE THE SWAP. THIS IS THE PROTOCOL MAP.</strong>
+    Pond0x (PondD🤝X) is a cross-chain activity engine: check in, mine in-browser, swap, lock water, spawn, auction.
+    Settlement is Ethereum + Solana. Operator in Terms: Pond Issuer Limited. Rewards are discretionary.
+    Sources: pond0x.com FAQs, docs.pond0x.com/terms, public Dune Pond DEX dashboard. Cary0x guides are unofficial community notes and are labeled as such.
+    THE TIMER CHECKS HWONDER GITHUB + PUBLIC POND / METAMODEL PAGES EVERY HOUR. CHECK ANY TIME. THE CLOCK STILL FIRES EVERY HOUR.
+    This page never reverse-engineers private Pond internals. Not a trade signal.
+  </p>
+
+  <figure class="explain-shot">
+    <div class="explain-frame"><img src="/assets/images/explain/pond-live.jpg?v=20261002photo" alt="The pond0x.com Spawn screen. A vial reads 98.9 percent. The card shows total rewards distributed and total swaps."></div>
+    <figcaption>POND0X.COM ON 2 OCT 2026. SPAWN. THE VIAL READS 98.9%. THE CARD READS $43,094,239 TOTAL REWARDS DISTRIBUTED AND 53,246,740 TOTAL SWAPS.</figcaption>
+  </figure>
+
+  <div class="loop-grid">
+    <article class="loop-card">
+      <div class="n">01  CHECK IN</div>
+      <h3>PAIR WALLETS. SET PAYOUT.</h3>
+      <p>Official FAQ: Check In confirms rewards go to the right chain. To mine, you need Check In. Connect Solana, verify Solana, connect Ethereum, verify Ethereum, optional X, choose payout wallet. A payout test may send a small amount to prove the destination. Incomplete Check In can change claim priority.</p>
+    </article>
+    <article class="loop-card">
+      <div class="n">02  MINE</div>
+      <h3>BROWSER PROOF OF WORK. CLAIM wPOND.</h3>
+      <p>Official: once the check-in window completes, mining begins. You need SOL. Activate a rig, hash, then claim. Rewards are not auto-sent until you claim. Difficulty auto-adjusts. Halvings cut rewards 50%. Boost raises hashrate. Official pitch: mine from a laptop or phone, no ASIC.</p>
+    </article>
+    <article class="loop-card">
+      <div class="n">03  SWAP</div>
+      <h3>DEX VOLUME FEEDS THE REWARD POOL.</h3>
+      <p>Pond swap is a curated DEX. A small fee goes into the reward pool. Referral / Friends links share swap and mine rewards. Not every Jupiter route counts. THIS PAGE's old rails = Jupiter Metis v1 + ~1% into Pond partner fee vaults — that is what Pond's dossier indexes. Plain / ultra Jupiter usually does not.</p>
+    </article>
+    <article class="loop-card">
+      <div class="n">04  WATER</div>
+      <h3>LOCK wPOND. STREAM pondSOL.</h3>
+      <p>Official Water FAQ: lock longer, bigger pondSOL multiplier. Unlock anytime. Early unlock returns wPOND by lock progress; penalty wPOND goes to miners. Each lock boosts mining; mining health boosts locks. Multiple independent locks allowed. Official site also says mining activity gates how much you can lock.</p>
+    </article>
+    <article class="loop-card">
+      <div class="n">05  SPAWN</div>
+      <h3>TURN MINED ACTIVITY INTO OTHER TOKENS.</h3>
+      <p>Official: spawn is not a swap. You do not pick the token — you get the registry token with the highest supply at spawn time. Bid/auction page: mined tokens are distributed as Spawn rewards. Community notes (unofficial): ~500M wPOND minimum; events tied to claim counts.</p>
+    </article>
+    <article class="loop-card">
+      <div class="n">06  AUCTION</div>
+      <h3>BID PNDC. PICK WHAT GETS MINED.</h3>
+      <p>Official bid FAQ: anyone can bid PNDC on an SPL or EVM token with liquidity. Auction starts at 1T PNDC and decays. First bid at the current price wins. 50% of mining fees (hash boosts, rig activations, swaps) go to the winning bidder in SOL. Other 50% liquidity-mines the winning token. Examples listed: PNDC, PORK, PEPE, WIF, wPOND, FartCoin.</p>
+    </article>
+  </div>
+
+  <h2>// TOKENS * BOOST * THIS PAGE</h2>
+  <div class="confirm-grid">
+    <article class="confirm-card yes">
+      <div class="verdict">PUBLIC</div>
+      <h3>$PNDC + $wPOND + $PORK</h3>
+      <p>Public Dune Pond DEX dashboard: $PNDC on Ethereum 0x423f...1eea. $wPOND on Solana 3JgF...9jqUoq. $PORK 0xb9f5...444E. Mining on Solana pays wPOND. Spawn / auction talk PNDC bids and PORK / PEPE as spawn targets. Teleport moves ETH badges onto the paired Solana identity.</p>
+    </article>
+    <article class="confirm-card maybe">
+      <div class="verdict">UNOFFICIAL MATH</div>
+      <h3>BOOST IS A SCORE, NOT HASHRATE HARDWARE</h3>
+      <p>Cary0x community notes (not Pond Terms): a session costs about −3 boost. A counted swap adds ~1/6 (+0.16667). Badges and bought boost add. Display floor is 0 even if the internal score goes negative. Max has stepped 415 → 515 → ~615. Treat as community reverse-notes, not a published formula.</p>
+    </article>
+    <article class="confirm-card yes">
+      <div class="verdict">THIS TERMINAL</div>
+      <h3>DOSSIER + OLD RAILS STAY AS THEY ARE</h3>
+      <p>Dossier = soft-sign, no funds, Pond-recognized swaps / badges / Pro / mining health. Swap box below = old rewards-pool rails, Pond community / activated-rig gate, Metis v1, fee vaults. Regular DOSWAPZ Jupiter (0% platform fee) is a different page and usually does not write Pond stats.</p>
+    </article>
+    <article class="confirm-card no">
+      <div class="verdict">NOT A PROMISE</div>
+      <h3>REWARDS ARE DISCRETIONARY</h3>
+      <p>docs.pond0x.com/terms: the Company may provide Rewards for DEX use, mining rigs, and token locks. Figures on the site are estimates, not a commitment. They can review, disqualify, or claw back. Operator named Pond Issuer Limited. Not intended for U.S. Persons per those Terms.</p>
+    </article>
+  </div>
+
+  <div class="clues">
+    <article class="clue">
+      <div class="meta"><span class="tag">LOOP</span> OFFICIAL FAQ + TERMS</div>
+      <h3>THE MACHINE IN ONE LINE</h3>
+      <p>Check In pairs ETH + SOL (and optional X) so claims have a destination. Mining is in-browser proof-of-work that accrues wPOND until you claim. Counted swaps and boosts feed mining health. Claims can open Spawn, where mined activity becomes other tokens. Water locks wPOND for a pondSOL stream and extra mining boost. Auction lets PNDC bids steer which token the cycle liquidity-mines. Friends links share swap and mine rewards.</p>
+      <p class="read">READ: activity in, claims out, spawn and water as sinks. Pond — not DOSWAPZ — decides what counted.</p>
+    </article>
+    <article class="clue">
+      <div class="meta"><span class="tag">MINE</span> pond0x.com/mining</div>
+      <h3>ACTIVATE. HASH. CLAIM. HALVING AND DIFFICULTY ARE LIVE KNOBS.</h3>
+      <p>Official copy: “Proof Of Work.” “Activate to start mining.” You need SOL. Difficulty auto-adjusts with demand. Boost increases hashrate. Halving is a periodic 50% cut. Rewards go out when you activate a claim, not as a silent drip. Drifted / pending txs are a real failure mode the official FAQ does not fully specify; community notes say drifted work can wait until a later settlement window.</p>
+      <p class="read">THIS PAGE's mining box is a live dossier read of health, sessions, mempool, drift, priority. It does not start a Pond mine for you.</p>
+    </article>
+    <article class="clue">
+      <div class="meta"><span class="tag">WATER</span> pond0x.com/water</div>
+      <h3>LOCK MULTIPLIER. EARLY UNLOCK FEEDS MINERS.</h3>
+      <p>Official: longer lock → greater pondSOL multiplier. Unlock anytime. Progress-based return of wPOND. Penalty share goes to miners. Mining boost per lock, gone on unlock. Mining health boosts the lock. Independent locks stack. Community notes (unofficial): UI “weeks” look like epochs in code; example multipliers 1.0x (1) through 3.7x (49); minimums around 500M wPOND have been observed on the lock UI.</p>
+      <p class="read">CLUE: water and mine are coupled on purpose. Slash on early exit is part of the loop, not a bug in the FAQ.</p>
+    </article>
+    <article class="clue">
+      <div class="meta"><span class="tag">BID</span> pond0x.com/mining/bid</div>
+      <h3>50 / 50 ON THE WINNING TOKEN.</h3>
+      <p>Winning bid sets the mined token. Fees from hash boosts, rig activations, and swaps are split: half to the winning bidder in SOL, half buys (liquidity-mines) that token. Spawn then distributes those mined tokens. Minimum bid starts at 1T PNDC and decreases. First at the printed price wins.</p>
+      <p class="read">CLUE: auction is how the room points the miner. Spawn is how the room gets paid in that token.</p>
+    </article>
+    <article class="clue site">
+      <div class="meta"><span class="tag">ADDR</span> PUBLIC DUNE POND DEX DASHBOARD</div>
+      <h3>TREASURY AND PROGRAM ADDRESSES ARE PUBLIC. THIS PAGE DOES NOT TOUCH THEM.</h3>
+      <p>Public dashboard lists Solana treasury cPUt...DU4a, wPOND claims distributor AYg4...3opT, Pond Pro 2bsX...zQRF, activate-miner and hashrate-booster programs, plus ETH gnosis / mining-rig / spawn-manager addresses. Useful as a map. Not an instruction to send funds. DOSWAPZ does not operate those wallets.</p>
+      <p class="read">CLUE: if someone DMs you a “Pond treasury” that is not on that public list, that is not this rundown.</p>
+    </article>
+    <article class="clue unoff">
+      <div class="meta"><span class="tag">UNOFFICIAL</span> cary0x.github.io/docs/guides</div>
+      <h3>COMMUNITY MAP. NOT TERMS. NOT A LOOT TABLE.</h3>
+      <p>Cary0x’s unofficial guides are the best public atlas of Check In, Teleport, Mine, Swap, Friends, Rank, Spawn, Water, Auction, Passport. They also document boost arithmetic, spawn registry weights (~5% of a cycle per 1T PNDC registered), and water epoch multipliers. Pond can change any of that without updating that site. We cite it as community notes, never as a guarantee.</p>
+      <p class="read">READ: use it to learn the shape. Do not treat it as a contract.</p>
+    </article>
+    <article class="clue site">
+      <div class="meta"><span class="tag">SWAPS</span> PUBLIC APIS AS OF SEP 6 2026</div>
+      <h3>PERSONAL SWAP COUNT IS OFFLINE. PROTOCOL TOTAL STILL WORKS.</h3>
+      <p>Pond still publishes global stats at /api/solana (tens of millions of swaps). Per-wallet swap count used to come from a public passport/manifest. That feed is gone: pond0x.com/api/solana/swaps/:wallet and /passport/:wallet return empty arrays without a Pond login. Cary0x /api/manifest/:wallet now 500s with “Failed to retrieve data from pond0x.” DOSWAPZ will not scrape a logged-in Pond session for your number. Luck, some mining health, and the yellow global bar can still load.</p>
+      <p class="read">CLUE: dash on SOL SWAPS is Pond locking the public passport, not this page deleting the field. Check the count on pond0x.com while connected.</p>
+    </article>
+    <article class="clue site">
+      <div class="meta"><span class="tag">RAILS</span> THIS PAGE * UNCHANGED</div>
+      <h3>OLD RAILS STILL MEAN METIS v1 + POND FEE VAULTS.</h3>
+      <p>Nothing below this rundown was rewritten. Dossier still soft-signs. Mining box still reads Pond health. Swap still gates on an activated Pond0x rig, still routes Jupiter Metis v1, still aims the partner referral fee at Pond vaults, still auto-disconnects after every tx, still caps auto-swapper sessions. Regular 0% DOSWAPZ Jupiter is still a different door.</p>
+      <p class="read">CLUE: rundown is the map. The boxes below are the tools. Pond still does the counting.</p>
+    </article>
+  </div>
+
+  <ul class="reads">
+    <li>OFFICIAL DOOR FOR MINING / WATER / SPAWN / CHECK IN IS pond0x.com — THIS PAGE DOES NOT REPLACE IT.</li>
+    <li>SWAP AND RAILS ON THIS PAGE ARE UNCHANGED. OLD RAILS STILL REQUIRE AN ACTIVATED POND0X RIG.</li>
+    <li>REWARDS ARE DISCRETIONARY PER POND TERMS. ESTIMATES ARE NOT A PROMISE.</li>
+    <li>CARY0X GUIDES ARE UNOFFICIAL. BOOST MATH IS COMMUNITY NOTES.</li>
+    <li>PERSONAL SOL/BX SWAP COUNT IS LOGIN-ONLY ON POND. THIS PAGE CANNOT READ IT WITHOUT A PUBLIC PASSPORT.</li>
+    <li>NOT FINANCIAL ADVICE. NEVER SWAP OR LOCK FUNDS YOU CANNOT LOSE.</li>
+  </ul>
+ </section>
+
+ <div class="dossier-box">
+ <div class="section-label">YOUR POND DOSSIER - CONNECT OR PASTE WALLET</div>
+
+ <div class="wallet-row">
+ <button id="pondConnectBtn" class="btn small-btn">CONNECT SOLANA (SOFT SIGN)</button>
+ <button id="pondDisconnectBtn" class="btn small-btn" style="display:none;">DISCONNECT</button>
+ <button id="pondRefreshDossier" class="btn small-btn">REFRESH DOSSIER</button>
+ </div>
+ <div id="pondWalletInfo" style="text-align:center; font-size:12px; color:#00cc00;"></div>
+ <div id="pondWalletHelp" style="text-align:center; font-size:10px; color:#ffaa00; margin:4px 0; display:none;">
+ No wallet? Paste your pubkey below. <a href="https://phantom.app" target="_blank" rel="noopener noreferrer" style="color:#ffcc66;">Install Phantom</a>
+ </div>
+
+ <div class="wallet-paste">
+ <input id="walletPaste" type="text" placeholder="Solana pubkey (base58) - or connect above">
+ <div style="margin-top:6px;">
+ <button id="pondSubmitWallet" class="btn small-btn">LOAD DOSSIER</button>
+ </div>
+ </div>
+
+ <div id="pondScumStatus" class="status-line">AWAITING WALLET</div>
+
+ <div id="dossierGrid" class="dossier-grid">
+ <div class="dossier-empty">CONNECT OR PASTE WALLET - DOSSIER AWAITS</div>
+ </div>
+
+ <details style="margin-top:10px;">
+ <summary style="cursor:pointer; color:rgba(255,255,255,0.35); font-size:13px;">RAW JSON</summary>
+ <pre id="dossierRaw" class="dossier-raw"></pre>
+ </details>
+
+ <dl class="field-notes">
+ <dt>SWAPS</dt>
+ <dd>Pond-recognized SOL/BX swap count from the public passport/manifest. Pond currently returns empty public passport for arbitrary wallets; Cary0x manifest is 500 “Failed to retrieve data from pond0x.” Global protocol swaps still load in the yellow bar. Your personal count is on pond0x.com while logged in. Not full chain history.</dd>
+ <dt>HAS TWITTER</dt>
+ <dd>Whether X is linked on Pond Pro dashboard.</dd>
+ <dt>BADGES / COPE / PRO</dt>
+ <dd>Same fields as Pond dossier feed - unaltered.</dd>
+ </dl>
+ </div>
+
+ <div class="mining-box">
+ <div class="section-label">MINING RIG STATS</div>
+
+ <div id="miningGrid" class="dossier-grid" style="margin-top:0; border-top:0; padding-top:0;">
+ <div class="dossier-empty">LOAD DOSSIER TO VIEW MINING STATS</div>
+ </div>
+
+ <div style="margin-top:10px; font-size:13px; color:#66ccff; letter-spacing:1px;">RIG INSIGHTS</div>
+ <ul id="miningNotes" class="mining-notes"></ul>
+
+ <details style="margin-top:10px;">
+ <summary style="cursor:pointer; color:#66ccff; font-size:13px;">RAW MINING JSON</summary>
+ <pre id="miningRaw" class="dossier-raw"></pre>
+ </details>
+
+ <dl class="field-notes">
+ <dt>HEALTH</dt>
+ <dd>Rig health 1 - 9 (7 = full bar). Updates with Pond market conditions.</dd>
+ <dt>SESSIONS / MEMPOOL</dt>
+ <dd>Total mining sessions and how many are waiting in the mempool queue.</dd>
+ <dt>DRIFT / PRIORITY</dt>
+ <dd>Drifted and at-risk sessions; priority is your claim queue position (higher is better).</dd>
+ <dt>ESTIMATES</dt>
+ <dd>USD estimates from Pond - fluid, recalculated every ~60 - 90 seconds.</dd>
+ </dl>
+ </div>
+
+ <div class="swap-box">
+ <div style="text-align:center; font-size:15px; color:#ffff00; margin-bottom:8px; letter-spacing:2px;">
+ DOSSIER SWAP - OLD REWARDS-POOL RAILS (POND PROTOCOL)
+ </div>
+ <div class="swap-note">
+ Built for <strong>Pond protocol swap stats</strong> (manifest / boost / rewards pool), not the generic 0% DOSWAPZ Jupiter page.<br>
+ Path: <strong>Jupiter Metis v1 (legacy)</strong> + <strong>~1% fee into Pond0x Partner Referral Fee Vaults</strong> (rewards-pool fee sinks). That is the old rails Pond indexes.<br>
+ <strong>ACCESS:</strong> OLD RAILS = <strong>Pond community wallets only</strong> (dossier swaps / mining / Pro / badges signals). Anyone with Solana can still use <a href="/orbit/pages/doswapz/swap.html" style="color:#ffff00;">regular DOSWAPZ Jupiter</a> (0% platform fee).<br>
+ Ultra / plain Jupiter / zero-fee routes usually do <strong>not</strong> count on Pond. After confirm: Solscan should show Partner Referral Fee Vault -&gt; Pond vault. Refresh dossier in 3 - 5 min (filters still apply).
+ </div>
+ <div class="swap-frame-wrap">
+ <div id="dossierSwapPanel">
+ <div class="ds-rail-tag">OLD REWARDS-POOL RAILS * POND COMMUNITY ONLY * METIS v1 * POND FEE VAULTS</div>
+ <div id="dsCommunityGate" style="display:block;border:1px solid #ff4466;background:rgba(40,0,8,0.45);padding:10px 12px;margin:8px 0 12px;font-size:13px;line-height:1.4;color:#ffb3c0;">
+ <strong>OLD RAILS LOCKED — ACTIVATED POND0X RIG REQUIRED</strong><br>
+ Backend checks the Dune activated-rigs database on connect. Regular Jupiter stays open to any Solana wallet on the main swap page.
+ </div>
+
+ <div class="wallet-row">
+ <button type="button" id="dsConnectBtn" class="btn small-btn">CONNECT WALLET (REAL TX)</button>
+ <button type="button" id="dsDisconnectBtn" class="btn small-btn" style="display:none;">DISCONNECT</button>
+ </div>
+ <div id="dsWalletInfo" class="ds-meta"></div>
+ <div class="ds-meta" style="color:#ffcc66;">SAFETY: page-scoped only * auto-disconnect after every tx * reconnect each swap</div>
+ <div id="dsWalletHelp" class="ds-meta" style="display:none;color:#ffaa00;">
+ No wallet? <a href="https://phantom.app" target="_blank" rel="noopener noreferrer" style="color:#ffcc66;">Install Phantom</a>
+ </div>
+ <div id="dsBalance" class="ds-balance"></div>
+
+ <div class="ds-row">
+ <label style="font-size:12px;color:#cccc66;">FROM</label>
+ <select id="dsFromToken" aria-label="From token"></select>
+ <input type="number" id="dsFromAmount" min="0" step="any" value="0.1" placeholder="Amount" aria-label="From amount">
+ </div>
+
+ <div class="ds-arrow">
+ <button type="button" id="dsFlipBtn" class="btn small-btn" title="Flip pair">v FLIP v</button>
+ </div>
+
+ <div class="ds-row">
+ <label style="font-size:12px;color:#cccc66;">TO</label>
+ <select id="dsToToken" aria-label="To token"></select>
+ <input type="text" id="dsToAmount" readonly placeholder="You receive" aria-label="To amount" style="width:160px;">
+ </div>
+
+ <div class="ds-row">
+ <label style="font-size:12px;color:#cccc66;">SLIPPAGE bps</label>
+ <input type="number" id="dsSlippage" min="0" max="5000" step="10" value="100" style="width:90px;" aria-label="Slippage bps">
+ <span style="font-size:11px;color:#888;">100 = 1%</span>
+ </div>
+
+ <div class="ds-row">
+ <label style="font-size:12px;color:#cccc66;">RPC (optional)</label>
+ <input type="text" id="dsRpc" placeholder="https://your-rpc (blank = public)" style="width:min(420px,90%);font-size:12px;" aria-label="Custom RPC">
+ </div>
+
+ <div id="dsVaultLine" class="ds-vault ds-meta"></div>
+ <div id="dsRoute" class="ds-route ds-meta">OLD RAILS STANDBY</div>
+ <div id="dsStatus" class="ds-status">Loading swap panel...</div>
+
+ <div class="wallet-row" style="margin-top:10px;">
+ <button type="button" id="dsSwapBtn" class="btn" disabled>SWAP (OLD RAILS)</button>
+ </div>
+ <div class="ds-tx"><a id="dsTxLink" href="#" target="_blank" rel="noopener noreferrer"></a></div>
+
+ <div class="ds-auto" id="dsAutoPanel">
+ <div class="ds-auto-title">AUTO SWAPPER * OLD RAILS * SAFETY LIMITS</div>
+ <div class="ds-auto-sub">
+ Pond community only. Finite sessions only (max 5). Continuous farm loops disabled for user + site safety.
+ Wallet <strong>auto-disconnects after every tx</strong>. Prefer small amounts. Open Jupiter = any Solana wallet.
+ </div>
+
+ <div class="ds-row">
+ <label>Mode
+ <select id="dsAutoMode" aria-label="Auto mode">
+ <option value="count" selected>Fixed count (safe)</option>
+ </select>
+ </label>
+ <label id="dsAutoCountWrap" style="display:inline-flex;align-items:center;gap:4px;">
+ Count <input type="number" id="dsAutoCount" min="1" max="5" value="3" style="width:70px;" aria-label="Swap count">
+ </label>
+ <label>Wait s <input type="number" id="dsAutoWait" min="12" max="600" value="12" style="width:70px;" aria-label="Wait seconds"></label>
+ </div>
+
+ <div class="ds-row">
+ <label><input type="checkbox" id="dsAutoFlip"> Flip pair each round</label>
+ <label>Stop after <input type="number" id="dsAutoFailStop" min="1" max="10" value="2" style="width:50px;" aria-label="Fail stop"> fails in a row</label>
+ </div>
+
+ <div class="ds-row">
+ <label><input type="checkbox" id="dsAutoRandom"> Random amount</label>
+ <span id="dsAutoRandomWrap" style="opacity:0.45;">
+ <label>Min <input type="number" id="dsAutoMin" min="0" step="any" value="0.01" style="width:80px;" aria-label="Min amount"></label>
+ <label>Max <input type="number" id="dsAutoMax" min="0" step="any" value="0.05" style="width:80px;" aria-label="Max amount"></label>
+ </span>
+ </div>
+ <div class="ds-meta" style="color:#888866;">
+ Fixed amount uses the FROM amount box above. Random overrides it each round.
+ </div>
+
+ <div class="ds-row" style="margin-top:10px;">
+ <button type="button" id="dsAutoStart" class="btn">START AUTO SWAPPER</button>
+ <button type="button" id="dsAutoStop" class="btn small-btn" style="display:none;border-color:#ff5555;color:#ff5555;">STOP</button>
+ </div>
+ <div id="dsAutoProgress" class="ds-meta" style="color:#ffff66;min-height:18px;">Ready</div>
+ <div id="dsAutoLog" aria-live="polite"></div>
+ </div>
+
+ <p class="ds-meta" style="margin-top:10px;color:#888866;">
+ After confirm: open Solscan and look for <em>Jupiter Partner Referral Fee Vault</em> -> Pond vault.
+ Then hit REFRESH DOSSIER above in 3 - 5 minutes.
+ </p>
+ </div>
+ </div>
+ </div>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">SOFT VERIFY + REAL SWAP + AUTO-DISCONNECT</div>
+ Dossier view = sign message only, no funds. Dossier swap = real Solana txs (no keys stored on DOSWAPZ).<br>
+ <strong>Wallet auto-disconnects after every swap attempt</strong> (success, fail, or reject). Reconnect manually for the next trade.<br>
+ Old rails = Metis v1 + Pond fee vaults. Counting is Pond-side (filters + lag). DYOR. Never swap funds you cannot lose.
+ </div>
+
+ <div class="buttons">
+ <a href="/orbit/hub.html" class="btn"><- BACK TO HUB</a>
+ <a href="/orbit/pages/doswapz/swap.html" class="btn">DOSWAPZ SWAP</a>
+ </div>
+
+ <div class="footer">DOSWAPZ - POND SCUM * DOSSIER + SWAP * ON-SITE</div>
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.91.0/lib/index.iife.min.js"></script>
+ <script src="/assets/js/config/ftwr-config.js"></script>
+ <script src="/assets/js/config/pond-config.js?v=safe4"></script>
+ <script src="/assets/js/daily-watch.js?v=20260919hwonder"></script>
+ <script src="/assets/js/deploy-watch.js?v=20260912deploy"></script>
+ <script src="/assets/js/pond/scum.js?v=12"></script>
+ <script src="/assets/js/pond/dossier-swap.js?v=11"></script>
+ <script>if (typeof hollowPageBoot === 'function') hollowPageBoot('POND SCUM');</script>
+ <script src="/assets/js/core/price-ticker.js"></script>
+
+ <script>hollowPageBoot('POND SCUM');</script>
+</body>
+</html>

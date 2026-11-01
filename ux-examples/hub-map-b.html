@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Hub Map B</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ * { box-sizing: border-box; }
+ html, body { margin: 0; min-height: 100%; background: #000; color: #00ff00; font-family: 'VT323', monospace; }
+ .layout { display: flex; flex-direction: column; min-height: 100vh; }
+ @media (min-width: 640px) {
+ .layout { flex-direction: row; }
+ .rail { width: 132px; border-right: 1px solid #003300; border-bottom: 0 !important; }
+ }
+ .rail {
+ border-bottom: 1px solid #003300; padding: 10px 8px;
+ display: flex; flex-wrap: wrap; gap: 4px; align-content: flex-start;
+ background: #020802;
+ }
+ .rail .lab { width: 100%; color: #ffff00; font-size: 12px; margin-bottom: 6px; letter-spacing: 1px; }
+ .rail a {
+ color: #00aa00; text-decoration: none; font-size: 13px;
+ padding: 4px 6px; border: 1px solid transparent; white-space: nowrap;
+ }
+ .rail a:hover { color: #ffff00; border-color: #004400; }
+ .main { flex: 1; padding: 14px 12px 40px; }
+ .badge { float: right; font-size: 11px; color: #ffff00; border: 1px solid #554400; padding: 2px 6px; }
+ .title { font-size: 26px; letter-spacing: 4px; color: #ffff00; }
+ .sub { color: #00aa00; font-size: 13px; margin: 4px 0 14px; }
+ .sec { color: #ffff00; font-size: 17px; margin: 10px 0 4px; }
+ .opt { font-size: 15px; padding-left: 10px; opacity: 0.85; }
+ </style>
+</head>
+<body>
+ <div class="layout">
+ <nav class="rail" aria-label="Site map rail">
+ <div class="lab">C:\MAP\</div>
+ <a href="#">hub</a>
+ <a href="#">swap</a>
+ <a href="#">games</a>
+ <a href="#">arcade</a>
+ <a href="#">time</a>
+ <a href="#">basement</a>
+ <a href="#">attic</a>
+ <a href="#">docs</a>
+ </nav>
+ <div class="main">
+ <div class="badge">MAP B</div>
+ <div class="title">DOSWAPZ</div>
+ <div class="sub">SYSTEM MENU - rail stays visible</div>
+ <div class="sec">▸ DOSWAPZ</div>
+ <div class="opt">Swap * Mint * Gallery</div>
+ <div class="sec">▸ CRYPTO_DAD</div>
+ <div class="opt">Play * Scoreboard</div>
+ <div class="sec">▸ ARCADE</div>
+ <div class="opt">Hub * TBB</div>
+ </div>
+ </div>
+</body>
+</html>

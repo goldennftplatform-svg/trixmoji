@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // MINT</title>
+ <meta name="description" content="DOSWAPZ Pixel Math Mint - live Ethereum mint. Connect wallet, preview math art, mint on-chain. Wallet auto-disconnects after each mint.">
+ <meta property="og:title" content="DOSWAPZ // MINT">
+ <meta property="og:description" content="Live pixel math mint on Ethereum. Preview deterministic voxel art, then mint. Wallet disconnects after each confirmed mint.">
+ <meta property="og:image" content="https://doswapz.com/assets/images/degen-tshirt-error404.jpg">
+ <meta property="og:url" content="https://doswapz.com/classic/pages/doswapz/mint.html">
+ <meta name="twitter:card" content="summary_large_image">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='32' fill='%2300ff00' text-anchor='middle' font-weight='bold'%3EDZ%3C/text%3E%3C/svg%3E">
+ <link rel="manifest" href="/site.webmanifest">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root { --green: #00ff00; --green-dim: #00aa00; }
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0; padding: 0;
+ width: 100%; min-height: 100%;
+ background: #000; color: #00ff00;
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden; image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative; min-height: 100vh;
+ background: #000; padding: 24px 28px 60px;
+ }
+
+ .dos-screen::before {
+ content: ''; position: fixed; inset: 0;
+ background: repeating-linear-gradient(to bottom, transparent 0px, transparent 3px, rgba(0,255,0,0.034) 3px, rgba(0,255,0,0.034) 5px);
+ pointer-events: none; z-index: 30;
+ }
+
+ .header {
+ font-size: 32px; letter-spacing: 6px;
+ text-shadow: 0 0 5px #00ff00; text-align: center; margin-bottom: 6px;
+ }
+
+ .content {
+ max-width: 520px; margin: 18px auto 0;
+ font-size: 19px; line-height: 1.38; padding: 0 8px;
+ }
+
+ .mint-panel {
+ border: 2px solid #003300;
+ padding: 14px 12px;
+ background: rgba(0, 20, 0, 0.35);
+ text-align: center;
+ }
+
+ .panel-title {
+ font-size: 15px; color: #ffff00;
+ letter-spacing: 2px; margin-bottom: 6px;
+ }
+
+ .live-badge {
+ display: inline-block; font-size: 10px; color: #ffaa00;
+ border: 1px solid #ffaa00; padding: 1px 6px;
+ margin-left: 6px; letter-spacing: 1px;
+ }
+
+ .preview-frame {
+ width: 100%;
+ max-width: 320px;
+ min-height: 280px;
+ border: 4px solid #00ff41;
+ background: #020202;
+ margin: 10px auto;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ image-rendering: pixelated;
+ overflow: hidden;
+ padding: 6px;
+ }
+
+ .preview-frame canvas {
+ width: 100%;
+ max-width: 300px;
+ height: auto;
+ display: block;
+ image-rendering: pixelated;
+ }
+
+ .status-line {
+ font-size: 13px; min-height: 18px; text-align: center;
+ margin: 6px 0; color: #00cc00;
+ }
+
+ .btn {
+ font-size: 15px; color: #00ff00; background: transparent;
+ border: 2px solid #00ff00; padding: 4px 12px;
+ text-decoration: none; margin: 2px 3px; display: inline-block;
+ cursor: pointer; font-family: inherit;
+ }
+
+ .btn:hover { background: #003300; color: #ffff00; border-color: #ffff00; }
+ .small-btn { padding: 3px 8px; font-size: 13px; }
+
+ .disclaimer {
+ margin: 14px auto; padding: 10px 12px;
+ border: 2px solid #ffff00; background: rgba(40,30,0,0.35);
+ font-size: 12px; line-height: 1.28; text-align: left;
+ }
+
+ .disclaimer-title {
+ color: #ffff00; margin-bottom: 4px;
+ letter-spacing: 1px; text-align: center; font-size: 13px;
+ }
+
+ .buttons { text-align: center; margin-top: 24px; }
+ .footer { margin-top: 20px; font-size: 13px; color: #00aa00; text-align: center; letter-spacing: 1px; }
+
+ #helpModal {
+ position: fixed; top: 50%; left: 50%;
+ transform: translate(-50%, -50%);
+ width: 90%; max-width: 760px;
+ background: #001100; border: 6px solid #00ff00;
+ padding: 20px; display: none; z-index: 100;
+ max-height: 90vh; overflow-y: auto;
+ }
+ </style>
+</head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+ <div class="header">DOSWAPZ // MINT</div>
+
+ <div class="content">
+ <div class="mint-panel">
+ <div class="panel-title">DOSWAPZ PIXEL MATH MINT <span class="live-badge" style="color:#00ff00;border-color:#00ff00;">LIVE</span></div>
+ <div style="font-size:12px; color:#00cc00; margin-bottom:6px;">
+ 32×32 ON-CHAIN * ETHEREUM * 10,000 TOTAL * 0.001 ETH * MAX 15/WALLET
+ </div>
+ <div id="liveBlock" style="font-size:12px; color:#00aa00; margin-bottom:8px;">
+ LIVE BLOCK: 00000000 * ENTROPY: 00000000
+ </div>
+
+ <div class="preview-frame">
+ <canvas id="canvas"></canvas>
+ </div>
+
+ <div id="styleLine" style="font-size:12px; color:#ffff00; margin:4px 0;">STYLE: - </div>
+
+ <div style="margin:8px 0;">
+ <input id="seedInput" type="text" placeholder="SEED or WALLET"
+ style="width:100%; max-width:220px; background:#000; border:2px solid #00ff00; color:#00ff00; padding:4px; font-family:inherit; font-size:14px;">
+ </div>
+
+ <div style="margin:6px 0;">
+ <button onclick="refreshLiveBlock()" class="btn small-btn">REFRESH</button>
+ <button onclick="generatePreview()" class="btn small-btn">GEN</button>
+ <button onclick="randomSeed()" class="btn small-btn">RAND</button>
+ </div>
+
+ <div style="margin:6px 0; font-size:13px;">
+ QTY:
+ <button onclick="adjustQty(-1)" class="btn small-btn">-</button>
+ <input id="mintQty" type="number" value="1" min="1" max="15"
+ style="width:36px; background:#000; border:1px solid #00ff00; color:#00ff00; text-align:center; font-family:inherit;">
+ <button onclick="adjustQty(1)" class="btn small-btn">+</button>
+ <span id="mintCost" style="color:#ffff00; margin-left:6px;">0.001 ETH</span>
+ </div>
+
+ <div id="status" class="status-line">CONNECT WALLET TO MINT - OR USE GEN/RAND TO PREVIEW</div>
+
+ <div style="margin:8px 0;">
+ <button onclick="connectWallet()" id="connectBtn" class="btn small-btn">CONNECT</button>
+ <button onclick="disconnectWallet()" id="disconnectBtn" class="btn small-btn" style="display:none;">DISCONNECT</button>
+ <button onclick="mintNow()" id="mintBtn" class="btn small-btn" style="display:none;">MINT</button>
+ </div>
+
+ <div id="walletInfo" style="font-size:11px; color:#00cc00; margin-top:4px;"></div>
+
+ <div style="margin:4px 0;">
+ <button onclick="showHelp()" class="btn small-btn">SHOW CALCULATIONS</button>
+
+ </div>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">WALLET SAFETY - MATH MINT</div>
+ Connect MetaMask / Coinbase Wallet / any EIP-1193 provider. Wallet auto-disconnects after each confirmed mint - reconnect to mint again. Verify recipient on Etherscan before sending ETH.
+ </div>
+ </div>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">VERIFICATION DIRECTIVE - READ AND COMPLY</div>
+ Live mint. Connecting a real Ethereum wallet and hitting MINT moves ETH to the published recipient.<br>
+ Wallet disconnects automatically after each confirmed mint. Reconnect if you want to mint again.<br>
+ DOSWAPZ accepts NO responsibility for loss of funds. Do your own research.
+ </div>
+
+ <div class="buttons">
+ <a href="/classic/hub.html" class="btn"><- BACK TO MENU</a>
+ <a href="/classic/pages/doswapz/gallery.html" class="btn">VIEW GALLERY</a>
+ </div>
+
+ <div class="footer">DOSWAPZ - PIXEL MATH MINT * LIVE * ETHEREUM</div>
+ </div>
+
+ <div class="glitch-layer" id="glitchLayer"></div>
+
+ </div>
+
+ <div id="helpModal">
+ <span onclick="hideHelp()" style="float:right; font-size:36px; cursor:pointer;">×</span>
+ <h1 style="text-align:center; margin-bottom:20px;">DOSWAPZ PIXEL MINT - TRANSPARENT MATH</h1>
+ <p><strong>Blockchain:</strong> Ethereum Mainnet * <strong>Supply:</strong> 10,000 * <strong>Price:</strong> 0.001 ETH * <strong>Max:</strong> 15/wallet</p>
+ <p><strong>Mint funds recipient:</strong> <code id="mintRecipientHelp"> - </code></p>
+ <h2>RARITY TIERS</h2>
+ <p>Chaos 24% * Organic 17% * Bio 13% * Crystal 9% * Fractal 6% * Growth 3% * Plasma 6% * Strange 5% * Moire 3% * Glitch 3% * Warp 5% * Clifford 6%</p>
+ <h2>COSMIC RESONANCE (≈4 ONE-OF-ONES)</h2>
+ <p><code>hash(seed) % 2500 == 0</code> -> stacked chaos + plasma + domain warp + strange + clifford + julia + glitch raster.</p>
+ <h2>MATH EQUATIONS</h2>
+ <pre style="font-size:14px;" id="formulaList">Loading formulas...</pre>
+ <div style="text-align:center; margin-top:20px;">
+ <button onclick="hideHelp()" class="btn">CLOSE</button>
+ </div>
+ </div>
+
+ <script src="/assets/js/config/mint-config.js"></script>
+ <script src="/assets/js/mint/math-mint.js"></script>
+ <script>
+ var MINT_CFG = window.DOSWAPZ_MINT_CONFIG || {};
+ var MINT_RECIPIENT = MINT_CFG.recipient || '0x5be58476DF379BAdc88b552F603db227C0D95bac';
+ var MINT_PRICE = MINT_CFG.priceEth || 0.001;
+ var MINT_MAX = MINT_CFG.maxPerWallet || 15;
+ var MINT_CHAIN_ID = 1;
+ var provider = null;
+ var signer = null;
+ var connectedAddress = null;
+ var mintInFlight = false;
+ var lastResult = null;
+
+ function $(id) { return document.getElementById(id); }
+
+ function setStatus(msg, color) {
+ $('status').textContent = msg;
+ if (color) $('status').style.color = color;
+ }
+
+ function updateCost() {
+ var qty = Math.max(1, Math.min(MINT_MAX, parseInt($('mintQty').value) || 1));
+ $('mintQty').value = qty;
+ $('mintCost').textContent = (qty * MINT_PRICE).toFixed(3) + ' ETH';
+ }
+
+ function adjustQty(delta) {
+ $('mintQty').value = Math.max(1, Math.min(MINT_MAX, (parseInt($('mintQty').value) || 1) + delta));
+ updateCost();
+ }
+
+ function updateWalletUi() {
+ var connected = !!connectedAddress;
+ $('connectBtn').style.display = connected ? 'none' : 'inline-block';
+ $('disconnectBtn').style.display = connected ? 'inline-block' : 'none';
+ $('mintBtn').style.display = connected ? 'inline-block' : 'none';
+ $('connectBtn').disabled = mintInFlight;
+ $('disconnectBtn').disabled = mintInFlight;
+ $('mintBtn').disabled = mintInFlight;
+ }
+
+ function setMintBusy(busy) {
+ mintInFlight = !!busy;
+ updateWalletUi();
+ }
+
+ async function assertMainnet() {
+ var net = await provider.getNetwork();
+ if (net.chainId !== MINT_CHAIN_ID) {
+ throw new Error('Switch wallet to Ethereum Mainnet (chain ID 1) before minting.');
+ }
+ }
+
+ function refreshLiveBlock() {
+ var seed = $('seedInput').value.trim() || String(Date.now());
+ var result = DOSWAPZ_MATH.generate(seed);
+ $('liveBlock').textContent = 'LIVE BLOCK: ' + result.block + ' * ENTROPY: ' + result.entropy;
+ return result;
+ }
+
+ function generatePreview() {
+ var seed = $('seedInput').value.trim() || connectedAddress || String(Date.now());
+ lastResult = DOSWAPZ_MATH.drawTo($('canvas'), seed, { voxels: true, voxelSize: 8 });
+ $('liveBlock').textContent = 'LIVE BLOCK: ' + lastResult.block + ' * ENTROPY: ' + lastResult.entropy;
+ $('styleLine').textContent = 'STYLE: ' + lastResult.label + (lastResult.cosmic ? ' * 1/1 COSMIC' : '');
+ setStatus('PREVIEW GENERATED - ' + lastResult.label);
+ }
+
+ function randomSeed() {
+ $('seedInput').value = 'RAND-' + Math.random().toString(36).slice(2, 10).toUpperCase();
+ generatePreview();
+ }
+
+ function populateFormulaList() {
+ var el = $('formulaList');
+ if (!el || !window.DOSWAPZ_MATH || !DOSWAPZ_MATH.FORMULAS) return;
+ var order = ['chaos', 'organic', 'bio', 'voronoi', 'julia', 'lsystem', 'plasma', 'strange', 'moire', 'glitch', 'warp', 'clifford', 'cosmic'];
+ el.textContent = order.map(function (k) {
+ return DOSWAPZ_MATH.styleLabel(k) + ': ' + DOSWAPZ_MATH.FORMULAS[k];
+ }).join('\n');
+ }
+
+ async function connectWallet() {
+ if (typeof ethers === 'undefined') {
+ setStatus('Mint library failed to load. Refresh the page.', '#ff5555');
+ return;
+ }
+ if (!window.ethereum) {
+ setStatus('No Ethereum wallet detected. Install MetaMask or Coinbase Wallet.', '#ff5555');
+ return;
+ }
+ try {
+ provider = new ethers.providers.Web3Provider(window.ethereum);
+ await provider.send('eth_requestAccounts', []);
+ await assertMainnet();
+ signer = provider.getSigner();
+ connectedAddress = await signer.getAddress();
+ var bal = await provider.getBalance(connectedAddress);
+ $('walletInfo').textContent = connectedAddress.slice(0, 6) + '...' + connectedAddress.slice(-4) +
+ ' * BAL: ' + parseFloat(ethers.utils.formatEther(bal)).toFixed(4) + ' ETH';
+ updateWalletUi();
+ if (!$('seedInput').value.trim()) $('seedInput').value = connectedAddress;
+ generatePreview();
+ setStatus('WALLET CONNECTED - READY TO MINT', '#ffff00');
+ } catch (err) {
+ disconnectWallet();
+ setStatus('Connect failed: ' + (err.message || err), '#ff5555');
+ }
+ }
+
+ function disconnectWallet() {
+ provider = null;
+ signer = null;
+ connectedAddress = null;
+ $('walletInfo').textContent = '';
+ updateWalletUi();
+ }
+
+ async function mintNow() {
+ if (mintInFlight) return;
+ if (!signer || !connectedAddress) {
+ setStatus('Connect wallet first.', '#ff5555');
+ return;
+ }
+ var qty = Math.max(1, Math.min(MINT_MAX, parseInt($('mintQty').value) || 1));
+ $('mintQty').value = qty;
+ var total = (qty * MINT_PRICE).toFixed(6);
+ var minter = connectedAddress;
+ setMintBusy(true);
+ setStatus('Preparing mint tx for ' + qty + ' token(s)...', '#ffff00');
+ try {
+ await assertMainnet();
+ var tx = await signer.sendTransaction({
+ to: MINT_RECIPIENT,
+ value: ethers.utils.parseEther(total)
+ });
+ setStatus('TX SENT - ' + tx.hash.slice(0, 10) + '... waiting for confirmation...', '#ffff00');
+ await tx.wait();
+ for (var i = 0; i < qty; i++) {
+ var seed = minter + '-' + Date.now() + '-' + i;
+ var result = DOSWAPZ_MATH.generate(seed);
+ DOSWAPZ_MATH.saveMint(result, minter);
+ }
+ generatePreview();
+ disconnectWallet();
+ setStatus(
+ 'MINT SUCCESS - ' + qty + ' recorded to gallery. Wallet disconnected for safety. Reconnect if you want to mint again.',
+ '#00ff00'
+ );
+ } catch (err) {
+ setStatus('Mint failed: ' + (err.message || err), '#ff5555');
+ } finally {
+ setMintBusy(false);
+ }
+ }
+
+ function showHelp() {
+ populateFormulaList();
+ var recip = $('mintRecipientHelp');
+ if (recip) recip.textContent = MINT_RECIPIENT;
+ $('helpModal').style.display = 'block';
+ }
+ function hideHelp() { $('helpModal').style.display = 'none'; }
+
+ updateWalletUi();
+ updateCost();
+ populateFormulaList();
+ generatePreview();
+ </script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.content, #content' });
+ </script>
+ <div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+<script src="/assets/js/core/price-ticker.js"></script>
+ </body>
+</html>

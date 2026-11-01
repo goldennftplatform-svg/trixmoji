@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quantum Trader — Dashboard</title>
+<style>
+:root{--bg:#080b10;--panel:#10151d;--panel2:#151b24;--line:#252d39;--text:#eef2f7;--muted:#8e9aaa;--green:#35d07f;--red:#ff5c6c;--yellow:#f4c95d;--blue:#62a8ff}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#07090d,#0c1118);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}
+.wrap{max-width:1500px;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:18px}.brand h1{margin:0;font-size:25px}.brand p{margin:5px 0 0;color:var(--muted);font-size:13px}.status{padding:9px 13px;border:1px solid var(--line);border-radius:10px;background:var(--panel);font-weight:700;font-size:13px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--yellow);margin-right:7px}.running .dot{background:var(--green)}.offline .dot{background:var(--red)}
+.cards{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:14px}.card,.panel{background:rgba(16,21,29,.94);border:1px solid var(--line);border-radius:13px;box-shadow:0 10px 30px rgba(0,0,0,.16)}.card{padding:15px}.label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.value{font-size:23px;font-weight:800;margin-top:7px}.sub{color:var(--muted);font-size:11px;margin-top:5px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.panel{padding:15px;overflow:hidden}.panel h2{font-size:15px;margin:0 0 12px}.wide{grid-column:1/-1}
+table{width:100%;border-collapse:collapse;font-size:12px}th{text-align:left;color:var(--muted);font-weight:600;border-bottom:1px solid var(--line);padding:8px 7px}td{padding:8px 7px;border-bottom:1px solid rgba(37,45,57,.6);white-space:nowrap}tbody tr:hover{background:rgba(255,255,255,.025)}
+.green{color:var(--green)}.red{color:var(--red)}.yellow{color:var(--yellow)}.blue{color:var(--blue)}.muted{color:var(--muted)}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.badge{padding:3px 7px;border-radius:7px;background:var(--panel2);border:1px solid var(--line);font-size:10px}
+.footer{color:var(--muted);font-size:11px;margin-top:12px;text-align:right}
+@media(max-width:1100px){.cards{grid-template-columns:repeat(3,1fr)}}@media(max-width:750px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}.cards{grid-template-columns:repeat(2,1fr)}.wrap{padding:12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><h1>⚡ QUANTUM TRADER</h1><p>Solana swing bot — live monitoring dashboard</p></div>
+    <div id="status" class="status"><span class="dot"></span>CONNECTING</div>
+  </div>
+
+  <div class="cards">
+    <div class="card"><div class="label">Bot P/L Today</div><div id="pnl" class="value">—</div><div class="sub" id="day">—</div></div>
+    <div class="card"><div class="label">Open Positions</div><div id="open" class="value">—</div><div class="sub">from saved state</div></div>
+    <div class="card"><div class="label">Candidates</div><div id="candidates" class="value">—</div><div class="sub">cached / ranked</div></div>
+    <div class="card"><div class="label">Consecutive Losses</div><div id="losses" class="value">—</div><div class="sub">circuit breaker</div></div>
+    <div class="card"><div class="label">Buys / Sells</div><div id="bs" class="value">—</div><div class="sub">recent log</div></div>
+    <div class="card"><div class="label">Errors</div><div id="errors" class="value">—</div><div class="sub">recent log</div></div>
+  </div>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>Open Positions</h2>
+      <table><thead><tr><th>Token</th><th>Entry</th><th>Now</th><th>P/L</th><th>Score</th><th>Age</th></tr></thead><tbody id="positions"></tbody></table>
+    </section>
+
+    <section class="panel">
+      <h2>Top Signals / Candidates</h2>
+      <table><thead><tr><th>Token</th><th>Score</th><th>5m</th><th>1h</th><th>Liquidity</th><th>Vol 1h</th></tr></thead><tbody id="candidatesTable"></tbody></table>
+    </section>
+
+    <section class="panel wide">
+      <h2>Trade & System Log</h2>
+      <table><thead><tr><th>Time</th><th>Side</th><th>Token</th><th>Reason / Detail</th><th>P/L</th><th>Signature</th></tr></thead><tbody id="trades"></tbody></table>
+    </section>
+  </div>
+  <div class="footer">Auto-refresh: 3 seconds · Dashboard binds to localhost only · Never exposes your private key</div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const fmtUsd=x=>'$'+Number(x||0).toFixed(2);
+const pct=x=>(Number(x||0)>=0?'+':'')+Number(x||0).toFixed(2)+'%';
+const cls=x=>Number(x||0)>=0?'green':'red';
+const short=x=>x?String(x).slice(0,8)+'…'+String(x).slice(-6):'—';
+function age(ms){let m=Math.max(0,(Date.now()-Number(ms))/60000);if(m<1)return '<1m';if(m<60)return Math.floor(m)+'m';return Math.floor(m/60)+'h '+Math.floor(m%60)+'m'}
+function rowEmpty(cols,msg='No data'){return `<tr><td colspan="${cols}" class="muted">${msg}</td></tr>`}
+
+async function refresh(){
+  try{
+    const d=await fetch('/api/state?x='+Date.now()).then(r=>r.json());
+    const b=d.bot;
+    $('status').className='status '+(b.status==='RUNNING'?'running':b.status==='OFFLINE'?'offline':'');
+    $('status').innerHTML=`<span class="dot"></span>${b.status} · state ${b.stateAgeSec==null?'—':b.stateAgeSec.toFixed(0)+'s ago'}`;
+    $('pnl').textContent=fmtUsd(b.dayPnl); $('pnl').className='value '+cls(b.dayPnl);
+    $('day').textContent='Day: '+(b.dayStart||'—');
+    $('open').textContent=b.openPositions;
+    $('candidates').textContent=b.candidateCount;
+    $('losses').textContent=b.consecutiveLosses;
+    $('bs').textContent=b.buys+' / '+b.sells;
+    $('errors').textContent=b.errors;
+
+    $('positions').innerHTML=b.positions.length?b.positions.map(p=>`<tr>
+      <td><b>${p.symbol||'?'}</b></td><td>${Number(p.entryPrice||0).toFixed(8)}</td><td>${Number(p.currentPrice||0).toFixed(8)}</td>
+      <td class="${cls(p.pnlPct)}">${pct(p.pnlPct)}</td><td>${Number(p.score||0).toFixed(1)}</td><td>${age(p.opened)}</td>
+    </tr>`).join(''):rowEmpty(6,'No open positions');
+
+    $('candidatesTable').innerHTML=d.candidates.length?d.candidates.slice(0,20).map(c=>`<tr>
+      <td><b>${c.symbol||'?'}</b></td><td>${Number(c.score||0).toFixed(1)}</td>
+      <td class="${cls(c.change5m)}">${pct(c.change5m)}</td><td class="${cls(c.change1h)}">${pct(c.change1h)}</td>
+      <td>${fmtUsd(c.liquidity).replace('.00','')}</td><td>${fmtUsd(c.volume1h).replace('.00','')}</td>
+    </tr>`).join(''):rowEmpty(6);
+
+    $('trades').innerHTML=d.trades.length?d.trades.slice(0,40).map(t=>{
+      const side=t.side||'SYSTEM';
+      const detail=t.reason||t.error||(t.signal?`rebound ${Number(t.signal.rebound||0).toFixed(2)}%`:'');
+      const pnl=t.estimatedPnl;
+      return `<tr><td class="mono">${t.time?new Date(t.time).toLocaleTimeString():'—'}</td>
+      <td class="${side==='BUY'?'green':side==='SELL'?'red':'yellow'}"><b>${side}</b></td>
+      <td>${t.symbol||'—'}</td><td>${detail||'—'}</td><td class="${cls(pnl)}">${pnl==null?'—':fmtUsd(pnl)}</td>
+      <td class="mono">${short(t.signature)}</td></tr>`
+    }).join(''):rowEmpty(6);
+  }catch(e){
+    $('status').className='status offline'; $('status').innerHTML='<span class="dot"></span>DISCONNECTED';
+  }
+}
+refresh();setInterval(refresh,3000);
+</script>
+</body>
+</html>

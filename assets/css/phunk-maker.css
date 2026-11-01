@@ -1,0 +1,243 @@
+/* Phunk Lab - shared classic + orbit */
+
+.tool-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.tool-btn .tool-icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.tool-btn .tool-icon path,
+.tool-btn .tool-icon rect,
+.tool-btn .tool-icon circle,
+.tool-btn .tool-icon line,
+.tool-btn .tool-icon polyline {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.75;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+.tool-btn .tool-icon .fill-shape {
+  fill: currentColor;
+  stroke: none;
+}
+
+.canvas-wrap {
+  position: relative;
+  width: min(432px, 100%);
+  max-width: 432px;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+}
+
+#phunkCanvas,
+#phunkGrid {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none;
+  display: block;
+  image-rendering: pixelated;
+}
+
+#phunkGrid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+#phunkHover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  border: 2px solid #ff66cc;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+  pointer-events: none;
+  display: none;
+  z-index: 3;
+  image-rendering: pixelated;
+}
+
+.phunk-inscribe-panel {
+ margin-top: 14px;
+ padding: 12px;
+ border: 2px solid #ffcc00;
+ background: rgba(30, 20, 0, 0.35);
+}
+
+.phunk-inscribe-panel .section-label {
+ color: #ffcc00;
+}
+
+.phunk-inscribe-actions {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 8px;
+ margin: 8px 0;
+}
+
+.btn-inscribe {
+ border-color: #ffcc00 !important;
+ color: #ffcc00 !important;
+}
+
+.btn-inscribe:hover {
+ background: #332200 !important;
+ border-color: #ffff66 !important;
+ color: #ffff66 !important;
+}
+
+#inscribeStatus {
+ font-size: 14px;
+ color: #cc88ff;
+ letter-spacing: 1px;
+ margin: 6px 0;
+ line-height: 1.35;
+}
+
+#inscribeRecipientInfo {
+ font-size: 13px;
+ color: #aa8844;
+ margin: 4px 0 8px;
+ line-height: 1.35;
+}
+
+.phunk-inscribe-modal-overlay {
+ position: fixed;
+ inset: 0;
+ z-index: 9999;
+ background: rgba(0, 0, 0, 0.82);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ padding: 16px;
+}
+
+.phunk-inscribe-modal {
+ width: min(520px, 96vw);
+ max-height: 90vh;
+ overflow: auto;
+ background: #120a00;
+ border: 2px solid #ffcc00;
+ padding: 16px 18px 18px;
+ color: #ffeebb;
+ font-family: VT323, Consolas, monospace;
+ font-size: 16px;
+ line-height: 1.45;
+}
+
+.phunk-inscribe-modal h3 {
+ margin: 0 0 10px;
+ color: #ffcc00;
+ letter-spacing: 0.12em;
+ font-size: 22px;
+}
+
+.phunk-inscribe-modal label {
+ display: block;
+ margin: 10px 0 4px;
+ color: #ccaa66;
+ font-size: 14px;
+}
+
+.phunk-inscribe-modal input,
+.phunk-inscribe-modal textarea {
+ width: 100%;
+ box-sizing: border-box;
+ background: #000;
+ border: 1px solid #665522;
+ color: #ffffcc;
+ font: 13px/1.35 Consolas, monospace;
+ padding: 8px;
+}
+
+.phunk-inscribe-modal-note {
+ font-size: 14px;
+ color: #aa8866;
+ margin: 10px 0;
+}
+
+.phunk-inscribe-modal-actions {
+ display: flex;
+ gap: 8px;
+ flex-wrap: wrap;
+ margin-top: 12px;
+}
+
+#inscribeWalletInfo {
+ font-size: 13px;
+ color: #00cc66;
+ margin-bottom: 6px;
+}
+
+.phunk-disclaimer {
+ margin-top: 10px;
+ padding: 10px;
+ border: 2px solid #ff6666;
+ background: rgba(40, 0, 0, 0.28);
+ font-size: 13px;
+ line-height: 1.4;
+ color: #ddaaaa;
+}
+
+.phunk-disclaimer-title {
+ color: #ff8888;
+ text-align: center;
+ letter-spacing: 2px;
+ margin-bottom: 6px;
+ font-size: 14px;
+}
+
+.phunk-stamp-sample {
+ margin-top: 12px;
+ padding: 10px;
+ border: 2px dashed rgba(255, 102, 204, 0.45);
+ background: rgba(0, 0, 0, 0.35);
+ text-align: center;
+}
+
+.phunk-stamp-sample .section-label {
+ margin-bottom: 8px;
+}
+
+#phunkStampSample {
+ width: 144px;
+ height: 144px;
+ image-rendering: pixelated;
+ border: 2px solid #9944ff;
+ background: #0a0a12;
+}
+
+.phunk-stamp-caption {
+ margin-top: 8px;
+ font-size: 13px;
+ color: #8866aa;
+ letter-spacing: 1px;
+ line-height: 1.35;
+}
+
+#phunkPreview.stamped-live {
+ outline: 2px solid #ffcc00;
+ outline-offset: 2px;
+}
+
+body.orbit-void-inner .phunk-inscribe-panel {
+ border-color: rgba(255, 204, 0, 0.55);
+ background: rgba(10, 8, 0, 0.45);
+}
+
+body.orbit-void-inner .phunk-disclaimer {
+ border-color: rgba(255, 100, 100, 0.5);
+}

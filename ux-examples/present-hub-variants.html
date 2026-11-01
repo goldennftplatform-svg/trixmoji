@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // PRESENT HUB VARIANTS - pick one</title>
+ <meta name="robots" content="noindex">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ html, body {
+ min-height: 100%;
+ background: #07070c;
+ color: #e8ecff;
+ font-family: 'Inter', system-ui, sans-serif;
+ }
+ .wrap { max-width: 1180px; margin: 0 auto; padding: 22px 16px 72px; }
+ h1 {
+ font-family: 'Space Grotesk', sans-serif;
+ font-weight: 600;
+ font-size: clamp(26px, 5vw, 40px);
+ letter-spacing: -0.02em;
+ margin-bottom: 8px;
+ }
+ .lead {
+ color: #8b93b8;
+ font-size: 15px;
+ line-height: 1.55;
+ max-width: 40rem;
+ margin-bottom: 18px;
+ }
+ .lead strong { color: #c8d4ff; font-weight: 500; }
+ .toc {
+ display: flex; flex-wrap: wrap; gap: 8px;
+ margin-bottom: 24px;
+ }
+ .toc a {
+ font-size: 12px;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ text-decoration: none;
+ color: #aab4e0;
+ border: 1px solid rgba(140,160,255,0.25);
+ background: rgba(18,20,36,0.8);
+ padding: 8px 12px;
+ border-radius: 999px;
+ }
+ .toc a:hover { color: #fff; border-color: rgba(160,180,255,0.5); }
+ .toc a.live { color: #88ffe0; border-color: rgba(100,255,210,0.35); }
+ .grid {
+ display: grid;
+ grid-template-columns: 1fr;
+ gap: 22px;
+ }
+ @media (min-width: 960px) {
+ .grid { grid-template-columns: 1fr 1fr; }
+ .card.full { grid-column: 1 / -1; }
+ }
+ .card {
+ border: 1px solid rgba(140,160,255,0.16);
+ background: rgba(12,14,24,0.9);
+ border-radius: 16px;
+ overflow: hidden;
+ }
+ .card-head {
+ display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px;
+ padding: 12px 14px;
+ border-bottom: 1px solid rgba(140,160,255,0.12);
+ background: rgba(255,255,255,0.02);
+ }
+ .card-head .tag {
+ font-family: 'Space Grotesk', sans-serif;
+ font-weight: 600;
+ font-size: 13px;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: #c8d4ff;
+ }
+ .card-head .meta { font-size: 12px; color: #6e7699; }
+ .card-head a {
+ font-size: 11px;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ color: #88ffe0;
+ text-decoration: none;
+ }
+ iframe {
+ display: block;
+ width: 100%;
+ height: 480px;
+ border: 0;
+ background: #000;
+ }
+ .card.full iframe { height: 560px; }
+ .pick {
+ padding: 12px 14px;
+ font-size: 13px;
+ color: #8b93b8;
+ line-height: 1.5;
+ border-top: 1px solid rgba(140,160,255,0.1);
+ }
+ .pick em { color: #e8ecff; font-style: normal; font-weight: 500; }
+ .note {
+ margin-bottom: 20px;
+ padding: 12px 14px;
+ border-radius: 12px;
+ border: 1px solid rgba(255,200,100,0.25);
+ background: rgba(255,180,60,0.06);
+ color: #d4c4a0;
+ font-size: 13px;
+ line-height: 1.5;
+ }
+ </style>
+</head>
+<body>
+ <div class="wrap">
+ <h1>Present hub — style variants</h1>
+ <p class="lead">
+ Local previews only. Compare directions for the <strong>PRESENT</strong> hub
+ (not Past CRT, not Future pearl). Reply with a letter like <strong>“B”</strong> or <strong>“keep A, bolder title”</strong>.
+ </p>
+ <div class="note">
+ Nothing here deploys live until you pick. A is your current live Present hub (floating icons + modern fonts).
+ </div>
+ <nav class="toc">
+ <a href="#a">A Current</a>
+ <a href="#b">B Glass grid</a>
+ <a href="#c">C Minimal constellation</a>
+ <a href="#d">D Zone panels</a>
+ <a href="#e">E Soft dock</a>
+ <a href="#f">F Neon radar</a>
+ <a href="#radar">RADAR full</a>
+ <a class="live" href="/orbit/hub.html" target="_blank">Open live Present ↗</a>
+ </nav>
+
+ <div class="grid">
+ <article class="card full" id="a">
+ <div class="card-head">
+ <span class="tag">A · Current Present</span>
+ <span class="meta">floating icons · Space Grotesk / Inter</span>
+ <a href="/orbit/hub.html" target="_blank">Open full →</a>
+ </div>
+ <iframe src="/orbit/hub.html" title="Present hub A current" loading="lazy"></iframe>
+ <div class="pick">What you have now: void field, floating destination icons, timeline rail. <em>Baseline.</em></div>
+ </article>
+
+ <article class="card" id="b">
+ <div class="card-head">
+ <span class="tag">B · Glass grid</span>
+ <span class="meta">app cards · scannable</span>
+ <a href="/ux-examples/present-b-glass.html" target="_blank">Open full →</a>
+ </div>
+ <iframe src="/ux-examples/present-b-glass.html" title="Present B glass" loading="lazy"></iframe>
+ <div class="pick">Modern product grid. Clear sections. Feels like a real app hub.</div>
+ </article>
+
+ <article class="card" id="c">
+ <div class="card-head">
+ <span class="tag">C · Minimal constellation</span>
+ <span class="meta">fewer icons · calmer</span>
+ <a href="/ux-examples/present-c-minimal.html" target="_blank">Open full →</a>
+ </div>
+ <iframe src="/ux-examples/present-c-minimal.html" title="Present C minimal" loading="lazy"></iframe>
+ <div class="pick">Only the main destinations. Big title, lots of air. Less noise.</div>
+ </article>
+
+ <article class="card" id="d">
+ <div class="card-head">
+ <span class="tag">D · Zone panels</span>
+ <span class="meta">trade / play / explore</span>
+ <a href="/ux-examples/present-d-zones.html" target="_blank">Open full →</a>
+ </div>
+ <iframe src="/ux-examples/present-d-zones.html" title="Present D zones" loading="lazy"></iframe>
+ <div class="pick">Three big zones. Fast mental model: money, games, culture.</div>
+ </article>
+
+ <article class="card" id="e">
+ <div class="card-head">
+ <span class="tag">E · Soft dock</span>
+ <span class="meta">phone-first · dock nav</span>
+ <a href="/ux-examples/present-e-dock.html" target="_blank">Open full →</a>
+ </div>
+ <iframe src="/ux-examples/present-e-dock.html" title="Present E dock" loading="lazy"></iframe>
+ <div class="pick">Hero center + bottom dock like a modern mobile OS. Super clear on phone.</div>
+ </article>
+
+ <article class="card" id="f">
+ <div class="card-head">
+ <span class="tag">F · Neon radar (mini)</span>
+ <span class="meta">few icons · sketch</span>
+ <a href="/ux-examples/present-f-radar.html" target="_blank">Open full →</a>
+ </div>
+ <iframe src="/ux-examples/present-f-radar.html" title="Present F radar" loading="lazy"></iframe>
+ <div class="pick">Small radar sketch. Prefer the full version below.</div>
+ </article>
+
+ <article class="card full" id="radar">
+ <div class="card-head">
+ <span class="tag">RADAR · full (all icons)</span>
+ <span class="meta">sweep · 3 rings · every contact</span>
+ <a href="/ux-examples/present-radar.html" target="_blank">Open full →</a>
+ </div>
+ <iframe src="/ux-examples/present-radar.html" title="Present radar full" loading="lazy"></iframe>
+ <div class="pick">Expanded radar: outer + mid + inner blips, sweep ping, all destinations live. <em>Say “make radar present” to ship it.</em></div>
+ </article>
+ </div>
+ </div>
+</body>
+</html>
+

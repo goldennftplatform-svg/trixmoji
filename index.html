@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+ <title>DOSWAPZ - DEGEN OPTIMIZED SOVEREIGN WARFARE AGAINST PUMPZ</title>
+ <meta name="description" content="DEGEN OPTIMIZED SOVEREIGN WARFARE AGAINST PUMPZ. 0% Solana swaps, meme games, basement markets. Self-custody. DYOR. Never risk funds you cannot afford to lose.">
+ <meta property="og:title" content="DOSWAPZ - DEGEN OPTIMIZED SOVEREIGN WARFARE AGAINST PUMPZ">
+ <meta property="og:description" content="DEGEN OPTIMIZED SOVEREIGN WARFARE AGAINST PUMPZ. 0% Solana swaps * meme games * self-custody. DYOR.">
+ <meta property="og:image" content="https://doswapz.com/assets/images/og-x-20260913.jpg">
+ <meta property="og:image:secure_url" content="https://doswapz.com/assets/images/og-x-20260913.jpg">
+ <meta property="og:image:type" content="image/jpeg">
+ <meta property="og:image:width" content="1200">
+ <meta property="og:image:height" content="630">
+ <meta property="og:image:alt" content="GLITCH PROTOCOL">
+ <meta property="og:url" content="https://doswapz.com/">
+ <meta property="og:type" content="website">
+ <meta name="twitter:card" content="summary_large_image">
+ <meta name="twitter:title" content="DOSWAPZ - DEGEN OPTIMIZED SOVEREIGN WARFARE AGAINST PUMPZ">
+ <meta name="twitter:description" content="DEGEN OPTIMIZED SOVEREIGN WARFARE AGAINST PUMPZ. 0% Solana swaps * self-custody * DYOR.">
+ <meta name="twitter:image" content="https://doswapz.com/assets/images/og-x-20260913.jpg">
+ <meta name="twitter:image:alt" content="GLITCH PROTOCOL">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='32' fill='%2300ff00' text-anchor='middle' font-weight='bold'%3EDZ%3C/text%3E%3C/svg%3E">
+ <link rel="manifest" href="/site.webmanifest">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ }
+
+ * {
+ box-sizing: border-box;
+ }
+
+ html, body {
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ height: 100%;
+ background: #000000;
+ color: #00ff00;
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ width: 100%;
+ min-height: 100%;
+ min-height: 100dvh;
+ height: 100vh;
+ height: 100dvh;
+ background: #000000;
+ color: #00ff00;
+ font-size: 28px;
+ line-height: 1.15;
+ /* DO NOT use white-space:pre here - breaks centering of slogan + CTAs */
+ white-space: normal;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ padding:
+ max(12px, env(safe-area-inset-top, 0px))
+ max(12px, env(safe-area-inset-right, 0px))
+ max(72px, calc(56px + env(safe-area-inset-bottom, 0px)))
+ max(12px, env(safe-area-inset-left, 0px));
+ box-sizing: border-box;
+ }
+
+ /* Subtle phosphor + very light scanlines for old monitor feel */
+ .dos-screen::before {
+ content: '';
+ position: absolute;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.035) 3px,
+ rgba(0, 255, 0, 0.035) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ /* True centered stack: title -> slogan -> 3 boxes -> enter here */
+ .content {
+ position: relative;
+ left: auto;
+ top: auto;
+ transform: none;
+ width: min(100%, 40rem);
+ max-width: 100%;
+ margin: 0 auto;
+ padding: 0 8px;
+ text-align: center;
+ z-index: 10;
+ pointer-events: none;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ }
+
+ .doswap {
+ font-size: clamp(52px, 12vw, 92px);
+ letter-spacing: 0.12em;
+ /* optical center: letter-spacing adds trailing space */
+ padding-left: 0.12em;
+ text-shadow:
+ 0 0 4px #00ff00,
+ 0 0 12px #00aa00;
+ line-height: 1;
+ margin: 0 0 14px;
+ user-select: none;
+ width: 100%;
+ text-align: center;
+ }
+
+ .doswap .color-letter {
+ display: inline-block;
+ text-shadow: 0 0 8px currentColor, 0 0 16px currentColor;
+ }
+
+ .splash-tag {
+ margin: 0 auto 18px;
+ width: 100%;
+ max-width: 36rem;
+ font-size: clamp(15px, 3.8vw, 24px);
+ line-height: 1.3;
+ letter-spacing: 0.06em;
+ color: #ffff00;
+ pointer-events: none;
+ user-select: none;
+ text-align: center;
+ text-shadow:
+ 0 0 6px rgba(255, 255, 0, 0.45),
+ 0 0 18px rgba(255, 200, 0, 0.25);
+ }
+
+ .splash-tag b {
+ color: #ffff00;
+ font-weight: normal;
+ display: block;
+ text-align: center;
+ /* keep long slogan wrapping balanced */
+ text-wrap: balance;
+ }
+
+ /* Three equal boxes, centered under slogan */
+ .splash-cta {
+ margin: 0 auto 8px;
+ width: 100%;
+ max-width: 34rem;
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ align-items: stretch;
+ gap: 10px 12px;
+ pointer-events: auto;
+ }
+
+ .splash-cta a {
+ flex: 1 1 8.5rem;
+ max-width: 11rem;
+ font-size: clamp(14px, 3.4vw, 17px);
+ letter-spacing: 0.06em;
+ color: #ffff00;
+ text-decoration: none;
+ border: 2px solid #335500;
+ padding: 12px 14px;
+ min-height: 48px;
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+ background: rgba(0, 12, 0, 0.75);
+ -webkit-tap-highlight-color: rgba(0, 255, 65, 0.2);
+ box-shadow: 0 0 0 1px rgba(0, 255, 65, 0.08);
+ }
+
+ .splash-cta a.primary {
+ color: #00ff41;
+ border-color: #00ff41;
+ box-shadow: 0 0 12px rgba(0, 255, 65, 0.22);
+ }
+
+ .splash-cta a.swap {
+ color: #88ffcc;
+ border-color: #33aa77;
+ }
+
+ .splash-cta a:hover,
+ .splash-cta a:focus-visible {
+ color: #fff;
+ border-color: #00ff41;
+ background: #003300;
+ outline: none;
+ }
+
+ .enter-here {
+ font-size: clamp(22px, 5vw, 32px);
+ letter-spacing: 0.12em;
+ padding-left: 0.12em; /* optical center with letter-spacing */
+ color: #00dd00;
+ text-shadow: 0 0 3px #00ff00;
+ user-select: none;
+ cursor: pointer;
+ pointer-events: auto;
+ margin: 18px auto 0;
+ width: 100%;
+ text-align: center;
+ }
+
+ .enter-here .cursor {
+ display: inline-block;
+ width: 0.55em;
+ animation: blink 820ms steps(1) infinite;
+ }
+
+ @keyframes blink {
+ 50% { opacity: 0; }
+ }
+
+ .comsec {
+ position: absolute;
+ left: 50%;
+ bottom: max(14px, env(safe-area-inset-bottom, 0px));
+ transform: translateX(-50%);
+ width: min(92vw, 36rem);
+ font-size: 14px;
+ color: #00aa00;
+ letter-spacing: 0.04em;
+ text-align: center;
+ z-index: 10;
+ opacity: 0.75;
+ white-space: normal;
+ line-height: 1.25;
+ pointer-events: none;
+ padding: 0 8px;
+ }
+
+ /* Phone / narrow */
+ @media (max-width: 700px), (pointer: coarse) {
+ .dos-screen {
+ padding-bottom: max(88px, calc(72px + env(safe-area-inset-bottom, 0px)));
+ justify-content: center;
+ }
+
+ .content {
+ width: min(100%, 22rem);
+ padding: 0 4px;
+ /* nudge slightly up so comsec + compact docs don't cover enter here */
+ margin-top: -4vh;
+ }
+
+ .doswap {
+ font-size: clamp(44px, 13vw, 64px);
+ letter-spacing: 0.1em;
+ padding-left: 0.1em;
+ margin-bottom: 12px;
+ }
+
+ .splash-tag {
+ font-size: clamp(14px, 4.1vw, 18px);
+ letter-spacing: 0.04em;
+ margin-bottom: 16px;
+ max-width: 100%;
+ padding: 0 2px;
+ }
+
+ .splash-cta {
+ width: 100%;
+ max-width: 100%;
+ gap: 8px;
+ margin-bottom: 4px;
+ }
+
+ .splash-cta a {
+ flex: 1 1 calc(50% - 8px);
+ max-width: none;
+ min-height: 48px;
+ padding: 12px 10px;
+ font-size: 15px;
+ }
+
+ /* three boxes: first full width on very narrow, or all equal in a row if fit */
+ .splash-cta a.primary {
+ flex: 1 1 100%;
+ }
+
+ .enter-here {
+ font-size: 22px;
+ margin-top: 16px;
+ }
+
+ .comsec {
+ font-size: 11px;
+ bottom: max(40px, calc(36px + env(safe-area-inset-bottom, 0px)));
+ width: min(94vw, 22rem);
+ }
+ }
+
+ @media (max-width: 380px) {
+ .splash-cta a {
+ flex: 1 1 100%;
+ }
+ }
+
+ /* Prefer one row of 3 boxes when width allows */
+ @media (min-width: 480px) {
+ .splash-cta a,
+ .splash-cta a.primary {
+ flex: 1 1 0;
+ max-width: 11rem;
+ }
+ }
+
+ /* Docs compact bar is fixed - don't pad body or flex center shifts */
+ body.splash-page.has-dos-docs-footer-compact,
+ body.splash-page.has-doswapz-ticker {
+ padding-bottom: 0 !important;
+ }
+
+ body.splash-page .dos-docs-footer--compact {
+ z-index: 40;
+ }
+
+ /* Hard pixel glitch layers */
+ .glitch-layer {
+ position: absolute;
+ inset: 0;
+ pointer-events: none;
+ z-index: 20;
+ mix-blend-mode: screen;
+ }
+
+ .mosh-band {
+ position: absolute;
+ left: 0;
+ width: 100%;
+ height: 11px;
+ background: rgba(0, 255, 0, 0.18);
+ mix-blend-mode: difference;
+ pointer-events: none;
+ z-index: 25;
+ opacity: 0;
+ }
+
+ /* The single cursor shown during full shutdown */
+ .shutdown-cursor {
+ position: absolute;
+ left: 28px;
+ bottom: 38px;
+ font-size: 28px;
+ color: #00ff00;
+ z-index: 50;
+ display: none;
+ text-shadow: 0 0 4px #00ff00;
+ }
+
+ /* Classic old tube TV power-on effect */
+ .tube-power {
+ position: absolute;
+ left: 0;
+ right: 0;
+ top: 50%;
+ height: 0;
+ background: #00ff00;
+ box-shadow: 
+ 0 0 18px #00ff00,
+ 0 0 38px #00ff00,
+ 0 0 70px #00aa00;
+ z-index: 60;
+ pointer-events: none;
+ opacity: 0.95;
+ display: none;
+ }
+
+ /* Very subtle vignette for tube feel */
+ .vignette {
+ position: absolute;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 55%, rgba(0,0,0,0.55) 82%);
+ pointer-events: none;
+ z-index: 5;
+ }
+
+ /* Watery surface ripples + occasional expanding rings
+ mixed with CRT phosphor corruption. Appears randomly and fades fast. */
+ .water-ripple {
+ position: absolute;
+ left: 0;
+ width: 100%;
+ height: 1.5px;
+ background: rgba(0, 255, 195, 0.48);
+ mix-blend-mode: screen;
+ pointer-events: none;
+ z-index: 23;
+ opacity: 0.72;
+ box-shadow: 0 0 5px rgba(0, 255, 180, 0.55);
+ }
+
+ .water-ring {
+ position: absolute;
+ border: 1px solid rgba(0, 255, 205, 0.32);
+ border-radius: 50%;
+ pointer-events: none;
+ z-index: 22;
+ mix-blend-mode: screen;
+ }
+ </style>
+</head>
+<body class="splash-page" data-docs-footer="compact">
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+
+ <!-- Main content -->
+ <div class="content" id="content">
+ <div class="doswap" id="doswapText">DOSWAPZ</div>
+ <div class="splash-tag" id="splashTagline" role="doc-subtitle">
+ <b>DEGEN OPTIMIZED SOVEREIGN WARFARE AGAINST PUMPZ</b>
+ </div>
+ <div class="splash-cta" id="splashCta">
+ <a class="primary" href="/past" id="ctaEnter" data-entry="1">ENTER HUB</a>
+ <a class="swap" href="/doswapz/swap/past" id="ctaSwap">0% SWAP</a>
+ <a href="/docs/legal.html" id="ctaDocs">DOCS / LEGAL</a>
+ </div>
+ <div class="enter-here" id="enterHere">enter here<span class="cursor">|</span></div>
+ </div>
+
+ <!-- COMSEC message -->
+ <div class="comsec">
+ <strong>COMSEC / OPSEC WARNING</strong><br>Live platform. Never connect funds you cannot afford to lose.<br>Practice proper opsec. Keys never leave your machine.
+ </div>
+
+ <!-- Layers for hard glitches -->
+ <div class="glitch-layer" id="glitchLayer"></div>
+
+ <!-- Single cursor visible only during shutdown -->
+ <div class="shutdown-cursor" id="shutdownCursor">|</div>
+
+ <!-- Expanding horizontal line for old tube TV power-on -->
+ <div class="tube-power" id="tubePower"></div>
+ </div>
+
+ <script>
+ const screen = document.getElementById('screen');
+ const content = document.getElementById('content');
+ const doswapText = document.getElementById('doswapText');
+ const enterHere = document.getElementById('enterHere');
+ const glitchLayer = document.getElementById('glitchLayer');
+ const shutdownCursor = document.getElementById('shutdownCursor');
+ const tubePower = document.getElementById('tubePower');
+
+ let isShutdown = false;
+ let glitchInterval = null;
+ let shutdownTimeout = null;
+
+ const SPLASH_COLORS = ['#00ff00', '#ffff00', '#ff00ff', '#00ffff', '#ff4444', '#ff8800', '#88ff88'];
+ const TITLE = 'DOSWAPZ';
+
+ function pickColor() {
+ return SPLASH_COLORS[Math.floor(Math.random() * SPLASH_COLORS.length)];
+ }
+
+ function renderTitle(letters) {
+ doswapText.innerHTML = letters.map(ch => {
+ if (ch.color) {
+ return '<span class="color-letter" style="color:' + ch.color + '">' + ch.ch + '</span>';
+ }
+ return ch.ch || ch;
+ }).join('');
+ }
+
+ function resetTitle() {
+ if (!isShutdown) doswapText.textContent = TITLE;
+ }
+
+ // === HARD PIXEL GLITCH + MOSHDATA ENGINE ===
+
+ function createHardPixelBlock() {
+ const block = document.createElement('div');
+ block.className = 'glitch-layer';
+ block.style.background = 'transparent';
+ block.style.zIndex = '22';
+
+ const x = Math.random() * 100;
+ const y = Math.random() * 100;
+ const w = 2 + Math.random() * 7;
+ const h = 1.2 + Math.random() * 4.5;
+
+ block.style.left = x + '%';
+ block.style.top = y + '%';
+ block.style.width = w + '%';
+ block.style.height = h + '%';
+
+ const roll = Math.random();
+ if (roll < 0.38) {
+ block.style.background = '#00ff00';
+ block.style.opacity = (0.65 + Math.random() * 0.35).toString();
+ block.style.mixBlendMode = 'difference';
+ } else if (roll < 0.58) {
+ block.style.background = '#000000';
+ block.style.opacity = (0.75 + Math.random() * 0.25).toString();
+ } else {
+ block.style.background = pickColor();
+ block.style.mixBlendMode = 'screen';
+ block.style.opacity = (0.65 + Math.random() * 0.35).toString();
+ block.style.boxShadow = '0 0 6px ' + block.style.background;
+ }
+
+ if (Math.random() < 0.35) {
+ block.style.fontFamily = 'VT323, monospace';
+ block.style.fontSize = (18 + Math.random() * 14) + 'px';
+ block.style.color = pickColor();
+ block.style.lineHeight = '1';
+ block.style.whiteSpace = 'pre';
+ block.innerHTML = Array.from({length: Math.floor(h * 1.6)}, () =>
+ '#$%@&*+='.split('')[Math.floor(Math.random() * 8)]).join('<br>');
+ }
+
+ glitchLayer.appendChild(block);
+
+ setTimeout(() => {
+ block.style.transition = 'opacity 60ms linear';
+ block.style.opacity = '0';
+ setTimeout(() => block.remove(), 70);
+ }, 55 + Math.random() * 85);
+ }
+
+ function createColorFlash() {
+ if (isShutdown) return;
+ const flash = document.createElement('div');
+ const color = pickColor();
+ flash.style.position = 'absolute';
+ flash.style.left = Math.random() * 92 + '%';
+ flash.style.top = Math.random() * 88 + '%';
+ flash.style.width = (3 + Math.random() * 5) + 'px';
+ flash.style.height = (3 + Math.random() * 5) + 'px';
+ flash.style.background = color;
+ flash.style.boxShadow = '0 0 10px ' + color + ', 0 0 22px ' + color;
+ flash.style.zIndex = '24';
+ flash.style.mixBlendMode = 'screen';
+ flash.style.opacity = '0.95';
+ glitchLayer.appendChild(flash);
+ setTimeout(() => {
+ flash.style.transition = 'opacity 45ms linear, transform 45ms linear';
+ flash.style.opacity = '0';
+ flash.style.transform = 'scale(2.2)';
+ setTimeout(() => flash.remove(), 50);
+ }, 35 + Math.random() * 40);
+ }
+
+ function createMoshBand() {
+ const band = document.createElement('div');
+ band.className = 'mosh-band';
+ const y = Math.random() * 94;
+ band.style.top = y + '%';
+ band.style.height = (6 + Math.random() * 9) + 'px';
+ band.style.opacity = (0.6 + Math.random() * 0.4).toString();
+
+ // Random horizontal offset (classic data mosh)
+ const offset = (Math.random() - 0.5) * 38;
+ band.style.transform = `translateX(${offset}px)`;
+
+ if (Math.random() < 0.35) {
+ const c = pickColor();
+ band.style.background = c;
+ band.style.mixBlendMode = 'screen';
+ band.style.boxShadow = '0 0 8px ' + c;
+ }
+
+ screen.appendChild(band);
+
+ setTimeout(() => {
+ band.style.transition = 'opacity 90ms linear, transform 90ms linear';
+ band.style.opacity = '0';
+ setTimeout(() => band.remove(), 100);
+ }, 70 + Math.random() * 110);
+ }
+
+ function scrambleTitle() {
+ if (isShutdown) return;
+ const garbage = '#$%@&*+=<>/\\|';
+ const letters = TITLE.split('').map(ch => ({
+ ch: Math.random() < 0.6 ? garbage[Math.floor(Math.random() * garbage.length)] : ch,
+ color: Math.random() < 0.42 ? pickColor() : null
+ }));
+ renderTitle(letters);
+ setTimeout(resetTitle, 90 + Math.random() * 70);
+ }
+
+ function flashRandomLetter() {
+ if (isShutdown) return;
+ const idx = Math.floor(Math.random() * TITLE.length);
+ const color = pickColor();
+ const letters = TITLE.split('').map((ch, i) => ({
+ ch: ch,
+ color: i === idx ? color : null
+ }));
+ renderTitle(letters);
+ setTimeout(resetTitle, 110 + Math.random() * 90);
+ }
+
+ function fullScreenScrambleReset() {
+ if (isShutdown) return;
+
+ const oldOpacity = content.style.opacity;
+ content.style.transition = 'none';
+ content.style.opacity = '0.15';
+
+ // Fill screen with noise blocks
+ for (let i = 0; i < 11; i++) {
+ setTimeout(() => {
+ if (!isShutdown) createHardPixelBlock();
+ }, i * 7);
+ }
+
+ setTimeout(() => {
+ if (!isShutdown) {
+ content.style.transition = 'opacity 70ms linear';
+ content.style.opacity = oldOpacity || '1';
+ }
+ }, 130);
+ }
+
+ function doAmbientGlitch() {
+ if (isShutdown) return;
+
+ const r = Math.random();
+
+ if (r < 0.32) {
+ for (let i = 0; i < (1 + Math.random() * 2.5); i++) {
+ createHardPixelBlock();
+ }
+ } else if (r < 0.48) {
+ createColorFlash();
+ if (Math.random() < 0.4) createColorFlash();
+ } else if (r < 0.61) {
+ createMoshBand();
+ if (Math.random() < 0.4) createMoshBand();
+ } else if (r < 0.74) {
+ scrambleTitle();
+ } else if (r < 0.84) {
+ flashRandomLetter();
+ } else if (r < 0.93) {
+ // Occasional bigger mosh + pixel combo
+ createMoshBand();
+ createHardPixelBlock();
+ createHardPixelBlock();
+ } else if (r < 0.975) {
+ // Rare surface glitch (watery reflection + CRT corruption)
+ doWaterGlitch();
+ } else {
+ // Very rare full screen scramble + reset
+ fullScreenScrambleReset();
+ }
+ }
+
+ function startGlitchEngine() {
+ if (glitchInterval) clearInterval(glitchInterval);
+ glitchInterval = setInterval(() => {
+ if (!isShutdown) doAmbientGlitch();
+ }, 47);
+ }
+
+ // === RANDOM FULL SHUTDOWN + OLD TUBE TV REBOOT ===
+
+ function triggerRandomShutdown() {
+ if (isShutdown) return;
+ isShutdown = true;
+
+ // Kill normal glitches
+ if (glitchInterval) {
+ clearInterval(glitchInterval);
+ glitchInterval = null;
+ }
+
+ // Hide main content fast
+ content.style.transition = 'opacity 55ms linear';
+ content.style.opacity = '0';
+
+ // Show lonely cursor in corner (classic DOS "dead" state)
+ setTimeout(() => {
+ shutdownCursor.style.display = 'block';
+ shutdownCursor.style.animation = 'blink 480ms steps(1) infinite';
+ }, 90);
+
+ // Hold the dead screen for a bit (feels like power died)
+ const holdTime = 1450 + Math.random() * 780;
+
+ setTimeout(() => {
+ // Start the reboot / tube power-on sequence
+ rebootSequence();
+ }, holdTime);
+ }
+
+ function rebootSequence() {
+ // Clear the lonely cursor
+ shutdownCursor.style.display = 'none';
+ shutdownCursor.style.animation = '';
+
+ // Brief complete black
+ screen.style.background = '#000000';
+
+ // CLASSIC OLD TUBE TV TURN-ON EFFECT
+ tubePower.style.display = 'block';
+ tubePower.style.top = '50%';
+ tubePower.style.height = '0';
+ tubePower.style.opacity = '0.98';
+
+ // Expand the bright horizontal line (the moment the tube gets high voltage)
+ setTimeout(() => {
+ tubePower.style.transition = 'height 380ms cubic-bezier(0.22, 0.95, 0.3, 1), top 380ms linear';
+ tubePower.style.top = '0';
+ tubePower.style.height = '100vh';
+ }, 40);
+
+ // As the raster blooms, bring the content back with slight phosphor pop
+ setTimeout(() => {
+ content.style.transition = 'opacity 420ms linear';
+ content.style.opacity = '1';
+ screen.style.background = '#000000';
+ }, 310);
+
+ // Finish the power-on bloom and resume normal operation
+ setTimeout(() => {
+ tubePower.style.transition = 'opacity 180ms linear';
+ tubePower.style.opacity = '0';
+
+ setTimeout(() => {
+ tubePower.style.display = 'none';
+ tubePower.style.opacity = '0.95';
+ tubePower.style.transition = '';
+ isShutdown = false;
+
+ // Resume the glitch engine
+ startGlitchEngine();
+
+ // Small boot glitch burst after coming back
+ setTimeout(() => {
+ if (!isShutdown) {
+ for (let i = 0; i < 4; i++) {
+ setTimeout(() => createHardPixelBlock(), i * 28);
+ }
+ }
+ }, 180);
+
+ // Schedule the next random shutdown
+ scheduleNextRandomShutdown();
+ }, 220);
+ }, 820);
+ }
+
+ function scheduleNextRandomShutdown() {
+ if (shutdownTimeout) clearTimeout(shutdownTimeout);
+
+ // Random interval between ~18s and ~52s (feels unpredictable like old hardware)
+ const nextIn = 18200 + Math.random() * 33800;
+
+ shutdownTimeout = setTimeout(() => {
+ if (!isShutdown) {
+ triggerRandomShutdown();
+ }
+ }, nextIn);
+ }
+
+ // === ENTRY BEHAVIOR (click or key) ===
+
+ function performEntry() {
+ if (isShutdown) return;
+
+ // Kill scheduled random shutdown
+ if (shutdownTimeout) clearTimeout(shutdownTimeout);
+
+ // One dramatic controlled shutdown + tube reboot, then navigate
+ isShutdown = true;
+ if (glitchInterval) {
+ clearInterval(glitchInterval);
+ glitchInterval = null;
+ }
+
+ content.style.transition = 'opacity 50ms linear';
+ content.style.opacity = '0';
+
+ setTimeout(() => {
+ shutdownCursor.style.display = 'block';
+ }, 70);
+
+ // Shorter hold for intentional entry
+ setTimeout(() => {
+ shutdownCursor.style.display = 'none';
+
+ // Tube power-on
+ tubePower.style.display = 'block';
+ tubePower.style.top = '50%';
+ tubePower.style.height = '0';
+ tubePower.style.opacity = '0.98';
+
+ setTimeout(() => {
+ tubePower.style.transition = 'height 340ms cubic-bezier(0.2, 0.9, 0.3, 1)';
+ tubePower.style.top = '0';
+ tubePower.style.height = '100vh';
+ }, 30);
+
+ setTimeout(() => {
+ // Navigate after the beautiful tube turn-on
+ // Local preview -> test map so every era/page is reachable.
+ // Production still boots into the classic past hub.
+ var host = window.location.hostname || '';
+ var local = host === '127.0.0.1' || host === 'localhost';
+ window.location.href = local ? '/test.html' : '/classic/hub.html';
+ }, 680);
+ }, 980);
+ }
+
+ // Click on "enter here" or anywhere on the screen
+ enterHere.addEventListener('click', (e) => {
+ e.stopImmediatePropagation();
+ performEntry();
+ });
+
+ // Direct CTAs - do not run tube boot (swap/docs are precision strikes)
+ var splashCta = document.getElementById('splashCta');
+ if (splashCta) {
+ splashCta.addEventListener('click', function (e) {
+ var a = e.target.closest('a');
+ if (!a) return;
+ e.stopPropagation();
+ if (a.getAttribute('data-entry') === '1') {
+ e.preventDefault();
+ performEntry();
+ }
+ // SWAP / DOCS: native navigation
+ });
+ }
+
+ screen.addEventListener('click', (e) => {
+ if (e.target.closest && e.target.closest('a, button, .splash-cta')) return;
+ if (!isShutdown) performEntry();
+ });
+
+ // Also allow pressing Enter or Space to enter
+ document.addEventListener('keydown', (e) => {
+ if (!isShutdown && (e.key === 'Enter' || e.key === ' ')) {
+ e.preventDefault();
+ performEntry();
+ }
+ });
+
+ // === BOOT SEQUENCE ===
+
+ function bootUp() {
+ // Initial small glitch burst on power-on (feels like old machine warming)
+ setTimeout(() => {
+ for (let i = 0; i < 4; i++) {
+ setTimeout(() => {
+ createHardPixelBlock();
+ if (i % 2 === 0) createColorFlash();
+ }, i * 35);
+ }
+ }, 260);
+
+ // Start the constant glitch engine
+ startGlitchEngine();
+
+ // Early subtle surface (visitors often see a quiet ripple right after the title appears)
+ setTimeout(() => {
+ if (!isShutdown && Math.random() < 0.7) {
+ doWaterGlitch();
+ }
+ }, 920);
+
+ // First random shutdown will happen after some time
+ scheduleNextRandomShutdown();
+
+ // Very occasional extra hard scramble even in stable periods
+ setInterval(() => {
+ if (!isShutdown && Math.random() < 0.22) {
+ fullScreenScrambleReset();
+ }
+ }, 9200);
+
+ // Independent low-frequency surface events so visitors randomly catch the effect
+ // (roughly every 7-14 seconds a visitor has a good chance to see one)
+ setInterval(() => {
+ if (!isShutdown && Math.random() < 0.19) {
+ doWaterGlitch();
+ }
+ }, 1950);
+ }
+
+ // Start everything
+ bootUp();
+
+ // Small courtesy: make the enter-here text slightly pulse on first load
+ setTimeout(() => {
+ if (!isShutdown) {
+ enterHere.style.transition = 'opacity 180ms linear';
+ enterHere.style.opacity = '0.6';
+ setTimeout(() => {
+ if (!isShutdown) enterHere.style.opacity = '1';
+ }, 180);
+ }
+ }, 1400);
+ </script>
+<div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+<script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+<script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>
+</html>

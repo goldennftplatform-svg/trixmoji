@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <title>JIMPTHY — Street Block</title>
+  <meta name="description" content="Jimpthy the raccoon — golden-hour street platformer. High-detail 3D cartoon." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <canvas id="c"></canvas>
+
+    <!-- VHS / CRT overlay (toggled) -->
+    <div id="vhs" class="vhs off" aria-hidden="true">
+      <div class="vhs-scan"></div>
+      <div class="vhs-noise"></div>
+      <div class="vhs-vignette"></div>
+    </div>
+
+    <div id="hud" class="hidden">
+      <div class="hud-tl">
+        <div class="minimap" id="minimap-wrap"><canvas id="minimap" width="128" height="128"></canvas></div>
+        <div class="title">JIMPTHY</div>
+        <div class="sub" id="hud-status">Explore the few-block neighborhood</div>
+      </div>
+      <div class="hud-tr">
+        <div class="meter"><span>BELLY</span><i id="belly-fill"></i></div>
+        <div class="score" id="score">★ 0</div>
+      </div>
+      <div class="hud-bl hint" id="hint">Click lock · WASD · Shift run · Space jump · N day/night · V VHS</div>
+      <button type="button" id="btn-tod" class="tod-btn" title="Toggle day / night (N)">DAY</button>
+      <button type="button" id="btn-vhs" class="vhs-btn" title="Toggle VHS filter">VHS</button>
+      <button type="button" id="btn-pause" class="pause-btn">Ⅱ</button>
+    </div>
+
+    <div id="overlay">
+      <div class="panel" id="panel-title">
+        <h1>JIMPTHY</h1>
+        <p class="tag">THIRD-PERSON · FEW-BLOCK OPEN CITY</p>
+        <p>
+          Jimpthy free-roams a golden-hour neighborhood ·
+          click to lock mouse · WASD · Shift run · Space jump · V VHS.
+        </p>
+        <div class="row">
+          <button type="button" id="btn-start" class="btn primary">PLAY</button>
+          <button type="button" id="btn-help" class="btn ghost">CONTROLS</button>
+        </div>
+        <p class="load" id="load-msg">Loading assets…</p>
+      </div>
+      <div class="panel hidden" id="panel-help">
+        <h2>CONTROLS</h2>
+        <ul>
+          <li><b>Click</b> canvas — lock mouse (GTA look)</li>
+          <li><b>Mouse</b> — orbit camera 360°</li>
+          <li><b>WASD</b> — move (relative to camera)</li>
+          <li><b>Shift</b> — run · <b>Space</b> — jump</li>
+          <li><b>E</b> — interact / collect</li>
+          <li><b>Scroll</b> — zoom · <b>N</b> — day/night · <b>V</b> — VHS · <b>Esc</b> — pause</li>
+        </ul>
+        <button type="button" id="btn-help-close" class="btn primary">OK</button>
+      </div>
+      <div class="panel hidden" id="panel-pause">
+        <h2>PAUSED</h2>
+        <div class="row">
+          <button type="button" id="btn-resume" class="btn primary">RESUME</button>
+          <button type="button" id="btn-vhs-pause" class="btn ghost">TOGGLE VHS</button>
+          <button type="button" id="btn-quit" class="btn ghost">TITLE</button>
+        </div>
+      </div>
+      <div class="panel hidden" id="panel-win">
+        <h2>BELLY FULL</h2>
+        <p id="win-text">Jimpthy survives the block.</p>
+        <button type="button" id="btn-again" class="btn primary">AGAIN</button>
+      </div>
+      <div class="panel hidden" id="panel-over">
+        <h2>OOF</h2>
+        <p id="over-text">Try again.</p>
+        <button type="button" id="btn-retry" class="btn primary">RETRY</button>
+      </div>
+    </div>
+
+    <!-- Mobile touch -->
+    <div class="touch hidden" id="touch">
+      <div class="stick" id="stick"><div class="knob" id="knob"></div></div>
+      <div class="touch-r">
+        <button type="button" id="btn-jump">JUMP</button>
+        <button type="button" id="btn-act">E</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Three.js r128 CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/vhs.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/sky.js"></script>
+  <script src="js/city.js"></script>
+  <script src="js/world.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/camera.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

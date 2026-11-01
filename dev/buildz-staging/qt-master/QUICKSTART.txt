@@ -1,0 +1,23 @@
+QUICKSTART
+
+1. Download/extract this folder.
+2. Open PowerShell in this folder.
+3. Run:
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+   npm install
+4. Create .env:
+   copy .env.example .env
+5. Put ONLY the public wallet address in BOT_PUBLIC_ADDRESS.
+6. Keep ENABLE_LIVE=false.
+7. Run:
+   npm run paper
+
+Paper mode scans tokens and simulates micro buys/sells.
+
+DO NOT put your seed phrase or private key into ChatGPT.
+
+After paper testing, live mode is:
+   ENABLE_LIVE=true
+   npm run live
+
+For a first live experiment, do not assume the default settings guarantee safety or profit. Start tiny and monitor the terminal. Keep only the amount you are willing to lose in the dedicated bot wallet.

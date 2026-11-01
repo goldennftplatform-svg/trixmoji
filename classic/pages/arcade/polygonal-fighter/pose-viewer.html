@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Polygonal Fighter — Pose Viewer (standalone)</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; background: #000; color: #00ffcc; font-family: 'VT323', monospace; overflow: hidden; }
+    #c { position: fixed; inset: 0; display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+    #ui {
+      position: fixed; z-index: 2; inset: 0; pointer-events: none;
+      display: grid; grid-template-rows: auto 1fr auto;
+    }
+    #top, #bot, #side { pointer-events: none; }
+    #top {
+      padding: 12px 14px;
+      background: linear-gradient(#000c, transparent);
+      font-size: 15px; line-height: 1.35; letter-spacing: 1px;
+    }
+    #top strong { color: #ff6b5a; }
+    #top .dim { color: #007766; }
+    #pose { color: #ffff00; font-size: 22px; letter-spacing: 3px; margin-top: 4px; }
+    #meta { color: #66aa99; font-size: 14px; }
+    #side {
+      justify-self: end; align-self: start;
+      width: min(230px, 40vw); max-height: 55vh;
+      margin: 8px 10px 0 0;
+      pointer-events: auto;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    #list {
+      overflow: auto; border: 1px solid #004433; background: rgba(0,12,10,.9);
+      padding: 4px; flex: 1; min-height: 120px;
+    }
+    #list button {
+      display: block; width: 100%; text-align: left; border: 0; background: transparent;
+      color: #00ccaa; font: inherit; font-size: 16px; padding: 5px 6px; cursor: pointer; letter-spacing: 1px;
+    }
+    #list button:hover { color: #ff0; background: #001a14; }
+    #list button.on { color: #fff; background: #003328; box-shadow: inset 3px 0 0 #ff6b5a; }
+    .row { display: flex; flex-wrap: wrap; gap: 6px; pointer-events: auto; }
+    .row button, .row label {
+      border: 1px solid #004433; background: rgba(0,18,14,.92); color: #00ffcc;
+      font: inherit; font-size: 15px; letter-spacing: 1px; padding: 6px 10px; cursor: pointer;
+    }
+    .row button:hover, .row label:hover { border-color: #0fc; }
+    #bot {
+      padding: 10px 12px 14px;
+      background: linear-gradient(transparent, #000e);
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      pointer-events: auto;
+    }
+    #bot .hint { color: #007766; font-size: 13px; flex: 1; min-width: 160px; }
+    #gate {
+      position: fixed; inset: 0; z-index: 5; background: #050808;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 14px; padding: 24px; text-align: center;
+    }
+    #gate.hid { display: none; }
+    #gate h1 { color: #0f0; font-size: clamp(28px, 6vw, 42px); letter-spacing: 4px; }
+    #gate p { color: #6a9; max-width: 420px; font-size: 18px; line-height: 1.4; }
+    #gate label, #gate button {
+      border: 2px solid #0a5; background: #031a12; color: #0f0;
+      font: inherit; font-size: 20px; letter-spacing: 2px; padding: 12px 18px; cursor: pointer;
+    }
+    #gate label:hover, #gate button:hover { border-color: #0f0; box-shadow: 0 0 12px #0a5; }
+    #err { color: #f66; font-size: 16px; min-height: 1.2em; }
+  </style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+
+  <div id="gate">
+    <h1>POSE VIEWER</h1>
+    <p>
+      Straight HTML — pick the poses file once.<br />
+      Choose <strong style="color:#ff6b5a">base_fighter_poses.glb</strong><br />
+      (same folder as this page → <code style="color:#8c8">models/</code>)
+    </p>
+    <label>
+      LOAD POSES GLB
+      <input id="file" type="file" accept=".glb,model/gltf-binary" hidden />
+    </label>
+    <button type="button" id="tryRel">TRY AUTO models/base_fighter_poses.glb</button>
+    <div id="err"></div>
+  </div>
+
+  <div id="ui" style="display:none">
+    <div id="top">
+      <div><strong>POLYGONAL FIGHTER</strong> // standalone pose viewer</div>
+      <div class="dim">[ ] step · A auto · drag orbit · scroll zoom</div>
+      <div id="pose">—</div>
+      <div id="meta"></div>
+    </div>
+    <div id="side">
+      <div class="row">
+        <button type="button" id="prev">← PREV</button>
+        <button type="button" id="next">NEXT →</button>
+        <button type="button" id="auto">AUTO</button>
+      </div>
+      <div id="list"></div>
+    </div>
+    <div id="bot">
+      <div class="hint">Need internet once for Three.js CDN. Poses load from your GLB file.</div>
+    </div>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+    const TIER_A = [
+      'idle','idleBreath','walkForward1','walkForward2','walkBackward1','walkBackward2',
+      'crouch','jump','jumpPeak','falling','blockHigh','blockLow','hitStun','crouchHitStun',
+      'knockdown','getUp','jab','medPunch','lowKick','medKick','special1','throw','thrown',
+      'victory','defeat'
+    ];
+
+    const canvas = document.getElementById('c');
+    const gate = document.getElementById('gate');
+    const ui = document.getElementById('ui');
+    const err = document.getElementById('err');
+    const poseEl = document.getElementById('pose');
+    const metaEl = document.getElementById('meta');
+    const listEl = document.getElementById('list');
+
+    let mixer, clips = [], index = 0, action, auto = false, autoT = 0;
+    const clock = new THREE.Clock();
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0a0c10);
+    const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.05, 50);
+    camera.position.set(2.4, 1.35, 2.9);
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: false });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+    renderer.setSize(innerWidth, innerHeight);
+    const orbit = new OrbitControls(camera, canvas);
+    orbit.target.set(0, 0.95, 0);
+    orbit.update();
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.45));
+    const key = new THREE.DirectionalLight(0xffffff, 1.15);
+    key.position.set(3, 6, 4);
+    scene.add(key);
+    scene.add(new THREE.DirectionalLight(0x8899aa, 0.35).translateX(-4).translateY(2).translateZ(-2));
+
+    const ring = new THREE.Mesh(
+      new THREE.CylinderGeometry(1.4, 1.4, 0.06, 16),
+      new THREE.MeshLambertMaterial({ color: 0x1a3028, flatShading: true })
+    );
+    ring.position.y = -0.03;
+    scene.add(ring);
+    const edge = new THREE.Mesh(
+      new THREE.TorusGeometry(1.4, 0.04, 4, 16),
+      new THREE.MeshLambertMaterial({ color: 0x8a3040, flatShading: true })
+    );
+    edge.rotation.x = Math.PI / 2;
+    edge.position.y = 0.01;
+    scene.add(edge);
+    scene.add(new THREE.GridHelper(4, 8, 0x004433, 0x001a14));
+
+    function flat(root) {
+      root.traverse((o) => {
+        if (!o.isMesh) return;
+        const mats = [].concat(o.material || []);
+        mats.forEach((m) => {
+          if (!m) return;
+          m.flatShading = true;
+          if ('metalness' in m) m.metalness = 0;
+          if ('roughness' in m) m.roughness = 1;
+          m.needsUpdate = true;
+        });
+      });
+    }
+
+    function clipId(name) {
+      let n = String(name || '');
+      const i = n.lastIndexOf('|');
+      if (i >= 0) n = n.slice(i + 1);
+      if (n.startsWith('PF_')) n = n.slice(3);
+      return n;
+    }
+
+    function buildClips(anims) {
+      const map = new Map();
+      (anims || []).forEach((c) => map.set(clipId(c.name), c));
+      clips = [];
+      TIER_A.forEach((id) => {
+        if (map.has(id)) clips.push({ id, clip: map.get(id) });
+      });
+      map.forEach((clip, id) => {
+        if (!clips.some((x) => x.id === id)) clips.push({ id, clip });
+      });
+      if (!clips.length && anims && anims[0]) clips.push({ id: 'rest', clip: anims[0] });
+    }
+
+    function renderList() {
+      listEl.innerHTML = '';
+      clips.forEach((item, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = (i + 1) + '. ' + item.id;
+        if (i === index) b.classList.add('on');
+        b.onclick = () => play(i);
+        listEl.appendChild(b);
+      });
+    }
+
+    function play(i) {
+      if (!mixer || !clips.length) return;
+      index = (i + clips.length) % clips.length;
+      const item = clips[index];
+      if (action) action.fadeOut(0.1);
+      action = mixer.clipAction(item.clip);
+      action.reset().fadeIn(0.1).play();
+      action.setLoop(THREE.LoopRepeat, Infinity);
+      poseEl.textContent = item.id.toUpperCase();
+      metaEl.textContent = (index + 1) + '/' + clips.length + ' · ' + item.clip.duration.toFixed(2) + 's' + (auto ? ' · AUTO' : '');
+      listEl.querySelectorAll('button').forEach((b, bi) => b.classList.toggle('on', bi === index));
+    }
+
+    function onGltf(gltf) {
+      flat(gltf.scene);
+      scene.add(gltf.scene);
+      mixer = new THREE.AnimationMixer(gltf.scene);
+      buildClips(gltf.animations);
+      if (!clips.length) {
+        err.textContent = 'GLB loaded but has no animation clips.';
+        return;
+      }
+      gate.classList.add('hid');
+      ui.style.display = 'grid';
+      renderList();
+      play(0);
+    }
+
+    const loader = new GLTFLoader();
+
+    function loadArrayBuffer(buf) {
+      err.textContent = 'Loading…';
+      loader.parse(
+        buf,
+        '',
+        onGltf,
+        (e) => { err.textContent = 'Parse failed: ' + (e && e.message ? e.message : e); }
+      );
+    }
+
+    document.getElementById('file').addEventListener('change', async (e) => {
+      const f = e.target.files && e.target.files[0];
+      if (!f) return;
+      try {
+        loadArrayBuffer(await f.arrayBuffer());
+      } catch (ex) {
+        err.textContent = String(ex);
+      }
+    });
+
+    document.getElementById('tryRel').onclick = () => {
+      err.textContent = 'Trying relative path…';
+      loader.load(
+        './models/base_fighter_poses.glb',
+        onGltf,
+        undefined,
+        () => {
+          err.textContent = 'Auto path failed (use LOAD POSES GLB and pick the file).';
+        }
+      );
+    };
+
+    document.getElementById('prev').onclick = () => { auto = false; play(index - 1); };
+    document.getElementById('next').onclick = () => { auto = false; play(index + 1); };
+    document.getElementById('auto').onclick = () => {
+      auto = !auto;
+      document.getElementById('auto').textContent = auto ? 'AUTO ON' : 'AUTO';
+      autoT = 0;
+    };
+
+    addEventListener('keydown', (e) => {
+      if (e.key === '[') play(index - 1);
+      if (e.key === ']') play(index + 1);
+      if (e.code === 'KeyA' && document.activeElement === document.body) {
+        auto = !auto;
+        document.getElementById('auto').textContent = auto ? 'AUTO ON' : 'AUTO';
+      }
+    });
+
+    addEventListener('resize', () => {
+      camera.aspect = innerWidth / innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(innerWidth, innerHeight);
+    });
+
+    (function tick() {
+      requestAnimationFrame(tick);
+      const dt = clock.getDelta();
+      if (mixer) mixer.update(dt);
+      if (auto) {
+        autoT += dt;
+        if (autoT > 1.25) { autoT = 0; play(index + 1); }
+      }
+      orbit.update();
+      renderer.render(scene, camera);
+    })();
+
+    // If opened via local server, try auto-load once
+    loader.load('./models/base_fighter_poses.glb', onGltf, undefined, () => {});
+  </script>
+</body>
+</html>

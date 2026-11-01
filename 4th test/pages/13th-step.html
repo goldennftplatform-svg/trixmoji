@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong> Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong> Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>DOSWAPZ // 13TH STEP - LIVE WORLD ODDS // ORBIT</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style class="page-classic-styles">
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ /* orbit: :root stripped */
+
+ * { box-sizing: border-box; }
+
+ /* orbit: global html,body stripped */
+
+ .dos-screen { position:relative; min-height:0; background:transparent; padding:0; }
+
+ /* orbit: scanlines stripped */
+
+ /* orbit: .header stripped */
+
+ /* orbit: .subhead stripped */
+
+ .tagline {
+ text-align: center;
+ color: var(--green-dim);
+ font-size: 16px;
+ letter-spacing: 2px;
+ margin-bottom: 22px;
+ }
+
+ .content {
+ position: relative;
+ z-index: 10;
+ max-width: 640px;
+ margin: 0 auto;
+ font-size: 19px;
+ line-height: 1.38;
+ }
+
+ .intro {
+ border: 2px solid rgba(255,255,255,0.14);
+ background: rgba(0, 20, 0, 0.35);
+ padding: 14px 16px;
+ margin-bottom: 18px;
+ text-align: center;
+ }
+
+ .intro em {
+ color: var(--panel-accent);
+ font-style: normal;
+ }
+
+ .primary-link {
+ display: block;
+ text-align: center;
+ font-size: clamp(22px, 4.5vw, 30px);
+ color: var(--panel-accent);
+ letter-spacing: 4px;
+ text-decoration: none;
+ border: 3px solid var(--panel-accent);
+ padding: 16px 20px;
+ margin-bottom: 10px;
+ background: rgba(0, 17, 0, 0.55);
+ text-shadow: 0 0 6px var(--panel-accent);
+ transition: color 120ms, background 120ms, border-color 120ms;
+ }
+
+ .primary-link:hover {
+ color: #ffffff;
+ background: rgba(255,255,255,0.14);
+ border-color: var(--panel-accent);
+ }
+
+ .primary-sub {
+ text-align: center;
+ font-size: 14px;
+ color: var(--green-dim);
+ letter-spacing: 1px;
+ margin-bottom: 22px;
+ }
+
+ .section-title {
+ color: var(--panel-accent);
+ font-size: 20px;
+ letter-spacing: 2px;
+ margin: 0 0 10px;
+ text-align: center;
+ }
+
+ .odds-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 8px 14px;
+ margin-bottom: 18px;
+ }
+
+ @media (max-width: 520px) {
+ .odds-grid { grid-template-columns: 1fr; }
+ }
+
+ .odds-link {
+ display: block;
+ color: var(--green);
+ text-decoration: none;
+ border: 2px solid rgba(255,255,255,0.14);
+ padding: 10px 12px;
+ background: rgba(0, 0, 0, 0.4);
+ font-size: 18px;
+ letter-spacing: 1px;
+ }
+
+ .odds-link:hover {
+ color: var(--panel-accent);
+ border-color: var(--green);
+ }
+
+ .odds-link::before {
+ content: '> ';
+ color: var(--green-dim);
+ }
+
+ .odds-link .region {
+ display: block;
+ font-size: 13px;
+ color: var(--green-dim);
+ margin-top: 2px;
+ letter-spacing: 0.5px;
+ }
+
+ .disclaimer {
+ border: 2px solid var(--panel-accent);
+ background: rgba(40, 30, 0, 0.35);
+ padding: 10px 12px;
+ font-size: 13px;
+ line-height: 1.3;
+ margin-bottom: 16px;
+ }
+
+ .disclaimer-title {
+ color: var(--panel-accent);
+ text-align: center;
+ margin-bottom: 6px;
+ letter-spacing: 1px;
+ }
+
+ .btn {
+ display: inline-block;
+ color: var(--green);
+ text-decoration: none;
+ border: 2px solid var(--green);
+ padding: 6px 14px;
+ letter-spacing: 2px;
+ }
+
+ .btn:hover { color: var(--panel-accent); border-color: var(--panel-accent); }
+
+ .back-row { text-align: center; margin-top: 18px; }
+ </style>
+</head>
+<body id="screen" class="orbit-void-inner">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+ <span class="crumb-zone">13TH STEP - LIVE WORLD ODDS</span>
+ <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+ <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+ <div class="core-glow"></div>
+ <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+ <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ <div class="orbit-line" style="width:min(34vmin,34vw);height:min(34vmin,34vh)"></div>
+ </div>
+
+ <main class="stage" id="content">
+ <h1 class="hollow-title" id="orbitTitle">13TH STEP - LIVE WORLD ODDS</h1>
+ <p class="hollow-sub" id="stageSub">13th step - live world odds<span class="cursor-blink">|</span></p>
+ <p class="page-path">/orbit/pages/13th-step.html</p>
+ </main>
+
+ <div class="orbit-panel accent-13th" id="orbitPanel">
+<div class="intro">
+ Twelve steps get you clean. The <em>13th step</em> is when you open the board again and start chasing live lines across the planet.
+ This channel is for degenerates comparing odds worldwide - not financial advice, not recovery counseling.
+ </div>
+
+ <a
+ href="https://www.oddsportal.com/"
+ class="primary-link"
+ target="_blank"
+ rel="noopener noreferrer"
+ >LIVE WORLD ODDS -> </a>
+ <div class="primary-sub">
+ OddsPortal - live odds, line movement, and bookmaker comparison across global sports
+ </div>
+
+ <div class="section-title">MORE LIVE ODDS FEEDS</div>
+ <div class="odds-grid">
+ <a href="https://www.oddschecker.com/" class="odds-link" target="_blank" rel="noopener noreferrer">
+ ODDSCHECKER
+ <span class="region">UK / EU / US lines</span>
+ </a>
+ <a href="https://www.vegasinsider.com/" class="odds-link" target="_blank" rel="noopener noreferrer">
+ VEGAS INSIDER
+ <span class="region">US sportsbooks</span>
+ </a>
+ <a href="https://www.flashscore.com/" class="odds-link" target="_blank" rel="noopener noreferrer">
+ FLASHSCORE
+ <span class="region">Live scores + odds worldwide</span>
+ </a>
+ <a href="https://www.betexplorer.com/" class="odds-link" target="_blank" rel="noopener noreferrer">
+ BETEXPLORER
+ <span class="region">International match odds</span>
+ </a>
+ <a href="https://www.pinnacle.com/en/odds/" class="odds-link" target="_blank" rel="noopener noreferrer">
+ PINNACLE ODDS
+ <span class="region">Sharp global reference lines</span>
+ </a>
+ <a href="https://www.covers.com/odds" class="odds-link" target="_blank" rel="noopener noreferrer">
+ COVERS ODDS
+ <span class="region">US + international boards</span>
+ </a>
+ </div>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">GAMBLING WARNING - READ THIS</div>
+ External odds sites. DOSWAPZ does not operate a sportsbook, take bets, or guarantee any line.
+ Gambling can be addictive. Never wager money you cannot afford to lose. Verify legality in your jurisdiction.
+ If you need help: <a href="https://www.ncpgambling.org/" target="_blank" rel="noopener noreferrer" style="color:#ffff00;">ncpgambling.org</a>
+ </div>
+
+ <div class="back-row">
+ <a href="/orbit/hub.html" class="btn"><- BACK TO HUB</a>
+ </div>
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/core/price-ticker.js"></script>
+
+ <script>hollowPageBoot('13TH STEP - LIVE WORLD ODDS');</script>
+</body>
+</html>

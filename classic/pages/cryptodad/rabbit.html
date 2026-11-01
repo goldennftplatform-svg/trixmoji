@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // FTWR</title>
+ <meta name="description" content="FTWR - Follow The White Rabbit to $DOSWAPZ on Trix Market 26 AUG 2026. Pixel rabbit hops through the dark.">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ height: 100%;
+ background: #000000;
+ overflow: hidden;
+ font-family: 'VT323', 'Courier New', monospace;
+ }
+
+ .gate {
+ position: fixed;
+ inset: 0;
+ background: #000000;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ }
+
+ #rabbitCanvas {
+ display: block;
+ width: 100%;
+ height: 100%;
+ image-rendering: pixelated;
+ image-rendering: crisp-edges;
+ }
+
+ .skip-btn {
+ position: fixed;
+ bottom: 28px;
+ left: 50%;
+ transform: translateX(-50%);
+ font-family: 'VT323', 'Courier New', monospace;
+ font-size: 18px;
+ letter-spacing: 3px;
+ color: #444444;
+ background: transparent;
+ border: 2px solid #333333;
+ padding: 6px 20px;
+ cursor: pointer;
+ z-index: 10;
+ opacity: 0;
+ transition: opacity 0.6s ease, color 0.2s, border-color 0.2s;
+ }
+
+ .skip-btn.show {
+ opacity: 1;
+ }
+
+ .skip-btn:hover {
+ color: #ffffff;
+ border-color: #ffffff;
+ }
+
+ .hop-label-wrap {
+ position: fixed;
+ top: 18px;
+ width: 100%;
+ text-align: center;
+ z-index: 5;
+ pointer-events: none;
+ }
+
+ .hop-label {
+ font-size: 14px;
+ letter-spacing: 4px;
+ color: #2a2a2a;
+ line-height: 1.2;
+ }
+
+ .hop-subtitle {
+ margin-top: 6px;
+ font-size: 12px;
+ letter-spacing: 5px;
+ color: #141414;
+ }
+
+ .hop-subtitle .ticker {
+ color: #1f1f1f;
+ letter-spacing: 2px;
+ }
+ </style>
+</head>
+<body>
+ <div class="gate" id="gate">
+ <div class="hop-label-wrap">
+ <div class="hop-label">FTWR</div>
+ <div class="hop-subtitle">FOLLOW THE WHITE RABBIT <span class="ticker"> -&gt; MAZE / $DOSWAPZ</span></div>
+ </div>
+ <canvas id="rabbitCanvas"></canvas>
+ <button class="skip-btn" id="skipBtn" onclick="enterToken()">PLAY MAZE -> </button>
+ </div>
+
+ <script src="/assets/js/core/page-transition.js" data-page-transition="1"></script>
+ <script src="/assets/js/core/site-shell.js?v=20260715d" data-site-shell="1"></script>
+ <script>
+ try {
+ if (localStorage.getItem('doswapz_skip_rabbit') === '1') {
+ window.location.replace('/classic/pages/cryptodad/launch.html');
+ }
+ } catch (e) {}
+
+ const canvas = document.getElementById('rabbitCanvas');
+ const ctx = canvas.getContext('2d');
+ const skipBtn = document.getElementById('skipBtn');
+ const PIXEL = 6;
+
+ // White pixel rabbit - two hop frames (ears up / ears down)
+ const FRAMES = [
+ [
+ '..WW....',
+ '.WWWW...',
+ '.WBBW...',
+ '.WWWW...',
+ 'WWWWWW..',
+ '..WW.WW.',
+ '..W..W..',
+ '...WW...'
+ ],
+ [
+ 'WW..WW..',
+ '.WWWW...',
+ '.WBBW...',
+ '.WWWW...',
+ 'WWWWWW..',
+ '..WW.WW.',
+ '..W..W..',
+ '...WW...'
+ ]
+ ];
+
+ let animId = null;
+ let startTime = null;
+ const HOP_DURATION = 4200;
+ let navigated = false;
+
+ function resize() {
+ const dpr = Math.min(window.devicePixelRatio || 1, 2);
+ canvas.width = Math.floor(window.innerWidth * dpr);
+ canvas.height = Math.floor(window.innerHeight * dpr);
+ canvas.style.width = window.innerWidth + 'px';
+ canvas.style.height = window.innerHeight + 'px';
+ ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+ }
+
+ function drawRabbit(x, y, frameIdx, facingRight) {
+ const frame = FRAMES[frameIdx % FRAMES.length];
+ const h = frame.length;
+ const w = frame[0].length;
+
+ ctx.save();
+ ctx.translate(x, y);
+ if (!facingRight) {
+ ctx.translate(w * PIXEL, 0);
+ ctx.scale(-1, 1);
+ }
+
+ for (let row = 0; row < h; row++) {
+ for (let col = 0; col < w; col++) {
+ const ch = frame[row][col];
+ if (ch === 'W') {
+ ctx.fillStyle = '#ffffff';
+ ctx.fillRect(col * PIXEL, row * PIXEL, PIXEL, PIXEL);
+ } else if (ch === 'B') {
+ ctx.fillStyle = '#000000';
+ ctx.fillRect(col * PIXEL, row * PIXEL, PIXEL, PIXEL);
+ }
+ }
+ }
+ ctx.restore();
+ }
+
+ function easeInOut(t) {
+ return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+ }
+
+ function hopHeight(progress) {
+ const hops = 5;
+ const phase = (progress * hops) % 1;
+ return Math.sin(phase * Math.PI) * 42;
+ }
+
+ function frameIndex(progress) {
+ const hops = 5;
+ return Math.floor(progress * hops * 2) % 2;
+ }
+
+ function animate(ts) {
+ if (!startTime) startTime = ts;
+ const elapsed = ts - startTime;
+ const progress = Math.min(elapsed / HOP_DURATION, 1);
+
+ const viewW = window.innerWidth;
+ const viewH = window.innerHeight;
+
+ ctx.fillStyle = '#000000';
+ ctx.fillRect(0, 0, viewW, viewH);
+
+ const rabbitW = FRAMES[0][0].length * PIXEL;
+ const rabbitH = FRAMES[0].length * PIXEL;
+ const groundY = viewH * 0.62;
+ const startX = -rabbitW - 20;
+ const endX = viewW + 20;
+ const x = startX + (endX - startX) * easeInOut(progress);
+ const y = groundY - rabbitH - hopHeight(progress);
+
+ drawRabbit(x, y, frameIndex(progress), true);
+
+ // Subtle ground line
+ ctx.fillStyle = '#111111';
+ ctx.fillRect(0, groundY, viewW, 2);
+
+ if (progress < 1) {
+ animId = requestAnimationFrame(animate);
+ } else {
+ setTimeout(enterToken, 280);
+ }
+ }
+
+ function enterToken() {
+ if (navigated) return;
+ navigated = true;
+ if (animId) cancelAnimationFrame(animId);
+ // Gate now drops you into the live FTWR maze chase
+ var dest = '/classic/pages/cryptodad/ftwr-maze.html';
+ if (window.DOSWAPZ_TRANSITION) {
+ window.DOSWAPZ_TRANSITION.navigate(dest);
+ } else {
+ window.location.href = dest;
+ }
+ }
+
+ window.addEventListener('resize', resize);
+ resize();
+
+ setTimeout(() => skipBtn.classList.add('show'), 900);
+ requestAnimationFrame(animate);
+ </script>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <script src="/assets/js/core/rabbit-icon.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: 'body', enableTitle: false, interval: 620 });
+ </script>
+ </body>
+</html>

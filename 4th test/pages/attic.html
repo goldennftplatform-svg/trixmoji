@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // THE ATTIC</title>
+ <meta name="description" content="The Attic - sports cards, Pokémon & TCG product drops. Release board with links and watchlist.">
+ <meta property="og:title" content="DOSWAPZ // THE ATTIC">
+ <meta property="og:description" content="Sports cards, Pokémon & TCG drops. Releases, restocks, buy links.">
+ <meta property="og:url" content="https://doswapz.com/pages/attic.html">
+ <meta name="twitter:card" content="summary_large_image">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='22' fill='%23ccaa66' text-anchor='middle' font-weight='bold'%3EAT%3C/text%3E%3C/svg%3E">
+ <link rel="manifest" href="/site.webmanifest">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ --attic: #ccaa66;
+ --attic-dim: #887744;
+ }
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0; padding: 0;
+ width: 100%; min-height: 100%;
+ background: #000;
+ color: var(--green);
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: #000;
+ padding: 24px 28px 60px;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px, transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px, rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .header {
+ font-size: 34px;
+ letter-spacing: 8px;
+ text-shadow: 0 0 6px var(--green);
+ text-align: center;
+ margin-bottom: 4px;
+ }
+
+ .subhead {
+ text-align: center;
+ color: var(--attic);
+ font-size: 17px;
+ letter-spacing: 2px;
+ margin-bottom: 18px;
+ }
+
+ .content {
+ max-width: 1060px;
+ margin: 0 auto;
+ padding: 0 8px;
+ }
+
+ .section-title {
+ font-size: 22px;
+ color: #ffff00;
+ border-bottom: 1px solid #003300;
+ padding-bottom: 4px;
+ margin: 22px 0 12px;
+ letter-spacing: 2px;
+ }
+
+ .alert-strip {
+ border: 2px solid #ffff00;
+ background: rgba(40, 30, 0, 0.4);
+ padding: 10px 14px;
+ font-size: 16px;
+ margin-bottom: 8px;
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px 18px;
+ align-items: center;
+ }
+
+ .alert-strip .live {
+ color: #ff6666;
+ animation: blink 1.2s step-end infinite;
+ }
+
+ @keyframes blink {
+ 50% { opacity: 0.35; }
+ }
+
+ .btn {
+ font-size: 17px;
+ color: var(--green);
+ background: transparent;
+ border: 2px solid var(--green);
+ padding: 6px 16px;
+ cursor: pointer;
+ font-family: inherit;
+ margin-right: 8px;
+ margin-top: 4px;
+ text-decoration: none;
+ display: inline-block;
+ }
+
+ .btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .alert-strip button {
+ font-size: 16px;
+ color: var(--green);
+ background: transparent;
+ border: 2px solid var(--green);
+ padding: 4px 12px;
+ cursor: pointer;
+ font-family: inherit;
+ }
+
+ .alert-strip button:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .feed-toolbar {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ gap: 8px;
+ margin-bottom: 14px;
+ }
+
+ .filter-btn {
+ font-size: 15px;
+ padding: 4px 12px;
+ border: 2px solid #003300;
+ background: #001100;
+ color: var(--green-dim);
+ cursor: pointer;
+ font-family: inherit;
+ }
+
+ .filter-btn.active,
+ .filter-btn:hover {
+ border-color: var(--attic);
+ color: var(--attic);
+ }
+
+ .feed-status {
+ margin-left: auto;
+ font-size: 14px;
+ color: var(--green-dim);
+ }
+
+ .drop-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+ gap: 14px;
+ }
+
+ .drop-card {
+ border: 3px solid #00ff41;
+ background: #0a0804;
+ padding: 10px 12px;
+ display: flex;
+ flex-direction: column;
+ gap: 6px;
+ }
+
+ .drop-card[data-status="live"] {
+ border-color: #ff6666;
+ box-shadow: 0 0 12px rgba(255, 80, 80, 0.25);
+ }
+
+ .drop-card[data-status="preorder"] { border-color: var(--attic); }
+ .drop-card[data-status="upcoming"] { border-color: #003300; }
+ .drop-card[data-status="soldout"] { border-color: #444; opacity: 0.72; }
+
+ .drop-top {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 6px 8px;
+ align-items: center;
+ font-size: 13px;
+ }
+
+ .badge {
+ padding: 1px 7px;
+ border: 1px solid;
+ letter-spacing: 1px;
+ }
+
+ .cat-sports { color: #66ccff; border-color: #66ccff; }
+ .cat-pokemon { color: #ffaa00; border-color: #ffaa00; }
+ .cat-other { color: #cc88ff; border-color: #cc88ff; }
+
+ .st-live { color: #ff6666; border-color: #ff6666; }
+ .st-preorder { color: var(--attic); border-color: var(--attic); }
+ .st-upcoming { color: var(--green-dim); border-color: #003300; }
+ .st-soldout { color: #888; border-color: #555; }
+
+ .drop-title {
+ font-size: 20px;
+ color: #ccffcc;
+ letter-spacing: 1px;
+ line-height: 1.15;
+ }
+
+ .drop-meta {
+ font-size: 15px;
+ color: var(--green-dim);
+ line-height: 1.3;
+ }
+
+ .drop-meta strong { color: var(--attic); font-weight: normal; }
+
+ .drop-links {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 8px;
+ margin-top: 6px;
+ }
+
+ .drop-links a {
+ font-size: 15px;
+ color: #ffff00;
+ text-decoration: none;
+ border: 1px solid #334400;
+ padding: 2px 8px;
+ background: #001100;
+ }
+
+ .drop-links a:hover {
+ color: #fff;
+ border-color: #ffff00;
+ background: #002200;
+ }
+
+ .drop-links a.dim {
+ color: var(--green-dim);
+ border-color: #003300;
+ }
+
+ .watch-btn {
+ margin-top: 4px;
+ align-self: flex-start;
+ font-size: 14px;
+ color: var(--attic);
+ background: transparent;
+ border: 1px dashed var(--attic-dim);
+ padding: 3px 10px;
+ cursor: pointer;
+ font-family: inherit;
+ }
+
+ .watch-btn.on {
+ background: #221a0a;
+ border-style: solid;
+ color: #ffdd88;
+ }
+
+ .feed-empty {
+ text-align: center;
+ color: var(--green-dim);
+ padding: 36px 12px;
+ border: 2px dashed #003300;
+ font-size: 16px;
+ }
+
+ .buttons {
+ text-align: center;
+ margin-top: 24px;
+ }
+
+ .footer {
+ margin-top: 18px;
+ font-size: 13px;
+ color: var(--green-dim);
+ text-align: center;
+ letter-spacing: 1px;
+ }
+ </style>
+</head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+
+ <div class="header">THE ATTIC</div>
+ <div class="subhead">SPORTS * POKÉMON * TCG DROPS</div>
+
+ <div class="content" id="content">
+ <div class="alert-strip">
+ <span id="dropLiveMeta">product drops &amp; release links</span>
+ <span style="color:var(--green-dim)">Watchlist saved in this browser</span>
+ <button type="button" id="toggleNotify">[ ENABLE BROWSER ALERTS ]</button>
+ </div>
+
+ <div class="section-title">// DROP BOARD</div>
+
+ <div class="feed-toolbar">
+ <button type="button" class="filter-btn active" data-filter="all">ALL</button>
+ <button type="button" class="filter-btn" data-filter="pokemon">POKÉMON</button>
+ <button type="button" class="filter-btn" data-filter="sports">SPORTS</button>
+ <button type="button" class="filter-btn" data-filter="other">OTHER TCG</button>
+ <button type="button" class="filter-btn" data-filter="live">LIVE ONLY</button>
+ <span class="feed-status" id="countLabel">Loading...</span>
+ </div>
+
+ <div class="drop-grid" id="dropGrid"></div>
+
+ <div class="buttons">
+ <a href="/hub.html" class="btn"><- BACK TO HUB</a>
+ </div>
+
+ <div class="footer">THE ATTIC * EDIT assets/data/attic-drops.json * DOSWAPZ NODE</div>
+ </div>
+
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+ <script src="/assets/js/core/shell-boot.js" data-shell-boot="1"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.content, #content' });
+ </script>
+ <script src="/assets/js/attic/drops.js?v=20260715a"></script>
+ <div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+ <script src="/assets/js/core/price-ticker.js"></script>
+</body>
+</html>

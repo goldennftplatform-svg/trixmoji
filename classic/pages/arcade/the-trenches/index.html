@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>SAVE THE TRENCHEZ — Doswapz Arcade</title>
+  <meta name="description" content="SAVE THE TRENCHEZ — sniper overwatch. Degens in the hole. Five scenes. Left click fire. Right click reload." />
+  <link rel="stylesheet" href="style.css?v=trench9" />
+</head>
+<body>
+  <nav class="arcade-bar" aria-label="Arcade nav">
+    <a href="/classic/pages/arcade/hub.html">← HUB</a>
+    <span class="arcade-bar-title">SAVE THE TRENCHEZ</span>
+    <div class="arcade-bar-right">
+      <span id="hi-label">HI 0</span>
+    </div>
+  </nav>
+
+  <div id="game-wrap">
+
+    <section id="screen-title" class="screen active">
+      <img class="bg-art" src="assets/trench.jpg" alt="" />
+      <div class="scrim"></div>
+      <div class="title-ui">
+        <p class="tag">DOSWAPZ ARCADE</p>
+        <h1>SAVE THE TRENCHEZ</h1>
+        <p class="logline">Five sectors. Degens in the hole. Soldiers on the flanks. You are overwatch.</p>
+        <button id="btn-start" type="button">HOLD THE LINE</button>
+        <p class="hint">Move mouse to aim · Left click FIRE · Right click RELOAD</p>
+        <p class="tiny">Field 5 waves · City 10 · then three more sectors. Click anywhere to start.</p>
+      </div>
+    </section>
+
+    <section id="screen-play" class="screen">
+      <canvas id="view" width="1280" height="720"></canvas>
+      <div id="scope" aria-hidden="true"></div>
+      <div id="glass" aria-hidden="true"></div>
+      <div id="reticle" aria-hidden="true">
+        <span class="hair hair-h"></span>
+        <span class="hair hair-v"></span>
+        <span class="tick tick-l"></span>
+        <span class="tick tick-r"></span>
+        <span class="tick tick-u"></span>
+        <span class="tick tick-d"></span>
+        <span class="dot"></span>
+      </div>
+      <div id="flash"></div>
+      <div id="hitmark"></div>
+      <div id="banner"></div>
+
+      <div id="hud">
+        <div class="hud-col">
+          <div>SCORE <strong id="hud-score">0</strong></div>
+          <div>SCENE <strong id="hud-scene">1/5</strong></div>
+        </div>
+        <div class="hud-col hud-mid">
+          <div id="hud-ammo">●●●●●</div>
+          <div id="hud-status">READY</div>
+        </div>
+        <div class="hud-col hud-right">
+          <div>WAVE <strong id="hud-wave">1/5</strong></div>
+          <div>HP <strong id="hud-hp">8</strong> · <strong id="hud-kills">0</strong> KILLS</div>
+        </div>
+      </div>
+
+      <div id="touch-bar" hidden>
+        <button type="button" id="btn-fire">FIRE</button>
+        <button type="button" id="btn-reload">RELOAD</button>
+      </div>
+
+      <div id="lock-hint" hidden>CLICK SCOPE TO LOOK</div>
+    </section>
+
+    <section id="screen-over" class="screen">
+      <img class="bg-art" src="assets/results.jpg" alt="" />
+      <div class="scrim dark"></div>
+      <div class="over-ui">
+        <p class="tag" id="over-tag">TRENCH BREACHED</p>
+        <h2 id="over-title">THEY GOT IN</h2>
+        <ul>
+          <li>Score <span id="over-score">0</span></li>
+          <li>Scene / wave <span id="over-wave">1</span></li>
+          <li>Kills <span id="over-kills">0</span></li>
+          <li>Headshots <span id="over-heads">0</span></li>
+        </ul>
+        <p class="soft" id="over-post"></p>
+        <button id="btn-retry" type="button">HOLD AGAIN</button>
+        <a class="ghost" href="/classic/pages/arcade/hub.html">← HUB</a>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="game.js?v=trench9"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOSWAPZ // APE CHAMBER</title>
+  <meta name="description" content="APE CHAMBER — DOSWAPZ observation chamber. Not a game. 10 protocols. Secret channel 2 after clear." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="scanlines"></div>
+  <div class="vignette"></div>
+
+  <section id="intro" class="screen active">
+    <div class="intro-card hub-card">
+      <h1>APE<br />CHAMBER</h1>
+
+      <div class="hub-menu" role="menu">
+        <button id="start-btn" class="hub-option" role="menuitem">
+          <span class="hub-key">[1]</span>
+          <span class="hub-body">
+            <span class="hub-title">ENTER CHAMBER</span>
+          </span>
+          <span class="hub-arrow">-></span>
+        </button>
+        <button id="pauly-hub-btn" class="hub-option hub-option-locked" role="menuitem" disabled aria-disabled="true">
+          <span class="hub-key">[2]</span>
+          <span class="hub-body">
+            <span class="hub-title" id="pauly-hub-title">????????</span>
+            <span class="hub-desc" id="pauly-hub-desc"></span>
+          </span>
+          <span class="hub-arrow" id="pauly-hub-arrow">??</span>
+        </button>
+      </div>
+
+      <p class="dos-hub-link"><a href="/classic/hub.html">&lt;- DOSWAPZ HUB</a></p>
+
+      <p class="peta-disclaimer" role="note">
+        NO ANIMALS WERE HARMED — FOR THE PETA NUT HEADS
+      </p>
+    </div>
+  </section>
+
+  <section id="game" class="screen">
+    <header class="topbar">
+      <div class="logo">APE CHAMBER</div>
+      <div class="stats">
+        <span id="week-label">0/10</span>
+        <span class="dot">*</span>
+        <span id="kill-count">0 EXECUTED</span>
+        <span class="dot">*</span>
+        <span id="last-method"></span>
+        <button type="button" id="hub-btn" class="hub-return">[ MENU ]</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="methods-panel">
+        <div class="panel-head">
+          <h2>PROTOCOLS</h2>
+          <div class="filters">
+            <button class="filter active" data-filter="all">ALL</button>
+            <button class="filter" data-filter="historic">GRIM</button>
+            <button class="filter" data-filter="funny">LOL</button>
+          </div>
+          <input type="search" id="search" placeholder="SEARCH..." autocomplete="off" />
+        </div>
+        <div id="method-list" class="method-list"></div>
+      </aside>
+
+      <section class="stage">
+        <div class="sim-frame">
+          <div id="sim-room" class="sim-room">
+            <img class="chamber-bg" src="assets/chamber-empty.jpg" alt="" draggable="false" />
+
+            <div id="glass-zone" class="glass-zone">
+              <div id="ape-actor" class="ape-actor move-idle">
+                <img id="ape-sprite" src="assets/sprites/idle.png" alt="ape" draggable="false" />
+              </div>
+              <div id="exec-layer" class="exec-layer"></div>
+              <div class="glass-shine"></div>
+            </div>
+
+            <div id="room-fx" class="room-fx" aria-hidden="true"></div>
+
+            <div class="sim-hud bottom" id="status-bubble">
+              <div class="status-main">STILL BORED</div>
+              <div class="status-sub"></div>
+            </div>
+          </div>
+
+          <div class="now-meta">
+            <div class="now-title" id="now-title">STANDBY</div>
+            <div class="now-credit" id="now-credit"></div>
+          </div>
+        </div>
+
+        <div id="result" class="result hidden">
+          <div class="result-card">
+            <p class="result-type" id="result-type">GRIM</p>
+            <h3 id="result-name">Method</h3>
+            <p id="result-desc">...</p>
+            <p id="result-era" class="result-era"></p>
+            <div class="result-actions">
+              <button id="again-btn" class="btn primary">[ RESET CHAMBER ]</button>
+              <button id="random-btn" class="btn ghost">[ RANDOM PROTOCOL ]</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <!-- PAULY PUNCH video — only after special protocol -->
+  <div id="pauly-video-modal" class="pauly-modal hidden" aria-hidden="true">
+    <div class="pauly-modal-inner">
+      <div class="pauly-modal-label">PAULY PUNCH</div>
+      <video
+        id="pauly-video"
+        class="pauly-video"
+        playsinline
+        autoplay
+        preload="auto"
+        disablePictureInPicture
+        controlslist="nodownload noplaybackrate noremoteplayback"
+      >
+        <source src="assets/media/pauly-punch.mp4" type="video/mp4" />
+      </video>
+      <!-- shown only after tape ends -->
+      <button type="button" id="pauly-close" class="btn primary pauly-close-btn hidden">[ DONE ]</button>
+    </div>
+  </div>
+
+  <script src="methods.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

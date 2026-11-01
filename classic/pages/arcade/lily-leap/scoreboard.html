@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+ <title>LILY LEAP SCORES</title>
+ <meta name="description" content="LILY LEAP soft scores">
+ <link href="https://fonts.googleapis.com/css2?family=VT323&family=Orbitron:wght@600&display=swap" rel="stylesheet">
+ <style>
+ :root {
+ --pink: #ff7ac8;
+ --pink-hot: #ff4da6;
+ --dim: #a05080;
+ --gold: #ffd700;
+ --bg: #12081c;
+ }
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ html, body {
+ min-height: 100%;
+ background: radial-gradient(ellipse at 50% 0%, rgba(255,77,166,0.12), transparent 55%), var(--bg);
+ color: var(--pink);
+ font-family: VT323, monospace;
+ }
+ .wrap { max-width: 720px; margin: 0 auto; padding: 16px 12px 48px; }
+ input { font-size: 16px !important; min-height: 44px; }
+ button, .btn { min-height: 44px; padding: 10px 14px; }
+ .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+ h1 {
+ font-family: Orbitron, monospace;
+ font-size: clamp(16px, 4vw, 22px);
+ letter-spacing: 0.08em;
+ color: var(--pink-hot);
+ text-align: center;
+ margin-bottom: 6px;
+ }
+ .sub { text-align: center; color: var(--dim); letter-spacing: 3px; margin-bottom: 8px; font-size: 16px; }
+ .note { text-align: center; color: #704060; font-size: 14px; margin-bottom: 18px; }
+ .daily {
+ border: 2px solid #602048;
+ background: rgba(40, 16, 32, 0.9);
+ padding: 12px 14px;
+ margin-bottom: 14px;
+ text-align: center;
+ }
+ .daily strong { color: var(--gold); letter-spacing: 2px; }
+ .daily .seed { color: var(--pink-hot); font-size: 22px; letter-spacing: 2px; margin-top: 4px; }
+ .soft {
+ border: 2px solid #602048;
+ background: rgba(40, 16, 32, 0.9);
+ padding: 12px;
+ margin-bottom: 14px;
+ display: grid;
+ grid-template-columns: 1fr 1fr auto;
+ gap: 8px;
+ align-items: end;
+ }
+ @media (max-width: 620px) { .soft { grid-template-columns: 1fr; } }
+ label { display: block; font-size: 12px; color: var(--dim); letter-spacing: 2px; margin-bottom: 3px; }
+ input {
+ width: 100%;
+ background: #0a0610;
+ border: 1px solid #602048;
+ color: var(--pink);
+ font: inherit;
+ font-size: 18px;
+ padding: 8px 10px;
+ }
+ button, .btn {
+ font: inherit;
+ letter-spacing: 2px;
+ cursor: pointer;
+ border: 1px solid var(--pink-hot);
+ background: transparent;
+ color: var(--pink-hot);
+ padding: 8px 12px;
+ text-decoration: none;
+ display: inline-block;
+ }
+ button:hover, .btn:hover { background: var(--pink-hot); color: #1a0a14; }
+ .stats {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 10px;
+ margin-bottom: 14px;
+ }
+ .stat {
+ border: 1px solid #602048;
+ background: #1a0a18;
+ padding: 12px 10px;
+ text-align: center;
+ }
+ .stat .l { color: var(--dim); font-size: 13px; letter-spacing: 2px; }
+ .stat .v { color: var(--gold); font-size: 26px; margin-top: 4px; }
+ table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+ th, td {
+ text-align: left;
+ padding: 10px 8px;
+ border-bottom: 1px solid #301828;
+ font-size: 17px;
+ }
+ th { color: var(--dim); letter-spacing: 2px; font-weight: normal; font-size: 13px; }
+ tr.me td { color: var(--gold); }
+ .nav { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 12px; }
+ .share {
+ border: 1px solid #402030;
+ background: rgba(30, 12, 24, 0.8);
+ padding: 12px;
+ margin-top: 8px;
+ }
+ .share pre {
+ white-space: pre-wrap;
+ color: #c080a0;
+ font: inherit;
+ font-size: 15px;
+ margin: 8px 0 12px;
+ }
+ .status { min-height: 18px; text-align: center; color: var(--dim); font-size: 14px; margin-top: 8px; }
+ </style>
+</head>
+<body>
+ <div class="wrap">
+ <h1>LILY LEAP</h1>
+ <div class="sub">SOFT SCORES</div>
+
+ <div class="daily" id="dailyBox">
+ <strong>DAILY</strong>
+ <div id="dailyMode">—</div>
+ <div class="seed" id="dailySeed">—</div>
+ <div style="color:var(--dim);font-size:13px;margin-top:4px" id="dailyDay"></div>
+ </div>
+
+ <div class="soft">
+ <div>
+ <label for="scHandle">@HANDLE</label>
+ <input id="scHandle" placeholder="@you" maxlength="16" autocomplete="off">
+ </div>
+ <div>
+ <label for="scAlias">ALIAS</label>
+ <input id="scAlias" placeholder="DEGEN" maxlength="12" autocomplete="off">
+ </div>
+ <button type="button" id="scSave">SAVE</button>
+ </div>
+
+ <div class="stats">
+ <div class="stat"><div class="l">BEST</div><div class="v" id="statBest">-</div></div>
+ <div class="stat"><div class="l">N</div><div class="v" id="statN">0</div></div>
+ <div class="stat"><div class="l">TAG</div><div class="v" id="statTag" style="font-size:16px">-</div></div>
+ </div>
+
+ <div class="table-wrap">
+ <table>
+ <thead>
+ <tr>
+ <th>#</th>
+ <th>PLAYER</th>
+ <th>SCORE</th>
+ <th>FLIES</th>
+ <th>POND</th>
+ <th>SEED</th>
+ </tr>
+ </thead>
+ <tbody id="boardBody"></tbody>
+ </table>
+ </div>
+
+ <div class="share">
+ <strong style="color:var(--gold);letter-spacing:2px">SHARE</strong>
+ <pre id="sharePreview">—</pre>
+ <div class="nav" style="margin:0">
+ <button type="button" id="genShare">GEN</button>
+ <button type="button" id="copyShare">COPY</button>
+ <a class="btn" id="tweetShare" href="#" target="_blank" rel="noopener">X</a>
+ </div>
+ <div class="status" id="status"></div>
+ </div>
+
+ <div class="nav">
+ <a class="btn" href="/classic/pages/arcade/lily-leap/">PLAY</a>
+ <a class="btn" href="/classic/pages/arcade/hub.html">ARCADE</a>
+ <a class="btn" href="/classic/pages/arcade/scores.html">ALL</a>
+ </div>
+ </div>
+
+ <script src="/assets/js/core/soft-score.js"></script>
+ <script src="/assets/js/arcade/arcade-core.js?v=20260719a"></script>
+ <script>
+ (function () {
+ var A = window.DOSWAPZ_ARCADE;
+ var KEY = 'lily_leap_scores_v1';
+ if (!A) return;
+
+ var sc = A.loadSoftConnect();
+ var h = document.getElementById('scHandle');
+ var a = document.getElementById('scAlias');
+ if (sc.handle) h.value = '@' + sc.handle;
+ if (sc.alias) a.value = sc.alias;
+
+ function loadBoard() {
+ try {
+ if (window.DOSWAPZ_SOFT_SCORE) return DOSWAPZ_SOFT_SCORE.loadBoard(KEY) || [];
+ } catch (e) {}
+ try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e2) { return []; }
+ }
+
+ function who(e) {
+ if (e.handle) return '@' + e.handle;
+ return e.name || e.alias || 'DEGEN';
+ }
+
+ function meKey() {
+ var id = A.softIdentity();
+ return id.handle ? 'h:' + id.handle.toLowerCase() : 'a:' + id.alias;
+ }
+
+ function entryKey(e) {
+ return e.handle ? 'h:' + String(e.handle).toLowerCase() : 'a:' + String(e.name || e.alias || '');
+ }
+
+ function render() {
+ var d = A.getDailyChallenge();
+ document.getElementById('dailyMode').textContent = d.mode + ' * ' + (d.blurb || '');
+ document.getElementById('dailySeed').textContent = d.seed;
+ document.getElementById('dailyDay').textContent = 'UTC DAY ' + d.day;
+
+ var list = loadBoard().slice().sort(function (x, y) {
+ return (y.score || 0) - (x.score || 0);
+ });
+ var best = list.length ? list[0].score : Number(localStorage.getItem('lily_leap_high') || 0);
+ document.getElementById('statBest').textContent = best ? Number(best).toLocaleString() : '-';
+ document.getElementById('statN').textContent = String(list.length);
+ document.getElementById('statTag').textContent = A.softIdentity().tag;
+
+ var mk = meKey();
+ var body = document.getElementById('boardBody');
+ body.innerHTML = list.slice(0, 25).map(function (e, i) {
+ var me = entryKey(e) === mk ? ' class="me"' : '';
+ return '<tr' + me + '>' +
+ '<td>' + (i + 1) + '</td>' +
+ '<td>' + who(e) + '</td>' +
+ '<td>' + Number(e.score || 0).toLocaleString() + '</td>' +
+ '<td>' + (e.flies != null ? e.flies : '-') + '</td>' +
+ '<td>' + (e.pond != null ? e.pond : '-') + '</td>' +
+ '<td style="font-size:13px;color:#a05080">' + (e.dailySeed ? String(e.dailySeed).slice(0, 8) : '-') + '</td>' +
+ '</tr>';
+ }).join('') || '<tr><td colspan="6">No entries yet — play a run and post soft.</td></tr>';
+
+ var id = A.softIdentity();
+ var top = list[0];
+ var text = A.shareCard({
+ game: 'LILY LEAP',
+ score: top ? top.score : (best || 0),
+ extra: top
+ ? ('Flies ' + (top.flies || 0) + ' * Pond ' + (top.pond || 1) + (top.dailySeed ? ' * +DAILY' : ''))
+ : 'No board tops yet'
+ });
+ document.getElementById('sharePreview').textContent = text;
+ document.getElementById('tweetShare').href = A.tweetUrl(text);
+ }
+
+ document.getElementById('scSave').onclick = function () {
+ A.saveSoftConnect({ handle: h.value, alias: a.value });
+ document.getElementById('status').textContent = 'Soft-connect saved * no wallet * no seed';
+ render();
+ };
+ document.getElementById('genShare').onclick = function () {
+ render();
+ document.getElementById('status').textContent = 'Share card refreshed';
+ };
+ document.getElementById('copyShare').onclick = function () {
+ A.copyText(document.getElementById('sharePreview').textContent).then(function (ok) {
+ document.getElementById('status').textContent = ok ? 'Copied' : 'Copy failed';
+ });
+ };
+
+ render();
+ })();
+ </script>
+<script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+<script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>
+</html>

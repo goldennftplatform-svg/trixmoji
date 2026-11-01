@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ - CRYPTO DAD IMAGES</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ }
+
+ * {
+ box-sizing: border-box;
+ }
+
+ html, body {
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ min-height: 100%;
+ background: #000000;
+ color: #00ff00;
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: #000000;
+ padding: 24px 28px 60px;
+ }
+
+ /* Strong phosphor scanlines to match homepage feel */
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px,
+ rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .header {
+ font-size: 32px;
+ letter-spacing: 6px;
+ text-shadow: 0 0 5px #00ff00;
+ text-align: center;
+ margin-bottom: 6px;
+ }
+
+ .content {
+ max-width: 1100px;
+ margin: 18px auto 0;
+ padding: 0 8px;
+ }
+
+ .section {
+ margin: 22px 0 10px;
+ font-size: 20px;
+ color: #ffff00;
+ letter-spacing: 2px;
+ border-bottom: 1px solid #00aa00;
+ padding-bottom: 3px;
+ }
+
+ .gallery {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+ gap: 14px;
+ margin-bottom: 18px;
+ }
+
+ .card {
+ border: 3px solid #00ff41;
+ background: #001100;
+ padding: 6px;
+ }
+
+ .card img {
+ width: 100%;
+ height: auto;
+ border: 2px solid #003300;
+ display: block;
+ image-rendering: crisp-edges;
+ }
+
+ .card .label {
+ font-size: 15px;
+ margin-top: 5px;
+ color: #ffff00;
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ .buttons {
+ text-align: center;
+ margin-top: 26px;
+ }
+
+ .btn {
+ font-size: 17px;
+ color: #00ff00;
+ border: 2px solid #00ff00;
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px;
+ display: inline-block;
+ }
+
+ .btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .footer {
+ margin-top: 28px;
+ font-size: 13px;
+ color: #00aa00;
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ /* Vignette like the homepage */
+ .vignette {
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.58) 84%);
+ pointer-events: none;
+ z-index: 5;
+ }
+
+ /* Glitch layer (reduced-volume engine for content pages) */
+ .glitch-layer {
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 20;
+ mix-blend-mode: screen;
+ }
+
+ .mosh-band {
+ position: fixed;
+ left: 0;
+ width: 100%;
+ background: rgba(0, 255, 0, 0.16);
+ mix-blend-mode: difference;
+ pointer-events: none;
+ z-index: 25;
+ opacity: 0;
+ }
+ </style>
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ </head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+
+ <div class="header">DOSWAPZ // CRYPTO DAD - IMAGES</div>
+
+ <div class="content">
+ <div class="section">COLORFUL SET (22 images - preferred)</div>
+ <div class="gallery" id="colorful-gallery"></div>
+
+ <div class="section">GREEN CRT STATE IMAGES (fallbacks)</div>
+ <div class="gallery" id="green-gallery"></div>
+
+ <div class="buttons">
+ <a href="/classic/hub.html" class="btn"><- BACK TO HUB</a>
+ </div>
+ </div>
+
+ <div class="footer">
+ DOSWAPZ - CRYPTO DAD IMAGE GALLERY
+ </div>
+
+ <!-- Glitch layer (driven by reduced-volume engine for content pages) -->
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+ <script>
+ // Use the primary images/ location only (removes double-tree references).
+ // The assets/images/ copies are kept as project backup only.
+ const colorful = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22"];
+ const green = ["family_high","family_low","game_over","good_ending","heat_high","last_stand"];
+
+ const colorfulDiv = document.getElementById('colorful-gallery');
+ colorful.forEach(n => {
+ const card = document.createElement('div');
+ card.className = 'card';
+ card.innerHTML = `
+ <img src="/assets/images/cryptodad_colorful/${n}.jpg" alt="Colorful ${n}">
+ <div class="label">colorful/${n}.jpg</div>
+ `;
+ colorfulDiv.appendChild(card);
+ });
+
+ const greenDiv = document.getElementById('green-gallery');
+ green.forEach(name => {
+ const card = document.createElement('div');
+ card.className = 'card';
+ card.innerHTML = `
+ <img src="/assets/images/cryptodad/${name}.jpg" alt="${name}">
+ <div class="label">cryptodad/${name}.jpg</div>
+ `;
+ greenDiv.appendChild(card);
+ });
+</script>
+
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.content, #content' });
+ </script>
+<div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+<script src="/assets/js/core/price-ticker.js"></script>
+ </body>
+</html>

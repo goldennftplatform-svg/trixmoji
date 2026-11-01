@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // HOW TO PLAY</title>
+ <meta name="description" content="Crypto Dad complete manual. Validated game mechanics from hundreds of thousands of Monte Carlo runs. Safe, boring play wins.">
+ <meta property="og:title" content="DOSWAPZ // HOW TO PLAY">
+ <meta property="og:description" content="Full rules, winning strategy, and why the game behaves the way it does. Educational simulation.">
+ <meta property="og:image" content="https://doswapz.com/assets/images/cryptodad/family_high.jpg">
+ <meta property="og:url" content="https://doswapz.com/classic/pages/cryptodad/how-to-play.html">
+ <meta name="twitter:card" content="summary_large_image">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='32' fill='%2300ff00' text-anchor='middle' font-weight='bold'%3EDZ%3C/text%3E%3C/svg%3E">
+ <link rel="manifest" href="/site.webmanifest">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ }
+
+ * {
+ box-sizing: border-box;
+ }
+
+ html, body {
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ min-height: 100%;
+ background: #000000;
+ color: #00ff00;
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: #000000;
+ padding: 24px 28px 60px;
+ }
+
+ /* Strong phosphor scanlines to match homepage / mint / swap feel */
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px,
+ rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .header {
+ font-size: 32px;
+ letter-spacing: 6px;
+ text-shadow: 0 0 5px #00ff00;
+ text-align: center;
+ margin-bottom: 6px;
+ }
+
+ .content {
+ max-width: 920px;
+ margin: 18px auto 0;
+ font-size: 19px;
+ line-height: 1.38;
+ padding: 0 8px;
+ }
+
+ .subhead {
+ font-size: 15px;
+ color: #00aa00;
+ text-align: center;
+ margin-bottom: 18px;
+ letter-spacing: 1px;
+ }
+
+ .section {
+ margin-bottom: 24px;
+ }
+
+ .section-title {
+ font-size: 22px;
+ color: #ffff00;
+ margin-bottom: 6px;
+ border-bottom: 1px solid #003300;
+ padding-bottom: 3px;
+ }
+
+ .warning {
+ color: #ffaa00;
+ background: rgba(40, 20, 0, 0.35);
+ padding: 10px 14px;
+ border-left: 3px solid #ffaa00;
+ margin: 14px 0;
+ }
+
+ .good {
+ color: #00ff88;
+ }
+
+ .stat {
+ color: #ffff00;
+ }
+
+ .status-line {
+ font-size: 13px;
+ min-height: 16px;
+ text-align: center;
+ margin: 6px 0;
+ color: #00cc00;
+ }
+
+ .btn {
+ font-size: 17px;
+ color: #00ff00;
+ background: transparent;
+ border: 2px solid #00ff00;
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px;
+ display: inline-block;
+ }
+
+ .btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .small-btn {
+ padding: 3px 8px;
+ font-size: 13px;
+ }
+
+ .disclaimer {
+ margin: 10px auto;
+ padding: 10px 12px;
+ border: 2px solid #ffff00;
+ background: rgba(40, 30, 0, 0.35);
+ font-size: 12px;
+ line-height: 1.28;
+ max-width: 100%;
+ text-align: left;
+ }
+
+ .disclaimer-title {
+ color: #ffff00;
+ margin-bottom: 4px;
+ letter-spacing: 1px;
+ text-align: center;
+ font-size: 13px;
+ }
+
+ .buttons {
+ text-align: center;
+ margin-top: 22px;
+ }
+
+ .footer {
+ margin-top: 22px;
+ font-size: 13px;
+ color: #00aa00;
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ .game-img {
+ display: block;
+ max-width: 420px;
+ width: 100%;
+ height: auto;
+ border: 2px solid #00ff41;
+ margin: 12px 0;
+ image-rendering: crisp-edges;
+ }
+
+ .game-img-pair {
+ display: flex;
+ gap: 16px;
+ flex-wrap: wrap;
+ margin: 12px 0;
+ }
+
+ .game-img-pair img {
+ flex: 1 1 300px;
+ max-width: 100%;
+ border: 2px solid #00ff41;
+ image-rendering: crisp-edges;
+ }
+
+ /* Vignette like the homepage */
+ .vignette {
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.58) 84%);
+ pointer-events: none;
+ z-index: 5;
+ }
+
+ /* Glitch layer (reduced-volume engine for content pages) */
+ .glitch-layer {
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 20;
+ mix-blend-mode: screen;
+ }
+
+ .mosh-band {
+ position: fixed;
+ left: 0;
+ width: 100%;
+ background: rgba(0, 255, 0, 0.16);
+ mix-blend-mode: difference;
+ pointer-events: none;
+ z-index: 25;
+ opacity: 0;
+ }
+ </style>
+</head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+ <div class="vignette"></div>
+ <div class="content" id="content">
+
+ <div class="header">DOSWAPZ // HOW TO PLAY</div>
+ <div class="subhead">CRYPTO DAD - THE COMPLETE MANUAL (VALIDATED SIM LOGIC)</div>
+
+ <div class="section">
+ <div class="section-title">THE GOAL</div>
+ <p>You are a father trying to keep your family together while surviving in a brutal world of debt, crypto volatility, and bad decisions.</p>
+ <p>Every week you make choices. The longer you survive with high Family and low Heat, the better your ending will be.</p>
+ <p class="good"><strong>Good play = long life + family stays intact + possible good ending.</strong></p>
+ <p>Bad play = Heat spirals -> police, divorce, foreclosure, prison, or death.</p>
+
+ <img src="/assets/images/cryptodad/family_low.jpg" alt="Crypto Dad family in a lower / stressed state" class="game-img">
+ <div style="font-size:12px; color:#00aa00; margin-bottom:12px;">Typical family state - protect this stat at all costs</div>
+ </div>
+
+ <div class="section">
+ <div class="section-title">YOUR STATS (THE FOUR PILLARS)</div>
+ <p><span class="stat">FAMILY</span> - How happy and stable your home life is. Low Family = more incidents, possible divorce.</p>
+ <p><span class="stat">HEAT</span> - Police attention and street reputation. High Heat = raids, arrests, family drama.</p>
+ <p><span class="stat">CASH / LIQUID</span> - Money you can spend right now. Goes down from bills, actions, and bad events.</p>
+ <p><span class="stat">DEBT</span> - What you owe. Interest accrues. If you hit zero cash with high debt, you may trigger Last Stand.</p>
+ <p>You also have a small crypto portfolio (BTC, ETH, SOL, MEME) that you can trade.</p>
+
+ <div class="game-img-pair">
+ <img src="/assets/images/cryptodad/family_high.jpg" alt="Crypto Dad family scene - high family stat" class="game-img">
+ <img src="/assets/images/cryptodad/heat_high.jpg" alt="Crypto Dad stressed with high heat / police attention" class="game-img">
+ </div>
+ <div style="font-size:12px; color:#00aa00; margin-bottom:12px;">Left: Family high &amp; stable * Right: High Heat (bad events incoming)</div>
+ </div>
+
+ <div class="section">
+ <div class="section-title">WEEKLY ACTIONS (THE MAIN MENU)</div>
+
+ <p><strong>1. TRADE</strong><br>
+ Buy or sell crypto. Prices move every week (sometimes violently). MEME coins are extremely risky.<br>
+ <span class="good">24-hour market window per week:</span> each trade action burns in-game hours (stable/meme buys ~4h, sells ~3h, transfers ~1h). When the 24h clock hits zero, the week auto-advances - you cannot sit in trade forever stacking without time passing.</p>
+
+ <p><strong>2. HUSTLE</strong><br>
+ Make money. This is the most important (and dangerous) choice.</p>
+
+ <p><strong>3. FAMILY TIME</strong><br>
+ <span class="good">The single most important action in the game.</span><br>
+ Spend time with your wife and kids. Raises Family and Morale. Slowly lowers Heat.</p>
+
+ <p><strong>4. BANK</strong><br>
+ Move liquid cash into savings. Safer from raids.</p>
+
+ <p><strong>5. STORE</strong><br>
+ Buy protection (Revolver, Body Armor, etc.). Reduces raid damage and can lower Heat.</p>
+
+ <p><strong>6. LAY LOW</strong><br>
+ Do the bare minimum. Small Heat reduction. Good when Heat is dangerously high.</p>
+ </div>
+
+ <div class="section">
+ <div class="section-title">HUSTLE DETAILS (CHOOSE CAREFULLY)</div>
+
+ <p><strong>LEGAL (Zero Heat gain - recommended for long runs):</strong></p>
+ <p>1. Card Pulls - Buy sealed Pokemon/Sports cards and flip them. Pure gambling. No Heat.</p>
+ <p>2. Uber / DoorDash - Safe, boring, reliable small income. Lowest risk option.</p>
+
+ <p><strong>ILLEGAL / RISKY (Adds Heat + arrest risk):</strong></p>
+ <p>3. Sell Drugs - Fastest cash. Very high Heat and constant risk of arrest or raids.</p>
+ <p>4. Boost &amp; Pawn - Steal and flip goods. Good money but Heat rises fast.</p>
+
+ <div class="warning">
+ <strong>WARNING:</strong> Illegal hustles feel good short-term but almost always lead to divorce, prison, or foreclosure. Safe + legal play wins dramatically more often.
+ </div>
+ </div>
+
+ <div class="section">
+ <div class="section-title">EVENTS &amp; CONSEQUENCES</div>
+ <p>Every week random events can happen: family incidents, police raids (especially at high Heat), crypto crashes/pumps, debt problems, or jail time.</p>
+ <p>High Heat is the #1 killer of runs. Once Heat is over 70-80, bad events start chaining.</p>
+ </div>
+
+ <div class="section">
+ <div class="section-title">LAST STAND</div>
+ <p>When you hit $0 and still have debt, the game gives you one final desperate choice: Last Stand. Success is rare.</p>
+ <img src="/assets/images/cryptodad/last_stand.jpg" alt="Crypto Dad Last Stand screen" class="game-img" style="max-width:380px;">
+ </div>
+
+ <div class="section">
+ <div class="section-title">WINNING STRATEGY</div>
+ <p class="good">From hundreds of thousands of simulated runs, the winning pattern is clear:</p>
+ <ul style="margin-left:20px">
+ <li>Do Family Time almost every single week.</li>
+ <li>Stick to legal hustles (Uber + Card Pulls).</li>
+ <li>Only trade when you have genuine surplus cash - and respect the 24h weekly window.</li>
+ <li>Buy protection from the Store when you can.</li>
+ <li>Never let Heat stay high for long.</li>
+ </ul>
+ <p>Safe, boring, consistent play beats risky plays almost every time.</p>
+ </div>
+
+ <div class="section">
+ <div class="section-title">ENDINGS</div>
+ <p>Keep Family high and Heat low for many weeks -> good family endings.<br>
+ Let Heat spiral or Family collapse -> divorce, foreclosure, prison, or worse.</p>
+
+ <div class="game-img-pair">
+ <img src="/assets/images/cryptodad/good_ending.jpg" alt="Crypto Dad good ending - family together" class="game-img">
+ <img src="/assets/images/cryptodad/game_over.jpg" alt="Crypto Dad game over / bad ending screen" class="game-img">
+ </div>
+ <div style="font-size:12px; color:#00aa00; margin-bottom:12px;">Good family ending vs. a typical bad / game-over state</div>
+
+ <img src="/assets/images/cryptodad/last_stand.jpg" alt="Crypto Dad Last Stand desperate choice" class="game-img">
+ <div style="font-size:12px; color:#00aa00; margin-bottom:12px;">Last Stand - the final desperate choice when cash hits zero with debt</div>
+ </div>
+
+ <!-- Small game-specific safety note (uniform tone with wallet safety boxes on mint/swap) -->
+ <div class="disclaimer" style="max-width:920px; margin:14px auto;">
+ <div class="disclaimer-title">GAME SAFETY</div>
+ Live Crypto Dad experience. The mechanics are based on extensive validation but this is a high-risk life simulation game.<br>
+ <strong>Safe, boring, consistent play wins dramatically more often than flashy or illegal moves.</strong>
+ </div>
+
+ <!-- Strong verification directive (identical style to mint + swap) -->
+ <div class="disclaimer" style="max-width:920px; margin:14px auto;">
+ <div class="disclaimer-title">VERIFICATION DIRECTIVE - READ AND COMPLY</div>
+ Live Crypto Dad experience. Nothing here is financial, legal, or life advice. The "bad endings" reflect realistic outcomes of high-risk behavior in the model.<br>
+ DOSWAPZ accepts NO responsibility for any decisions you make. Play responsibly. Do your own research. Do not trust links, DMs, or anyone.
+ </div>
+
+ <div class="buttons">
+ <a href="/classic/hub.html" class="btn"><- BACK TO MENU</a>
+ <a href="/classic/pages/cryptodad/play.html" class="btn">START GAME</a>
+ <a href="/classic/pages/cryptodad/scoreboard.html" class="btn">SCOREBOARD</a>
+ </div>
+
+ <div class="footer">
+ DOSWAPZ - CRYPTO DAD COMPLETE MANUAL * LIVE EXPERIENCE
+ </div>
+ </div>
+
+ <!-- Glitch layer (full reduced-volume engine, matches mint/swap/gallery) -->
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+
+
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.content, #content' });
+ </script>
+<div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+<script src="/assets/js/core/price-ticker.js"></script>
+ </body>
+</html>

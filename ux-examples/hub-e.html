@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Hub E - Clean BBS</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ * { box-sizing: border-box; }
+ html, body { margin: 0; min-height: 100%; background: #000; color: #00ff00; font-family: 'VT323', monospace; }
+ .screen { padding: 18px 16px 80px; max-width: 480px; margin: 0 auto; }
+ .badge { float: right; font-size: 11px; color: #ffff00; border: 1px solid #554400; padding: 2px 6px; }
+ .path { color: #ffff00; font-size: 13px; clear: both; margin-bottom: 6px; }
+ .title { font-size: 28px; letter-spacing: 4px; margin-bottom: 4px; text-shadow: 0 0 6px #00ff00; }
+ .line { color: #00aa00; font-size: 13px; margin-bottom: 16px; }
+ .list { border: 1px solid #003300; background: #020802; }
+ .item {
+ display: grid; grid-template-columns: 36px 1fr auto;
+ gap: 8px; align-items: center;
+ padding: 12px 12px; border-bottom: 1px solid #001a00;
+ text-decoration: none; color: #00ff00; min-height: 52px;
+ }
+ .item:last-child { border-bottom: 0; }
+ .item:hover { background: #001a00; color: #ffff00; }
+ .num { color: #ffff00; font-size: 16px; }
+ .name { font-size: 18px; letter-spacing: 1px; }
+ .hint { color: #006600; font-size: 12px; text-align: right; }
+ .foot { margin-top: 14px; font-size: 12px; color: #006600; line-height: 1.35; }
+ </style>
+</head>
+<body>
+ <div class="screen">
+ <div class="badge">E</div>
+ <div class="path">C:\DOSWAPZ\SYSTEM_MENU&gt;</div>
+ <div class="title">DOSWAPZ</div>
+ <div class="line">select destination * type number or tap</div>
+ <div class="list">
+ <a class="item" href="#"><span class="num">1</span><span class="name">0% SWAP</span><span class="hint">jupiter</span></a>
+ <a class="item" href="#"><span class="num">2</span><span class="name">ARCADE</span><span class="hint">cabinets</span></a>
+ <a class="item" href="#"><span class="num">3</span><span class="name">CRYPTO DAD / MOM</span><span class="hint">games</span></a>
+ <a class="item" href="#"><span class="num">4</span><span class="name">BASEMENT</span><span class="hint">vanta</span></a>
+ <a class="item" href="#"><span class="num">5</span><span class="name">POND SCUM</span><span class="hint">dossier</span></a>
+ <a class="item" href="#"><span class="num">6</span><span class="name">TIME MACHINE</span><span class="hint">eras</span></a>
+ <a class="item" href="#"><span class="num">7</span><span class="name">HARDWEAR / MERCH</span><span class="hint">gear</span></a>
+ <a class="item" href="#"><span class="num">8</span><span class="name">DEGEN$ / DEMPLAR</span><span class="hint">lore</span></a>
+ <a class="item" href="#"><span class="num">9</span><span class="name">DOCS / LEGAL</span><span class="hint">cover</span></a>
+ </div>
+ <div class="foot">Self-custody only. Never connect bags you can’t lose. 18+.</div>
+ </div>
+</body>
+</html>

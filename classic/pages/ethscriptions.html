@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>ETHSCRIPTIONS // DOSWAPZ</title>
+ <meta name="description" content="ETHSCRIPTIONS. Open NFT market. A resale price includes 2.5% for the creator. DOSWAPZ takes 0 on that resale.">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+  html, body { margin:0; min-height:100%; background:#070500; color:#f6e7b2; font-family:VT323, 'Courier New', monospace; }
+  .wrap, .wrap * { box-sizing:border-box; }
+  .wrap { max-width:980px; margin:0 auto; padding:28px 16px 80px; }
+  h1 {
+   margin:0; text-align:center; letter-spacing:6px; font-size:clamp(36px, 7vw, 64px); font-weight:normal;
+   background:linear-gradient(180deg, #fff8df 0%, #f0c14b 45%, #a86b12 100%);
+   -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  h2 { margin:0 0 8px; letter-spacing:2px; font-size:26px; font-weight:normal; color:#f0c14b; }
+  .sub, .note { text-align:center; color:#b08948; letter-spacing:1px; }
+  .banner, .box, .card {
+   border:1px solid #e0b04a; background:#100c04;
+   box-shadow:0 0 18px rgba(224, 176, 74, 0.18);
+  }
+  .banner { text-align:center; padding:10px 12px; margin:12px 0 16px; color:#ffe7a3; }
+  .box { padding:14px; margin:0 0 14px; }
+  .steps { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin:0 0 14px; }
+  .steps div { border:1px solid #8a6a2a; padding:10px; background:#140f06; }
+  .steps b { display:block; color:#f0c14b; letter-spacing:1px; margin-bottom:4px; }
+  ol.howto { margin:8px 0 0; padding-left:22px; }
+  ol.howto li { margin:0 0 6px; }
+  .mono { word-break:break-all; color:#fff4cc; }
+  label { display:block; color:#b08948; margin:10px 0 4px; letter-spacing:1px; }
+  input { width:100%; background:#070500; color:#fff4cc; border:1px solid #e0b04a; font:inherit; font-size:20px; padding:8px 10px; }
+  .market-nav { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; }
+  .market-nav button.on { background:#f0c14b; color:#1a1204; }
+  button, a.btn {
+   font:inherit; letter-spacing:2px; cursor:pointer; border:1px solid #f0c14b; background:#070500; color:#ffe7a3;
+   padding:8px 12px; text-decoration:none; display:inline-block;
+  }
+  button:hover, a.btn:hover { background:#f0c14b; color:#1a1204; }
+  button:disabled { cursor:wait; opacity:.55; }
+  button:focus-visible, input:focus-visible { outline:2px solid #fff4cc; outline-offset:3px; }
+  #mintRecovery:empty { display:none; }
+  .mint-review { padding:16px; border:1px solid #f0c14b; width:100%; }
+  a { color:#ffe7a3; }
+  .row { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+  .board { display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:10px; }
+  .card { padding:10px; cursor:pointer; }
+  .card img { width:100%; height:140px; object-fit:contain; background:#070500; display:block; margin-bottom:8px; }
+  .fee-note { text-align:left; color:#f6e7b2; }
+  .mint-bar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:12px 0; }
+  .mint-bar b { color:#f0c14b; font-weight:normal; }
+  .phunk-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(104px, 1fr)); gap:8px; }
+  .phunk-card { background:#100c04; border:1px solid #3a2e12; border-radius:10px; overflow:hidden; cursor:pointer; content-visibility:auto; }
+  .phunk-card img { width:100%; aspect-ratio:1; height:auto; object-fit:contain; display:block; background:#070500; image-rendering:pixelated; }
+  .phunk-card .meta { padding:6px 8px 8px; font-size:14px; color:#f6e7b2; }
+  .phunk-card.on { border-color:#f0c14b; box-shadow:0 0 0 1px #f0c14b; }
+  .phunk-card.taken { opacity:.4; cursor:default; }
+  .pager { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:8px 0 12px; }
+  .pager input { width:120px; font-size:16px; }
+  .price { font-size:28px; color:#f0c14b; }
+  .status { min-height:22px; color:#ffe7a3; margin-top:8px; }
+  .split { display:grid; grid-template-columns:1.1fr 0.9fr; gap:12px; }
+  .box.view, .split.view { display:none; }
+  .box.view.on { display:block; }
+  .split.view.on { display:grid; }
+  table.fees { width:100%; border-collapse:collapse; font-size:18px; margin-top:8px; }
+  table.fees th, table.fees td { border:1px solid #8a6a2a; padding:8px; text-align:left; vertical-align:top; }
+  table.fees th { color:#f0c14b; font-weight:normal; letter-spacing:1px; }
+  select { width:100%; background:#070500; color:#fff4cc; border:1px solid #e0b04a; font:inherit; font-size:18px; padding:8px 10px; }
+  @media (max-width:800px) { .steps, .split { grid-template-columns:1fr; } h1 { letter-spacing:3px; } table.fees { font-size:16px; } }
+ </style>
+</head>
+<body>
+ <div class="wrap">
+  <h1>ETHSCRIPTIONS</h1>
+  <p class="sub">OPEN TO EVERYONE · RESALE PRICE INCLUDES 2.5% FOR THE CREATOR · DOSWAPZ 0</p>
+   <div class="banner">ETHEREUM MAINNET · CONNECT · MINT · REVEAL</div>
+  <nav class="market-nav" id="marketNav">
+   <button type="button" data-view="collections" class="on">COLLECTIONS</button>
+   <button type="button" data-view="market">MARKET</button>
+   <button type="button" data-view="mine">MY COLLECTION</button>
+   <button type="button" data-view="activity">ACTIVITY</button>
+   <button type="button" data-view="create">CREATE</button>
+  </nav>
+  <div class="box view on" id="view-collections">
+   <h2>COLLECTIONS</h2>
+    <p>Direct collection mints deliver to your connected wallet in the purchase transaction. Covers reveal here after the mint is confirmed. Each Ethscription needs its own transaction; network fees are shown before approval.</p>
+    <details><summary>Launching a collection using escrow</summary>
+    <p>Inscribe each piece, lock it to escrow, and set one price. Primary sales pay the creator 99.5%. Standard resale prices include a 2.5% creator royalty; the seller receives 97.5% and DOSWAPZ receives 0.</p>
+   <ol class="howto">
+    <li>Log in on <a href="/account/past">Account</a> and add your Ethereum wallet.</li>
+    <li>Create each ethscription in that wallet. This page does not do it. The id is the creation transaction.</li>
+    <li>Fill in Launch and click Launch it. Pick 2.5% or 5% for later resales. That choice stays.</li>
+    <li>Send each piece to the escrow address with 0 ETH. The hex data is only the ethscription id.</li>
+    <li>Paste that lock under Add a piece and click Deposit it.</li>
+    <li>A buyer clicks Mint and pays the mint price. The mint is random. The cover stays blank. You receive 99.5%. When escrow sends the piece to the buyer’s wallet, the picture is revealed. This page does not hold that key.</li>
+    </ol>
+    </details>
+   <p class="note" style="text-align:left"><a href="/docs/ethscriptions.html">Full instructions</a> · <a href="/docs/legal.html#s15c">Legal §15C</a></p>
+   <div class="board" id="drops"><div class="card">NO COLLECTIONS YET.</div></div>
+   <div id="dropDetail"></div>
+   <div class="status" id="dropStatus"></div>
+  </div>
+   <div class="split view" id="view-create">
+   <div class="box">
+    <h2>LAUNCH</h2>
+    <label for="colName">COLLECTION NAME</label>
+    <input id="colName" placeholder="Collection name" autocomplete="off" maxlength="32">
+    <label for="colSymbol">SYMBOL</label>
+    <input id="colSymbol" placeholder="SYMBOL" autocomplete="off" maxlength="10">
+    <label for="colSupply">SUPPLY</label>
+    <input id="colSupply" placeholder="100" autocomplete="off">
+    <label for="colPrice">MINT PRICE IN ETH</label>
+    <input id="colPrice" placeholder="0.0002" autocomplete="off">
+    <label for="colMax">MAX PER WALLET</label>
+    <input id="colMax" placeholder="5" autocomplete="off">
+    <label for="colLane">YOUR RESALE ROYALTY</label>
+    <select id="colLane">
+     <option value="standard">2.5% BUILT INTO THE PRICE FOR YOU · DOSWAPZ 0</option>
+     <option value="premium">5% TO YOU · DOSWAPZ 0.5% · SELLER GETS THE ASK</option>
+    </select>
+    <label for="colAbout">DESCRIPTION</label>
+    <input id="colAbout" placeholder="What the collection is" autocomplete="off" maxlength="280">
+    <div class="row"><button id="launchBtn" type="button">LAUNCH IT</button></div>
+   </div>
+   <div class="box">
+    <h2>ADD A PIECE</h2>
+    <p class="note" style="text-align:left">The ethscription has to be created by the same wallet that launched the collection. Lock it to escrow, then paste both transactions.</p>
+    <label for="depositCollection">COLLECTION ID</label>
+    <input id="depositCollection" placeholder="Click a collection, or paste its id" autocomplete="off" spellcheck="false">
+    <label for="depositEs">ETHSCRIPTION ID</label>
+    <input id="depositEs" placeholder="0x creation transaction" autocomplete="off" spellcheck="false">
+    <label for="depositLock">LOCK TRANSACTION</label>
+    <input id="depositLock" placeholder="0x transfer into escrow" autocomplete="off" spellcheck="false">
+    <div class="row"><button id="depositBtn" type="button">DEPOSIT IT</button></div>
+   </div>
+   <div class="status" id="createStatus" style="grid-column:1 / -1"></div>
+  </div>
+  <div class="box view" id="view-mine">
+   <h2>MY COLLECTION</h2>
+   <p class="note" id="mineNote" style="text-align:left">Log in on Account. This view is the collections you launched and the pieces in your wallet.</p>
+   <h2>LAUNCHED</h2>
+   <div class="board" id="mineDrops"></div>
+   <h2>IN MY WALLET</h2>
+   <div class="board" id="mineOwned"></div>
+   <h2>ON THE WAY</h2>
+   <p class="note" style="text-align:left">You paid. The picture stays blank until escrow sends the piece to your wallet.</p>
+   <div class="board" id="mineIncoming"></div>
+   <h2>LISTED BY ME</h2>
+   <div class="board" id="mineSelling"></div>
+  </div>
+  <div class="box view" id="view-activity">
+   <h2>ACTIVITY</h2>
+   <div class="board" id="activity"></div>
+  </div>
+  <div class="split view" id="view-market">
+   <div class="box">
+    <h2>MARKET</h2>
+    <div class="board" id="board"><div class="card">NO LISTINGS YET.</div></div>
+   </div>
+   <div class="box">
+    <h2>LIST</h2>
+    <p class="note" style="text-align:left">List one ethscription, or resale a piece. The resale price includes 2.5% for the creator. You receive 97.5%. DOSWAPZ takes 0. Only the creator can choose 5% instead. Log in, lock it to escrow, and paste that transaction.</p>
+    <label for="esId">ETHSCRIPTION ID</label>
+    <input id="esId" placeholder="0x creation transaction" autocomplete="off" spellcheck="false">
+    <label for="price">PRICE IN ETH</label>
+    <input id="price" placeholder="0.05" autocomplete="off">
+    <label for="lane">IF YOU ARE THE CREATOR</label>
+    <select id="lane">
+     <option value="standard">LATER RESALES · 2.5% BUILT INTO THE PRICE FOR YOU · DOSWAPZ 0</option>
+     <option value="premium">LATER RESALES · 5% TO YOU · DOSWAPZ 0.5%</option>
+    </select>
+    <p class="note" style="text-align:left">This mint still pays you 99.5%. A seller who is not the creator cannot change the royalty. The seller receives the ask.</p>
+    <label for="lockTx">LOCK TRANSACTION</label>
+    <input id="lockTx" placeholder="0x transfer into escrow" autocomplete="off" spellcheck="false">
+    <div class="row">
+     <button id="listBtn" type="button">LIST IT</button>
+     <button id="connectBtn" type="button">CONNECT ETHEREUM</button>
+    </div>
+    <div class="status" id="status"></div>
+    <div id="detail"></div>
+   </div>
+  </div>
+   <div class="box" id="mintRecovery" aria-live="polite"></div>
+   <div class="box">
+    <h2>FEES</h2>
+   <p>Anyone can list or buy. On a resale the price includes 2.5% for the creator. The buyer pays that price. The seller receives 97.5%. DOSWAPZ takes 0. If the creator chose 5%, the buyer pays the ask plus 5.5%, the seller receives the ask, and DOSWAPZ takes 0.5%. A refund returns everything the buyer paid.</p>
+   <table class="fees">
+    <thead>
+     <tr><th>SALE</th><th>SITE</th><th>CREATOR</th><th>SELLER RECEIVES</th><th>BUYER PAYS</th></tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>Primary sale. First mint by the creator.</td>
+      <td>0.5%</td>
+      <td>The seller is the creator.</td>
+      <td>99.5% of the mint price.</td>
+      <td>The mint price.</td>
+     </tr>
+     <tr>
+      <td>Secondary sale. The 2.5% is built into the price for the creator.</td>
+      <td>0%</td>
+      <td>2.5% of the price.</td>
+      <td>97.5% of the price.</td>
+      <td>The price.</td>
+     </tr>
+     <tr>
+      <td>Creator chooses 5%.</td>
+      <td>0.5%</td>
+      <td>5%</td>
+      <td>The ask. No seller fee.</td>
+      <td>The ask plus 5.5%.</td>
+     </tr>
+    </tbody>
+   </table>
+   <p class="note" style="text-align:left">On a 1 ETH resale price: the buyer pays 1 ETH, the creator receives 0.025 ETH, the seller receives 0.975 ETH, and DOSWAPZ receives 0. If the creator chose 5%, the buyer pays 1.055 ETH, the creator receives 0.05 ETH, the seller receives 1 ETH, and DOSWAPZ keeps 0.005 ETH. A 1 ETH mint pays the seller 0.995 ETH.</p>
+  </div>
+  <div class="box">
+   <h2>ESCROW</h2>
+   <p>Buyers pay this escrow. A resale price includes 2.5% for the creator and leaves 0 for DOSWAPZ. The seller receives 97.5%. A creator choice of 5% leaves 0.5% here and the seller receives the ask. This page does not hold the key.</p>
+   <p class="mono" id="escrow">0x15e85a85B7026875d3529EF0c6de2723C285DA11</p>
+   <p class="note"><a href="/docs/legal.html#s15c">Legal §15C</a> · <a href="/ek/past">E.K. uses this same ETH address</a> · <a href="/account/past">Account login</a></p>
+  </div>
+  <div class="steps">
+   <div><b>1 · LOCK</b> Send the ethscription to escrow. 0 ETH. Hex data is the ethscription id.</div>
+   <div><b>2 · PAY</b> The buyer sends the ask plus the creator royalty to escrow with empty hex data. A mint is the mint price only.</div>
+   <div><b>3 · RELEASE</b> Escrow sends the ethscription to the buyer, the seller share to the seller, and any creator royalty to the creator.</div>
+  </div>
+ </div>
+  <script src="/assets/js/core/ethscription-checkout.js?v=20261101"></script>
+  <script>
+  var ESCROW = '0x15e85a85B7026875d3529EF0c6de2723C285DA11'
+  var PHUNK_ID = '45b48eca99f938b7'
+  function phunkDown(drop) { return !!(drop && drop.id === PHUNK_ID && !drop.live) }
+  var marketProvider = null
+  function chooseWallet(host) { return EthscriptionCheckout.choose(host) }
+  function refreshRecovery() { EthscriptionCheckout.recovery(document.getElementById('mintRecovery'), api) }
+  var MINTER_INFO = null
+  function minterInfo() {
+   if (MINTER_INFO) return Promise.resolve(MINTER_INFO)
+   return fetch('/assets/data/phunk-minter.json', { cache: 'no-store' }).then(function (res) {
+    if (!res.ok) throw new Error('The minter contract file is not on the site.')
+    return res.json()
+   }).then(function (info) {
+    if (!info || !info.address || !info.deployData || !info.selector || !info.factory || !info.creator) throw new Error('The minter contract file is incomplete.')
+    MINTER_INFO = info
+    return info
+   })
+  }
+  function hex32(n) {
+   var h = BigInt(n).toString(16)
+   while (h.length < 64) h = '0' + h
+   return h
+  }
+  function encodeMint(info, uri, proof, tokenNo) {
+   var bytes = new TextEncoder().encode(uri)
+   var words = Math.ceil(bytes.length / 32)
+   var stringOffset = 96
+   var proofOffset = stringOffset + 32 + words * 32
+   var hex = hex32(stringOffset) + hex32(proofOffset) + hex32(tokenNo)
+   hex += hex32(bytes.length)
+   var body = ''
+   for (var i = 0; i < bytes.length; i++) {
+    var b = bytes[i].toString(16)
+    body += b.length === 1 ? '0' + b : b
+   }
+   while (body.length < words * 64) body += '0'
+   hex += body
+   if (!proof || proof.length !== 14) throw new Error('The picture proof is incomplete.')
+   hex += hex32(proof.length)
+   for (var p = 0; p < proof.length; p++) {
+    var item = String(proof[p] || '').replace(/^0x/i, '')
+    if (!/^[a-f0-9]{64}$/i.test(item)) throw new Error('The picture proof is incomplete.')
+    hex += item
+   }
+   return '0x' + String(info.selector).replace(/^0x/i, '') + hex
+  }
+  function codeAt(eth, address) {
+   return eth.request({ method: 'eth_getCode', params: [address, 'latest'] }).then(function (code) {
+    return !!(code && code !== '0x' && code !== '0x0')
+   })
+  }
+  var me = null
+  function waitTx(eth, hash) {
+   function once(n) {
+    return eth.request({ method: 'eth_getTransactionReceipt', params: [hash] }).then(function (receipt) {
+     if (receipt && receipt.status === '0x0') throw new Error('The transaction failed.')
+     if (receipt && receipt.status === '0x1') return hash
+     if (n > 40) throw new Error('Confirmation is still pending. Keep the transaction hash and check again; do not send another payment.')
+     return new Promise(function (resolve) { setTimeout(resolve, 3000) }).then(function () { return once(n + 1) })
+    })
+   }
+   return once(0)
+  }
+  function text(id, value) { document.getElementById(id).textContent = value }
+  function say(value) {
+   ;['status', 'dropStatus', 'createStatus'].forEach(function (id) {
+    var el = document.getElementById(id)
+    if (el) el.textContent = value
+   })
+  }
+  function api(body) {
+   return fetch('/api/ethscriptions', {
+    method: body ? 'POST' : 'GET',
+    credentials: 'same-origin',
+    headers: body ? { 'Content-Type': 'application/json' } : {},
+    body: body ? JSON.stringify(body) : undefined
+   }).then(function (res) { return res.json() })
+  }
+  function short(id) { return String(id || '').slice(0, 8) + '…' + String(id || '').slice(-4) }
+  function esc(value) {
+   return String(value == null ? '' : value).replace(/[&<>"]/g, function (ch) {
+    return ch === '&' ? '&amp;' : ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : '&quot;'
+   })
+  }
+  function draw(list) {
+   var board = document.getElementById('board')
+   board.innerHTML = ''
+   if (!list.length) {
+    board.innerHTML = '<div class="card">NO RESALES YET. COLLECTION MINTS STAY ON THE LAUNCHPAD UNTIL SOMEONE LISTS ONE AGAIN.</div>'
+    return
+   }
+   list.forEach(function (row) {
+    var card = document.createElement('div')
+    card.className = 'card'
+    var kindName = row.kind === 'premium' ? 'CREATOR 5%' : (row.kind === 'standard' ? 'CREATOR 2.5%' : 'MINT')
+    card.innerHTML = '<div class="price">' + row.priceEth + ' ETH ASK</div><div>' + kindName + ' · seller ' + row.sellerEth + ' · buyer ' + (row.buyerEth || row.priceEth) + '</div><div>' + short(row.ethscriptionId) + '</div><div>' + row.state.toUpperCase() + ' · ' + row.seller + '</div>'
+    if (row.preview) {
+     var img = document.createElement('img')
+     img.src = row.preview
+     img.alt = ''
+     card.insertBefore(img, card.firstChild)
+    }
+    card.addEventListener('click', function () { openRow(row) })
+    board.appendChild(card)
+   })
+  }
+  function openRow(row) {
+   var box = document.getElementById('detail')
+   box.innerHTML = '<h2 style="margin-top:16px">THIS ONE</h2><p>' + row.priceEth + ' ETH · ' + row.state.toUpperCase() + '</p><p class="mono">' + row.ethscriptionId + '</p>'
+   if (row.state === 'open' || row.state === 'held') {
+    var pay = document.createElement('button')
+    pay.type = 'button'
+    pay.textContent = 'PAY ESCROW'
+    pay.addEventListener('click', function () { buy(row) })
+    box.appendChild(pay)
+   }
+  }
+  function showView(name) {
+   document.querySelectorAll('.view').forEach(function (el) {
+    el.classList.toggle('on', el.id === 'view-' + name)
+   })
+   document.querySelectorAll('#marketNav button').forEach(function (btn) {
+    btn.classList.toggle('on', btn.getAttribute('data-view') === name)
+   })
+   if (history.replaceState) history.replaceState(null, '', '#' + name)
+  }
+  function pieceCard(row, label) {
+   var card = document.createElement('div')
+   card.className = 'card'
+   var img = document.createElement('img')
+   img.src = row.preview || '/assets/images/ethscription-cover.png'
+   img.alt = row.preview ? 'Revealed piece' : 'Blank cover'
+   card.appendChild(img)
+   card.innerHTML += '<div class="price">' + esc(row.priceEth || '') + ' ETH</div><div>' + esc(label) + '</div><div>' + esc(String(row.state || '').toUpperCase()) + '</div>'
+   return card
+  }
+  function drawMine(mine) {
+   var note = document.getElementById('mineNote')
+   var drops = document.getElementById('mineDrops')
+   var owned = document.getElementById('mineOwned')
+   var incoming = document.getElementById('mineIncoming')
+   var selling = document.getElementById('mineSelling')
+   drops.innerHTML = ''
+   owned.innerHTML = ''
+   incoming.innerHTML = ''
+   selling.innerHTML = ''
+   if (!me) {
+    note.textContent = 'Log in on Account and add your Ethereum wallet. Then this page shows your collections and your pieces.'
+    drops.innerHTML = '<div class="card">NOT LOGGED IN.</div>'
+    owned.innerHTML = '<div class="card">LOG IN TO SEE YOUR PIECES.</div>'
+    incoming.innerHTML = '<div class="card">LOG IN TO SEE PIECES ON THE WAY.</div>'
+    selling.innerHTML = '<div class="card">LOG IN TO SEE YOUR LISTINGS.</div>'
+    return
+   }
+   note.textContent = 'Wallet ' + (me.wallet || 'not added yet') + '. Revealed pieces are the ones already in a wallet.'
+   var launched = ((mine && mine.collections) || []).filter(function (drop) { return !phunkDown(drop) })
+   if (!launched.length) drops.innerHTML = '<div class="card">YOU HAVE NOT LAUNCHED A COLLECTION.</div>'
+   launched.forEach(function (drop) {
+    var card = document.createElement('div')
+    card.className = 'card'
+    card.innerHTML = '<div class="price">' + esc(drop.mintPriceEth) + ' ETH</div><div>' + esc(drop.name) + ' · ' + esc(drop.symbol) + '</div><div>' + esc(drop.minted) + ' / ' + esc(drop.supply) + ' MINTED</div><div>VIEW COLLECTION</div>'
+    var img = document.createElement('img')
+    img.src = drop.preview || '/assets/images/ethscription-cover.png'
+    img.alt = drop.live ? drop.name : 'Blank cover'
+    card.insertBefore(img, card.firstChild)
+    card.addEventListener('click', function () { showView('collections'); openDrop(drop) })
+    drops.appendChild(card)
+   })
+   var got = (mine && mine.owned) || []
+   if (!got.length) owned.innerHTML = '<div class="card">NOTHING IN YOUR WALLET YET.</div>'
+   got.forEach(function (row) { owned.appendChild(pieceCard(row, 'REVEALED')) })
+   var wait = (mine && mine.incoming) || []
+   if (!wait.length) incoming.innerHTML = '<div class="card">NOTHING ON THE WAY.</div>'
+   wait.forEach(function (row) { incoming.appendChild(pieceCard(row, 'BLANK UNTIL DELIVERY')) })
+   var asks = (mine && mine.selling) || []
+   if (!asks.length) selling.innerHTML = '<div class="card">YOU HAVE NOTHING LISTED.</div>'
+   asks.forEach(function (row) {
+    var label = row.collectionId ? 'IN THE MINT' : 'LISTED'
+    var card = pieceCard(row, label)
+    if (!row.collectionId) card.addEventListener('click', function () { showView('market'); openRow(row) })
+    selling.appendChild(card)
+   })
+  }
+  function drawActivity(list) {
+   var board = document.getElementById('activity')
+   board.innerHTML = ''
+   if (!list || !list.length) {
+    board.innerHTML = '<div class="card">NO ACTIVITY YET.</div>'
+    return
+   }
+   list.forEach(function (row) {
+    var card = pieceCard(row, row.collectionId ? 'MINT REVEALED' : 'RESALE')
+    if (!row.collectionId && (row.state === 'open' || row.state === 'held')) {
+     card.addEventListener('click', function () { showView('market'); openRow(row) })
+    }
+    board.appendChild(card)
+   })
+  }
+  function load() {
+   api().then(function (data) {
+    if (!data || !data.ok) { say(data && data.error ? data.error : 'Board unavailable'); return }
+    ESCROW = data.escrow || ESCROW
+    EthscriptionCheckout.configure(data.walletConnectProjectId)
+    text('escrow', ESCROW)
+    me = data.me
+    var drops = data.collections || []
+    drawDrops(drops)
+    var openId = document.getElementById('depositCollection').value.trim()
+    var still = null
+    drops.forEach(function (drop) {
+     if (phunkDown(drop)) return
+     if (drop.live && !still) still = drop
+     if (drop.id === openId) still = drop
+    })
+    if (still) openDrop(still)
+    draw(data.listings || [])
+    drawMine(data.mine)
+    drawActivity(data.activity || [])
+    refreshRecovery()
+   }).catch(function () { say('Board unavailable') })
+  }
+  function drawDrops(list) {
+   var board = document.getElementById('drops')
+   board.innerHTML = ''
+   if (!list.length) {
+    board.innerHTML = '<div class="card">NO COLLECTIONS YET. LAUNCH ONE, THEN LOCK THE PIECES INTO ESCROW.</div>'
+    return
+   }
+   var shown = list.filter(function (drop) { return !phunkDown(drop) })
+   if (!shown.length) {
+    board.innerHTML = '<div class="card">NO COLLECTIONS YET. LAUNCH ONE, THEN LOCK THE PIECES INTO ESCROW.</div>'
+    return
+   }
+   shown.forEach(function (drop) {
+    var card = document.createElement('div')
+    card.className = 'card'
+    var royalty = drop.royalty === 'premium' ? 'RESALE 5% · SITE 0.5%' : 'RESALE 2.5% · SITE 0'
+    var how = drop.live ? 'SELECT UP TO ' + esc(drop.maxPerWallet) + ' COVERS · REVEAL AFTER CONFIRMATION' : 'RANDOM MINT · REVEALS IN THE WALLET'
+    card.innerHTML = '<div class="price">' + esc(drop.mintPriceEth) + ' ETH</div><div>' + esc(drop.name) + ' · ' + esc(drop.symbol) + '</div><div>' + esc(drop.minted) + ' / ' + esc(drop.supply) + ' MINTED · ' + esc(drop.left) + ' READY</div><div>' + how + '</div><div>VIEW COLLECTION</div><div>' + royalty + ' · ' + esc(String(drop.state || '').toUpperCase()) + ' · ' + esc(drop.creator) + '</div>'
+    var img = document.createElement('img')
+    img.src = drop.preview || '/assets/images/ethscription-cover.png'
+    img.alt = drop.live ? drop.name : 'Blank cover. The piece is revealed when it reaches the buyer wallet.'
+    card.insertBefore(img, card.firstChild)
+    card.addEventListener('click', function () { openDrop(drop) })
+    board.appendChild(card)
+   })
+  }
+  function weiText(wei) {
+   var n = BigInt(wei)
+   var whole = n / (10n ** 18n)
+   var frac = (n % (10n ** 18n)).toString().padStart(18, '0').replace(/0+$/, '')
+   return frac ? whole.toString() + '.' + frac : whole.toString()
+  }
+  function mintSplit(priceWei, count) {
+   var ask = BigInt(priceWei) * BigInt(count)
+   var site = (BigInt(priceWei) * 50n / 10000n) * BigInt(count)
+   return { ask: ask, site: site, seller: ask - site }
+  }
+  function openLive(drop) {
+   var box = document.getElementById('dropDetail')
+   var picked = {}
+   var page = 0
+   var pageSize = 40
+   var supply = Number(drop.supply) || 0
+   var maxPick = Number(drop.maxPerWallet) || 1
+   var slots = String(drop.slots || '')
+   var priceWei = drop.mintPriceWei || '200000000000000'
+   var one = mintSplit(priceWei, 1)
+   var resale = drop.royalty === 'premium'
+    ? 'On a later resale the seller receives the full ask. The buyer pays the ask plus 5% to the creator and 0.5% to DOSWAPZ.'
+    : 'On a resale the price includes 2.5% for the creator. The seller receives 97.5%. DOSWAPZ receives 0.'
+   box.innerHTML = ''
+   var title = document.createElement('h2')
+   title.style.marginTop = '16px'
+   title.textContent = drop.name
+   var lead = document.createElement('p')
+   lead.textContent = drop.mintPriceEth + ' ETH each · max ' + maxPick + ' · ' + drop.minted + ' / ' + supply + ' minted'
+   var fees = document.createElement('p')
+   fees.className = 'fee-note'
+   fees.textContent = 'No DOSWAPZ login. Connect an Ethereum wallet. Each cover costs ' + weiText(one.ask) + ' ETH plus gas and requires its own wallet approval. The mint contract creates the piece for your wallet and sends 99.5% to the creator, 0.5% to the site. Covers reveal here after confirmation. Artwork is public on-chain and may already be accessible elsewhere. ' + resale
+   minterInfo().then(function (info) {
+    fees.textContent += ' Mint recipient: ' + info.address + '.'
+   }).catch(function () {})
+   var note = document.createElement('p')
+   note.className = 'status'
+   note.setAttribute('aria-live', 'polite')
+   function mintNote(value) { note.textContent = value || '' }
+   var bar = document.createElement('div')
+   bar.className = 'mint-bar'
+   var count = document.createElement('b')
+   var pay = document.createElement('button')
+   pay.type = 'button'
+   pay.textContent = 'MINT'
+   var mintOpen = drop.state === 'open'
+   pay.disabled = !mintOpen
+   if (!mintOpen) mintNote('Launch preparation · purchases are paused. Saved transactions can still be checked below.')
+   var pager = document.createElement('div')
+   pager.className = 'pager'
+   var prev = document.createElement('button')
+   prev.type = 'button'
+   prev.textContent = 'PREV'
+   var next = document.createElement('button')
+   next.type = 'button'
+   next.textContent = 'NEXT'
+   var jump = document.createElement('input')
+   jump.type = 'number'
+   jump.min = '0'
+   jump.max = String(Math.max(0, supply - 1))
+   jump.placeholder = 'Phunk id'
+   var go = document.createElement('button')
+   go.type = 'button'
+   go.textContent = 'GO'
+   var pageLabel = document.createElement('span')
+   var grid = document.createElement('div')
+   grid.className = 'phunk-grid'
+   function chosen() { return Object.keys(picked) }
+   function paintBar() {
+    if (!mintOpen) { count.textContent = '10,000 COVERS · REVEAL AFTER MINT'; pay.textContent = 'MINT OPENS SOON'; return }
+    var n = chosen().length
+    var split = mintSplit(priceWei, n || 0)
+    count.textContent = 'SELECTED ' + n + ' / ' + maxPick
+    if (!n) {
+     pay.textContent = 'MINT'
+     return
+    }
+    pay.textContent = 'MINT ' + n + ' · PAY ' + weiText(split.ask) + ' ETH'
+    count.textContent = 'SELECTED ' + n + ' / ' + maxPick + ' · CREATOR RECEIVES ' + weiText(split.seller) + ' ETH · SITE KEEPS ' + weiText(split.site) + ' ETH'
+   }
+   function draw() {
+    grid.innerHTML = ''
+    var start = page * pageSize
+    var end = Math.min(supply, start + pageSize)
+    pageLabel.textContent = (start + 1) + '–' + end + ' of ' + supply
+    for (var i = start; i < end; i++) {
+     var flag = slots.charAt(i) || '0'
+     var revealed = drop.previews && drop.previews[String(i)]
+     var card = document.createElement('button')
+     card.type = 'button'
+     card.className = 'phunk-card'
+     var img = document.createElement('img')
+     img.src = revealed || '/assets/images/ethscription-cover.png'
+     img.alt = revealed ? 'Minted Phunk #' + i : 'Unrevealed cover #' + i
+     var meta = document.createElement('div')
+     meta.className = 'meta'
+     meta.textContent = '#' + i
+     if (revealed) {
+      card.className += ' taken'
+      meta.textContent = '#' + i + ' · IN A WALLET'
+     } else if (flag !== '0') {
+      if (picked[i]) card.className += ' on'
+      meta.textContent = '#' + i + (picked[i] ? ' · SELECTED' : ' · FINISH PICTURE')
+     } else if (picked[i]) {
+      card.className += ' on'
+      meta.textContent = '#' + i + ' · SELECTED'
+     }
+     card.appendChild(img)
+     card.appendChild(meta)
+     card.setAttribute('aria-pressed', picked[i] ? 'true' : 'false')
+     ;(function (token, openTile) {
+      card.addEventListener('click', function () {
+       if (!openTile || pay.disabled) return
+       if (picked[token]) delete picked[token]
+       else if (chosen().length >= maxPick) mintNote('The max is ' + maxPick + ' per wallet.')
+       else picked[token] = true
+       paintBar()
+       draw()
+      })
+     })(i, !revealed)
+     grid.appendChild(card)
+    }
+   }
+   prev.addEventListener('click', function () { if (page > 0) { page -= 1; draw() } })
+   next.addEventListener('click', function () { if ((page + 1) * pageSize < supply) { page += 1; draw() } })
+   go.addEventListener('click', function () {
+    var id = Number(jump.value)
+    if (!Number.isInteger(id) || id < 0 || id >= supply) { mintNote('That phunk id is not in this collection.'); return }
+    page = Math.floor(id / pageSize)
+    draw()
+   })
+   pay.addEventListener('click', function () {
+    var ids = chosen().map(Number)
+    if (!ids.length) { mintNote('Select up to ' + maxPick + ' pictures.'); return }
+    pay.disabled = true
+    var eth = null
+    var from = ''
+    mintNote('Choose the wallet that will pay and mint.')
+    chooseWallet(bar).then(function (provider) {
+     eth = provider
+     return EthscriptionCheckout.ensureChain(eth)
+    }).then(function () {
+     return eth.request({ method: 'eth_requestAccounts' })
+    }).then(function (rows) {
+     from = rows && rows[0]
+     if (!from) throw new Error('The wallet did not connect.')
+     mintNote('Holding the pictures. No site login.')
+     return api({ action: 'phunkHold', collectionId: drop.id, tokenNos: ids, buyer: from })
+    }).then(function (held) {
+     if (!held || !held.ok) throw new Error((held && held.error) || 'The covers were not held.')
+     return minterInfo().then(function (info) {
+      return codeAt(eth, info.address).then(function (ready) {
+       if (ready) return info
+       throw new Error('The mint contract is not deployed yet. No payment sent. Collection setup must be completed before checkout opens.')
+      }).then(function (readyInfo) {
+       var pictures = held.mints || []
+       var step = Promise.resolve()
+       pictures.filter(function (picture) { return picture.wei && picture.wei !== '0' }).forEach(function (picture, index) {
+        step = step.then(function () {
+         if (!picture.uri || !picture.proof) throw new Error('That picture is not ready to mint.')
+         if (!picture.wei || picture.wei === '0') throw new Error('That cover is not held for this wallet.')
+          mintNote('Preparing cover ' + (index + 1) + ' of ' + pictures.length + '. Checking gas before wallet approval.')
+          return EthscriptionCheckout.send({
+           provider: eth, from: from, info: readyInfo, picture: picture,
+           data: encodeMint(readyInfo, picture.uri, picture.proof, picture.tokenNo),
+           review: function (quote) {
+            return new Promise(function (resolve, reject) {
+             var review = document.createElement('div'); review.className = 'mint-review'
+             var summary = document.createElement('p')
+             summary.textContent = 'Cover #' + picture.tokenNo + ' · Price ' + quote.price + ' ETH + estimated gas ' + quote.gas + ' ETH = approximately ' + quote.total + ' ETH. The wallet shows final network fees.'
+             review.appendChild(summary)
+             var approve = document.createElement('button'); approve.type = 'button'; approve.textContent = 'CONTINUE TO WALLET'
+             approve.onclick = function () { review.remove(); resolve() }
+             var cancel = document.createElement('button'); cancel.type = 'button'; cancel.textContent = 'CANCEL'
+             cancel.onclick = function () { review.remove(); reject(new Error('Checkout cancelled. Completed mints remain in your wallet.')) }
+             review.appendChild(approve); review.appendChild(cancel); bar.appendChild(review); approve.focus()
+            })
+           },
+           onHash: function (hash) { mintNote('Submitted ' + hash + '. Waiting for confirmation. Do not pay again.'); refreshRecovery() }
+          }).then(function (record) {
+           return waitTx(eth, record.hash).then(function () {
+            return EthscriptionCheckout.finish(record, api)
+           })
+          }).then(function (done) {
+           delete picked[picture.tokenNo]
+           drop.previews = drop.previews || {}
+           drop.previews[String(picture.tokenNo)] = done.listing.preview
+           draw(); paintBar(); refreshRecovery()
+          })
+        })
+       })
+       return step
+      })
+     })
+    }).then(function () {
+     mintNote('Mint confirmed. Your purchased artwork is revealed in YOUR SAVED MINTS below.')
+     pay.disabled = false
+     load()
+    }).catch(function (err) {
+     pay.disabled = false
+     refreshRecovery()
+     mintNote(err && err.message ? err.message : 'Mint cancelled.')
+    })
+   })
+   bar.appendChild(count)
+   bar.appendChild(pay)
+   pager.appendChild(prev)
+   pager.appendChild(next)
+   pager.appendChild(pageLabel)
+   pager.appendChild(jump)
+   pager.appendChild(go)
+   box.appendChild(title)
+   box.appendChild(lead)
+   box.appendChild(fees)
+   box.appendChild(note)
+   box.appendChild(bar)
+   box.appendChild(pager)
+   box.appendChild(grid)
+   paintBar()
+   draw()
+  }
+  function openDrop(drop) {
+   if (phunkDown(drop)) {
+    var closed = document.getElementById('dropDetail')
+    closed.innerHTML = '<h2 style="margin-top:16px">TRIXMOJI PHUNKS</h2><p>This mint is offline. The market is still open.</p>'
+    return
+   }
+   if (drop.live) return openLive(drop)
+   document.getElementById('depositCollection').value = drop.id
+   var box = document.getElementById('dropDetail')
+   box.innerHTML = '<h2 style="margin-top:16px">' + esc(drop.name) + '</h2><p>' + esc(drop.mintPriceEth) + ' ETH MINT · ' + esc(drop.minted) + ' / ' + esc(drop.supply) + ' MINTED · MAX ' + esc(drop.maxPerWallet) + ' PER WALLET</p><p>Random mint. This cover stays blank. The picture is revealed when the piece reaches the buyer’s wallet.</p><p>' + esc(drop.description || '') + '</p><p class="mono">' + esc(drop.id) + '</p>'
+   var cover = document.createElement('img')
+   cover.src = drop.preview || '/assets/images/ethscription-cover.png'
+   cover.alt = 'Blank cover'
+   box.appendChild(cover)
+   if (drop.next && (drop.next.state === 'open' || drop.next.state === 'held')) {
+    var pay = document.createElement('button')
+    pay.type = 'button'
+    pay.textContent = 'MINT'
+    pay.addEventListener('click', function () { buyDrop(drop) })
+    box.appendChild(pay)
+   } else {
+    var wait = document.createElement('p')
+    wait.className = 'note'
+    wait.style.textAlign = 'left'
+    wait.textContent = drop.minted >= drop.supply ? 'This drop is sold out.' : 'No piece is ready. The creator still has to lock one into escrow.'
+    box.appendChild(wait)
+   }
+   if (drop.mine && drop.state === 'open') {
+    var close = document.createElement('button')
+    close.type = 'button'
+    close.textContent = 'CLOSE DEPOSITS'
+    close.style.marginLeft = '8px'
+    close.addEventListener('click', function () { closeDrop(drop) })
+    box.appendChild(close)
+   }
+   var shown = drop.revealed || []
+   if (shown.length) {
+    var label = document.createElement('p')
+    label.className = 'note'
+    label.style.textAlign = 'left'
+    label.textContent = 'Revealed. These pieces are already in a wallet.'
+    box.appendChild(label)
+    shown.forEach(function (piece) {
+     if (!piece.preview) return
+     var seen = document.createElement('img')
+     seen.src = piece.preview
+     seen.alt = 'Revealed piece'
+     box.appendChild(seen)
+    })
+   }
+  }
+  function closeDrop(drop) {
+   say('Closing deposits…')
+   api({ action: 'closeCollection', id: drop.id }).then(function (data) {
+    say(data && data.ok ? 'Deposits closed. Pieces already in escrow can still be minted.' : (data && data.error) || 'Not closed')
+    if (data && data.ok) load()
+   }).catch(function () { say('Not closed') })
+  }
+  function connect() {
+   return EthscriptionCheckout.connect(document.getElementById('status')).then(function (connected) {
+    marketProvider = connected.provider
+    return connected.address
+   })
+  }
+  function buyDrop(drop) {
+   if (phunkDown(drop)) { say('This mint is offline. The market is still open.'); return }
+   connect().then(function (from) {
+    return api({ action: 'hold', collectionId: drop.id }).then(function (held) {
+     if (!held.ok) throw new Error(held.error || 'Hold failed')
+     var listing = held.listing || {}
+     var wei = BigInt(listing.buyerWei || drop.mintPriceWei)
+     return marketProvider.request({
+      method: 'eth_sendTransaction',
+      params: [{ from: from, to: ESCROW, value: '0x' + wei.toString(16), data: '0x' }]
+     }).then(function (hash) {
+      return api({ action: 'pay', id: listing.id, payTx: hash })
+     })
+    })
+   }).then(function (paid) {
+    say(paid && paid.ok ? 'Payment checked. The picture stays blank until escrow sends the piece to your wallet.' : (paid && paid.error) || 'Payment was not checked.')
+    load()
+   }).catch(function (err) { say(err && err.message ? err.message : 'Payment cancelled') })
+  }
+  function buy(row) {
+   connect().then(function (from) {
+    return api({ action: 'hold', id: row.id }).then(function (held) {
+     if (!held.ok) throw new Error(held.error || 'Hold failed')
+     var wei = BigInt(row.buyerWei || row.priceWei)
+     return marketProvider.request({
+      method: 'eth_sendTransaction',
+      params: [{ from: from, to: ESCROW, value: '0x' + wei.toString(16), data: '0x' }]
+     })
+    }).then(function (hash) {
+     return api({ action: 'pay', id: row.id, payTx: hash })
+    })
+   }).then(function (paid) {
+    say(paid && paid.ok ? 'Payment checked. Escrow still has to release it.' : (paid && paid.error) || 'Payment was not checked.')
+    load()
+   }).catch(function (err) { say(err && err.message ? err.message : 'Payment cancelled') })
+  }
+  document.getElementById('marketNav').addEventListener('click', function (e) {
+   var btn = e.target.closest ? e.target.closest('button') : null
+   if (!btn) return
+   showView(btn.getAttribute('data-view'))
+  })
+  var startView = (location.hash || '').replace('#', '')
+  if (startView === 'market' || startView === 'mine' || startView === 'activity' || startView === 'create' || startView === 'collections') showView(startView)
+  document.getElementById('connectBtn').addEventListener('click', function () {
+   connect().then(function (addr) { say('Wallet ' + addr + '. Listing still uses the Ethereum wallet on your DOSWAPZ account.') }).catch(function () {})
+  })
+  document.getElementById('launchBtn').addEventListener('click', function () {
+   say('Launching the collection…')
+   api({
+    action: 'createCollection',
+    name: document.getElementById('colName').value.trim(),
+    symbol: document.getElementById('colSymbol').value.trim(),
+    supply: document.getElementById('colSupply').value.trim(),
+    priceEth: document.getElementById('colPrice').value.trim(),
+    maxPerWallet: document.getElementById('colMax').value.trim(),
+    lane: document.getElementById('colLane').value,
+    description: document.getElementById('colAbout').value.trim()
+   }).then(function (data) {
+    say(data && data.ok ? 'Launched. Collection id ' + data.collection.id + '. Lock each piece to escrow, then deposit it.' : (data && data.error) || 'Not launched')
+    if (data && data.ok) {
+     document.getElementById('depositCollection').value = data.collection.id
+     showView('collections')
+     load()
+    }
+   }).catch(function () { say('Not launched') })
+  })
+  document.getElementById('depositBtn').addEventListener('click', function () {
+   say('Checking the lock transaction…')
+   api({
+    action: 'deposit',
+    collectionId: document.getElementById('depositCollection').value.trim(),
+    ethscriptionId: document.getElementById('depositEs').value.trim(),
+    lockTx: document.getElementById('depositLock').value.trim()
+   }).then(function (data) {
+    say(data && data.ok ? 'Deposited. It can be minted.' : (data && data.error) || 'Not deposited')
+    if (data && data.ok) load()
+   }).catch(function () { say('Not deposited') })
+  })
+  document.getElementById('listBtn').addEventListener('click', function () {
+   say('Checking the lock transaction…')
+   api({
+    action: 'list',
+    ethscriptionId: document.getElementById('esId').value.trim(),
+    priceEth: document.getElementById('price').value.trim(),
+    lane: document.getElementById('lane').value,
+    lockTx: document.getElementById('lockTx').value.trim()
+   }).then(function (data) {
+    say(data && data.ok ? (data.note || 'Listed.') : (data && data.error) || 'Not listed')
+    if (data && data.ok) load()
+   }).catch(function () { say('Not listed') })
+  })
+  load()
+ </script>
+</body>
+</html>

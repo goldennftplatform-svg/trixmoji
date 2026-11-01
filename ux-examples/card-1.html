@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Card 1</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ * { box-sizing: border-box; }
+ html, body { margin: 0; min-height: 100%; background: #000; color: #00ff00; font-family: 'VT323', monospace; }
+ .screen { padding: 16px 12px; min-height: 100vh; position: relative; }
+ .dim { opacity: 0.35; }
+ .title { font-size: 24px; color: #ffff00; letter-spacing: 3px; }
+ .sec { margin-top: 12px; color: #ffff00; }
+ .opt { padding-left: 10px; font-size: 15px; }
+ .overlay {
+ position: absolute; inset: 0; background: rgba(0,0,0,.72);
+ display: flex; align-items: center; justify-content: center; padding: 16px;
+ }
+ .card {
+ width: min(100%, 360px); border: 2px solid #00ff41; background: #020802;
+ box-shadow: 0 0 24px rgba(0,255,65,.2); padding: 14px 14px 16px;
+ }
+ .card h3 { margin: 0 0 8px; color: #ffff00; letter-spacing: 2px; font-size: 18px; font-weight: normal; }
+ .card p { margin: 0 0 10px; font-size: 15px; line-height: 1.4; color: #88cc88; }
+ .card ul { margin: 0 0 12px; padding-left: 18px; font-size: 14px; color: #00aa00; line-height: 1.45; }
+ .row { display: flex; flex-wrap: wrap; gap: 8px; }
+ .row a, .row button {
+ font-family: inherit; font-size: 14px; color: #00ff41; background: transparent;
+ border: 1px solid #00ff41; padding: 8px 10px; text-decoration: none; cursor: pointer; min-height: 40px;
+ }
+ .row a.ghost, .row button.ghost { border-color: #335500; color: #00aa00; }
+ .row a:hover, .row button:hover { background: #003300; color: #ffff00; }
+ .badge { position: absolute; top: 8px; right: 10px; font-size: 11px; color: #ffff00; border: 1px solid #554400; padding: 2px 6px; z-index: 2; }
+ </style>
+</head>
+<body>
+ <div class="screen">
+ <div class="badge">CARD 1 ★</div>
+ <div class="dim">
+ <div class="title">DOSWAPZ</div>
+ <div class="sec">▸ SYSTEM MENU</div>
+ <div class="opt">... hub content behind card ...</div>
+ </div>
+ <div class="overlay">
+ <div class="card" role="dialog" aria-label="Boot briefing">
+ <h3>// BOOT BRIEFING</h3>
+ <p>Retro degen terminal on Solana. Swaps, games, basement markets. Not a bank. Not advice.</p>
+ <ul>
+ <li>ENTER hub -> full map</li>
+ <li>SWAP -> 0% Jupiter rail</li>
+ <li>DOCS -> risk + legal</li>
+ </ul>
+ <div class="row">
+ <a href="#">ENTER HUB</a>
+ <a href="#">SWAP</a>
+ <button type="button" class="ghost">DISMISS</button>
+ </div>
+ </div>
+ </div>
+ </div>
+</body>
+</html>

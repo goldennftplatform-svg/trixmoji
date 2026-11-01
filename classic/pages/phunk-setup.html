@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta name="robots" content="noindex,nofollow"><title>PHUNKS · Creator setup</title>
+ <style>
+  body{background:#070500;color:#ffe7a3;font:18px/1.6 monospace;margin:0}main{max-width:800px;margin:40px auto;padding:24px}
+  button,a{color:#ffe7a3}button{background:#100c04;border:1px solid #e0b04a;padding:14px;font:inherit;cursor:pointer;margin:6px}button:disabled{opacity:.4;cursor:default}
+  pre{white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid #8a6a2a;padding:16px}input{width:100%;box-sizing:border-box;padding:10px}h1{color:#f0c14b}.row{display:flex;flex-wrap:wrap}
+ </style>
+</head>
+<body><main>
+ <a href="/ethscriptions/past#collections">← Mint page</a>
+ <h1>CREATOR SETUP</h1>
+ <p>One-time Ethereum mainnet contract deployment. It sends <strong>0 ETH</strong> to the configured factory; your wallet pays network gas. It does not mint any artwork or open site sales.</p>
+ <p>Run <code>npm run audit:mint</code> first. Confirm the collection files, creator wallet, and payment destinations before deploying. The contract’s artwork root and payment addresses cannot be changed after deployment.</p>
+ <pre id="details">Loading public deployment configuration…</pre>
+ <div id="wallets" class="row"></div>
+ <button id="prepare" disabled>CONNECT CREATOR · ESTIMATE GAS</button>
+ <button id="deploy" disabled>DEPLOY CONTRACT · WALLET APPROVAL</button>
+ <button id="check" disabled>CHECK DEPLOYMENT</button>
+ <p id="status" role="status" aria-live="polite"></p>
+ <label for="hash">Deployment transaction hash (saved in this browser)</label><input id="hash" placeholder="0x…" readonly>
+ <p>After deployment, complete the launch verification in <a href="/docs/phunk-launch.md">the launch notes</a>. Site sales are controlled by <code>PHUNK_MINT_ENABLED</code> in server configuration.</p>
+</main>
+<script src="/assets/js/core/ethscription-checkout.js?v=20261101"></script>
+<script>
+ 'use strict'
+ const el = id => document.getElementById(id)
+ let info, connection, tx
+ const key = 'doswapz.phunk.deployment.v1'
+ function message(text) { el('status').textContent = text }
+ async function ready() {
+  await EthscriptionCheckout.identity(connection.provider, connection.address)
+  return connection.provider.request({method:'eth_getCode',params:[info.address,'latest']})
+ }
+ async function check() {
+  const code = await ready()
+  if (code && code !== '0x' && code !== '0x0') {
+   message('Contract code exists at ' + info.address + '. Verify its code and run a purchase/indexer check before enabling sales.')
+   el('deploy').disabled = true
+   return true
+  }
+  message('No contract code yet. Check the saved transaction in your wallet. Do not submit a duplicate deployment while it is pending.')
+  return false
+ }
+ el('prepare').onclick = async () => {
+  el('prepare').disabled = true; el('deploy').disabled = true
+  try {
+   connection = await EthscriptionCheckout.connect(el('wallets'))
+   el('check').disabled = false
+   if (connection.address.toLowerCase() !== info.creator.toLowerCase()) throw new Error('Connect the configured creator wallet: ' + info.creator)
+   if (await check()) return
+   if (localStorage.getItem(key)) throw new Error('A deployment attempt is saved. Check its wallet transaction before taking further action.')
+   tx = {from:connection.address,to:info.factory,value:'0x0',data:info.deployData}
+   const gas = BigInt(await connection.provider.request({method:'eth_estimateGas',params:[tx]}))
+   const price = BigInt(await connection.provider.request({method:'eth_gasPrice'}))
+   tx.gas = '0x' + (gas + gas / 5n).toString(16)
+   message('Estimated deployment gas: ' + gas + ' units, approximately ' + EthscriptionCheckout.eth(gas * price) + ' ETH. The next button opens wallet approval; no transaction has been sent.')
+   el('deploy').disabled = false
+  } catch(e) { message(e.message) }
+  finally { el('prepare').disabled = false }
+ }
+ el('deploy').onclick = async () => {
+  el('deploy').disabled = true
+  try {
+   await EthscriptionCheckout.identity(connection.provider, info.creator)
+   if (await check()) return
+   if (localStorage.getItem(key)) throw new Error('Deployment is already pending. Check it instead of submitting again.')
+   localStorage.setItem(key, JSON.stringify({address:info.address,state:'awaiting-wallet'}))
+   let hash
+   try { hash = await connection.provider.request({method:'eth_sendTransaction',params:[tx]}) }
+   catch(e) { if (Number(e.code) === 4001) localStorage.removeItem(key); throw e }
+   el('hash').value = hash
+   localStorage.setItem(key, JSON.stringify({address:info.address,hash:hash,state:'submitted'}))
+   message('Deployment submitted: ' + hash + '. Use CHECK DEPLOYMENT after confirmation.')
+  } catch(e) { message(e.message) }
+ }
+ el('check').onclick = () => check().catch(e => message(e.message))
+ Promise.all([fetch('/assets/data/phunk-minter.json',{cache:'no-store'}).then(r=>r.json()),fetch('/api/ethscriptions').then(r=>r.json())]).then(([config,board])=>{
+  info=config; EthscriptionCheckout.configure(board.walletConnectProjectId)
+  if (!/^0x[a-f0-9]{40}$/i.test(info.address) || !/^0x[a-f0-9]{40}$/i.test(info.factory) || !/^0x[a-f0-9]+$/i.test(info.deployData)) throw new Error('Invalid deployment configuration')
+  el('details').textContent = 'Creator: ' + info.creator + '\nSite fee recipient: ' + info.escrow + '\nFactory: ' + info.factory + '\nExpected minter: ' + info.address + '\nArtwork root: ' + info.root + '\nMint price: ' + EthscriptionCheckout.eth(info.priceWei) + ' ETH'
+  const saved=JSON.parse(localStorage.getItem(key)||'null'); if(saved)el('hash').value=saved.hash||'Wallet response unknown — inspect wallet activity'
+  el('prepare').disabled=false
+ }).catch(e=>message(e.message))
+</script></body></html>

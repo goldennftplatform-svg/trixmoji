@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Present F · Neon radar</title>
+ <meta name="robots" content="noindex">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500&display=swap');
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ html, body { height: 100%; background: #000; color: #dfe6ff; font-family: Inter, system-ui, sans-serif; overflow: hidden; }
+ .radar {
+ position: fixed; left: 50%; top: 50%;
+ width: min(78vmin, 520px); height: min(78vmin, 520px);
+ transform: translate(-50%, -50%);
+ border-radius: 50%;
+ border: 1px solid rgba(120,150,255,0.18);
+ box-shadow:
+ 0 0 0 1px rgba(255,255,255,0.03) inset,
+ 0 0 80px rgba(80,100,255,0.12);
+ }
+ .radar::before, .radar::after {
+ content: ''; position: absolute; left: 50%; top: 50%;
+ border-radius: 50%; border: 1px solid rgba(120,150,255,0.12);
+ transform: translate(-50%, -50%);
+ }
+ .radar::before { width: 66%; height: 66%; }
+ .radar::after { width: 33%; height: 33%; }
+ .sweep {
+ position: absolute; inset: 0; border-radius: 50%;
+ background: conic-gradient(from 0deg, transparent 0 78%, rgba(120,180,255,0.18) 90%, transparent 100%);
+ animation: spin 8s linear infinite;
+ }
+ @keyframes spin { to { transform: rotate(360deg); } }
+ .center {
+ position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+ text-align: center; z-index: 5; pointer-events: none;
+ }
+ .center h1 {
+ font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+ font-size: clamp(28px, 6vw, 42px); letter-spacing: 0.14em;
+ color: transparent; -webkit-text-stroke: 1px rgba(180,200,255,0.5);
+ }
+ .center p { margin-top: 8px; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(180,200,255,0.35); }
+ .dot {
+ position: absolute; width: 58px; height: 58px; border-radius: 50%;
+ transform: translate(-50%, -50%);
+ border: 1px solid rgba(160,180,255,0.35);
+ background: rgba(8,10,24,0.85);
+ display: grid; place-items: center;
+ text-decoration: none; color: #c8d4ff;
+ font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 500;
+ letter-spacing: 0.08em; text-transform: uppercase;
+ transition: transform .15s, box-shadow .15s, border-color .15s;
+ z-index: 6;
+ }
+ .dot:hover {
+ transform: translate(-50%, -50%) scale(1.1);
+ border-color: #a8c0ff;
+ box-shadow: 0 0 24px rgba(120,160,255,0.45);
+ color: #fff;
+ }
+ .top {
+ position: fixed; top: 14px; left: 0; right: 0;
+ display: flex; justify-content: center; gap: 16px;
+ font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+ color: rgba(200,210,255,0.3); z-index: 10;
+ }
+ .top a { color: rgba(200,210,255,0.45); text-decoration: none; }
+ .top a:hover { color: #fff; }
+ .era {
+ position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+ display: flex; gap: 8px; z-index: 10;
+ }
+ .era a {
+ font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+ text-decoration: none; color: #8b93b8;
+ border: 1px solid rgba(140,160,255,0.2); padding: 7px 12px; border-radius: 999px;
+ background: rgba(8,10,20,0.85);
+ }
+ .era a.here { color: #88ffe0; border-color: rgba(100,255,210,0.35); }
+ .era a.future { color: #fff; border-color: rgba(255,255,255,0.4); }
+ </style>
+</head>
+<body>
+ <div class="top">
+ <span>Present · radar</span>
+ <a href="/portal.html">Time machine</a>
+ <a href="/future/hub.html">Future →</a>
+ </div>
+ <div class="radar">
+ <div class="sweep"></div>
+ <div class="center">
+ <h1>DOSWAPZ</h1>
+ <p>lock target</p>
+ </div>
+ <!-- placed on ring (percent of radar box) -->
+ <a class="dot" style="left:50%;top:6%" href="/orbit/pages/harbinger.html">Oracle</a>
+ <a class="dot" style="left:88%;top:28%" href="/orbit/pages/doswapz/swap.html">Swap</a>
+ <a class="dot" style="left:92%;top:62%" href="/orbit/pages/arcade/intro.html">Arcade</a>
+ <a class="dot" style="left:70%;top:90%" href="/orbit/pages/basement.html">Base</a>
+ <a class="dot" style="left:30%;top:90%" href="/orbit/pages/attic.html">Attic</a>
+ <a class="dot" style="left:8%;top:62%" href="/orbit/pages/pond-scum.html">Pond</a>
+ <a class="dot" style="left:12%;top:28%" href="/orbit/pages/degen/trailer.html">Degen</a>
+ <a class="dot" style="left:50%;top:50%;width:64px;height:64px;border-color:rgba(255,255,255,0.45)" href="/future/hub.html">Future</a>
+ </div>
+ <nav class="era">
+ <a href="/classic/hub.html">Past</a>
+ <a class="here" href="#">Present</a>
+ <a class="future" href="/future/hub.html">Future</a>
+ </nav>
+</body>
+</html>

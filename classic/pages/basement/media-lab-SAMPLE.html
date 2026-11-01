@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOSWAPZ // MEDIA LAB STUDIO SAMPLE (LOCAL)</title>
+<meta name="robots" content="noindex">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; min-height: 100%;
+    background: #050008; color: #ddbbff;
+    font-family: 'VT323', monospace;
+  }
+  .banner {
+    background: #1a0a00; border-bottom: 3px solid #ffaa00;
+    color: #ffaa00; text-align: center;
+    padding: 8px 12px; letter-spacing: 3px; font-size: 16px;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 12px 12px 32px; }
+  h1 {
+    margin: 8px 0 2px; text-align: center;
+    font-size: 28px; letter-spacing: 5px;
+    color: #e8c8ff; text-shadow: 0 0 12px #9944ff;
+  }
+  .sub {
+    text-align: center; color: #ff66cc;
+    letter-spacing: 2px; font-size: 15px; margin-bottom: 12px;
+  }
+  .panel {
+    border: 2px solid #9944ff;
+    background: rgba(20, 0, 35, 0.92);
+    padding: 12px;
+  }
+  .panel-title {
+    color: #ffaa00; font-size: 18px; letter-spacing: 3px;
+    margin-bottom: 6px; border-bottom: 1px solid #5522aa; padding-bottom: 4px;
+  }
+  .panel-note { color: #9988aa; font-size: 14px; margin-bottom: 10px; line-height: 1.3; }
+
+  .studio-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(250px, 300px);
+    gap: 12px;
+    align-items: stretch;
+  }
+  .studio-col {
+    border: 1px solid #442266;
+    background: rgba(8, 0, 14, 0.65);
+    padding: 10px;
+    min-width: 0;
+  }
+  .studio-col-title {
+    font-size: 14px; letter-spacing: 3px; margin: 0 0 6px;
+    padding-bottom: 4px; border-bottom: 1px solid #5522aa;
+  }
+  .studio-beat .studio-col-title { color: #ff66cc; }
+  .studio-tracks .studio-col-title { color: #66ccff; }
+  .studio-hint { font-size: 12px; color: #776688; margin: 0 0 8px; }
+
+  .beat-toolbar {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    margin-bottom: 10px;
+  }
+  .beat-btn {
+    font-family: inherit; font-size: 14px; letter-spacing: 1px;
+    border: 2px solid #ff66cc; background: #12001a; color: #ff66cc;
+    padding: 4px 10px; cursor: pointer;
+  }
+  .beat-btn:hover { background: #1a0033; color: #fff; }
+  .beat-btn-sample { border-color: #ffaa00; color: #ffaa00; }
+  .beat-btn-save { border-color: #00ff41; color: #00ff41; }
+  .beat-btn-send { border-color: #66ccff; color: #66ccff; }
+  .beat-send-wrap {
+    display: inline-flex; align-items: center; gap: 4px;
+    border: 2px solid #66ccff; background: #0a1020; padding: 2px 4px 2px 8px;
+  }
+  .beat-send-label { font-size: 13px; letter-spacing: 1px; color: #66ccff; }
+  .beat-send-select {
+    font-family: inherit; font-size: 14px; letter-spacing: 1px;
+    background: #12001a; color: #aaddff; border: 1px solid #446688;
+    padding: 3px 6px; cursor: pointer; min-width: 64px;
+  }
+  .beat-send-wrap .beat-btn-send { border-width: 1px; padding: 3px 8px; }
+  .beat-save-status { font-size: 12px; color: #888; flex: 1 1 100px; }
+  .beat-bpm { font-size: 13px; color: #aaa; display: flex; align-items: center; gap: 6px; }
+  .beat-bpm input { width: 90px; }
+  .beat-grid { display: flex; flex-direction: column; gap: 4px; overflow-x: auto; }
+  .beat-row { display: flex; align-items: center; gap: 6px; min-width: 400px; }
+  .beat-label { width: 72px; flex-shrink: 0; font-size: 11px; letter-spacing: 1px; }
+  .beat-steps { display: flex; gap: 3px; flex: 1; }
+  .beat-step {
+    flex: 1; min-width: 18px; height: 22px; border: 1px solid #333;
+    background: #0a0a0a; cursor: pointer; padding: 0;
+  }
+  .beat-step-on { box-shadow: 0 0 8px currentColor; }
+  .beat-step-active { outline: 2px solid #fff; outline-offset: 1px; }
+  .beat-step:nth-child(4n+1) { border-color: #555; }
+
+  @media (max-width: 900px) {
+    .studio-shell { grid-template-columns: 1fr; }
+    .studio-tracks { order: 2; }
+  }
+</style>
+</head>
+<body>
+  <div class="banner">◆ LOCAL SAMPLE · ONE SCREEN STUDIO · NOT LIVE ◆</div>
+  <div class="wrap">
+    <h1>BASEMENT MEDIA LAB</h1>
+    <div class="sub">BEAT MAKER + TRACK BOARD · ONE SCREEN</div>
+
+    <section class="panel">
+      <div class="panel-title">STUDIO</div>
+      <div class="panel-note">Left = beat maker. Right = 8-track board (bottom on phone).</div>
+      <div class="studio-shell">
+        <div class="studio-col studio-beat">
+          <div class="studio-col-title">BEAT MAKER</div>
+          <p class="studio-hint">16-step · ★ SAMPLE · SEND → pick TR1–TR8</p>
+          <div id="beatSequencer"></div>
+        </div>
+        <div class="studio-col studio-tracks">
+          <div class="studio-col-title">TRACK BOARD</div>
+          <p class="studio-hint">○ arm · ● rec · ▶ mix</p>
+          <div id="multiTrackDeck" class="mt-compact"></div>
+        </div>
+      </div>
+      <div class="studio-howto" style="margin-top:12px;padding:10px 12px;border:1px dashed #6633aa;background:rgba(0,0,0,0.35);font-size:14px;color:#bb99cc;line-height:1.45;">
+        <strong style="color:#ffaa00;">HOW TO RECORD (each track)</strong>
+        <ol style="margin:6px 0 0 18px;">
+          <li><em style="color:#66ccff;font-style:normal;">Beat maker:</em> program pads or ★ SAMPLE → pick TR1–TR8 in the SEND dropdown → ⬇ SEND.</li>
+          <li><em style="color:#66ccff;font-style:normal;">Arm:</em> click ○ on another track (row turns red). Only one track armed at a time.</li>
+          <li><em style="color:#66ccff;font-style:normal;">Record:</em> hit ● RECORD, allow mic, perform. Other tracks play under you.</li>
+          <li><em style="color:#66ccff;font-style:normal;">Stop:</em> hit ● again. Waveform shows on that track.</li>
+          <li>Arm TR3, TR4… up to TR8 for more layers. ▶ plays the full mix. M mute · S solo · ⬇ download · ✕ clear.</li>
+        </ol>
+        <div style="color:#888;font-size:12px;margin-top:8px;">TIP: Use headphones. Re-recording a track replaces its clip. CLR clears all 8 tracks.</div>
+      </div>
+    </section>
+  </div>
+
+  <script src="/assets/js/basement/media-lab-multitrack.js?v=mt3"></script>
+  <script src="/assets/js/basement/media-lab-beat.js?v=sample11"></script>
+  <script>
+    // file:// fallback
+    setTimeout(function () {
+      if (!document.querySelector('#beatSequencer .beat-grid')) {
+        var a = document.createElement('script');
+        a.src = '../../../assets/js/basement/media-lab-multitrack.js?v=mt2';
+        document.body.appendChild(a);
+        var b = document.createElement('script');
+        b.src = '../../../assets/js/basement/media-lab-beat.js?v=sample9';
+        document.body.appendChild(b);
+      }
+    }, 300);
+  </script>
+</body>
+</html>

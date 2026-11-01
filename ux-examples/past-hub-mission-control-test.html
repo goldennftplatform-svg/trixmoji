@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>DOSWAPZ // PAST · MISSION CONTROL (TEST)</title>
+<meta name="robots" content="noindex">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+/* Density tuned for 100% zoom · one viewport · no page scroll (≈1366×768+) */
+:root{
+  --g:#00ff66; --gd:#00bb55; --gdim:#008844; --y:#ffff00; --bg:#000;
+  --panel:rgba(0,16,0,.92); --line:#00cc55; --warn:#ffcc00; --mute:#006633;
+  --chrome-h: 40px;
+  --top-h: 30px;
+  --gap: 3px;
+  --pad: 5px 7px;
+  --fs: 13px;
+  --fs-sm: 12px;
+  --fs-h: 12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{
+  width:100%;height:100%;max-height:100dvh;overflow:hidden!important;
+  background:var(--bg);color:var(--g);
+  font-family:'VT323','Courier New',monospace;
+  font-size:var(--fs);
+}
+body{
+  background:radial-gradient(ellipse at 50% 18%,rgba(0,50,0,.35),transparent 50%),#000;
+}
+.scan{
+  position:fixed;inset:0;pointer-events:none;z-index:5;
+  background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,rgba(0,255,0,.02) 3px,rgba(0,255,0,.02) 5px);
+}
+.test-banner{
+  position:fixed;top:2px;right:4px;z-index:60;
+  background:rgba(34,34,0,.9);color:var(--y);font-size:10px;letter-spacing:1px;
+  padding:2px 6px;border:1px solid #554400;opacity:.85;pointer-events:none;
+}
+
+/* Full viewport shell */
+.mc{
+  position:fixed;
+  top:0;left:0;right:0;
+  bottom:calc(var(--chrome-h) + env(safe-area-inset-bottom,0px));
+  display:grid;
+  grid-template-rows:var(--top-h) minmax(0,1fr);
+  gap:var(--gap);
+  padding:var(--gap) 5px 2px;
+  z-index:1;
+  height:auto;
+  max-height:calc(100dvh - var(--chrome-h) - env(safe-area-inset-bottom,0px));
+}
+.top{
+  display:grid;grid-template-columns:1fr auto 1fr;
+  align-items:center;gap:6px;
+  border:1px solid var(--line);background:var(--panel);
+  padding:0 8px;font-size:var(--fs-sm);color:var(--gd);
+  min-height:0;height:var(--top-h);
+}
+.top h1{
+  margin:0;text-align:center;font-size:15px;
+  letter-spacing:.18em;font-weight:400;color:var(--g);
+  text-shadow:0 0 8px rgba(0,255,80,.4);
+}
+.top .L{justify-self:start;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top .R{justify-self:end;text-align:right;font-size:var(--fs-sm);white-space:nowrap}
+
+.body{
+  display:grid;
+  grid-template-columns:minmax(0,0.92fr) minmax(0,1.15fr) minmax(0,1.05fr);
+  grid-template-rows:minmax(0,1.05fr) minmax(0,0.95fr);
+  gap:var(--gap);min-height:0;min-width:0;height:100%;
+}
+
+.panel{
+  border:1px solid var(--line);background:var(--panel);
+  padding:var(--pad);min-height:0;min-width:0;
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.panel h2{
+  flex:0 0 auto;font-size:var(--fs-h);letter-spacing:1.5px;color:var(--y);
+  font-weight:400;border-bottom:1px solid #003300;padding-bottom:2px;margin-bottom:3px;
+  line-height:1.2;
+}
+.panel-body{flex:1 1 auto;min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:2px}
+
+/* USER STATS */
+.stat{font-size:var(--fs);line-height:1.25;color:#00dd66}
+.stat b{color:var(--g)}
+.stat .zero{color:var(--mute)}
+.stat .soon{
+  display:block;margin-top:3px;padding:3px 5px;
+  border:1px dashed var(--warn);color:var(--warn);font-size:var(--fs-sm);line-height:1.25;
+  background:rgba(40,30,0,.35);
+}
+.stat .soon strong{color:#fff}
+.bar{height:6px;border:1px solid var(--line);background:#001a00;margin:2px 0 3px}
+.bar>i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#00aa44,#00ff66)}
+.bar.empty{opacity:.45}
+.connect-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+.connect-row button,.connect-row a{
+  font:inherit;font-size:var(--fs-sm);color:var(--g);background:transparent;
+  border:1px solid var(--g);padding:3px 8px;cursor:pointer;text-decoration:none;
+  min-height:26px;line-height:1.2;
+}
+.connect-row button:hover,.connect-row a:hover{background:var(--g);color:#000}
+.panel a.quest-link{
+  color:var(--y);font-size:var(--fs-sm);text-decoration:none;margin-top:1px;
+}
+
+/* RADAR compact */
+.radar-stage{
+  flex:1;min-height:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:flex-start;gap:4px;
+  overflow:hidden;
+}
+.radar{
+  width:84px;height:84px;max-width:84px;max-height:84px;
+  border-radius:50%;border:1px solid var(--line);position:relative;
+  flex:0 0 84px;margin:2px auto 0;
+  background:
+    radial-gradient(circle,transparent 26%,rgba(0,255,65,.08) 27%,transparent 28%),
+    repeating-radial-gradient(circle,transparent 0,transparent 10px,rgba(0,255,65,.14) 11px,transparent 12px),
+    #001000;
+  box-shadow:0 0 12px rgba(0,255,80,.12), inset 0 0 14px rgba(0,40,0,.5);
+}
+.radar::before{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from 0deg,transparent 0 68%,rgba(0,255,80,.28) 82%,transparent 100%);
+  animation:spin 3.6s linear infinite;
+}
+.radar::after{
+  content:'';position:absolute;left:50%;top:50%;
+  width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;
+  background:var(--g);box-shadow:0 0 8px var(--g);z-index:3;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.radar .blip{
+  position:absolute;width:5px;height:5px;border-radius:50%;
+  background:var(--g);box-shadow:0 0 6px var(--g);z-index:2;
+  animation:pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse{50%{opacity:.35;transform:scale(.7)}}
+.radar-meta{
+  text-align:center;font-size:var(--fs-sm);color:var(--gd);line-height:1.25;
+  flex:0 0 auto;padding:0 4px;
+}
+.radar-meta b{color:var(--g)}
+
+.mod-tiles{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:4px;
+  width:100%;max-width:320px;
+  flex:0 0 auto;margin-top:auto;position:relative;z-index:4;
+}
+.mod-tiles a{
+  border:1px solid var(--line);background:rgba(0,22,0,.95);
+  color:var(--g);text-decoration:none;text-align:center;
+  font-size:var(--fs-sm);letter-spacing:.5px;padding:4px 2px;line-height:1.1;
+  min-height:34px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.mod-tiles a:hover{border-color:var(--g);color:#fff;box-shadow:0 0 8px rgba(0,255,80,.2)}
+.mod-tiles a .ic{display:block;font-size:12px;margin-bottom:0;line-height:1}
+
+/* Hub list — denser; only this list may scroll */
+.hub-list{
+  flex:1;min-height:0;
+  overflow-y:auto;overflow-x:hidden;
+  scrollbar-width:thin;scrollbar-color:var(--gd) #001000;
+  display:grid;grid-template-columns:1fr 1fr;gap:0 8px;
+  align-content:start;
+}
+.hub-list a{
+  display:block;color:var(--g);text-decoration:none;
+  font-size:var(--fs-sm);line-height:1.2;padding:1px 2px;
+  border-bottom:1px solid #001a00;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.hub-list a:hover{color:var(--y);background:rgba(0,40,0,.4)}
+.hub-list a::before{content:'> ';color:var(--gd)}
+.hub-list .sec{
+  grid-column:1/-1;color:var(--y);font-size:11px;letter-spacing:1px;
+  margin-top:2px;padding:1px 0;border-bottom:1px solid #004400;
+}
+.hub-list .sec:first-child{margin-top:0}
+
+.dir table{width:100%;border-collapse:collapse;font-size:var(--fs-sm)}
+.dir th{text-align:left;color:var(--gd);font-weight:400;border-bottom:1px solid #003300;padding:1px 3px;font-size:11px}
+.dir td{padding:1px 3px;border-bottom:1px solid #001400;line-height:1.25}
+.dir a{color:var(--g);text-decoration:none;font-size:var(--fs-sm)}
+.dir a:hover{color:var(--y)}
+.dir .d{color:#00ffaa}
+
+.feed-line,.alert{font-size:var(--fs-sm);line-height:1.2;margin:0 0 1px;color:var(--gd)}
+.feed-line b,.alert b{color:var(--g)}
+.alert.warn{color:var(--warn)}
+.tx p{font-size:var(--fs-sm);color:#00cc55;line-height:1.25}
+.tx a{
+  display:inline-block;margin-top:2px;color:var(--y);font-size:var(--fs-sm);
+  border:1px solid var(--line);padding:3px 8px;text-decoration:none;min-height:24px;
+}
+.tx a:hover{background:var(--g);color:#000;border-color:var(--g)}
+
+.term{
+  flex:0 0 auto;border-top:1px solid #003300;margin-top:2px;padding-top:2px;
+  font-size:var(--fs-sm);color:#00cc55;line-height:1.2;
+}
+.term .cur{animation:blink .8s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* Bottom chrome */
+.chrome{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  height:calc(var(--chrome-h) + env(safe-area-inset-bottom,0px));
+  padding:0 6px env(safe-area-inset-bottom,0px);
+  display:flex;align-items:center;justify-content:space-between;gap:6px;
+  background:rgba(0,0,0,.97);
+  border-top:1px solid var(--line);
+}
+.era{
+  display:flex;gap:2px;flex-shrink:0;
+  padding:2px;border:1px solid var(--line);background:#000;
+}
+.era a{
+  color:#88cc88;text-decoration:none;padding:3px 7px;font-size:var(--fs-sm);
+  border:1px solid transparent;min-height:24px;display:inline-flex;align-items:center;
+}
+.era a.here{color:var(--g);border-color:var(--line);background:rgba(0,40,0,.5)}
+.era a:hover{color:#fff;border-color:var(--g)}
+.hot{
+  display:flex;flex-wrap:nowrap;align-items:center;justify-content:center;gap:3px;
+  flex:1;min-width:0;overflow:hidden;
+}
+.hot a,.hot button{
+  font:inherit;font-size:11px;color:var(--gd);background:transparent;
+  border:1px solid #004422;padding:3px 6px;text-decoration:none;cursor:pointer;
+  min-height:24px;white-space:nowrap;
+}
+.hot a:hover,.hot button:hover{color:var(--g);border-color:var(--line)}
+
+.war{
+  position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.82);padding:12px;
+}
+.war.hid{display:none}
+.war-box{
+  width:min(460px,94vw);border:2px solid var(--g);background:#001400;
+  padding:14px 16px;box-shadow:0 0 24px rgba(0,255,65,.22);
+}
+.war-box h2{font-size:18px;letter-spacing:2px;font-weight:400;margin-bottom:8px}
+.war-box p{font-size:14px;color:#00cc55;line-height:1.35;margin-bottom:8px}
+.war-box ul{font-size:13px;color:var(--g);line-height:1.4;margin:0 0 12px 16px}
+.war-box .row{display:flex;flex-wrap:wrap;gap:6px}
+.war-box a,.war-box button{
+  font:inherit;font-size:13px;color:var(--g);background:transparent;
+  border:1px solid var(--g);padding:7px 11px;cursor:pointer;text-decoration:none;
+  min-height:32px;
+}
+.war-box a:hover,.war-box button:hover{background:var(--g);color:#000}
+
+/* Short viewports (laptops ~768–900px tall): squeeze further */
+@media (max-height:820px){
+  :root{ --chrome-h:36px; --top-h:26px; --gap:2px; --pad:3px 5px; --fs:12px; --fs-sm:11px; --fs-h:11px; }
+  .radar{width:72px;height:72px;max-width:72px;max-height:72px;flex-basis:72px}
+  .mod-tiles a{min-height:30px;padding:3px 2px}
+}
+@media (max-height:700px){
+  :root{ --chrome-h:34px; --top-h:24px; --fs:11px; --fs-sm:10px; --fs-h:10px; }
+  .radar{width:60px;height:60px;max-width:60px;max-height:60px;flex-basis:60px}
+  .stat .soon{display:none} /* keep screen fit; tip still in alerts */
+  .mod-tiles a{min-height:28px}
+  .mod-tiles a .ic{display:none}
+}
+
+@media (max-width:1000px){
+  .body{grid-template-columns:1fr 1fr}
+  .radar-wrap{grid-column:1/-1;max-height:38vh}
+  .hub-list{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  :root{--chrome-h:72px}
+  .body{grid-template-columns:1fr;overflow:auto}
+  .mc{overflow:auto}
+  .hot{flex-wrap:wrap}
+}
+</style>
+</head>
+<body data-no-era-rail>
+<div class="scan" aria-hidden="true"></div>
+<div class="test-banner">MISSION CONTROL TEST · NOT LIVE</div>
+
+<div class="mc">
+  <header class="top">
+    <div class="L">DOSWAPZ OS v3.11 · PAST</div>
+    <h1>MISSION CONTROL</h1>
+    <div class="R">WALLET: <b id="walletState" class="zero" style="color:var(--mute)">NOT CONNECTED</b> · <span id="clk"></span></div>
+  </header>
+
+  <div class="body">
+    <!-- USER STATS: zeros + coming soon rewards -->
+    <section class="panel">
+      <h2>USER STATS</h2>
+      <div class="panel-body">
+        <div class="stat">LEVEL: <b class="zero" id="stLevel">0</b> · RANK: <b class="zero" id="stRank">GUEST</b></div>
+        <div class="stat">XP: <b class="zero" id="stXp">0 / 0</b></div>
+        <div class="bar empty" title="Empty until connected"><i id="stXpBar" style="width:0%"></i></div>
+        <div class="stat">POINTS: <b class="zero" id="stPts">0</b> · BADGES: <b class="zero" id="stBadges">0</b></div>
+        <div class="stat">STREAK: <b class="zero" id="stStreak">0 DAYS</b></div>
+        <div class="stat">STATUS: <b class="zero">OFFLINE PROFILE</b></div>
+        <span class="stat soon">
+          <strong>COMING SOON</strong> — track runs, score &amp; rewards. Stats stay at <b>0</b> until connect.
+        </span>
+        <div class="connect-row">
+          <button type="button" id="btnConnect" title="Demo only in this test">CONNECT (DEMO)</button>
+          <a href="/docs/">DOCS</a>
+        </div>
+        <h2 style="margin-top:4px">DAILY QUEST</h2>
+        <div class="stat">LOCKED — connect to unlock.</div>
+        <div class="bar empty"><i style="width:0%"></i></div>
+        <a class="quest-link" href="/classic/pages/attic.html">[ QUEST → ATTIC ]</a>
+      </div>
+    </section>
+
+    <!-- RADAR + primary modules (no rabbit art; radar never covers tiles) -->
+    <section class="panel radar-wrap">
+      <h2 style="text-align:center">SYSTEM RADAR</h2>
+      <div class="radar-stage">
+        <div class="radar" aria-label="System radar">
+          <span class="blip" style="left:62%;top:28%"></span>
+          <span class="blip" style="left:30%;top:55%;animation-delay:.4s"></span>
+          <span class="blip" style="left:70%;top:68%;animation-delay:.9s"></span>
+          <span class="blip" style="left:22%;top:32%;animation-delay:1.2s"></span>
+        </div>
+        <div class="radar-meta">
+          STATUS: <b>ONLINE</b> · EXPLORE: <b>—</b><br>
+          NETWORK: <b>SECURE</b> · NODES: <b>—</b>
+        </div>
+        <div class="mod-tiles" aria-label="Primary modules">
+          <a href="/classic/pages/cryptodad/play.html"><span class="ic">▶</span>PLAY</a>
+          <a href="/classic/pages/doswapz/swap.html"><span class="ic">$</span>TRADE</a>
+          <a href="/classic/pages/arcade/intro.html"><span class="ic">◆</span>ARCADE</a>
+          <a href="/classic/pages/basement.html"><span class="ic">⬇</span>BASE</a>
+          <a href="/classic/pages/attic.html"><span class="ic">▤</span>ATTIC</a>
+          <a href="/classic/pages/i-see-you.html"><span class="ic">◎</span>SECRET</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALL HUB OPTIONS listed -->
+    <section class="panel">
+      <h2>HUB OPTIONS · FULL LIST</h2>
+      <div class="hub-list" id="hubList" aria-label="All Past hub destinations">
+        <div class="sec">// MAP / PRIMARY</div>
+        <a href="/classic/pages/doswapz/swap.html">SWAP (0% Jupiter)</a>
+        <a href="/classic/pages/doswapz/bridge.html">BRIDGE</a>
+        <a href="/classic/pages/arcade/intro.html">ARCADE</a>
+        <a href="/classic/pages/ape-chamber/">APE CHAMBER</a>
+        <a href="/classic/pages/cryptodad/play.html">GAMES · CRYPTO DAD</a>
+        <a href="/classic/pages/basement.html">THE BASEMENT</a>
+        <a href="/classic/pages/attic.html">THE ATTIC</a>
+        <a href="/portal.html">TIME MACHINE</a>
+        <a href="/orbit/hub.html">PRESENT HUB</a>
+        <a href="/future/hub.html">FUTURE HUB</a>
+        <a href="/docs/legal.html">DOCS / LEGAL</a>
+        <a href="https://www.uniphihq.com/" target="_blank" rel="noopener">REGEN / DEGEN FARM ↗</a>
+
+        <div class="sec">// CRYPTO DAD</div>
+        <a href="/classic/pages/cryptodad/play.html">Play</a>
+        <a href="/classic/pages/cryptodad/mobile.html">Mobile App</a>
+        <a href="/classic/pages/cryptodad/how-to-play.html">How to Play</a>
+        <a href="/classic/pages/cryptodad/launch.html">Launch Animation</a>
+        <a href="/classic/pages/cryptodad/donate.html">Donate</a>
+        <a href="/classic/pages/cryptodad/token.html">$CRYPTODAD Ledger</a>
+        <a href="/classic/pages/cryptodad/rabbit.html">FTWR Gate (link)</a>
+        <a href="/classic/pages/cryptodad/ftwr-maze.html">FTWR Maze</a>
+        <a href="/classic/pages/cryptodad/scoreboard.html">Crypto Dad Scores</a>
+        <a href="/classic/pages/tbb/play.html">$TBB Bull Run</a>
+
+        <div class="sec">// DOSWAPZ / HARDWEAR / DEGEN$</div>
+        <a href="/classic/pages/doswapz/meat.html">Meat (Alerts)</a>
+        <a href="/classic/pages/doswapz/mint.html">Mint</a>
+        <a href="/classic/pages/doswapz/gallery.html">Mint Gallery</a>
+        <a href="/classic/pages/hardwear/wallet.html">DIY Hardware Wallet</a>
+        <a href="/classic/pages/hardwear/merch.html">Limited Apparel</a>
+        <a href="/classic/pages/degen/trailer.html">DEGEN$ Trailer</a>
+        <a href="/classic/pages/degen/synopsis.html">DEGEN$ Synopsis</a>
+        <a href="/classic/pages/degen/donate.html">DEGEN$ Donate</a>
+
+        <div class="sec">// WORLDS / NODES</div>
+        <a href="/classic/pages/pond-scum.html">Pond Scum</a>
+        <a href="/classic/pages/i-see-you.html">I See You</a>
+        <a href="/classic/pages/demplar/character.html">Knights Demplar</a>
+        <a href="/classic/pages/13th-step.html">13th Step</a>
+        <a href="/harbinger.html">H4RB1NG3R</a>
+        <a href="/classic/pages/lily-pad.html">The Lily Pad</a>
+        <a href="/classic/pages/perpetual-vision-center.html">Perpetual Vision Center</a>
+        <a href="/classic/pages/eat-shit.html">E** S*** (Easter)</a>
+
+        <div class="sec">// SCOREBOARDS</div>
+        <a href="/classic/pages/arcade/scores.html">Arcade Overview</a>
+        <a href="/classic/pages/arcade/snowman/scoreboard.html">Snowman / GEOFF</a>
+        <a href="/classic/pages/arcade/lily-leap/scoreboard.html">Lily Leap</a>
+        <a href="/classic/pages/cryptodad/ftwr-scoreboard.html">FTWR Board</a>
+        <a href="/classic/pages/tbb/scoreboard.html">$TBB Board</a>
+        <a href="/classic/pages/basement/cryptomom/scoreboard.html">Crypto Mom [18+]</a>
+      </div>
+      <div class="term">ALL DESTINATIONS LISTED · SCROLL LIST ONLY<span class="cur">_</span></div>
+    </section>
+
+    <!-- DIR -->
+    <section class="panel dir">
+      <h2>C:\ DOSWAPZ · DIR</h2>
+      <div class="panel-body">
+        <table>
+          <thead><tr><th>NAME</th><th>TYPE</th><th></th></tr></thead>
+          <tbody>
+            <tr><td><a class="d" href="/classic/pages/cryptodad/play.html">GAMES</a></td><td>[DIR]</td><td><a href="/classic/pages/cryptodad/play.html">OPEN</a></td></tr>
+            <tr><td><a class="d" href="/classic/pages/doswapz/swap.html">TRADE</a></td><td>[DIR]</td><td><a href="/classic/pages/doswapz/swap.html">OPEN</a></td></tr>
+            <tr><td><a class="d" href="/classic/pages/arcade/intro.html">ARCADE</a></td><td>[DIR]</td><td><a href="/classic/pages/arcade/intro.html">OPEN</a></td></tr>
+            <tr><td><a class="d" href="/classic/pages/basement.html">BASEMENT</a></td><td>[DIR]</td><td><a href="/classic/pages/basement.html">OPEN</a></td></tr>
+            <tr><td><a class="d" href="/classic/pages/attic.html">ARCHIVES</a></td><td>[DIR]</td><td><a href="/classic/pages/attic.html">OPEN</a></td></tr>
+            <tr><td><a class="d" href="/classic/pages/hardwear/merch.html">HARDWEAR</a></td><td>[DIR]</td><td><a href="/classic/pages/hardwear/merch.html">OPEN</a></td></tr>
+            <tr><td><a class="d" href="/classic/pages/i-see-you.html">SECRET</a></td><td>[DIR]</td><td><a href="/classic/pages/i-see-you.html">OPEN</a></td></tr>
+            <tr><td><a href="/docs/">README.TXT</a></td><td>DOCS</td><td><a href="/docs/">READ</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="term">C:\&gt;<span class="cur">█</span></div>
+    </section>
+
+    <!-- Transmission -->
+    <section class="panel">
+      <h2>LIVE TRANSMISSION <span style="float:right;color:#ff4444;font-size:12px">● REC</span></h2>
+      <div class="panel-body">
+        <div class="tx">
+          <div>
+            <p><b>From:</b> MISSION CONTROL<br>
+            <b>Subject:</b> System ready…<br>
+            All hub destinations online. Stats stay at zero until you connect. Rewards tracking coming soon.</p>
+            <a href="/classic/pages/cryptodad/play.html">OPEN PLAY</a>
+          </div>
+        </div>
+        <div class="term">TYPE HELP · PLAY · SWAP · ARCADE</div>
+      </div>
+    </section>
+
+    <!-- Alerts -->
+    <section class="panel">
+      <h2>ALERTS · NETWORK FEED</h2>
+      <div class="panel-body">
+        <div class="alert">&gt; SYSTEM READY · PROFILE OFFLINE</div>
+        <div class="alert">&gt; MISSION CONTROL SIGNAL ACTIVE</div>
+        <div class="alert warn">&gt; REWARDS TRACKING: COMING SOON</div>
+        <div class="alert">&gt; PIPE RUSH LIVE IN ARCADE</div>
+        <div class="feed-line" style="margin-top:6px"><b>—</b> No connected score feed yet</div>
+        <div class="feed-line"><b>TIP</b> Connect to track runs &amp; rewards</div>
+        <a href="/classic/pages/arcade/scores.html" style="color:var(--y);font-size:14px;text-decoration:none;margin-top:4px;border:1px solid var(--line);padding:5px 10px;display:inline-block;min-height:30px">VIEW LOCAL SCOREBOARDS</a>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- Bottom chrome: never covered -->
+<div class="chrome" role="navigation" aria-label="Hub chrome">
+  <nav class="era" aria-label="Timeline">
+    <a class="here" href="/classic/hub.html">PAST</a>
+    <a href="/orbit/hub.html">PRESENT</a>
+    <a href="/future/hub.html">FUTURE</a>
+    <a href="/portal.html">TIME</a>
+  </nav>
+  <div class="hot">
+    <a href="/classic/pages/cryptodad/play.html">[R] PLAY</a>
+    <a href="/classic/pages/doswapz/swap.html">[Q] SWAP</a>
+    <a href="/classic/pages/arcade/intro.html">[A] ARCADE</a>
+    <a href="/docs/">[H] DOCS</a>
+    <a href="/portal.html">[T] TIME</a>
+    <a href="/classic/hub.html">[←] LIVE HUB</a>
+    <button type="button" id="rebrief">[W] WAR BRIEF</button>
+  </div>
+</div>
+
+<div class="war" id="war" role="dialog" aria-modal="true">
+  <div class="war-box">
+    <h2>// WAR BRIEFING</h2>
+    <p>Sovereign degen terminal. 0% swaps, games, basement markets. Not a casino skin. Not farm-and-dump theater. You hold the keys — or you don’t play.</p>
+    <ul>
+      <li><strong>SWAP</strong> — Jupiter rail, page-scoped wallet, auto-disconnect</li>
+      <li><strong>GAMES / ARCADE</strong> — entertainment. Scores ≠ money</li>
+      <li><strong>DOCS</strong> — risk, liability, how not to get wrecked</li>
+      <li><strong>STATS / REWARDS</strong> — coming soon · zeros until you connect</li>
+    </ul>
+    <div class="row">
+      <a href="/classic/pages/doswapz/swap.html">STRIKE · SWAP</a>
+      <a href="/docs/">DOCS</a>
+      <button type="button" id="ack" title="Acknowledge and close this briefing">ACK · DISMISS</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var clk=document.getElementById('clk');
+  function tick(){
+    clk.textContent=new Date().toLocaleString(undefined,{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+  }
+  tick(); setInterval(tick,1000);
+
+  var connected=false;
+  function setDisconnected(){
+    connected=false;
+    document.getElementById('walletState').textContent='NOT CONNECTED';
+    document.getElementById('walletState').style.color='var(--mute)';
+    document.getElementById('stLevel').textContent='0';
+    document.getElementById('stRank').textContent='GUEST';
+    document.getElementById('stXp').textContent='0 / 0';
+    document.getElementById('stXpBar').style.width='0%';
+    document.getElementById('stPts').textContent='0';
+    document.getElementById('stBadges').textContent='0';
+    document.getElementById('stStreak').textContent='0 DAYS';
+    document.getElementById('btnConnect').textContent='CONNECT (DEMO)';
+  }
+  function setConnectedDemo(){
+    /* Demo only — real tracking is COMING SOON */
+    connected=true;
+    document.getElementById('walletState').textContent='DEMO SESSION';
+    document.getElementById('walletState').style.color='var(--g)';
+    document.getElementById('stLevel').textContent='0';
+    document.getElementById('stRank').textContent='OPERATOR*';
+    document.getElementById('stXp').textContent='0 / 0';
+    document.getElementById('stXpBar').style.width='0%';
+    document.getElementById('stPts').textContent='0';
+    document.getElementById('stBadges').textContent='0';
+    document.getElementById('stStreak').textContent='0 DAYS';
+    document.getElementById('btnConnect').textContent='DISCONNECT DEMO';
+    alert('Demo session only.\n\nStats stay at 0 for now.\nComing soon: track runs, keep score, rewards.');
+  }
+  document.getElementById('btnConnect').onclick=function(){
+    if(connected) setDisconnected(); else setConnectedDemo();
+  };
+  setDisconnected();
+
+  document.getElementById('ack').onclick=function(){ document.getElementById('war').classList.add('hid'); };
+  document.getElementById('rebrief').onclick=function(){ document.getElementById('war').classList.remove('hid'); };
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape') document.getElementById('war').classList.add('hid');
+    if(e.key==='w'||e.key==='W') document.getElementById('war').classList.remove('hid');
+  });
+  if(/[?&]nobrief=1(?:&|$)/.test(location.search||'')){
+    document.getElementById('war').classList.add('hid');
+  }
+})();
+</script>
+</body>
+</html>

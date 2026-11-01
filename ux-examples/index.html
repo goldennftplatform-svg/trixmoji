@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+ <title>DOSWAPZ // UX EXAMPLES - pick a direction</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ :root {
+ --g: #00ff41;
+ --gd: #00aa00;
+ --y: #ffff00;
+ --bg: #000;
+ }
+ * { box-sizing: border-box; }
+ html, body {
+ margin: 0;
+ min-height: 100%;
+ background: #050805;
+ color: var(--g);
+ font-family: 'VT323', 'Courier New', monospace;
+ }
+ .page {
+ max-width: 1100px;
+ margin: 0 auto;
+ padding: 20px 14px 60px;
+ }
+ h1 {
+ color: var(--y);
+ letter-spacing: 3px;
+ font-size: clamp(26px, 5vw, 40px);
+ margin: 0 0 6px;
+ }
+ .lead {
+ color: var(--gd);
+ font-size: 18px;
+ line-height: 1.4;
+ max-width: 52rem;
+ margin-bottom: 22px;
+ }
+ .lead strong { color: #b8ffb8; }
+ .toc {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ margin-bottom: 28px;
+ }
+ .toc a {
+ color: var(--y);
+ text-decoration: none;
+ border: 1px solid #335500;
+ padding: 8px 12px;
+ font-size: 16px;
+ }
+ .toc a:hover { border-color: var(--g); color: #fff; }
+ section {
+ border-top: 1px solid #003300;
+ padding: 22px 0 10px;
+ margin-bottom: 10px;
+ }
+ section h2 {
+ color: var(--y);
+ letter-spacing: 2px;
+ font-size: 24px;
+ margin: 0 0 8px;
+ }
+ section p.note {
+ color: var(--gd);
+ font-size: 16px;
+ margin: 0 0 16px;
+ line-height: 1.4;
+ }
+ .grid {
+ display: grid;
+ grid-template-columns: 1fr;
+ gap: 18px;
+ }
+ @media (min-width: 900px) {
+ .grid.cols-2 { grid-template-columns: 1fr 1fr; }
+ .grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+ }
+ .card {
+ border: 1px solid #004400;
+ background: #020602;
+ overflow: hidden;
+ }
+ .card-head {
+ display: flex;
+ justify-content: space-between;
+ align-items: baseline;
+ gap: 8px;
+ padding: 8px 12px;
+ background: #001a00;
+ border-bottom: 1px solid #003300;
+ font-size: 15px;
+ }
+ .card-head .tag {
+ color: var(--y);
+ letter-spacing: 1px;
+ }
+ .card-head .vibe {
+ color: var(--gd);
+ font-size: 14px;
+ }
+ .frame-wrap {
+ position: relative;
+ background: #000;
+ min-height: 320px;
+ }
+ .frame-wrap iframe {
+ display: block;
+ width: 100%;
+ height: 360px;
+ border: 0;
+ background: #000;
+ }
+ .frame-wrap.tall iframe { height: 420px; }
+ .pick {
+ padding: 10px 12px 12px;
+ border-top: 1px solid #002200;
+ font-size: 15px;
+ color: #88cc88;
+ line-height: 1.35;
+ }
+ .pick em { color: var(--y); font-style: normal; }
+ .back {
+ display: inline-block;
+ margin-top: 20px;
+ color: var(--y);
+ font-size: 18px;
+ }
+ .legend {
+ border: 1px dashed #335500;
+ padding: 12px 14px;
+ margin-bottom: 24px;
+ font-size: 16px;
+ color: #88cc88;
+ line-height: 1.45;
+ }
+ </style>
+</head>
+<body>
+ <div class="page">
+ <h1>// UX EXAMPLES - NOT LIVE</h1>
+ <p class="lead">
+ Mockups only. Nothing here is production. Open each frame, compare the vibe,
+ then tell me which letters you want (e.g. <strong>Splash B + Hub Map A + Card 1</strong>).
+ All stay CRT/DOS - just different amounts of “map for cold visitors.”
+ </p>
+
+ <div class="legend">
+ <strong style="color:#ffff00">HOW TO USE</strong><br>
+ 1) Scroll the sections below (or jump via TOC)<br>
+ 2) Pick one option per section (or “none / keep current”)<br>
+ 3) Reply with your picks - I’ll implement only those
+ </div>
+
+ <nav class="toc">
+ <a href="/ux-examples/bridge-robinhood.html" style="border-color:#ffff00;color:#ffff00">★ BRIDGE / ROBINHOOD</a>
+ <a href="/ux-examples/hub-gallery.html" style="border-color:#00ff41;color:#00ff41">HUB UI v2</a>
+ <a href="#splash">1. Splash</a>
+ <a href="#hubmap">2. Hub map (old)</a>
+ <a href="#card">3. First-visit card</a>
+ <a href="#a11y">4. A11y / motion</a>
+ <a href="/classic/hub.html"><- real hub</a>
+ <a href="/"><- real splash</a>
+ </nav>
+
+ <div class="legend" style="border-color:#886600">
+ <strong style="color:#ffff00">NEW - MULTI-CHAIN BRIDGE:</strong>
+ Robinhood Chain (4663) + all-chain route picker mock - 
+ <a href="/ux-examples/bridge-robinhood.html" style="color:#ffff00">open full-page example -> </a>
+ * Approve this, then we ship PAST (classic) + PRESENT (orbit) pages.
+ </div>
+
+ <div class="legend" style="border-color:#ff66cc">
+ <strong style="color:#ff66cc">NEW - VANTABLACK MULTI-CHAIN LAUNCH:</strong>
+ Launch tokens from the market onto Solana / ETH / Base / Arbitrum / Polygon / <strong style="color:#ffff00">Robinhood</strong> - 
+ <a href="/ux-examples/vantablack-multichain-launch.html" style="color:#ff66cc">open launch example -> </a>
+ * Demo lists into a local multi-chain market filter view.
+ </div>
+
+ <div class="legend" style="border-color:#335500">
+ <strong style="color:#00ff41">Also:</strong> Full hub redesign examples (D - H) - 
+ <a href="/ux-examples/hub-gallery.html" style="color:#ffff00">open hub gallery -> </a>
+ </div>
+
+ <!-- ═══════════ SPLASH ═══════════ -->
+ <section id="splash">
+ <h2>1. SPLASH / BOOT SCREEN</h2>
+ <p class="note">Current live: title + “enter here ” + comsec only. These add a little map without killing the boot ritual.</p>
+ <div class="grid cols-3">
+ <div class="card">
+ <div class="card-head"><span class="tag">A - MINIMAL CTAs</span><span class="vibe">safest</span></div>
+ <div class="frame-wrap"><iframe src="splash-a.html" title="Splash A" loading="lazy"></iframe></div>
+ <div class="pick">Keep the boot feel. Add <em>ENTER * SWAP * DOCS</em> under the cursor. Cold users get two escapes; degens still mash Enter.</div>
+ </div>
+ <div class="card">
+ <div class="card-head"><span class="tag">B - TAGLINE + CTAs</span><span class="vibe">recommended</span></div>
+ <div class="frame-wrap"><iframe src="splash-b.html" title="Splash B" loading="lazy"></iframe></div>
+ <div class="pick">One-line value prop + same three links. Answers “what is this?” in &lt;2 seconds without a marketing site.</div>
+ </div>
+ <div class="card">
+ <div class="card-head"><span class="tag">C - DIRECTORY BOOT</span><span class="vibe">most map</span></div>
+ <div class="frame-wrap"><iframe src="splash-c.html" title="Splash C" loading="lazy"></iframe></div>
+ <div class="pick">Looks like a DOS menu directory. Strongest for cold traffic; least “mysterious bunker.”</div>
+ </div>
+ </div>
+ </section>
+
+ <!-- ═══════════ HUB MAP ═══════════ -->
+ <section id="hubmap">
+ <h2>2. HUB // ALWAYS-ON MAP STRIP</h2>
+ <p class="note">Lives on the system menu so you never have to open every accordion to know the map exists.</p>
+ <div class="grid cols-3">
+ <div class="card">
+ <div class="card-head"><span class="tag">A - TOP CHIP ROW</span><span class="vibe">recommended</span></div>
+ <div class="frame-wrap tall"><iframe src="hub-map-a.html" title="Hub map A" loading="lazy"></iframe></div>
+ <div class="pick">Thin <em>// MAP</em> chips under the title: SWAP * GAMES * ARCADE * TIME * DOCS. Doesn’t fight the menu.</div>
+ </div>
+ <div class="card">
+ <div class="card-head"><span class="tag">B - LEFT RAIL</span><span class="vibe">desktop-first</span></div>
+ <div class="frame-wrap tall"><iframe src="hub-map-b.html" title="Hub map B" loading="lazy"></iframe></div>
+ <div class="pick">Vertical rail like an old file tree. Cool on desktop; on phone it becomes a horizontal scroller (shown).</div>
+ </div>
+ <div class="card">
+ <div class="card-head"><span class="tag">C - BOTTOM DOCK</span><span class="vibe">thumb zone</span></div>
+ <div class="frame-wrap tall"><iframe src="hub-map-c.html" title="Hub map C" loading="lazy"></iframe></div>
+ <div class="pick">Fixed dock above the price ticker. Great for thumbs; competes a bit with ticker + legal bar.</div>
+ </div>
+ </div>
+ </section>
+
+ <!-- ═══════════ FIRST VISIT ═══════════ -->
+ <section id="card">
+ <h2>3. FIRST-VISIT / HOW TO BOOT</h2>
+ <p class="note">Shows once (localStorage dismiss). Not a modal wall - a CRT card you can skip.</p>
+ <div class="grid cols-2">
+ <div class="card">
+ <div class="card-head"><span class="tag">1 - BRIEFING CARD</span><span class="vibe">recommended</span></div>
+ <div class="frame-wrap tall"><iframe src="card-1.html" title="Card 1" loading="lazy"></iframe></div>
+ <div class="pick">Short briefing: what DOSWAPZ is, 3 buttons, DISMISS. Feels like a BBS MOTD.</div>
+ </div>
+ <div class="card">
+ <div class="card-head"><span class="tag">2 - SCROLL MANUAL</span><span class="vibe">more text</span></div>
+ <div class="frame-wrap tall"><iframe src="card-2.html" title="Card 2" loading="lazy"></iframe></div>
+ <div class="pick">Fake <em>MANUAL.TXT</em> dump. More onboarding, more clutter. Good for “help” page too.</div>
+ </div>
+ </div>
+ </section>
+
+ <!-- ═══════════ A11Y ═══════════ -->
+ <section id="a11y">
+ <h2>4. A11Y / MOTION NEXT TO GLITCH DIAL</h2>
+ <p class="note">Answers the “CHAOS fries my eyes” complaint without killing the aesthetic for everyone else.</p>
+ <div class="grid cols-2">
+ <div class="card">
+ <div class="card-head"><span class="tag">1 - TOGGLE CHIP</span><span class="vibe">recommended</span></div>
+ <div class="frame-wrap"><iframe src="a11y-1.html" title="A11y 1" loading="lazy"></iframe></div>
+ <div class="pick">Beside GLITCH: <em>MOTION: ON/OFF</em>. One tap, remembers. Clean.</div>
+ </div>
+ <div class="card">
+ <div class="card-head"><span class="tag">2 - PRESET ROW</span><span class="vibe">power user</span></div>
+ <div class="frame-wrap"><iframe src="a11y-2.html" title="A11y 2" loading="lazy"></iframe></div>
+ <div class="pick">GLITCH + MOTION + CONTRAST as three mini dials. More control, busier chrome.</div>
+ </div>
+ </div>
+ </section>
+
+ <p class="lead" style="margin-top:28px">
+ <strong>Reply example:</strong> “Splash B, Hub Map A, Card 1, A11y 1” - or “only Hub Map A for now.”
+ </p>
+ <a class="back" href="/classic/hub.html"><- back to real hub</a>
+ </div>
+</body>
+</html>

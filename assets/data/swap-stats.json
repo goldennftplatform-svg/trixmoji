@@ -1,0 +1,6 @@
+{
+  "total": 2,
+  "updatedAt": "2026-06-24T22:00:00.000Z",
+  "note": "Seed baseline. Live total is persisted via POST /api/swap-stats (Netlify Blobs or Vercel KV). Each confirmed swap signature increments total once.",
+  "signatures": []
+}

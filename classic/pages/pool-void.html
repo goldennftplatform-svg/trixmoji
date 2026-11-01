@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <script src="/assets/js/poolvoid-gate.js?v=20261022pv"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>POOL VOID</title>
+  <meta name="description" content="A read of poolvoid.app. Jimmy's onchain wishing well, the receipt desk, and the two Ethereum names. Read 22 Oct 2026. This page sends nothing.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&display=swap">
+  <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260831mint">
+  <link rel="stylesheet" href="/assets/css/geoffwatch.css?v=20260929explain">
+  <style>
+    .doswap {
+      font-size: clamp(26px, 5.4vw, 46px);
+      letter-spacing: 3px;
+    }
+    td.wrap, .wrap { white-space: normal; word-break: break-all; }
+    .sitrep p, .prose {
+      color: var(--green);
+      font-size: 18px;
+      letter-spacing: 1px;
+      line-height: 1.4;
+      margin: 0 0 10px;
+      position: relative;
+      z-index: 10;
+    }
+    .quote {
+      border-left: 3px solid var(--green);
+      margin: 0 0 14px;
+      padding: 4px 12px;
+      color: var(--green);
+      font-size: 18px;
+      letter-spacing: 1px;
+      line-height: 1.4;
+      position: relative;
+      z-index: 10;
+    }
+    section { position: relative; z-index: 10; }
+    h3.block {
+      margin: 16px 0 8px;
+      color: var(--green);
+      font-size: 20px;
+      font-weight: normal;
+      letter-spacing: 2px;
+    }
+    .table-wrap th, .table-wrap td { white-space: normal; }
+    .table-wrap table { width: 100%; }
+  </style>
+</head>
+<body>
+  <div class="dos-screen">
+    <div class="vignette"></div>
+
+    <header>
+      <div class="doswap"><a href="/classic/hub.html">POOL VOID</a></div>
+      <div class="menu-prompt">C:\HUB\POOL-VOID&gt;<span class="cursor">_</span></div>
+      <div class="status">POOLVOID.APP · TWO NAMES · ONE RECEIPT</div>
+      <div class="clock">READ 22 OCT 2026 · THIS PAGE SENDS NOTHING</div>
+    </header>
+
+    <div class="toolbar">
+      <span class="pill hot"><a href="#desk">THE DESK</a></span>
+      <span class="pill hot"><a href="#wells">THE WELLS</a></span>
+      <span class="pill hot"><a href="#score">POINTS</a></span>
+      <span class="pill hot"><a href="#voids">VOIDS</a></span>
+      <span class="pill"><a href="https://poolvoid.app" target="_blank" rel="noopener">POOLVOID.APP</a></span>
+      <span class="pill"><a href="https://www.poolvoid.net/guide" target="_blank" rel="noopener">GUIDE</a></span>
+      <span class="pill dim"><a href="/classic/hub.html">HUB</a></span>
+    </div>
+
+    <p class="note">
+      <strong>POOL VOID IS JIMMY'S WORK. DOSWAPZ DOES NOT RUN IT.</strong>
+      poolvoid.app calls itself an archive of everything that enters. The public guide calls it a wishing well: a person sends ETH, a token, or an artwork to poolvoid.eth or void.eth, and the send is the wish. This page only reads that desk. It does not connect a wallet, and it does not move a coin.
+    </p>
+
+    <section id="desk">
+      <h2>// 01 · THE DESK <span>POOLVOID.APP</span></h2>
+      <p class="prose">The site is a dark archive. The meta line is "POOL VOID. An archive of everything that enters." The home screen shows the latest arrival, three counters, and a recent-arrivals table. A lookup box takes an address, an ENS name, or a profile link. Jimmy's post on 21 Oct 2026 says you do not need to connect. You enter the address and the receipt is there.</p>
+      <p class="prose">Connect is optional. The wallet list on 22 Oct 2026 is an injected wallet, a Base Account, and Coinbase Wallet. The same screen says mobile wallets will be available when WalletConnect is configured. Signing in is for a profile and for sending from the site. Looking up a receipt does not require that signature.</p>
+      <p class="prose">A profile card shows transactions, transfers, ETH, artworks, a score, and unlocks. The receipt is drawn on the page. You can download it. The app logs a failed download as "[POOL VOID] Receipt download failed". That receipt is the page's picture of what the index already stored. It is separate from the older POOL VOID RECEIPT NFT.</p>
+
+      <h3 class="block">// COUNTERS · 22 OCT 2026 · 11:42 UTC</h3>
+      <p class="prose">GET https://poolvoid.app/api/status returned these totals. GET /api/health returned ok, and the database flag was true. The index was mid-sync: Ethereum cursor block 26,247,854, Base cursor block 52,938,793. The numbers move.</p>
+      <section class="kpis">
+        <article><div class="l">TRANSACTIONS</div><div class="v">60657</div></article>
+        <article><div class="l">TRANSFERS</div><div class="v">74141</div></article>
+        <article><div class="l">WALLETS</div><div class="v">6254</div></article>
+        <article><div class="l">ETH RECEIVED</div><div class="v small">3504.243</div></article>
+      </section>
+      <p class="prose">Jimmy's post the day before, 21 Oct 2026, said 6,251 wallets, 3,503 Ethereum, and over a million artworks. The status route does not print an artwork total. The million is his sentence, not a counter this desk could re-read. A reply on that post asked if a poolvoid.eth transaction still counts. He answered yes, both count.</p>
+    </section>
+
+    <section id="wells">
+      <h2>// 02 · THE TWO WELLS <span>ETHEREUM AND BASE</span></h2>
+      <p class="prose">The index watches four targets. The same two names sit on Ethereum mainnet (chain 1) and on Base (chain 8453). Backfill was marked complete on all four. Last Ethereum sync in that read was 22 Oct 2026, 11:42 UTC for void.eth and 11:41 UTC for poolvoid.eth.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>NAME</th><th>CHAIN</th><th>ADDRESS</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>poolvoid.eth</td><td>Ethereum</td><td class="wrap">0x40fa5b555b83676e203dac4cfb70fd13a53bf6a7</td></tr>
+            <tr><td>void.eth</td><td>Ethereum</td><td class="wrap">0xe18d3f89665ebf4ef885389b62a91ed910572af4</td></tr>
+            <tr><td>poolvoid.eth</td><td>Base</td><td class="wrap">0x40fa5b555b83676e203dac4cfb70fd13a53bf6a7</td></tr>
+            <tr><td>void.eth</td><td>Base</td><td class="wrap">0xe18d3f89665ebf4ef885389b62a91ed910572af4</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prose">poolvoid.app/api/resolve confirms the names: void.eth and poolvoid.eth resolve to those two addresses. A transfer row names the target, the chain, the asset, the amount, and the time. The home table is that feed.</p>
+      <div class="quote">void.eth on Ethereum is a contract. Its bytecode is the Gnosis Safe proxy: the masterCopy selector is in the code. poolvoid.net's update says that in December 2024 a majority of the assets were secured to a gnosis multisig at void.eth. This desk confirmed the proxy. It did not recount the assets.</div>
+      <p class="prose">The public guide still tells a person to send to poolvoid.eth. The app counts both names. Sending is a normal chain transfer. poolvoid.net says to commit only what you can lose, and it says no refunds. This DOSWAPZ page has no send button.</p>
+
+      <h3 class="block">// WHAT THE LEADERBOARD SORTS</h3>
+      <p class="prose">GET /api/leaderboard ranks wallets by ETH received into the wells. The top of that list on 22 Oct 2026:</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>RANK</th><th>WALLET</th><th>ETH</th><th>TXS</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td class="wrap">0xfc2026e6716a955b0517cb0b4b62705ec72bff9f</td><td>14.413</td><td>61</td></tr>
+            <tr><td>2</td><td class="wrap">0x30e0e893be003a01c64c9dfc434c13016cd1ccf0</td><td>13.734</td><td>155</td></tr>
+            <tr><td>3</td><td class="wrap">0x3b5e1e1a87775428a248419391c3c461b4708cb1</td><td>12.778</td><td>348</td></tr>
+            <tr><td>4</td><td class="wrap">0xec471594d2e8496eac699d44bafc6f014033f4d6</td><td>12.688</td><td>325</td></tr>
+            <tr><td>5</td><td class="wrap">0xad1f7da11c8beb9568695679435510b3b6f33754</td><td>11.956</td><td>102</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prose">Rank is ETH in, not a score, and not a prompt to follow the wallet.</p>
+    </section>
+
+    <section id="score">
+      <h2>// 03 · POINTS <span>THE RULE LIST</span></h2>
+      <p class="prose">GET /api/scoring/rules returned 177 rules. The source field on the achievement rows is https://www.poolvoid.net/guide. The app's own line for how a score is built: multipliers start at 1, add together, then multiply base points. Colored voids dissolve points. Resurrection resets earlier voids. Edits apply to all indexed history.</p>
+      <p class="prose">Each rule in that response is marked once, not repeating. The older guide still says a multiplier can be sent an unlimited number of times, and that a negative multiplier flips the sign on even and odd counts. Where the guide and the live rule list disagree, the receipt you see on poolvoid.app is using the live list.</p>
+
+      <h3 class="block">// DEPOSITS THAT BECOME POINTS</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>ASSET</th><th>CHAIN</th><th>HOW POINTS ARE SET</th><th>WALLETS</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>ETH</td><td>Ethereum</td><td>USD value of the send</td><td>3804</td></tr>
+            <tr><td>WBTC</td><td>Ethereum</td><td>USD value · 0x2260fac5e5542a773aa44fbcfedf7c193bc2c599</td><td>120</td></tr>
+            <tr><td>PEPE</td><td>Ethereum</td><td>USD value · 0x6982508145454ce325ddbe47a25d4ec3d2311933</td><td>279</td></tr>
+            <tr><td>PNDC</td><td>Ethereum</td><td>USD value · 0x423f4e6138e475d85cf7ea071ac92097ed631eea</td><td>644</td></tr>
+            <tr><td>NULL</td><td>Base</td><td>USD value · 0xdb19b61fc52eb16fbe1e4e9e5441949040512d32</td><td>33</td></tr>
+            <tr><td>$VOID</td><td>Base</td><td>1000 points per token, fixed · 0x2ae5340de49d585a6799f9fab58d5aa4bc8f639d</td><td>433</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prose">The guide says $VOID is the L2 coin of POOL VOID on Base, and that 1,000 points attach to each token. The live rule matches that: asset VOID, chain 8453, points 1000, valuation fixed. ETH, WBTC, PEPE, PNDC, and NULL are marked valuation USD, so those points move with the dollar price. $VOID does not.</p>
+
+      <h3 class="block">// ACHIEVEMENTS</h3>
+      <p class="prose">An achievement is an exact ETH amount on Ethereum, sent once, to either well. The guide's phrase is 1 tx = 1 wish. The smallest on the list is OBSERVE at 0.0000001 ETH for 1 point. VOID is 0.0069 ETH for 99 points. PONDSCUM is 0.0696969 ETH for 666 points. A few amounts also carry a multiplier: MIRROR 0.0555 ETH is 1.5×, AIR 0.0777 ETH is 3.3×, METAL 0.0888 ETH is 1111×, PLATINUM 0.1111 ETH is 2.2×, PYRAMID 0.333 ETH is 69×. MASTER is 6 ETH for 9,999 points. GOD MODE is 9 ETH for 10,000 points. The full amount list is the guide and the rules route. This page does not reprint all of them.</p>
+
+      <h3 class="block">// ARTWORKS THE INDEX SCORES</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>COLLECTION</th><th>CHAIN</th><th>PTS</th><th>WALLETS</th><th>CONTRACT</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>PLASTICS</td><td>ETH</td><td>100</td><td>149</td><td class="wrap">0xcab62d8a342e3d9690fad0124bf7f760475ac980</td></tr>
+            <tr><td>VOID CANDLES</td><td>ETH</td><td>50</td><td>1178</td><td class="wrap">0x6b3e29bf728b9da369f8d09aa08a439058221f69</td></tr>
+            <tr><td>PROMPTZ</td><td>ETH</td><td>50</td><td>208</td><td class="wrap">0x9e732f7eff260c408639dc06b04b94088c39852e</td></tr>
+            <tr><td>GOD CANDLE</td><td>ETH</td><td>50</td><td>227</td><td class="wrap">0x501c4ba189d0f0c94578fc4eb35bb694046c205e</td></tr>
+            <tr><td>WHITE RABBIT</td><td>ETH</td><td>50</td><td>530</td><td class="wrap">0x4f330940159fb3368f5b06b34212c0cdb4e2c032</td></tr>
+            <tr><td>DAWN OF A NEW DAY</td><td>ETH</td><td>50</td><td>380</td><td class="wrap">0xf95925e44f1cd20e2791b3bc8de3afb214d77956</td></tr>
+            <tr><td>POOL VOID RECEIPTS</td><td>ETH</td><td>10000</td><td>660</td><td class="wrap">0xc72f9dac53f89d82b8854a67ddd07362d4a1685c</td></tr>
+            <tr><td>VOIDED</td><td>ETH</td><td>50</td><td>53</td><td class="wrap">0xc3706195ff60658585b58716717ee7acc5ebca60</td></tr>
+            <tr><td>UNH1NGED</td><td>Base</td><td>1000</td><td>210</td><td class="wrap">0x9d0d2a5ef6e21dbda2c37f40757f1f5c54aa1b55</td></tr>
+            <tr><td>IDENTITY</td><td>Base</td><td>50</td><td>72</td><td class="wrap">0x7daddebc3a0f2b5bf6a98e3ae075e65359f07558</td></tr>
+            <tr><td>NULL EDITIONS</td><td>Base</td><td>50</td><td>186</td><td class="wrap">0x69b2c7430a252993939271e6c3819495fd13f401</td></tr>
+            <tr><td>HEX #1</td><td>Base</td><td>1000</td><td>154</td><td class="wrap">0xffab1087654e1e382e6a8b81c9cfad7402463220</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prose">The guide says the work started when Jimmy asked GOD CANDLE collectors to burn the artwork, and poolvoid.eth opened after that. The POOL VOID RECEIPT row is the older NFT, 10,000 points if that NFT is sent in. The receipt you download on poolvoid.app is the new archive picture. They are not the same object.</p>
+      <p class="prose">Named ETH multipliers on the same rule list include 0.0039 ETH at 3×, 0.00678 and 0.00679 ETH at 8×, 0.00977 ETH at −1×, 0.0236726 ETH at 3333×, 0.0999 ETH at 13.3×, 0.111133 ETH at 11333×, 0.36969 ETH at 333×, 1.069 ETH at 33×, and 3.069 ETH at 100×. WBTC and PEPE have their own exact-amount multipliers. Wallet counts on the giant ones are small. 11333× had 22 wallets. 3333× had 5. 100× had 5.</p>
+    </section>
+
+    <section id="voids">
+      <h2>// 04 · COLORED VOIDS <span>ZERO TIMES POINTS</span></h2>
+      <p class="prose">A colored void is an exact ETH amount whose multiplier is 0. The app's line is that colored voids dissolve points. The rule list on 22 Oct 2026:</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>NAME</th><th>ETH</th><th>MULTIPLIER</th><th>WALLETS</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>VOIDED RED</td><td>0.29998</td><td>0</td><td>1</td></tr>
+            <tr><td>VOIDED ORANGE</td><td>0.3945</td><td>0</td><td>46</td></tr>
+            <tr><td>VOIDED BLUE</td><td>0.7676</td><td>0</td><td>0</td></tr>
+            <tr><td>BLACK VOID</td><td>1</td><td>0</td><td>19</td></tr>
+            <tr><td>VOIDED VIOLET</td><td>1.111111</td><td>0</td><td>33</td></tr>
+            <tr><td>VOIDED RAINBOW</td><td>1.969696</td><td>0</td><td>0</td></tr>
+            <tr><td>VOIDED BLACK</td><td>2.333333</td><td>0</td><td>8</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prose">RESURRECTION on the live list is 0.00329 ETH, 9,696 points, 11 wallets. The note on that rule: "Full voided reset. Turns all earlier 0× multipliers into 1×. Repeat anytime." The public guide still prints RESURRECTION at 3.363636 ETH. The receipt math on the app is the 0.00329 rule, not the guide's old amount.</p>
+      <div class="log">
+        <div class="row">1 · LOOK UP ON POOLVOID.APP WITH AN ADDRESS · NO WALLET REQUIRED FOR THE READ</div>
+        <div class="row">2 · BOTH NAMES COUNT · POOLVOID.ETH AND VOID.ETH · ETHEREUM AND BASE</div>
+        <div class="row">3 · A SEND IS A REAL TRANSFER · THE GUIDE SAYS NO REFUNDS</div>
+        <div class="row">4 · COLORED VOIDS ZERO THE MULTIPLIER · RESURRECTION IS THE RESET ON THE LIVE LIST</div>
+        <div class="row">5 · THIS DOSWAPZ PAGE DOES NOT CONNECT AND DOES NOT SEND</div>
+      </div>
+      <div class="linkrow" style="padding-left:0">
+        <a href="https://poolvoid.app" target="_blank" rel="noopener">POOLVOID.APP</a>
+        <a href="https://www.poolvoid.net/" target="_blank" rel="noopener">POOLVOID.NET</a>
+        <a href="https://www.poolvoid.net/guide" target="_blank" rel="noopener">GUIDE</a>
+        <a href="https://www.poolvoid.net/glossary" target="_blank" rel="noopener">GLOSSARY</a>
+        <a href="https://etherscan.io/address/0xe18d3f89665ebf4ef885389b62a91ed910572af4" target="_blank" rel="noopener">VOID.ETH</a>
+        <a href="https://etherscan.io/address/0x40fa5b555b83676e203dac4cfb70fd13a53bf6a7" target="_blank" rel="noopener">POOLVOID.ETH</a>
+      </div>
+    </section>
+
+    <footer>
+      POOL VOID · <a href="/classic/hub.html">RETURN TO SYSTEM MENU</a>
+    </footer>
+  </div>
+  <script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title>  <link rel="stylesheet" href="/assets/css/era-present-soft.css?v=neonvoid5">
+</head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong> Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong> Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>DOSWAPZ // I SEE YOU // ORBIT</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+<link rel="stylesheet" href="/assets/css/era-transition.css">
+ <link rel="stylesheet" href="/assets/css/i-see-you.css">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ /* Present I SEE YOU - full terminal skin (wins over void wash) */
+ body#screen.orbit-void-inner.isy-orbit {
+ --isy: #ff4477;
+ --isy-dim: #ff88aa;
+ --isy-text: #ffc0d0;
+ --isy-muted: #c08898;
+ --isy-amber: #ffb060;
+ --isy-line: rgba(255, 80, 130, 0.4);
+ --isy-bg: #0a0408;
+ --isy-field: #08040a;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .stage .hollow-title {
+ -webkit-text-stroke-color: rgba(255, 80, 130, 0.55);
+ filter: drop-shadow(0 0 18px rgba(255, 50, 100, 0.25));
+ }
+ body#screen.orbit-void-inner.isy-orbit .stage .hollow-sub {
+ color: rgba(255, 160, 190, 0.7);
+ letter-spacing: 3px;
+ }
+ body#screen.orbit-void-inner.isy-orbit .stage .page-path {
+ display: none;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .orbit-panel.accent-iseeyou,
+ body#screen.orbit-void-inner.isy-orbit .orbit-panel.accent-iseeyou * {
+ text-shadow: none !important;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .orbit-panel.accent-iseeyou {
+ width: min(720px, 94vw) !important;
+ max-width: 720px;
+ margin: 0 auto 100px !important;
+ padding: 20px 16px 26px !important;
+ background: rgba(8, 2, 6, 0.96) !important;
+ border: 1px solid var(--isy-line) !important;
+ border-style: solid !important;
+ border-radius: 4px !important;
+ box-shadow: 0 0 36px rgba(255, 40, 90, 0.1) !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .orbit-panel.accent-iseeyou::before {
+ display: none !important;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .isy-wrap {
+ max-width: 100%;
+ margin: 0 auto;
+ position: relative;
+ z-index: 2;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .isy-subhead {
+ text-align: center !important;
+ color: var(--isy-muted) !important;
+ font-size: 14px !important;
+ letter-spacing: 0.12em !important;
+ line-height: 1.45 !important;
+ margin: 0 0 16px !important;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .isy-panel {
+ background: var(--isy-bg) !important;
+ border: 2px solid var(--isy) !important;
+ border-style: solid !important;
+ box-shadow: 0 0 20px rgba(255, 51, 102, 0.12) !important;
+ padding: 16px 14px !important;
+ margin-bottom: 14px !important;
+ border-radius: 0 !important;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .isy-panel,
+ body#screen.orbit-void-inner.isy-orbit .isy-panel div,
+ body#screen.orbit-void-inner.isy-orbit .isy-panel span,
+ body#screen.orbit-void-inner.isy-orbit .isy-panel p,
+ body#screen.orbit-void-inner.isy-orbit .isy-panel label,
+ body#screen.orbit-void-inner.isy-orbit .isy-panel td,
+ body#screen.orbit-void-inner.isy-orbit .isy-panel th {
+ color: var(--isy-text) !important;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .section-label {
+ text-align: center !important;
+ color: var(--isy-dim) !important;
+ font-size: 15px !important;
+ letter-spacing: 0.2em !important;
+ margin: 0 0 12px !important;
+ padding: 0 0 8px !important;
+ border-bottom: 1px solid rgba(255, 80, 130, 0.35) !important;
+ border-style: solid !important;
+ background: transparent !important;
+ text-shadow: 0 0 8px rgba(255, 80, 130, 0.25) !important;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .isy-field {
+ width: 100% !important;
+ max-width: 100% !important;
+ margin: 0 auto !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-field label {
+ display: block !important;
+ text-align: center !important;
+ color: var(--isy-amber) !important;
+ font-size: 13px !important;
+ letter-spacing: 0.12em !important;
+ margin-bottom: 6px !important;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .isy-chain-pick {
+ display: flex !important;
+ flex-wrap: wrap !important;
+ gap: 8px !important;
+ justify-content: center !important;
+ margin: 0 0 12px !important;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .isy-chain-opt {
+ font-family: 'VT323', monospace !important;
+ font-size: 14px !important;
+ letter-spacing: 0.06em !important;
+ color: var(--isy-dim) !important;
+ background: #000 !important;
+ border: 2px solid var(--isy) !important;
+ border-style: solid !important;
+ border-radius: 0 !important;
+ padding: 7px 12px !important;
+ cursor: pointer !important;
+ min-height: 36px !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-chain-opt:hover,
+ body#screen.orbit-void-inner.isy-orbit .isy-chain-opt.is-active {
+ color: #ffff88 !important;
+ border-color: #ffff66 !important;
+ background: rgba(80, 0, 30, 0.65) !important;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .isy-field input,
+ body#screen.orbit-void-inner.isy-orbit #isyAddress {
+ width: 100% !important;
+ background: #000 !important;
+ color: var(--isy-dim) !important;
+ border: 2px solid var(--isy) !important;
+ border-style: solid !important;
+ border-radius: 0 !important;
+ padding: 12px 12px !important;
+ font-family: 'VT323', monospace !important;
+ font-size: 17px !important;
+ min-height: 48px !important;
+ box-shadow: none !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-field input:focus {
+ border-color: #ff88aa !important;
+ outline: none !important;
+ box-shadow: 0 0 0 1px rgba(255, 80, 130, 0.25) !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-field input::placeholder {
+ color: rgba(255, 150, 180, 0.35) !important;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .isy-row {
+ display: flex !important;
+ flex-wrap: wrap !important;
+ gap: 10px !important;
+ justify-content: center !important;
+ margin: 14px 0 8px !important;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .isy-btn,
+ body#screen.orbit-void-inner.isy-orbit button.isy-btn {
+ font-family: 'VT323', monospace !important;
+ font-size: 16px !important;
+ letter-spacing: 0.08em !important;
+ color: var(--isy-dim) !important;
+ background: #000 !important;
+ border: 2px solid var(--isy) !important;
+ border-style: solid !important;
+ border-radius: 0 !important;
+ padding: 10px 16px !important;
+ cursor: pointer !important;
+ min-height: 44px !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-btn:hover:not(:disabled) {
+ background: rgba(80, 0, 30, 0.7) !important;
+ color: #ffff88 !important;
+ border-color: #ffff66 !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit #isyTrackBtn {
+ font-size: 18px !important;
+ padding: 12px 22px !important;
+ color: #ffb0c8 !important;
+ border-color: #ff5588 !important;
+ background: rgba(40, 0, 16, 0.9) !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-btn-small {
+ font-size: 14px !important;
+ padding: 8px 12px !important;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .isy-status {
+ text-align: center !important;
+ color: #44dd88 !important;
+ font-size: 14px !important;
+ letter-spacing: 0.08em !important;
+ margin: 12px 0 6px !important;
+ min-height: 1.2em !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-target {
+ text-align: center !important;
+ color: var(--isy-muted) !important;
+ font-size: 13px !important;
+ word-break: break-all !important;
+ margin: 4px 0 8px !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-stats {
+ display: flex !important;
+ flex-wrap: wrap !important;
+ gap: 12px 18px !important;
+ justify-content: center !important;
+ color: var(--isy-muted) !important;
+ font-size: 14px !important;
+ margin: 10px 0 4px !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-stat strong {
+ color: var(--isy-dim) !important;
+ margin-right: 4px !important;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .isy-table-wrap {
+ overflow-x: auto !important;
+ border: 1px solid rgba(255, 80, 130, 0.4) !important;
+ border-style: solid !important;
+ background: #000 !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-table {
+ width: 100% !important;
+ border-collapse: collapse !important;
+ font-size: 15px !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-table th {
+ text-align: left !important;
+ color: var(--isy-amber) !important;
+ letter-spacing: 0.08em !important;
+ font-size: 13px !important;
+ padding: 10px !important;
+ border-bottom: 1px solid rgba(255, 80, 130, 0.35) !important;
+ background: rgba(30, 0, 12, 0.6) !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-table td {
+ padding: 10px !important;
+ border-bottom: 1px solid rgba(80, 20, 40, 0.5) !important;
+ color: #e8a8b8 !important;
+ vertical-align: top !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-time { color: #aa7788 !important; white-space: nowrap !important; }
+ body#screen.orbit-void-inner.isy-orbit .isy-hash a { color: #88ccff !important; text-decoration: none !important; }
+ body#screen.orbit-void-inner.isy-orbit .isy-hash a:hover { color: #ffff88 !important; }
+ body#screen.orbit-void-inner.isy-orbit .isy-type {
+ display: inline-block !important;
+ padding: 2px 6px !important;
+ font-size: 12px !important;
+ border: 1px solid currentColor !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-type-swap { color: #ffff66 !important; border-color: #ffff66 !important; }
+ body#screen.orbit-void-inner.isy-orbit .isy-type-transfer,
+ body#screen.orbit-void-inner.isy-orbit .isy-type-token { color: #66ffaa !important; border-color: #66ffaa !important; }
+ body#screen.orbit-void-inner.isy-orbit .isy-type-tx,
+ body#screen.orbit-void-inner.isy-orbit .isy-type-contract_call { color: #88aaff !important; border-color: #88aaff !important; }
+ body#screen.orbit-void-inner.isy-orbit .isy-type-failed { color: #ff6666 !important; border-color: #ff6666 !important; }
+
+ body#screen.orbit-void-inner.isy-orbit .isy-empty {
+ text-align: center !important;
+ color: #664455 !important;
+ font-style: italic !important;
+ padding: 28px 12px !important;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .isy-disclaimer {
+ border: 2px solid rgba(255, 170, 68, 0.55) !important;
+ border-style: solid !important;
+ background: rgba(30, 15, 0, 0.45) !important;
+ padding: 12px 14px !important;
+ font-size: 12px !important;
+ line-height: 1.4 !important;
+ color: #ccaa88 !important;
+ margin: 4px 0 0 !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-disclaimer,
+ body#screen.orbit-void-inner.isy-orbit .isy-disclaimer div {
+ color: #ccaa88 !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-disclaimer-title {
+ color: #ffaa44 !important;
+ text-align: center !important;
+ letter-spacing: 0.12em !important;
+ margin-bottom: 6px !important;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .isy-raw {
+ margin-top: 10px !important;
+ border: 1px solid rgba(255, 51, 102, 0.35) !important;
+ background: #000 !important;
+ padding: 8px !important;
+ font-size: 11px !important;
+ color: #aa7788 !important;
+ white-space: pre-wrap !important;
+ word-break: break-all !important;
+ max-height: 180px !important;
+ overflow: auto !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit summary {
+ cursor: pointer !important;
+ color: #aa7788 !important;
+ font-size: 13px !important;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .isy-nav {
+ display: flex !important;
+ flex-wrap: wrap !important;
+ justify-content: center !important;
+ gap: 10px !important;
+ margin-top: 18px !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-nav a {
+ font-family: 'VT323', monospace !important;
+ font-size: 16px !important;
+ color: var(--isy-dim) !important;
+ background: #000 !important;
+ border: 2px solid var(--isy) !important;
+ border-style: solid !important;
+ border-radius: 0 !important;
+ padding: 8px 16px !important;
+ text-decoration: none !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-nav a:hover {
+ color: #ffff88 !important;
+ border-color: #ffff66 !important;
+ background: rgba(80, 0, 30, 0.55) !important;
+ }
+
+ body#screen.orbit-void-inner.isy-orbit .isy-footer {
+ margin-top: 16px !important;
+ text-align: center !important;
+ font-size: 13px !important;
+ color: #664455 !important;
+ letter-spacing: 0.08em !important;
+ }
+
+ /* kill floaters competing with the form */
+ body#screen.orbit-void-inner.isy-orbit .float-field {
+ opacity: 0.25;
+ }
+
+ @media (max-width: 700px) {
+ body#screen.orbit-void-inner.isy-orbit .orbit-panel.accent-iseeyou {
+ padding: 14px 10px 22px !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit .isy-chain-opt {
+ font-size: 13px !important;
+ padding: 8px 10px !important;
+ }
+ body#screen.orbit-void-inner.isy-orbit #isyTrackBtn {
+ width: 100% !important;
+ }
+ }
+ </style>
+  <link rel="stylesheet" href="/assets/css/era-present-soft.css?v=neonvoid5">
+</head>
+<body id="screen" class="orbit-void-inner isy-orbit">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+ <span class="crumb-zone">I SEE YOU</span>
+ <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+ <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+ <div class="core-glow"></div>
+ <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+ <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ </div>
+
+ <main class="stage" id="stage">
+ <h1 class="hollow-title" id="orbitTitle">I SEE YOU</h1>
+ <p class="hollow-sub" id="stageSub">wallet surveillance<span class="cursor-blink">|</span></p>
+ </main>
+
+ <div class="orbit-panel accent-iseeyou" id="orbitPanel">
+ <div class="isy-wrap">
+ <div class="isy-subhead">
+ WALLET SURVEILLANCE TERMINAL * SOL PnL * ETH * EVM * BTC<br>
+ PASTE ANY ADDRESS - TRACK SWAPS, MOVEMENTS &amp; PROFIT / LOSS
+ </div>
+
+ <div class="isy-panel">
+ <div class="section-label">TARGET ACQUISITION</div>
+
+ <div class="isy-field">
+ <label for="isyChain">BLOCKCHAIN</label>
+ <div id="isyChainPick" class="isy-chain-pick" role="listbox" aria-label="Blockchain"></div>
+ <select id="isyChain" aria-label="Blockchain" class="isy-chain-native">
+ <option value="sol">Solana (SOL)</option>
+ <option value="eth">Ethereum (ETH)</option>
+ <option value="base">Base</option>
+ <option value="polygon">Polygon</option>
+ <option value="arb">Arbitrum</option>
+ <option value="hood">Robinhood Chain</option>
+ <option value="btc">Bitcoin (BTC)</option>
+ </select>
+ </div>
+
+ <div class="isy-field" style="margin-top:12px;">
+ <label for="isyAddress">WALLET ADDRESS</label>
+ <input id="isyAddress" type="text" placeholder="Paste wallet address - any supported chain" autocomplete="off" spellcheck="false">
+ </div>
+
+ <div class="isy-row">
+ <button id="isyTrackBtn" class="isy-btn" type="button">TRACK WALLET</button>
+ <button id="isyConnectSol" class="isy-btn isy-btn-small" type="button">CONNECT SOLANA</button>
+ <button id="isyConnectEvm" class="isy-btn isy-btn-small" type="button">CONNECT ETH</button>
+ </div>
+
+ <div id="isyStatus" class="isy-status">AWAITING TARGET</div>
+ <div id="isyTarget" class="isy-target"></div>
+ <div id="isyStats" class="isy-stats"></div>
+ </div>
+
+ <div class="isy-panel" id="isyPnlPanel">
+ <div class="section-label">PnL RADAR (SOLANA FIFO)</div>
+ <div id="isyPnlSummary" class="isy-pnl-summary">
+ <div class="isy-pnl-banner">TRACK A SOLANA WALLET TO COMPUTE REALIZED + UNREALIZED PnL</div>
+ </div>
+ <div class="isy-table-wrap" style="margin-top:12px;">
+ <table class="isy-table isy-pnl-table" aria-label="Per-token PnL">
+ <thead>
+ <tr>
+ <th>TOKEN</th>
+ <th>BAG</th>
+ <th>BUY / SELL</th>
+ <th>AVG COST</th>
+ <th>PRICE</th>
+ <th>VALUE</th>
+ <th>REALIZED</th>
+ <th>UNREAL</th>
+ <th>TOTAL</th>
+ </tr>
+ </thead>
+ <tbody id="isyPnlTokenBody"></tbody>
+ </table>
+ </div>
+ <div id="isyPnlTokenEmpty" class="isy-empty" style="display:none;">NO TOKEN POSITIONS</div>
+ <div id="isyPnlNote" class="isy-pnl-note"></div>
+ </div>
+
+ <div class="isy-panel">
+ <div class="section-label">TRADE &amp; ACTIVITY LOG</div>
+ <div class="isy-table-wrap">
+ <table class="isy-table" aria-label="Wallet activity">
+ <thead>
+ <tr>
+ <th>TIME</th>
+ <th>TYPE</th>
+ <th>DETAIL</th>
+ <th>TX PnL</th>
+ <th>TX</th>
+ </tr>
+ </thead>
+ <tbody id="isyTradeBody"></tbody>
+ </table>
+ </div>
+ <div id="isyEmpty" class="isy-empty">NO SURVEILLANCE DATA - ENTER A WALLET</div>
+
+ <details style="margin-top:10px;">
+ <summary>RAW JSON</summary>
+ <pre id="isyRaw" class="isy-raw"></pre>
+ </details>
+ </div>
+
+ <div class="isy-disclaimer">
+ <div class="isy-disclaimer-title">READ-ONLY SURVEILLANCE + ESTIMATED PnL</div>
+ Tracking uses public chain data via DOSWAPZ proxy (Solana RPC / Helius / Etherscan / Blockscout / Blockstream). Solana PnL uses FIFO cost basis in SOL/USDC from the recent trade window, converted to USD with current prices. Incomplete history = incomplete numbers. No keys leave your machine except wallet connect. Not financial or tax advice.
+ </div>
+
+ <div class="isy-nav">
+ <a href="/orbit/hub.html"><- BACK TO HUB</a>
+ <a href="/portal.html">TIME MACHINE</a>
+ <a href="/orbit/pages/pond-scum.html">POND SCUM</a>
+ <a href="/orbit/pages/doswapz/bridge.html">BRIDGE</a>
+ </div>
+
+ <div class="isy-footer">DOSWAPZ - I SEE YOU * WALLET TRACKER * PRESENT</div>
+ </div>
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/config/i-see-you-config.js"></script>
+ <script src="/assets/js/i-see-you/tracker.js"></script>
+ <script src="/assets/js/core/price-ticker.js"></script>
+ <script>
+ hollowPageBoot('I SEE YOU');
+ /* softer backdrop for form pages */
+ if (typeof hollowMandelBg === 'function') {
+ try { hollowMandelBg('bg', ['#000', '#080208', '#100410'], { opacity: 0.08, speed: 0.00002, fast: true }); } catch (e) {}
+ }
+ if (typeof hollowStars === 'function') {
+ try { hollowStars(28); } catch (e2) {}
+ }
+ </script>
+</body>
+</html>

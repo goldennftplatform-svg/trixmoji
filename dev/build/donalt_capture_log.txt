@@ -1,0 +1,78 @@
+CAPTURE_START
+
+=== DONALT ===
+Reference -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\donalt\reference.jpg
+Primary  crouch-r <- crouch-r.jpg (596x1015)
+Primary  block-low-r <- block-low-r.jpg (701x977)
+Primary  block-high-r <- block-high-r.jpg (753x1063)
+Primary  high-kick-r <- high-kick-r.jpg (838x944)
+Primary  block-low-r <- block-low-r.jpg (701x977)
+Primary  crouch-r <- crouch-r.jpg (596x1015)
+Primary  high-punch-r <- high-punch-r.jpg (864x1152)
+Primary  crouch-r <- crouch-r.jpg (596x1015)
+Primary  high-kick-r <- high-kick-r.jpg (838x944)
+Primary  hit-stun-r <- hit-stun-r.jpg (743x1067)
+Primary  high-punch-r <- high-punch-r.jpg (864x1152)
+Primary  high-kick-r <- high-kick-r.jpg (838x944)
+Primary  idle-breath-r <- idle-breath-r.jpg (629x1034)
+Primary  high-punch-r <- high-punch-r.jpg (864x1152)
+Primary  hit-stun-r <- hit-stun-r.jpg (743x1067)
+Primary  idle-r <- idle-r.jpg (735x1128)
+Primary  hit-stun-r <- hit-stun-r.jpg (743x1067)
+Primary  idle-breath-r <- idle-breath-r.jpg (629x1034)
+Primary  jump-peak-r <- jump-peak-r.jpg (837x907)
+Primary  idle-breath-r <- idle-breath-r.jpg (629x1034)
+Primary  idle-r <- idle-r.jpg (735x1128)
+Primary  jump-r <- jump-r.jpg (611x1022)
+Primary  idle-r <- idle-r.jpg (735x1128)
+Primary  jump-peak-r <- jump-peak-r.jpg (837x907)
+Primary  knockdown-r <- knockdown-r.jpg (850x638)
+Primary  jump-peak-r <- jump-peak-r.jpg (837x907)
+Primary  jump-r <- jump-r.jpg (611x1022)
+Primary  low-kick-r <- low-kick-r.jpg (814x999)
+Primary  jump-r <- jump-r.jpg (611x1022)
+Primary  knockdown-r <- knockdown-r.jpg (850x638)
+Primary  low-punch-r <- low-punch-r.jpg (745x856)
+Primary  knockdown-r <- knockdown-r.jpg (850x638)
+Primary  low-kick-r <- low-kick-r.jpg (814x999)
+Primary  med-kick-r <- med-kick-r.jpg (777x953)
+Primary  low-kick-r <- low-kick-r.jpg (814x999)
+Primary  low-punch-r <- low-punch-r.jpg (745x856)
+Primary  med-punch-r <- med-punch-r.jpg (814x1082)
+Primary  low-punch-r <- low-punch-r.jpg (745x856)
+Primary  med-kick-r <- med-kick-r.jpg (777x953)
+Primary  special-1-r <- special-1-r.jpg (864x1042)
+Primary  med-punch-r <- med-punch-r.jpg (814x1082)
+Primary  med-kick-r <- med-kick-r.jpg (777x953)
+Primary  special-2-r <- special-2-r.jpg (601x1056)
+Primary  special-1-r <- special-1-r.jpg (864x1042)
+Primary  med-punch-r <- med-punch-r.jpg (814x1082)
+Primary  victory-r <- victory-r.jpg (716x1115)
+Primary  special-1-r <- special-1-r.jpg (864x1042)
+Primary  special-2-r <- special-2-r.jpg (601x1056)
+Primary  walk-forward-1-r <- walk-forward-1-r.jpg (757x1053)
+Primary  special-2-r <- special-2-r.jpg (601x1056)
+Primary  victory-r <- victory-r.jpg (716x1115)
+Primary  walk-forward-2-r <- walk-forward-2-r.jpg (603x930)
+Done donalt: 61 poses
+
+Master index -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\view-all-poses.html
+
+Installed 61 total pose PNGs across 1 character(s)
+
+CAPTURE_EXIT=0
+Primary  walk-forward-1-r <- walk-forward-1-r.jpg (757x1053)
+Primary  victory-r <- victory-r.jpg (716x1115)
+Primary  walk-forward-1-r <- walk-forward-1-r.jpg (757x1053)
+Primary  walk-forward-2-r <- walk-forward-2-r.jpg (603x930)
+Done donalt: 61 poses
+
+Installed 61 pose PNGs for donalt
+
+CAPTURE_EXIT=0
+Primary  walk-forward-2-r <- walk-forward-2-r.jpg (603x930)
+Done donalt: 61 poses
+
+Installed 61 pose PNGs for donalt
+
+CAPTURE_EXIT=0

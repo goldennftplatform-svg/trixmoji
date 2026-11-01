@@ -1,0 +1,7 @@
+michael-saylor: 61 poses
+  high-punch-r.png = 340370 bytes
+  idle-r.png = 524395 bytes
+
+vitalik-buterin: 61 poses
+  high-punch-r.png = 332417 bytes
+  idle-r.png = 345759 bytes

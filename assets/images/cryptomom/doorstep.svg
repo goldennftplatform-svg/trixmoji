@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#0f0018"/>
+  <rect x="250" y="40" width="100" height="220" fill="#1a0033" stroke="#9944ff" stroke-width="4"/>
+  <circle cx="330" cy="150" r="8" fill="#ffcc00"/>
+  <rect x="60" y="120" width="80" height="120" fill="#2a1040" stroke="#ff66cc" stroke-width="2"/>
+  <text x="200" y="270" fill="#ff66cc" font-family="monospace" font-size="14" text-anchor="middle">DOORSTEP</text>
+</svg>

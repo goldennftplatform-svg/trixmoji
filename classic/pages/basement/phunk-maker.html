@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // PHUNK LAB [BASEMENT]</title>
+ <meta name="robots" content="noindex">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='22' fill='%23ff66cc' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <link rel="stylesheet" href="/assets/css/phunk-maker.css">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --basement: #9944ff;
+ --basement-dim: #5522aa;
+ --pink: #ff66cc;
+ --green: #00ff41;
+ --green-dim: #00aa00;
+ } * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0;
+ min-height: 100%;
+ background: #000;
+ color: #ddbbff;
+ font-family: 'VT323', monospace;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ min-height: 100vh;
+ padding: 20px 16px 40px;
+ position: relative;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0, transparent 3px,
+ rgba(153, 68, 255, 0.04) 3px, rgba(153, 68, 255, 0.04) 5px
+ );
+ pointer-events: none;
+ z-index: 2;
+ }
+
+ .wrap {
+ max-width: 880px;
+ margin: 0 auto;
+ position: relative;
+ z-index: 5;
+ }
+
+ .header {
+ text-align: center;
+ margin-bottom: 16px;
+ }
+
+ .header h1 {
+ margin: 0;
+ font-size: 32px;
+ letter-spacing: 6px;
+ color: #ddbbff;
+ text-shadow: 0 0 8px var(--basement);
+ }
+
+ .header .sub {
+ color: var(--basement);
+ letter-spacing: 3px;
+ font-size: 16px;
+ }
+
+ .back-link {
+ display: inline-block;
+ margin-bottom: 12px;
+ color: var(--green);
+ border: 1px solid var(--green);
+ padding: 2px 10px;
+ text-decoration: none;
+ font-size: 15px;
+ }
+
+ .panel {
+ border: 3px solid var(--basement);
+ background: rgba(20, 0, 40, 0.7);
+ box-shadow: 0 0 18px rgba(153, 68, 255, 0.3);
+ padding: 16px;
+ }
+
+ /* Gender select */
+ #genderScreen {
+ text-align: center;
+ padding: 32px 20px;
+ }
+
+ #genderScreen p {
+ font-size: 20px;
+ color: #cc88ff;
+ margin: 0 0 24px;
+ letter-spacing: 2px;
+ }
+
+ .gender-btns {
+ display: flex;
+ gap: 16px;
+ justify-content: center;
+ flex-wrap: wrap;
+ }
+
+ .gender-btn {
+ font-family: 'VT323', monospace;
+ font-size: 22px;
+ letter-spacing: 4px;
+ padding: 12px 20px 16px;
+ cursor: pointer;
+ border: 3px solid var(--pink);
+ background: rgba(0, 0, 0, 0.5);
+ color: var(--pink);
+ text-shadow: 0 0 6px var(--pink);
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 8px;
+ min-width: 140px;
+ }
+
+ .gender-btn img {
+ width: 72px;
+ height: 72px;
+ image-rendering: pixelated;
+ border: 2px solid var(--basement-dim);
+ background: #000;
+ }
+
+ .gender-btn:hover {
+ background: #1a0033;
+ color: #ffddff;
+ border-color: #ffddff;
+ }
+
+ #paintScreen { display: none; }
+
+ .paint-layout {
+ display: flex;
+ gap: 14px;
+ flex-wrap: wrap;
+ align-items: flex-start;
+ }
+
+ .tools-col {
+ display: flex;
+ flex-direction: column;
+ gap: 6px;
+ min-width: 52px;
+ }
+
+ .tool-btn {
+ width: 48px;
+ height: 48px;
+ font-size: 20px;
+ cursor: pointer;
+ border: 2px solid var(--basement);
+ background: #0a0014;
+ color: #ddbbff;
+ padding: 0;
+ }
+
+ .tool-btn.active {
+ border-color: var(--pink);
+ background: #1a0033;
+ color: var(--pink);
+ box-shadow: 0 0 8px rgba(255, 102, 204, 0.4);
+ }
+
+ .canvas-wrap {
+ position: relative;
+ border: 3px solid var(--basement-dim);
+ background: #0a0a12;
+ background-image:
+ linear-gradient(45deg, #151520 25%, transparent 25%),
+ linear-gradient(-45deg, #151520 25%, transparent 25%),
+ linear-gradient(45deg, transparent 75%, #151520 75%),
+ linear-gradient(-45deg, transparent 75%, #151520 75%);
+ background-size: 12px 12px;
+ background-position: 0 0, 0 6px, 6px -6px, -6px 0;
+ }
+
+ #phunkCanvas, #phunkGrid {
+ display: block;
+ image-rendering: pixelated;
+ cursor: crosshair;
+ }
+
+ #phunkGrid {
+ position: absolute;
+ left: 0;
+ top: 0;
+ pointer-events: none;
+ }
+
+ .side-col {
+ flex: 1;
+ min-width: 200px;
+ }
+
+ .section-label {
+ font-size: 15px;
+ color: var(--pink);
+ letter-spacing: 2px;
+ margin: 0 0 8px;
+ }
+
+ #palette {
+ display: grid;
+ grid-template-columns: repeat(8, 22px);
+ gap: 3px;
+ margin-bottom: 10px;
+ }
+
+ .swatch {
+ width: 22px;
+ height: 22px;
+ border: 1px solid #5522aa;
+ cursor: pointer;
+ padding: 0;
+ }
+
+ .swatch.active {
+ outline: 2px solid var(--green);
+ outline-offset: 1px;
+ }
+
+ .color-row {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ margin-bottom: 12px;
+ }
+
+ #colorPreview {
+ width: 36px;
+ height: 36px;
+ border: 2px solid var(--basement);
+ }
+
+ #colorPicker {
+ width: 36px;
+ height: 36px;
+ border: none;
+ padding: 0;
+ background: transparent;
+ cursor: pointer;
+ }
+
+ .preview-box {
+ border: 2px solid var(--basement-dim);
+ padding: 10px;
+ text-align: center;
+ margin-bottom: 12px;
+ background: rgba(0, 0, 0, 0.35);
+ }
+
+ #phunkPreview {
+ width: 96px;
+ height: 96px;
+ image-rendering: pixelated;
+ border: 2px solid var(--basement);
+ }
+
+ .action-row {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 8px;
+ }
+
+ .btn {
+ font-family: 'VT323', monospace;
+ font-size: 16px;
+ padding: 5px 14px;
+ border: 2px solid var(--green);
+ background: rgba(0, 0, 0, 0.5);
+ color: var(--green);
+ cursor: pointer;
+ letter-spacing: 1px;
+ }
+
+ .btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .btn-pink {
+ border-color: var(--pink);
+ color: var(--pink);
+ }
+
+ .btn-pink:hover {
+ background: #1a0033;
+ border-color: #ffddff;
+ color: #ffddff;
+ }
+
+ .hint {
+ margin-top: 12px;
+ font-size: 15px;
+ color: var(--green-dim);
+ letter-spacing: 1px;
+ line-height: 1.35;
+ }
+
+ .status {
+ margin-top: 12px;
+ font-size: 14px;
+ color: #8866aa;
+ text-align: center;
+ letter-spacing: 2px;
+ }
+
+ #toolStatus {
+ font-size: 15px;
+ color: #cc88ff;
+ margin-bottom: 8px;
+ }
+
+ #dosPathBar,
+ .dos-path-bar {
+ display: none !important;
+ }
+ </style>
+</head>
+<body data-no-breadcrumb="1" class="">
+ <div class="dos-screen">
+ <div class="wrap">
+ <a href="/classic/pages/basement.html" class="back-link"><- BASEMENT</a>
+
+ <div class="header">
+ <h1>PHUNK LAB</h1>
+ <div class="sub">24 x 24 PIXEL EDITOR - EAT SHIT EASTER EGG</div>
+ </div>
+
+ <div id="genderScreen" class="panel">
+ <p>PICK A BASE HEAD - THEN ADD YOUR PIXELS ON TOP</p>
+ <div class="gender-btns">
+ <button type="button" class="gender-btn" id="btnMale">
+ <img src="/assets/images/phunk/base-male.jpg" alt="Male phunk base" width="72" height="72">
+ MALE
+ </button>
+ <button type="button" class="gender-btn" id="btnFemale">
+ <img src="/assets/images/phunk/base-female.png" alt="Female phunk base" width="72" height="72">
+ FEMALE
+ </button>
+ </div>
+ </div>
+
+ <div id="paintScreen" class="panel">
+ <div id="toolStatus">TOOL: PENCIL</div>
+ <div class="paint-layout">
+ <div class="tools-col">
+ <button type="button" class="tool-btn active" data-tool="pencil" title="Pencil" aria-label="Pencil">
+ <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 3.5l6 6L8 22H2v-6L14.5 3.5z"/><path d="M12.5 5.5l6 6"/></svg>
+ </button>
+ <button type="button" class="tool-btn" data-tool="eraser" title="Eraser" aria-label="Eraser">
+ <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3l5 5-9 9H7l-4-4 9-9 4-1z"/><path d="M4 20h16"/></svg>
+ </button>
+ <button type="button" class="tool-btn" data-tool="fill" title="Fill" aria-label="Fill">
+ <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3l8 8-7 7H5l-3-3 8-12z"/><path d="M16 17c1.5 0 3 1.2 3 2.5S17.5 22 16 22s-3-1.2-3-2.5S14.5 17 16 17z" class="fill-shape"/></svg>
+ </button>
+ <button type="button" class="tool-btn" data-tool="picker" title="Eyedropper" aria-label="Eyedropper">
+ <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3l7 7-2 2-2.5-2.5L9 17l-4 1 1-4 7.5-7.5L11 5l3-2z"/><path d="M4 20l3-1"/></svg>
+ </button>
+ </div>
+
+ <div class="canvas-wrap">
+ <canvas id="phunkCanvas" width="432" height="432"></canvas>
+ <canvas id="phunkGrid" width="432" height="432"></canvas>
+ <div id="phunkHover" aria-hidden="true"></div>
+ </div>
+
+ <div class="side-col">
+ <div class="section-label">COLORS</div>
+ <div class="color-row">
+ <div id="colorPreview"></div>
+ <input type="color" id="colorPicker" value="#e8b090" title="Custom color">
+ </div>
+ <div id="palette"></div>
+
+ <div class="preview-box">
+ <div class="section-label">PREVIEW</div>
+ <canvas id="phunkPreview" width="96" height="96"></canvas>
+ </div>
+
+ <div class="action-row">
+ <button type="button" class="btn" id="btnDownload">SAVE PNG</button>
+ <button type="button" class="btn btn-inscribe" id="btnDownloadStamped">SAVE CLASSIFIED</button>
+ <button type="button" class="btn" id="btnReset">CLEAR ADDITIONS</button>
+ <button type="button" class="btn" id="btnGrid">GRID</button>
+ </div>
+
+ <div class="phunk-stamp-sample">
+ <div class="section-label">INSCRIPTION PREVIEW (SAMPLE)</div>
+ <canvas id="phunkStampSample" width="288" height="288" aria-label="Classified stamp sample on phunk"></canvas>
+ <p class="phunk-stamp-caption">On-chain inscribe always burns in CLASSIFIED + doswapz.com - live preview above updates as you paint.</p>
+ </div>
+
+ <div class="phunk-inscribe-panel">
+ <div class="section-label">INSCRIBE ON ETHEREUM (OPTIONAL)</div>
+ <p id="inscribeStatus">CONNECT WALLET TO INSCRIBE - OR SAVE CLASSIFIED PNG LOCALLY</p>
+ <div id="inscribeWalletInfo"></div>
+ <div id="inscribeRecipientInfo"></div>
+ <div class="phunk-inscribe-actions">
+ <button type="button" class="btn btn-inscribe" id="btnInscribeConnect">CONNECT WALLET</button>
+ <button type="button" class="btn btn-inscribe" id="btnInscribeDisconnect" style="display:none;">DISCONNECT</button>
+ <button type="button" class="btn btn-inscribe" id="btnInscribe" style="display:none;">INSCRIBE ON ETH</button>
+ </div>
+ <div class="phunk-disclaimer">
+ <div class="phunk-disclaimer-title">WALLET SAFETY - PHUNK INSCRIPTION</div>
+ Inscribing sends a real Ethereum transaction: <strong>0.001 ETH mint fee</strong> + gas. Funds and calldata go to <strong>0x5be58476DF379BAdc88b552F603db227C0D95bac</strong> (same as DOSWAPZ math mint). Your signing wallet connects via EIP-1193 over HTTPS only - DOSWAPZ never sees your keys. Wallet <strong>auto-disconnects</strong> after each confirmed inscription. Verify recipient and amount on Etherscan before confirming.
+ </div>
+ </div>
+
+ <p class="hint" id="genderHint">Base head stays locked underneath.<br>Draw on top - eraser reveals the head again.</p>
+ </div>
+ </div>
+ <div class="status">24 x 24 - ETHEREUM PHUNK SPEC - DOSWAPZ BASEMENT</div>
+ </div>
+ </div>
+ </div>
+
+ <script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+ <script src="/assets/js/core/page-transition.js" data-page-transition="1"></script>
+ <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+ <script src="/assets/js/config/phunk-inscribe-config.js"></script>
+ <script src="/assets/js/basement/phunk-bases.js"></script>
+ <script src="/assets/js/basement/phunk-export.js"></script>
+ <script src="/assets/js/basement/phunk-inscribe.js"></script>
+ <script src="/assets/js/basement/phunk-maker.js"></script>
+ </body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <title>DEGEN REGEN // DOSWAPZ ARCADE</title>
+  <meta name="description" content="Regen farm sim. Rebuild soil. Stack carbon. Raise livestock." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Orbitron:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/classic/pages/arcade/degen-regen/css/style.css?v=20261029farm" />
+  <link rel="stylesheet" href="/assets/css/era-present-game.css?v=20260809era" />
+</head>
+<body data-present-label="DEGEN REGEN">
+  <nav class="arcade-bar">
+    <a href="/classic/pages/arcade/hub.html">←</a>
+    <span class="title">DEGEN REGEN</span>
+    <a href="#" id="btn-help">?</a>
+  </nav>
+
+  <div id="app">
+    <header class="hud" id="hud">
+      <div class="hud-item"><div class="l">Coins</div><div class="v gold" id="h-coins">0</div></div>
+      <div class="hud-item"><div class="l">Debt</div><div class="v bad" id="h-debt">0</div></div>
+      <div class="hud-item"><div class="l">XP</div><div class="v" id="h-xp">0 / 1</div></div>
+      <div class="hud-item"><div class="l">Soil</div><div class="v" id="h-soil">0%</div></div>
+      <div class="hud-item"><div class="l">C</div><div class="v" id="h-carbon">0</div></div>
+      <div class="hud-item"><div class="l">Bio</div><div class="v" id="h-bio">0</div></div>
+      <div class="hud-item"><div class="l">Herd</div><div class="v" id="h-herd">—</div></div>
+      <div class="hud-item"><div class="l">Day</div><div class="v" id="h-day">1</div></div>
+      <div class="hud-item"><div class="l">Season</div><div class="v" id="h-season">Spring</div></div>
+    </header>
+
+    <div class="toolbar" id="toolbar"></div>
+
+    <div class="stage-wrap" id="stage-wrap">
+      <div class="stage-glow" aria-hidden="true"></div>
+      <canvas id="farm" width="512" height="512" aria-label="Farm grid"></canvas>
+    </div>
+
+    <aside class="side">
+      <div class="panel">
+        <h3>SOIL</h3>
+        <div class="bar" id="bar-soil"><i style="width:28%"></i></div>
+        <div class="meta"><strong id="soil-label">Degraded</strong></div>
+        <h3>BIO · CARBON</h3>
+        <div class="bar bio" id="bar-bio"><i style="width:10%"></i></div>
+        <div class="bar carbon" id="bar-carbon"><i style="width:5%"></i></div>
+      </div>
+
+      <div class="panel livestock-panel">
+        <h3>LIVESTOCK</h3>
+        <div class="herd-stats" id="herd-stats">
+          <div class="herd-row"><span>🐔 Chickens</span><strong id="ls-chickens">0</strong></div>
+          <div class="herd-row"><span>🐑 Sheep</span><strong id="ls-sheep">0</strong></div>
+          <div class="herd-row"><span>🐄 Cattle</span><strong id="ls-cattle">0</strong></div>
+        </div>
+        <div class="meta herd-tip" id="herd-tip">No herd yet — unlock coops &amp; flocks in shop.</div>
+      </div>
+
+      <div class="panel">
+        <h3>TILE</h3>
+        <div class="meta" id="sel-info">Tap a tile · pick a tool</div>
+      </div>
+
+      <div class="panel">
+        <h3>SHOP</h3>
+        <div class="shop-list" id="shop"></div>
+      </div>
+
+      <div class="panel">
+        <h3>LOG</h3>
+        <div class="log" id="log"></div>
+      </div>
+
+      <div class="panel save-row">
+        <button class="btn" id="btn-save" type="button">SAVE</button>
+        <button class="btn ghost" id="btn-load" type="button">LOAD</button>
+        <button class="btn ghost" id="btn-reset" type="button">NEW</button>
+      </div>
+    </aside>
+  </div>
+
+  <div class="overlay" id="title-overlay">
+    <div class="modal title-modal">
+      <div class="title-badge">DOSWAPZ ARCADE</div>
+      <h1>DEGEN REGEN</h1>
+      <p class="tagline">Dead dirt + debt. Rebuild soil. Stack carbon. Raise a herd.</p>
+      <ul class="title-bullets">
+        <li>Cash crops for coins · covers for soil</li>
+        <li>Chickens, sheep &amp; cattle change the equation</li>
+        <li>Rotate livestock on pasture — don't overgraze</li>
+      </ul>
+      <button class="btn" id="btn-start" type="button">START FARM</button>
+      <button class="btn ghost" id="btn-continue" type="button">CONTINUE</button>
+    </div>
+  </div>
+
+  <div class="overlay hidden" id="help-overlay">
+    <div class="modal">
+      <h1>HOW TO</h1>
+      <ul>
+        <li>Pick tool → tap tile (farmer walks + works)</li>
+        <li>Plant cash crops for coins · covers for soil</li>
+        <li>Harvest at stage 4 · prefer no-till</li>
+        <li>Compost rebuilds dirt · till wrecks it</li>
+        <li><strong>Livestock:</strong> chickens (pests/manure), sheep (graze + wool), cattle (pasture carbon)</li>
+        <li>Keep covers under the herd — bare dirt + animals = soil rug</li>
+        <li>Pay debt · unlock land expansion &amp; regen cert</li>
+      </ul>
+      <button class="btn" id="btn-help-close" type="button">OK</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="/classic/pages/arcade/degen-regen/data/crops.js?v=20261029farm"></script>
+  <script src="/classic/pages/arcade/degen-regen/js/game.js?v=20261029farm"></script>
+  <script src="/assets/js/core/era-present-game.js?v=20260809era"></script>
+</body>
+</html>

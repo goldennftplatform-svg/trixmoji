@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // ARCADE SCORES - PAST</title>
+ <meta name="description" content="Combined arcade scoreboard - Crypto Dad, TBB, FTWR, Crypto Mom. Soft-connect only.">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ :root { --g:#33ff66; --dim:#1a9944; --gold:#ffd700; --red:#ff3355; --p:#cc88ff; --c:#00ffcc; }
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ html, body { min-height: 100%; background: #020805; color: var(--g); font-family: VT323, monospace; }
+ body {
+ background: radial-gradient(ellipse at 50% 0%, rgba(51,255,102,0.06), transparent 50%), #020805;
+ padding: 20px 14px 48px;
+ }
+ .wrap { max-width: 860px; margin: 0 auto; }
+ h1 { text-align: center; letter-spacing: 6px; font-size: clamp(26px, 6vw, 40px); color: var(--gold); margin-bottom: 4px; }
+ .sub { text-align: center; color: var(--dim); letter-spacing: 3px; margin-bottom: 16px; font-size: 16px; }
+ .daily {
+ border: 1px solid #0a3018; background: #041008; padding: 12px 14px; margin-bottom: 16px; text-align: center;
+ }
+ .daily strong { color: var(--gold); letter-spacing: 2px; }
+ .daily .seed { color: var(--c); font-size: 20px; letter-spacing: 2px; margin-top: 4px; }
+ .soft {
+ border: 1px solid #0a3018; background: #041008; padding: 12px; margin-bottom: 16px;
+ display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; align-items: end;
+ }
+ @media (max-width: 620px) { .soft { grid-template-columns: 1fr; } }
+ label { display: block; font-size: 12px; color: var(--dim); letter-spacing: 2px; margin-bottom: 3px; }
+ input {
+ width: 100%; background: #020805; border: 1px solid #0a3018; color: var(--g);
+ font: inherit; font-size: 16px; padding: 10px; min-height: 44px;
+ }
+ button, .btn {
+ font: inherit; letter-spacing: 2px; cursor: pointer; border: 1px solid var(--g);
+ background: transparent; color: var(--g); padding: 10px 14px; min-height: 44px; text-decoration: none; display: inline-block;
+ }
+ button:hover, .btn:hover { background: var(--g); color: #000; }
+ .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+ @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+ .card { border: 1px solid #0a3018; background: #041008; padding: 12px 14px; }
+ .card h2 { font-size: 18px; letter-spacing: 2px; margin-bottom: 6px; }
+ .card.dad h2 { color: var(--g); }
+ .card.tbb h2 { color: var(--red); }
+ .card.ftwr h2 { color: #fff; }
+ .card.mom h2 { color: var(--p); }
+ .card.lily h2 { color: #ff7ac8; }
+ .card.snow h2 { color: #a8e0ff; }
+ .best { font-size: 28px; color: var(--gold); margin-bottom: 4px; }
+ .meta { color: var(--dim); font-size: 14px; margin-bottom: 8px; }
+ .row { display: flex; justify-content: space-between; gap: 8px; font-size: 15px; color: #7ab88a; border-top: 1px solid #06140a; padding: 5px 0; }
+ .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+ .links a { font-size: 14px; }
+ .nav { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 18px 0; }
+ .share-box {
+ border: 1px solid #2a2a00; background: rgba(40,30,0,0.25); padding: 12px; margin-top: 8px;
+ }
+ .share-box pre {
+ white-space: pre-wrap; color: #9a9a6a; font: inherit; font-size: 15px; margin: 8px 0 12px;
+ }
+ .status { min-height: 18px; text-align: center; color: var(--dim); font-size: 14px; margin-top: 8px; }
+ </style>
+</head>
+<body class="past-crt">
+ <div class="wrap">
+ <h1>ARCADE SCORES</h1>
+ <div class="sub">SOFT CONNECT</div>
+
+ <div class="daily" id="dailyBox">
+ <strong>DAILY CHALLENGE</strong>
+ <div id="dailyMode"> - </div>
+ <div class="seed" id="dailySeed"> - </div>
+ <div style="color:var(--dim);font-size:13px;margin-top:4px" id="dailyDay"></div>
+ </div>
+
+ <div id="xAuthMount"></div>
+
+ <div class="soft">
+ <div>
+ <label for="scHandle">@HANDLE</label>
+ <input id="scHandle" placeholder="@you" maxlength="16" autocomplete="off">
+ </div>
+ <div>
+ <label for="scAlias">ALIAS</label>
+ <input id="scAlias" placeholder="DEGEN" maxlength="12" autocomplete="off">
+ </div>
+ <button type="button" id="scSave">SAVE</button>
+ </div>
+
+ <div class="grid" id="cards"></div>
+
+ <div class="share-box">
+ <strong style="color:var(--gold);letter-spacing:2px">SHARE</strong>
+ <pre id="sharePreview">—</pre>
+ <div class="nav" style="margin:0">
+ <button type="button" id="genShare">GEN</button>
+ <button type="button" id="copyShare">COPY</button>
+ <a class="btn" id="tweetShare" href="#" target="_blank" rel="noopener">X</a>
+ </div>
+ <div class="status" id="status"></div>
+ </div>
+
+ <div class="nav">
+ <a class="btn" href="/classic/pages/arcade/hub.html"><- ARCADE HUB</a>
+ <a class="btn" href="/classic/pages/arcade/awardz.html">AWARDZ POOL</a>
+ <a class="btn" href="/classic/pages/arcade/intro.html">REPLAY INTRO</a>
+ <a class="btn" href="/classic/hub.html">PAST HUB</a>
+ <a class="btn" href="/orbit/pages/arcade/scores.html">PRESENT SCORES</a>
+ <a class="btn" href="/classic/pages/arcade/smoke-checklist.html">SMOKE CHECK</a>
+ </div>
+ </div>
+
+ <script src="/assets/js/core/x-auth.js?v=20260816x"></script>
+ <script src="/assets/js/core/soft-score.js"></script>
+ <script src="/assets/js/arcade/arcade-core.js?v=20260816x"></script>
+ <script>
+ (function () {
+ var A = window.DOSWAPZ_ARCADE;
+ if (!A) return;
+var sc = A.loadSoftConnect();
+ var h = document.getElementById('scHandle');
+ var a = document.getElementById('scAlias');
+ if (sc.handle) h.value = '@' + sc.handle;
+ if (sc.alias) a.value = sc.alias;
+
+ function saveSoft() {
+ A.saveSoftConnect({ handle: h.value, alias: a.value });
+ document.getElementById('status').textContent = 'Soft-connect saved * no wallet * no seed';
+ render();
+ }
+ document.getElementById('scSave').onclick = saveSoft;
+
+ function who(e) {
+ if (e.handle) return '@' + e.handle;
+ if (e.walletShort) return e.walletShort;
+ if (e.wallet) {
+ var w = String(e.wallet);
+ return w.length > 12 ? w.slice(0, 4) + '...' + w.slice(-4) : w;
+ }
+ return e.name || e.alias || 'DEGEN';
+ }
+
+ function render() {
+ var g = A.gatherScores();
+ var d = g.daily;
+ document.getElementById('dailyMode').textContent = d.mode + ' * ' + d.blurb;
+ document.getElementById('dailySeed').textContent = d.seed;
+ document.getElementById('dailyDay').textContent = 'UTC DAY ' + d.day;
+
+ var cards = document.getElementById('cards');
+ var order = [g.dad, g.tbb, g.ftwr, g.mom, g.lily, g.snow].filter(Boolean);
+ cards.innerHTML = order.map(function (c) {
+ var rows = (c.list || []).map(function (e, i) {
+ var extra = '';
+ if (c.id === 'snow') {
+ extra = (e.geoffComplete ? ' ★GEOFF' : '') +
+ (e.kills != null ? ' · ' + e.kills + ' kills' : '');
+ }
+ return '<div class="row"><span>#' + (i + 1) + ' ' + who(e) + extra + '</span><span>' +
+ Number(e.score || 0).toLocaleString() + '</span></div>';
+ }).join('') || '<div class="row"><span>No entries yet</span><span> - </span></div>';
+ var metaExtra = c.depth ? (' * best depth ' + c.depth) : '';
+ if (c.id === 'snow' && c.geoffFinishes != null) {
+ metaExtra += ' * ' + c.geoffFinishes + ' GEOFF 100% finishes';
+ }
+ return '<div class="card ' + c.id + '">' +
+ '<h2>' + c.name + '</h2>' +
+ '<div class="best">' + (c.best ? c.best.toLocaleString() : ' - ') + '</div>' +
+ '<div class="meta">' + c.entries + ' entries' + metaExtra + '</div>' +
+ rows +
+ '<div class="links">' +
+ '<a class="btn" href="' + c.play + '">PLAY</a>' +
+ '<a class="btn" href="' + c.href + '">FULL BOARD</a>' +
+ '</div></div>';
+ }).join('');
+
+ var bestGame = order.slice().sort(function (x, y) { return (y.best || 0) - (x.best || 0); })[0];
+ var text = A.shareCard({
+ game: 'ARCADE OVERVIEW',
+ score: bestGame && bestGame.best ? bestGame.best : 0,
+ extra: 'Cabinets * Dad ' + (g.dad.best || 0) +
+ ' * TBB ' + (g.tbb.best || 0) +
+ ' * FTWR ' + (g.ftwr.best || 0) +
+ ' * Mom ' + (g.mom.best || 0) +
+ ' * Lily ' + ((g.lily && g.lily.best) || 0) +
+ ' * Snow ' + ((g.snow && g.snow.best) || 0) +
+ (g.snow && g.snow.geoffFinishes ? ' * GEOFF×' + g.snow.geoffFinishes : '')
+ });
+ document.getElementById('sharePreview').textContent = text;
+ document.getElementById('tweetShare').href = A.tweetUrl(text);
+ }
+
+ document.getElementById('genShare').onclick = function () {
+ render();
+ document.getElementById('status').textContent = 'Share card refreshed';
+ };
+ document.getElementById('copyShare').onclick = function () {
+ var t = document.getElementById('sharePreview').textContent;
+ A.copyText(t).then(function (ok) {
+ document.getElementById('status').textContent = ok ? 'Copied to clipboard' : 'Copy failed';
+ });
+ };
+
+ render();
+ if (window.DOSWAPZ_X) window.DOSWAPZ_X.onReady(function () { render(); });
+ })();
+ </script>
+<script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+<script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>
+</html>

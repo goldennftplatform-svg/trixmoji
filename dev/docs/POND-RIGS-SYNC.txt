@@ -1,0 +1,79 @@
+DOSWAPZ — Pond activated-rigs sync (old rails)
+==============================================
+
+Goal
+----
+Old rewards-pool rails unlock only when a wallet is:
+  1) on the activated-rigs list (Dune → store), OR
+  2) on POND_COMMUNITY_ALLOWLIST
+
+Regular Jupiter stays open to any Solana wallet.
+
+
+Status check (public)
+---------------------
+  GET https://doswapz.com/api/pond-rigs-sync
+
+Look for:
+  hasSyncSecret: true
+  hasDuneKey: true
+  count > 0
+  updatedAt set
+
+
+Env vars (Netlify → Site settings → Environment variables)
+----------------------------------------------------------
+Required for POST / cron:
+  POND_RIGS_SYNC_SECRET   = long random string
+
+For Dune auto-sync:
+  DUNE_API_KEY            = from https://dune.com → Settings → API
+  DUNE_POND_RIG_QUERY_ID  = numeric id of your saved query
+                            (URL: dune.com/queries/########  → use ########)
+
+Optional:
+  POND_COMMUNITY_ALLOWLIST = comma-separated wallets (ops / your test wallet)
+  POND_COMMUNITY_MODE      = rigs_only  (default)
+  KV_REST_API_URL / TOKEN  = Vercel KV or compatible (durable large lists)
+  DUNE_POND_RIG_RESULT_LIMIT = max rows (default 250000)
+
+
+Dune query tips
+---------------
+1. Create / fork a query that lists wallets with activated Pond0x mining rigs.
+2. Result column should be a Solana address. Acceptable names include:
+     wallet, wallet_address, address, owner, account, pubkey, miner, authority
+   (or any column whose values are base58 32–44 char pubkeys)
+3. Run the query once in Dune so /results has data.
+4. Copy the query id into DUNE_POND_RIG_QUERY_ID.
+5. Create an API key → DUNE_API_KEY.
+
+
+Manual seed (no Dune yet)
+-------------------------
+  POST https://doswapz.com/api/pond-rigs-sync
+  Authorization: Bearer YOUR_POND_RIGS_SYNC_SECRET
+  Content-Type: application/json
+
+  { "wallets": ["YourSolanaWallet111...", "Another..."], "source": "manual" }
+
+Or pull Dune:
+  POST with empty body {}  (uses env DUNE_*)
+
+
+Schedule
+--------
+Netlify function pond-rigs-sync runs on cron: 0 */6 * * * (every 6 hours).
+Needs DUNE_API_KEY + DUNE_POND_RIG_QUERY_ID. No Bearer needed for schedule.
+
+
+After changing env
+------------------
+Redeploy production so functions pick up new variables.
+
+
+Verify
+------
+1. GET /api/pond-rigs-sync  → count > 0, hasDuneKey true (if using Dune)
+2. GET /api/pond-community?wallet=YOUR_WALLET → allowed true
+3. Pond Scum LOAD DOSSIER → OLD RAILS UNLOCKED for that wallet

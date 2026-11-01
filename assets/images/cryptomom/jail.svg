@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#0a0008"/>
+  <rect x="80" y="40" width="240" height="200" fill="#1a0018" stroke="#ff5555" stroke-width="4"/>
+  <line x1="130" y1="40" x2="130" y2="240" stroke="#552244" stroke-width="3"/>
+  <line x1="180" y1="40" x2="180" y2="240" stroke="#552244" stroke-width="3"/>
+  <line x1="230" y1="40" x2="230" y2="240" stroke="#552244" stroke-width="3"/>
+  <line x1="280" y1="40" x2="280" y2="240" stroke="#552244" stroke-width="3"/>
+  <text x="200" y="275" fill="#ff5555" font-family="monospace" font-size="16" text-anchor="middle">COUNTY LOCKUP</text>
+</svg>

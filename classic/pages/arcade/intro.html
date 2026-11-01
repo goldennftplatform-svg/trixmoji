@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // ARCADE INTRO</title>
+ <meta name="description" content="Arcade intro video - click anywhere to enter the arcade hub.">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+
+ html, body {
+ width: 100%;
+ height: 100%;
+ background: #000;
+ color: #00ffcc;
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow: hidden;
+ cursor: pointer;
+ }
+
+ body {
+ opacity: 0;
+ transition: opacity 700ms ease;
+ }
+ body.ready { opacity: 1; }
+ body.leaving { opacity: 0; transition: opacity 450ms ease; pointer-events: none; }
+
+ #stage {
+ position: fixed;
+ inset: 0;
+ background: #000;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ }
+
+ #vid {
+ width: 100%;
+ height: 100%;
+ object-fit: contain;
+ background: #000;
+ display: block;
+ pointer-events: none; /* whole page is the click target */
+ }
+
+ .scan {
+ pointer-events: none;
+ position: fixed;
+ inset: 0;
+ z-index: 5;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0 2px,
+ rgba(0, 0, 0, 0.1) 2px 4px
+ );
+ }
+
+ .hint {
+ position: fixed;
+ left: 0;
+ right: 0;
+ bottom: 28px;
+ z-index: 10;
+ text-align: center;
+ font-size: 20px;
+ letter-spacing: 4px;
+ color: #00ffcc;
+ text-shadow: 0 0 10px #00aa88;
+ animation: pulse 1.4s steps(2, end) infinite;
+ pointer-events: none;
+ }
+
+ @keyframes pulse {
+ 50% { opacity: 0.35; }
+ }
+
+ .load-hud {
+ position: fixed;
+ inset: 0;
+ z-index: 15;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ gap: 14px;
+ background: rgba(0, 0, 0, 0.72);
+ pointer-events: none;
+ transition: opacity 280ms ease;
+ }
+ .load-hud.hide { opacity: 0; visibility: hidden; }
+ .load-hud .load-title {
+ font-size: 28px;
+ letter-spacing: 5px;
+ color: #00ffcc;
+ text-shadow: 0 0 12px #00aa88;
+ }
+ .load-hud .load-sub {
+ font-size: 16px;
+ letter-spacing: 2px;
+ color: rgba(0, 255, 204, 0.55);
+ }
+
+ .tap-gate {
+ position: fixed;
+ inset: 0;
+ z-index: 20;
+ display: none;
+ align-items: center;
+ justify-content: center;
+ background: rgba(0, 0, 0, 0.78);
+ cursor: pointer;
+ }
+ .tap-gate.show { display: flex; }
+ .tap-gate span {
+ border: 2px solid #00ffcc;
+ padding: 18px 28px;
+ font-size: 26px;
+ letter-spacing: 4px;
+ color: #00ffcc;
+ background: rgba(0, 16, 12, 0.95);
+ text-shadow: 0 0 12px #00aa88;
+ }
+
+ .err {
+ position: fixed;
+ inset: 0;
+ z-index: 25;
+ display: none;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+ padding: 24px;
+ background: #000;
+ color: #ffaa00;
+ font-size: 20px;
+ letter-spacing: 1px;
+ line-height: 1.45;
+ cursor: pointer;
+ }
+ .err.show { display: flex; }
+
+ /* Keep legal footer from covering the reel */
+ #dosDocsFooter {
+ position: fixed !important;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ z-index: 8;
+ opacity: 0.55;
+ pointer-events: auto;
+ }
+ </style>
+</head>
+<body data-docs-footer="compact" data-no-enter-anim="1">
+ <div id="stage">
+ <video
+ id="vid"
+ playsinline
+ webkit-playsinline
+ muted
+ autoplay
+ preload="auto"
+ ></video>
+ </div>
+
+ <div class="scan"></div>
+ <div class="hint" id="hint">CLICK ANYWHERE TO ENTER ARCADE</div>
+
+ <div class="load-hud" id="loadHud" aria-live="polite">
+ <div class="load-title">LOADING INTRO...</div>
+ <div class="load-sub" id="loadSub">fetching reel</div>
+ </div>
+
+ <div class="tap-gate" id="tapGate" aria-label="Start video">
+ <span> TAP TO PLAY INTRO</span>
+ </div>
+
+ <div class="err" id="err">
+ VIDEO FAILED TO LOAD<br>
+ <span style="color:#00aa88;font-size:16px">Click anywhere to open Arcade Hub</span>
+ </div>
+
+ <script src="/assets/js/arcade/arcade-core.js?v=20260715b"></script>
+ <script>
+ (function () {
+ var A = window.DOSWAPZ_ARCADE;
+ var force = /(?:\?|&)force=1\b/.test(location.search) || location.hash === '#replay';
+ var DEST = A ? A.paths().arcadeHub : '/classic/pages/arcade/hub.html';
+ var VIDEO_SRC = A ? A.VIDEO_SRC : '/assets/videos/arcade/intro.mp4?v=20260715b';
+
+ // Returning visitors skip intro (unless force/replay from hub)
+ if (A && A.hasSeenIntro() && !force) {
+ window.location.replace(DEST);
+ return;
+ }
+
+ // Kill any leftover debug corner badge from old cached scripts
+ try {
+ var badge = document.getElementById('arcadeEraBadge');
+ if (badge && badge.parentNode) badge.parentNode.removeChild(badge);
+ } catch (e0) {}
+
+ var vid = document.getElementById('vid');
+ var tapGate = document.getElementById('tapGate');
+ var err = document.getElementById('err');
+ var loadHud = document.getElementById('loadHud');
+ var loadSub = document.getElementById('loadSub');
+ var leaving = false;
+ var canDismiss = false;
+ var didPlay = false;
+ var playStarted = false;
+
+ function setLoad(msg) {
+ if (loadSub) loadSub.textContent = msg || '';
+ }
+
+ function hideLoad() {
+ if (loadHud) loadHud.classList.add('hide');
+ }
+
+ function watchedEnough() {
+ try {
+ return !!(vid && (didPlay || (vid.currentTime && vid.currentTime >= 1.5)));
+ } catch (e) {
+ return didPlay;
+ }
+ }
+
+ function goHub(mark) {
+ if (leaving) return;
+ leaving = true;
+ // Only skip next time if they actually watched (or force-skip after error)
+ if (A && mark) A.markIntroSeen();
+ document.body.classList.add('leaving');
+ try { if (vid) vid.pause(); } catch (e) {}
+ setTimeout(function () {
+ window.location.href = DEST;
+ }, 480);
+ }
+
+ function showErr(msg) {
+ hideLoad();
+ if (err) {
+ if (msg) {
+ err.innerHTML =
+ msg +
+ '<br><span style="color:#00aa88;font-size:16px">Click anywhere to open Arcade Hub</span>';
+ }
+ err.classList.add('show');
+ }
+ canDismiss = true;
+ }
+
+ function tryPlay() {
+ if (!vid || leaving) return;
+ vid.muted = true;
+ vid.defaultMuted = true;
+ vid.setAttribute('muted', '');
+ vid.playsInline = true;
+ var p = vid.play();
+ if (p && typeof p.then === 'function') {
+ p.then(function () {
+ playStarted = true;
+ hideLoad();
+ if (tapGate) tapGate.classList.remove('show');
+ canDismiss = true;
+ }).catch(function () {
+ setLoad('autoplay blocked - tap to start');
+ if (tapGate) tapGate.classList.add('show');
+ hideLoad();
+ });
+ } else {
+ canDismiss = true;
+ hideLoad();
+ }
+ }
+
+ function forcePlay() {
+ if (!vid || leaving) return;
+ // Gesture unlock: try with sound first, fall back to muted
+ vid.muted = false;
+ vid.removeAttribute('muted');
+ var p = vid.play();
+ if (p && typeof p.then === 'function') {
+ p.then(function () {
+ playStarted = true;
+ hideLoad();
+ if (tapGate) tapGate.classList.remove('show');
+ canDismiss = true;
+ }).catch(function () {
+ vid.muted = true;
+ vid.defaultMuted = true;
+ vid.setAttribute('muted', '');
+ return vid.play();
+ }).then(function () {
+ playStarted = true;
+ hideLoad();
+ if (tapGate) tapGate.classList.remove('show');
+ canDismiss = true;
+ }).catch(function () {
+ showErr('PLAYBACK BLOCKED');
+ });
+ } else {
+ canDismiss = true;
+ hideLoad();
+ }
+ }
+
+ // Absolute URL avoids odd relative-path failures on some hosts
+ var absSrc = VIDEO_SRC;
+ try {
+ absSrc = new URL(VIDEO_SRC, location.origin).href;
+ } catch (e) {}
+
+ vid.src = absSrc;
+ vid.setAttribute('playsinline', '');
+ vid.setAttribute('webkit-playsinline', '');
+ vid.load();
+ setLoad('buffering reel...');
+
+ vid.addEventListener('loadstart', function () { setLoad('connecting...'); });
+ vid.addEventListener('progress', function () {
+ try {
+ if (vid.buffered && vid.buffered.length) {
+ var end = vid.buffered.end(vid.buffered.length - 1);
+ setLoad('buffering ' + Math.max(1, Math.floor(end)) + 's...');
+ }
+ } catch (e) {}
+ });
+ vid.addEventListener('loadeddata', function () {
+ setLoad('starting...');
+ tryPlay();
+ });
+ vid.addEventListener('canplay', function () {
+ tryPlay();
+ });
+ vid.addEventListener('playing', function () {
+ didPlay = true;
+ playStarted = true;
+ hideLoad();
+ if (tapGate) tapGate.classList.remove('show');
+ canDismiss = true;
+ });
+ vid.addEventListener('timeupdate', function () {
+ if (vid.currentTime > 0.2) {
+ didPlay = true;
+ hideLoad();
+ }
+ });
+ vid.addEventListener('error', function () {
+ var code = vid.error ? vid.error.code : '?';
+ showErr('VIDEO ERROR (code ' + code + ')');
+ });
+ vid.addEventListener('ended', function () {
+ canDismiss = true;
+ didPlay = true;
+ setTimeout(function () {
+ if (!leaving) goHub(true);
+ }, 400);
+ });
+
+ // Fade page in
+ requestAnimationFrame(function () {
+ document.body.classList.add('ready');
+ });
+
+ // Immediate play attempt (some browsers fire before load events)
+ tryPlay();
+
+ // Tap gate only starts video (does not leave yet)
+ if (tapGate) {
+ tapGate.addEventListener('click', function (e) {
+ e.stopPropagation();
+ forcePlay();
+ });
+ }
+
+ // Click / key -> play first, then enter hub after play (or error)
+ function onDismiss(e) {
+ if (err && err.classList.contains('show')) {
+ goHub(false);
+ return;
+ }
+ if (tapGate && tapGate.classList.contains('show')) {
+ forcePlay();
+ return;
+ }
+ if (!canDismiss || !playStarted) {
+ // still loading - try play, don't leave yet
+ forcePlay();
+ return;
+ }
+ // Watched enough -> mark skip for next visit
+ goHub(watchedEnough());
+ }
+
+ document.addEventListener('click', onDismiss);
+ document.addEventListener('keydown', function (e) {
+ if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
+ e.preventDefault();
+ onDismiss(e);
+ }
+ });
+
+ // If autoplay never starts, surface TAP gate quickly
+ setTimeout(function () {
+ if (leaving || didPlay || playStarted) return;
+ if (vid && vid.paused) {
+ if (tapGate) tapGate.classList.add('show');
+ hideLoad();
+ setLoad('tap to play');
+ }
+ }, 1200);
+
+ // Hard safety: after long buffer, allow enter without marking seen
+ setTimeout(function () {
+ if (leaving) return;
+ if (!didPlay) {
+ if (tapGate) tapGate.classList.add('show');
+ hideLoad();
+ canDismiss = true;
+ } else {
+ canDismiss = true;
+ }
+ }, 8000);
+ })();
+ </script>
+ <!-- Cinematic intro: skip full shell chrome (no CRT strip / aqua on reel) -->
+ <script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+</body>
+</html>

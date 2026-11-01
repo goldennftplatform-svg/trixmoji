@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>ETHSCRIPTIONS // HOW TO</title>
+ <meta name="description" content="How to launch an ETHSCRIPTIONS collection on DOSWAPZ. What you do, what the page does not do, and what the fees are.">
+ <link rel="canonical" href="https://doswapz.com/docs/ethscriptions.html">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+  html, body { margin:0; min-height:100%; background:#070500; color:#f6e7b2; font-family:VT323, 'Courier New', monospace; }
+  .wrap, .wrap * { box-sizing:border-box; }
+  .wrap { max-width:820px; margin:0 auto; padding:28px 16px 80px; }
+  h1 {
+   margin:0; letter-spacing:4px; font-size:clamp(32px, 6vw, 52px); font-weight:normal;
+   background:linear-gradient(180deg, #fff8df 0%, #f0c14b 45%, #a86b12 100%);
+   -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  h2 { margin:0 0 8px; letter-spacing:2px; font-size:26px; font-weight:normal; color:#f0c14b; }
+  a { color:#ffe7a3; }
+  p, li { font-size:20px; line-height:1.35; }
+  .banner, .box { border:1px solid #e0b04a; background:#100c04; box-shadow:0 0 18px rgba(224, 176, 74, 0.18); }
+  .banner { text-align:center; padding:10px 12px; margin:12px 0 16px; color:#ffe7a3; }
+  .box { padding:14px 16px; margin:0 0 14px; }
+  ol { margin:8px 0 0; padding-left:24px; }
+  li { margin:0 0 8px; }
+  .mono { font-family:Consolas, 'Courier New', monospace; word-break:break-all; color:#fff4cc; }
+  .note { color:#b08948; }
+ </style>
+</head>
+<body>
+ <div class="wrap">
+  <h1>HOW TO LAUNCH</h1>
+  <p class="note">ETHSCRIPTIONS on DOSWAPZ. The market has Collections, Market, My collection, Activity, and Create. Read this with <a href="/docs/legal.html#s15c">Legal §15C</a>.</p>
+  <div class="banner">LIVE · SAME ETH ESCROW AS E.K.</div>
+
+  <div class="box">
+   <h2>WHAT YOU HAVE TO DO</h2>
+   <ol>
+    <li>Log in on <a href="/account/past">Account</a>. Add the Ethereum wallet you will use. Every lock has to come from that wallet.</li>
+    <li>Create each ethscription in that wallet. Send an Ethereum transaction whose data starts with <span class="mono">data:</span>. The ethscription id is that transaction hash. This page does not create it.</li>
+    <li>On <a href="/ethscriptions/past">ETHSCRIPTIONS</a>, fill in Launch. Name is 1 to 32 characters. Symbol is 1 to 10 letters or numbers. Supply is 1 to 10,000. Mint price is 0.0002 to 100 ETH. Max per wallet is 1 to 20. Pick the resale royalty, then click Launch it. Keep the collection id.</li>
+    <li>Send each piece to escrow with 0 ETH. The hex data is only the ethscription id, nothing else. Wait until that transaction is confirmed.</li>
+    <li>Click the collection, or paste its id. Paste the ethscription id and the lock transaction. Click Deposit it. Repeat for each piece.</li>
+    <li>A buyer logs in, connects that same Ethereum wallet, opens the collection, and clicks Mint. The mint is random. The cover is blank, so the buyer does not see which piece it is. The buyer pays the mint price to escrow with empty hex data. You receive 99.5%. DOSWAPZ keeps 0.5% in escrow.</li>
+    <li>The escrow wallet then sends the piece to the buyer and your share to you. This page checks those transactions. When the piece reaches the buyer’s wallet, the picture is revealed. This page does not hold the key and it cannot sign them.</li>
+   </ol>
+  </div>
+
+  <div class="box">
+   <h2>TRIXMOJI PHUNKS</h2>
+   <p>The collection preview is available while purchases are paused. When minting opens, select blank covers, connect an Ethereum wallet, review the price and estimated gas, and approve each mint. One Ethscription requires one transaction. The mint contract creates the piece for your wallet and splits the payment automatically.</p>
+   <p>The site reveals artwork after the transaction and Ethscriptions indexer confirm the creation. If confirmation takes longer, use YOUR SAVED MINTS to check again without another payment. Keep your transaction hashes when changing browsers or devices. Covers hide artwork on this page, not on public image URLs or the blockchain.</p>
+   <p><a href="/docs/phunk-launch.md">Creator deployment and launch notes</a></p>
+  </div>
+
+  <div class="box">
+   <h2>ESCROW ADDRESS</h2>
+   <p class="mono">0x15e85a85B7026875d3529EF0c6de2723C285DA11</p>
+   <p>This is the same ETH address E.K. uses. SOL, BTC, and PayPal are not used here. You pay your own gas.</p>
+  </div>
+
+  <div class="box">
+   <h2>THE CHOICES ON THE FORM</h2>
+   <ul>
+    <li>2.5% for you is built into the resale price. DOSWAPZ takes 0. The buyer pays the price. The seller receives 97.5%.</li>
+    <li>5% to you on a later resale. DOSWAPZ takes 0.5%. The seller still receives the ask. The buyer pays the ask plus 5.5%.</li>
+    <li>Only you can pick 5%, and only when you launch or when you list your own first sale. A later seller cannot change it.</li>
+    <li>A mint is not a resale. The buyer pays the mint price. You receive 99.5%. DOSWAPZ keeps 0.5%.</li>
+    <li>You cannot mint your own piece. One wallet can mint only up to the max you set. The checkout hold is 15 minutes.</li>
+   </ul>
+  </div>
+
+  <div class="box">
+   <h2>AFTER THE LAUNCH</h2>
+   <ul>
+    <li>Close deposits stops new pieces. Pieces already in escrow can still be minted.</li>
+    <li>Before anyone pays, escrow can send a piece back to you. The page checks that return. It does not sign it.</li>
+    <li>A resale is a new listing. The seller locks the piece to escrow again and types an ask. The seller receives that ask and nothing more. There is no seller fee. The buyer receives the NFT when escrow releases it.</li>
+    <li>A refund sends the piece back to the seller and sends the buyer the full amount the buyer paid.</li>
+   </ul>
+  </div>
+
+  <div class="box">
+   <h2>WHAT THE PAGE DOES NOT DO</h2>
+   <ul>
+    <li>It does not inscribe the art.</li>
+    <li>It does not ask for a seed phrase or a private key.</li>
+    <li>It does not move the escrow funds by itself.</li>
+    <li>It checks the creation transaction, the lock, and the payment. If the public ethscription index is down, that check does not prove every earlier transfer.</li>
+   </ul>
+   <p class="note"><a href="/ethscriptions/past">Back to the market</a> · <a href="/docs/legal.html#s15c">Legal §15C</a> · <a href="/docs/">Docs</a></p>
+  </div>
+ </div>
+ <script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>
+</html>

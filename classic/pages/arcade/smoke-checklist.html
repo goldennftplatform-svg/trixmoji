@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // ARCADE SMOKE CHECKLIST</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ body {
+ min-height: 100%; background: #020805; color: #33ff66; font-family: VT323, monospace;
+ padding: 22px 16px 48px;
+ }
+ .wrap { max-width: 720px; margin: 0 auto; }
+ h1 { letter-spacing: 4px; color: #ffd700; text-align: center; margin-bottom: 6px; }
+ .sub { text-align: center; color: #1a9944; margin-bottom: 18px; letter-spacing: 2px; }
+ .step {
+ border: 1px solid #0a3018; background: #041008; padding: 12px 14px; margin-bottom: 10px;
+ display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: start;
+ }
+ .step input { width: 22px; height: 22px; margin-top: 2px; accent-color: #33ff66; }
+ .step a { color: #00ffcc; }
+ .n { color: #ffd700; letter-spacing: 1px; }
+ .actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 18px; }
+ .actions a, .actions button {
+ font: inherit; color: #33ff66; border: 1px solid #33ff66; background: transparent;
+ padding: 8px 14px; text-decoration: none; cursor: pointer; letter-spacing: 2px;
+ }
+ .progress { text-align: center; margin: 12px 0; color: #00ffcc; letter-spacing: 2px; }
+ </style>
+</head>
+<body class="past-crt">
+ <div class="wrap">
+ <h1>ARCADE SMOKE CHECK</h1>
+ <div class="sub">5-CLICK PATH * PAST + PRESENT * TICK AS YOU GO</div>
+ <div class="progress" id="progress">0 / 0</div>
+ <div id="list"></div>
+ <div class="actions">
+ <button type="button" id="reset">RESET TICKS</button>
+ <a href="/classic/hub.html">PAST HUB</a>
+ <a href="/orbit/hub.html">PRESENT HUB</a>
+ <a href="/classic/pages/arcade/hub.html">PAST ARCADE</a>
+ <a href="/orbit/pages/arcade/hub.html">PRESENT ARCADE</a>
+ </div>
+ </div>
+ <script src="/assets/js/arcade/arcade-core.js?v=20260715b"></script>
+ <script>
+ (function () {
+ var A = window.DOSWAPZ_ARCADE;
+var KEY = 'doswapz_arcade_smoke_v1';
+ var steps = [
+ { id: 'p1', label: 'Past hub loads', href: '/classic/hub.html' },
+ { id: 'p2', label: 'Past Arcade entry (intro or skip to hub)', href: '/classic/pages/arcade/intro.html' },
+ { id: 'p3', label: 'Past intro video plays (or skip)', href: '/classic/pages/arcade/intro.html' },
+ { id: 'p4', label: 'Past arcade hub shows cabinets (Dad/TBB/FTWR/Mom/Poly)', href: '/classic/pages/arcade/hub.html' },
+ { id: 'p5', label: 'Past combined scores page', href: '/classic/pages/arcade/scores.html' },
+ { id: 'p6', label: 'Crypto Dad play boots', href: '/classic/pages/cryptodad/play.html' },
+ { id: 'p7', label: 'TBB Bull Run boots', href: '/classic/pages/tbb/play.html' },
+ { id: 'p8', label: 'FTWR maze boots', href: '/classic/pages/cryptodad/ftwr-maze.html' },
+ { id: 'p9', label: 'Crypto Mom [18+] boots', href: '/classic/pages/basement/cryptomom/play.html' },
+
+
+ { id: 'p10', label: 'Dad / TBB / FTWR / Mom boards open', href: '/classic/pages/arcade/scores.html' },
+ { id: 'r1', label: 'Present hub loads (void shell)', href: '/orbit/hub.html' },
+ { id: 'r2', label: 'Present Arcade entry', href: '/orbit/pages/arcade/intro.html' },
+ { id: 'r3', label: 'Present arcade hub (void, not CRT clone)', href: '/orbit/pages/arcade/hub.html' },
+ { id: 'r4', label: 'Present scores page', href: '/orbit/pages/arcade/scores.html' },
+ { id: 'r5', label: 'Present video HTML preview', href: '/orbit/pages/arcade/preview.html' },
+ { id: 'f1', label: 'Future hub + Arcade teaser', href: '/future/hub.html' },
+ { id: 'f2', label: 'Future Arcade teaser page', href: '/future/pages/arcade.html' },
+ { id: 'v1', label: 'Intro video version stamp visible', href: '/classic/pages/arcade/preview.html' }
+ ];
+
+ function load() {
+ try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; }
+ }
+ function save(s) {
+ try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {}
+ }
+
+ function render() {
+ var state = load();
+ var list = document.getElementById('list');
+ var done = 0;
+ list.innerHTML = steps.map(function (s, i) {
+ var on = !!state[s.id];
+ if (on) done++;
+ return '<label class="step">' +
+ '<input type="checkbox" data-id="' + s.id + '"' + (on ? ' checked' : '') + '>' +
+ '<span><span class="n">' + (i + 1) + '.</span> ' + s.label +
+ (s.href ? ' * <a href="' + s.href + '" target="_blank" rel="noopener">open</a>' : '') +
+ '</span><span></span></label>';
+ }).join('');
+ document.getElementById('progress').textContent = done + ' / ' + steps.length;
+ list.querySelectorAll('input[type=checkbox]').forEach(function (box) {
+ box.addEventListener('change', function () {
+ var st = load();
+ st[box.getAttribute('data-id')] = box.checked;
+ save(st);
+ render();
+ });
+ });
+ }
+
+ document.getElementById('reset').onclick = function () {
+ save({});
+ render();
+ };
+ render();
+ })();
+ </script>
+<script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+<script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>
+</html>

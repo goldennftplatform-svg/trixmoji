@@ -1,0 +1,478 @@
+/* DOSWAPZ hollow shell - no boxes, floating outline controls only */
+/* VT323/Press Start kept for legacy pages; Present overrides via orbit-void.css */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+ --green: #00ff41;
+ --void: #050508;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Kill legacy arcade debug badge on present pages too */
+#arcadeEraBadge { display: none !important; visibility: hidden !important; }
+
+/* Present (orbit) pages MUST wheel-scroll like classic - never lock the document.
+   Exception: body.hub-bubbles (Present orbit hub) is a fixed full-screen stage. */
+html {
+ scroll-behavior: auto;
+ overflow-x: hidden !important;
+ overflow-y: auto !important;
+ height: auto !important;
+ max-height: none !important;
+ min-height: 100%;
+}
+
+body {
+ min-height: 100%;
+ height: auto !important;
+ max-height: none !important;
+ background: var(--void);
+ color: #e8e8e8;
+ font-family: 'VT323', monospace;
+ overflow-x: hidden !important;
+ overflow-y: auto !important;
+ position: relative;
+ -webkit-overflow-scrolling: touch;
+}
+
+/* Present hub — no page scroll; bubbles live in one viewport */
+html:has(body.hub-bubbles),
+html:has(body#screen.hub-bubbles) {
+ overflow: hidden !important;
+ height: 100% !important;
+ max-height: 100% !important;
+ overscroll-behavior: none !important;
+}
+
+body.hub-bubbles,
+body#screen.hub-bubbles {
+ overflow: hidden !important;
+ height: 100% !important;
+ max-height: 100% !important;
+ min-height: 0 !important;
+ position: fixed !important;
+ inset: 0 !important;
+ width: 100% !important;
+ overscroll-behavior: none !important;
+ touch-action: none;
+}
+
+.bg-canvas {
+ position: fixed;
+ inset: 0;
+ width: 100%;
+ height: 100%;
+ z-index: 0;
+ image-rendering: pixelated;
+ pointer-events: none;
+}
+
+.grain {
+ position: fixed;
+ inset: 0;
+ z-index: 1;
+ pointer-events: none;
+ background: repeating-linear-gradient(to bottom, transparent 0 2px, rgba(0,0,0,0.16) 2px 4px);
+}
+
+.vignette {
+ position: fixed;
+ inset: 0;
+ z-index: 2;
+ pointer-events: none;
+ background: radial-gradient(ellipse at center, transparent 28%, rgba(0,0,0,0.78) 100%);
+}
+
+.ref-crumbs {
+ position: fixed;
+ top: 12px;
+ left: 50%;
+ transform: translateX(-50%);
+ z-index: 200;
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ gap: 16px;
+ font-size: 14px;
+ letter-spacing: 3px;
+ color: rgba(255,255,255,0.3);
+}
+
+.ref-crumbs a {
+ color: inherit;
+ text-decoration: none;
+ transition: color 180ms, text-shadow 180ms;
+}
+
+.ref-crumbs a:hover {
+ color: var(--green);
+ text-shadow: 0 0 12px var(--green);
+}
+
+.stage {
+ position: relative;
+ z-index: 10;
+ min-height: 100vh;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ padding: 72px 16px 48px;
+}
+
+.hollow-title {
+ font-size: clamp(36px, 9vw, 64px);
+ letter-spacing: clamp(4px, 2vw, 12px);
+ line-height: 1;
+ text-align: center;
+ color: transparent;
+ -webkit-text-stroke: 2px var(--title-color, var(--green));
+ filter: drop-shadow(0 0 22px var(--title-glow, rgba(0,255,65,0.35)));
+ margin-bottom: 8px;
+}
+
+.hollow-sub {
+ font-size: clamp(16px, 3vw, 21px);
+ letter-spacing: 4px;
+ text-align: center;
+ opacity: 0.7;
+ margin-bottom: 36px;
+ color: var(--sub-color, var(--green));
+}
+
+.float-field {
+ position: relative;
+ width: min(960px, 98vw);
+ height: min(520px, 62vh);
+ margin: 0 auto;
+}
+
+.hollow-btn {
+ position: absolute;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 8px;
+ text-decoration: none;
+ color: inherit;
+ transform: translate(-50%, -50%);
+ transition: transform 260ms ease, filter 260ms ease, opacity 260ms;
+}
+
+.hollow-btn:hover,
+.hollow-btn:focus-visible {
+ transform: translate(-50%, -50%) scale(1.1);
+ filter: brightness(1.4);
+ outline: none;
+}
+
+.hollow-ring {
+ width: var(--ring, 84px);
+ height: var(--ring, 84px);
+ border-radius: var(--shape-radius, 50%);
+ background: transparent;
+ border: 2px solid currentColor;
+ box-shadow:
+ 0 0 0 1px rgba(255,255,255,0.05),
+ 0 0 28px color-mix(in srgb, currentColor 38%, transparent),
+ inset 0 0 20px rgba(255,255,255,0.03);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ animation: drift var(--dur, 6s) ease-in-out infinite;
+ animation-delay: var(--delay, 0s);
+ position: relative;
+}
+
+.hollow-ring::after {
+ content: '';
+ position: absolute;
+ inset: 9px;
+ border-radius: inherit;
+ border: 1px dashed rgba(255,255,255,0.1);
+}
+
+.hollow-ring .glyph {
+ font-size: clamp(20px, 4vw, 26px);
+ line-height: 1;
+}
+
+.hollow-btn.icons-only.is-paused .hollow-label {
+ opacity: 1 !important;
+ transform: translateY(6px);
+ color: currentColor;
+ text-shadow: 0 0 12px currentColor, 0 0 24px currentColor;
+ pointer-events: none;
+}
+
+.hollow-label {
+ font-family: 'Press Start 2P', monospace;
+ font-size: clamp(6px, 1.3vw, 8px);
+ letter-spacing: 0.5px;
+ text-align: center;
+ max-width: 108px;
+ line-height: 1.45;
+ text-shadow: 0 0 14px currentColor;
+}
+
+.hollow-tag {
+ font-size: 12px;
+ letter-spacing: 2px;
+ opacity: 0.45;
+}
+
+.orbit-line {
+ position: absolute;
+ left: 50%;
+ top: 50%;
+ transform: translate(-50%, -50%);
+ border-radius: 50%;
+ border: 1px solid rgba(255,255,255,0.05);
+ pointer-events: none;
+}
+
+@keyframes drift {
+ 0%, 100% { transform: translateY(0); }
+ 50% { transform: translateY(-9px); }
+}
+
+@keyframes blink {
+ 50% { opacity: 0; }
+}
+
+.cursor-blink { animation: blink 820ms steps(1) infinite; }
+
+@media (max-width: 600px) {
+ .float-field { height: 460px; }
+ .hollow-ring { --ring: 68px; }
+}
+
+/* Glitch Protocol */
+.glitch-layer {
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 85;
+ mix-blend-mode: screen;
+}
+
+.mosh-band,
+.water-ripple {
+ pointer-events: none;
+}
+
+.water-ripple {
+ height: 1.5px;
+ background: rgba(0, 255, 195, 0.48);
+ mix-blend-mode: screen;
+ z-index: 23;
+ opacity: 0.72;
+ box-shadow: 0 0 5px rgba(0, 255, 180, 0.55);
+}
+
+.hollow-title .color-letter {
+ -webkit-text-stroke: 0;
+ display: inline-block;
+ text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+}
+
+.hollow-btn.glitch-jolt .hollow-ring {
+ filter: hue-rotate(90deg) contrast(1.4);
+ border-color: #ff00ff;
+}
+
+/* icons only - label on hover pause only */
+.hollow-btn.icons-only .hollow-label {
+ opacity: 0;
+ max-height: 0;
+ overflow: hidden;
+ transition: opacity 280ms, max-height 280ms;
+}
+
+.hollow-btn.icons-only.is-paused .hollow-label {
+ opacity: 1;
+ max-height: 48px;
+}
+
+.hollow-btn.icons-only.is-paused .hollow-ring {
+ animation-play-state: running;
+ border-width: 2px;
+ box-shadow:
+ 0 0 0 1px rgba(255,255,255,0.1),
+ 0 0 40px color-mix(in srgb, currentColor 55%, transparent),
+ inset 0 0 28px rgba(255,255,255,0.06);
+}
+
+.hollow-btn.icons-only {
+ cursor: pointer;
+ z-index: 40;
+}
+
+.hollow-btn.icons-only.is-paused {
+ z-index: 50;
+ filter: brightness(1.35);
+}
+
+/* stationary hub bubbles - fixed position, gentle float, hover label, pop on click */
+.hollow-btn.stationary-bubble {
+ cursor: pointer;
+ z-index: 40;
+ transition: filter 220ms ease, opacity 220ms ease;
+}
+
+.hollow-btn.stationary-bubble .hollow-ring {
+ animation: bubble-float var(--dur, 5s) ease-in-out infinite;
+ animation-delay: var(--delay, 0s);
+}
+
+.hollow-btn.stationary-bubble:hover,
+.hollow-btn.stationary-bubble.is-hovered {
+ filter: brightness(1.45);
+ z-index: 50;
+}
+
+.hollow-btn.stationary-bubble:hover .hollow-ring,
+.hollow-btn.stationary-bubble.is-hovered .hollow-ring {
+ border-width: 2px;
+ box-shadow:
+ 0 0 0 1px rgba(255,255,255,0.12),
+ 0 0 48px color-mix(in srgb, currentColor 60%, transparent),
+ inset 0 0 28px rgba(255,255,255,0.08);
+}
+
+.hollow-btn.stationary-bubble.icons-only .hollow-label {
+ opacity: 0;
+ max-height: 0;
+ overflow: hidden;
+ transition: opacity 240ms ease, max-height 240ms ease, transform 240ms ease;
+ transform: translateY(4px);
+}
+
+.hollow-btn.stationary-bubble.icons-only:hover .hollow-label,
+.hollow-btn.stationary-bubble.icons-only.is-hovered .hollow-label {
+ opacity: 1;
+ max-height: 48px;
+ transform: translateY(8px);
+ color: currentColor;
+ text-shadow: 0 0 12px currentColor, 0 0 24px currentColor;
+}
+
+.hollow-btn.stationary-bubble.bubble-pop {
+ animation: bubble-pop 380ms ease-in forwards;
+ pointer-events: none;
+}
+
+.hollow-btn.stationary-bubble.bubble-pop .hollow-ring {
+ animation: none;
+}
+
+@keyframes bubble-float {
+ 0%, 100% { transform: translateY(0); }
+ 50% { transform: translateY(-10px); }
+}
+
+@keyframes bubble-pop {
+ 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; filter: brightness(1); }
+ 35% { transform: translate(-50%, -50%) scale(1.28); opacity: 0.95; filter: brightness(1.7); }
+ 100% { transform: translate(-50%, -50%) scale(0); opacity: 0; filter: blur(8px) brightness(2); }
+}
+
+/* full-screen orbit field */
+.orbit-fullscreen {
+ position: fixed;
+ inset: 0;
+ width: 100%;
+ height: 100%;
+ z-index: 20;
+ pointer-events: none;
+}
+
+.orbit-fullscreen .hollow-btn {
+ pointer-events: auto;
+ cursor: pointer;
+ /* fixed children still need a real hit box above decorative layers */
+ z-index: 40;
+}
+
+.orbit-fullscreen .core-glow {
+ position: fixed;
+ left: 50%;
+ top: 50%;
+}
+
+.orbit-fullscreen .orbit-line {
+ position: fixed;
+ left: 50%;
+ top: 50%;
+}
+
+.glitch-credit {
+ position: fixed;
+ bottom: 8px;
+ left: 50%;
+ transform: translateX(-50%);
+ z-index: 200;
+ font-size: 9px;
+ letter-spacing: 1px;
+ color: #00aa44;
+ opacity: 0.45;
+ pointer-events: none;
+}
+
+/* Random system brownout (~2/hour) */
+.dos-brownout-black {
+ position: fixed;
+ inset: 0;
+ background: #000;
+ z-index: 99990;
+ pointer-events: none;
+ opacity: 0;
+ transition: opacity 40ms linear;
+}
+
+.dos-brownout-black.dos-brownout-active {
+ opacity: 1;
+}
+
+.dos-brownout-ping {
+ position: fixed;
+ left: 50%;
+ top: 50%;
+ transform: translate(-50%, -50%);
+ z-index: 99991;
+ pointer-events: none;
+ font-family: 'VT323', Consolas, monospace;
+ font-size: clamp(14px, 3.2vw, 20px);
+ letter-spacing: 0.14em;
+ color: #00ff41;
+ text-shadow: 0 0 8px #00ff41, 0 0 18px rgba(0, 255, 65, 0.45);
+ text-align: center;
+ max-width: min(92vw, 520px);
+ padding: 10px 14px;
+ border: 1px solid rgba(0, 255, 65, 0.35);
+ background: rgba(0, 8, 0, 0.82);
+ opacity: 0;
+ transition: opacity 120ms ease-out;
+}
+
+.dos-brownout-ping.dos-brownout-ping-show {
+ opacity: 1;
+}
+
+body.dos-brownout-glitch .glitch-layer {
+ animation: dos-brownout-flicker 180ms steps(2) 3;
+}
+
+@keyframes dos-brownout-flicker {
+ 0%, 100% { opacity: 1; filter: none; }
+ 50% { opacity: 0.35; filter: contrast(1.8) hue-rotate(90deg); }
+}
+
+body.orbit-void-inner .dos-brownout-ping,
+body#screen.hub-bubbles .dos-brownout-ping {
+ color: rgba(180, 220, 255, 0.9);
+ text-shadow: 0 0 10px rgba(180, 200, 255, 0.4);
+ border-color: rgba(180, 200, 255, 0.25);
+ background: rgba(0, 0, 0, 0.78);
+}

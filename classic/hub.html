@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+<script src="/assets/js/poolvoid-gate.js?v=20261022pv"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+ <title>DOSWAPZ // SYSTEM MENU</title>
+ <meta name="description" content="DOSWAPZ hub - Live Crypto Dad game, live 0% Jupiter swap, live Ethereum pixel math mint, signature scoreboard. Node options available.">
+ <meta property="og:title" content="DOSWAPZ // SYSTEM MENU">
+ <meta property="og:description" content="DOSWAPZ hub - Live Crypto Dad game, live Jupiter swap, live Ethereum pixel math mint, signature-only scoreboard. Node options.">
+ <meta property="og:image" content="https://doswapz.com/assets/images/og-x-20260913.jpg">
+ <meta property="og:image:secure_url" content="https://doswapz.com/assets/images/og-x-20260913.jpg">
+ <meta property="og:image:type" content="image/jpeg">
+ <meta property="og:image:width" content="1200">
+ <meta property="og:image:height" content="630">
+ <meta property="og:image:alt" content="GLITCH PROTOCOL">
+ <meta property="og:url" content="https://doswapz.com/past">
+ <meta name="twitter:card" content="summary_large_image">
+ <meta name="twitter:image" content="https://doswapz.com/assets/images/og-x-20260913.jpg">
+ <meta name="twitter:image:alt" content="GLITCH PROTOCOL">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='32' fill='%2300ff00' text-anchor='middle' font-weight='bold'%3EDZ%3C/text%3E%3C/svg%3E">
+ <link rel="manifest" href="/site.webmanifest">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ }
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ min-height: 100%;
+ height: auto;
+ background: #000000;
+ color: var(--green);
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ overflow-y: auto;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ height: auto;
+ background: #000000;
+ padding: 0 20px calc(88px + env(safe-area-inset-bottom, 0px));
+ overflow: visible;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.035) 3px,
+ rgba(0, 255, 0, 0.035) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .content {
+ position: relative;
+ max-width: none;
+ width: 100%;
+ margin: 0 auto;
+ padding-top: 6vh;
+ text-align: center;
+ z-index: 10;
+ pointer-events: auto;
+ }
+
+ .doswap {
+ font-size: clamp(48px, 11vw, 72px);
+ letter-spacing: 10px;
+ text-shadow: 0 0 4px var(--green), 0 0 12px var(--green-dim);
+ line-height: 1;
+ margin-bottom: 6px;
+ user-select: none;
+ }
+
+ .menu-prompt {
+ font-size: clamp(20px, 4.5vw, 28px);
+ letter-spacing: 3px;
+ color: #00dd00;
+ text-shadow: 0 0 3px var(--green);
+ margin-bottom: 8px;
+ }
+
+ .menu-prompt .cursor {
+ display: inline-block;
+ width: 14px;
+ animation: blink 820ms steps(1) infinite;
+ }
+
+ @keyframes blink { 50% { opacity: 0; } }
+
+ .status {
+ font-size: clamp(14px, 3.2vw, 18px);
+ color: #ffff00;
+ margin-bottom: 20px;
+ letter-spacing: 1px;
+ line-height: 1.3;
+ text-shadow: 0 0 6px rgba(255, 255, 0, 0.3);
+ max-width: none;
+ margin-left: auto;
+ margin-right: auto;
+ padding: 0 8px;
+ }
+
+ .menu {
+ text-align: left;
+ width: 100%;
+ max-width: none;
+ margin: 0 auto;
+ position: relative;
+ z-index: 25;
+ }
+
+ .menu-grid {
+ display: grid;
+ grid-template-columns: repeat(3, minmax(0, 1fr));
+ gap: 4px 40px;
+ width: 100%;
+ margin-bottom: 0;
+ }
+
+ @media (max-width: 900px) {
+ .menu { max-width: none; }
+ .menu-grid { grid-template-columns: 1fr 1fr; gap: 2px 28px; }
+ }
+
+ @media (max-width: 620px) {
+ .content {
+ padding-top: 3vh;
+ }
+
+ .menu-prompt {
+ margin-bottom: 12px;
+ }
+
+ .status {
+ margin-bottom: 18px;
+ }
+ }
+
+ .menu-section { margin-bottom: 2px; }
+
+ details.menu-section {
+ pointer-events: auto;
+ }
+
+ .section-head {
+ display: block;
+ width: 100%;
+ font-size: 26px;
+ color: #ffff00;
+ letter-spacing: 3px;
+ cursor: pointer;
+ user-select: none;
+ padding: 3px 0;
+ transition: color 80ms, text-shadow 80ms;
+ position: relative;
+ z-index: 2;
+ pointer-events: auto;
+ }
+
+ summary.section-head {
+ list-style: none;
+ text-align: left;
+ font-family: inherit;
+ border: 0;
+ background: transparent;
+ }
+
+ summary.section-head::-webkit-details-marker {
+ display: none;
+ }
+
+ .section-head::before {
+ content: '+ ';
+ color: var(--green-dim);
+ font-size: 22px;
+ }
+
+ details.menu-section[open] > .section-head::before { content: '- '; }
+
+ .section-head:hover {
+ color: #ffffff;
+ text-shadow: 0 0 6px #ffff00;
+ }
+
+ .options {
+ display: none;
+ margin: 2px 0 10px 18px;
+ font-size: 22px;
+ line-height: 1.35;
+ }
+
+ details.menu-section[open] .options { display: block; }
+
+ .option {
+ display: block;
+ color: var(--green);
+ text-decoration: none;
+ padding: 1px 0;
+ }
+
+ .option:hover { color: #ffff00; }
+ .option::before { content: '> '; color: var(--green-dim); }
+
+ .section-head.test-easter {
+ color: #ff8800;
+ }
+
+ .section-head.test-easter:hover {
+ color: #ffff00;
+ text-shadow: 0 0 8px #ff8800;
+ }
+
+ a.section-head {
+ text-decoration: none;
+ }
+
+ .section-head.attic-link {
+ color: #ccaa66;
+ letter-spacing: 2px;
+ }
+
+ .section-head.attic-link:hover {
+ color: #ffdd88;
+ text-shadow: 0 0 8px #aa8844;
+ }
+
+ .section-head.basement-link,
+ .option.basement-link {
+ color: #9944ff;
+ letter-spacing: 2px;
+ }
+
+ .section-head.basement-link:hover,
+ .option.basement-link:hover {
+ color: #dd99ff;
+ text-shadow: 0 0 8px #6622cc;
+ }
+
+ .section-head.bull-link,
+ .option.bull-link,
+ a.bull-link {
+ color: #ff2233 !important;
+ letter-spacing: 2px;
+ text-shadow: 0 0 6px #aa0011;
+ }
+
+ .section-head.bull-link:hover,
+ .option.bull-link:hover,
+ a.bull-link:hover {
+ color: #ff5566 !important;
+ text-shadow: 0 0 12px #ff2233, 0 0 4px #ff0000;
+ }
+
+ .section-head.arcade-link {
+ color: #00ffcc;
+ letter-spacing: 3px;
+ text-shadow: 0 0 6px #00aa88;
+ }
+
+ .section-head.arcade-link:hover {
+ color: #ffffff;
+ text-shadow: 0 0 10px #00ffcc, 0 0 4px #00ff88;
+ }
+
+ /* REGEN ↔ DEGEN neon glitch (uniphihq farming) */
+ .section-head.regen-farm,
+ .option.regen-farm,
+ .hub-map a.regen-farm {
+ color: #b8ffd8;
+ letter-spacing: 2px;
+ }
+
+ .section-head.regen-farm:hover,
+ .option.regen-farm:hover,
+ .hub-map a.regen-farm:hover {
+ color: #fff;
+ text-shadow:
+ 0 0 6px #00f0ff,
+ 0 0 14px rgba(255, 43, 214, 0.55);
+ border-color: #ff2bd6;
+ }
+
+ .section-head.regen-farm::before {
+ color: #ff2bd6;
+ text-shadow: 0 0 8px #ff2bd6;
+ }
+
+ .option.regen-farm::before {
+ color: #ff2bd6;
+ text-shadow: 0 0 8px #ff2bd6;
+ }
+
+ /*
+ First letter in normal text flow (same baseline as EGEN).
+ Invisible spacer holds width; R/D overlay that box.
+ */
+ .neon-flip {
+ display: inline-block;
+ position: relative;
+ vertical-align: baseline;
+ line-height: inherit;
+ font: inherit;
+ letter-spacing: inherit;
+ }
+
+ .neon-flip .spacer {
+ visibility: hidden;
+ speak: never;
+ }
+
+ .neon-flip .r,
+ .neon-flip .d {
+ position: absolute;
+ left: 0;
+ top: 0;
+ margin: 0;
+ padding: 0;
+ line-height: inherit;
+ font: inherit;
+ letter-spacing: 0;
+ }
+
+ .neon-flip .r {
+ color: #ff4de8;
+ text-shadow:
+ 0 0 4px #ff2bd6,
+ 0 0 12px #ff2bd6,
+ 0 0 22px rgba(0, 240, 255, 0.45);
+ animation:
+ show-r 2.6s steps(1, end) infinite,
+ neon-flicker 0.18s steps(1, end) infinite;
+ }
+
+ .neon-flip .d {
+ color: #00f0ff;
+ text-shadow:
+ 0 0 4px #00f0ff,
+ 0 0 14px #ff2bd6,
+ 1px 0 0 rgba(255, 0, 80, 0.65),
+ -1px 0 0 rgba(0, 255, 255, 0.5);
+ animation:
+ show-d 2.6s steps(1, end) infinite,
+ neon-flicker 0.18s steps(1, end) infinite;
+ }
+
+ @keyframes show-r {
+ 0%, 11% { opacity: 1; visibility: visible; }
+ 12%, 19% { opacity: 0; visibility: hidden; }
+ 20%, 54% { opacity: 1; visibility: visible; }
+ 55%, 64% { opacity: 0; visibility: hidden; }
+ 65%, 78% { opacity: 1; visibility: visible; }
+ 79%, 84% { opacity: 0; visibility: hidden; }
+ 85%, 100% { opacity: 1; visibility: visible; }
+ }
+
+ @keyframes show-d {
+ 0%, 11% { opacity: 0; visibility: hidden; }
+ 12%, 19% { opacity: 1; visibility: visible; }
+ 20%, 54% { opacity: 0; visibility: hidden; }
+ 55%, 64% { opacity: 1; visibility: visible; }
+ 65%, 78% { opacity: 0; visibility: hidden; }
+ 79%, 84% { opacity: 1; visibility: visible; }
+ 85%, 100% { opacity: 0; visibility: hidden; }
+ }
+
+ @keyframes neon-flicker {
+ 0%, 100% { filter: brightness(1); }
+ 40% { filter: brightness(1.35); }
+ 42% { filter: brightness(0.45); }
+ 44% { filter: brightness(1.2); }
+ 70% { filter: brightness(0.95); }
+ 71% { filter: brightness(0.25); }
+ 73% { filter: brightness(1); }
+ }
+
+ .regen-rest {
+ color: #9dffc8;
+ text-shadow: 0 0 6px rgba(0, 255, 180, 0.25);
+ }
+
+ .section-head.regen-farm:hover .regen-rest,
+ .option.regen-farm:hover .regen-rest {
+ color: #fff;
+ text-shadow: 0 0 6px #00f0ff, 0 0 12px rgba(255, 43, 214, 0.4);
+ }
+
+ .section-head.section-direct::before {
+ content: '> ';
+ }
+
+ /* Keep direct rows single-line so the 2-col grid stays even */
+ a.section-head.section-direct {
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ }
+
+ .section-head.ftwr-link,
+ summary.section-head.ftwr-link {
+ color: #ffffff;
+ letter-spacing: 2px;
+ text-shadow: 0 0 8px rgba(255, 255, 255, 0.35);
+ }
+
+ .section-head.ftwr-link:hover,
+ summary.section-head.ftwr-link:hover {
+ color: #ffffff;
+ text-shadow: 0 0 14px rgba(255, 255, 255, 0.7), 0 0 4px #00ff41;
+ }
+
+ #ftwrSection .option {
+ color: #dddddd;
+ }
+
+ #ftwrSection .option:hover {
+ color: #ffffff;
+ }
+
+ .censored-label {
+ display: inline-block;
+ letter-spacing: 3px;
+ cursor: help;
+ }
+
+ .censored-label .censored-mask,
+ .censored-label .censored-full {
+ transition: opacity 120ms;
+ }
+
+ .censored-label .censored-full {
+ display: none;
+ }
+
+ .censored-label:hover .censored-mask,
+ .censored-label:focus .censored-mask {
+ display: none;
+ }
+
+ .censored-label:hover .censored-full,
+ .censored-label:focus .censored-full {
+ display: inline;
+ }
+
+ .hub-footer {
+ margin-top: 52px;
+ display: flex;
+ flex-direction: column;
+ gap: 18px;
+ padding-bottom: 12px;
+ clear: both;
+ }
+
+ .exit-row {
+ margin-top: 4px;
+ text-align: center;
+ font-size: 20px;
+ }
+
+ .exit-row a {
+ color: var(--green-dim);
+ text-decoration: none;
+ letter-spacing: 2px;
+ }
+
+ .exit-row a:hover { color: var(--green); }
+
+ .warnings-box {
+ max-width: none;
+ width: 100%;
+ margin: 0 auto;
+ padding: 12px 14px;
+ border: 2px solid #ffff00;
+ background: rgba(20, 15, 0, 0.4);
+ font-size: 12px;
+ line-height: 1.35;
+ text-align: center;
+ color: var(--green);
+ }
+
+ .warnings-title {
+ color: #ffff00;
+ margin-bottom: 8px;
+ letter-spacing: 1px;
+ text-align: center;
+ font-size: 13px;
+ }
+
+ .warnings-box .opsec-block {
+ margin-top: 10px;
+ padding-top: 10px;
+ border-top: 1px solid #334400;
+ text-align: center;
+ font-size: 12px;
+ line-height: 1.35;
+ }
+
+ .warnings-box .opsec-block strong {
+ color: #ffff00;
+ }
+
+ .glitch-credit {
+ text-align: center;
+ font-size: 9px;
+ color: #00aa00;
+ opacity: 0.5;
+ letter-spacing: 1px;
+ margin-top: 4px;
+ }
+
+ body.hub-page.has-doswapz-ticker {
+ padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+ }
+
+ body.hub-page .dos-screen {
+ padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+ min-height: auto;
+ }
+
+ .hub-flavor-line {
+ min-height: 16px;
+ font-size: 14px;
+ color: #00aa00;
+ letter-spacing: 2px;
+ margin: 0 0 12px;
+ opacity: 0;
+ transition: opacity 120ms linear;
+ }
+
+ .whats-new-banner {
+ display: none;
+ max-width: none;
+ width: 100%;
+ margin: 0 auto 14px;
+ padding: 8px 10px;
+ border: 1px solid #664400;
+ background: rgba(0, 20, 0, 0.5);
+ font-size: 14px;
+ color: #00cc00;
+ letter-spacing: 1px;
+ text-align: center;
+ line-height: 1.35;
+ }
+
+ .whats-new-banner.show {
+ display: block;
+ }
+
+ .whats-new-banner strong {
+ color: #ffff00;
+ }
+
+ .whats-new-dismiss {
+ appearance: none;
+ -webkit-appearance: none;
+ display: inline-block;
+ margin-left: 10px;
+ font-family: inherit;
+ font-size: 13px;
+ color: #00aa00;
+ background: transparent;
+ border: 1px solid #003300;
+ padding: 1px 8px;
+ cursor: pointer;
+ vertical-align: middle;
+ }
+
+ .whats-new-dismiss:hover {
+ color: #ffff00;
+ border-color: #00ff41;
+ }
+
+ .awardz-sign {
+ display: block;
+ text-decoration: none;
+ max-width: none;
+ width: 100%;
+ margin: 0 auto 16px;
+ padding: 12px 14px 10px;
+ border: 3px solid #ffd700;
+ background:
+ radial-gradient(ellipse at 50% 0%, rgba(255,215,0,0.18), transparent 60%),
+ #0a0800;
+ box-shadow:
+ 0 0 0 2px #000,
+ 0 0 18px rgba(255, 215, 0, 0.45),
+ inset 0 0 24px rgba(255, 200, 0, 0.08);
+ color: #ffd700;
+ text-align: center;
+ position: relative;
+ }
+ .awardz-sign:hover {
+ border-color: #fff3a0;
+ box-shadow: 0 0 0 2px #000, 0 0 28px rgba(255, 215, 0, 0.7);
+ }
+ .awardz-sign-bulbs {
+ display: flex;
+ justify-content: space-between;
+ gap: 4px;
+ margin-bottom: 6px;
+ }
+ .awardz-sign-bulbs i {
+ flex: 1;
+ height: 7px;
+ background: #ffd700;
+ border-radius: 50%;
+ box-shadow: 0 0 6px #ffd700;
+ animation: awardz-bulb 1.1s steps(2, end) infinite;
+ }
+ .awardz-sign-bulbs i:nth-child(odd) { animation-delay: 0.55s; }
+ .awardz-sign-new {
+ display: inline-block;
+ letter-spacing: 6px;
+ font-size: 18px;
+ color: #ff3355;
+ text-shadow: 0 0 8px #ff3355;
+ animation: awardz-new 1.1s steps(2, end) infinite;
+ }
+ .awardz-sign-title {
+ display: block;
+ letter-spacing: 8px;
+ font-size: clamp(26px, 6vw, 40px);
+ line-height: 1.1;
+ text-shadow: 0 0 10px #ffd700, 0 0 22px rgba(255, 180, 0, 0.6);
+ }
+ .awardz-sign-sub {
+ display: block;
+ margin-top: 4px;
+ letter-spacing: 2px;
+ font-size: 13px;
+ color: #c8b060;
+ }
+ @keyframes awardz-bulb {
+ 50% { opacity: 0.15; box-shadow: none; }
+ }
+ @keyframes awardz-new {
+ 50% { opacity: 0.2; }
+ }
+ @media (prefers-reduced-motion: reduce) {
+ .awardz-sign-bulbs i,
+ .awardz-sign-new { animation: none; }
+ }
+
+ /* // MAP - one box per destination. Games live under ARCADE. */
+ .hub-map {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: stretch;
+ justify-content: flex-start;
+ gap: 6px;
+ max-width: none;
+ width: 100%;
+ margin: 0 auto 16px;
+ padding: 8px 0 12px;
+ border-bottom: 1px solid #003300;
+ }
+
+ .hub-map-lab {
+ flex: 1 0 100%;
+ align-self: center;
+ color: #00aa00;
+ font-size: 12px;
+ letter-spacing: 2px;
+ margin: 0 0 2px;
+ }
+
+ .hub-map a {
+ flex: 1 1 9.25rem;
+ min-width: 8.25rem;
+ max-width: 100%;
+ color: #00ff41;
+ text-decoration: none;
+ border: 1px solid #004400;
+ padding: 8px 8px;
+ font-size: 13px;
+ letter-spacing: 0.06em;
+ line-height: 1.15;
+ text-align: center;
+ min-height: 40px;
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ background: rgba(0, 8, 0, 0.4);
+ -webkit-tap-highlight-color: rgba(0, 255, 65, 0.15);
+ white-space: normal;
+ }
+
+ .hub-map a:hover,
+ .hub-map a:focus-visible {
+ color: #ffff00;
+ border-color: #00ff41;
+ outline: none;
+ }
+
+ .hub-map a.war {
+ color: #ff8899;
+ border-color: #552233;
+ }
+
+ .hub-map a.war:hover {
+ color: #ffccdd;
+ border-color: #ff4466;
+ }
+
+ .hub-map a.arcade-link {
+ color: #00ffcc;
+ border-color: #006655;
+ }
+
+ .hub-map a.ek-link {
+ color: #7efbff;
+ border-color: #00d0ff;
+ text-shadow: 0 0 8px rgba(0, 210, 255, 0.55);
+ }
+
+ .hub-map a.es-link {
+ color: #f0c14b;
+ border-color: #e0b04a;
+ text-shadow: 0 0 8px rgba(240, 193, 75, 0.55);
+ }
+
+ .hub-map a.es-link:hover,
+ .hub-map a.es-link:focus-visible {
+ color: #ffe7a3;
+ border-color: #f0c14b;
+ }
+
+ .hub-map a.attic-link {
+ color: #ccaa66;
+ border-color: #554422;
+ }
+
+ .hub-map a.basement-link {
+ color: #cc99ff;
+ border-color: #442266;
+ }
+
+ .hub-map a.test-easter {
+ color: #ff8800;
+ border-color: #663300;
+ }
+
+ .hub-map a.pool-void,
+ a.section-head.pool-void {
+ position: relative;
+ }
+
+ .void-hole {
+ position: absolute;
+ right: 8px;
+ top: 50%;
+ width: 22px;
+ height: 22px;
+ margin-top: -11px;
+ border-radius: 50%;
+ pointer-events: none;
+ opacity: 0;
+ transform: scale(0.2);
+ transition: opacity 0.18s ease, transform 0.18s ease;
+ background:
+  radial-gradient(circle at 50% 50%, #000 0 32%, transparent 34%),
+  conic-gradient(from 20deg, #050008, #7c4dff, #ffe0b8, #1a0030, #050008 78%);
+ box-shadow: 0 0 10px rgba(124, 77, 255, 0.85);
+ z-index: 4;
+ }
+
+ .hub-map a.pool-void:hover .void-hole,
+ .hub-map a.pool-void:focus-visible .void-hole,
+ a.section-head.pool-void:hover .void-hole,
+ a.section-head.pool-void:focus-visible .void-hole {
+ opacity: 1;
+ transform: scale(1);
+ animation: void-hole-spin 0.9s linear infinite;
+ }
+
+ .hub-map a.pool-void {
+ padding-right: 34px;
+ color: #d8c6ff;
+ border-color: #3a2266;
+ }
+
+ a.section-head.pool-void {
+ padding-right: 36px;
+ }
+
+ @keyframes void-hole-spin {
+ to { transform: scale(1) rotate(360deg); }
+ }
+
+ @media (prefers-reduced-motion: reduce) {
+  .hub-map a.pool-void:hover .void-hole,
+  .hub-map a.pool-void:focus-visible .void-hole,
+  a.section-head.pool-void:hover .void-hole,
+  a.section-head.pool-void:focus-visible .void-hole {
+   animation: none;
+   transform: scale(1);
+  }
+ }
+
+ /* First-boot briefing (once) */
+ .boot-briefing {
+ display: none;
+ position: fixed;
+ inset: 0;
+ z-index: 80;
+ background: rgba(0, 0, 0, 0.78);
+ align-items: center;
+ justify-content: center;
+ padding: 16px;
+ padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+ overflow-y: auto;
+ -webkit-overflow-scrolling: touch;
+ overscroll-behavior: contain;
+ }
+
+ .boot-briefing.show {
+ display: flex;
+ }
+
+ .boot-briefing-card {
+ width: min(100%, 400px);
+ border: 2px solid #00ff41;
+ background: #020802;
+ box-shadow: 0 0 28px rgba(0, 255, 65, 0.18);
+ padding: 16px 16px 18px;
+ text-align: left;
+ }
+
+ .boot-briefing-card h2 {
+ margin: 0 0 8px;
+ font-size: 18px;
+ font-weight: normal;
+ letter-spacing: 2px;
+ color: #ffff00;
+ }
+
+ .boot-briefing-card p {
+ margin: 0 0 10px;
+ font-size: 15px;
+ line-height: 1.4;
+ color: #88cc88;
+ }
+
+ .boot-briefing-card ul {
+ margin: 0 0 14px;
+ padding-left: 18px;
+ font-size: 14px;
+ line-height: 1.45;
+ color: #00aa00;
+ }
+
+ .boot-briefing-card li {
+ margin-bottom: 4px;
+ }
+
+ .boot-briefing-actions {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 8px;
+ }
+
+ .boot-briefing-actions a,
+ .boot-briefing-actions button {
+ font-family: inherit;
+ font-size: 14px;
+ letter-spacing: 1px;
+ color: #00ff41;
+ background: transparent;
+ border: 1px solid #00ff41;
+ padding: 10px 12px;
+ min-height: 44px;
+ text-decoration: none;
+ cursor: pointer;
+ display: inline-flex;
+ align-items: center;
+ }
+
+ .boot-briefing-actions a.ghost,
+ .boot-briefing-actions button.ghost {
+ border-color: #335500;
+ color: #00aa00;
+ }
+
+ .boot-briefing-actions a:hover,
+ .boot-briefing-actions button:hover {
+ background: #003300;
+ color: #ffff00;
+ }
+
+ @media (max-width: 620px) {
+ #screen.dos-screen,
+ .dos-screen {
+ padding-left: 12px;
+ padding-right: 12px;
+ padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+ }
+
+ .menu-grid {
+ grid-template-columns: 1fr;
+ gap: 4px;
+ }
+
+ .section-head {
+ font-size: 22px;
+ padding: 12px 8px;
+ min-height: 48px;
+ display: flex;
+ align-items: center;
+ -webkit-tap-highlight-color: rgba(0, 255, 65, 0.15);
+ }
+
+ summary.section-head {
+ padding: 12px 8px;
+ }
+
+ .option {
+ font-size: 20px;
+ padding: 10px 8px;
+ min-height: 44px;
+ display: flex;
+ align-items: center;
+ -webkit-tap-highlight-color: rgba(0, 255, 65, 0.15);
+ }
+
+ .menu-section {
+ margin-bottom: 4px;
+ }
+
+ .time-machine-link,
+ a.time-machine-link {
+ min-height: 44px;
+ display: inline-flex;
+ align-items: center;
+ padding: 8px 4px;
+ }
+
+ .hub-map a {
+ flex: 1 1 calc(50% - 6px);
+ min-width: 0;
+ min-height: 44px;
+ font-size: 13px;
+ padding: 8px 8px;
+ }
+ }
+
+ /* One viewport. Fixed bottom chrome stays. The document does not scroll. */
+ html,
+ body.hub-page,
+ body.hub-page.has-dos-era-rail,
+ body.hub-page.has-doswapz-ticker,
+ body.hub-page.has-dos-docs-chip,
+ body.hub-page.has-dos-docs-footer-compact {
+ height: 100dvh !important;
+ max-height: 100dvh !important;
+ overflow: hidden !important;
+ padding-bottom: 0 !important;
+ }
+
+ body.hub-page #screen.dos-screen,
+ body.hub-page .dos-screen {
+ height: 100dvh;
+ max-height: 100dvh;
+ min-height: 0 !important;
+ overflow: hidden;
+ display: flex;
+ flex-direction: column;
+ padding: 4px 12px 172px !important;
+ }
+
+ body.hub-page .content {
+ flex: 1 1 auto;
+ min-height: 0;
+ display: flex;
+ flex-direction: column;
+ padding-top: 0;
+ overflow: hidden;
+ }
+
+ body.hub-page .doswap {
+ font-size: clamp(26px, 4.2vw, 42px);
+ letter-spacing: 6px;
+ margin-bottom: 0;
+ }
+
+ body.hub-page .menu-prompt {
+ font-size: clamp(13px, 1.8vw, 18px);
+ margin-bottom: 0;
+ }
+
+ body.hub-page .status {
+ font-size: 12px;
+ margin-bottom: 2px;
+ line-height: 1.1;
+ }
+
+ body.hub-page .hub-map {
+ flex: 1 1 auto;
+ min-height: 0;
+ display: grid;
+ width: 100%;
+ max-width: 100%;
+ position: relative;
+ z-index: 2;
+ overflow: hidden;
+ grid-template-columns: repeat(7, minmax(0, 1fr));
+ grid-auto-rows: minmax(20px, 1fr);
+ gap: 4px;
+ margin: 0 0 4px;
+ padding: 2px 0 4px;
+ align-content: stretch;
+ }
+
+ body.hub-page .hub-map-lab {
+ grid-column: 1 / -1;
+ font-size: 11px;
+ line-height: 1;
+ margin: 0;
+ }
+
+ body.hub-page .hub-map a {
+ flex: none;
+ min-width: 0;
+ min-height: 0;
+ max-width: 100%;
+ padding: 2px 4px;
+ font-size: 12px;
+ letter-spacing: 0.03em;
+ line-height: 1.05;
+ overflow-wrap: anywhere;
+ }
+
+ body.hub-page .hub-signs {
+ flex: 0 0 auto;
+ display: grid;
+ grid-template-columns: repeat(3, minmax(0, 1fr));
+ gap: 6px;
+ margin: 0 0 4px;
+ position: relative;
+ z-index: 1;
+ }
+
+ body.hub-page .hub-signs .awardz-sign {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ gap: 2px;
+ margin: 0;
+ padding: 5px 8px 4px;
+ border-width: 2px;
+ min-height: 48px;
+ text-align: center;
+ }
+
+ body.hub-page .awardz-sign-bulbs { display: none; }
+
+ body.hub-page .hub-signs .awardz-sign-new {
+ display: block;
+ margin: 0;
+ font-size: 11px;
+ letter-spacing: 2px;
+ line-height: 1;
+ }
+
+ body.hub-page .hub-signs .awardz-sign-title {
+ display: block;
+ margin: 0;
+ font-size: clamp(15px, 1.7vw, 20px);
+ letter-spacing: 1px;
+ line-height: 1.05;
+ }
+
+ body.hub-page .hub-signs .awardz-sign-sub {
+ display: block;
+ margin: 0;
+ font-size: 11px;
+ letter-spacing: 0.4px;
+ line-height: 1.15;
+ }
+
+ body.hub-page .whats-new-banner {
+ margin: 0 0 4px;
+ padding: 2px 6px;
+ font-size: 12px;
+ line-height: 1.15;
+ }
+
+ body.hub-page .hub-footer {
+ margin-top: 0;
+ gap: 2px;
+ padding-bottom: 0;
+ flex: 0 0 auto;
+ }
+
+ body.hub-page .warnings-box {
+ padding: 2px 8px;
+ font-size: 11px;
+ line-height: 1.15;
+ position: relative;
+ z-index: 1;
+ }
+
+ body.hub-page .warnings-title {
+ margin-bottom: 1px;
+ font-size: 11px;
+ }
+
+ body.hub-page .warnings-box .opsec-block {
+ margin-top: 2px;
+ padding-top: 2px;
+ font-size: 11px;
+ line-height: 1.15;
+ }
+
+ body.hub-page .exit-row {
+ margin-top: 0;
+ font-size: 13px;
+ line-height: 1.1;
+ }
+
+ body.hub-page .glitch-credit { margin-top: 0; }
+
+ body.hub-page .hub-map {
+ grid-template-columns: repeat(7, minmax(0, 1fr));
+ }
+
+ body.hub-page .hub-map-gap {
+ pointer-events: none;
+ border: 0;
+ background: transparent;
+ min-height: 0;
+ min-width: 0;
+ }
+
+ body.hub-page .hub-map a.x-link {
+ color: #e7e9ea;
+ border-color: #8b98a5;
+ }
+
+ body.hub-page a.x-sign {
+ border-color: #e7e9ea;
+ color: #e7e9ea;
+ background: #050505;
+ box-shadow: 0 0 18px rgba(231, 233, 234, 0.28);
+ }
+
+ body.hub-page .hub-map a.test-easter {
+ border-color: #ff6600;
+ box-shadow: inset 0 0 0 1px rgba(255, 102, 0, 0.35);
+ }
+
+ @media (max-width: 720px) {
+ body.hub-page #screen.dos-screen,
+ body.hub-page .dos-screen { padding: 2px 6px 210px !important; }
+ body.hub-page .hub-map a { font-size: 10px; padding: 1px 2px; }
+ body.hub-page .hub-signs { gap: 4px; }
+ body.hub-page .hub-signs .awardz-sign { min-height: 58px; padding: 5px 4px; }
+ body.hub-page .hub-signs .awardz-sign-title { font-size: 14px; }
+ body.hub-page .hub-signs .awardz-sign-sub { font-size: 9px; }
+ }
+ </style>
+</head>
+<body class="hub-page">
+ <div class="dos-screen" id="screen" style="opacity:1">
+ <div class="vignette"></div>
+
+ <div class="content" id="content" style="opacity:1;pointer-events:auto">
+ <div class="doswap" id="doswapText">DOSWAPZ</div>
+ <div class="menu-prompt">select destination<span class="cursor">|</span></div>
+ <div class="status">DEGEN OPTIMIZED SOVEREIGN WARFARE AGAINST PUMPZ</div>
+
+ <nav class="hub-map" id="hubMap" aria-label="Bunker map">
+ <span class="hub-map-lab">// MAP</span>
+ <a href="/arcade/intro/past" id="arcadeEnter" class="arcade-link" data-flavor="all games * cabinets * daily seed * soft scores" data-no-transition="true">ARCADE</a>
+ <a class="regen-farm" href="https://www.uniphihq.com/" target="_blank" rel="noopener noreferrer" data-flavor="REGEN / DEGEN farming * external partner * uniphihq" data-no-transition="true" title="REGEN / DEGEN FARMING">REGEN FARMING</a>
+ <a href="/cryptodad/token/past" data-flavor="LIVE on Trix * DSWPZ * 50% MAPS * keep the lights on">$DOSWAPZ</a>
+ <a href="/degen/trailer/past" data-flavor="official trailer">DEGEN$</a>
+ <a href="/hardwear/wallet/past" data-flavor="diy hardware wallet * limited apparel" title="HARDWEAR &amp; MERCH&amp;ICE">HARDWEAR</a>
+ <a href="/doswapz/swap/past" data-flavor="swap 0% jupiter">SWAP</a>
+ <a href="/quantum/past" data-flavor="0 doswapz fee * sol meter from 0.01 * gas on top * it's yours">QUANTUM</a>
+ <a class="ek-link" href="/ek/past" data-flavor="zero doswapz fee * crypto escrow * paypal pays the seller">E.K.</a>
+ <a class="es-link" href="/ethscriptions/past" data-flavor="open nft market * mint 0.5% * resale 2.5% built in for the creator * doswapz 0">ETHSCRIPTIONS</a>
+ <a href="/doswapz/bridge/past" data-flavor="multi-chain * Robinhood Chain 4663">BRIDGE</a>
+ <a href="/pond-scum/past" data-flavor="dossier terminal + embedded pond swap">POND SCUM</a>
+ <a href="/i-see-you/past" data-flavor="multi-chain wallet surveillance - track swaps &amp; activity">I SEE YOU</a>
+ <a href="/geoffwatch/past" data-flavor="hourly geoff.ai + hwonder gh digest * live probe">GEOFFWATCH</a>
+ <a href="/tell-me-what-to-do/past" data-flavor="dibzi * sim.tech * the simulation nft">TELL ME WHAT TO DO</a>
+ <a class="pool-void" href="/pool-void/past" data-flavor="poolvoid.app * receipt lookup * this page sends nothing"><span class="void-hole" aria-hidden="true"></span>POOL VOID</a>
+ <a href="/school/past" data-flavor="crypto from absolute zero * no trading">SCHOOL</a>
+ <a href="/mail-gate/past" data-flavor="doswapz.com email security gateway * send off">MAIL GATE</a>
+ <a href="/eat-shit/past" class="test-easter" data-flavor="ethereum phunks portal"><span class="censored-label"><span class="censored-mask">E** S***</span><span class="censored-full">EAT SHIT</span></span></a>
+ <a href="/the-missing-layer/past" data-flavor="person graph * not post vanity * pay BTC ETH SOL * F6 guide">THE MISSING LAYER</a>
+ <a href="/demplar/character/past" data-flavor="character dossier -> official site + codex">KNIGHTS DEMPLAR</a>
+ <a href="/13th-step/past" data-flavor="live world odds terminal">13TH STEP</a>
+ <a href="/harbinger/past" data-flavor="text oracle">H4RB1NG3R</a>
+ <a href="/attic/past" class="attic-link" data-flavor="sports * pokémon * tcg product drops &amp; links">THE ATTIC</a>
+ <a href="/basement/past" class="basement-link" data-flavor="18+ zone * media lab * meme lab * crypto mom is in the arcade">THE BASEMENT</a>
+ <a href="/lily-pad/past" data-flavor="video gate -> node grid">THE LILY PAD</a>
+ <a href="/tbb/apple-picker/past" data-tbb-file="/classic/pages/tbb/apple-picker.html" class="bull-link" data-tbb-gate="1" data-no-era data-plain data-no-transition="true" data-flavor="apple crunch * the reel * apple picker pools">$TBB</a>
+ <a href="/perpetual-vision-center/past" data-flavor="lofi perpetual sim + 24h X broadcast playlist">PERPETUAL VISION CENTER</a>
+ <a href="/ape-chamber/past" data-flavor="observation chamber * not a game * 10 protocols * secret channel 2">APE CHAMBER</a>
+ <a href="/area-69-420/past" data-flavor="restricted sector scaffold * content coming soon">AREA 69...420</a>
+ <a href="/portal.html">TIME</a>
+ <a href="/future" id="hubMapFuture" data-era="future" data-no-era data-plain data-no-transition="true" style="color:#dde0ff">FUTURE</a>
+ <a href="/account/past" data-no-era data-plain data-no-transition="true" data-flavor="wallet or email * login only * not custody * not a bank">LOGIN</a>
+ <a class="war" href="/docs/legal.html">DOCS</a>
+ <a href="/social/past" class="x-link" data-no-era data-plain data-no-transition="true" data-flavor="@doswapz * official x handle * not a login">@DOSWAPZ</a>
+ <span class="hub-map-gap" aria-hidden="true"></span>
+ </nav>
+
+ <div class="hub-flavor-line" id="hubFlavorLine" aria-live="polite"></div>
+
+ <div class="hub-signs">
+ <a class="awardz-sign" href="/cryptodad/token/past" data-flavor="LIVE on Trix * DSWPZ * 50% MAPS * keep the lights on" style="border-color:#00ff66;color:#7cff9a;box-shadow:0 0 12px rgba(0,255,80,0.35);">
+ <span class="awardz-sign-bulbs" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+ <span class="awardz-sign-new" style="color:#ffff66;text-shadow:0 0 8px #ffff00;">OFFICIAL TOKEN</span>
+ <span class="awardz-sign-title">$DOSWAPZ</span>
+ <span class="awardz-sign-sub" style="color:#88ff88;">TRIX · DSWPZ · 50% MAPS · KEEP THE LIGHTS ON</span>
+ </a>
+
+ <a class="awardz-sign" href="/arcade/awardz/past" data-flavor="optional PVP * own risk * play stays free">
+ <span class="awardz-sign-bulbs" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+ <span class="awardz-sign-new">NEW FEATURE</span>
+ <span class="awardz-sign-title">AWARDZ POOL</span>
+ <span class="awardz-sign-sub">OPTIONAL PVP · OWN RISK · PLAY STAYS FREE</span>
+ </a>
+
+ <a class="awardz-sign x-sign" href="/social/past" data-no-era data-plain data-no-transition="true" data-flavor="@doswapz * official x handle * not a login">
+ <span class="awardz-sign-bulbs" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+ <span class="awardz-sign-new" style="color:#e7e9ea;text-shadow:0 0 8px #fff;">OFFICIAL X</span>
+ <span class="awardz-sign-title">@DOSWAPZ</span>
+ <span class="awardz-sign-sub" style="color:#8b98a5;">X HANDLE · NOT A LOGIN · NOT CUSTODY</span>
+ </a>
+ </div>
+
+ <div class="whats-new-banner" id="whatsNewBanner" data-version="2026-dswpz-token-hub-v1">
+ <strong>NEW:</strong> <span style="color:#ffff00;font-weight:bold">$DOSWAPZ TOKEN</span> LIVE ON TRIX * DSWPZ * 50% MAPS * KEEP THE LIGHTS ON
+ <button type="button" class="whats-new-dismiss" id="whatsNewDismiss" aria-label="Dismiss">[X]</button>
+ </div>
+
+ <div class="hub-footer">
+ <div class="warnings-box">
+ <div class="warnings-title">VERIFICATION &amp; OPSEC - READ AND COMPLY</div>
+ Live platform. Real wallet actions on swap and mint can move funds. Math mint auto-disconnects after each confirmed mint. Scoreboard is soft-sign only (no funds). Optional LOGIN is wallet or email, off-chain only. That signature does not send coins.
+ Use burner wallets. Verify everything on-chain. DOSWAPZ accepts no responsibility for losses.
+ <div class="opsec-block">
+ <strong>COMSEC / OPSEC WARNING</strong><br>
+ Never connect funds you cannot afford to lose. Practice proper opsec.
+ </div>
+ </div>
+
+ <div class="exit-row">
+ <a href="/portal.html" style="color:#ffaa00;letter-spacing:3px">◎ TIME MACHINE</a>
+ <span style="opacity:0.35;margin:0 12px">|</span>
+ <a href="/future" id="hubExitFuture" data-era="future" data-no-era data-plain data-no-transition="true" style="color:#c8cce8;letter-spacing:3px">◇ FUTURE</a>
+ <span style="opacity:0.35;margin:0 12px">|</span>
+ <a href="/present" id="hubExitPresent" data-era="orbit" data-no-era data-plain data-no-transition="true" style="color:#88aaff;letter-spacing:3px">◎ PRESENT</a>
+ <span style="opacity:0.35;margin:0 12px">|</span>
+ <a href="/index.html"><- EXIT TO SPLASH</a>
+ </div>
+
+ <div class="glitch-credit">powered by Glitch Protocol</div>
+ </div>
+ </div>
+
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+ <div class="boot-briefing" id="bootBriefing" role="dialog" aria-labelledby="bootBriefTitle" aria-modal="true">
+ <div class="boot-briefing-card">
+ <h2 id="bootBriefTitle">// WAR BRIEFING</h2>
+ <p>
+ Sovereign degen terminal. <strong style="color:#ffff00;font-weight:normal">0% swaps</strong>,
+ games, basement markets. Not a casino skin. Not farm-and-dump theater.
+ You hold the keys - or you don’t play.
+ </p>
+ <ul>
+ <li><b style="color:#ffff00;font-weight:normal">SWAP</b> - Jupiter rail, page-scoped wallet, auto-disconnect</li>
+ <li><b style="color:#ffff00;font-weight:normal">GAMES / ARCADE</b> - entertainment. Scores ≠ money</li>
+ <li><b style="color:#ffff00;font-weight:normal">DOCS</b> - risk, liability, how not to get wrecked</li>
+ <li><b style="color:#ffff00;font-weight:normal">LOGIN</b> - wallet or email. Signature does not move coins. Not a bank.</li>
+ </ul>
+ <div class="boot-briefing-actions">
+ <a href="/doswapz/swap/past">STRIKE * SWAP</a>
+ <a href="/docs/legal.html" class="ghost">DOCS</a>
+ <button type="button" class="ghost" id="bootBriefDismiss">ACK * DISMISS</button>
+ </div>
+ </div>
+ </div>
+
+ <script src="/assets/js/arcade/arcade-core.js?v=20260715b"></script>
+ <script>
+ (function () {
+ // First-boot war briefing (once)
+ var BRIEF_KEY = 'doswapz_war_briefing_v1';
+ var brief = document.getElementById('bootBriefing');
+ var dismiss = document.getElementById('bootBriefDismiss');
+ try {
+ if (brief && localStorage.getItem(BRIEF_KEY) !== '1') {
+ brief.classList.add('show');
+ }
+ } catch (e) {
+ if (brief) brief.classList.add('show');
+ }
+ function closeBrief() {
+ if (!brief) return;
+ brief.classList.remove('show');
+ try { localStorage.setItem(BRIEF_KEY, '1'); } catch (e) {}
+ }
+ if (dismiss) dismiss.addEventListener('click', closeBrief);
+ if (brief) {
+ brief.addEventListener('click', function (e) {
+ if (e.target === brief) closeBrief();
+ });
+ document.addEventListener('keydown', function (e) {
+ if (e.key === 'Escape' && brief.classList.contains('show')) closeBrief();
+ });
+ }
+
+ // Accordion: only one details section open
+ document.querySelectorAll('details.menu-section').forEach(function (section) {
+ section.addEventListener('toggle', function () {
+ if (!section.open) return;
+ document.querySelectorAll('details.menu-section').forEach(function (other) {
+ if (other !== section) other.removeAttribute('open');
+ });
+ });
+ });
+
+ // ARCADE: always fade -> intro reel (force=1) so animation launches
+ var arcadeEnter = document.getElementById('arcadeEnter');
+ if (arcadeEnter) {
+ var arcadeHref = '/arcade/intro/past?force=1';
+ if (window.DOSWAPZ_ARCADE && DOSWAPZ_ARCADE.arcadeEntryHref) {
+ arcadeHref = DOSWAPZ_ARCADE.arcadeEntryHref(true);
+ }
+ arcadeEnter.setAttribute('href', arcadeHref);
+ // Map link too
+ document.querySelectorAll('a[href*="/arcade/intro"]').forEach(function (a) {
+ if (a.id === 'arcadeEnter' || a.getAttribute('data-no-transition') === 'true') {
+ a.setAttribute('href', arcadeHref);
+ }
+ });
+ arcadeEnter.addEventListener('click', function (e) {
+ e.preventDefault();
+ if (arcadeEnter.dataset.leaving === '1') return;
+ arcadeEnter.dataset.leaving = '1';
+ var dest = (window.DOSWAPZ_ARCADE && DOSWAPZ_ARCADE.arcadeEntryHref)
+ ? DOSWAPZ_ARCADE.arcadeEntryHref(true)
+ : '/arcade/intro/past?force=1';
+
+ var content = document.getElementById('content');
+ var screen = document.getElementById('screen');
+ [content, screen, document.body].forEach(function (el) {
+ if (!el) return;
+ el.style.transition = 'opacity 650ms ease';
+ el.style.opacity = '0';
+ });
+
+ setTimeout(function () {
+ window.location.href = dest;
+ }, 680);
+ });
+ }
+
+ // Timeline jumps: FUTURE / PRESENT (set era + travel glitch)
+ function wireEraJump(id, era) {
+ var el = document.getElementById(id);
+ if (!el) return;
+ el.addEventListener('click', function (e) {
+ e.preventDefault();
+ if (window.DOSWAPZ_ERA && DOSWAPZ_ERA.travelTo) {
+ DOSWAPZ_ERA.travelTo(era, DOSWAPZ_ERA.hubFor(era));
+ } else {
+ var map = { past: '/past', orbit: '/present', future: '/future' };
+ window.location.href = map[era] || '/portal.html';
+ }
+ });
+ }
+ wireEraJump('hubMapFuture', 'future');
+ wireEraJump('hubExitFuture', 'future');
+ wireEraJump('hubExitPresent', 'orbit');
+ })();
+ </script>
+ <script src="/assets/js/core/era-portal.js?v=20260912pretty"></script>
+ <script src="/assets/js/core/era-transition.js?v=20260815glitch"></script>
+ <script>if (window.DOSWAPZ_ERA) DOSWAPZ_ERA.set('past');</script>
+ <script src="/assets/js/core/shell-boot.js?v=20261024gag7" data-shell-boot="1"></script>
+ <script src="/assets/js/core/page-transition.js" data-page-transition="1"></script>
+ <script src="/assets/js/core/hub-menu.js?v=20260820awardz" data-hub-menu="1"></script>
+ <script src="/assets/js/core/site-shell.js?v=20260715d" data-site-shell="1"></script>
+ <script src="/assets/js/core/rabbit-icon.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ // Never leave the hub invisible (transition safety)
+ (function () {
+ var c = document.getElementById('content');
+ var s = document.getElementById('screen');
+ if (c) { c.style.opacity = '1'; c.style.pointerEvents = 'auto'; }
+ if (s) { s.style.opacity = '1'; }
+ document.body.style.opacity = '1';
+ document.body.style.filter = '';
+ })();
+ if (window.DOSWAPZ_GLITCH) {
+ DOSWAPZ_GLITCH.init({ screen: '#screen', content: '#content', titleEl: '#doswapText', titleText: 'DOSWAPZ' });
+ }
+ </script>
+ <script>
+ /* Fit the hub into the space above the fixed bottom chrome. */
+ (function () {
+ function chromeLimit() {
+ var limit = window.innerHeight - 8;
+ var nodes = document.querySelectorAll('.glitch-dial, .dos-era-rail, .price-ticker-bar, .dos-docs-footer, .dos-docs-chip');
+ var i;
+ for (i = 0; i < nodes.length; i++) {
+ var r = nodes[i].getBoundingClientRect();
+ if (r.height < 8 || r.width < 20) continue;
+ if (r.top > window.innerHeight * 0.35 && r.top < limit) limit = r.top;
+ }
+ return limit - 18;
+ }
+ function fitHub() {
+ var content = document.getElementById('content');
+ var exit = document.querySelector('.exit-row');
+ if (!content || !exit) return;
+ content.style.zoom = '1';
+ var top = content.getBoundingClientRect().top;
+ var need = exit.getBoundingClientRect().bottom - top;
+ var avail = chromeLimit() - top;
+ var scale = need > avail && avail > 40 ? avail / need : 1;
+ content.style.zoom = String(Math.max(0.64, Math.min(1, scale)));
+ document.documentElement.scrollTop = 0;
+ document.body.scrollTop = 0;
+ }
+ window.addEventListener('resize', fitHub);
+ window.addEventListener('load', fitHub);
+ setTimeout(fitHub, 250);
+ setTimeout(fitHub, 1200);
+ })();
+ </script>
+<script src="/assets/js/core/price-ticker.js?v=20260920wide"></script>
+<script>
+/* $TBB hub gate: bite, then the reel, then Apple Picker. */
+(function () {
+  var VIDEO = '/assets/media/tbb-apple-gate.mp4';
+  var busy = false;
+
+  function crunch(done) {
+    var finished = false;
+    function finish() {
+      if (finished) return;
+      finished = true;
+      if (typeof done === 'function') done();
+    }
+    try {
+      var Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return finish();
+      var ctx = new Ctx();
+      function burst(when, dur, freq, gain) {
+        var len = Math.max(1, Math.floor(ctx.sampleRate * dur));
+        var buf = ctx.createBuffer(1, len, ctx.sampleRate);
+        var data = buf.getChannelData(0);
+        for (var i = 0; i < len; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.2);
+        }
+        var src = ctx.createBufferSource();
+        src.buffer = buf;
+        var bp = ctx.createBiquadFilter();
+        bp.type = 'bandpass';
+        bp.frequency.value = freq;
+        bp.Q.value = 0.65;
+        var g = ctx.createGain();
+        g.gain.value = gain;
+        src.connect(bp);
+        bp.connect(g);
+        g.connect(ctx.destination);
+        src.start(ctx.currentTime + when);
+      }
+      burst(0, 0.07, 1600, 0.95);
+      burst(0.06, 0.11, 900, 0.72);
+      burst(0.15, 0.06, 2100, 0.38);
+      setTimeout(function () {
+        try { ctx.close(); } catch (e) {}
+        finish();
+      }, 420);
+    } catch (e) {
+      finish();
+    }
+  }
+
+  function go(dest) {
+    window.location.href = dest;
+  }
+
+  function playReel(dest) {
+    var reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    if (reduce) return go(dest);
+
+    var gate = document.createElement('div');
+    gate.id = 'tbbGate';
+    gate.setAttribute('role', 'dialog');
+    gate.setAttribute('aria-label', 'Apple reel');
+    gate.style.cssText = 'position:fixed;inset:0;z-index:100000;background:#000;display:flex;align-items:center;justify-content:center;';
+    var video = document.createElement('video');
+    video.src = VIDEO;
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.controls = false;
+    video.style.cssText = 'width:min(96vw,1100px);height:min(88vh,760px);object-fit:contain;background:#000;';
+    gate.appendChild(video);
+    document.body.appendChild(gate);
+
+    var left = false;
+    function leave() {
+      if (left) return;
+      left = true;
+      go(dest);
+    }
+    video.addEventListener('ended', leave);
+    video.addEventListener('error', leave);
+    var watchdog = setTimeout(leave, 14000);
+    video.addEventListener('ended', function () { clearTimeout(watchdog); });
+    var play = video.play();
+    if (play && typeof play.catch === 'function') play.catch(leave);
+  }
+
+  document.querySelectorAll('[data-tbb-gate]').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      if (e.button && e.button !== 0) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      e.stopPropagation();
+      if (busy) return;
+      busy = true;
+      var dest = link.getAttribute('data-tbb-file') || link.getAttribute('href') || '/classic/pages/tbb/apple-picker.html';
+      if (window.DOSWAPZ_TBB_GATE) {
+        window.DOSWAPZ_TBB_GATE(dest);
+        return;
+      }
+      crunch(function () { playReel(dest); });
+    });
+  });
+})();
+</script>
+</body>
+</html>

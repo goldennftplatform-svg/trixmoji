@@ -1,0 +1,21 @@
+{
+  "id": "slumpork",
+  "name": "Slumpork",
+  "aka": [
+    "SLUM",
+    "Slumpork"
+  ],
+  "suno": "https://suno.com/song/db2dd24f-01cd-48ad-ae9a-17cae4a0cdfc",
+  "bio": "Artist folder for Slumpork / SLUM.",
+  "tracks": [
+    {
+      "id": "db2dd24f-01cd-48ad-ae9a-17cae4a0cdfc",
+      "title": "Void This Blunt",
+      "genre": "Hip-Hop",
+      "kind": "audio",
+      "url": "https://cdn1.suno.ai/db2dd24f-01cd-48ad-ae9a-17cae4a0cdfc.mp3",
+      "suno": "https://suno.com/song/db2dd24f-01cd-48ad-ae9a-17cae4a0cdfc",
+      "cover": "https://cdn2.suno.ai/db2dd24f-01cd-48ad-ae9a-17cae4a0cdfc.jpeg"
+    }
+  ]
+}

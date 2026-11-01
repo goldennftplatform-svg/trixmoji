@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Hub Map C</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ * { box-sizing: border-box; }
+ html, body { margin: 0; min-height: 100%; background: #000; color: #00ff00; font-family: 'VT323', monospace; }
+ .screen { padding: 16px 12px 100px; }
+ .badge { float: right; font-size: 11px; color: #ffff00; border: 1px solid #554400; padding: 2px 6px; }
+ .title { font-size: 28px; letter-spacing: 4px; color: #ffff00; clear: both; }
+ .sub { color: #00aa00; font-size: 13px; margin: 4px 0 14px; }
+ .sec { color: #ffff00; font-size: 18px; margin: 10px 0 4px; }
+ .opt { font-size: 16px; padding-left: 12px; opacity: 0.85; }
+ .dock {
+ position: fixed; left: 0; right: 0; bottom: 28px;
+ display: flex; justify-content: space-around; gap: 2px;
+ background: rgba(0,0,0,.94); border-top: 1px solid #00ff41;
+ padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
+ z-index: 50;
+ }
+ .dock a {
+ flex: 1; text-align: center; color: #00ff41; text-decoration: none;
+ font-size: 12px; letter-spacing: 0.5px; padding: 8px 2px; min-height: 44px;
+ display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+ }
+ .dock a span { color: #00aa00; font-size: 10px; }
+ .dock a:hover { color: #ffff00; background: #001a00; }
+ .fake-ticker {
+ position: fixed; left: 0; right: 0; bottom: 0; height: 28px; z-index: 40;
+ border-top: 1px solid #004400; background: #000; font-size: 11px;
+ display: flex; align-items: center; padding: 0 8px; color: #00aa00;
+ }
+ </style>
+</head>
+<body>
+ <div class="screen">
+ <div class="badge">MAP C</div>
+ <div class="title">DOSWAPZ</div>
+ <div class="sub">SYSTEM MENU - thumb dock above ticker</div>
+ <div class="sec">▸ DOSWAPZ</div>
+ <div class="opt">Swap * Mint * Gallery</div>
+ <div class="sec">▸ CRYPTO_DAD</div>
+ <div class="opt">Play * Scoreboard</div>
+ <div class="sec">▸ ARCADE</div>
+ <div class="opt">Hub * Scores</div>
+ <div class="sec">▸ BASEMENT</div>
+ <div class="opt">Vantablack * Launcher</div>
+ </div>
+ <nav class="dock" aria-label="Quick map">
+ <a href="#"><span>01</span>SWAP</a>
+ <a href="#"><span>02</span>GAMES</a>
+ <a href="#"><span>03</span>ARCADE</a>
+ <a href="#"><span>04</span>TIME</a>
+ <a href="#"><span>05</span>DOCS</a>
+ </nav>
+ <div class="fake-ticker">LIVE TICKER * under dock * ...</div>
+</body>
+</html>

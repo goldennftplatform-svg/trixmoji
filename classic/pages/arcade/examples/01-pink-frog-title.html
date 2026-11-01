@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Example 1 — PINK FROG Title</title>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Orbitron:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: #1a0a14;
+      color: #fff0f6;
+      font-family: VT323, monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .badge { color: #ff7ac8; letter-spacing: 3px; font-size: 14px; margin-bottom: 12px; }
+    .card {
+      width: min(380px, 100%);
+      border: 3px solid #ff4da6;
+      background: #2a1020;
+      box-shadow: 6px 6px 0 #0a0408;
+      padding: 28px 22px;
+      text-align: center;
+    }
+    .frog {
+      font-size: 4rem;
+      filter: hue-rotate(-35deg) saturate(1.5);
+      animation: hop 1.2s steps(2) infinite;
+    }
+    @keyframes hop {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    h1 {
+      font-family: Orbitron, sans-serif;
+      font-size: 1.4rem;
+      color: #ff7ac8;
+      letter-spacing: 0.1em;
+      margin: 10px 0;
+    }
+    p { font-size: 18px; color: #ffd0e8; margin-bottom: 8px; }
+    .btn {
+      margin-top: 14px;
+      display: inline-block;
+      padding: 12px 20px;
+      background: #ff4da6;
+      color: #1a0a14;
+      font-family: Orbitron, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      border: 2px solid #0a0408;
+      box-shadow: 3px 3px 0 #0a0408;
+      text-decoration: none;
+    }
+    nav { margin-top: 18px; font-size: 16px; }
+    nav a { color: #ff7ac8; margin: 0 8px; }
+  </style>
+</head>
+<body>
+  <div class="badge">EXAMPLE 01 / 05 · TITLE SCREEN</div>
+  <div class="card">
+    <div class="frog">🐸</div>
+    <h1>PINK FROG</h1>
+    <p>Frogger-type · all pink · pure hop</p>
+    <p>Cross the road. Ride the river. Fill every lily home.</p>
+    <span class="btn">START HOP</span>
+  </div>
+  <nav>
+    <a href="index.html">All examples</a>
+    <a href="02-pink-frog-playfield.html">Next →</a>
+  </nav>
+</body>
+</html>

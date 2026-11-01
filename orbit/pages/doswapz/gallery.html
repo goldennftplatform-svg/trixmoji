@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong> Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong> Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>DOSWAPZ // MINT GALLERY // ORBIT</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+  <link rel="stylesheet" href="/assets/css/era-present-soft.css?v=neonvoid2">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style class="page-classic-styles">
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ /* orbit: :root stripped */ * { box-sizing: border-box; }
+ /* orbit: global html,body stripped */
+ .dos-screen { position:relative; min-height:0; background:transparent; padding:0; }
+ /* orbit: scanlines stripped */
+ /* orbit: .header stripped */
+ .content { max-width: 1100px; margin: 18px auto 0; padding: 0 8px; position: relative; z-index: 10; }
+ /* orbit: .subhead stripped */
+ .wallet-bar {
+ display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center;
+ border: 2px solid rgba(255,255,255,0.14); background: rgba(0,20,0,0.4); padding: 12px; margin-bottom: 16px;
+ }
+ .wallet-addr {
+ font-size: 16px; color: #88ff88; letter-spacing: 1px; min-width: 160px; text-align: center;
+ }
+ .section {
+ font-size: 20px; color: var(--panel-accent); letter-spacing: 2px;
+ border-bottom: 1px solid rgba(255,255,255,0.35); padding-bottom: 3px;
+ margin: 22px 0 12px;
+ }
+ .gallery-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+ gap: 16px; margin-bottom: 24px;
+ }
+ .mint-card {
+ border: 3px solid var(--panel-accent); background: transparent;
+ padding: 8px; display: flex; flex-direction: column;
+ }
+ .mint-card.sample { border-color: #446644; opacity: 0.92; }
+ .mint-card canvas {
+ width: 100%; height: auto; border: 2px solid rgba(255,255,255,0.14);
+ background: transparent; image-rendering: pixelated; display: block;
+ }
+ .mint-meta { font-size: 13px; color: #00cc00; margin-top: 6px; line-height: 1.15; }
+ .mint-meta .oneofone { color: #ff00ff; font-weight: bold; }
+ .mint-meta .sample-tag { color: var(--panel-accent); }
+ .empty-msg {
+ text-align: center; color: rgba(255,255,255,0.35); font-size: 16px;
+ padding: 30px 10px; border: 2px dashed rgba(255,255,255,0.14); grid-column: 1 / -1;
+ }
+ .btn, button.btn {
+ font-family: inherit; font-size: 17px; color: rgba(255,255,255,0.38); background: transparent;
+ border: 2px solid rgba(255,255,255,0.38); padding: 5px 16px;
+ text-decoration: none; margin: 0 4px 6px; display: inline-block; cursor: pointer;
+ }
+ .btn:hover, button.btn:hover { background: rgba(255,255,255,0.14); color: var(--panel-accent); border-color: var(--panel-accent); }
+ .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+ .btn-hot { border-color: #ff66cc; color: #ff66cc; }
+ .btn-hot:hover { background: #1a001a; color: #fff; border-color: #ff99dd; }
+ .btn-mkt { border-color: #66ccff; color: #66ccff; font-size: 19px; padding: 8px 18px; }
+ .btn-mkt:hover { background: #001a22; color: #fff; border-color: #99eeff; }
+ .buttons { text-align: center; margin-top: 20px; }
+ .gallery-status {
+ text-align: center; font-size: 14px; color: #88aa88; min-height: 20px; margin: 8px 0 4px;
+ }
+ .gallery-status.ok { color: var(--panel-accent); }
+ .gallery-status.err { color: #ff6688; }
+ .marketplace {
+ border: 2px solid #226688; background: rgba(0,20,30,0.5);
+ padding: 14px 16px; margin: 18px 0; text-align: center;
+ }
+ .marketplace h2 {
+ margin: 0 0 8px; font-size: 18px; letter-spacing: 3px; color: #66ccff; font-weight: normal;
+ }
+ .marketplace p {
+ margin: 0 0 12px; font-size: 14px; color: #88aacc; line-height: 1.4;
+ }
+ .disclaimer {
+ margin: 22px auto; padding: 10px 12px;
+ border: 2px solid var(--panel-accent); background: rgba(40,30,0,0.35);
+ font-size: 12px; line-height: 1.35; max-width: 960px; text-align: left;
+ }
+ .disclaimer-title {
+ color: var(--panel-accent); margin-bottom: 4px;
+ letter-spacing: 1px; text-align: center; font-size: 13px;
+ }
+ .footer {
+ margin-top: 20px; font-size: 13px; color: rgba(255,255,255,0.35);
+ text-align: center; letter-spacing: 1px;
+ }
+ .vignette {
+ position: fixed; inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.55) 84%);
+ pointer-events: none; z-index: 5;
+ }
+ </style>
+</head>
+<body id="screen" class="orbit-void-inner">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+ <span class="crumb-zone">MINT GALLERY</span>
+ <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+ <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+ <div class="core-glow"></div>
+ <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+ <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ <div class="orbit-line" style="width:min(34vmin,34vw);height:min(34vmin,34vh)"></div>
+ </div>
+
+ <main class="stage" id="content">
+ <h1 class="hollow-title" id="orbitTitle">MINT GALLERY</h1>
+ <p class="hollow-sub" id="stageSub">0% jupiter swap<span class="cursor-blink">|</span></p>
+</main>
+
+ <div class="orbit-panel accent-mint" id="orbitPanel">
+<div class="subhead">
+ PAST ERA * PIXEL MATH MINTS * VIEW ONLY<br>
+ Soft wallet connect proves identity - <strong>no funds, no approvals</strong>.
+ </div>
+
+ <div class="wallet-bar">
+ <button type="button" class="btn" id="galleryConnectBtn">SOFT CONNECT WALLET</button>
+ <span class="wallet-addr" id="galleryWalletAddr">NOT CONNECTED</span>
+ <button type="button" class="btn" id="galleryFilterMine" disabled>SHOW MY MINTS ONLY</button>
+ <button type="button" class="btn" id="gallerySamplesBtn">SHOW SAMPLES</button>
+ </div>
+ <div class="gallery-status" id="galleryStatus">Soft-connect optional. Mint live to save cards here.</div>
+
+ <div class="marketplace">
+ <h2>TRADE &amp; SELL -> FLOORED.APP</h2>
+ <p>
+ This gallery is view-only. To list, sell, or trade mints, use the marketplace at
+ <strong>FLOORED.APP</strong> - verify the URL yourself before connecting a wallet there.
+ </p>
+ <a class="btn btn-mkt" id="flooredLink" href="https://floored.app" target="_blank" rel="noopener noreferrer">OPEN FLOORED.APP -> </a>
+ </div>
+
+ <div class="section">MINTED GALLERY (32 x 32 MATH ART)</div>
+ <div class="gallery-grid" id="math-grid"></div>
+
+ <div class="buttons">
+ <a href="/orbit/pages/doswapz/mint.html" class="btn btn-hot">MINT PAGE -> </a>
+ <a href="/orbit/hub.html" class="btn"><- HUB</a>
+ <a href="/portal.html" class="btn">TIME MACHINE</a>
+ </div>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">SOFT CONNECT - SIGNATURE ONLY</div> * We never ask for a private key, seed phrase, or permission to move funds on this page.<br> * Soft connect uses a message signature (or public address) for gallery filtering only.<br> * Mints shown here are stored in your browser after a successful mint on the mint page.
+ </div>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">VERIFICATION &amp; MARKETPLACE - READ AND COMPLY</div>
+ Live platform. Always verify contract addresses, tokens, and marketplace links on official explorers before signing anything.<br>
+ <strong>FLOORED.APP</strong> is a third-party marketplace. DOSWAPZ does not custody assets and is not responsible for trades, listings, or losses on external sites.<br>
+ DOSWAPZ accepts NO responsibility for any loss of funds. Do your own research. Never trust DMs or unsolicited links.
+ </div>
+
+ <div class="footer">DOSWAPZ - MINT GALLERY * PAST * LIVE PLATFORM</div>
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/mint/math-mint.js"></script>
+ <script src="/assets/js/mint/mint-gallery.js"></script>
+
+ <script>hollowPageBoot('MINT GALLERY');</script>
+</body>
+</html>

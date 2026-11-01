@@ -1,0 +1,5 @@
+ansem: cut=568x1112 white=247/346944 arm_zone_white=64 bottom10%=28707
+jimmy-edgar: cut=673x1099 white=455/327690 arm_zone_white=0 bottom10%=35751
+michael-saylor: cut=743x1039 white=106/449367 arm_zone_white=0 bottom10%=47918
+crypto-bitlord: cut=648x1129 white=25/436177 arm_zone_white=0 bottom10%=32245
+donalt: cut=689x1056 white=542/384194 arm_zone_white=0 bottom10%=28267

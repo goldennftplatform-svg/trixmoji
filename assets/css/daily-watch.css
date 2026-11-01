@@ -1,0 +1,105 @@
+.daily-watch {
+  position: relative;
+  z-index: 10;
+  border: 2px solid #ffff00;
+  background: rgba(20, 20, 0, 0.4);
+  padding: 14px 16px 16px;
+  margin: 0 0 18px;
+  color: #00ff00;
+}
+.daily-watch .dw-head { text-align: center; }
+.daily-watch .dw-flag {
+  color: #ffff00;
+  letter-spacing: 3px;
+  font-size: 14px;
+}
+.daily-watch .dw-title {
+  margin: 4px 0 2px;
+  font-size: clamp(18px, 3vw, 24px);
+  letter-spacing: 2px;
+  font-weight: normal;
+  color: #00ff00;
+}
+.daily-watch .dw-count {
+  font-size: clamp(36px, 8vw, 64px);
+  letter-spacing: 6px;
+  color: #ffff00;
+  text-shadow: 0 0 10px rgba(255, 255, 0, 0.35);
+  line-height: 1.1;
+  margin: 4px 0;
+}
+.daily-watch .dw-sub {
+  color: #00aa00;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+.daily-watch .dw-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  justify-content: center;
+  margin: 10px 0;
+  color: #00aa00;
+  font-size: 14px;
+}
+.daily-watch .dw-meta b { color: #ffff00; font-weight: normal; }
+.daily-watch .dw-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.daily-watch .dw-actions button {
+  font: inherit;
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: #00ff00;
+  background: transparent;
+  border: 2px solid #00ff00;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+.daily-watch .dw-actions button:hover {
+  color: #ffff00;
+  border-color: #ffff00;
+  background: #003300;
+}
+.daily-watch .dw-actions button:disabled { opacity: 0.45; cursor: wait; }
+.daily-watch .dw-hint { color: #888800; font-size: 13px; letter-spacing: 1px; }
+.daily-watch .dw-log {
+  border: 1px solid #003300;
+  background: #000;
+  padding: 8px 10px;
+  max-height: 280px;
+  overflow: auto;
+  font-size: 14px;
+  line-height: 1.35;
+}
+.daily-watch .dw-h {
+  color: #ffff00;
+  letter-spacing: 2px;
+  margin: 8px 0 4px;
+  font-size: 13px;
+}
+.daily-watch .dw-row { padding: 3px 0; border-bottom: 1px solid #001a00; }
+.daily-watch .dw-row .when { color: #00aa00; margin-right: 8px; }
+.daily-watch .dw-row.down { color: #ff3232; }
+.daily-watch .dw-row.new { color: #ffff00; }
+.daily-watch .dw-posts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  padding: 4px 0 8px;
+}
+.daily-watch .dw-post {
+  color: #ffff00;
+  text-decoration: none;
+  border: 1px solid #443300;
+  padding: 1px 8px;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+.daily-watch .dw-post:hover { background: #221800; }
+.daily-watch .empty { color: #006600; font-style: italic; padding: 8px 0; }

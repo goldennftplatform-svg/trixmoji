@@ -1,0 +1,6 @@
+QUANTUM TRADER SWING V10 FIX
+
+1. Put your existing .env beside live-scout.js.
+2. Run .\start-live.cmd
+3. The scanner uses multiple pair-oriented discovery queries (WSOL/USDC/USDT/etc.) and prints DISCOVERY DEBUG if it gets zero.
+4. Keep the ~$0.50 test size until execution is verified.

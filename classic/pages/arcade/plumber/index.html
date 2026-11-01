@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PIPE RUSH // SEGA MEGA DRIVE '90</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%; height: 100%;
+    background: #000008;
+    color: #f0f0f8;
+    font-family: 'Press Start 2P', monospace;
+    overflow: hidden;
+    touch-action: none;
+  }
+  #wrap {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 6px;
+    padding: 6px;
+  }
+  #hud {
+    width: min(960px, 100%);
+    display: flex; flex-wrap: wrap; gap: 8px 14px;
+    justify-content: space-between; align-items: center;
+    font-size: 9px; letter-spacing: 1px;
+    color: #f8e030;
+    text-shadow: 2px 2px 0 #000, -1px 0 0 #f040a0;
+  }
+  #hud b { color: #48f0f8; font-weight: normal; text-shadow: 2px 2px 0 #000; }
+  #stage {
+    position: relative;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    border: 4px solid #3838a0;
+    box-shadow:
+      0 0 0 2px #080820,
+      0 0 0 6px #181848,
+      0 0 28px rgba(64, 80, 220, 0.4),
+      inset 0 0 0 2px #7878e8;
+    background: #000;
+    max-width: 100%;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+  #arcadeNav {
+    width: min(960px, 100%);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    font-size: 7px;
+  }
+  #arcadeNav a {
+    color: #48f0f8;
+    text-decoration: none;
+    border: 2px solid #3838a0;
+    background: #101040;
+    padding: 6px 10px;
+    box-shadow: 2px 2px 0 #000;
+    text-shadow: 1px 1px 0 #000;
+  }
+  #arcadeNav a:hover { border-color: #f03098; color: #f8e030; }
+  #hint {
+    width: min(960px, 100%);
+    font-size: 7px;
+    line-height: 1.7;
+    color: #6868a8;
+    text-align: center;
+  }
+  #hint kbd {
+    color: #fff;
+    background: #181858;
+    border: 2px solid #5858c0;
+    padding: 2px 5px;
+    box-shadow: 2px 2px 0 #000;
+  }
+  #overlay {
+    position: absolute; inset: 0;
+    display: none;
+    align-items: center; justify-content: center;
+    background: rgba(0,0,24,0.78);
+    text-align: center;
+    padding: 12px;
+  }
+  #overlay.show { display: flex; }
+  #overlay .box {
+    border: 4px solid #f03098;
+    background: linear-gradient(#201040, #100820);
+    padding: 18px 16px;
+    box-shadow:
+      6px 6px 0 #000,
+      0 0 0 2px #fff inset,
+      0 0 20px rgba(240, 48, 152, 0.45);
+    max-width: 92%;
+  }
+  #overlay h1 {
+    font-size: 13px;
+    color: #48f0f8;
+    margin-bottom: 4px;
+    text-shadow: 3px 3px 0 #000, 0 0 8px #48f0f8;
+    letter-spacing: 2px;
+  }
+  #overlay .sub {
+    font-size: 7px;
+    color: #f8e030;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 0 #000;
+  }
+  #overlay p {
+    font-size: 7px;
+    color: #e0c0f8;
+    line-height: 1.75;
+    margin-bottom: 12px;
+  }
+  #overlay button {
+    font-family: inherit;
+    font-size: 9px;
+    color: #100820;
+    background: #48f0f8;
+    border: 3px solid #fff;
+    padding: 10px 14px;
+    box-shadow: 4px 4px 0 #000;
+    cursor: pointer;
+    text-shadow: none;
+  }
+  #overlay button:active { transform: translate(2px,2px); box-shadow: 2px 2px 0 #000; }
+  #touch {
+    display: none;
+    width: min(960px, 100%);
+    gap: 6px;
+    justify-content: space-between;
+    margin-top: 2px;
+  }
+  #touch button {
+    font-family: inherit;
+    font-size: 9px;
+    min-width: 52px;
+    min-height: 48px;
+    color: #fff;
+    background: #202070;
+    border: 3px solid #7070d8;
+    box-shadow: 3px 3px 0 #000;
+  }
+  @media (pointer: coarse) {
+    #touch { display: flex; }
+    #hint .desk { display: none; }
+  }
+</style>
+  <link rel="stylesheet" href="/assets/css/era-present-game.css?v=20260809era" />
+</head>
+<body data-present-label="PIPE RUSH">
+<div id="wrap">
+  <div id="hud">
+    <span>SCORE <b id="score">0</b></span>
+    <span>FIXED <b id="fixed">0</b></span>
+    <span>WAVE <b id="wave">1</b></span>
+    <span>FLOOD <b id="flood">0%</b></span>
+  </div>
+  <div id="stage">
+    <canvas id="c" width="320" height="224"></canvas>
+    <div id="overlay" class="show">
+      <div class="box">
+        <h1>PIPE RUSH</h1>
+        <div class="sub">* SEGA MEGA DRIVE '90 *</div>
+        <p>
+          WATER FROM THE TOP.<br>
+          PIPES LEAK — RUN &amp; FIX!<br>
+          DON'T LET THE BASEMENT FLOOD.
+        </p>
+        <button type="button" id="startBtn">PRESS START</button>
+      </div>
+    </div>
+  </div>
+  <div id="arcadeNav">
+    <a href="/classic/pages/arcade/hub.html">← ARCADE</a>
+    <a href="/classic/hub.html">PAST HUB</a>
+    <a href="/orbit/pages/arcade/hub.html">PRESENT ARCADE</a>
+  </div>
+  <div id="hint">
+    <span class="desk"><kbd>←</kbd><kbd>→</kbd> move · <kbd>↑</kbd> jump/climb · <kbd>↓</kbd> down · <kbd>Z</kbd>/<kbd>SPACE</kbd> fix · <kbd>P</kbd> pause</span>
+    <span class="mob">MOVE · JUMP · FIX</span>
+  </div>
+  <div id="touch">
+    <button type="button" id="btnL">◀</button>
+    <button type="button" id="btnJump">▲</button>
+    <button type="button" id="btnFix">FIX</button>
+    <button type="button" id="btnR">▶</button>
+  </div>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  /* ============================================================
+   * PIPE RUSH — harder / faster pressure (player requested)
+   * Target: leaks come quick, multi-leak chaos, skilled 1.5–3 min
+   * ============================================================ */
+
+  var PAL = {
+    black:  '#000008',
+    ink:    '#080820',
+    navy:   '#101040',
+    mid:    '#282868',
+    purple: '#5030a0',
+    pink:   '#f03098',
+    hot:    '#f868c0',
+    cyan:   '#48f0f8',
+    blue:   '#2868e0',
+    sky:    '#58a8f8',
+    yellow: '#f8e030',
+    gold:   '#e0a018',
+    orange: '#f07020',
+    green:  '#30d050',
+    lime:   '#90f840',
+    white:  '#f8f8f8',
+    gray:   '#7878a0',
+    steel:  '#a0a0c0',
+    metal:  '#606088',
+    rust:   '#a84828',
+    water:  '#1870e8',
+    waterHi:'#68c8ff',
+    skin:   '#f8c090',
+    skinDk: '#d08858',
+    overall:'#2058d0',
+    overallHi:'#4880f0',
+    boot:   '#281008',
+    red:    '#e02040',
+    brick:  '#583848',
+    brickHi:'#785868',
+    brickDk:'#382030'
+  };
+
+  /* ---- balance (seconds assume ~60fps) ---- */
+  var BAL = {
+    moveSpeed: 1.6,
+    climbSpeed: 1.4,
+    gravity: 0.22,
+    maxFall: 3.6,
+    jumpVel: -3.55,
+    coyoteMax: 6,
+    jumpBufMax: 8,
+    fixRate: 0.024,          /* ~42 frames ≈ 0.7s on a leak — still snappy */
+    fixRateWave: 0.0012,
+    floodPerLeak: 0.0165,    /* 1 open leak ≈ ~100s; 2 leaks ≈ ~50s */
+    floodPerWave: 0.0032,    /* each wave piles on pressure */
+    floodIdleDrain: 0.006,   /* less free recovery when dry */
+    firstLeakAt: 50,         /* ~0.8s grace then BOOM */
+    baseLeakInterval: 130,   /* ~2.2s between spawns early */
+    minLeakInterval: 48,     /* late game: new leak ~0.8s */
+    leakIntervalWave: 16,    /* intervals shrink hard each wave */
+    maxLeaks: function (wave) {
+      /* w1:2  w2:3  w3:4  w4+:5 */
+      return Math.min(5, 1 + wave);
+    },
+    waveFrames: 60 * 28,     /* wave every 28s — progress faster */
+    nearR: 24,
+    playerW: 12,
+    playerH: 14
+  };
+
+  var canvas = document.getElementById('c');
+  var ctx = canvas.getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+
+  var W = 320, H = 224;
+  var TILE = 16;
+  var COLS = 20, ROWS = 14;
+
+  var map = [];
+  var leaks = [];
+  var particles = [];
+  var flood = 0;
+  var score = 0;
+  var fixedCount = 0;
+  var wave = 1;
+  var time = 0;
+  var running = false;
+  var paused = false;
+  var leakTimer = 0;
+  var nextLeakIn = 180;
+  var message = '';
+  var messageT = 0;
+  var bestFixed = 0;
+
+  var player = {
+    x: 160, y: 160,
+    vx: 0, vy: 0,
+    onGround: false,
+    facing: 1,
+    fixProg: 0,
+    anim: 0,
+    climbing: false,
+    coyote: 0,
+    jumpBuf: 0
+  };
+
+  var keys = {};
+  var touch = { l: false, r: false, fix: false, jump: false };
+  var prevUp = false;
+
+  function idx(c, r) { return r * COLS + c; }
+  function inBounds(c, r) { return c >= 0 && c < COLS && r >= 0 && r < ROWS; }
+  function tileAt(c, r) {
+    if (!inBounds(c, r)) return 4;
+    return map[idx(c, r)];
+  }
+
+  function setTile(c, r, t) {
+    if (inBounds(c, r)) map[idx(c, r)] = t;
+  }
+
+  /* ladders only fill EMPTY cells — never erase pipes/platforms */
+  function placeLadder(c, r0, r1) {
+    for (var r = r0; r <= r1; r++) {
+      if (inBounds(c, r) && map[idx(c, r)] === 0) setTile(c, r, 5);
+    }
+  }
+
+  function buildLevel(w, keepPlayer) {
+    var px = player.x, py = player.y;
+    map = new Array(COLS * ROWS).fill(0);
+    /* floor */
+    var c, r;
+    for (c = 0; c < COLS; c++) {
+      setTile(c, ROWS - 1, 4);
+      setTile(c, ROWS - 2, 4);
+    }
+    /* mid platforms — reachable via ladders + jump */
+    for (c = 1; c < 8; c++) setTile(c, 9, 4);
+    for (c = 12; c < 19; c++) setTile(c, 9, 4);
+    for (c = 5; c < 15; c++) setTile(c, 6, 4);
+    /* upper ledges for high pipes */
+    for (c = 6; c < 9; c++) setTile(c, 3, 4);
+    for (c = 11; c < 14; c++) setTile(c, 3, 4);
+
+    /* pipe tree FIRST so ladders never overwrite plumbing */
+    setTile(10, 0, 6);
+    setTile(10, 1, 1);
+    setTile(10, 2, 3);
+    setTile(9, 2, 2); setTile(8, 2, 2); setTile(7, 2, 3);
+    setTile(7, 3, 1); setTile(7, 4, 1); setTile(7, 5, 3);
+    setTile(6, 5, 2); setTile(5, 5, 2); setTile(4, 5, 3);
+    setTile(4, 6, 1); setTile(4, 7, 1); setTile(4, 8, 1);
+    setTile(11, 2, 2); setTile(12, 2, 2); setTile(13, 2, 3);
+    setTile(13, 3, 1); setTile(13, 4, 1); setTile(13, 5, 3);
+    setTile(14, 5, 2); setTile(15, 5, 2); setTile(16, 5, 3);
+    setTile(16, 6, 1); setTile(16, 7, 1); setTile(16, 8, 1);
+    setTile(10, 3, 1); setTile(10, 4, 1); setTile(10, 5, 1);
+    setTile(10, 6, 1); setTile(10, 7, 1); setTile(10, 8, 1);
+    setTile(10, 9, 1); setTile(10, 10, 1); setTile(10, 11, 7);
+
+    if (w >= 2) {
+      setTile(7, 8, 3); setTile(8, 8, 2); setTile(9, 8, 2);
+      setTile(11, 8, 2); setTile(12, 8, 2); setTile(13, 8, 3);
+    }
+    if (w >= 3) {
+      setTile(3, 5, 2); setTile(2, 5, 3); setTile(2, 6, 1); setTile(2, 7, 1);
+      setTile(17, 5, 2); setTile(18, 5, 3); setTile(18, 6, 1); setTile(18, 7, 1);
+    }
+    if (w >= 4) {
+      setTile(5, 8, 2); setTile(6, 8, 3);
+      setTile(14, 8, 2); setTile(15, 8, 3);
+    }
+    if (w >= 5) {
+      setTile(8, 4, 2); setTile(9, 4, 2); setTile(11, 4, 2); setTile(12, 4, 2);
+    }
+
+    /* ladders in empty columns/gaps only (adjacent to platforms) */
+    placeLadder(3, 3, ROWS - 3);   /* left shaft */
+    placeLadder(16, 3, ROWS - 3);  /* right shaft — may skip pipe cells */
+    placeLadder(9, 3, 9);          /* near center left */
+    placeLadder(11, 3, 9);         /* near center right */
+    placeLadder(6, 6, ROWS - 3);
+    placeLadder(13, 6, ROWS - 3);
+    if (w >= 3) {
+      placeLadder(1, 5, 9);
+      placeLadder(18, 5, 9);
+    }
+
+    /* punch ladder holes through platforms so you can climb past floors */
+    function ladderThrough(c, r) {
+      if (tileAt(c, r) === 4) setTile(c, r, 5);
+    }
+    ladderThrough(3, 9); ladderThrough(3, 6); ladderThrough(3, 3);
+    ladderThrough(16, 9); ladderThrough(16, 6); ladderThrough(16, 3);
+    ladderThrough(9, 6); ladderThrough(9, 3);
+    ladderThrough(11, 6); ladderThrough(11, 3);
+    ladderThrough(6, 9); ladderThrough(13, 9);
+
+    if (keepPlayer) {
+      player.x = px;
+      player.y = py;
+    } else {
+      player.x = 10 * TILE + 2;
+      player.y = (ROWS - 3) * TILE;
+      player.vx = 0;
+      player.vy = 0;
+    }
+    player.fixProg = 0;
+    player.coyote = 0;
+    player.jumpBuf = 0;
+    nextLeakIn = Math.max(BAL.minLeakInterval, BAL.baseLeakInterval - w * BAL.leakIntervalWave);
+    leakTimer = 0;
+  }
+
+  function pipeCells() {
+    var list = [];
+    for (var r = 0; r < ROWS; r++) {
+      for (var c = 0; c < COLS; c++) {
+        var t = tileAt(c, r);
+        if (t === 1 || t === 2 || t === 3) list.push({ c: c, r: r });
+      }
+    }
+    return list;
+  }
+
+  function spawnLeak() {
+    var cells = pipeCells();
+    if (!cells.length) return;
+    var free = cells.filter(function (p) {
+      return !leaks.some(function (L) { return L.c === p.c && L.r === p.r; });
+    });
+    var pool = free.length ? free : cells;
+    /* only wave 1 first leaks favor lower pipes; after that anywhere (harder) */
+    if (wave <= 1 && free.length && leaks.length === 0) {
+      var low = free.filter(function (p) { return p.r >= 5; });
+      if (low.length) pool = low;
+    }
+    var pick = pool[Math.floor(Math.random() * pool.length)];
+    if (!pick) return;
+    if (leaks.some(function (L) { return L.c === pick.c && L.r === pick.r; })) return;
+    leaks.push({ c: pick.c, r: pick.r, progress: 0, fixing: false, spray: 0 });
+    msg('LEAK!', 40);
+  }
+
+  function msg(t, frames) {
+    message = t;
+    messageT = frames || 60;
+  }
+
+  function rectSolid(x, y, w, h) {
+    var c0 = Math.floor(x / TILE), c1 = Math.floor((x + w - 0.1) / TILE);
+    var r0 = Math.floor(y / TILE), r1 = Math.floor((y + h - 0.1) / TILE);
+    for (var r = r0; r <= r1; r++) {
+      for (var c = c0; c <= c1; c++) {
+        if (tileAt(c, r) === 4) return true;
+      }
+    }
+    return false;
+  }
+
+  function climbableTile(t) {
+    /* ladders + ALL pipes (V/H/joint) + source/drain — hang & climb the plumbing */
+    return t === 5 || t === 1 || t === 2 || t === 3 || t === 6 || t === 7;
+  }
+
+  function onLadder(x, y, w, h) {
+    var cx = Math.floor((x + w / 2) / TILE);
+    var r0 = Math.floor(y / TILE), r1 = Math.floor((y + h - 1) / TILE);
+    for (var r = r0; r <= r1; r++) if (climbableTile(tileAt(cx, r))) return true;
+    return false;
+  }
+
+  function nearLeak() {
+    var px = player.x + BAL.playerW / 2;
+    var py = player.y + BAL.playerH / 2;
+    var best = null, bestD = BAL.nearR * BAL.nearR;
+    for (var i = 0; i < leaks.length; i++) {
+      var L = leaks[i];
+      var lx = L.c * TILE + 8, ly = L.r * TILE + 8;
+      var dx = px - lx;
+      var dy = py - ly;
+      /* forgive standing slightly below a pipe (platform under leak) */
+      if (dy > 0 && dy < 18) dy *= 0.55;
+      var d = dx * dx + dy * dy;
+      if (d < bestD) { bestD = d; best = L; }
+    }
+    return best;
+  }
+
+  function update() {
+    if (!running || paused) return;
+    time++;
+    if (messageT > 0) messageT--;
+
+    var left = keys['ArrowLeft'] || keys['a'] || keys['A'] || touch.l;
+    var right = keys['ArrowRight'] || keys['d'] || keys['D'] || touch.r;
+    var up = keys['ArrowUp'] || keys['w'] || keys['W'] || touch.jump;
+    var down = keys['ArrowDown'] || keys['s'] || keys['S'];
+    var fixing = keys['z'] || keys['Z'] || keys[' '] || keys['Enter'] || touch.fix;
+    var jumpPressed = up && !prevUp;
+    prevUp = up;
+
+    var ladder = onLadder(player.x, player.y, BAL.playerW, BAL.playerH);
+    player.climbing = ladder && (up || down);
+    player.anim++;
+
+    /* jump buffer + coyote */
+    if (jumpPressed) player.jumpBuf = BAL.jumpBufMax;
+    else if (player.jumpBuf > 0) player.jumpBuf--;
+    if (player.onGround) player.coyote = BAL.coyoteMax;
+    else if (player.coyote > 0) player.coyote--;
+
+    /* magnet: when holding up near a climbable column, ease onto it */
+    if (up && !ladder) {
+      var pc = Math.floor((player.x + BAL.playerW / 2) / TILE);
+      var pr = Math.floor((player.y + BAL.playerH / 2) / TILE);
+      var bestC = -1, bestD = 3;
+      for (var dc = -2; dc <= 2; dc++) {
+        var cc = pc + dc;
+        if (!inBounds(cc, pr)) continue;
+        if (climbableTile(tileAt(cc, pr)) || climbableTile(tileAt(cc, pr - 1)) || climbableTile(tileAt(cc, pr + 1))) {
+          var dist = Math.abs((cc * TILE + 8) - (player.x + BAL.playerW / 2));
+          if (dist < bestD * TILE) { bestD = dist / TILE; bestC = cc; }
+        }
+      }
+      if (bestC >= 0) {
+        var tx = bestC * TILE + (TILE - BAL.playerW) / 2;
+        if (Math.abs(player.x - tx) > 0.5) {
+          player.x += Math.sign(tx - player.x) * Math.min(1.2, Math.abs(tx - player.x));
+        }
+      }
+    }
+
+    player.vx = 0;
+    if (left) { player.vx = -BAL.moveSpeed; player.facing = -1; }
+    if (right) { player.vx = BAL.moveSpeed; player.facing = 1; }
+
+    if (ladder) {
+      player.vy = 0;
+      if (up) player.vy = -BAL.climbSpeed;
+      if (down) player.vy = BAL.climbSpeed;
+      /* hop off ladder sideways onto platforms */
+      if ((left || right) && !up && !down && jumpPressed) {
+        player.vy = BAL.jumpVel * 0.75;
+      }
+      /* while climbing, gently center on the climb column for less fall-off */
+      if (!(left || right)) {
+        var cxCol = Math.floor((player.x + BAL.playerW / 2) / TILE);
+        if (climbableTile(tileAt(cxCol, Math.floor((player.y + 7) / TILE)))) {
+          var cxTarget = cxCol * TILE + (TILE - BAL.playerW) / 2;
+          player.x += (cxTarget - player.x) * 0.2;
+        }
+      }
+    } else {
+      player.vy += BAL.gravity;
+      if (player.vy > BAL.maxFall) player.vy = BAL.maxFall;
+      /* jump from ground / coyote */
+      if (player.jumpBuf > 0 && player.coyote > 0) {
+        player.vy = BAL.jumpVel;
+        player.jumpBuf = 0;
+        player.coyote = 0;
+        player.onGround = false;
+      }
+    }
+
+    /* X */
+    player.x += player.vx;
+    if (player.x < 2) player.x = 2;
+    if (player.x > W - BAL.playerW - 2) player.x = W - BAL.playerW - 2;
+    if (rectSolid(player.x, player.y, BAL.playerW, BAL.playerH)) {
+      player.x -= player.vx;
+    }
+
+    /* Y */
+    player.y += player.vy;
+    player.onGround = false;
+    if (rectSolid(player.x, player.y, BAL.playerW, BAL.playerH)) {
+      if (player.vy > 0) {
+        player.y = Math.floor((player.y + BAL.playerH) / TILE) * TILE - BAL.playerH;
+        player.onGround = true;
+      } else if (player.vy < 0) {
+        player.y = Math.floor(player.y / TILE) * TILE + TILE;
+      }
+      player.vy = 0;
+    }
+    if (player.y > H - BAL.playerH - 2) {
+      player.y = H - BAL.playerH - 2;
+      player.vy = 0;
+      player.onGround = true;
+    }
+    if (player.y < 0) {
+      player.y = 0;
+      if (player.vy < 0) player.vy = 0;
+    }
+
+    /* fix leak — progress persists on the leak */
+    var leak = nearLeak();
+    if (fixing && leak) {
+      leak.fixing = true;
+      var rate = BAL.fixRate + wave * BAL.fixRateWave;
+      player.fixProg = leak.progress;
+      leak.progress = Math.min(1, leak.progress + rate);
+      player.fixProg = leak.progress;
+      if (leak.progress >= 1) {
+        var fx = leak.c * TILE + 8, fy = leak.r * TILE + 8;
+        leaks = leaks.filter(function (L) { return L !== leak; });
+        fixedCount++;
+        score += 100 + wave * 25;
+        if (fixedCount > bestFixed) bestFixed = fixedCount;
+        msg('FIXED!', 35);
+        player.fixProg = 0;
+        for (var p = 0; p < 12; p++) {
+          particles.push({
+            x: fx, y: fy,
+            vx: (Math.random() - 0.5) * 2.4, vy: -Math.random() * 2.5,
+            life: 22 + Math.random() * 18,
+            col: p % 3 === 0 ? PAL.yellow : (p % 3 === 1 ? PAL.cyan : PAL.hot),
+            sz: 2
+          });
+        }
+      }
+    } else {
+      player.fixProg = 0;
+      leaks.forEach(function (L) { L.fixing = false; });
+    }
+
+    /* flood */
+    if (leaks.length === 0) {
+      if (flood > 0) flood = Math.max(0, flood - BAL.floodIdleDrain);
+    } else {
+      for (var li = 0; li < leaks.length; li++) {
+        var L = leaks[li];
+        L.spray++;
+        flood += BAL.floodPerLeak + wave * BAL.floodPerWave;
+        if (L.spray % 2 === 0) {
+          particles.push({
+            x: L.c * TILE + 8 + (Math.random() - 0.5) * 8,
+            y: L.r * TILE + 10,
+            vx: (Math.random() - 0.5) * 1.4,
+            vy: 0.6 + Math.random() * 1.4,
+            life: 20 + Math.random() * 14,
+            col: Math.random() > 0.45 ? PAL.waterHi : PAL.water,
+            sz: Math.random() > 0.6 ? 2 : 1
+          });
+        }
+      }
+    }
+
+    particles = particles.filter(function (p) {
+      p.x += p.vx; p.y += p.vy; p.vy += 0.055; p.life--;
+      return p.life > 0 && p.y < H + 4;
+    });
+
+    /* spawn leaks */
+    leakTimer++;
+    var spawnAt = time < 5 ? BAL.firstLeakAt : nextLeakIn;
+    if (time === BAL.firstLeakAt && leaks.length === 0) {
+      spawnLeak();
+      /* double-tap: second leak soon so you're already under pressure */
+      if (BAL.maxLeaks(wave) >= 2) {
+        nextLeakIn = Math.max(BAL.minLeakInterval, 55);
+      } else {
+        nextLeakIn = Math.max(BAL.minLeakInterval, BAL.baseLeakInterval - wave * BAL.leakIntervalWave);
+      }
+      leakTimer = 0;
+    } else if (time > BAL.firstLeakAt && leakTimer >= nextLeakIn) {
+      leakTimer = 0;
+      nextLeakIn = Math.max(
+        BAL.minLeakInterval,
+        BAL.baseLeakInterval - wave * BAL.leakIntervalWave - Math.random() * 40
+      );
+      if (leaks.length < BAL.maxLeaks(wave)) spawnLeak();
+      /* chain spawn: 35% chance of an extra leak when already one is open */
+      if (leaks.length >= 1 && leaks.length < BAL.maxLeaks(wave) && Math.random() < 0.35) {
+        spawnLeak();
+      }
+    }
+
+    /* wave advance — expand map, keep flood/leaks/player */
+    if (time > 0 && time % BAL.waveFrames === 0) {
+      wave++;
+      score += 250;
+      msg('WAVE ' + wave, 55);
+      buildLevel(wave, true);
+      nextLeakIn = Math.max(BAL.minLeakInterval, nextLeakIn - 8);
+    }
+
+    if (flood >= 100) {
+      flood = 100;
+      running = false;
+      showOverlay(
+        'GAME OVER',
+        'FLOOD! BASEMENT SOAKED.\nSCORE ' + score + '\nFIXED ' + fixedCount + '\nWAVE ' + wave,
+        true
+      );
+    }
+
+    document.getElementById('score').textContent = String(score);
+    document.getElementById('fixed').textContent = String(fixedCount);
+    document.getElementById('wave').textContent = String(wave);
+    document.getElementById('flood').textContent = Math.floor(flood) + '%';
+  }
+
+  /* ---- draw ---- */
+  function rect(x, y, w, h, col) {
+    ctx.fillStyle = col;
+    ctx.fillRect(x | 0, y | 0, w | 0, h | 0);
+  }
+  function px(x, y, col) {
+    ctx.fillStyle = col;
+    ctx.fillRect(x | 0, y | 0, 1, 1);
+  }
+  function orect(x, y, w, h, fill, outline) {
+    outline = outline || PAL.black;
+    rect(x, y, w, h, outline);
+    if (w > 2 && h > 2) rect(x + 1, y + 1, w - 2, h - 2, fill);
+  }
+
+  function drawBackground() {
+    rect(0, 0, W, H, PAL.navy);
+    for (var by = 0; by < H; by += 4) {
+      for (var bx = 0; bx < W; bx += 4) {
+        if (((bx >> 2) + (by >> 2)) & 1) rect(bx, by, 4, 4, PAL.ink);
+      }
+    }
+    for (var y = 0; y < H; y += 16) {
+      rect(0, y, W, 1, PAL.purple);
+      var off = ((y / 16) & 1) ? 8 : 0;
+      for (var x = off; x < W; x += 16) rect(x, y + 1, 1, 15, PAL.mid);
+    }
+    rect(0, 0, W, 3, PAL.black);
+    var waveY = 2 + ((time >> 2) % 3);
+    rect(0, 0, W, 10, '#082858');
+    for (var i = 0; i < W; i += 8) {
+      var h = 4 + ((i + time) % 5);
+      rect(i, waveY, 6, h, PAL.water);
+      rect(i + 1, waveY + 1, 3, 2, PAL.waterHi);
+    }
+    rect(0, 9, W, 2, PAL.steel);
+    rect(0, 9, W, 1, PAL.white);
+    for (i = 20; i < W; i += 48) {
+      var dy = (time + i) % 28;
+      rect(i, 11 + dy, 1, 3, PAL.waterHi);
+    }
+  }
+
+  function drawGroundTile(x, y) {
+    rect(x, y, TILE, TILE, PAL.gray);
+    rect(x, y, TILE, 2, PAL.white);
+    rect(x, y + 2, TILE, 1, PAL.steel);
+    rect(x, y + 3, TILE, TILE - 5, PAL.metal);
+    rect(x + 1, y + 4, TILE - 2, TILE - 7, PAL.gray);
+    rect(x, y + TILE - 2, TILE, 2, PAL.brickDk);
+    px(x + 3, y + 6, PAL.white);
+    px(x + 12, y + 6, PAL.white);
+    px(x + 3, y + 11, PAL.ink);
+    px(x + 12, y + 11, PAL.ink);
+    rect(x, y, 1, TILE, PAL.black);
+    rect(x + TILE - 1, y, 1, TILE, PAL.black);
+  }
+
+  function drawLadder(x, y) {
+    rect(x + 3, y, 2, TILE, PAL.black);
+    rect(x + 11, y, 2, TILE, PAL.black);
+    rect(x + 4, y, 1, TILE, PAL.gold);
+    rect(x + 11, y, 1, TILE, PAL.yellow);
+    for (var i = 2; i < TILE; i += 4) {
+      rect(x + 3, y + i, 10, 2, PAL.black);
+      rect(x + 4, y + i, 8, 1, PAL.orange);
+    }
+  }
+
+  function drawSource(x, y) {
+    orect(x + 1, y, 14, 9, PAL.cyan, PAL.black);
+    rect(x + 3, y + 2, 10, 5, PAL.waterHi);
+    rect(x + 4, y + 3, 3, 2, PAL.white);
+    orect(x + 5, y + 8, 6, 6, PAL.steel, PAL.black);
+    rect(x + 7, y + 9, 2, 4, PAL.cyan);
+    if ((time >> 3) & 1) px(x + 12, y + 2, PAL.lime);
+    else px(x + 12, y + 2, PAL.green);
+  }
+
+  function drawDrain(x, y) {
+    orect(x + 2, y + 3, 12, 11, PAL.metal, PAL.black);
+    rect(x + 4, y + 5, 8, 7, PAL.black);
+    rect(x + 5, y + 6, 6, 1, PAL.steel);
+    rect(x + 5, y + 8, 6, 1, PAL.steel);
+    rect(x + 5, y + 10, 6, 1, PAL.steel);
+    orect(x + 5, y + 1, 6, 4, PAL.green, PAL.black);
+    if ((time >> 2) % 6 < 3) rect(x + 7, y + 2, 2, 2, PAL.lime);
+  }
+
+  function drawPipeV(x, y) {
+    rect(x + 4, y, 8, TILE, PAL.black);
+    rect(x + 5, y, 6, TILE, PAL.steel);
+    rect(x + 6, y, 4, TILE, PAL.metal);
+    rect(x + 7, y, 2, TILE, PAL.cyan);
+    rect(x + 5, y, 1, TILE, PAL.white);
+    rect(x + 4, y + 6, 8, 2, PAL.black);
+    rect(x + 5, y + 6, 6, 1, PAL.gray);
+  }
+
+  function drawPipeH(x, y) {
+    rect(x, y + 4, TILE, 8, PAL.black);
+    rect(x, y + 5, TILE, 6, PAL.steel);
+    rect(x, y + 6, TILE, 4, PAL.metal);
+    rect(x, y + 7, TILE, 2, PAL.cyan);
+    rect(x, y + 5, TILE, 1, PAL.white);
+  }
+
+  function drawJoint(x, y) {
+    rect(x + 4, y, 8, TILE, PAL.black);
+    rect(x, y + 4, TILE, 8, PAL.black);
+    rect(x + 5, y, 6, TILE, PAL.steel);
+    rect(x, y + 5, TILE, 6, PAL.steel);
+    rect(x + 6, y + 1, 4, TILE - 2, PAL.metal);
+    rect(x + 1, y + 6, TILE - 2, 4, PAL.metal);
+    orect(x + 4, y + 4, 8, 8, PAL.gray, PAL.black);
+    rect(x + 6, y + 6, 4, 4, PAL.cyan);
+    px(x + 5, y + 5, PAL.yellow);
+    px(x + 10, y + 5, PAL.yellow);
+    px(x + 5, y + 10, PAL.yellow);
+    px(x + 10, y + 10, PAL.yellow);
+  }
+
+  function drawTile(c, r, t) {
+    var x = c * TILE, y = r * TILE;
+    if (t === 0) return;
+    if (t === 4) { drawGroundTile(x, y); return; }
+    if (t === 5) { drawLadder(x, y); return; }
+    if (t === 6) { drawSource(x, y); return; }
+    if (t === 7) { drawDrain(x, y); return; }
+    if (t === 1) { drawPipeV(x, y); return; }
+    if (t === 2) { drawPipeH(x, y); return; }
+    if (t === 3) { drawJoint(x, y); return; }
+  }
+
+  function drawWaterFlow() {
+    var pulse = (time >> 1) % 16;
+    for (var r = 0; r < ROWS; r++) {
+      for (var c = 0; c < COLS; c++) {
+        var t = tileAt(c, r);
+        if (t !== 1 && t !== 2 && t !== 3 && t !== 6) continue;
+        var x = c * TILE, y = r * TILE;
+        if (t === 1 || t === 6) {
+          var yy = y + ((pulse + r * 4) % TILE);
+          rect(x + 7, yy, 2, 4, PAL.waterHi);
+          px(x + 7, yy, PAL.white);
+        }
+        if (t === 2) {
+          var xx = x + ((pulse + c * 4) % TILE);
+          rect(xx, y + 7, 4, 2, PAL.waterHi);
+          px(xx, y + 7, PAL.white);
+        }
+        if (t === 3 && ((time + c + r) & 7) < 3) rect(x + 7, y + 7, 2, 2, PAL.white);
+      }
+    }
+  }
+
+  function drawLeak(L) {
+    var x = L.c * TILE, y = L.r * TILE;
+    var flash = (time >> 2) & 1;
+    orect(x + 2, y + 2, 12, 12, flash ? PAL.pink : PAL.orange, PAL.black);
+    rect(x + 4, y + 4, 8, 8, flash ? PAL.hot : PAL.yellow);
+    rect(x + 6, y + 6, 4, 4, PAL.white);
+    if (flash) {
+      px(x + 1, y + 1, PAL.yellow);
+      px(x + 14, y + 1, PAL.yellow);
+    }
+    var j = (time + L.c * 3) % 6;
+    rect(x + 6, y + 12, 2, 3 + j, PAL.waterHi);
+    rect(x + 4, y + 13, 1, 2 + (j >> 1), PAL.water);
+    rect(x + 11, y + 13, 1, 2 + (j >> 1), PAL.water);
+    /* always show partial progress if any */
+    if (L.progress > 0 || L.fixing) {
+      orect(x + 1, y - 6, 14, 4, PAL.black, PAL.black);
+      rect(x + 2, y - 5, Math.floor(12 * Math.min(1, L.progress)), 2, PAL.lime);
+    }
+  }
+
+  function drawPlumber() {
+    var x = player.x | 0, y = player.y | 0;
+    var f = player.facing;
+    var walk = player.vx !== 0 && player.onGround;
+    var frame = walk ? ((player.anim >> 3) & 1) : 0;
+    var bob = walk ? frame : 0;
+    var fix = player.fixProg > 0 || keys['z'] || keys['Z'] || keys[' '] || touch.fix;
+
+    rect(x + 2, y + 13, 10, 2, '#000000aa');
+    var bootL = f > 0 ? 1 : 3, bootR = f > 0 ? 7 : 5;
+    if (frame) {
+      orect(x + bootL - 1, y + 12, 5, 3, PAL.boot, PAL.black);
+      orect(x + bootR + 1, y + 12, 5, 3, PAL.boot, PAL.black);
+    } else {
+      orect(x + bootL, y + 12, 5, 3, PAL.boot, PAL.black);
+      orect(x + bootR, y + 12, 5, 3, PAL.boot, PAL.black);
+    }
+    orect(x + 3, y + 9 - bob, 3, 4 + bob, PAL.overall, PAL.black);
+    orect(x + 7, y + 9, 3, 4, PAL.overall, PAL.black);
+    orect(x + 2, y + 4, 10, 7, PAL.overall, PAL.black);
+    rect(x + 3, y + 5, 8, 5, PAL.overallHi);
+    rect(x + 5, y + 5, 4, 5, PAL.white);
+    rect(x + 3, y + 4, 2, 3, PAL.red);
+    rect(x + 9, y + 4, 2, 3, PAL.red);
+    var armY = fix ? 4 : 6;
+    var armX = f > 0 ? x + 11 : x - 2;
+    orect(armX, y + armY, 3, 5, PAL.skin, PAL.black);
+    if (fix) {
+      var wx = f > 0 ? x + 13 : x - 6;
+      var wy = y + 3 + ((time >> 2) & 1);
+      orect(wx, wy + 2, 6, 2, PAL.yellow, PAL.black);
+      orect(wx + (f > 0 ? 4 : 0), wy, 2, 6, PAL.steel, PAL.black);
+    } else {
+      var ix = f > 0 ? x + 12 : x - 3;
+      orect(ix, y + 7, 3, 2, PAL.yellow, PAL.black);
+    }
+    orect(x + 3, y + bob, 8, 5, PAL.skin, PAL.black);
+    orect(x + 2, y - 3 + bob, 10, 4, PAL.red, PAL.black);
+    rect(x + 3, y - 2 + bob, 8, 2, PAL.pink);
+    if (f > 0) orect(x + 9, y - 1 + bob, 5, 2, PAL.red, PAL.black);
+    else orect(x, y - 1 + bob, 5, 2, PAL.red, PAL.black);
+    px(x + 6, y - 2 + bob, PAL.yellow);
+    var ex = f > 0 ? x + 7 : x + 4;
+    rect(ex, y + 1 + bob, 2, 2, PAL.white);
+    px(ex + (f > 0 ? 1 : 0), y + 1 + bob, PAL.black);
+    rect(x + 4, y + 3 + bob, 6, 1, PAL.boot);
+  }
+
+  function drawFloodWater() {
+    if (flood <= 0) return;
+    var rise = Math.floor((flood / 100) * 56);
+    if (rise < 1) return;
+    var top = H - rise;
+    ctx.fillStyle = 'rgba(24, 96, 232, 0.45)';
+    ctx.fillRect(0, top, W, rise);
+    var sx = (time >> 1) % 16;
+    for (var x = -sx; x < W; x += 8) {
+      rect(x, top, 5, 2, PAL.waterHi);
+      px(x + 1, top, PAL.white);
+    }
+    rect(0, top, W, 1, PAL.cyan);
+  }
+
+  function drawHUDOverlay() {
+    orect(6, 12, 104, 8, PAL.black, PAL.white);
+    rect(8, 14, 100, 4, PAL.ink);
+    var fw = Math.floor(98 * (flood / 100));
+    var fcol = flood > 70 ? PAL.pink : (flood > 40 ? PAL.orange : PAL.cyan);
+    rect(9, 15, fw, 2, fcol);
+    if (fw > 2) rect(9, 15, Math.min(fw, 4), 1, PAL.white);
+    if (messageT > 0) {
+      ctx.font = '8px "Press Start 2P", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = PAL.black;
+      ctx.fillText(message, W / 2 + 2, 28 + 2);
+      ctx.fillStyle = message.indexOf('LEAK') >= 0 ? PAL.pink : PAL.yellow;
+      ctx.fillText(message, W / 2, 28);
+      ctx.textAlign = 'left';
+    }
+    if (paused) {
+      ctx.font = '10px "Press Start 2P", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = PAL.black;
+      ctx.fillText('PAUSE', W / 2 + 2, H / 2 + 2);
+      ctx.fillStyle = PAL.cyan;
+      ctx.fillText('PAUSE', W / 2, H / 2);
+      ctx.textAlign = 'left';
+    }
+  }
+
+  function drawTitleDecor() {
+    if (running) return;
+    for (var i = 0; i < 6; i++) {
+      var sx = (40 + i * 47 + (time >> 1)) % W;
+      var sy = 30 + ((i * 37 + time) % 60);
+      if (((time + i * 5) & 15) < 8) {
+        px(sx, sy, PAL.yellow);
+        px(sx + 1, sy, PAL.white);
+      }
+    }
+  }
+
+  function drawScanlines() {
+    ctx.fillStyle = 'rgba(0,0,0,0.18)';
+    for (var y = 0; y < H; y += 2) ctx.fillRect(0, y, W, 1);
+    ctx.fillStyle = 'rgba(72, 240, 248, 0.03)';
+    ctx.fillRect(0, 0, W, 40);
+  }
+
+  function draw() {
+    drawBackground();
+    for (var r = 0; r < ROWS; r++) {
+      for (var c = 0; c < COLS; c++) drawTile(c, r, tileAt(c, r));
+    }
+    drawWaterFlow();
+    leaks.forEach(drawLeak);
+    particles.forEach(function (p) {
+      var s = p.sz || 2;
+      rect(p.x | 0, p.y | 0, s, s, p.col);
+      if (s > 1 && p.life > 10) px(p.x | 0, p.y | 0, PAL.white);
+    });
+    drawFloodWater();
+    if (running) drawPlumber();
+    else {
+      player.x = 152; player.y = 176; player.facing = 1; player.anim = time;
+      drawPlumber();
+      drawTitleDecor();
+    }
+    drawHUDOverlay();
+    drawScanlines();
+  }
+
+  function loop() {
+    update();
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  function showOverlay(title, body, restart) {
+    var ov = document.getElementById('overlay');
+    ov.classList.add('show');
+    ov.querySelector('h1').textContent = title;
+    var sub = ov.querySelector('.sub');
+    if (sub) sub.style.display = restart ? 'none' : '';
+    ov.querySelector('p').innerHTML = body.replace(/\n/g, '<br>');
+    document.getElementById('startBtn').textContent = restart ? 'TRY AGAIN' : 'PRESS START';
+  }
+
+  function startGame() {
+    score = 0; fixedCount = 0; wave = 1; time = 0; flood = 0;
+    leaks = []; particles = [];
+    buildLevel(1, false);
+    running = true;
+    paused = false;
+    prevUp = false;
+    document.getElementById('overlay').classList.remove('show');
+  }
+
+  document.getElementById('startBtn').addEventListener('click', startGame);
+
+  window.addEventListener('keydown', function (e) {
+    keys[e.key] = true;
+    if (e.key === 'p' || e.key === 'P') {
+      if (running) {
+        paused = !paused;
+        if (paused) msg('PAUSE', 9999); else messageT = 0;
+      }
+    }
+    if ((e.key === 'Enter' || e.key === ' ') && !running) startGame();
+    if (['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' '].indexOf(e.key) >= 0) e.preventDefault();
+  });
+  window.addEventListener('keyup', function (e) { keys[e.key] = false; });
+
+  function bindTouch(id, prop) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var on = function (e) { e.preventDefault(); touch[prop] = true; };
+    var off = function (e) { e.preventDefault(); touch[prop] = false; };
+    el.addEventListener('touchstart', on, { passive: false });
+    el.addEventListener('touchend', off);
+    el.addEventListener('touchcancel', off);
+    el.addEventListener('mousedown', on);
+    el.addEventListener('mouseup', off);
+    el.addEventListener('mouseleave', off);
+  }
+  bindTouch('btnL', 'l');
+  bindTouch('btnR', 'r');
+  bindTouch('btnFix', 'fix');
+  bindTouch('btnJump', 'jump');
+
+  function fit() {
+    var maxW = Math.min(window.innerWidth - 16, 960);
+    var maxH = window.innerHeight - 110;
+    var scale = Math.min(maxW / W, maxH / H);
+    scale = Math.max(1, Math.floor(scale));
+    canvas.style.width = (W * scale) + 'px';
+    canvas.style.height = (H * scale) + 'px';
+  }
+  window.addEventListener('resize', fit);
+  fit();
+  buildLevel(1, false);
+  draw();
+  loop();
+
+  /* expose for headless tests */
+  window.__PIPE_RUSH__ = {
+    startGame: startGame,
+    getState: function () {
+      return {
+        running: running, time: time, flood: flood, score: score,
+        fixed: fixedCount, wave: wave, leaks: leaks.length,
+        px: player.x, py: player.y, ended: !running && time > 0
+      };
+    },
+    setKeys: function (k) {
+      keys = k || {};
+    },
+    touch: touch,
+    step: function (n) {
+      for (var i = 0; i < (n || 1); i++) update();
+    },
+    BAL: BAL
+  };
+})();
+</script>
+  <script src="/assets/js/core/era-present-game.js?v=20260809era"></script>
+</body>
+</html>

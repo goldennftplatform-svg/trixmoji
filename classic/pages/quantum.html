@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://doswapz.com/quantum/past">
+<title>DOSWAPZ // QUANTUM</title>
+<meta name="description" content="Log your wallet into Quantum. DOSWAPZ does not hold keys. Login is only so your wallet can sign the buys and sells Quantum chooses. Not advice.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+:root { --g:#00ff41; --gd:#00aa00; --y:#ffff00; --r:#ff4466; --dim:#006600; }
+* { box-sizing: border-box; }
+html, body { margin:0; min-height:100%; background:#000; color:var(--g); font-family:'VT323','Courier New',monospace; }
+body { padding-bottom:48px; }
+.dos-screen { position:relative; min-height:100vh; padding:22px 16px 70px; }
+.dos-screen::before {
+ content:''; position:fixed; inset:0; pointer-events:none; z-index:30;
+ background:repeating-linear-gradient(to bottom, transparent 0 3px, rgba(0,255,0,.034) 3px 5px);
+}
+.vignette { position:fixed; inset:0; pointer-events:none; z-index:5; background:radial-gradient(circle at center, transparent 52%, rgba(0,0,0,.58) 84%); }
+.wrap { position:relative; z-index:6; max-width:980px; margin:0 auto; }
+.topnav { display:flex; flex-wrap:wrap; gap:10px 16px; font-size:18px; margin-bottom:14px; }
+.topnav a { color:var(--y); text-decoration:none; }
+h1 { margin:0; color:var(--y); letter-spacing:3px; font-size:clamp(28px,6vw,44px); text-shadow:0 0 12px rgba(255,255,0,.25); }
+.sample { color:var(--y); letter-spacing:1px; margin:6px 0 12px; }
+.banner, .legal, .panel { border:2px solid var(--r); background:rgba(40,0,8,.55); color:#ffb3c0; padding:12px 14px; margin:0 0 14px; font-size:18px; line-height:1.35; }
+.legal { border-color:var(--y); background:rgba(40,30,0,.4); color:#d6ffb0; }
+.legal strong, .banner strong, .fee strong { color:#fff; }
+.fee { border:2px solid var(--y); color:var(--y); background:#141200; padding:12px 14px; margin:0 0 14px; font-size:20px; line-height:1.35; }
+input[type=range] { width:100%; accent-color:#00ff41; }
+.ticks { display:flex; justify-content:space-between; gap:8px; color:var(--y); }
+.panel { border-color:var(--dim); background:#020802; color:#b8ffb8; }
+h2 { margin:0 0 8px; color:var(--y); font-size:22px; letter-spacing:1px; }
+.levels { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
+button, .check { font:inherit; color:var(--g); background:#000; border:2px solid var(--g); padding:6px 8px; cursor:pointer; }
+button.on { background:#003300; color:var(--y); border-color:var(--y); }
+button.degen { border-color:var(--r); color:#fff; }
+button.degen.on { background:#3a0010; border-color:var(--y); color:var(--y); }
+button:disabled { opacity:.4; cursor:default; }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+.addr { color:var(--y); word-break:break-all; min-height:1.2em; }
+table { width:100%; border-collapse:collapse; font-size:16px; }
+th, td { text-align:left; padding:5px 4px; border-bottom:1px solid var(--dim); white-space:nowrap; }
+th { color:var(--gd); font-weight:400; }
+.sol { color:#9ff; } .eth { color:#d9c6ff; }
+#log { white-space:pre-wrap; min-height:3.2em; }
+.pnl { font-size:42px; color:var(--y); margin:4px 0; letter-spacing:1px; }
+.up { color:var(--g); }
+.down { color:var(--r); }
+.scroll { overflow-x:auto; }
+.footer { margin-top:18px; color:var(--gd); text-align:center; letter-spacing:1px; }
+a { color:var(--y); }
+@media (max-width:760px) { .levels, .grid { grid-template-columns:1fr 1fr; } }
+</style>
+<link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+</head>
+<body>
+<div class="dos-screen">
+ <div class="vignette"></div>
+ <div class="wrap">
+  <nav class="topnav">
+   <a href="/classic/hub.html" data-gate-skip>&lt;- HUB</a>
+   <a href="/docs/legal.html" data-gate-skip>LEGAL</a>
+  </nav>
+  <h1>DOSWAPZ // QUANTUM</h1>
+  <p class="sample">TEN RISK LEVELS // YOUR WALLET // YOU CAN LOSE EVERYTHING</p>
+  <div class="fee">
+   <strong>DOSWAPZ FEE: 0. IT'S YOURS.</strong>
+   Nothing from Quantum goes to doswapz.com. There is no fee wallet and no cut. The meter is the SOL that goes into the swap. The lowest is 0.01 SOL. Network gas sits on top of that and is paid to the chain, not to DOSWAPZ.
+  </div>
+
+  <div class="banner">
+   <strong>YOU CAN LOSE EVERYTHING. THIS IS YOUR OWN RISK.</strong>
+   Quantum is not financial, investment, tax, or legal advice. DOSWAPZ does not hold your keys and does not custody funds. Wallet login is only for transactions. After you log in, Quantum chooses the buys and sells and asks your wallet to sign them. DOSWAPZ never sees the key and cannot sign for you. You can reject a signature or disconnect. Tokens can be scams, rugs, honeypots, or impossible to sell. Quotes, scores, and "hot" lists can be wrong, late, or manipulated. Slippage, fees, failed transactions, and MEV can cost you money even when a button says buy. Level 03 is super degen crazy aggressive. Levels 04 through 10 are looser than that. Level 10 is the loosest filter on this page. Every level can still go to zero.
+  </div>
+
+  <div class="legal">
+   <strong>READ BEFORE YOU ARM ANYTHING.</strong>
+   You must be 18 or the age of majority where you live, whichever is higher. You are responsible for whether this is legal for you. Sanctioned persons and prohibited jurisdictions may not use it. Wallet login is self-custody. DOSWAPZ does not hold your keys. Login is only so Quantum can send buy and sell transactions to your wallet. This page never asks for a seed phrase or a private key. If anything asks for one, stop. Paper mode moves no coins. After login, Quantum chooses when to buy and when to sell. Your wallet still signs each swap on Solana or Ethereum through third-party routers (Jupiter, Kyber). Those protocols can fail, change, or be exploited. DOSWAPZ is not those protocols and is not your broker, advisor, fiduciary, or counterparty. The desk is experimental software, provided as-is, with no warranty. To the fullest extent the law allows, DOSWAPZ and its operators are not liable for lost funds, bad fills, or anything you do after you connect a wallet. The full site terms are in <a href="/docs/legal.html#s8a" data-gate-skip>DOSWAPZ DOCS // LEGAL §8A</a>. Scanlines can bother photosensitive people. Stop if you feel unwell.
+   <p>
+    <label class="check"><input id="age" type="checkbox"> I am 18 or older, and using this is legal where I am.</label><br>
+    <label class="check"><input id="risk" type="checkbox"> I can lose everything. This is not advice. I trade at my own risk with my own wallet.</label><br>
+    <label class="check"><input id="keys" type="checkbox"> DOSWAPZ does not hold my keys. Login is only for transactions. Quantum chooses the buys and sells. My wallet signs each one. I can reject it or disconnect.</label>
+   </p>
+  </div>
+
+  <section class="panel">
+   <h2>// 10 RISK LEVELS</h2>
+   <p>Level 03 is <strong>SUPER DEGEN CRAZY AGGRESSIVE</strong>. It is the fast chase. 01 and 02 are quieter. 04 to 10 drop the filters further.</p>
+   <p id="learn">SWING BOOK. TAKE THE SMALL WIN. SELL THE DOWNTREND. CUT THE LOSS. NEW TOKENS ARE SOLD QUICK. A HONEYPOT, RUG, FREEZE, TAX, OR MISSING SELL ROUTE NEVER OPENS THE WALLET. CLOSED TRADES CHANGE LATER ENTRIES. THIS IS NOT A PROMISE OF A WIN RATE.</p>
+   <div class="levels" id="levels"></div>
+   <p id="spec"></p>
+  </section>
+
+  <section class="panel">
+   <h2>// SOL METER</h2>
+   <p>Set what goes in. 0.01 SOL is the lowest. 1 SOL is the most one buy can put in. Gas is on top, so the wallet needs a little extra SOL left in it.</p>
+   <input id="solMeter" type="range" min="0.01" max="1" step="0.01" value="0.01" aria-label="SOL put in">
+   <div class="ticks"><span>0.01</span><span id="solNow">0.01 SOL IN</span><span>1.00</span></div>
+   <p>The signed swap is one route, to your wallet, with no DOSWAPZ fee account. Slippage on that signature is capped so the wallet simulation is less likely to look like a drain. Phantom can still warn on a brand-new token. A mint Rugcheck calls a rug never opens the popup.</p>
+   <p>SELL RULE: this is a swing. The whole position sells. Nothing is left as a runner. A downtrend sells the bag. A new token cuts at -0.6%. A name that stays red about 12 seconds is sold. A new token sells all at +1.5%, or 0.3% under its high once it has been up 0.4%. A green trade is sold before it goes red. A falling 5-minute tape, a sell-heavy print, or a liquidity drop sells as a downtrend. A buy is refused when selling the bag would not return most of the stake. If a sell comes back under 40% of the stake, that mint stays off for a day. The same mint is not bought again for 20 minutes. Live arm holds one position at a time, and it will not buy another while a sell is waiting on the wallet. New buys stop after 0.08 SOL down on the session. DOSWAPZ fee stays 0. No win rate is promised.</p>
+  </section>
+
+  <section class="panel">
+   <h2>// WALLET LOGIN</h2>
+   <p>Log the wallet in. DOSWAPZ does not hold the key. The login is only so Quantum can ask that wallet to sign buys and sells. After login, Quantum controls when to buy and when to sell. The key never leaves the wallet.</p>
+   <div class="grid">
+    <div>
+     <div>SOLANA</div>
+     <div class="addr" id="solAddr">NOT CONNECTED</div>
+     <button id="solBtn" type="button">LOG IN SOLANA</button>
+    </div>
+    <div>
+     <div>ETHEREUM</div>
+     <div class="addr" id="ethAddr">NOT CONNECTED</div>
+     <button id="ethBtn" type="button">LOG IN ETHEREUM</button>
+    </div>
+   </div>
+   <p>
+    <button id="startBtn" type="button">START PAPER</button>
+    <button id="armBtn" type="button" disabled>QUANTUM TRADES</button>
+    <span id="state">STOPPED</span>
+   </p>
+   <div id="log"></div>
+  </section>
+
+  <section class="panel">
+   <h2>// SESSION P&amp;L</h2>
+   <div id="pnlState">IDLE</div>
+   <div id="pnlTotal" class="pnl">0.0000 SOL</div>
+   <div id="pnlMeta">CONNECT A WALLET. REAL SOL ONLY, FROM CONNECT TO DISCONNECT. OPEN COINS ARE NOT IN THIS NUMBER.</div>
+   <div class="scroll">
+    <table>
+     <thead><tr><th>TOKEN</th><th>P&amp;L</th><th>MOVE</th><th>SCORE</th><th>5M</th><th>LIQ</th><th>BUYS/SELLS</th></tr></thead>
+     <tbody id="closes"></tbody>
+    </table>
+   </div>
+  </section>
+
+  <section class="panel">
+   <h2>// LEADERBOARD</h2>
+   <p>FINISHED RUNS, RANKED BY SESSION P&amp;L. EACH ROW KEEPS THE LEVEL PARAMETERS FROM THAT RUN.</p>
+   <div class="scroll">
+    <table>
+     <thead><tr><th>#</th><th>LEVEL</th><th>RUN</th><th>CLOSED</th><th>WIN%</th><th>REALIZED</th><th>OPEN</th><th>TOTAL</th><th>SOL IN</th><th>SCORE</th><th>5M</th><th>POS</th><th>ARM</th><th>TRAIL</th><th>STOP</th></tr></thead>
+     <tbody id="board"></tbody>
+    </table>
+   </div>
+  </section>
+
+  <section class="panel">
+   <h2>// TAPE</h2>
+   <div id="chains"></div>
+   <div class="scroll">
+   <table>
+    <thead><tr><th>CHAIN</th><th>TOKEN</th><th>AGE</th><th>SAFE</th><th>SCORE</th><th>5M</th><th>LIQ</th><th>BUYS/SELLS</th></tr></thead>
+    <tbody id="rows"></tbody>
+   </table>
+   </div>
+   <p id="book"></p>
+  </section>
+  <p class="footer">DOSWAPZ // QUANTUM SAMPLE // YOUR KEYS STAY IN YOUR WALLET</p>
+ </div>
+</div>
+<script type="module">
+const levelsEl = document.querySelector('#levels');
+const specEl = document.querySelector('#spec');
+const logEl = document.querySelector('#log');
+const rowsEl = document.querySelector('#rows');
+const bookEl = document.querySelector('#book');
+const stateEl = document.querySelector('#state');
+const startBtn = document.querySelector('#startBtn');
+const armBtn = document.querySelector('#armBtn');
+const age = document.querySelector('#age');
+const risk = document.querySelector('#risk');
+const keys = document.querySelector('#keys');
+try {
+ if (sessionStorage.getItem('q-age') === '1') age.checked = true;
+ if (sessionStorage.getItem('q-risk') === '1') risk.checked = true;
+ if (sessionStorage.getItem('q-keys') === '1') keys.checked = true;
+} catch (e) {}
+let boxNag = false;
+let quietAt = 0;
+function tryRun() {
+ if (!(sol || eth)) return;
+ if (!accepted()) {
+  if (!boxNag) {
+   boxNag = true;
+   log('Wallet is logged in. Check the three boxes. Quantum sends no transaction until you do.');
+  }
+  return;
+ }
+ boxNag = false;
+ if (!armed) {
+  armed = true;
+  armBtn.disabled = false;
+  armBtn.classList.add('on');
+  armBtn.textContent = 'QUANTUM TRADES ON';
+ }
+ if (!timer) beginSession();
+ else stateEl.textContent = 'QUANTUM TRADING';
+}
+
+const FALLBACK_LEVELS = [
+ { id: 1, name: 'SIT STILL', maxPos: 0, minScore: 90, minLiq: 200000, minChange: 0, poll: 30, degen: false },
+ { id: 2, name: 'SMALL PAPER', maxPos: 1, minScore: 82, minLiq: 80000, minChange: 2, poll: 20, degen: false },
+ { id: 3, name: 'SUPER DEGEN CRAZY AGGRESSIVE', maxPos: 5, minScore: 58, minLiq: 12000, minChange: 3, poll: 12, degen: true },
+ { id: 4, name: 'LOUDER', maxPos: 6, minScore: 52, minLiq: 8000, minChange: 2, poll: 12, degen: false },
+ { id: 5, name: 'NO SLEEP', maxPos: 6, minScore: 48, minLiq: 6000, minChange: 1, poll: 12, degen: false },
+ { id: 6, name: 'FLOOR IT', maxPos: 7, minScore: 44, minLiq: 5000, minChange: 0, poll: 12, degen: false },
+ { id: 7, name: 'UNHINGED', maxPos: 8, minScore: 40, minLiq: 4000, minChange: -2, poll: 12, degen: false },
+ { id: 8, name: 'VOID BIAS', maxPos: 8, minScore: 36, minLiq: 3000, minChange: -5, poll: 12, degen: false },
+ { id: 9, name: 'LAST RITES', maxPos: 10, minScore: 30, minLiq: 2000, minChange: -8, poll: 12, degen: false },
+ { id: 10, name: 'FULL SEND', maxPos: 12, minScore: 22, minLiq: 1000, minChange: -15, poll: 12, degen: false }
+];
+let levels = FALLBACK_LEVELS.slice();
+let current = 3;
+let sol = '';
+let eth = '';
+let timer = null;
+let armed = false;
+let busy = false;
+let lastTrade = 0;
+let paperSol = 1;
+let dayPnl = 0;
+let tactic = {
+ newTp: 1.5, swingTp: 2.5, newStop: 0.6, swingStop: 1,
+ newArm: 0.4, swingArm: 0.6, newTrail: 0.3, swingTrail: 0.45,
+ newDeadMin: 0.4, swingDeadMin: 1.5, newMaxMin: 1.5, swingMaxMin: 4,
+ maxNewChange: 80, minBuyRatio: 1.2
+};
+const TACTIC_CAP = {
+ newTp: 1.5, swingTp: 2.5, newStop: 0.6, swingStop: 1,
+ newArm: 0.4, swingArm: 0.6, newTrail: 0.3, swingTrail: 0.45,
+ newDeadMin: 0.4, swingDeadMin: 1.5, newMaxMin: 1.5, swingMaxMin: 4
+};
+const meter = document.querySelector('#solMeter');
+const solNow = document.querySelector('#solNow');
+function putSol() {
+ const n = Math.round(Number(meter.value) * 100) / 100;
+ return Math.min(1, Math.max(0.01, Number.isFinite(n) ? n : 0.01));
+}
+function paintMeter() { solNow.textContent = putSol().toFixed(2) + ' SOL IN + GAS ON TOP'; }
+meter.oninput = paintMeter;
+paintMeter();
+const positions = new Map();
+const deadMints = new Set();
+const recentMints = new Map();
+let brakeLogged = false;
+let pollSec = 0;
+let lastRows = [];
+let session = null;
+let clock = null;
+const pnlTotal = document.querySelector('#pnlTotal');
+const pnlMeta = document.querySelector('#pnlMeta');
+const pnlState = document.querySelector('#pnlState');
+const closesEl = document.querySelector('#closes');
+const boardEl = document.querySelector('#board');
+
+function esc(s) {
+ return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+function solAmt(n) {
+ const v = Number(n) || 0;
+ const abs = Math.abs(v).toFixed(4);
+ if (v > 0) return '+' + abs + ' SOL';
+ if (v < 0) return '-' + abs + ' SOL';
+ return '0.0000 SOL';
+}
+function fmtDur(ms) {
+ const s = Math.max(0, Math.floor(Number(ms) / 1000));
+ const m = Math.floor(s / 60);
+ const h = Math.floor(m / 60);
+ if (h) return h + 'H ' + (m % 60) + 'M';
+ if (m) return m + 'M ' + (s % 60) + 'S';
+ return s + 'S';
+}
+function uid() {
+ if (crypto.randomUUID) return crypto.randomUUID();
+ return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+  const r = Math.random() * 16 | 0;
+  return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+ });
+}
+let frozen = null;
+let pnlClock = null;
+let ethSolPx = { at: 0, v: 0 };
+function sessionFigures(now) {
+ const src = session || frozen;
+ const elapsed = session ? (now || Date.now()) - session.startedAt : (frozen ? frozen.elapsed : 0);
+ const realized = src ? src.realized : 0;
+ return {
+  realized: realized,
+  unrealized: 0,
+  total: realized,
+  elapsed: elapsed,
+  trades: src ? src.trades : 0,
+  wins: src ? src.wins : 0,
+  losses: src ? src.losses : 0
+ };
+}
+function paintPnl() {
+ const f = sessionFigures();
+ pnlTotal.textContent = solAmt(f.total);
+ pnlTotal.classList.toggle('up', f.total > 0);
+ pnlTotal.classList.toggle('down', f.total < 0);
+ if (session) {
+  pnlState.textContent = 'WALLET';
+  pnlMeta.textContent = 'REAL SOL SINCE CONNECT. OPEN COINS ARE NOT IN THIS NUMBER. ' + fmtDur(f.elapsed) + '    ' + f.trades + ' SOLD';
+ } else if (frozen) {
+  pnlState.textContent = 'DISCONNECTED';
+  pnlMeta.textContent = 'FROZEN AT DISCONNECT. ' + fmtDur(f.elapsed) + '    ' + f.trades + ' SOLD';
+ } else {
+  pnlState.textContent = 'IDLE';
+  pnlMeta.textContent = 'CONNECT A WALLET. REAL SOL ONLY, FROM CONNECT TO DISCONNECT. OPEN COINS ARE NOT IN THIS NUMBER.';
+ }
+}
+function paintCloses(rows) {
+ const list = (rows || []).slice().sort((a, b) => b.pnl - a.pnl);
+ closesEl.innerHTML = list.length ? list.map((t) => '<tr><td class="' + (t.chain === 'solana' ? 'sol' : 'eth') + '">' + esc(t.symbol) + '</td><td class="' + (t.pnl > 0 ? 'up' : t.pnl < 0 ? 'down' : '') + '">' + solAmt(t.pnl) + '</td><td>' + Number(t.pct).toFixed(2) + '%</td><td>' + Number(t.score).toFixed(1) + '</td><td>' + Number(t.change5m).toFixed(2) + '%</td><td>$' + Math.round(Number(t.liquidity) || 0).toLocaleString() + '</td><td>' + (Number(t.buys) || 0) + '/' + (Number(t.sells) || 0) + '</td></tr>').join('') : '<tr><td colspan="7">NO CLOSED TRADES THIS RUN.</td></tr>';
+}
+function paintBoard(rows) {
+ const list = (rows || []).slice().sort((a, b) => b.total - a.total || b.finishedAt - a.finishedAt);
+ boardEl.innerHTML = list.length ? list.map((s, i) => {
+  const p = s.params || {};
+  const win = s.trades ? Math.round((s.wins / s.trades) * 100) : 0;
+  return '<tr><td>' + (i + 1) + '</td><td>' + String(p.level || '').padStart(2, '0') + ' ' + esc(p.name) + '</td><td>' + fmtDur(s.elapsedMs) + '</td><td>' + s.trades + '</td><td>' + win + '%</td><td class="' + (s.realized > 0 ? 'up' : s.realized < 0 ? 'down' : '') + '">' + solAmt(s.realized) + '</td><td class="' + (s.unrealized > 0 ? 'up' : s.unrealized < 0 ? 'down' : '') + '">' + solAmt(s.unrealized) + '</td><td class="' + (s.total > 0 ? 'up' : s.total < 0 ? 'down' : '') + '">' + solAmt(s.total) + '</td><td>' + Number(s.solIn).toFixed(2) + '</td><td>' + p.minScore + '+</td><td>' + p.minChange + '%+</td><td>' + p.maxPos + '</td><td>+' + p.armPct + '%</td><td>' + p.trailPct + '%</td><td>-' + p.stopPct + '%</td></tr>';
+ }).join('') : '<tr><td colspan="15">NO FINISHED RUNS YET. DISCONNECT THE WALLET AND THE RUN LANDS HERE.</td></tr>';
+}
+function finishSession() {
+ if (!session) return;
+ const finishedAt = Date.now();
+ const final = sessionFigures(finishedAt);
+ const closed = session.closed.slice();
+ const payload = {
+  action: 'session',
+  id: session.id,
+  level: session.level,
+  startedAt: session.startedAt,
+  finishedAt: finishedAt,
+  realized: final.realized,
+  unrealized: 0,
+  trades: final.trades,
+  wins: final.wins,
+  losses: final.losses,
+  solIn: session.solIn,
+  wallet: session.wallet || sol || eth || ''
+ };
+ frozen = { realized: final.realized, elapsed: final.elapsed, trades: final.trades, wins: final.wins, losses: final.losses };
+ session = null;
+ paintPnl();
+ paintCloses(closed);
+ if (final.elapsed < 3000) return;
+ fetch('/api/quantum', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) }).then(async (res) => {
+  const data = await res.json();
+  if (!data.ok) log(data.error || 'Leaderboard did not save this run.');
+  else paintBoard(data.sessions || []);
+ }).catch((e) => log(e.message || 'Leaderboard did not save this run.'));
+}
+
+function log(line) {
+ logEl.textContent = new Date().toLocaleTimeString() + '  ' + line + '\n' + logEl.textContent.slice(0, 900);
+}
+function lvl() { return levels.filter((x) => x.id === current)[0]; }
+function accepted() { return age.checked && risk.checked && keys.checked; }
+function paintBook() {
+ const open = [...positions.values()];
+ bookEl.textContent = (open.length ? open.map((p) => p.chain + ' ' + p.symbol + (p.live ? ' LIVE' : ' PAPER') + ((p.early || (p.ageMin != null && p.ageMin <= 90)) ? ' NEW' : ' SWING') + ' ' + p.spentSol.toFixed(2) + ' SOL' + (p.sellNote ? ' ' + p.sellNote : '')).join('   ') : 'NO OPEN POSITIONS.')
+  + '    PAPER BANK ' + paperSol.toFixed(2) + ' SOL    DOSWAPZ FEE 0';
+}
+function paintSpec() {
+ const L = lvl();
+ if (!L) return;
+ specEl.textContent = 'LEVEL ' + String(L.id).padStart(2, '0') + ' ' + L.name
+  + ' // PUT-IN IS THE SOL METER // POSITIONS ' + L.maxPos
+  + ' // SCORE ' + L.minScore + '+ // LIQ $' + L.minLiq.toLocaleString()
+  + ' // SELL THE DOWNTREND // NEW TAKES PROFIT AT +' + tactic.newTp + '% OR ' + tactic.newTrail + '% UNDER THE HIGH ONCE UP ' + tactic.newArm + '% // STOP -' + tactic.newStop + '% // OUT BY ' + tactic.newMaxMin + ' MIN'
+  + ' // OLDER SWING TAKES PROFIT AT +' + tactic.swingTp + '% // STOP -' + tactic.swingStop + '%'
+  + ' // NO CHASE ABOVE +' + tactic.maxNewChange + '% ON A NEW NAME'
+  + (L.degen ? ' // THIS ONE IS SUPER DEGEN CRAZY AGGRESSIVE' : '');
+}
+function paintLevels() {
+ levelsEl.innerHTML = '';
+ levels.forEach((L) => {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.textContent = String(L.id).padStart(2, '0') + ' ' + (L.degen ? 'SUPER DEGEN' : L.name);
+  if (L.id === current) b.classList.add('on');
+  if (L.degen) b.classList.add('degen');
+  b.onclick = () => {
+   current = L.id;
+   if (session) session.level = current;
+   paintLevels(); paintSpec(); paintBook();
+   log('Level ' + L.id + ' ' + L.name + '. Wallet P&L stays.');
+   if (timer) {
+    pollSec = 0;
+    retimer();
+   }
+  };
+  levelsEl.appendChild(b);
+ });
+ paintSpec();
+}
+function gateArm() { armBtn.disabled = !accepted(); }
+function paintLearn(s) {
+ const learnEl = document.querySelector('#learn');
+ if (!learnEl || !s) return;
+ const blocked = ' HONEYPOTS, RUGS, TAXES, AND NO-SELL NAMES STAY OFF THE BUY (' + (s.honey || 0) + ' BLOCKED IN HISTORY).';
+ if (!s.ready) {
+  learnEl.textContent = 'SWING BOOK. TAKE THE SMALL WIN. SELL THE DOWNTREND. CUT THE LOSS. NEW TOKENS ARE SOLD QUICK. CLOSED TRADES SO FAR ' + (s.wins || 0) + ' WINS / ' + (s.losses || 0) + ' LOSSES. WEIGHTS CHANGE AFTER 12 DECISIVE TRADES.' + blocked;
+  return;
+ }
+ learnEl.textContent = 'LEARNED FROM ' + ((s.wins || 0) + (s.losses || 0)) + ' CLOSED TRADES. WIN RATE ' + (s.winPct || 0) + '% (' + s.wins + ' WINS, ' + s.losses + ' LOSSES). LATER SCANS WEIGHT THE PATTERNS THAT WON. THIS IS NOT A PROMISE.' + blocked;
+}
+function applyTactic(src) {
+ if (!src) return;
+ Object.keys(TACTIC_CAP).forEach((key) => {
+  const n = Number(src[key]);
+  if (Number.isFinite(n) && n > 0) tactic[key] = Math.min(TACTIC_CAP[key], n);
+ });
+ ['maxNewChange', 'minBuyRatio'].forEach((key) => {
+  const n = Number(src[key]);
+  if (Number.isFinite(n) && n > 0) tactic[key] = n;
+ });
+ paintSpec();
+}
+function postLearn(pos, pct, why) {
+ fetch('/api/quantum', {
+  method: 'POST',
+  headers: { 'content-type': 'application/json' },
+  body: JSON.stringify({
+   action: 'learn-trade',
+   chain: pos.chain,
+   address: pos.address,
+   symbol: pos.symbol,
+   early: !!pos.early,
+   ageMin: pos.ageMin,
+   buys: pos.buys,
+   sells: pos.sells,
+   liquidity: pos.liquidity,
+   change5m: pos.change5m,
+   pnlPct: Math.round(Number(pct) * 100) / 100,
+   exit: why
+  })
+ }).then(async (res) => {
+  const data = await res.json();
+  if (data && data.learn) paintLearn(data.learn);
+ }).catch(() => {});
+}
+
+age.onchange = risk.onchange = keys.onchange = () => {
+ try {
+  sessionStorage.setItem('q-age', age.checked ? '1' : '0');
+  sessionStorage.setItem('q-risk', risk.checked ? '1' : '0');
+  sessionStorage.setItem('q-keys', keys.checked ? '1' : '0');
+ } catch (e) {}
+ gateArm();
+ if (armed && !accepted()) {
+  armed = false;
+  armBtn.textContent = 'QUANTUM TRADES';
+  armBtn.classList.remove('on');
+  log('Quantum trading off. The boxes were cleared.');
+  return;
+ }
+ tryRun();
+};
+
+function openWalletSession() {
+ if (session) return;
+ frozen = null;
+ session = {
+  id: uid(),
+  startedAt: Date.now(),
+  level: current,
+  solIn: putSol(),
+  realized: 0,
+  trades: 0,
+  wins: 0,
+  losses: 0,
+  closed: []
+ };
+ paintCloses([]);
+ paintPnl();
+ if (!pnlClock) pnlClock = setInterval(() => { if (session) paintPnl(); }, 1000);
+}
+async function nativeBalance(chain, owner) {
+ if (chain === 'solana') {
+  const body = JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getBalance', params: [owner, { commitment: 'confirmed' }] });
+  const urls = ['/api/solana-rpc', 'https://solana-rpc.publicnode.com'];
+  let last = 'Solana balance check did not answer.';
+  for (const url of urls) {
+   try {
+    const res = await fetch(url, { method: 'POST', headers: { 'content-type': 'application/json' }, body: body, signal: AbortSignal.timeout(8000) });
+    const data = await res.json();
+    const lamports = Number(data.result && data.result.value);
+    if (Number.isFinite(lamports)) return lamports / 1e9;
+    if (data.error && data.error.message) last = data.error.message;
+   } catch (e) {
+    last = e.message || last;
+   }
+  }
+  throw new Error(last);
+ }
+ const hex = await window.ethereum.request({ method: 'eth_getBalance', params: [owner, 'latest'] });
+ return Number(BigInt(hex)) / 1e18;
+}
+async function ethInSol() {
+ if (Date.now() - ethSolPx.at < 120000 && ethSolPx.v > 0) return ethSolPx.v;
+ try {
+  const solRes = await fetch('https://api.dexscreener.com/tokens/v1/solana/So11111111111111111111111111111111111111112');
+  const ethRes = await fetch('https://api.dexscreener.com/tokens/v1/ethereum/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2');
+  const solRows = await solRes.json();
+  const ethRows = await ethRes.json();
+  const solUsd = Number((Array.isArray(solRows) ? solRows : [])[0] && solRows[0].priceUsd);
+  const ethUsd = Number((Array.isArray(ethRows) ? ethRows : [])[0] && ethRows[0].priceUsd);
+  if (solUsd > 0 && ethUsd > 0) ethSolPx = { at: Date.now(), v: ethUsd / solUsd };
+ } catch (e) {}
+ return ethSolPx.v || 0;
+}
+async function waitBalance(chain, owner, before) {
+ for (let i = 0; i < 5; i++) {
+  await new Promise((r) => setTimeout(r, 1200));
+  try {
+   const nowBal = await nativeBalance(chain, owner);
+   if (Math.abs(nowBal - before) > 0.0000005) return nowBal;
+  } catch (e) {}
+ }
+ return null;
+}
+async function bookFill(chain, owner, before, cost, symbol, pct, liveRow) {
+ if (!session) return;
+ const after = await waitBalance(chain, owner, before);
+ if (after == null) {
+  log(symbol + ' was sent. The wallet balance has not moved yet, so the P&L stays put.');
+  return;
+ }
+ let got = after - before;
+ if (chain === 'ethereum') {
+  const k = await ethInSol();
+  if (!(k > 0)) return;
+  got *= k;
+ }
+ const pnl = got - cost;
+ session.realized += pnl;
+ if (cost < 0) return pnl;
+ session.trades += 1;
+ if (pnl > 0) session.wins += 1;
+ else if (pnl < 0) session.losses += 1;
+ session.closed.push({
+  symbol: symbol,
+  chain: chain,
+  pnl: pnl,
+  pct: pct || 0,
+  score: liveRow && liveRow.score || 0,
+  change5m: liveRow && liveRow.change5m || 0,
+  liquidity: liveRow && liveRow.liquidity || 0,
+  buys: liveRow && liveRow.buys || 0,
+  sells: liveRow && liveRow.sells || 0
+ });
+ paintPnl();
+ paintCloses(session.closed);
+ return pnl;
+}
+async function disconnectSol() {
+ if (!sol) return;
+ sol = '';
+ solWallet = null;
+ try { await (findSolWallet() && findSolWallet().disconnect()); } catch (e) {}
+ document.querySelector('#solAddr').textContent = 'NOT CONNECTED';
+ document.querySelector('#solBtn').textContent = 'LOG IN SOLANA';
+ log('Solana wallet disconnected.');
+ if (!eth) finishSession();
+ else log('Session stays open while Ethereum is connected.');
+}
+async function disconnectEth() {
+ if (!eth) return;
+ eth = '';
+ try { await window.ethereum.request({ method: 'wallet_revokePermissions', params: [{ eth_accounts: {} }] }); } catch (e) {}
+ document.querySelector('#ethAddr').textContent = 'NOT CONNECTED';
+ document.querySelector('#ethBtn').textContent = 'LOG IN ETHEREUM';
+ log('Ethereum wallet disconnected.');
+ if (!sol) finishSession();
+ else log('Session stays open while Solana is connected.');
+}
+let solWallet = null;
+function findSolWallet() {
+ const phantom = window.phantom && window.phantom.solana;
+ if (phantom && phantom.isPhantom) return phantom;
+ const injected = window.solana;
+ if (injected && injected.isPhantom) return injected;
+ return null;
+}
+async function connectSol(silent) {
+ const provider = findSolWallet();
+ if (!provider) {
+  if (!silent) log('Install Phantom, then connect Solana.');
+  return false;
+ }
+ try {
+  const resp = await provider.connect({ onlyIfTrusted: !!silent });
+  const key = resp && resp.publicKey && resp.publicKey.toString();
+  if (!key) throw new Error('Phantom did not return a wallet.');
+  solWallet = provider;
+  sol = key;
+  document.querySelector('#solAddr').textContent = sol;
+  document.querySelector('#solBtn').textContent = 'DISCONNECT SOLANA';
+  openWalletSession();
+  session.wallet = sol;
+  if (!silent) log('Solana wallet logged in. DOSWAPZ does not hold the key. Quantum can now choose buys and sells. Phantom still signs each transaction.');
+  tryRun();
+  return true;
+ } catch (e) {
+  if (!silent) log((e && e.message) || 'Phantom did not connect. Approve the popup.');
+  return false;
+ }
+}
+document.querySelector('#solBtn').onclick = async () => {
+ if (sol) { await disconnectSol(); return; }
+ await connectSol(false);
+};
+document.querySelector('#ethBtn').onclick = async () => {
+ if (eth) { await disconnectEth(); return; }
+ if (!window.ethereum) { log('Install MetaMask, then connect Ethereum.'); return; }
+ const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+ eth = accounts[0];
+ document.querySelector('#ethAddr').textContent = eth;
+ document.querySelector('#ethBtn').textContent = 'DISCONNECT ETHEREUM';
+ openWalletSession();
+ if (!session.wallet) session.wallet = eth;
+ log('Ethereum wallet logged in. DOSWAPZ does not hold the key. Quantum can now choose buys and sells. MetaMask still signs each transaction.');
+ tryRun();
+};
+const seenWallet = findSolWallet();
+if (seenWallet && seenWallet.on) seenWallet.on('disconnect', () => { disconnectSol(); });
+if (window.ethereum?.on) window.ethereum.on('accountsChanged', (accounts) => { if (!accounts || !accounts.length) disconnectEth(); });
+
+async function signLive(pick) {
+ if (!armed || !accepted() || busy) return false;
+ busy = true;
+ try {
+  if (pick.chain === 'solana' && sol) {
+   const before = await nativeBalance('solana', sol);
+   const built = await (await fetch('/api/quantum', { method:'POST', headers:{ 'content-type':'application/json' }, body: JSON.stringify({ action:'sol-swap', level: current, user: sol, mint: pick.address, sol: putSol() }) })).json();
+   if (!built.ok) { log(built.error || 'Solana build failed.'); return false; }
+   const { VersionedTransaction } = await import('https://esm.sh/@solana/web3.js@1.98.4');
+   const tx = VersionedTransaction.deserialize(Uint8Array.from(atob(built.tx.swapTransaction), (c) => c.charCodeAt(0)));
+   const wallet = solWallet || findSolWallet();
+   if (!wallet || typeof wallet.signAndSendTransaction !== 'function') throw new Error('Phantom is not connected.');
+   solWallet = wallet;
+   const sent = await wallet.signAndSendTransaction(tx);
+   log('Solana wallet sent ' + pick.symbol + '. ' + (sent.signature || 'signed'));
+   await bookFill('solana', sol, before, -putSol(), pick.symbol, 0, pick);
+   return true;
+  } else if (pick.chain === 'ethereum' && eth) {
+   const before = await nativeBalance('ethereum', eth);
+   const built = await (await fetch('/api/quantum', { method:'POST', headers:{ 'content-type':'application/json' }, body: JSON.stringify({ action:'eth-swap', level: current, user: eth, token: pick.address, sol: putSol() }) })).json();
+   if (!built.ok) { log(built.error || 'Ethereum build failed.'); return false; }
+   const hash = await window.ethereum.request({ method:'eth_sendTransaction', params:[{ from: eth, to: built.tx.to, data: built.tx.data, value: built.tx.value }] });
+   log('Ethereum wallet sent ' + pick.symbol + '. ' + hash);
+   await bookFill('ethereum', eth, before, -putSol(), pick.symbol, 0, pick);
+   return true;
+  }
+  log('Live skip ' + pick.symbol + '. Connect the ' + pick.chain + ' wallet.');
+  return false;
+ } catch (e) {
+  log(e.message || 'Wallet rejected the buy.');
+  return false;
+ } finally { busy = false; }
+}
+
+async function signSell(pos, part) {
+ if (!armed || !accepted() || busy) return false;
+ busy = true;
+ try {
+  if (pos.chain === 'solana' && sol) {
+   const built = await (await fetch('/api/quantum', { method:'POST', headers:{ 'content-type':'application/json' }, body: JSON.stringify({ action:'sol-sell', level: current, user: sol, mint: pos.address, part: part }) })).json();
+   if (!built.ok) { log(built.error || 'Solana sell failed.'); return false; }
+   const { VersionedTransaction } = await import('https://esm.sh/@solana/web3.js@1.98.4');
+   const tx = VersionedTransaction.deserialize(Uint8Array.from(atob(built.tx.swapTransaction), (c) => c.charCodeAt(0)));
+   const wallet = solWallet || findSolWallet();
+   if (!wallet || typeof wallet.signAndSendTransaction !== 'function') throw new Error('Phantom is not connected.');
+   solWallet = wallet;
+   const sent = await wallet.signAndSendTransaction(tx);
+   log('Solana sell sent ' + pos.symbol + '. ' + (sent.signature || 'signed') + '. DOSWAPZ fee 0.');
+   return true;
+  } else if (pos.chain === 'ethereum' && eth) {
+   const built = await (await fetch('/api/quantum', { method:'POST', headers:{ 'content-type':'application/json' }, body: JSON.stringify({ action:'eth-sell', level: current, user: eth, token: pos.address, part: part }) })).json();
+   if (!built.ok) { log(built.error || 'Ethereum sell failed.'); return false; }
+   const hash = await window.ethereum.request({ method:'eth_sendTransaction', params:[{ from: eth, to: built.tx.to, data: built.tx.data, value: built.tx.value || '0x0' }] });
+   log('Ethereum sell sent ' + pos.symbol + '. ' + hash + '. DOSWAPZ fee 0.');
+   return true;
+  }
+  log('Sell skip ' + pos.symbol + '. Connect the ' + pos.chain + ' wallet.');
+  return false;
+ } catch (e) {
+  log(e.message || 'Wallet rejected the sell.');
+  return false;
+ } finally { busy = false; }
+}
+
+function ageTxt(r) {
+ if (r.ageMin == null || !isFinite(Number(r.ageMin))) return '—';
+ const n = Number(r.ageMin);
+ const base = n < 60 ? Math.max(1, Math.round(n)) + 'M' : Math.round(n / 60) + 'H';
+ return base + (r.early ? ' NEW' : '');
+}
+function safeTxt(r) {
+ if (r.safety === 'OK') return r.lpOpen ? 'OK*' : 'OK';
+ if (r.safety === 'HONEY') return 'HONEY';
+ if (r.safety === 'NOSELL') return 'NO SELL';
+ if (r.safety === 'RISK') return r.why || 'RISK';
+ if (r.early) return 'WAIT';
+ return '—';
+}
+function exitWhy(pos, live, pct, now) {
+ const ageMin = (now - pos.opened) / 60000;
+ if (pct > (pos.peakPct == null ? -999 : pos.peakPct)) pos.peakPct = pct;
+ const isNew = !!(pos.early || (pos.ageMin != null && pos.ageMin <= 90));
+ const tp = isNew ? tactic.newTp : tactic.swingTp;
+ const stop = isNew ? tactic.newStop : tactic.swingStop;
+ const arm = isNew ? tactic.newArm : tactic.swingArm;
+ const trail = isNew ? tactic.newTrail : tactic.swingTrail;
+ const deadMin = isNew ? tactic.newDeadMin : tactic.swingDeadMin;
+ const maxMin = isNew ? tactic.newMaxMin : tactic.swingMaxMin;
+ const peak = pos.peakPct == null ? pct : pos.peakPct;
+ const prevPx = pos.lastPx;
+ pos.lastPx = live.price;
+ const drop = prevPx > 0 ? ((prevPx - live.price) / prevPx) * 100 : 0;
+ // The first seconds after a buy are spread. Do not count those wicks as a downtrend.
+ if (ageMin >= 0.08) {
+  if (drop > 0.12) pos.downTicks = (pos.downTicks || 0) + 1;
+  else if (drop < -0.05) pos.downTicks = 0;
+ }
+ if (pct < 0) {
+  if (!pos.redAt) pos.redAt = now;
+ } else pos.redAt = 0;
+ const entryLiq = Number(pos.entryLiq != null ? pos.entryLiq : pos.liquidity) || 0;
+ const entryChg = Number(pos.entryChg != null ? pos.entryChg : pos.change5m) || 0;
+ const liveLiq = Number(live.liquidity);
+ const liveChg = Number(live.change5m);
+ const liveSells = Number(live.sells) || 0;
+ const liveBuys = Number(live.buys) || 0;
+ const liqCrash = entryLiq >= 2000 && Number.isFinite(liveLiq) && liveLiq < entryLiq * 0.4;
+ const oneTick = drop >= 0.8 && pct < tp;
+ const redFor = !!(pos.redAt && (now - pos.redAt) >= 12000);
+ const givingBack = peak >= arm && pct <= peak - trail;
+ const tapeDown = ageMin >= 0.15 && liveChg <= -6 && liveChg <= entryChg - 3;
+ const sellHeavy = ageMin >= 0.2 && liveSells >= 8 && liveSells > liveBuys * 1.5 && pct < 0.8;
+ const twoDown = (pos.downTicks || 0) >= 2 && ageMin >= 0.12 && (pct < 0 || givingBack);
+ if (liqCrash) return 'downtrend';
+ if (oneTick) return 'downtrend';
+ if (pct <= -stop) return 'stop';
+ if (redFor) return 'stop';
+ if (pct >= tp) return 'take profit';
+ if (givingBack) return 'trail';
+ if (peak >= arm && pct <= 0.15) return 'lock';
+ if (tapeDown) return 'downtrend';
+ if (sellHeavy) return 'downtrend';
+ if (twoDown) return 'downtrend';
+ if (peak < arm && ageMin >= deadMin) return 'time';
+ if (ageMin >= maxMin) return 'flat';
+ return '';
+}
+
+let ticking = false;
+async function tick() {
+ if (ticking) return;
+ ticking = true;
+ try {
+  await runTick();
+ } finally {
+  ticking = false;
+ }
+}
+async function runTick() {
+ const L = lvl();
+ if (!L) { log('Risk levels are not loaded.'); return; }
+ const held = [...positions.keys()].slice(0, 8).join(',');
+ const data = await (await fetch('/api/quantum?level=' + current + (held ? '&hold=' + encodeURIComponent(held) : ''))).json();
+ if (!data.ok) { log(data.error || 'Scan failed.'); return; }
+ const rows = data.rows || [];
+ const marks = data.marks || [];
+ const chase = new Set(data.chase || []);
+ const shown = { solana: 0, ethereum: 0 };
+ rows.forEach((r) => { if (shown[r.chain] != null) shown[r.chain]++; });
+ const earlyN = rows.filter((r) => r.early && r.safety === 'OK').length;
+ const blockedN = rows.filter((r) => r.safety === 'HONEY' || r.safety === 'RISK' || r.safety === 'NOSELL').length;
+ document.querySelector('#chains').textContent = 'SOLANA ' + shown.solana + ' SHOWN. ETHEREUM ' + shown.ethereum + ' SHOWN. EARLY AND CLEAR ' + earlyN + '. BLOCKED ' + blockedN + '. OK* MEANS THE HONEYPOT CHECK PASSED AND LP IS STILL UNLOCKED.';
+ if (data.tactic) applyTactic(data.tactic);
+ if (data.learn) paintLearn(data.learn);
+ rowsEl.innerHTML = rows.slice(0, 16).map((r) => '<tr><td class="' + (r.chain === 'solana' ? 'sol' : 'eth') + '">' + esc(r.chain) + '</td><td>' + esc(r.symbol) + '</td><td>' + esc(ageTxt(r)) + '</td><td>' + esc(safeTxt(r)) + '</td><td>' + Number(r.score || 0).toFixed(1) + '</td><td>' + Number(r.change5m || 0).toFixed(2) + '%</td><td>$' + Math.round(r.liquidity || 0).toLocaleString() + '</td><td>' + r.buys + '/' + r.sells + '</td></tr>').join('') || '<tr><td colspan="8">NOTHING PASSED THIS LEVEL.</td></tr>';
+ lastRows = rows.slice();
+ marks.forEach((m) => {
+  if (!lastRows.some((r) => r.chain + ':' + r.address === m.chain + ':' + m.address)) lastRows.push(m);
+ });
+ const now = Date.now();
+ for (const [key, pos] of positions) {
+  const live = lastRows.find((r) => r.chain + ':' + r.address === key);
+  if (!live || !(live.price > 0) || !(pos.entry > 0)) {
+   if (armed && busy) continue;
+   const walletOn = (pos.chain === 'solana' && sol) || (pos.chain === 'ethereum' && eth);
+   if (pos.live && armed && walletOn) {
+    const owner = pos.chain === 'solana' ? sol : eth;
+    let before = null;
+    try { before = await nativeBalance(pos.chain, owner); } catch (e) {}
+    const ok = await signSell(pos, 1);
+    if (!ok) { pos.sellNote = 'SELL FAILED'; continue; }
+    pos.sellNote = '';
+    if (before != null) await bookFill(pos.chain, owner, before, pos.spentSol, pos.symbol, 0, null);
+   }
+   paperSol += pos.spentSol;
+   positions.delete(key);
+   log((pos.live ? 'Wallet sell ' : 'Paper sell ') + pos.symbol + ' (no quote)');
+   postLearn(pos, 0, 'no quote');
+   continue;
+  }
+  const pct = ((live.price - pos.entry) / pos.entry) * 100;
+  const why = exitWhy(pos, live, pct, now);
+  if (!why) continue;
+  if (armed && busy) continue;
+  const walletOn = (pos.chain === 'solana' && sol) || (pos.chain === 'ethereum' && eth);
+  let walletPnl = null;
+  if (pos.live && armed && walletOn) {
+   const owner = pos.chain === 'solana' ? sol : eth;
+   let before = null;
+   try { before = await nativeBalance(pos.chain, owner); } catch (e) {}
+   const ok = await signSell(pos, 1);
+   if (!ok) {
+    pos.sellNote = 'SELL FAILED';
+    continue;
+   }
+   pos.sellNote = '';
+   if (before != null) walletPnl = await bookFill(pos.chain, owner, before, pos.spentSol, pos.symbol, pct, live);
+  }
+  const value = pos.spentSol * (1 + pct / 100);
+  const pnl = walletPnl != null ? walletPnl : (value - pos.spentSol);
+  dayPnl += pnl;
+  paperSol += Math.max(0, walletPnl != null ? pos.spentSol + walletPnl : value);
+  if (pos.spentSol > 0 && pnl / pos.spentSol <= -0.4) deadMints.add(pos.address);
+  recentMints.set(pos.address, Date.now());
+  positions.delete(key);
+  log((pos.live ? 'Wallet sell ' : 'Paper sell ') + pos.symbol + ' ' + (pos.spentSol > 0 ? (pnl / pos.spentSol * 100) : pct).toFixed(2) + '% (' + why + ')');
+  postLearn(pos, pos.spentSol > 0 ? (pnl / pos.spentSol * 100) : pct, why);
+ }
+ const put = putSol();
+ if (dayPnl <= -0.08 && !brakeLogged) {
+  brakeLogged = true;
+  log('Session loss hit 0.08 SOL. New buys are off until you start again.');
+ }
+ const sellWaiting = [...positions.values()].some((p) => p.live && p.sellNote);
+ if (L.id !== 1 && dayPnl > -0.08 && positions.size < (armed ? 1 : L.maxPos) && !sellWaiting && (now - lastTrade) / 1000 >= 20) {
+  const pick = rows.find((r) => {
+   const key = r.chain + ':' + r.address;
+   if (!chase.has(key) || positions.has(key) || deadMints.has(r.address)) return false;
+   const seen = recentMints.get(r.address);
+   if (seen && now - seen < 20 * 60 * 1000) return false;
+   return true;
+  });
+  if (armed && !pick && now - quietAt > 20000) {
+   quietAt = now;
+   log(chase.size ? 'A clear coin is in cooldown. The next buy opens the wallet when it is free.' : 'No clear coin this pass. Quantum is still watching. A blocked or thin coin does not open the wallet.');
+  }
+  if (pick && paperSol >= put) {
+   const key = pick.chain + ':' + pick.address;
+   if (armed && pick.chain === 'solana' && !sol) {
+    log('Connect Solana. Phantom was not opened.');
+   } else if (armed && pick.chain === 'ethereum' && !eth) {
+    log('Connect Ethereum. MetaMask was not opened.');
+   } else {
+    paperSol -= put;
+    positions.set(key, { ...pick, entry: pick.price, entryLiq: Number(pick.liquidity) || 0, entryChg: Number(pick.change5m) || 0, spentSol: put, opened: now });
+    lastTrade = now;
+    log('Paper buy ' + put.toFixed(2) + ' SOL ' + pick.chain + ' ' + pick.symbol + '. Gas not included. DOSWAPZ fee 0.');
+    if (armed) {
+     const bought = await signLive(pick);
+     const held = positions.get(key);
+     if (bought && held) held.live = true;
+     else if (held && !held.live) {
+      positions.delete(key);
+      paperSol += put;
+      log('No transaction was sent for ' + pick.symbol + '. Phantom has to sign it, or the buy was refused before the popup.');
+     }
+    }
+   }
+  }
+ }
+ paintBook();
+ paintPnl();
+ if (session) paintCloses(session.closed);
+ retimer();
+}
+
+function retimer() {
+ if (!timer) return;
+ const L = lvl();
+ // A 2s loop sits on the 30/min scan cap, and a limited scan returns before the sell.
+ const sec = positions.size ? 3 : ((L && L.poll) || 15);
+ if (sec === pollSec) return;
+ pollSec = sec;
+ clearInterval(timer);
+ timer = setInterval(() => tick().catch((e) => log(e.message)), sec * 1000);
+}
+
+function beginSession() {
+ const L = lvl();
+ startBtn.textContent = 'STOP';
+ startBtn.classList.add('on');
+ stateEl.textContent = armed ? 'QUANTUM TRADING' : 'PAPER';
+ if ((sol || eth) && accepted() && !armed) {
+  armed = true;
+  armBtn.classList.add('on');
+  armBtn.textContent = 'QUANTUM TRADES ON';
+  log('Wallet is logged in. Quantum is choosing the buys and sells. Your wallet signs each one. DOSWAPZ does not hold the key.');
+ }
+ log(L.id !== 1 ? (armed ? 'Quantum is trading at ' + putSol().toFixed(2) + ' SOL. Gas is extra. DOSWAPZ fee is 0.' : 'Paper on at ' + putSol().toFixed(2) + ' SOL. Gas is extra. DOSWAPZ fee is 0.') : 'Level 01 watches only. It does not buy.');
+ pollSec = 0;
+ tick().catch((e) => log(e.message));
+ timer = setInterval(() => tick().catch((e) => log(e.message)), (L.poll || 15) * 1000);
+ pollSec = (L.poll || 15);
+ clock = setInterval(() => { if (timer) paintPnl(); }, 1000);
+}
+
+startBtn.onclick = () => {
+ if (timer) {
+  clearInterval(timer); timer = null;
+  clearInterval(clock); clock = null;
+  startBtn.textContent = 'START PAPER';
+  startBtn.classList.remove('on');
+  stateEl.textContent = 'STOPPED';
+  log('Scanner stopped. Wallet P&L stays until disconnect.');
+  return;
+ }
+ beginSession();
+};
+armBtn.onclick = () => {
+ if (!accepted()) { log('Check the boxes, including the key disclaimer, before Quantum trades.'); return; }
+ if (!sol && !eth) { log('Log in a wallet first. DOSWAPZ does not hold keys.'); return; }
+ armed = !armed;
+ armBtn.classList.toggle('on', armed);
+ armBtn.textContent = armed ? 'QUANTUM TRADES ON' : 'QUANTUM TRADES';
+ stateEl.textContent = timer ? (armed ? 'QUANTUM TRADING' : 'PAPER') : 'STOPPED';
+ log(armed ? 'Quantum is choosing buys and sells. Your wallet signs each transaction.' : 'Quantum trading off. The book is paper only.');
+};
+
+current = 3;
+paperSol = 1;
+paintLevels();
+paintBook();
+paintCloses([]);
+gateArm();
+try {
+ const res = await fetch('/api/quantum');
+ const meta = await res.json();
+ if (!res.ok || !meta.levels) {
+  log((meta && meta.error) || 'Risk levels stayed on the desk list. The scanner did not answer.');
+  paintBoard([]);
+ } else {
+  levels = meta.levels;
+  if (meta.sell) applyTactic(meta.sell);
+  if (meta.learn) paintLearn(meta.learn);
+  paintLevels();
+  paintBoard(meta.board || []);
+ }
+} catch (e) {
+ log(e.message || 'Risk levels stayed on the desk list.');
+ paintBoard([]);
+}
+connectSol(true);
+</script>
+</body>
+</html>

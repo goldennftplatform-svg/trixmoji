@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <!-- file:// helper: never embed a script end-tag inside the string (browser closes early and leaks JS onto the page) -->
+ <script>
+ (function () {
+ if (location.protocol !== 'file:') return;
+ var u = 'http://127.0.0.1:8890/classic/pages/harbinger.html';
+ document.documentElement.innerHTML =
+ '<head><meta charset="UTF-8"><title>DOSWAPZ</title></head>' +
+ '<body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace;padding:40px">' +
+ '<p>Open via local server:</p>' +
+ '<p><a href="' + u + '" style="color:#6cf">' + u + '</a></p>' +
+ '<p>Or double-click OPEN-HARBINGER.bat</p>' +
+ '</body>';
+ })();
+ </script>
+ <title>DOSWAPZ // H4RB1NG3R</title>
+ <meta name="description" content="H4RB1NG3R - text oracle of DOSWAPZ.">
+ <link rel="stylesheet" href="/assets/css/harbinger.css?v=20260912fit">
+ <link rel="stylesheet" href="/assets/css/harbinger-llm.css?v=20260912fit">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ * { box-sizing: border-box; }
+ html, body {
+ margin: 0;
+ min-height: 100%;
+ background: #000;
+ color: #00ff00;
+ font-family: 'VT323', 'Courier New', monospace;
+ }
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ padding: 24px 16px 48px;
+ }
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px,
+ rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+ .wrap {
+ position: relative;
+ z-index: 10;
+ max-width: 640px;
+ margin: 0 auto;
+ text-align: center;
+ }
+ h1 {
+ font-size: 28px;
+ letter-spacing: 0.28em;
+ color: #00ff00;
+ margin: 0 0 14px;
+ text-shadow: 0 0 8px #00ff00;
+ }
+ .head-block {
+ position: relative;
+ width: min(260px, 36dvh, 70vw);
+ height: min(280px, 38dvh, 70vw);
+ min-height: 0;
+ margin: 0 auto 8px;
+ overflow: visible;
+ }
+ #stage {
+ position: absolute;
+ inset: 0;
+ z-index: 1;
+ pointer-events: none;
+ }
+ .head-img {
+ position: absolute;
+ left: 50%;
+ top: 50%;
+ transform: translate(-50%, -50%);
+ width: min(240px, 100%);
+ height: auto;
+ max-height: 100%;
+ object-fit: contain;
+ object-position: center 12%;
+ z-index: 5;
+ pointer-events: none;
+ filter:
+ drop-shadow(0 0 22px rgba(80, 200, 230, 0.35))
+ drop-shadow(0 0 48px rgba(120, 70, 220, 0.22));
+ /* stationary - no bob/shake */
+ }
+ .llm-wrap {
+ max-width: 480px;
+ margin: 0 auto;
+ text-align: left;
+ }
+ .llm-wrap .hb-llm-terminal {
+ border-color: rgba(0, 255, 65, 0.35);
+ background: rgba(0, 10, 0, 0.55);
+ }
+ .llm-wrap .hb-llm-status {
+ color: #00ff41;
+ letter-spacing: 0.14em;
+ }
+ .llm-wrap .hb-chat-line.user { color: #00ccff; }
+ .llm-wrap .hb-chat-line.harbinger { color: #aaffaa; }
+ .back-row {
+ text-align: center;
+ margin-top: 22px;
+ }
+ .btn {
+ font-family: inherit;
+ font-size: 17px;
+ color: #00ff00;
+ border: 2px solid #00ff00;
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px;
+ display: inline-block;
+ background: rgba(0, 0, 0, 0.5);
+ }
+ .btn:hover {
+ color: #ffff00;
+ border-color: #ffff00;
+ background: #003300;
+ }
+ </style>
+</head>
+<body class="harbinger-page">
+ <div class="dos-screen" id="screen">
+ <div class="wrap">
+ <h1 id="harbingerTitle">H4RB1NG3R</h1>
+
+ <div class="head-block">
+ <img
+ class="head-img"
+ id="hbHeadImg"
+ src="/assets/images/harbinger/head-float-core.png?v=ship1"
+ alt="Harbinger"
+ width="320"
+ height="470"
+ />
+ <div id="stage" aria-hidden="true"></div>
+ </div>
+
+ <div class="llm-wrap">
+ <div class="hb-llm-terminal">
+ <div id="hbLlmStatus" class="hb-llm-status">PROTOCOL CLEARANCE * SURFACE ONLY</div>
+ <div id="hbChatLog" class="hb-chat-log" aria-live="polite"></div>
+ <div class="hb-quickbar" aria-label="protocol topics">
+  <button type="button" class="hb-quick" data-q="What is DOSWAPZ?">MISSION</button>
+  <button type="button" class="hb-quick" data-q="What is the DOSWAPZ protocol?">PROTOCOL</button>
+  <button type="button" class="hb-quick" data-q="What is 0% Swap?">SWAP</button>
+  <button type="button" class="hb-quick" data-q="What is Pond Scum?">POND</button>
+  <button type="button" class="hb-quick" data-q="What is The Missing Layer?">LAYER</button>
+  <button type="button" class="hb-quick" data-q="What is Mail Gate?">MAIL</button>
+  <button type="button" class="hb-quick" data-q="What is Awardz?">AWARDZ</button>
+  <button type="button" class="hb-quick" data-q="Where are docs / legal?">LEGAL</button>
+  <button type="button" class="hb-quick" data-q="What is $DOSWAPZ / DSWPZ?">TOKEN</button>
+  <button type="button" class="hb-quick" data-q="OPSEC rules?">OPSEC</button>
+  <button type="button" class="hb-quick" data-q="What is new on the protocol?">NEW</button>
+  <button type="button" class="hb-quick" data-q="help">HELP</button>
+ </div>
+ <form class="hb-chat-form" id="hbChatForm" autocomplete="off">
+ <input
+ type="text"
+ id="hbChatInput"
+ class="hb-chat-input"
+ name="harbinger-ask"
+ placeholder="ask the harbinger..."
+ maxlength="1500"
+ />
+ <button type="submit" id="hbChatSend" class="hb-chat-send">SEND</button>
+ </form>
+ </div>
+ </div>
+
+ <div class="back-row">
+ <a href="/past" class="btn"><- HUB</a>
+ <a href="/portal.html" class="btn">TIME MACHINE</a>
+ </div>
+ </div>
+ </div>
+
+ <script src="/assets/js/core/era-portal.js?v=20260912pretty"></script>
+ <script src="/assets/js/config/harbinger-config.js"></script>
+ <script src="/assets/js/harbinger/harbinger-briefing.js?v=20260913layer2"></script>
+ <script src="/assets/js/harbinger/harbinger-float.js?v=noshake2"></script>
+ <script src="/assets/js/harbinger/harbinger-llm.js?v=20260913layer2"></script>
+ <script>
+ (function () {
+ // Static title only - matrix title morph caused layout reflow / "shake"
+ var title = document.getElementById('harbingerTitle');
+ if (title) title.textContent = 'H4RB1NG3R';
+
+ var cfg = window.DOSWAPZ_HARBINGER_CONFIG || {};
+ var head = document.getElementById('hbHeadImg');
+ if (head && cfg.headUrl) {
+ head.src = cfg.headUrl + (cfg.headUrl.indexOf('?') >= 0 ? '&' : '?') + 'v=noshake2';
+ }
+
+ function boot() {
+ var stage = document.getElementById('stage');
+ if (window.HARBINGER_FLOAT && stage) {
+ HARBINGER_FLOAT.mount(stage, {
+ shardsOnly: true,
+ width: stage.clientWidth || 260,
+ height: stage.clientHeight || 280
+ });
+ }
+ if (window.DOSWAPZ_ERA) DOSWAPZ_ERA.set('past');
+ if (window.HARBINGER_LLM) {
+ HARBINGER_LLM.bindUi({
+ status: 'hbLlmStatus',
+ log: 'hbChatLog',
+ input: 'hbChatInput',
+ send: 'hbChatSend',
+ form: 'hbChatForm'
+ });
+ }
+ }
+ if (document.readyState === 'complete') boot();
+ else window.addEventListener('load', boot);
+ })();
+ </script>
+<script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+<script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+{
+  "updatedAt": "2026-09-13T02:42:55.319Z",
+  "source": "helius enhanced txs into TRiX box treasury D8LYYH",
+  "treasury": "D8LYYHufXvEVAfMKfmv9amKLJjdJejpXAwsM5Wqp3iQe",
+  "pages": 48,
+  "txs": 4757,
+  "boxEvents": 4756,
+  "buyers": 652,
+  "knownWallets": 664,
+  "newest": "2026-09-13T00:52:15.000Z",
+  "top": [
+    {
+      "rank": 1,
+      "username": "DenOJah",
+      "boxes": 150,
+      "kinds": {
+        "base": 150
+      }
+    },
+    {
+      "rank": 2,
+      "username": "bino343",
+      "boxes": 105,
+      "kinds": {
+        "base": 105
+      }
+    },
+    {
+      "rank": 3,
+      "username": "Bitfin",
+      "boxes": 100,
+      "kinds": {
+        "base": 100
+      }
+    },
+    {
+      "rank": 4,
+      "username": "Fintechbanker",
+      "boxes": 100,
+      "kinds": {
+        "base": 100
+      }
+    },
+    {
+      "rank": 5,
+      "username": "Cam",
+      "boxes": 90,
+      "kinds": {
+        "base": 90
+      }
+    },
+    {
+      "rank": 6,
+      "username": "GoldenDildoPFPGuy",
+      "boxes": 74,
+      "kinds": {
+        "base": 74
+      }
+    },
+    {
+      "rank": 7,
+      "username": "Kettle",
+      "boxes": 65,
+      "kinds": {
+        "base": 65
+      }
+    },
+    {
+      "rank": 8,
+      "username": "HIM",
+      "boxes": 55,
+      "kinds": {
+        "base": 55
+      }
+    },
+    {
+      "rank": 9,
+      "username": "",
+      "boxes": 53,
+      "kinds": {
+        "base": 53
+      }
+    },
+    {
+      "rank": 10,
+      "username": "ThisNThat",
+      "boxes": 46,
+      "kinds": {
+        "base": 46
+      }
+    },
+    {
+      "rank": 11,
+      "username": "DolioIi",
+      "boxes": 46,
+      "kinds": {
+        "base": 46
+      }
+    },
+    {
+      "rank": 12,
+      "username": "COPE_HARDER",
+      "boxes": 40,
+      "kinds": {
+        "base": 40
+      }
+    },
+    {
+      "rank": 13,
+      "username": "b3cknasty",
+      "boxes": 37,
+      "kinds": {
+        "base": 37
+      }
+    },
+    {
+      "rank": 14,
+      "username": "IBeJoeKing",
+      "boxes": 35,
+      "kinds": {
+        "base": 35
+      }
+    },
+    {
+      "rank": 15,
+      "username": "Pauly0x",
+      "boxes": 35,
+      "kinds": {
+        "base": 35
+      }
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+DOSWAPZ — Pond passport (your login, no Cary)
+=============================================
+
+What it does
+------------
+When Netlify has your Pond session cookie, GET /api/pond-dossier?wallet=YOUR_SOL
+can return swaps / badges / twitter / pro fields for THAT wallet only.
+
+
+Set up (simple) — Netlify has a MAX LENGTH on env values
+---------------------------------------------------------
+Do NOT paste the entire giant cookie string (too long).
+
+EASIEST (short enough for Netlify UI):
+
+1. Log into https://www.pond0x.com
+2. F12 → Application → Cookies → https://www.pond0x.com
+3. Find cookie named:  passport-cache
+4. Copy only its VALUE (starts with eyJ...)
+5. Netlify → Environment variables → Add:
+     Name:  POND_PASSPORT_CACHE
+     Value: (paste eyJ... only)
+     Context: Production
+6. Redeploy
+7. Pond Scum → load YOUR wallet → swaps/badges appear
+
+This JWT expires ~10 minutes. When passport dies, copy a fresh passport-cache.
+
+---
+
+LONGER SESSION (optional, if you want POST refresh):
+
+Split the Supabase cookies into TWO env vars (each shorter):
+
+  POND_SB_AUTH_0 = value of sb-vkqjvwxzsxilnsmpngmc-auth-token.0
+  POND_SB_AUTH_1 = value of sb-vkqjvwxzsxilnsmpngmc-auth-token.1
+  POND_PASSPORT_CACHE = value of passport-cache
+
+Still do not paste the whole Cookie header as one field.
+
+
+Notes
+-----
+- Only works for the wallet inside that passport (your login)
+- Old rails still = activated-rig list only
+- Never paste secrets into chat
+
+
+Security
+--------
+Treat these like passwords. If leaked, sign out of Pond and make a new session.

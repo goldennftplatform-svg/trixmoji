@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // DROP BOARD - EXAMPLE C (TICKER + TABLE)</title>
+ <meta name="robots" content="noindex">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ --attic: #ccaa66;
+ }
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0;
+ min-height: 100%;
+ background: #000;
+ color: var(--green);
+ font-family: 'VT323', 'Courier New', monospace;
+ }
+
+ body.has-drop-ticker { padding-bottom: 36px; }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ padding: 20px 22px 50px;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px, transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px, rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .header {
+ font-size: 30px;
+ letter-spacing: 6px;
+ text-shadow: 0 0 6px var(--green);
+ text-align: center;
+ }
+
+ .subhead {
+ text-align: center;
+ color: var(--attic);
+ font-size: 16px;
+ margin: 4px 0 8px;
+ }
+
+ .example-tag {
+ text-align: center;
+ font-size: 14px;
+ color: #ffff00;
+ margin-bottom: 16px;
+ }
+
+ .example-tag a { color: #66ccff; }
+
+ .content { max-width: 980px; margin: 0 auto; }
+
+ .section-title {
+ font-size: 20px;
+ color: #ffff00;
+ border-bottom: 1px solid #003300;
+ margin: 18px 0 10px;
+ letter-spacing: 2px;
+ }
+
+ .live-row {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ margin-bottom: 8px;
+ }
+
+ .live-pill {
+ border: 2px solid #ff6666;
+ background: #1a0505;
+ padding: 8px 12px;
+ min-width: 200px;
+ flex: 1 1 220px;
+ animation: pulse-border 2s ease-in-out infinite;
+ }
+
+ @keyframes pulse-border {
+ 50% { border-color: #ffaaaa; box-shadow: 0 0 10px rgba(255,80,80,0.2); }
+ }
+
+ .live-pill .who { color: #ff8888; font-size: 13px; letter-spacing: 1px; }
+ .live-pill .what { font-size: 18px; color: #ccffcc; margin: 2px 0; }
+ .live-pill a {
+ color: #ffff00;
+ font-size: 15px;
+ text-decoration: none;
+ border-bottom: 1px dashed #556600;
+ }
+ .live-pill a:hover { color: #fff; }
+
+ table.drop-table {
+ width: 100%;
+ border-collapse: collapse;
+ font-size: 16px;
+ }
+
+ .drop-table th {
+ text-align: left;
+ color: var(--attic);
+ border-bottom: 2px solid #003300;
+ padding: 6px 8px;
+ font-weight: normal;
+ letter-spacing: 1px;
+ }
+
+ .drop-table td {
+ border-bottom: 1px solid #001a00;
+ padding: 8px;
+ vertical-align: top;
+ }
+
+ .drop-table tr:hover td { background: #001100; }
+
+ .tag {
+ display: inline-block;
+ padding: 0 6px;
+ border: 1px solid;
+ font-size: 13px;
+ margin-right: 4px;
+ }
+
+ .tag-pk { color: #ffaa00; border-color: #ffaa00; }
+ .tag-sp { color: #66ccff; border-color: #66ccff; }
+ .tag-ot { color: #cc88ff; border-color: #cc88ff; }
+
+ .st { font-size: 13px; }
+ .st-live { color: #ff6666; }
+ .st-pre { color: var(--attic); }
+ .st-up { color: var(--green-dim); }
+ .st-out { color: #666; }
+
+ .drop-table a {
+ color: #ffff00;
+ text-decoration: none;
+ margin-right: 8px;
+ }
+ .drop-table a:hover { color: #fff; }
+
+ .wire {
+ border: 2px dashed #003300;
+ padding: 12px;
+ font-size: 15px;
+ color: #aaffaa;
+ line-height: 1.4;
+ margin-top: 16px;
+ }
+
+ .wire code {
+ color: #ffff00;
+ font-family: inherit;
+ }
+
+ /* Drop ticker - mirrors site price-ticker-bar language */
+ .drop-ticker-bar {
+ position: fixed;
+ left: 0; right: 0; bottom: 0;
+ z-index: 40;
+ background: rgba(0, 0, 0, 0.92);
+ border-top: 2px solid #00ff41;
+ font-size: 14px;
+ height: 32px;
+ overflow: hidden;
+ }
+
+ .drop-ticker-inner {
+ display: flex;
+ align-items: center;
+ height: 100%;
+ }
+
+ .drop-ticker-label {
+ flex-shrink: 0;
+ padding: 0 10px;
+ background: #330000;
+ color: #ff8888;
+ border-right: 1px solid #00ff41;
+ height: 100%;
+ display: flex;
+ align-items: center;
+ letter-spacing: 1px;
+ }
+
+ .drop-ticker-viewport {
+ flex: 1;
+ overflow: hidden;
+ height: 100%;
+ display: flex;
+ align-items: center;
+ }
+
+ .drop-ticker-track {
+ display: inline-flex;
+ gap: 28px;
+ white-space: nowrap;
+ padding-left: 100%;
+ animation: marquee 28s linear infinite;
+ }
+
+ @keyframes marquee {
+ to { transform: translateX(-100%); }
+ }
+
+ .drop-ticker-track span { color: var(--green); }
+ .drop-ticker-track .sep { color: #003300; }
+ .drop-ticker-track .hot { color: #ff6666; }
+ .drop-ticker-track .gold { color: var(--attic); }
+ </style>
+</head>
+<body class="has-drop-ticker">
+ <div class="dos-screen">
+ <div class="vignette"></div>
+
+ <div class="header">ATTIC // DROPS</div>
+ <div class="subhead">SITE TICKER LANGUAGE * TABLE VIEW</div>
+ <div class="example-tag">
+ EXAMPLE C * 
+ <a href="drop-board-gallery.html">gallery</a> * 
+ <a href="drop-board-a.html">grid A</a> * 
+ <a href="drop-board-b.html">bbs B</a>
+ </div>
+
+ <div class="content">
+ <div class="section-title">// HOT RIGHT NOW</div>
+ <div class="live-row">
+ <div class="live-pill">
+ <div class="who">● POKÉMON * LIVE</div>
+ <div class="what">Destined Rivals ETB</div>
+ <a href="https://www.pokemoncenter.com" target="_blank" rel="noopener"> -> POKEMON CENTER</a>
+ </div>
+ <div class="live-pill">
+ <div class="who">● OTHER * LIVE</div>
+ <div class="what">One Piece OP-09 Box</div>
+ <a href="https://www.trollandtoad.com" target="_blank" rel="noopener"> -> TROLL &amp; TOAD</a>
+ </div>
+ </div>
+
+ <div class="section-title">// FULL SCHEDULE</div>
+ <table class="drop-table">
+ <thead>
+ <tr>
+ <th>PRODUCT</th>
+ <th>WHEN</th>
+ <th>STATUS</th>
+ <th>LINKS</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td><span class="tag tag-pk">PKMN</span> Destined Rivals ETB</td>
+ <td>Jul 12 restock</td>
+ <td class="st st-live">LIVE</td>
+ <td><a href="https://www.pokemoncenter.com" target="_blank" rel="noopener">PC</a><a href="https://www.target.com" target="_blank" rel="noopener">TARGET</a></td>
+ </tr>
+ <tr>
+ <td><span class="tag tag-sp">SPORTS</span> Topps Chrome Baseball Hobby</td>
+ <td>Jul 18</td>
+ <td class="st st-pre">PREORDER</td>
+ <td><a href="https://www.dacardworld.com" target="_blank" rel="noopener">DA CARD</a><a href="https://www.beckett.com" target="_blank" rel="noopener">BECKETT</a></td>
+ </tr>
+ <tr>
+ <td><span class="tag tag-ot">MTG</span> Edge of Eternities Bundle</td>
+ <td>Preorder</td>
+ <td class="st st-pre">PREORDER</td>
+ <td><a href="https://magic.wizards.com" target="_blank" rel="noopener">WIZARDS</a></td>
+ </tr>
+ <tr>
+ <td><span class="tag tag-sp">SPORTS</span> Panini Prizm Football Blaster</td>
+ <td>Fall 2026</td>
+ <td class="st st-up">UPCOMING</td>
+ <td><a href="https://www.paniniamerica.net" target="_blank" rel="noopener">PANINI</a></td>
+ </tr>
+ <tr>
+ <td><span class="tag tag-pk">PKMN</span> Prismatic Evolutions Bundle</td>
+ <td>Last: Jul 10</td>
+ <td class="st st-out">SOLD OUT</td>
+ <td><a href="https://www.walmart.com" target="_blank" rel="noopener">WALMART</a></td>
+ </tr>
+ <tr>
+ <td><span class="tag tag-ot">OP</span> One Piece OP-09 Booster Box</td>
+ <td>Now</td>
+ <td class="st st-live">LIVE</td>
+ <td><a href="https://www.trollandtoad.com" target="_blank" rel="noopener">T&amp;T</a><a href="https://www.tcgplayer.com" target="_blank" rel="noopener">TCG</a></td>
+ </tr>
+ </tbody>
+ </table>
+
+ <div class="wire">
+ <strong style="color:#ffff00">Wire into the real site:</strong><br>
+ * Nav chip on The Attic: <code>DROPS</code> next to pack feed<br>
+ * Same cats as attic API: <code>sports | pokemon | other</code><br>
+ * Bottom bar reuses ticker chrome (already on every page)<br>
+ * Optional: Discord webhook when status flips to <code>LIVE</code>
+ </div>
+ </div>
+ </div>
+
+ <div class="drop-ticker-bar" aria-hidden="true">
+ <div class="drop-ticker-inner">
+ <div class="drop-ticker-label">DROPS</div>
+ <div class="drop-ticker-viewport">
+ <div class="drop-ticker-track">
+ <span class="hot">● LIVE</span> Destined Rivals ETB @ Pokemon Center
+ <span class="sep">///</span>
+ <span class="hot">● LIVE</span> One Piece OP-09 @ Troll and Toad
+ <span class="sep">///</span>
+ <span class="gold">PRE</span> Topps Chrome Baseball * Jul 18
+ <span class="sep">///</span>
+ <span class="gold">PRE</span> MTG Edge of Eternities Bundle
+ <span class="sep">///</span>
+ <span>WATCH</span> Prismatic Evolutions Bundle * sold out
+ <span class="sep">///</span>
+ <span>UPCOMING</span> Panini Prizm Football * Fall
+ </div>
+ </div>
+ </div>
+ </div>
+</body>
+</html>

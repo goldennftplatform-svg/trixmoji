@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong> Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong> Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>DOSWAPZ // ARCADE HUB // ORBIT</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+  <link rel="stylesheet" href="/assets/css/era-present-soft.css?v=neonvoid2">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style class="page-classic-styles">
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ /* orbit: :root stripped */ * { box-sizing: border-box; }
+
+ /* orbit: global html,body stripped */
+
+ body {
+ opacity: 0;
+ transition: opacity 650ms ease;
+ }
+ body.ready { opacity: 1; }
+
+ .dos-screen { position:relative; min-height:0; background:transparent; padding:0; }
+
+ /* orbit: scanlines stripped */
+
+ .wrap {
+ position: relative;
+ z-index: 10;
+ max-width: 920px;
+ margin: 0 auto;
+ text-align: center;
+ }
+
+ h1 {
+ font-size: clamp(36px, 9vw, 64px);
+ letter-spacing: 10px;
+ color: var(--cyan);
+ text-shadow: 0 0 8px var(--cyan), 0 0 20px var(--dim);
+ margin: 0 0 6px;
+ line-height: 1;
+ }
+
+ /* orbit: .sub stripped */
+
+ .section-label {
+ text-align: left;
+ margin: 0 0 10px;
+ font-size: 14px;
+ letter-spacing: 3px;
+ color: #007766;
+ }
+
+ .cabinets {
+ display: grid;
+ grid-template-columns: repeat(2, minmax(0, 1fr));
+ gap: 12px;
+ margin: 0 auto 26px;
+ text-align: left;
+ }
+
+ .boards {
+ display: grid;
+ grid-template-columns: repeat(2, minmax(0, 1fr));
+ gap: 10px;
+ margin: 0 auto 26px;
+ text-align: left;
+ }
+
+ .cab {
+ display: flex;
+ flex-direction: row;
+ align-items: stretch;
+ gap: 0;
+ text-decoration: none;
+ border: 2px solid #004433;
+ background: rgba(0, 18, 14, 0.85);
+ overflow: hidden;
+ min-height: 96px;
+ transition: border-color 100ms, box-shadow 100ms, transform 100ms;
+ color: inherit;
+ }
+
+ .cab:hover {
+ border-color: var(--cyan);
+ box-shadow: 0 0 18px rgba(0, 255, 204, 0.28);
+ transform: translateY(-2px);
+ }
+ .cab:hover .cab-thumb img { transform: scale(1.06); }
+ .cab.bull .cab-thumb { background: #120408; }
+ .cab.bull .cab-thumb img {
+  object-fit: contain;
+  padding: 6px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+ }
+
+ .cab-thumb {
+ position: relative;
+ flex: 0 0 96px;
+ width: 96px;
+ min-height: 96px;
+ overflow: hidden;
+ background: #001a14;
+ border-right: 2px solid #003322;
+ }
+ .cab-thumb img {
+ display: block;
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ object-position: center;
+ transition: transform 180ms ease;
+ }
+ .cab-thumb .thumb-fallback {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ width: 100%;
+ height: 100%;
+ min-height: 96px;
+ font-size: 36px;
+ line-height: 1;
+ background:
+ radial-gradient(circle at 40% 35%, rgba(0, 255, 204, 0.18), transparent 55%),
+ linear-gradient(160deg, #012820, #000);
+ }
+
+ .cab-body {
+ flex: 1;
+ min-width: 0;
+ padding: 12px 14px;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ }
+
+ .tag {
+ font-size: 12px;
+ letter-spacing: 3px;
+ color: var(--dim);
+ margin-bottom: 3px;
+ }
+
+ .name {
+ font-size: 22px;
+ letter-spacing: 2px;
+ line-height: 1.15;
+ }
+
+ .blurb {
+ margin-top: 4px;
+ font-size: 13px;
+ color: #66aa99;
+ letter-spacing: 1px;
+ line-height: 1.25;
+ }
+
+ .cab.dad .name { color: var(--green); }
+ .cab.bull .name { color: var(--red); text-shadow: 0 0 8px #aa0011; }
+ .cab.ftwr .name { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.35); }
+ .cab.mom .name { color: var(--purple); text-shadow: 0 0 10px rgba(255, 102, 204, 0.4); }
+ .cab.mom:hover { border-color: var(--purple); }
+ .cab.snow .name { color: #a8e0ff; text-shadow: 0 0 10px rgba(120, 200, 255, 0.45); font-size: 18px; }
+ .cab.snow:hover { border-color: #a8e0ff; }
+ .cab.frog .name { color: #ff7ac8; text-shadow: 0 0 10px rgba(255, 77, 166, 0.5); }
+ .cab.frog:hover { border-color: #ff4da6; }
+ .cab.farm .cab-thumb img { image-rendering: pixelated; image-rendering: crisp-edges; }
+ .cab.farm .name { color: #b8f060; text-shadow: 0 0 10px rgba(100, 220, 80, 0.4); font-size: 18px; }
+ .cab.farm:hover { border-color: #b8f060; }
+ .cab.seller .name { color: #ffcc66; text-shadow: 0 0 8px rgba(255, 180, 40, 0.35); }
+ .cab.seller:hover { border-color: #ffcc66; }
+ .cab.pipe .cab-thumb { background: #080820; }
+ .cab.pipe .name { color: #48f0f8; text-shadow: 0 0 10px rgba(72, 240, 248, 0.45), 2px 0 0 #f03098; }
+ .cab.pipe:hover { border-color: #f03098; box-shadow: 0 0 18px rgba(240, 48, 152, 0.35); }
+ .cab.trench .cab-thumb { background: #120a04; }
+ .cab.trench .name { color: #c49646; text-shadow: 0 0 10px rgba(196, 150, 70, 0.5); }
+ .cab.trench:hover { border-color: #c49646; box-shadow: 0 0 18px rgba(196, 150, 70, 0.35); }
+ .cab.airborne .cab-thumb { background: #082028; }
+ .cab.airborne .cab-thumb img {
+  object-fit: cover;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+ }
+ .cab.airborne .name { color: #f0c040; text-shadow: 0 0 10px rgba(240, 192, 64, 0.55); }
+ .cab.airborne:hover { border-color: #f0c040; box-shadow: 0 0 18px rgba(240, 192, 64, 0.35); }
+ .cab.brawl .cab-thumb { background: #1a0620; }
+ .cab.brawl .name { color: #ff8cff; text-shadow: 0 0 10px rgba(255, 102, 255, 0.55); }
+ .cab.brawl:hover { border-color: #ff66ff; box-shadow: 0 0 18px rgba(255, 102, 255, 0.35); }
+ .cab.crack .cab-thumb { background: #000; }
+ .cab.crack .cab-thumb img { object-fit: contain; image-rendering: pixelated; image-rendering: crisp-edges; background: #000; }
+ .cab.crack .name { color: #ff2a2a; text-shadow: 0 0 10px rgba(255, 42, 42, 0.55); }
+ .cab.crack:hover { border-color: #ff2a2a; box-shadow: 0 0 18px rgba(255, 42, 42, 0.35); }
+ .cab.poly .cab-thumb { background: #07040c; }
+ .cab.poly .name { color: #ffcc44; text-shadow: 0 0 10px rgba(255, 204, 68, 0.55); }
+ .cab.poly:hover { border-color: #ffcc44; box-shadow: 0 0 18px rgba(255, 204, 68, 0.35); }
+ .cab.shock .cab-thumb { background: #070709; }
+ .cab.shock .cab-thumb img { object-fit: contain; background: #070709; }
+ .cab.shock .name { color: #f6f3ee; text-shadow: 0 0 10px rgba(255, 255, 255, 0.35); }
+ .cab.shock:hover { border-color: #f0c14a; box-shadow: 0 0 18px rgba(240, 193, 74, 0.35); }
+ .cab.moms .cab-thumb { background: #140000; }
+ .cab.moms .cab-thumb img { object-fit: contain; image-rendering: pixelated; image-rendering: crisp-edges; background: #140000; }
+ .cab.moms .name { color: #ff3a22; text-shadow: 0 0 10px rgba(255, 42, 26, 0.55); }
+ .cab.moms:hover { border-color: #ff3a22; box-shadow: 0 0 18px rgba(255, 42, 26, 0.35); }
+ .cab.chop .cab-thumb { background: #070d1b; }
+ .cab.chop .cab-thumb img { object-fit: cover; image-rendering: pixelated; image-rendering: crisp-edges; background: #070d1b; }
+ .cab.chop .name { color: #ffb51d; text-shadow: 0 0 10px rgba(255, 107, 28, 0.55); }
+ .cab.chop:hover { border-color: #ffb51d; box-shadow: 0 0 18px rgba(255, 181, 29, 0.35); }
+
+ .board {
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ text-decoration: none;
+ border: 2px solid #004433;
+ background: rgba(0, 18, 14, 0.75);
+ padding: 10px 12px;
+ min-height: 52px;
+ transition: border-color 100ms, box-shadow 100ms, transform 100ms;
+ }
+ .board:hover {
+ border-color: var(--cyan);
+ box-shadow: 0 0 14px rgba(0, 255, 204, 0.22);
+ transform: translateY(-1px);
+ }
+ .board-dot {
+ flex: 0 0 10px;
+ width: 10px;
+ height: 10px;
+ border-radius: 1px;
+ background: var(--gold);
+ box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+ }
+
+ .board .name { font-size: 18px; color: var(--gold); }
+ .board.mom .name { color: var(--purple); }
+ .board.mom .board-dot { background: var(--purple); box-shadow: 0 0 8px rgba(204, 136, 255, 0.5); }
+ .board.bull .name { color: var(--red); }
+ .board.bull .board-dot { background: var(--red); box-shadow: 0 0 8px rgba(255, 51, 85, 0.5); }
+ .board.ftwr .name { color: #fff; }
+ .board.ftwr .board-dot { background: #fff; }
+ .board.dad .name { color: var(--green); }
+ .board.dad .board-dot { background: var(--green); box-shadow: 0 0 8px rgba(0, 255, 65, 0.45); }
+ .board.lily .name { color: #ff7ac8; }
+ .board.lily .board-dot { background: #ff7ac8; box-shadow: 0 0 8px rgba(255, 122, 200, 0.5); }
+ .board.snow .name { color: #a8e0ff; }
+ .board.snow .board-dot { background: #a8e0ff; box-shadow: 0 0 8px rgba(168, 224, 255, 0.5); }
+
+ @media (max-width: 700px) {
+ .cabinets, .boards { grid-template-columns: 1fr; }
+ }
+
+ .nav-row {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 12px;
+ justify-content: center;
+ margin-top: 4px;
+ }
+
+ .nav-row a {
+ color: var(--dim);
+ text-decoration: none;
+ letter-spacing: 2px;
+ font-size: 18px;
+ border: 1px solid #003322;
+ padding: 8px 14px;
+ }
+
+ .nav-row a:hover {
+ color: var(--cyan);
+ border-color: var(--cyan);
+ }
+
+ .footer {
+ margin-top: 28px;
+ font-size: 12px;
+ color: #005544;
+ letter-spacing: 1px;
+ }
+
+@media (max-width: 560px) {
+ .dos-screen { position:relative; min-height:0; background:transparent; padding:0; }
+ h1 { letter-spacing: 6px; }
+ .cab-thumb { flex-basis: 80px; width: 80px; min-height: 80px; }
+ .cab-body { padding: 10px 12px; }
+ .name { font-size: 18px; }
+ .cab.snow .name { font-size: 16px; }
+ .blurb { font-size: 12px; }
+ .nav-row a { font-size: 15px; padding: 10px 12px; min-height: 44px; display: inline-flex; align-items: center; }
+ }
+ .awardz-sign {
+ display: block; text-decoration: none; margin: 0 auto 18px; padding: 12px 14px 10px;
+ border: 3px solid #ffd700;
+ background: radial-gradient(ellipse at 50% 0%, rgba(255,215,0,0.18), transparent 60%), #0a0800;
+ box-shadow: 0 0 0 2px #000, 0 0 18px rgba(255, 215, 0, 0.45);
+ color: #ffd700; text-align: center;
+ }
+ .awardz-sign-bulbs { display: flex; justify-content: space-between; gap: 4px; margin-bottom: 6px; }
+ .awardz-sign-bulbs i {
+ flex: 1; height: 7px; background: #ffd700; border-radius: 50%;
+ box-shadow: 0 0 6px #ffd700; animation: awardz-bulb 1.1s steps(2, end) infinite;
+ }
+ .awardz-sign-bulbs i:nth-child(odd) { animation-delay: 0.55s; }
+ .awardz-sign-new {
+ display: inline-block; letter-spacing: 6px; font-size: 16px; color: #ff3355;
+ text-shadow: 0 0 8px #ff3355; animation: awardz-new 1.1s steps(2, end) infinite;
+ }
+ .awardz-sign-title { display: block; letter-spacing: 8px; font-size: clamp(26px, 7vw, 42px); text-shadow: 0 0 10px #ffd700; }
+ .awardz-sign-sub { display: block; margin-top: 4px; letter-spacing: 2px; font-size: 13px; color: #c8b060; }
+ @keyframes awardz-bulb { 50% { opacity: 0.15; box-shadow: none; } }
+ @keyframes awardz-new { 50% { opacity: 0.2; } }
+ @media (prefers-reduced-motion: reduce) {
+ .awardz-sign-bulbs i, .awardz-sign-new { animation: none; }
+ }
+ </style>
+</head>
+<body id="screen" class="orbit-void-inner">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+ <span class="crumb-zone">ARCADE HUB</span>
+ <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+ <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+ <div class="core-glow"></div>
+ <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+ <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ <div class="orbit-line" style="width:min(34vmin,34vw);height:min(34vmin,34vh)"></div>
+ </div>
+
+ <main class="stage" id="content">
+ <h1 class="hollow-title" id="orbitTitle">ARCADE HUB</h1>
+ <p class="hollow-sub" id="stageSub">arcade hub<span class="cursor-blink">|</span></p>
+</main>
+
+ <div class="orbit-panel accent-hub" id="orbitPanel">
+<h1>ARCADE</h1>
+ <div class="sub">PRESENT ERA · HOLLOW CABINETS</div>
+
+ <a class="awardz-sign" href="/classic/pages/arcade/awardz.html" data-no-era data-plain>
+ <span class="awardz-sign-bulbs" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+ <span class="awardz-sign-new">NEW FEATURE</span>
+ <span class="awardz-sign-title">AWARDZ POOL</span>
+ <span class="awardz-sign-sub">OPTIONAL PVP · OWN RISK · PLAY STAYS FREE</span>
+ </a>
+
+ <div class="section-label">// GAMES</div>
+ <div class="cabinets">
+ <a class="cab farm" href="/classic/pages/arcade/degen-regen/index.html?era=present" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/classic/pages/arcade/degen-regen/assets/thumb.png" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'🌱'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">07 · LIVE</div>
+ <div class="name">DEGEN REGEN FARMING</div>
+ <div class="blurb">Farming game. Soil, crops, herd.</div>
+ </div>
+ </a>
+
+ <!-- Dad + Mom keep original art (no present skin) -->
+ <a class="cab dad" href="/classic/pages/cryptodad/play.html" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/assets/images/cryptodad_colorful/11.jpg" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'👨'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">01</div>
+ <div class="name">CRYPTO DAD</div>
+ <div class="blurb">Family high. Heat low. (classic art)</div>
+ </div>
+ </a>
+
+ <a class="cab bull" href="/classic/pages/tbb/play.html?era=present" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/assets/images/tbb-bull-head.png" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'🐂'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">02</div>
+ <div class="name">$TBB BULL RUN</div>
+ <div class="blurb">Stack sats. Dodge bears.</div>
+ </div>
+ </a>
+
+ <a class="cab ftwr" href="/classic/pages/cryptodad/ftwr-maze.html?era=present" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/assets/images/ftwr-white-rabbit.jpg" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'🐇'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">03</div>
+ <div class="name">FTWR</div>
+ <div class="blurb">Follow the white rabbit. Present skin.</div>
+ </div>
+ </a>
+
+ <a class="cab mom" href="/classic/pages/basement/cryptomom/play.html" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/assets/images/cryptomom/IpZx5.jpg" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'👩'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">04 · 18+</div>
+ <div class="name">CRYPTO MOM</div>
+ <div class="blurb">Basement life sim [18+] (classic art)</div>
+ </div>
+ </a>
+
+ <a class="cab snow" href="/classic/pages/arcade/snowman/index.html?era=present" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/classic/pages/arcade/snowman/assets/geoff-ending-still.jpg" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'⛄'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">05</div>
+ <div class="name">SNOWMAN / GEOFF</div>
+ <div class="blurb">Shoot carrots. Build GEOFF.</div>
+ </div>
+ </a>
+
+ <a class="cab frog" href="/classic/pages/arcade/lily-leap/index.html?era=present" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/assets/images/lily-pad-still.jpg" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'🐸'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">06</div>
+ <div class="name">LILY LEAP</div>
+ <div class="blurb">Pads · flies · far shore.</div>
+ </div>
+ </a>
+
+ <a class="cab seller" href="/classic/pages/arcade/sell-sell-sell/index.html?era=present" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/assets/images/seller/michael-seller.jpg" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'📉'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">08</div>
+ <div class="name">SELL! SELL! SELL!</div>
+ <div class="blurb">$SELLER · dump quota or rekt.</div>
+ </div>
+ </a>
+
+ <a class="cab pipe" href="/classic/pages/arcade/plumber/index.html?era=present" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/classic/pages/arcade/plumber/sega-example-play.png" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'🔧'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">09 · SEGA '90</div>
+ <div class="name">PIPE RUSH</div>
+ <div class="blurb">Water top. Leaks. Fix or flood.</div>
+ </div>
+ </a>
+
+ <a class="cab xelon" href="/classic/pages/arcade/xelon/index.html?era=present" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/classic/pages/arcade/xelon/assets/xelon.jpg" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'🚀'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">10 · LIVE</div>
+ <div class="name">XELON</div>
+ <div class="blurb">Gradius-type. 12 stages. $XELON.</div>
+ </div>
+ </a>
+
+ <a class="cab hfo" href="/classic/pages/arcade/hair-force-one/" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/classic/pages/arcade/hair-force-one/assets/gameplay.jpg" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'💇'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">11 · LIVE · $HFO</div>
+ <div class="name">HAIR FORCE ONE</div>
+ <div class="blurb">DDR arrows. Giant hair. Trade $HFO.</div>
+ </div>
+ </a>
+
+ <a class="cab trench" href="/classic/pages/arcade/the-trenches/index.html?era=present" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/classic/pages/arcade/the-trenches/assets/scene-field.jpg" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'🎯'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">12 · LIVE</div>
+ <div class="name">SAVE THE TRENCHEZ</div>
+ <div class="blurb">Sniper overwatch. Five scenes. Degens in the hole.</div>
+ </div>
+ </a>
+
+ <a class="cab airborne" href="/classic/pages/arcade/airborne/" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/classic/pages/arcade/airborne/assets/thumb.png" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'🪂'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">13 · LIVE</div>
+ <div class="name">AIRBORNE</div>
+ <div class="blurb">C-130 drop zone. Wind. Wires. Bullseye.</div>
+ </div>
+ </a>
+
+ <a class="cab brawl" href="/classic/pages/arcade/jimmy-edgar-big-brawl/" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/classic/pages/arcade/jimmy-edgar-big-brawl/assets/thumb.png" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'🥊'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">14 · LIVE</div>
+ <div class="name">JIMMY EDGAR'S BIG BRAWL</div>
+ <div class="blurb">Pixel boxing gauntlet. Thirteen challengers, one ring.</div>
+ </div>
+ </a>
+
+ <a class="cab crack" href="/classic/pages/arcade/plumbers-crack/" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/classic/pages/arcade/plumbers-crack/assets/thumb.png" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'🔧'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">16 · LIVE</div>
+ <div class="name">PLUMBERS CRACK</div>
+ <div class="blurb">Climb the girders. Jump the barrels. Reach the lights.</div>
+ </div>
+ </a>
+
+ <a class="cab poly" href="/classic/pages/arcade/selleropoly/" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/classic/pages/arcade/selleropoly/assets/monopoly-guy.jpg" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'🎩'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">17 · LIVE</div>
+ <div class="name">SELLEROPOLY</div>
+ <div class="blurb">$SELLER dilution board. Buy the top. Never sell.</div>
+ </div>
+ </a>
+
+ <a class="cab shock" href="/classic/pages/arcade/shocker-chess/" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/classic/pages/arcade/shocker-chess/assets/emblem.png" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'♟'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">18 · LIVE · $SHOCKER</div>
+ <div class="name">$SHOCKER CHESS</div>
+ <div class="blurb">You vs the computer. Levels 1–10.</div>
+ </div>
+ </a>
+
+ <a class="cab moms" href="/classic/pages/arcade/moms/" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/classic/pages/arcade/moms/assets/thumb.png" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'M'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">19 · LIVE · $MOMS</div>
+ <div class="name">MOMS</div>
+ <div class="blurb">Ten levels. She is the one you drop.</div>
+ </div>
+ </a>
+
+ <a class="cab chop" href="/classic/pages/arcade/chopper-daddy/" data-no-era data-plain>
+ <div class="cab-thumb">
+ <img src="/classic/pages/arcade/chopper-daddy/assets/thumb.png" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'thumb-fallback',textContent:'🏍'}))">
+ </div>
+ <div class="cab-body">
+ <div class="tag">20 · LIVE</div>
+ <div class="name">CHOPPER DADDY</div>
+ <div class="blurb">16-bit custom shop. Build the bike. Ride the desert.</div>
+ </div>
+ </a>
+ </div>
+
+ <div class="section-label">// SCOREBOARDS</div>
+ <div class="boards">
+ <a class="board dad" href="/classic/pages/cryptodad/scoreboard.html">
+ <span class="board-dot" aria-hidden="true"></span>
+ <div class="name">CRYPTO DAD SCORES</div>
+ </a>
+ <a class="board bull" href="/orbit/pages/tbb/scoreboard.html">
+ <span class="board-dot" aria-hidden="true"></span>
+ <div class="name">$TBB BULL RUN SCORES</div>
+ </a>
+ <a class="board ftwr" href="/classic/pages/cryptodad/ftwr-scoreboard.html">
+ <span class="board-dot" aria-hidden="true"></span>
+ <div class="name">FTWR SCORES</div>
+ </a>
+ <a class="board mom" href="/classic/pages/basement/cryptomom/scoreboard.html">
+ <span class="board-dot" aria-hidden="true"></span>
+ <div class="name">CRYPTO MOM SCORES · 18+</div>
+ </a>
+ <a class="board lily" href="/classic/pages/arcade/lily-leap/scoreboard.html">
+ <span class="board-dot" aria-hidden="true"></span>
+ <div class="name">LILY LEAP SCORES</div>
+ </a>
+ <a class="board snow" href="/classic/pages/arcade/snowman/scoreboard.html">
+ <span class="board-dot" aria-hidden="true"></span>
+ <div class="name">SNOWMAN / GEOFF</div>
+ </a>
+ </div>
+
+ <div class="section-label">// DAILY + SCORES</div>
+ <div id="dailyStrip" class="cab" style="margin-bottom:12px;max-width:520px;margin-left:auto;margin-right:auto">
+ <div class="tag">DAILY SEED</div>
+ <div class="name" id="dailyMode" style="font-size:20px;color:var(--gold)"> - </div>
+ <div class="blurb" id="dailySeed"> - </div>
+ </div>
+
+ <div class="nav-row">
+ <a href="/orbit/hub.html" data-no-era data-plain>← PRESENT HUB</a>
+ <a href="/classic/hub.html" data-era="past" data-no-era data-plain>PAST HUB</a>
+ <a href="/future/hub.html" data-era="future" data-no-era data-plain>FUTURE</a>
+ <a href="/orbit/pages/arcade/intro.html?force=1" data-no-era data-plain>REPLAY INTRO</a>
+ <a href="/orbit/pages/arcade/scores.html" data-no-era data-plain>ALL SCORES</a>
+ <a href="/classic/pages/arcade/awardz.html" data-no-era data-plain>AWARDZ POOL</a>
+ <a href="/classic/pages/arcade/hub.html" data-no-era data-plain>PAST ARCADE</a>
+ </div>
+
+ <div class="footer">PRESENT ARCADE · same mechanics · hollow skins (Dad/Mom classic)</div>
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/arcade/arcade-core.js?v=20260715b"></script>
+ <script src="/assets/js/core/docs-footer.js?v=20260715e"></script>
+
+ <script>
+ /* body CSS starts at opacity:0; only body.ready reveals the page */
+ requestAnimationFrame(function () {
+  document.body.classList.add('ready');
+ });
+ try {
+  hollowPageBoot('ARCADE HUB');
+ } catch (e) {
+  console.warn('hollowPageBoot failed', e);
+ }
+ (function () {
+  var A = window.DOSWAPZ_ARCADE;
+  if (!A) return;
+  var d = A.getDailyChallenge();
+  var m = document.getElementById('dailyMode');
+  var s = document.getElementById('dailySeed');
+  if (m) m.textContent = d.mode + ' · ' + d.day;
+  if (s) s.textContent = 'SEED ' + d.seed;
+ })();
+ </script>
+</body>
+</html>

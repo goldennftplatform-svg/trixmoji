@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DOSWAPZ // THE MISSING LAYER</title>
+  <meta name="description" content="The Missing Layer — person-centric X graph on DOSWAPZ. Not post vanity. Pay BTC, ETH, or SOL. Operator steps on this page and in the legal docs.">
+  <link rel="canonical" href="https://doswapz.com/the-missing-layer/past">
+  <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260913layer">
+  <link rel="stylesheet" href="/assets/css/layer.css?v=20260913layer">
+</head>
+<body>
+  <div class="scan"></div>
+  <nav class="topnav" aria-label="Site">
+    <a href="/past">&lt;- HUB</a>
+    <a href="/">SPLASH</a>
+    <a href="/docs/the-missing-layer.html">THE MISSING LAYER GUIDE</a>
+    <a href="/docs/legal.html#s15a">LEGAL §15A</a>
+    <a href="/docs/">DOCS</a>
+  </nav>
+
+  <div class="hdr">
+    <div>THE MISSING LAYER  VER 0.1   (C) 1979 CIRCLE SYSTEMS / DOSWAPZ</div>
+    <div class="dim">PERSON GRAPH  —  NOT POST VANITY  —  LIVE ON DOSWAPZ.COM</div>
+  </div>
+
+  <div class="guide-strip" id="guideStrip">
+    <strong>THE MISSING LAYER GUIDE</strong> lives on this page.
+    Press <strong>F6</strong> or hit <button type="button" class="nav-btn" data-view="help">GUIDE</button>
+    for the operator steps (same text as LAYER-STEPS).
+    Full legal copy:
+    <a href="/docs/the-missing-layer.html">/docs/the-missing-layer.html</a>
+    · paper
+    <a href="/docs/the-missing-layer-steps.pdf">PDF</a>
+    · packet
+    <a href="/docs/legal.html#s15a">Legal §15A</a>
+  </div>
+
+  <div class="cmd">
+    <div>C:\LAYER&gt; DIR</div>
+    <div class="cmd-line">
+      <span class="dim">COMMANDS:</span>
+      <button class="nav-btn active" data-view="circle">CIRCLE</button>
+      <button class="nav-btn" data-view="split">SPLIT</button>
+      <button class="nav-btn" data-view="person">PERSON</button>
+      <button class="nav-btn" data-view="export">EXPORT</button>
+      <button class="nav-btn" data-view="pay">PAY</button>
+      <button class="nav-btn" data-view="help">GUIDE</button>
+      <span class="dim">|</span>
+      <span class="dim">RANGE:</span>
+      <span id="rangeSeg">
+        <button data-range="7">7D</button>
+        <button data-range="30" class="on">30D</button>
+        <button data-range="90">90D</button>
+      </span>
+      <label><input type="checkbox" id="mutualsOnly" /> MUTUALS ONLY</label>
+    </div>
+  </div>
+
+  <div>
+    <div id="viewTitle">CIRCLE</div>
+    <div class="dim" id="viewSub">WEIGHT: REPLY 4  QUOTE 3.5  RT 2  LIKE 1  + DECAY</div>
+  </div>
+
+  <section id="view-circle" class="view">
+    <div class="kpis" id="kpis"></div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>HANDLE</th>
+          <th>TYPE</th>
+          <th>SHARE</th>
+          <th>L/R/Q/RT</th>
+          <th>YOU/THEM</th>
+          <th>TOUCH</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="circleBody"></tbody>
+    </table>
+  </section>
+
+  <section id="view-split" class="view hidden">
+    <div class="card">
+      <div>WHERE ENGAGEMENT COMES FROM</div>
+      <div id="sourceBars"></div>
+    </div>
+    <div class="card">
+      <div>TOP 15 VS EVERYONE ELSE</div>
+      <div id="top15pct"></div>
+      <div class="dim">HIGH % = YOUR AUDIENCE IS A ROOM NOT A STADIUM</div>
+      <div id="crowdBars"></div>
+    </div>
+  </section>
+
+  <section id="view-person" class="view hidden">
+    <p class="dim" id="personEmpty">TYPE OPEN FROM CIRCLE OR HIT [OPEN]</p>
+    <div id="personPanel" class="hidden person-panel"></div>
+  </section>
+
+  <section id="view-export" class="view hidden">
+    <div class="card">
+      <div>EXPORT CURRENT CUT</div>
+      <div class="dim">CSV: RANK HANDLE TYPE SHARE COUNTS DIRECTION LAST TOUCH</div>
+      <button class="btn" id="csvBtn">C:\LAYER&gt; COPY CON CIRCLE.CSV</button>
+    </div>
+    <div class="card dim">
+      LIVE X ROLLUP IS THE NIGHTLY JOB. CIRCLE SHOWS DEMO PEOPLE UNTIL THAT JOB IS CONNECTED.<br />
+      1 LIKING_USERS / REPLIES / QUOTES<br />
+      2 FOLLOWER + FOLLOWING SETS<br />
+      3 DO NOT HIT API PER PAGE LOAD
+    </div>
+  </section>
+
+  <section id="view-pay" class="view hidden">
+    <div class="card" id="payStatus"></div>
+    <div class="card">
+      <div>SELECT REPORT</div>
+      <div id="skuList"></div>
+    </div>
+    <div class="card">
+      <div>PAY WITH</div>
+      <div id="coinList"></div>
+    </div>
+    <div class="card" id="invoiceBox"></div>
+  </section>
+
+  <section id="view-help" class="view hidden">
+    <pre id="helpText" class="mono"></pre>
+    <p class="dim" style="margin-top:10px">
+      Same steps in the legal packet:
+      <a href="/docs/the-missing-layer.html">/docs/the-missing-layer.html</a>
+      ·
+      <a href="/docs/the-missing-layer-steps.pdf">PDF</a>
+    </p>
+  </section>
+
+  <div class="foot">F1 CIRCLE &nbsp; F2 SPLIT &nbsp; F3 PERSON &nbsp; F4 EXPORT &nbsp; F5 PAY &nbsp; F6 GUIDE</div>
+  <script src="/assets/js/layer/data.js?v=20260913layer"></script>
+  <script src="/assets/js/layer/app.js?v=20260913layer"></script>
+  <script src="/assets/js/core/docs-footer.js?v=20260913layer" data-docs-footer="1"></script>
+  <script src="/assets/js/core/shell-boot.js?v=20260913layer" data-shell-boot="1"></script>
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>DOSWAPZ - Style #04 examples (local)</title>
+ <meta name="robots" content="noindex">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap');
+ :root {
+ --g: #00ff66;
+ --g-dim: #00aa44;
+ --g-dark: #003318;
+ --line: #0a4020;
+ --bg-term: #020804;
+ --muted: #4a7a55;
+ --warn: #ffcc44;
+ --face: url('/assets/images/hub-ref-acm2p.jpg');
+ }
+ * { box-sizing: border-box; }
+ html { scroll-behavior: smooth; }
+ body {
+ margin: 0;
+ background: #010302;
+ color: var(--g);
+ font-family: 'VT323', 'Share Tech Mono', monospace;
+ }
+
+ /* nav */
+ .topnav {
+ position: sticky; top: 0; z-index: 50;
+ display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+ padding: 10px 14px;
+ background: rgba(0,8,4,.95);
+ border-bottom: 1px solid var(--line);
+ }
+ .topnav strong { color: var(--g); letter-spacing: 2px; margin-right: 6px; }
+ .topnav a {
+ color: var(--muted); text-decoration: none; font-size: 14px;
+ border: 1px solid #143; padding: 4px 10px;
+ }
+ .topnav a:hover { color: var(--g); border-color: var(--g); }
+ .note {
+ max-width: 960px; margin: 14px auto; padding: 0 16px;
+ color: var(--muted); font-size: 15px; line-height: 1.4;
+ }
+
+ /* shared #04 shell */
+ .page {
+ min-height: 100vh;
+ display: grid;
+ grid-template-columns: minmax(280px, 380px) 1fr;
+ border-bottom: 3px solid #0a2;
+ }
+ @media (max-width: 800px) {
+ .page { grid-template-columns: 1fr; }
+ .face { min-height: 220px; order: -1; }
+ }
+
+ .term {
+ background: var(--bg-term);
+ border-right: 1px solid var(--line);
+ padding: 22px 18px 28px;
+ display: flex;
+ flex-direction: column;
+ position: relative;
+ overflow: hidden;
+ }
+ .term::before {
+ content: '';
+ position: absolute; inset: 0; pointer-events: none; opacity: .35;
+ background: repeating-linear-gradient(
+ to bottom, transparent 0 3px, rgba(0,255,80,.03) 3px 5px
+ );
+ }
+ .term > * { position: relative; z-index: 1; }
+
+ .brand {
+ font-size: 40px; letter-spacing: 6px; color: var(--g);
+ text-shadow: 0 0 10px rgba(0,255,100,.45);
+ line-height: 1;
+ }
+ .brand-sub {
+ color: var(--muted); font-size: 14px; letter-spacing: 2px;
+ margin: 4px 0 18px;
+ }
+ .status-line {
+ font-size: 13px; color: var(--g-dim); margin-bottom: 14px; letter-spacing: 1px;
+ }
+ .status-line .ok { color: var(--g); }
+
+ .menu { display: grid; gap: 4px; flex: 1; }
+ .menu a, .menu .item {
+ display: block;
+ color: var(--muted);
+ border-left: 3px solid #243;
+ padding: 9px 12px;
+ text-decoration: none;
+ font-size: 18px;
+ letter-spacing: 1px;
+ background: transparent;
+ transition: .12s;
+ }
+ .menu a:hover, .menu .item.active {
+ color: var(--g);
+ border-left-color: var(--g);
+ background: rgba(0,40,15,.45);
+ text-shadow: 0 0 8px rgba(0,255,100,.25);
+ }
+ .menu .item.active { box-shadow: inset 0 0 20px rgba(0,255,80,.06); }
+
+ .term-foot {
+ margin-top: 18px; font-size: 12px; color: #365; letter-spacing: 1px;
+ }
+
+ .face {
+ position: relative;
+ background:
+ linear-gradient(90deg, rgba(0,0,0,.55) 0%, transparent 35%),
+ var(--face) center/cover no-repeat #000;
+ min-height: 100vh;
+ }
+ .face-hud {
+ position: absolute; right: 16px; top: 16px;
+ text-align: right; font-size: 12px; color: var(--g);
+ letter-spacing: 2px; line-height: 1.5;
+ text-shadow: 0 0 8px rgba(0,255,100,.4);
+ }
+ .face-hud .dim { color: var(--muted); }
+ .face-bottom {
+ position: absolute; left: 16px; bottom: 16px; right: 16px;
+ display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+ font-size: 12px; color: var(--muted); letter-spacing: 1px;
+ }
+ .face-reticle {
+ position: absolute; left: 52%; top: 46%;
+ width: 90px; height: 90px; transform: translate(-50%,-50%);
+ border: 1px solid rgba(0,255,100,.25); border-radius: 50%;
+ box-shadow: 0 0 0 28px rgba(0,255,80,.03);
+ pointer-events: none;
+ }
+ .face-reticle::after {
+ content: '';
+ position: absolute; left: 50%; top: 50%; width: 8px; height: 8px;
+ border: 1px solid var(--g); border-radius: 50%;
+ transform: translate(-50%,-50%);
+ }
+
+ /* content panels inside terminal for non-hub pages */
+ .panel-title {
+ font-size: 22px; color: var(--warn); letter-spacing: 3px;
+ border-bottom: 1px solid var(--line); padding-bottom: 6px; margin: 0 0 12px;
+ }
+ .panel-body { font-size: 16px; color: #8fb; line-height: 1.4; margin-bottom: 14px; }
+ .btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+ .btn {
+ border: 1px solid var(--g); color: var(--g); background: rgba(0,30,10,.5);
+ padding: 8px 14px; font-size: 16px; text-decoration: none; letter-spacing: 1px;
+ }
+ .btn:hover { background: rgba(0,60,20,.6); color: #fff; }
+ .btn.dim { border-color: #345; color: var(--muted); }
+ .field {
+ border: 1px solid var(--line); background: #000; padding: 10px;
+ margin: 8px 0; color: var(--g-dim); font-size: 15px;
+ }
+ .tag {
+ display: inline-block; border: 1px solid var(--warn); color: var(--warn);
+ font-size: 11px; letter-spacing: 2px; padding: 2px 8px; margin-bottom: 8px;
+ }
+ .gallery-mini {
+ display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0;
+ }
+ .gallery-mini .card {
+ border: 1px solid var(--line); background: #001208; aspect-ratio: 1;
+ display: grid; place-items: center; color: var(--muted); font-size: 12px;
+ }
+ .section-label {
+ position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+ z-index: 5; background: #000; border: 1px solid var(--g);
+ color: var(--g); font-size: 12px; letter-spacing: 3px; padding: 4px 10px;
+ }
+ .page-wrap { position: relative; }
+ </style>
+</head>
+<body>
+ <nav class="topnav">
+ <strong>STYLE #04 EXAMPLES</strong>
+ <a href="#hub">Hub</a>
+ <a href="#swap">Swap</a>
+ <a href="#mint">Mint</a>
+ <a href="#gallery">Gallery</a>
+ <a href="#lily">Lily Pad</a>
+ <a href="#nodes">Nodes</a>
+ <a href="#basement">Basement</a>
+ <a href="#vision">Vision Center</a>
+ <a href="#portal">Time Machine</a>
+ <a href="/hub-concepts.html">all concepts</a>
+ <a href="/go.html">go menu</a>
+ </nav>
+
+ <p class="note">
+ Local mockups only - not live. Every screen uses the same fashion:
+ <strong>left terminal panel</strong> + <strong>right face/HUD art</strong> (your Acm2P cyber profile).
+ Pick what you like; we can wire the real site to this shell later.
+ </p>
+
+ <!-- HUB -->
+ <div class="page-wrap" id="hub">
+ <div class="section-label">01 * HUB / SYSTEM MENU</div>
+ <div class="page">
+ <aside class="term">
+ <div class="brand">DOSWAPZ</div>
+ <div class="brand-sub">// SYSTEM MENU</div>
+ <div class="status-line">[<span class="ok">CONNECTED</span>] - STABLE</div>
+ <nav class="menu">
+ <a class="item active" href="#hub">▸ CRYPTO DAD</a>
+ <a href="#hub">▸ DEGEN$</a>
+ <a href="#hub">▸ HARDWEAR</a>
+ <a href="#swap">▸ SWAP</a>
+ <a href="#mint">▸ MINT</a>
+ <a href="#gallery">▸ MINT GALLERY</a>
+ <a href="#vision">▸ VISION CENTER</a>
+ <a href="#lily">▸ LILY PAD</a>
+ <a href="#basement">▸ BASEMENT</a>
+ <a href="#portal">▸ TIME MACHINE</a>
+ </nav>
+ <div class="term-foot">select destination </div>
+ </aside>
+ <div class="face">
+ <div class="face-reticle"></div>
+ <div class="face-hud">
+ <span class="dim">SYSTEM ONLINE</span><br>
+ TARGET LOCKED<br>
+ 45.6789 N * 4.779 B
+ </div>
+ <div class="face-bottom">
+ <span>PROFILE LOCK</span>
+ <span>DOSWAPZ OS v2</span>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <!-- SWAP -->
+ <div class="page-wrap" id="swap">
+ <div class="section-label">02 * SWAP</div>
+ <div class="page">
+ <aside class="term">
+ <div class="brand" style="font-size:28px">DOSWAPZ</div>
+ <div class="brand-sub">// SWAP * 0% JUPITER</div>
+ <div class="panel-title">ROUTE</div>
+ <div class="panel-body">Soft wallet connect. Real swaps move funds - DYOR.</div>
+ <div class="field">FROM * SOL</div>
+ <div class="field">TO * USDC</div>
+ <div class="field">NODE * public / custom RPC</div>
+ <div class="btn-row">
+ <a class="btn" href="#">SOFT CONNECT</a>
+ <a class="btn" href="#">GET QUOTE</a>
+ <a class="btn dim" href="#hub"><- HUB</a>
+ </div>
+ <div class="term-foot">verify routes * never share keys</div>
+ </aside>
+ <div class="face">
+ <div class="face-reticle"></div>
+ <div class="face-hud">
+ LATENCY 18ms<br>
+ <span class="dim">RPC SYNC</span>
+ </div>
+ <div class="face-bottom">
+ <span>SWAP RAIL</span>
+ <span>NO CUSTODY</span>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <!-- MINT -->
+ <div class="page-wrap" id="mint">
+ <div class="section-label">03 * MINT</div>
+ <div class="page">
+ <aside class="term">
+ <div class="brand" style="font-size:28px">DOSWAPZ</div>
+ <div class="brand-sub">// PIXEL MATH MINT</div>
+ <span class="tag">LIVE ETH</span>
+ <div class="panel-title">PREVIEW</div>
+ <div class="field" style="aspect-ratio:1;max-width:220px;display:grid;place-items:center;color:var(--muted)">
+ [ 32×32 VOXEL PREVIEW ]
+ </div>
+ <div class="panel-body">Wallet auto-disconnects after each confirmed mint.</div>
+ <div class="btn-row">
+ <a class="btn" href="#">CONNECT</a>
+ <a class="btn" href="#">MINT</a>
+ <a class="btn dim" href="#gallery">GALLERY -> </a>
+ </div>
+ <div class="term-foot">verify contracts on explorers</div>
+ </aside>
+ <div class="face">
+ <div class="face-reticle"></div>
+ <div class="face-hud">SEED STREAM<br><span class="dim">MATH ENGINE</span></div>
+ <div class="face-bottom"><span>MINT RAIL</span><span>AUTO DISCONNECT</span></div>
+ </div>
+ </div>
+ </div>
+
+ <!-- GALLERY -->
+ <div class="page-wrap" id="gallery">
+ <div class="section-label">04 * MINT GALLERY</div>
+ <div class="page">
+ <aside class="term">
+ <div class="brand" style="font-size:28px">DOSWAPZ</div>
+ <div class="brand-sub">// MINT GALLERY</div>
+ <div class="panel-title">YOUR MINTS</div>
+ <div class="panel-body">Soft connect * view only * no funds.</div>
+ <div class="gallery-mini">
+ <div class="card">MINT 01</div>
+ <div class="card">MINT 02</div>
+ <div class="card">SAMPLE</div>
+ <div class="card">SAMPLE</div>
+ </div>
+ <div class="btn-row">
+ <a class="btn" href="#">SOFT CONNECT</a>
+ <a class="btn" href="https://floored.app" target="_blank" rel="noopener">FLOORED.APP -> </a>
+ <a class="btn dim" href="#mint">MINT -> </a>
+ </div>
+ <div class="term-foot">trade elsewhere * verify URLs</div>
+ </aside>
+ <div class="face">
+ <div class="face-reticle"></div>
+ <div class="face-hud">VIEW ONLY<br><span class="dim">NO APPROVALS</span></div>
+ <div class="face-bottom"><span>GALLERY</span><span>FLOORED MARKETPLACE</span></div>
+ </div>
+ </div>
+ </div>
+
+ <!-- LILY -->
+ <div class="page-wrap" id="lily">
+ <div class="section-label">05 * LILY PAD GATE</div>
+ <div class="page">
+ <aside class="term">
+ <div class="brand" style="font-size:28px">DOSWAPZ</div>
+ <div class="brand-sub">// THE LILY PAD</div>
+ <div class="panel-title">VIDEO GATE</div>
+ <div class="field" style="aspect-ratio:16/9;display:grid;place-items:center">
+ [ LILY PAD VIDEO * CENTERED ]
+ </div>
+ <div class="btn-row">
+ <a class="btn" href="#nodes">ENTER LILY PAD</a>
+ <a class="btn dim" href="#hub"><- HUB</a>
+ </div>
+ <div class="term-foot">simulated sovereignty</div>
+ </aside>
+ <div class="face">
+ <div class="face-reticle"></div>
+ <div class="face-hud">GATE OPEN<br><span class="dim">NODES AHEAD</span></div>
+ <div class="face-bottom"><span>LILY ACCESS</span><span>NO FUNDS</span></div>
+ </div>
+ </div>
+ </div>
+
+ <!-- NODES -->
+ <div class="page-wrap" id="nodes">
+ <div class="section-label">06 * NODES / DECLASSIFIED</div>
+ <div class="page">
+ <aside class="term">
+ <div class="brand" style="font-size:28px">DOSWAPZ</div>
+ <div class="brand-sub">// NODES</div>
+ <div class="panel-title">DECLASSIFIED</div>
+ <div class="panel-body">
+ Browser sims are training wheels. Ready for a real node?
+ <strong>OnlyMemes</strong> has the path dialed - they have it down.
+ </div>
+ <div class="field" style="text-align:center;padding:12px">
+ [ ONLYMEMES IMAGE ]
+ </div>
+ <div class="btn-row">
+ <a class="btn" href="https://onlymemes.com/" target="_blank" rel="noopener">ONLYMEMES.COM -> </a>
+ <a class="btn dim" href="#lily"><- LILY</a>
+ </div>
+ <div class="term-foot">third-party * DYOR</div>
+ </aside>
+ <div class="face">
+ <div class="face-reticle"></div>
+ <div class="face-hud">RPC REALITY<br><span class="dim">NOT IN BROWSER</span></div>
+ <div class="face-bottom"><span>DECLASSIFIED</span><span>RUN YOUR OWN</span></div>
+ </div>
+ </div>
+ </div>
+
+ <!-- BASEMENT -->
+ <div class="page-wrap" id="basement">
+ <div class="section-label">07 * BASEMENT</div>
+ <div class="page">
+ <aside class="term">
+ <div class="brand" style="font-size:28px">DOSWAPZ</div>
+ <div class="brand-sub">// THE BASEMENT</div>
+ <div class="status-line">18+ * OFF THE RECORD</div>
+ <nav class="menu">
+ <a class="item active">▸ CRYPTO MOM</a>
+ <a>▸ MEDIA LAB</a>
+ <a>▸ VANTABLACK MARKET</a>
+ <a>▸ TOKEN LAUNCHER</a>
+ <a>▸ PHUNK LAB</a>
+ </nav>
+ <div class="btn-row" style="margin-top:14px">
+ <a class="btn dim" href="#hub"><- HUB</a>
+ </div>
+ </aside>
+ <div class="face" style="filter:hue-rotate(-15deg) saturate(1.1)">
+ <div class="face-reticle"></div>
+ <div class="face-hud" style="color:#f8c">BASEMENT<br><span class="dim">SIGNAL NOISY</span></div>
+ <div class="face-bottom"><span>OFF MENU</span><span>CARETAKER ONLINE</span></div>
+ </div>
+ </div>
+ </div>
+
+ <!-- VISION -->
+ <div class="page-wrap" id="vision">
+ <div class="section-label">08 * VISION CENTER</div>
+ <div class="page">
+ <aside class="term">
+ <div class="brand" style="font-size:28px">DOSWAPZ</div>
+ <div class="brand-sub">// VISION CENTER</div>
+ <div class="panel-title">LIVE PLAYLIST</div>
+ <div class="panel-body">X broadcasts * creator credits * view / open on X.</div>
+ <div class="field">1 * PondTV * @boudahh</div>
+ <div class="field">2 * PAULY * @Sparrow_X_</div>
+ <div class="btn-row">
+ <a class="btn" href="#">OPEN ON X</a>
+ <a class="btn dim" href="#hub"><- HUB</a>
+ </div>
+ </aside>
+ <div class="face">
+ <div class="face-reticle"></div>
+ <div class="face-hud">LIVE FEED<br><span class="dim">24H STREAM</span></div>
+ <div class="face-bottom"><span>VISION CENTER</span><span>CREATORS CREDITED</span></div>
+ </div>
+ </div>
+ </div>
+
+ <!-- PORTAL -->
+ <div class="page-wrap" id="portal">
+ <div class="section-label">09 * TIME MACHINE</div>
+ <div class="page">
+ <aside class="term">
+ <div class="brand" style="font-size:28px">DOSWAPZ</div>
+ <div class="brand-sub">// TIME MACHINE</div>
+ <div class="panel-title">CHOOSE ERA</div>
+ <nav class="menu">
+ <a class="item active">▸ PAST</a>
+ <a>▸ PRESENT</a>
+ <a>▸ FUTURE</a>
+ </nav>
+ <div class="panel-body" style="margin-top:14px">No subtitles. Just the jump.</div>
+ <div class="btn-row">
+ <a class="btn dim" href="#hub"><- HUB</a>
+ </div>
+ </aside>
+ <div class="face">
+ <div class="face-reticle"></div>
+ <div class="face-hud">TIMELINE<br><span class="dim">SPLIT RIFT</span></div>
+ <div class="face-bottom"><span>ERA SELECT</span><span>YOU ARE HERE</span></div>
+ </div>
+ </div>
+ </div>
+
+ <p class="note" style="padding-bottom:40px">
+ End of Style #04 examples * local only * not production.<br>
+ If you want this as the real site shell, say the word and we’ll implement it on the actual hub + key pages (still no go-live until you approve partners).
+ </p>
+<script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+</body>
+</html>

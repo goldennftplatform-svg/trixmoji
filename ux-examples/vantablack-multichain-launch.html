@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+ <title>DOSWAPZ // VANTABLACK MULTI-CHAIN LAUNCH - EXAMPLE</title>
+ <meta name="description" content="UX example: launch tokens from Vantablack Market onto Solana, EVM chains, and Robinhood Chain.">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --vb: #6633cc;
+ --vb-dim: #331a66;
+ --vb-text: #c8c8d0;
+ --vb-muted: #666677;
+ --pink: #ff66cc;
+ --green: #00ff41;
+ --yellow: #ffff00;
+ --amber: #ffaa00;
+ --cyan: #66ccff;
+ }
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0;
+ min-height: 100%;
+ background: #000;
+ color: var(--vb-text);
+ font-family: 'VT323', monospace;
+ }
+
+ .dos-screen {
+ min-height: 100vh;
+ padding: 18px 14px 72px;
+ position: relative;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 2;
+ background: repeating-linear-gradient(
+ transparent 0, transparent 3px,
+ rgba(102, 51, 204, 0.04) 3px, rgba(102, 51, 204, 0.04) 5px
+ );
+ }
+
+ .wrap {
+ max-width: 720px;
+ margin: 0 auto;
+ position: relative;
+ z-index: 5;
+ }
+
+ .example-banner {
+ border: 2px dashed var(--yellow);
+ background: rgba(40, 40, 0, 0.45);
+ color: var(--yellow);
+ text-align: center;
+ padding: 8px 12px;
+ font-size: 14px;
+ letter-spacing: 1px;
+ line-height: 1.35;
+ margin-bottom: 14px;
+ }
+
+ .example-banner a { color: #fff; }
+
+ .header { text-align: center; margin-bottom: 14px; }
+ .header h1 {
+ margin: 0;
+ font-size: 30px;
+ letter-spacing: 6px;
+ color: #e8e8f0;
+ text-shadow: 0 0 12px var(--vb);
+ }
+ .header .sub {
+ font-size: 16px;
+ color: var(--vb-muted);
+ letter-spacing: 3px;
+ margin-top: 6px;
+ }
+ .header .tag {
+ margin-top: 10px;
+ font-size: 13px;
+ color: var(--pink);
+ border: 1px solid #442266;
+ padding: 2px 12px;
+ display: inline-block;
+ letter-spacing: 2px;
+ }
+
+ .panel {
+ border: 3px solid var(--vb);
+ background: rgba(10, 4, 18, 0.92);
+ padding: 16px 14px;
+ margin: 14px 0;
+ box-shadow: 0 0 16px rgba(102, 51, 204, 0.2);
+ }
+
+ .panel h2 {
+ margin: 0 0 12px;
+ font-size: 18px;
+ color: var(--amber);
+ letter-spacing: 3px;
+ font-weight: normal;
+ }
+
+ .field { margin-bottom: 12px; }
+ .field label {
+ display: block;
+ font-size: 14px;
+ color: #aa88cc;
+ letter-spacing: 2px;
+ margin-bottom: 4px;
+ }
+
+ .field input[type="text"],
+ .field input[type="number"],
+ .field select,
+ .field textarea,
+ .field input[type="file"] {
+ width: 100%;
+ background: #050508;
+ border: 2px solid var(--vb-dim);
+ color: var(--vb-text);
+ font-family: inherit;
+ font-size: 18px;
+ padding: 8px 10px;
+ outline: none;
+ }
+
+ .field select option {
+ background: #fff;
+ color: #111;
+ font-weight: 600;
+ }
+
+ .field input:focus,
+ .field select:focus,
+ .field textarea:focus {
+ border-color: var(--pink);
+ }
+
+ .field .hint {
+ font-size: 13px;
+ color: #665577;
+ margin-top: 4px;
+ letter-spacing: 1px;
+ line-height: 1.3;
+ }
+
+ .chain-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+ gap: 8px;
+ margin-bottom: 8px;
+ }
+
+ .chain-card {
+ font-family: inherit;
+ text-align: left;
+ border: 2px solid #2a1a44;
+ background: #08060c;
+ color: var(--vb-text);
+ padding: 10px 10px 8px;
+ cursor: pointer;
+ letter-spacing: 1px;
+ }
+
+ .chain-card:hover { border-color: var(--vb); }
+ .chain-card.selected {
+ border-color: var(--pink);
+ background: #12001a;
+ box-shadow: 0 0 10px rgba(255, 102, 204, 0.2);
+ }
+
+ .chain-card .cname {
+ font-size: 16px;
+ color: #eee;
+ display: block;
+ }
+
+ .chain-card .cmeta {
+ font-size: 12px;
+ color: var(--vb-muted);
+ margin-top: 4px;
+ display: block;
+ }
+
+ .chain-card.hood .cname { color: var(--yellow); }
+ .chain-card.sol .cname { color: var(--green); }
+ .chain-card.selected.hood { border-color: var(--yellow); }
+
+ .mode-tabs {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 8px;
+ margin-bottom: 12px;
+ }
+
+ .mode-tab {
+ font-family: inherit;
+ font-size: 14px;
+ letter-spacing: 2px;
+ border: 2px solid var(--vb-dim);
+ background: #0a0014;
+ color: #aa88cc;
+ padding: 6px 12px;
+ cursor: pointer;
+ }
+
+ .mode-tab.active {
+ border-color: var(--pink);
+ color: var(--pink);
+ background: #12001a;
+ }
+
+ .mode-tab:disabled {
+ opacity: 0.35;
+ cursor: not-allowed;
+ }
+
+ .wallet-row {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ gap: 10px;
+ }
+
+ .wallet-addr {
+ font-size: 16px;
+ color: var(--green);
+ letter-spacing: 1px;
+ }
+
+ .btn {
+ font-family: inherit;
+ font-size: 16px;
+ cursor: pointer;
+ border: 2px solid var(--vb-dim);
+ background: #050508;
+ color: var(--vb-text);
+ padding: 7px 16px;
+ text-decoration: none;
+ letter-spacing: 2px;
+ display: inline-block;
+ }
+
+ .btn:hover { border-color: var(--vb); color: #fff; }
+
+ .btn-pink {
+ border-color: var(--pink);
+ color: var(--pink);
+ width: 100%;
+ font-size: 18px;
+ padding: 12px;
+ margin-top: 6px;
+ letter-spacing: 3px;
+ }
+
+ .btn-pink:hover { background: #1a0030; color: #ffddff; }
+ .btn-pink:disabled { opacity: 0.4; cursor: not-allowed; }
+
+ .status {
+ margin-top: 10px;
+ font-size: 15px;
+ letter-spacing: 1px;
+ min-height: 22px;
+ color: var(--vb-muted);
+ }
+
+ .status.ok { color: var(--green); }
+ .status.warn { color: var(--amber); }
+ .status.err { color: #ff6688; }
+
+ .preview-card {
+ border: 2px solid #2a1a44;
+ background: #040406;
+ padding: 12px;
+ margin-top: 10px;
+ }
+
+ .preview-top {
+ display: flex;
+ justify-content: space-between;
+ gap: 8px;
+ align-items: flex-start;
+ }
+
+ .preview-symbol {
+ font-size: 24px;
+ color: #fff;
+ letter-spacing: 2px;
+ }
+
+ .preview-name {
+ font-size: 14px;
+ color: var(--vb-muted);
+ margin-top: 2px;
+ }
+
+ .badge-row {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 6px;
+ margin-top: 8px;
+ }
+
+ .badge {
+ font-size: 11px;
+ letter-spacing: 1px;
+ border: 1px solid #442266;
+ color: #aa88cc;
+ padding: 2px 8px;
+ }
+
+ .badge.chain { color: var(--cyan); border-color: #335566; }
+ .badge.hood { color: var(--yellow); border-color: #665500; }
+ .badge.sol { color: var(--green); border-color: #225522; }
+ .badge.mode { color: var(--pink); border-color: #662244; }
+
+ .market-mock {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+ gap: 10px;
+ margin-top: 8px;
+ }
+
+ .coin-card {
+ border: 2px solid #1a1a22;
+ background: #040406;
+ padding: 12px;
+ }
+
+ .coin-card .sym { font-size: 20px; color: #fff; letter-spacing: 2px; }
+ .coin-card .nm { font-size: 13px; color: var(--vb-muted); margin-top: 2px; }
+ .coin-card .mint {
+ font-size: 11px;
+ color: #444455;
+ margin-top: 6px;
+ word-break: break-all;
+ }
+
+ .filter-row {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 6px;
+ margin-bottom: 10px;
+ }
+
+ .filter-chip {
+ font-family: inherit;
+ font-size: 12px;
+ letter-spacing: 1px;
+ border: 1px solid #2a1a44;
+ background: transparent;
+ color: var(--vb-muted);
+ padding: 4px 10px;
+ cursor: pointer;
+ }
+
+ .filter-chip.active {
+ border-color: var(--pink);
+ color: var(--pink);
+ }
+
+ .result {
+ display: none;
+ margin-top: 12px;
+ padding: 12px;
+ border: 2px solid var(--green);
+ background: rgba(0, 30, 0, 0.3);
+ }
+
+ .result h3 {
+ margin: 0 0 8px;
+ color: var(--green);
+ font-size: 16px;
+ letter-spacing: 2px;
+ font-weight: normal;
+ }
+
+ .mint-box {
+ font-size: 14px;
+ word-break: break-all;
+ color: #aaffaa;
+ padding: 8px;
+ border: 1px solid #004400;
+ background: #000;
+ margin: 6px 0;
+ }
+
+ .disclaimer {
+ margin-top: 12px;
+ padding: 10px 12px;
+ border: 2px solid var(--yellow);
+ background: rgba(40, 30, 0, 0.35);
+ font-size: 12px;
+ line-height: 1.35;
+ color: #ddcc88;
+ }
+
+ .disclaimer strong { color: var(--yellow); }
+
+ .spec {
+ margin-top: 14px;
+ border: 1px solid #2a1a44;
+ padding: 12px;
+ font-size: 14px;
+ color: var(--vb-muted);
+ line-height: 1.45;
+ }
+
+ .spec strong { color: var(--vb-text); }
+ .spec code { color: var(--amber); font-family: inherit; }
+
+ .nav {
+ text-align: center;
+ margin-top: 22px;
+ }
+
+ .nav .btn {
+ margin: 4px;
+ border-color: #334433;
+ color: #88aa88;
+ }
+
+ .two-col {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 10px;
+ }
+
+ @media (max-width: 640px) {
+ .two-col { grid-template-columns: 1fr; }
+ .header h1 { font-size: 24px; letter-spacing: 3px; }
+ }
+ </style>
+</head>
+<body>
+ <div class="dos-screen">
+ <div class="wrap">
+ <div class="example-banner">
+ UX EXAMPLE ONLY - multi-chain Vantablack launch * not live yet<br>
+ <a href="/ux-examples/"><- examples</a>
+ * <a href="/ux-examples/bridge-robinhood.html">bridge example</a>
+ * after approve -> PAST + PRESENT pages
+ </div>
+
+ <div class="header">
+ <h1>VANTABLACK LAUNCH</h1>
+ <div class="sub">MARKET * MULTI-CHAIN * DEMO</div>
+ <div class="tag">SOLANA * EVM * ROBINHOOD CHAIN 4663</div>
+ </div>
+
+ <!-- CHAIN PICKER -->
+ <div class="panel">
+ <h2>1 * TARGET CHAIN</h2>
+ <div class="chain-grid" id="chainGrid"></div>
+ <div class="hint" id="chainHint" style="font-size:13px;color:#665577;letter-spacing:1px;line-height:1.35;">
+ Pick where the token is created. Market listings keep a chain badge so swap/bridge rails know where to route.
+ </div>
+ </div>
+
+ <!-- WALLET -->
+ <div class="panel">
+ <h2>2 * WALLET</h2>
+ <div class="wallet-row">
+ <button type="button" class="btn" id="connectBtn">CONNECT</button>
+ <button type="button" class="btn" id="disconnectBtn" style="display:none">DISCONNECT</button>
+ <span class="wallet-addr" id="walletAddr"> - </span>
+ </div>
+ <div class="status" id="walletStatus">Demo mode works without a wallet.</div>
+ </div>
+
+ <!-- LAUNCH FORM -->
+ <div class="panel">
+ <h2>3 * TOKEN + MODE</h2>
+ <div class="mode-tabs" id="modeTabs">
+ <button type="button" class="mode-tab active" data-mode="curve">CURVE</button>
+ <button type="button" class="mode-tab" data-mode="classic">CLASSIC</button>
+ <button type="button" class="mode-tab" data-mode="erc20">ERC-20</button>
+ </div>
+ <div class="status" id="modeHint" style="margin-top:0;margin-bottom:12px;">...</div>
+
+ <div class="field">
+ <label for="tokenName">NAME</label>
+ <input type="text" id="tokenName" maxlength="32" placeholder="Basement Coin" value="Void Rabbit" autocomplete="off">
+ </div>
+ <div class="two-col">
+ <div class="field">
+ <label for="tokenSymbol">SYMBOL</label>
+ <input type="text" id="tokenSymbol" maxlength="10" placeholder="VOID" value="VRBT" autocomplete="off">
+ </div>
+ <div class="field">
+ <label for="tokenDecimals">DECIMALS</label>
+ <input type="number" id="tokenDecimals" value="9" min="0" max="18" step="1">
+ </div>
+ </div>
+ <div class="field">
+ <label for="tokenDesc">DESCRIPTION</label>
+ <input type="text" id="tokenDesc" maxlength="120" placeholder="Off-the-record energy." value="Launched from the basement. Multi-chain ready." autocomplete="off">
+ </div>
+ <div class="field" id="supplyField">
+ <label for="tokenSupply">INITIAL SUPPLY</label>
+ <input type="text" id="tokenSupply" value="1000000000" autocomplete="off">
+ <div class="hint" id="supplyHint">Classic / ERC-20: full supply to your wallet.</div>
+ </div>
+ <div class="field" id="devBuyField">
+ <label for="devBuy">DEV BUY (native)</label>
+ <input type="number" id="devBuy" value="0.01" min="0" max="10" step="0.01">
+ <div class="hint" id="devBuyHint">Curve only - buys into the bonding curve at launch.</div>
+ </div>
+ <div class="field">
+ <label for="tokenImage">IMAGE (optional demo)</label>
+ <input type="file" id="tokenImage" accept="image/png,image/jpeg,image/webp">
+ </div>
+
+ <!-- Live card preview as it would appear on market -->
+ <div class="preview-card" id="previewCard">
+ <div class="preview-top">
+ <div>
+ <div class="preview-symbol" id="prevSym">VRBT</div>
+ <div class="preview-name" id="prevName">Void Rabbit</div>
+ </div>
+ <div style="font-size:12px;color:#666;letter-spacing:1px;text-align:right;">MARKET PREVIEW</div>
+ </div>
+ <div class="badge-row" id="prevBadges"></div>
+ <div class="mint" style="font-size:12px;color:#444455;margin-top:8px;word-break:break-all;" id="prevMint">
+ mint appears after demo launch...
+ </div>
+ </div>
+
+ <button type="button" class="btn btn-pink" id="launchBtn">DEMO LAUNCH -> LIST ON VANTABLACK</button>
+ <div class="status" id="launchStatus">Fill form * pick chain * demo launch lists locally.</div>
+
+ <div class="result" id="launchResult">
+ <h3>TOKEN LISTED (DEMO)</h3>
+ <div>Chain: <span id="resChain"></span></div>
+ <div>Mode: <span id="resMode"></span></div>
+ <div>Mint / contract:</div>
+ <div class="mint-box" id="resMint"></div>
+ <div style="margin-top:8px;font-size:13px;color:#88aa88;">
+ In production: wallet-signed create on the selected chain, then POST to
+ <code style="color:#ffaa00">/api/vantablack-coins</code> with <code style="color:#ffaa00">chain</code> field.
+ </div>
+ </div>
+ </div>
+
+ <!-- MARKET FILTER PREVIEW -->
+ <div class="panel">
+ <h2>4 * MARKET VIEW (MULTI-CHAIN FILTER)</h2>
+ <div class="filter-row" id="filterRow"></div>
+ <div class="market-mock" id="marketMock"></div>
+ <div class="status" id="marketStatus" style="text-align:center;">Demo catalog + anything you launch above.</div>
+ </div>
+
+ <div class="disclaimer">
+ <strong>// READ THIS</strong><br>
+ Demo only - no real mints or spends. Production rails:
+ Solana curve (Pump-style) * Solana classic SPL * EVM ERC-20 deploy (Ethereum / Base / Arbitrum / Polygon / <strong>Robinhood 4663</strong>).
+ Listings must store <code>chain</code> so swap/bridge know the rail. Not financial advice. DYOR. 18+.
+ </div>
+
+ <div class="spec">
+ <strong>WHAT THIS MOCKS FOR PRODUCTION</strong><br>
+ * Chain picker on launcher + market filter chips<br>
+ * Mode availability by chain (curve = Solana; ERC-20 = EVM/HOOD)<br>
+ * Catalog entry shape: <code>{ mint, symbol, name, chain, launchType, listedAt }</code><br>
+ * Wallet soft-connect: Phantom on SOL * MetaMask on EVM (incl. add Robinhood network)<br>
+ * After launch: auto-list on Vantablack with chain badge * deep-link swap/bridge<br><br>
+ <strong>NEXT (after you approve):</strong><br>
+ PAST <code>classic/pages/basement/token-launcher.html</code> + market filters<br>
+ PRESENT <code>orbit/pages/basement/...</code> mirrors<br>
+ Shared <code>assets/js/basement/token-launcher-multichain.js</code> + chain config
+ </div>
+
+ <div class="nav">
+ <a class="btn" href="/classic/pages/basement/vantablack/market.html"><- LIVE MARKET</a>
+ <a class="btn" href="/classic/pages/basement/token-launcher.html">LIVE LAUNCHER (SOL)</a>
+ <a class="btn" href="/ux-examples/bridge-robinhood.html">BRIDGE EXAMPLE</a>
+ <a class="btn" href="/ux-examples/">ALL EXAMPLES</a>
+ </div>
+ </div>
+ </div>
+
+ <script>
+(function () {
+ 'use strict';
+
+ var CHAINS = [
+ {
+ id: 'solana',
+ label: 'Solana',
+ kind: 'sol',
+ chainId: null,
+ cls: 'sol',
+ modes: ['curve', 'classic'],
+ defaultMode: 'curve',
+ decimals: 9,
+ native: 'SOL',
+ wallet: 'Phantom / Solflare',
+ note: 'Curve (bonding) + classic SPL. Current live launcher path.'
+ },
+ {
+ id: 'ethereum',
+ label: 'Ethereum',
+ kind: 'evm',
+ chainId: 1,
+ cls: '',
+ modes: ['erc20'],
+ defaultMode: 'erc20',
+ decimals: 18,
+ native: 'ETH',
+ wallet: 'MetaMask',
+ note: 'Classic ERC-20 deploy. Higher gas - good for “serious” listings.'
+ },
+ {
+ id: 'base',
+ label: 'Base',
+ kind: 'evm',
+ chainId: 8453,
+ cls: '',
+ modes: ['erc20'],
+ defaultMode: 'erc20',
+ decimals: 18,
+ native: 'ETH',
+ wallet: 'MetaMask',
+ note: 'Cheap EVM launch. Same ERC-20 flow as ETH.'
+ },
+ {
+ id: 'arbitrum',
+ label: 'Arbitrum',
+ kind: 'evm',
+ chainId: 42161,
+ cls: '',
+ modes: ['erc20'],
+ defaultMode: 'erc20',
+ decimals: 18,
+ native: 'ETH',
+ wallet: 'MetaMask',
+ note: 'Orbit sibling rail - easy path before Robinhood.'
+ },
+ {
+ id: 'polygon',
+ label: 'Polygon',
+ kind: 'evm',
+ chainId: 137,
+ cls: '',
+ modes: ['erc20'],
+ defaultMode: 'erc20',
+ decimals: 18,
+ native: 'POL',
+ wallet: 'MetaMask',
+ note: 'Low-cost EVM listing for market experimenters.'
+ },
+ {
+ id: 'robinhood',
+ label: 'Robinhood',
+ kind: 'evm',
+ chainId: 4663,
+ cls: 'hood',
+ modes: ['erc20'],
+ defaultMode: 'erc20',
+ decimals: 18,
+ native: 'ETH',
+ wallet: 'MetaMask',
+ note: 'Robinhood Chain mainnet (4663). ERC-20 + list on Vantablack with HOOD badge. Bridge rails move liquidity in/out.'
+ }
+ ];
+
+ var DEMO_SEED = [
+ { symbol: 'PORK', name: 'PORK', chain: 'solana', launchType: 'classic', mint: 'demo:pork:sol' },
+ { symbol: 'VOID', name: 'VOID', chain: 'solana', launchType: 'curve', mint: 'demo:void:sol' },
+ { symbol: 'USDG', name: 'USDG (ref)', chain: 'robinhood', launchType: 'erc20', mint: '0xdemo000000000000000000000000usdg' },
+ { symbol: 'BASEM', name: 'Basement ETH', chain: 'ethereum', launchType: 'erc20', mint: '0xdemo00000000000000000000000base' },
+ { symbol: 'ARBZ', name: 'Arbi Z', chain: 'arbitrum', launchType: 'erc20', mint: '0xdemo00000000000000000000000arbz' }
+ ];
+
+ var STORAGE_KEY = 'vb_multichain_demo_launches_v1';
+ var selectedChain = 'solana';
+ var selectedMode = 'curve';
+ var filterChain = 'all';
+ var connected = null;
+
+ function $(id) { return document.getElementById(id); }
+
+ function chainById(id) {
+ for (var i = 0; i < CHAINS.length; i++) {
+ if (CHAINS[i].id === id) return CHAINS[i];
+ }
+ return CHAINS[0];
+ }
+
+ function short(s) {
+ if (!s || s.length < 12) return s || '';
+ return s.slice(0, 6) + '...' + s.slice(-4);
+ }
+
+ function loadLaunches() {
+ try {
+ var raw = localStorage.getItem(STORAGE_KEY);
+ var arr = raw ? JSON.parse(raw) : [];
+ return Array.isArray(arr) ? arr : [];
+ } catch (e) {
+ return [];
+ }
+ }
+
+ function saveLaunch(entry) {
+ var list = loadLaunches();
+ list.unshift(entry);
+ try {
+ localStorage.setItem(STORAGE_KEY, JSON.stringify(list.slice(0, 40)));
+ } catch (e) {}
+ }
+
+ function renderChains() {
+ var grid = $('chainGrid');
+ grid.innerHTML = '';
+ CHAINS.forEach(function (c) {
+ var btn = document.createElement('button');
+ btn.type = 'button';
+ btn.className = 'chain-card ' + (c.cls || '') + (selectedChain === c.id ? ' selected' : '');
+ btn.innerHTML = '<span class="cname">' + c.label + '</span>';
+ btn.addEventListener('click', function () {
+ selectedChain = c.id;
+ selectedMode = c.defaultMode;
+ renderChains();
+ renderModes();
+ syncFormToChain();
+ updatePreview();
+ });
+ grid.appendChild(btn);
+ });
+ }
+
+ function renderModes() {
+ var c = chainById(selectedChain);
+ var tabs = document.querySelectorAll('#modeTabs .mode-tab');
+ tabs.forEach(function (tab) {
+ var mode = tab.getAttribute('data-mode');
+ var allowed = c.modes.indexOf(mode) >= 0;
+ tab.disabled = !allowed;
+ tab.classList.toggle('active', mode === selectedMode && allowed);
+ tab.style.display = allowed ? '' : 'none';
+ });
+ // ensure selectedMode valid
+ if (c.modes.indexOf(selectedMode) < 0) {
+ selectedMode = c.defaultMode;
+ tabs.forEach(function (tab) {
+ tab.classList.toggle('active', tab.getAttribute('data-mode') === selectedMode);
+ });
+ }
+
+ var hint = '';
+ if (selectedMode === 'curve') {
+ hint = 'CURVE: bonding launch on Solana (Pump-style). Graduates / lists with curve tag on market.';
+ } else if (selectedMode === 'classic') {
+ hint = 'CLASSIC SPL: fixed supply mint to your Solana wallet. Revoke mint auth recommended.';
+ } else {
+ hint = 'ERC-20: deploy token contract on ' + c.label +
+ (c.chainId != null ? (' (chainId ' + c.chainId + ')') : '') +
+ '. Lists on Vantablack with chain badge. Bridge to move liquidity.';
+ }
+ $('modeHint').textContent = hint;
+ $('modeHint').className = 'status warn';
+
+ var isCurve = selectedMode === 'curve';
+ $('devBuyField').style.display = isCurve ? '' : 'none';
+ $('supplyField').style.display = isCurve ? 'none' : '';
+ $('devBuyHint').textContent = 'Curve only - buys with ' + c.native + ' at launch (demo).';
+ $('supplyHint').textContent = selectedMode === 'erc20'
+ ? 'ERC-20 initial supply minted to deployer wallet.'
+ : 'Classic SPL: whole tokens to your wallet.';
+ }
+
+ function syncFormToChain() {
+ var c = chainById(selectedChain);
+ if (selectedMode === 'erc20') {
+ $('tokenDecimals').value = 18;
+ } else if (selectedMode === 'classic' || selectedMode === 'curve') {
+ $('tokenDecimals').value = c.decimals || 9;
+ }
+ $('chainHint').textContent = c.note + ' * Wallet: ' + c.wallet;
+ }
+
+ function updatePreview() {
+ var c = chainById(selectedChain);
+ var sym = ($('tokenSymbol').value || 'TOKEN').trim().toUpperCase().slice(0, 10) || 'TOKEN';
+ var name = ($('tokenName').value || 'Token').trim().slice(0, 32) || 'Token';
+ $('prevSym').textContent = sym;
+ $('prevName').textContent = name;
+
+ var badges = $('prevBadges');
+ badges.innerHTML = '';
+ function addBadge(text, cls) {
+ var s = document.createElement('span');
+ s.className = 'badge ' + (cls || '');
+ s.textContent = text;
+ badges.appendChild(s);
+ }
+ addBadge(c.label, c.id === 'robinhood' ? 'hood' : (c.id === 'solana' ? 'sol' : 'chain'));
+ addBadge(selectedMode.toUpperCase(), 'mode');
+ if (c.chainId != null) addBadge('CID ' + c.chainId, 'chain');
+ addBadge('CREATED', '');
+ }
+
+ function fakeMint(chain, mode) {
+ var c = chainById(chain);
+ if (c.kind === 'sol') {
+ var alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+ var out = '';
+ for (var i = 0; i < 44; i++) out += alphabet[Math.floor(Math.random() * alphabet.length)];
+ return out;
+ }
+ var hex = '';
+ for (var j = 0; j < 40; j++) hex += '0123456789abcdef'[Math.floor(Math.random() * 16)];
+ return '0x' + hex;
+ }
+
+ function allCatalog() {
+ return DEMO_SEED.concat(loadLaunches());
+ }
+
+ function renderFilters() {
+ var row = $('filterRow');
+ row.innerHTML = '';
+ var opts = [{ id: 'all', label: 'ALL' }].concat(
+ CHAINS.map(function (c) { return { id: c.id, label: c.label.toUpperCase() }; })
+ );
+ opts.forEach(function (o) {
+ var b = document.createElement('button');
+ b.type = 'button';
+ b.className = 'filter-chip' + (filterChain === o.id ? ' active' : '');
+ b.textContent = o.label;
+ b.addEventListener('click', function () {
+ filterChain = o.id;
+ renderFilters();
+ renderMarket();
+ });
+ row.appendChild(b);
+ });
+ }
+
+ function renderMarket() {
+ var mock = $('marketMock');
+ mock.innerHTML = '';
+ var list = allCatalog().filter(function (t) {
+ return filterChain === 'all' || t.chain === filterChain;
+ });
+ if (!list.length) {
+ $('marketStatus').textContent = 'No tokens for this chain filter - launch one above.';
+ return;
+ }
+ list.forEach(function (t) {
+ var c = chainById(t.chain) || { label: t.chain, id: t.chain };
+ var card = document.createElement('div');
+ card.className = 'coin-card';
+ var chainCls = t.chain === 'robinhood' ? 'hood' : (t.chain === 'solana' ? 'sol' : 'chain');
+ card.innerHTML =
+ '<div class="sym">' + escapeHtml(t.symbol) + '</div>' +
+ '<div class="nm">' + escapeHtml(t.name) + '</div>' +
+ '<div class="badge-row">' +
+ '<span class="badge ' + chainCls + '">' + escapeHtml(c.label || t.chain) + '</span>' +
+ '<span class="badge mode">' + escapeHtml(String(t.launchType || 'classic').toUpperCase()) + '</span>' +
+ '</div>' +
+ '<div class="mint">' + escapeHtml(short(t.mint)) + '</div>';
+ mock.appendChild(card);
+ });
+ $('marketStatus').textContent = list.length + ' listing(s) * filter: ' + filterChain;
+ }
+
+ function escapeHtml(s) {
+ return String(s)
+ .replace(/&/g, '&amp;')
+ .replace(/</g, '&lt;')
+ .replace(/>/g, '&gt;')
+ .replace(/"/g, '&quot;');
+ }
+
+ async function connectWallet() {
+ var c = chainById(selectedChain);
+ if (c.kind === 'sol') {
+ if (window.solana && window.solana.connect) {
+ try {
+ var res = await window.solana.connect();
+ var pk = res && res.publicKey ? res.publicKey.toString() : null;
+ if (pk) {
+ connected = { kind: 'sol', address: pk };
+ afterConnect();
+ return;
+ }
+ } catch (e) {
+ setWalletStatus('Wallet connect cancelled.', 'err');
+ return;
+ }
+ }
+ setWalletStatus('No Solana wallet - demo launch still works.', 'warn');
+ return;
+ }
+
+ if (window.ethereum && window.ethereum.request) {
+ try {
+ var accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+ if (accounts && accounts[0]) {
+ connected = { kind: 'evm', address: accounts[0] };
+ // try switch / add network for target chain
+ if (c.chainId != null) {
+ var hexId = '0x' + c.chainId.toString(16);
+ try {
+ await window.ethereum.request({
+ method: 'wallet_switchEthereumChain',
+ params: [{ chainId: hexId }]
+ });
+ } catch (switchErr) {
+ if (switchErr && switchErr.code === 4902 && c.id === 'robinhood') {
+ try {
+ await window.ethereum.request({
+ method: 'wallet_addEthereumChain',
+ params: [{
+ chainId: hexId,
+ chainName: 'Robinhood Chain',
+ nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+ rpcUrls: ['https://rpc.mainnet.chain.robinhood.com'],
+ blockExplorerUrls: ['https://robinhoodchain.blockscout.com']
+ }]
+ });
+ } catch (addErr) {}
+ }
+ }
+ }
+ afterConnect();
+ return;
+ }
+ } catch (e2) {
+ setWalletStatus('Wallet connect cancelled.', 'err');
+ return;
+ }
+ }
+ setWalletStatus('No EVM wallet - demo launch still works.', 'warn');
+ }
+
+ function afterConnect() {
+ $('walletAddr').textContent = short(connected.address);
+ $('connectBtn').style.display = 'none';
+ $('disconnectBtn').style.display = '';
+ setWalletStatus(
+ (connected.kind === 'sol' ? 'SOL' : 'EVM') + ' connected * ' + short(connected.address),
+ 'ok'
+ );
+ }
+
+ function disconnect() {
+ connected = null;
+ $('walletAddr').textContent = ' - ';
+ $('connectBtn').style.display = '';
+ $('disconnectBtn').style.display = 'none';
+ setWalletStatus('Disconnected * demo still works.', '');
+ }
+
+ function setWalletStatus(msg, cls) {
+ var el = $('walletStatus');
+ el.textContent = msg;
+ el.className = 'status' + (cls ? (' ' + cls) : '');
+ }
+
+ function setLaunchStatus(msg, cls) {
+ var el = $('launchStatus');
+ el.textContent = msg;
+ el.className = 'status' + (cls ? (' ' + cls) : '');
+ }
+
+ function demoLaunch() {
+ var c = chainById(selectedChain);
+ var name = ($('tokenName').value || '').trim();
+ var symbol = ($('tokenSymbol').value || '').trim().toUpperCase();
+ if (!name || !symbol) {
+ setLaunchStatus('Name and symbol required.', 'err');
+ return;
+ }
+ if (c.modes.indexOf(selectedMode) < 0) {
+ setLaunchStatus('Mode not available on this chain.', 'err');
+ return;
+ }
+
+ setLaunchStatus('Simulating create on ' + c.label + '...', 'warn');
+
+ setTimeout(function () {
+ var mint = fakeMint(selectedChain, selectedMode);
+ var entry = {
+ symbol: symbol.slice(0, 10),
+ name: name.slice(0, 32),
+ chain: selectedChain,
+ launchType: selectedMode,
+ mint: mint,
+ decimals: parseInt($('tokenDecimals').value, 10) || c.decimals,
+ listedAt: new Date().toISOString(),
+ demo: true
+ };
+ saveLaunch(entry);
+
+ $('prevMint').textContent = mint;
+ $('resChain').textContent = c.label + (c.chainId != null ? (' * ' + c.chainId) : '');
+ $('resMode').textContent = selectedMode.toUpperCase();
+ $('resMint').textContent = mint;
+ $('launchResult').style.display = 'block';
+
+ setLaunchStatus(
+ 'DEMO LISTED on Vantablack * ' + symbol + ' on ' + c.label +
+ (connected ? '' : ' (no wallet - pure UI demo)'),
+ 'ok'
+ );
+ filterChain = selectedChain;
+ renderFilters();
+ renderMarket();
+ updatePreview();
+ }, 450);
+ }
+
+ // mode tab clicks
+ document.querySelectorAll('#modeTabs .mode-tab').forEach(function (tab) {
+ tab.addEventListener('click', function () {
+ if (tab.disabled) return;
+ selectedMode = tab.getAttribute('data-mode');
+ renderModes();
+ syncFormToChain();
+ updatePreview();
+ });
+ });
+
+ ['tokenName', 'tokenSymbol'].forEach(function (id) {
+ $(id).addEventListener('input', updatePreview);
+ });
+
+ $('connectBtn').addEventListener('click', connectWallet);
+ $('disconnectBtn').addEventListener('click', disconnect);
+ $('launchBtn').addEventListener('click', demoLaunch);
+
+ // init
+ renderChains();
+ renderModes();
+ syncFormToChain();
+ updatePreview();
+ renderFilters();
+ renderMarket();
+})();
+ </script>
+</body>
+</html>

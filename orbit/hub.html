@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+<script src="/assets/js/poolvoid-gate.js?v=20261022pv"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+ <title>DOSWAPZ // PRESENT</title>
+ <meta name="description" content="DOSWAPZ present hub - floating bubbles matching Past hub menu sections.">
+ <meta property="og:title" content="DOSWAPZ // PRESENT">
+ <meta property="og:image" content="https://doswapz.com/assets/images/og-x-20260913.jpg">
+ <meta property="og:image:secure_url" content="https://doswapz.com/assets/images/og-x-20260913.jpg">
+ <meta property="og:image:type" content="image/jpeg">
+ <meta property="og:image:width" content="1200">
+ <meta property="og:image:height" content="630">
+ <meta property="og:image:alt" content="GLITCH PROTOCOL">
+ <meta property="og:url" content="https://doswapz.com/present">
+ <meta name="twitter:card" content="summary_large_image">
+ <meta name="twitter:image" content="https://doswapz.com/assets/images/og-x-20260913.jpg">
+ <meta name="twitter:image:alt" content="GLITCH PROTOCOL">
+ <link rel="manifest" href="/site.webmanifest">
+ <link rel="stylesheet" href="/assets/css/hollow-base.css?v=20260808z">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css?v=20260808z">
+  <link rel="stylesheet" href="/assets/css/era-present-soft.css?v=neonvoid5">
+ <link rel="stylesheet" href="/assets/css/era-transition.css?v=20260815glitch">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500&display=swap');
+
+ /* ===== NEON VOID hub (soft, not CRT) ===== */
+ html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+  background:
+   radial-gradient(ellipse at 28% 8%, rgba(255, 0, 180, 0.16), transparent 42%),
+   radial-gradient(ellipse at 92% 72%, rgba(0, 240, 255, 0.11), transparent 40%),
+   radial-gradient(ellipse at 50% 100%, rgba(120, 0, 255, 0.08), transparent 46%),
+   #000 !important;
+ }
+
+ body#screen.hub-bubbles {
+  position: fixed !important;
+  inset: 0 !important;
+  cursor: default !important;
+  color: rgba(245, 240, 255, 0.92);
+  touch-action: manipulation;
+  font-family: 'Inter', system-ui, sans-serif !important;
+ }
+
+ /* Decor never intercepts clicks */
+ .bg-canvas, #stars, .grain, .vignette, .glitch-layer,
+ .cursor-ghost, .float-field, .orbit-line, .core-glow, .stage, .glitch-credit {
+  pointer-events: none !important;
+ }
+
+ .stage {
+  z-index: 40 !important;
+  position: fixed !important;
+  inset: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 20px 56px !important;
+  pointer-events: none !important;
+  box-sizing: border-box !important;
+ }
+
+ /* Center brand: DOSWAPZ name + full acronym under it */
+ .brand-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: min(720px, 92vw);
+  pointer-events: none !important;
+  z-index: 41;
+ }
+ .hollow-title,
+ #doswapText {
+  font-family: 'Space Grotesk', system-ui, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: clamp(42px, 11vw, 84px) !important;
+  letter-spacing: clamp(6px, 1.6vw, 16px) !important;
+  line-height: 1 !important;
+  margin: 0 0 14px 0 !important;
+  color: #fff !important;
+  -webkit-text-stroke: 0 !important;
+  background: linear-gradient(120deg, #ffffff 0%, #ff3dce 42%, #00f0ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 22px rgba(255, 0, 200, 0.35)) drop-shadow(0 0 36px rgba(0, 240, 255, 0.18)) !important;
+  text-shadow: none !important;
+ }
+ .hollow-sub,
+ .brand-acronym {
+  font-family: 'Inter', system-ui, sans-serif !important;
+  font-weight: 500 !important;
+  font-size: clamp(11px, 2.1vw, 15px) !important;
+  letter-spacing: clamp(1px, 0.35vw, 4px) !important;
+  line-height: 1.45 !important;
+  text-transform: uppercase !important;
+  color: rgba(0, 240, 255, 0.72) !important;
+  opacity: 1 !important;
+  margin: 0 !important;
+  max-width: min(640px, 94vw);
+  text-align: center;
+  text-shadow: 0 0 18px rgba(0, 240, 255, 0.25);
+ }
+ .brand-acronym .acronym-line {
+  display: block;
+ }
+ .cursor-blink {
+  animation: brand-blink 1s steps(1) infinite;
+  opacity: 0.7;
+ }
+ @keyframes brand-blink {
+  50% { opacity: 0; }
+ }
+ @media (max-width: 640px) {
+  .hollow-title, #doswapText {
+   font-size: clamp(34px, 12vw, 52px) !important;
+   margin-bottom: 10px !important;
+  }
+  .hollow-sub, .brand-acronym {
+   font-size: 10px !important;
+   letter-spacing: 1px !important;
+  }
+ }
+
+ /* ===== BUBBLE LAYER — keep clear of bottom chrome ===== */
+ #bubbleLayer {
+  position: fixed !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+  /* Leave room for era-rail + credit strip */
+  bottom: 72px !important;
+  z-index: 500 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+ }
+
+ /* Real <a> tags â€” native navigation only */
+ a.bubble {
+  position: absolute !important;
+  z-index: 510 !important;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  width: 78px;
+  min-height: 78px;
+  margin: 0;
+  padding: 6px;
+  box-sizing: border-box;
+  text-decoration: none !important;
+  color: inherit;
+  /* center the box on (left,top) percent coords */
+  transform: translate(-50%, -50%);
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0.96;
+  user-select: none;
+ }
+ /* dos-smooth :active moves transform and pulls the bubble off the cursor, so a click never lands. */
+ body.hub-bubbles.dos-smooth a.bubble:hover,
+ body.hub-bubbles.dos-smooth a.bubble:focus,
+ body.hub-bubbles.dos-smooth a.bubble:active {
+  transform: translate(-50%, -50%) !important;
+ }
+ a.bubble:hover,
+ a.bubble:focus-visible {
+  opacity: 1;
+  filter: brightness(1.2) drop-shadow(0 0 12px currentColor);
+  outline: none;
+  z-index: 520 !important;
+ }
+ a.bubble .br {
+  width: var(--sz, 48px);
+  height: var(--sz, 48px);
+  border-radius: 50% !important;
+  border: 2px solid currentColor;
+  box-shadow:
+   0 0 0 1px rgba(255, 0, 200, 0.12),
+   0 0 22px color-mix(in srgb, currentColor 55%, transparent),
+   inset 0 0 12px rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.08), rgba(0,0,0,0.72) 70%);
+  pointer-events: none !important;
+  transition: transform 0.14s ease, box-shadow 0.14s ease;
+ }
+ a.bubble:hover .br {
+  transform: scale(1.12);
+  box-shadow:
+   0 0 0 1px rgba(0, 240, 255, 0.2),
+   0 0 28px color-mix(in srgb, currentColor 70%, transparent),
+   0 0 40px rgba(255, 0, 200, 0.2);
+ }
+ a.bubble.pool-void:hover .br,
+ a.bubble.pool-void:focus-visible .br {
+  border-color: #c9b6ff;
+  background:
+   radial-gradient(circle at 50% 50%, #000 0 28%, #140018 36%, transparent 38%),
+   conic-gradient(from 30deg, #050008, #7c4dff, #ffe0b8, #1a0030, #050008 80%);
+  box-shadow: 0 0 16px rgba(124, 77, 255, 0.85), inset 0 0 10px #000;
+  animation: void-hole-spin 0.9s linear infinite;
+ }
+ a.bubble.pool-void:hover .bg,
+ a.bubble.pool-void:focus-visible .bg {
+  opacity: 0;
+ }
+ @keyframes void-hole-spin {
+  to { transform: scale(1.12) rotate(360deg); }
+ }
+ a.bubble .bg {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: calc(var(--sz, 48px) * 0.32);
+  line-height: 1;
+  color: currentColor;
+  text-shadow: 0 0 10px currentColor, 0 0 18px currentColor;
+  pointer-events: none !important;
+ }
+ a.bubble .bl {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 240, 255, 0.9);
+  text-shadow: 0 1px 4px #000, 0 0 10px rgba(255, 0, 200, 0.25);
+  text-align: center;
+  line-height: 1.15;
+  max-width: 76px;
+  pointer-events: none !important;
+ }
+
+ /* Click: inflate → shatter → shockwave (not a plain fade) */
+ a.bubble.bubble-pop {
+  pointer-events: none !important;
+  z-index: 700 !important;
+  animation: bubble-pop-core 520ms cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards !important;
+ }
+ a.bubble.bubble-pop .br {
+  transition: none !important;
+  animation: bubble-pop-ring 520ms cubic-bezier(0.15, 0.85, 0.25, 1.15) forwards !important;
+ }
+ a.bubble.bubble-pop .bl {
+  animation: bubble-pop-label 280ms ease-out forwards !important;
+ }
+ a.bubble.bubble-pop .bg {
+  animation: bubble-pop-glyph 520ms ease-out forwards !important;
+ }
+
+ @keyframes bubble-pop-core {
+  0%   { transform: translate(-50%, -50%) scale(1, 1); opacity: 1; filter: brightness(1); }
+  12%  { transform: translate(-50%, -50%) scale(0.88, 1.08); opacity: 1; filter: brightness(1.25); }
+  28%  { transform: translate(-50%, -50%) scale(1.22, 1.18); opacity: 1; filter: brightness(1.9) saturate(1.4); }
+  42%  { transform: translate(-50%, -50%) scale(1.38, 1.38); opacity: 1; filter: brightness(2.2); }
+  55%  { transform: translate(-50%, -50%) scale(1.05, 1.05); opacity: 0.85; filter: brightness(2.4); }
+  100% { transform: translate(-50%, -50%) scale(0.2, 0.2); opacity: 0; filter: brightness(3) blur(2px); }
+ }
+ @keyframes bubble-pop-ring {
+  0%   { transform: scale(1); border-width: 2px; box-shadow: 0 0 18px currentColor; background: rgba(0,0,0,0.55); }
+  20%  { transform: scale(0.92); border-width: 3px; box-shadow: 0 0 10px currentColor, inset 0 0 12px currentColor; }
+  40%  { transform: scale(1.35); border-width: 3px; box-shadow: 0 0 32px currentColor, 0 0 60px currentColor, inset 0 0 20px rgba(255,255,255,0.35); background: color-mix(in srgb, currentColor 28%, #000); }
+  55%  { transform: scale(1.55); border-width: 1px; box-shadow: 0 0 40px #fff, 0 0 80px currentColor; background: rgba(255,255,255,0.35); }
+  100% { transform: scale(0.15); border-width: 0; box-shadow: 0 0 0 transparent; background: transparent; opacity: 0; }
+ }
+ @keyframes bubble-pop-label {
+  0%   { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(10px) scale(0.85); }
+ }
+ @keyframes bubble-pop-glyph {
+  0%   { transform: scale(1); opacity: 1; }
+  35%  { transform: scale(1.35); opacity: 1; text-shadow: 0 0 16px #fff, 0 0 28px currentColor; }
+  100% { transform: scale(2.2); opacity: 0; }
+ }
+
+ /* Shockwave ring + shard particles (spawned in JS) */
+ .bubble-burst {
+  position: fixed !important;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  z-index: 680 !important;
+  pointer-events: none !important;
+  --burst: #9eefff;
+ }
+ .bubble-burst .shock {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 28px;
+  height: 28px;
+  margin: -14px 0 0 -14px;
+  border-radius: 50%;
+  border: 2px solid var(--burst);
+  box-shadow:
+   0 0 12px var(--burst),
+   0 0 28px color-mix(in srgb, var(--burst) 60%, transparent),
+   inset 0 0 10px color-mix(in srgb, var(--burst) 40%, transparent);
+  opacity: 0.95;
+  animation: bubble-shock 560ms cubic-bezier(0.12, 0.7, 0.2, 1) forwards;
+ }
+ .bubble-burst .shock.s2 {
+  border-width: 1px;
+  animation-delay: 40ms;
+  animation-duration: 620ms;
+  opacity: 0.55;
+ }
+ .bubble-burst .flash {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, var(--burst) 35%, transparent 70%);
+  animation: bubble-flash 420ms ease-out forwards;
+ }
+ .bubble-burst .shard {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 7px;
+  height: 3px;
+  margin: -1.5px 0 0 -3.5px;
+  border-radius: 1px;
+  background: linear-gradient(90deg, #fff, var(--burst));
+  box-shadow: 0 0 8px var(--burst);
+  opacity: 1;
+  --dx: 40px;
+  --dy: -20px;
+  --rot: 120deg;
+  animation: bubble-shard 540ms cubic-bezier(0.15, 0.75, 0.25, 1) forwards;
+ }
+ .bubble-burst .spark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 3px;
+  margin: -1.5px 0 0 -1.5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 6px var(--burst), 0 0 12px var(--burst);
+  --dx: 24px;
+  --dy: -30px;
+  animation: bubble-spark 500ms ease-out forwards;
+ }
+ @keyframes bubble-shock {
+  0%   { transform: scale(0.4); opacity: 0.95; border-width: 3px; }
+  55%  { opacity: 0.55; border-width: 2px; }
+  100% { transform: scale(5.2); opacity: 0; border-width: 0; }
+ }
+ @keyframes bubble-flash {
+  0%   { transform: scale(0.4); opacity: 1; }
+  30%  { transform: scale(1.8); opacity: 0.9; }
+  100% { transform: scale(3.2); opacity: 0; }
+ }
+ @keyframes bubble-shard {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(0.3); opacity: 0; }
+ }
+ @keyframes bubble-spark {
+  0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+ }
+ .bubble.awardz-flash .bl {
+  color: #ffd700;
+  text-shadow: 0 0 10px #ffd700;
+  animation: awardz-new 1.1s steps(2, end) infinite;
+ }
+ .bubble.awardz-flash .bg {
+  animation: awardz-new 1.1s steps(2, end) infinite;
+ }
+ @keyframes awardz-new { 50% { opacity: 0.2; } }
+ @media (prefers-reduced-motion: reduce) {
+  .bubble.awardz-flash .bl, .bubble.awardz-flash .bg { animation: none; }
+  a.bubble.pool-void:hover .br,
+  a.bubble.pool-void:focus-visible .br { animation: none; transform: scale(1.12); }
+ }
+
+ .ref-crumbs {
+  z-index: 900 !important;
+  pointer-events: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 12px 14px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 100, 220, 0.55);
+ }
+ .ref-crumbs a {
+  pointer-events: auto !important;
+  text-decoration: none;
+  color: rgba(230, 180, 255, 0.7);
+  border: 1px solid rgba(255, 0, 200, 0.25);
+  background: rgba(12, 0, 18, 0.75);
+  border-radius: 999px;
+  padding: 6px 12px;
+ }
+ .ref-crumbs a:hover {
+  color: #00f0ff;
+  border-color: rgba(0, 240, 255, 0.45);
+ }
+ .ref-crumbs span {
+  color: #ff3dce;
+  text-shadow: 0 0 12px rgba(255, 61, 206, 0.4);
+ }
+
+ /* Bottom chrome — Neon Void pills */
+ .era-rail {
+  position: fixed;
+  left: 50%;
+  bottom: max(10px, env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  z-index: 920 !important;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  max-width: min(720px, calc(100vw - 140px));
+  padding: 6px 8px;
+  background: rgba(8, 0, 14, 0.94);
+  border: 1px solid rgba(255, 0, 200, 0.32);
+  border-radius: 999px;
+  box-shadow:
+   0 0 24px rgba(255, 0, 180, 0.15),
+   0 0 32px rgba(0, 240, 255, 0.08);
+  pointer-events: auto !important;
+  box-sizing: border-box;
+ }
+ .era-rail a {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(220, 180, 255, 0.6);
+  text-decoration: none;
+  border: 1px solid rgba(255, 0, 200, 0.22);
+  background: rgba(16, 0, 24, 0.92);
+  padding: 7px 11px;
+  border-radius: 999px;
+  pointer-events: auto !important;
+  white-space: nowrap;
+  flex: 0 0 auto;
+ }
+ .era-rail a:hover {
+  color: #fff;
+  border-color: rgba(0, 240, 255, 0.5);
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.15);
+ }
+ .era-rail a.here {
+  color: #00f0ff !important;
+  border-color: rgba(0, 240, 255, 0.5) !important;
+  background: rgba(0, 40, 48, 0.55) !important;
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.2);
+ }
+ .era-rail a.future-hot {
+  color: #b14dff !important;
+  border-color: rgba(177, 77, 255, 0.45) !important;
+ }
+ .era-rail a.tm {
+  color: #ff3dce !important;
+  border-color: rgba(255, 61, 206, 0.4) !important;
+ }
+
+ .glitch-credit {
+  position: fixed;
+  bottom: calc(52px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: rgba(255, 100, 220, 0.35);
+  pointer-events: none !important;
+  white-space: nowrap;
+ }
+
+ /* Hide global floating era rail + keep docs chip out of rail zone */
+ body.hub-bubbles #dosEraRail,
+ body.hub-bubbles .dos-era-rail {
+  display: none !important;
+ }
+ body.hub-bubbles .dos-docs-chip,
+ body.hub-bubbles #dosDocsChip {
+  right: 10px !important;
+  bottom: max(10px, env(safe-area-inset-bottom, 0px)) !important;
+  left: auto !important;
+  z-index: 910 !important;
+  max-width: 96px;
+ }
+ body.hub-bubbles .dos-docs-chip-btn {
+  min-height: 36px;
+  padding: 5px 8px;
+  border-radius: 12px 0 0 12px !important;
+  border-color: rgba(255, 0, 200, 0.4) !important;
+  background: rgba(12, 0, 18, 0.92) !important;
+ }
+ body.hub-bubbles .dos-docs-chip-mini {
+  border-radius: 0 12px 12px 0 !important;
+  border-color: rgba(0, 240, 255, 0.35) !important;
+ }
+ body.hub-bubbles .dos-docs-chip-lab { color: #ff3dce !important; }
+ body.hub-bubbles .dos-docs-chip-sub { display: none; }
+
+ /* Soften vignette for neon void */
+ body.hub-bubbles .vignette {
+  background: radial-gradient(ellipse at center, transparent 18%, rgba(0,0,0,0.55) 70%, #000 92%) !important;
+ }
+ body.hub-bubbles .grain { opacity: 0.25; }
+
+ @media (max-width: 640px) {
+  #bubbleLayer { bottom: 84px !important; }
+  .era-rail {
+   max-width: calc(100vw - 20px);
+   gap: 4px;
+   padding: 5px 6px;
+   flex-wrap: wrap;
+  }
+  .era-rail a {
+   font-size: 10px;
+   padding: 6px 8px;
+   letter-spacing: 0.08em;
+  }
+  .glitch-credit { bottom: calc(78px + env(safe-area-inset-bottom, 0px)); font-size: 8px; }
+  body.hub-bubbles .dos-docs-chip { display: none !important; /* DOCS bubble already on field */ }
+ }
+
+ /* Kill stuck travel overlays if any */
+ #eraTravelOverlay:not(.era-travel-active) {
+  display: none !important;
+  pointer-events: none !important;
+ }
+
+ @media (max-width: 640px) {
+  a.bubble { width: 68px; min-height: 68px; }
+  a.bubble .br { --sz: 42px !important; width: 42px; height: 42px; }
+  a.bubble .bl { font-size: 7px; }
+ }
+ </style>
+</head>
+<body id="screen" class="hub-bubbles" data-no-era-rail>
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars" aria-hidden="true"></div>
+ <div class="grain" aria-hidden="true"></div>
+ <div class="vignette" aria-hidden="true"></div>
+ <div class="glitch-layer" id="glitchLayer" aria-hidden="true"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.2)">
+  <span>PRESENT</span>
+  <a href="/portal.html" data-no-era data-plain data-no-transition="true">TIME MACHINE</a>
+  <a href="/future" id="crumbFuture" data-era="future" data-no-era data-plain data-no-transition="true" style="color:rgba(255,255,255,0.55)">FUTURE</a>
+ </nav>
+
+ <div class="float-field" id="field" aria-hidden="true">
+  <div class="core-glow"></div>
+  <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+  <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+  <div class="orbit-line" style="width:min(34vmin,34vw);height:min(34vmin,34vh)"></div>
+ </div>
+
+ <main class="stage" id="content" aria-label="DOSWAPZ brand">
+  <div class="brand-center">
+   <h1 class="hollow-title" id="doswapText">DOSWAPZ</h1>
+   <p class="hollow-sub brand-acronym">
+    <span class="acronym-line">DEGEN OPTIMIZED SOVEREIGN WARFARE AGAINST PUMPZ</span>
+   </p>
+  </div>
+ </main>
+
+ <!--
+  Present bubbles = Past hub menu sections (not individual games).
+  Click: pop animation, then go to page.
+ -->
+ <!-- Present hub uses CSS bubbles (not hollow-orbit). HOLLOW_ORBIT_HUB_OPTS lives in hollow-orbit.js for other orbit pages. -->
+ <div id="bubbleLayer" aria-label="Present destinations">
+  <!-- row 1 — map-style shortcuts (match Past // MAP + top menu) -->
+  <a class="bubble" style="left:14%;top:14%;color:#00ff41;--sz:50px" href="/doswapz/swap/present" data-no-era data-plain data-no-transition="true" aria-label="Swap">
+   <span class="br"><span class="bg">↔</span></span><span class="bl">SWAP</span>
+  </a>
+  <a class="bubble" style="left:32%;top:12%;color:#8aa0ff;--sz:48px" href="/doswapz/bridge/present" data-no-era data-plain data-no-transition="true" aria-label="Bridge">
+   <span class="br"><span class="bg">≋</span></span><span class="bl">BRIDGE</span>
+  </a>
+  <a class="bubble" style="left:50%;top:10%;color:#00ffcc;--sz:54px" href="/arcade/intro/present" data-no-era data-plain data-no-transition="true" aria-label="Arcade">
+   <span class="br"><span class="bg">■</span></span><span class="bl">ARCADE</span>
+  </a>
+  <a class="bubble awardz-flash" style="left:50%;top:22%;color:#ffd700;--sz:58px" href="/arcade/awardz/past" data-no-era data-plain data-no-transition="true" aria-label="Awardz Pool new feature">
+   <span class="br"><span class="bg">★</span></span><span class="bl">NEW AWARDZ</span>
+  </a>
+  <a class="bubble" style="left:68%;top:12%;color:#aaffcc;--sz:48px" href="/ape-chamber/past" data-no-era data-plain data-no-transition="true" aria-label="Ape Chamber">
+   <span class="br"><span class="bg">A</span></span><span class="bl">APE CHAMBER</span>
+  </a>
+  <a class="bubble" style="left:86%;top:14%;color:#00ff66;--sz:48px" href="/cryptodad/mobile/past" data-no-era data-plain data-no-transition="true" aria-label="Games">
+   <span class="br"><span class="bg">G</span></span><span class="bl">GAMES</span>
+  </a>
+
+  <!-- row 2 — Past menu sections -->
+  <a class="bubble" style="left:12%;top:34%;color:#b8f060;--sz:50px" href="https://www.uniphihq.com/" target="_blank" rel="noopener noreferrer" data-no-era data-plain data-no-transition="true" aria-label="Regen Farming">
+   <span class="br"><span class="bg">F</span></span><span class="bl">REGEN FARM</span>
+  </a>
+  <a class="bubble" style="left:30%;top:32%;color:#00ffff;--sz:50px" href="/cryptodad/token/present" data-no-era data-plain data-no-transition="true" aria-label="$DOSWAPZ token">
+   <span class="br"><span class="bg">Z</span></span><span class="bl">$DOSWAPZ</span>
+  </a>
+  <a class="bubble" style="left:50%;top:30%;color:#ff00ff;--sz:50px" href="/degen/trailer/present" data-no-era data-plain data-no-transition="true" aria-label="Degen">
+   <span class="br"><span class="bg">▶</span></span><span class="bl">DEGEN$</span>
+  </a>
+  <a class="bubble" style="left:70%;top:32%;color:#aaaacc;--sz:50px" href="/hardwear/wallet/present" data-no-era data-plain data-no-transition="true" aria-label="Hardwear">
+   <span class="br"><span class="bg">⚙</span></span><span class="bl">HARDWEAR</span>
+  </a>
+  <a class="bubble" style="left:88%;top:62%;color:#ffff66;--sz:46px" href="/quantum/past" data-no-era data-plain data-no-transition="true" aria-label="Quantum">
+   <span class="br"><span class="bg">Q</span></span><span class="bl">QUANTUM</span>
+  </a>
+  <a class="bubble" style="left:88%;top:34%;color:#00ff41;--sz:50px" href="/doswapz/swap/present" data-no-era data-plain data-no-transition="true" aria-label="Doswapz">
+   <span class="br"><span class="bg">Z</span></span><span class="bl">DOSWAPZ</span>
+  </a>
+
+  <!-- row 3 -->
+  <a class="bubble" style="left:14%;top:54%;color:#88cc88;--sz:50px" href="/pond-scum/present" data-no-era data-plain data-no-transition="true" aria-label="Pond Scum">
+   <span class="br"><span class="bg">≈</span></span><span class="bl">POND SCUM</span>
+  </a>
+  <a class="bubble" style="left:6%;top:46%;color:#aaff00;--sz:44px" href="/geoffwatch/present" data-no-era data-plain data-no-transition="true" aria-label="Geoffwatch">
+   <span class="br"><span class="bg">G</span></span><span class="bl">GEOFFWATCH</span>
+  </a>
+  <a class="bubble" style="left:6%;top:70%;color:#ffff66;--sz:46px" href="/tell-me-what-to-do/past" data-no-era data-plain data-no-transition="true" aria-label="Tell Me What To Do">
+   <span class="br"><span class="bg">?</span></span><span class="bl">TELL ME</span>
+  </a>
+  <a class="bubble pool-void" style="left:18%;top:46%;color:#c9b6ff;--sz:48px" href="/pool-void/past" data-no-era data-plain data-no-transition="true" aria-label="Pool Void">
+   <span class="br"><span class="bg">●</span></span><span class="bl">POOL VOID</span>
+  </a>
+  <a class="bubble" style="left:41%;top:56%;color:#c8ff66;--sz:42px" href="/school/present" data-no-era data-plain data-no-transition="true" aria-label="School">
+   <span class="br"><span class="bg">S</span></span><span class="bl">SCHOOL</span>
+  </a>
+  <a class="bubble" style="left:90%;top:48%;color:#66ddff;--sz:40px" href="/mail-gate/present" data-no-era data-plain data-no-transition="true" aria-label="Mail Gate">
+   <span class="br"><span class="bg">@</span></span><span class="bl">MAIL GATE</span>
+  </a>
+  <a class="bubble" style="left:78%;top:44%;color:#9aff9a;--sz:42px" href="/the-missing-layer/present" data-no-era data-plain data-no-transition="true" aria-label="The Missing Layer">
+   <span class="br"><span class="bg">L</span></span><span class="bl">MISSING LAYER</span>
+  </a>
+  <a class="bubble" style="left:23%;top:58%;color:#ff8fb8;--sz:44px" href="/pork-pasture/present" data-no-era data-plain data-no-transition="true" aria-label="$PORK Pasture">
+   <span class="br"><span class="bg">P</span></span><span class="bl">$PORK</span>
+  </a>
+  <a class="bubble" style="left:32%;top:52%;color:#ff3366;--sz:50px" href="/i-see-you/present" data-no-era data-plain data-no-transition="true" aria-label="I See You">
+   <span class="br"><span class="bg">◉</span></span><span class="bl">I SEE YOU</span>
+  </a>
+  <a class="bubble" style="left:50%;top:50%;color:#dd99ff;--sz:50px" href="/demplar/character/present" data-no-era data-plain data-no-transition="true" aria-label="Knights Demplar">
+   <span class="br"><span class="bg">⚔</span></span><span class="bl">DEMPLAR</span>
+  </a>
+  <a class="bubble" style="left:68%;top:52%;color:#ffff00;--sz:50px" href="/13th-step/present" data-no-era data-plain data-no-transition="true" aria-label="13th Step">
+   <span class="br"><span class="bg">?</span></span><span class="bl">13TH STEP</span>
+  </a>
+  <a class="bubble" style="left:86%;top:54%;color:#66ccff;--sz:50px" href="/harbinger/present" data-no-era data-plain data-no-transition="true" aria-label="Harbinger">
+   <span class="br"><span class="bg">◈</span></span><span class="bl">H4RB1NG3R</span>
+  </a>
+
+  <!-- row 4 — lifted so bottom chrome never covers hits -->
+  <a class="bubble" style="left:14%;top:66%;color:#ccaa66;--sz:50px" href="/attic/present" data-no-era data-plain data-no-transition="true" aria-label="The Attic">
+   <span class="br"><span class="bg">▲</span></span><span class="bl">THE ATTIC</span>
+  </a>
+  <a class="bubble" style="left:32%;top:64%;color:#ff66cc;--sz:50px" href="/basement/present" data-no-era data-plain data-no-transition="true" aria-label="The Basement">
+   <span class="br"><span class="bg">↓</span></span><span class="bl">BASEMENT</span>
+  </a>
+  <a class="bubble" style="left:50%;top:62%;color:#1abc9c;--sz:50px" href="/lily-pad/present" data-no-era data-plain data-no-transition="true" aria-label="Lily Pad">
+   <span class="br"><span class="bg">❀</span></span><span class="bl">LILY PAD</span>
+  </a>
+  <a class="bubble" style="left:68%;top:64%;color:#88ccff;--sz:50px" href="/perpetual-vision-center/present" data-no-era data-plain data-no-transition="true" aria-label="Perpetual Vision Center">
+   <span class="br"><span class="bg">◎</span></span><span class="bl">VISION</span>
+  </a>
+  <a class="bubble" style="left:86%;top:66%;color:#ffd700;--sz:50px" href="/arcade/scores/present" data-no-era data-plain data-no-transition="true" aria-label="Scoreboard">
+   <span class="br"><span class="bg">#</span></span><span class="bl">SCOREBOARD</span>
+  </a>
+
+  <!-- row 5 — above era rail safe zone -->
+  <a class="bubble" style="left:10%;top:80%;color:#ff66aa;--sz:48px" href="/area-69-420/present" data-no-era data-plain data-no-transition="true" aria-label="Area 69 420">
+   <span class="br"><span class="bg">69</span></span><span class="bl">AREA 69</span>
+  </a>
+  <a class="bubble" style="left:28%;top:82%;color:#ff8800;--sz:46px" href="/eat-shit/present" data-no-era data-plain data-no-transition="true" aria-label="Eat Shit">
+   <span class="br"><span class="bg">P</span></span><span class="bl">E** S***</span>
+  </a>
+  <a class="bubble" style="left:46%;top:84%;color:#ffcc66;--sz:46px" href="/portal.html" data-no-era data-plain data-no-transition="true" aria-label="Time Machine">
+   <span class="br"><span class="bg">◎</span></span><span class="bl">TIME</span>
+  </a>
+  <a class="bubble" style="left:64%;top:84%;color:#f0eef8;--sz:48px" href="/future" data-era="future" data-no-era data-plain data-no-transition="true" aria-label="Future">
+   <span class="br"><span class="bg">◇</span></span><span class="bl">FUTURE</span>
+  </a>
+  <a class="bubble" style="left:82%;top:82%;color:#cccccc;--sz:46px" href="/docs/legal.html" data-no-era data-plain data-no-transition="true" aria-label="Docs">
+   <span class="br"><span class="bg">§</span></span><span class="bl">DOCS</span>
+  </a>
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <nav class="era-rail" aria-label="Timeline">
+  <a href="/past" id="railPast" data-era="past" data-no-era data-plain data-no-transition="true">PAST</a>
+  <a href="/present" id="railPresent" class="here" data-era="orbit" data-no-era data-plain data-no-transition="true">PRESENT</a>
+  <a href="/future" id="railFuture" class="future-hot" data-era="future" data-no-era data-plain data-no-transition="true">FUTURE</a>
+  <a href="/portal.html" class="tm" data-no-era data-plain data-no-transition="true">TIME MACHINE</a>
+ </nav>
+
+ <!-- Minimal scripts: no page-transition, no click rewrite on bubbles -->
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/era-portal.js?v=20261031pop"></script>
+ <script src="/assets/js/core/era-transition.js?v=20260815glitch"></script>
+ <script src="/assets/js/core/shell-boot.js?v=20261024gag7" data-shell-boot="1"></script>
+ <script>
+ (function () {
+  'use strict';
+
+  /* Clear any stuck travel overlay that could eat clicks */
+  try {
+   var ov = document.getElementById('eraTravelOverlay');
+   if (ov) {
+    ov.className = '';
+    ov.style.display = 'none';
+    ov.style.pointerEvents = 'none';
+   }
+   document.body.style.filter = '';
+  } catch (e0) {}
+
+  try {
+   if (window.DOSWAPZ_ERA) DOSWAPZ_ERA.set('orbit');
+  } catch (e1) {}
+
+  /* Soft bg only */
+  try {
+   if (typeof hollowMandelBg === 'function') {
+    hollowMandelBg('bg', ['#000','#020204','#040408','#080810','#0a0a12'], {
+     opacity: 0.1, speed: 0.00002, fast: true
+    });
+   }
+  } catch (e2) {}
+
+  try {
+   var stars = document.getElementById('stars');
+   if (stars) {
+    for (var si = 0; si < 40; si++) {
+     var st = document.createElement('div');
+     st.className = 'star';
+     st.style.left = Math.random() * 100 + '%';
+     st.style.top = Math.random() * 100 + '%';
+     st.style.opacity = String(0.08 + Math.random() * 0.3);
+     var sz = 1 + Math.random() * 2;
+     st.style.width = st.style.height = sz + 'px';
+     stars.appendChild(st);
+    }
+   }
+  } catch (e3) {}
+
+  /* Bubble click: inflate + shatter shards + shockwave, THEN navigate */
+  var navigating = false;
+  var POP_MS = 560;
+
+  function readBubbleColor(a) {
+   try {
+    var c = window.getComputedStyle(a).color;
+    if (c && c !== 'rgba(0, 0, 0, 0)' && c !== 'transparent') return c;
+   } catch (e0) {}
+   return a.style.color || '#9eefff';
+  }
+
+  function spawnBurst(a) {
+   var rect = a.getBoundingClientRect();
+   var cx = rect.left + rect.width / 2;
+   var cy = rect.top + rect.height / 2;
+   var color = readBubbleColor(a);
+
+   var burst = document.createElement('div');
+   burst.className = 'bubble-burst';
+   burst.style.left = cx + 'px';
+   burst.style.top = cy + 'px';
+   burst.style.setProperty('--burst', color);
+
+   var flash = document.createElement('div');
+   flash.className = 'flash';
+   burst.appendChild(flash);
+
+   var shock = document.createElement('div');
+   shock.className = 'shock';
+   burst.appendChild(shock);
+
+   var shock2 = document.createElement('div');
+   shock2.className = 'shock s2';
+   burst.appendChild(shock2);
+
+   /* Arc shards (glass break) */
+   var shards = 12;
+   for (var i = 0; i < shards; i++) {
+    var ang = (Math.PI * 2 * i) / shards + (Math.random() * 0.35 - 0.18);
+    var dist = 36 + Math.random() * 48;
+    var sh = document.createElement('div');
+    sh.className = 'shard';
+    sh.style.setProperty('--dx', Math.cos(ang) * dist + 'px');
+    sh.style.setProperty('--dy', Math.sin(ang) * dist + 'px');
+    sh.style.setProperty('--rot', (120 + Math.random() * 220) + 'deg');
+    sh.style.width = (5 + Math.random() * 7) + 'px';
+    sh.style.height = (2 + Math.random() * 3) + 'px';
+    sh.style.animationDelay = (Math.random() * 40) + 'ms';
+    burst.appendChild(sh);
+   }
+
+   /* Sparks */
+   for (var j = 0; j < 10; j++) {
+    var ang2 = Math.random() * Math.PI * 2;
+    var dist2 = 20 + Math.random() * 56;
+    var sp = document.createElement('div');
+    sp.className = 'spark';
+    sp.style.setProperty('--dx', Math.cos(ang2) * dist2 + 'px');
+    sp.style.setProperty('--dy', Math.sin(ang2) * dist2 + 'px');
+    sp.style.animationDelay = (20 + Math.random() * 60) + 'ms';
+    burst.appendChild(sp);
+   }
+
+   document.body.appendChild(burst);
+   window.setTimeout(function () {
+    if (burst.parentNode) burst.parentNode.removeChild(burst);
+   }, 700);
+  }
+
+  function popThenGo(a) {
+   if (!a || navigating) return;
+   if (a.classList.contains('bubble-pop')) return;
+   var href = a.getAttribute('href');
+   if (!href || href.charAt(0) === '#') return;
+   navigating = true;
+
+   try { spawnBurst(a); } catch (eBurst) {}
+   a.classList.add('bubble-pop');
+
+   var external = a.target === '_blank' || (/^https?:\/\//i.test(href) && href.indexOf(location.origin) !== 0);
+   var era = a.getAttribute('data-era');
+
+   window.setTimeout(function () {
+    try {
+     if (era && window.DOSWAPZ_ERA && DOSWAPZ_ERA.travelTo) {
+      DOSWAPZ_ERA.travelTo(era, DOSWAPZ_ERA.hubFor(era) || href);
+      return;
+     }
+     if (external) {
+      window.open(href, a.target || '_blank', 'noopener,noreferrer');
+      navigating = false;
+      a.classList.remove('bubble-pop');
+      return;
+     }
+     window.location.href = href;
+    } catch (eNav) {
+     window.location.href = href;
+    }
+   }, POP_MS);
+  }
+
+  function onBubblePress(e) {
+   if (e.button != null && e.button !== 0) return;
+   var a = e.target && e.target.closest ? e.target.closest('a.bubble') : null;
+   if (!a) return;
+   e.preventDefault();
+   e.stopPropagation();
+   popThenGo(a);
+  }
+  var bubbleLayer = document.getElementById('bubbleLayer');
+  bubbleLayer.addEventListener('pointerdown', onBubblePress, true);
+  bubbleLayer.addEventListener('click', onBubblePress, true);
+
+  /* Lock vertical page scroll; never block clicks on bubbles */
+  document.addEventListener('wheel', function (e) {
+   if (e.target && e.target.closest && e.target.closest('a.bubble, a, button, input, textarea')) return;
+   e.preventDefault();
+  }, { passive: false });
+
+  /* Era rail: Past / Present / Future → timeline hubs */
+  function goEra(era) {
+   if (window.DOSWAPZ_ERA && DOSWAPZ_ERA.travelTo) {
+    DOSWAPZ_ERA.travelTo(era, DOSWAPZ_ERA.hubFor(era));
+   } else {
+    var map = { past: '/past', orbit: '/present', future: '/future' };
+    window.location.href = map[era] || '/portal.html';
+   }
+  }
+  function wire(id, era) {
+   var el = document.getElementById(id);
+   if (!el) return;
+   el.setAttribute('data-era', era);
+   el.setAttribute('data-no-era', '');
+   el.addEventListener('click', function (e) {
+    e.preventDefault();
+    goEra(era);
+   });
+  }
+  wire('railPast', 'past');
+  wire('railPresent', 'orbit');
+  wire('railFuture', 'future');
+  wire('crumbFuture', 'future');
+ })();
+ </script>
+</body>
+</html>
+
+

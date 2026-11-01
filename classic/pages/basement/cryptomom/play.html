@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOSWAPZ // CRYPTO MOM [18+]</title>
+<meta name="description" content="Crypto Mom - adult-themed text life sim. Dad lost everything. Mom keeps the lights on. 500k sim-validated mechanics. Basement only.">
+<meta name="rating" content="adult">
+<meta property="og:title" content="DOSWAPZ // CRYPTO MOM [18+]">
+<meta property="og:description" content="The aftermath of Crypto Dad. Single mom survival sim. NSFW themes, implied only.">
+<meta property="og:image" content="https://doswapz.com/assets/images/cryptomom/kitchen.svg">
+<meta property="og:url" content="https://doswapz.com/classic/pages/basement/cryptomom/play.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='22' fill='%23ff66cc' text-anchor='middle' font-weight='bold'%3ECM%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+:root { --basement:#9944ff; --pink:#ff66cc; --green:#00ff41; --shell-bottom:52px; }
+html, body { box-sizing:border-box; }
+body { font-family:'VT323',monospace; background:#000; color:#ddbbff; margin:0; overflow:hidden; height:100dvh; max-height:100dvh; padding-bottom:var(--shell-bottom); }
+body.has-doswapz-ticker { padding-bottom:calc(var(--shell-bottom) + 34px); }
+.crt { width:100%; height:100%; min-height:0; box-sizing:border-box; display:flex; flex-direction:row; border:10px solid #1a0033; box-shadow:0 0 50px rgba(153,68,255,0.45); background:#000; position:relative; overflow:hidden; }
+.game-main { flex:1; display:flex; flex-direction:column; min-width:0; min-height:0; overflow:hidden; }
+#game-visual { width:300px; min-width:300px; border-left:4px solid var(--basement); background:#0a0014; display:flex; flex-direction:column; align-items:center; padding:12px 8px; z-index:4; }
+#game-visual img { max-height:220px; width:100%; object-fit:cover; border:3px solid #5522aa; }
+.nsfw-badge { margin-top:10px; font-size:15px; color:var(--pink); border:2px solid var(--pink); padding:2px 10px; letter-spacing:3px; }
+.scanlines { position:absolute; inset:0; background:repeating-linear-gradient(transparent 0,transparent 3px,rgba(153,68,255,0.05) 3px,rgba(153,68,255,0.05) 6px); pointer-events:none; z-index:2; }
+#terminal { flex:1; min-height:0; overflow-y:auto; padding:20px 28px; font-size:1.38rem; line-height:1.35; z-index:1; white-space:pre-wrap; }
+.input-line { flex-shrink:0; display:flex; align-items:center; padding:12px 28px; border-top:4px solid var(--basement); background:#0a0014; z-index:50; }
+#commandInput { flex:1; background:transparent; border:none; outline:none; color:#ddbbff; font-size:1.48rem; font-family:'VT323',monospace; }
+.line { margin-bottom:1px; }
+#gate-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.94); z-index:200; display:flex; align-items:center; justify-content:center; padding:20px; }
+.gate-card { max-width:520px; border:4px solid var(--pink); background:#12001f; padding:28px 24px; text-align:center; }
+.gate-card h1 { margin:0 0 8px; color:var(--pink); letter-spacing:6px; }
+.gate-btn { display:inline-block; margin:8px 6px; padding:6px 18px; font-family:'VT323',monospace; font-size:1.2rem; cursor:pointer; border:2px solid var(--basement); background:#1a0033; color:#ddbbff; text-decoration:none; }
+.gate-btn.accept { border-color:var(--pink); color:var(--pink); }
+</style>
+</head>
+<body>
+
+<div id="gate-overlay">
+ <div class="gate-card">
+ <h1>CRYPTO MOM</h1>
+ <p style="color:#ff66cc;letter-spacing:4px;">[ 18+ * NSFW * BASEMENT ONLY ]</p>
+ <p>Mature themes: implied sexual content, dark comedy, financial desperation. No explicit acts described.</p>
+ <p>All characters are adults. Satire only.</p>
+ <button class="gate-btn accept" id="gateAccept">I AM 18+ - ENTER</button>
+ <a href="/classic/pages/basement.html" class="gate-btn"><- BACK TO BASEMENT</a>
+ </div>
+</div>
+
+<div class="crt">
+ <div class="scanlines"></div>
+ <div style="position:absolute;top:8px;right:12px;z-index:50;display:flex;gap:6px;">
+ <a href="/classic/pages/basement/cryptomom/scoreboard.html" style="color:#ff66cc;font-size:16px;text-decoration:none;border:1px solid #ff66cc;padding:2px 8px;background:rgba(0,0,0,0.6);">SCOREBOARD</a>
+ <a href="/classic/pages/basement.html" style="color:#cc88ff;font-size:16px;text-decoration:none;border:1px solid #9944ff;padding:2px 8px;background:rgba(0,0,0,0.6);"><- BASEMENT</a>
+ <a href="/classic/hub.html" style="color:#00ff00;font-size:16px;text-decoration:none;border:1px solid #00ff00;padding:2px 8px;background:rgba(0,0,0,0.6);">HUB</a>
+ </div>
+ <div class="game-main">
+ <div id="terminal"></div>
+ <div class="input-line"><span style="color:#9944ff">&gt; </span><input type="text" id="commandInput" autocomplete="off" spellcheck="false" disabled></div>
+ </div>
+ <div id="game-visual">
+ <img id="momImage" src="/assets/images/cryptomom/kitchen.svg" alt="Crypto Mom scene">
+ <div class="nsfw-badge">18+ BASEMENT</div>
+ </div>
+</div>
+
+<script>
+const terminal = document.getElementById('terminal');
+const input = document.getElementById('commandInput');
+const momImage = document.getElementById('momImage');
+
+const CRYPTOMOM_TOKEN_URL = '/classic/pages/basement/vantablack/market.html';
+const CRIME_RATE = { realistic: 0.03, arcade: 0.015 };
+const MAX_HUSTLE_HOURS = 20;
+const HUSTLE_HOUR_COST = { gig: 5, cards: 4, onlyfans: 3, night1: 6, night2: 8, night3: 10, street: 5, hotel: 7 };
+
+const NIGHT_ANECDOTES = [
+ "Client tipped in expired Groupons. You still cashed one. +${pay}",
+ "He wanted you to read his whitepaper aloud. You rugged his ego. +${pay}",
+ "Guy said he'd pay in SOL. You accepted USD and silence. +${pay}",
+ "He cried about his portfolio. You charged therapist rates. +${pay}",
+ "Your knees filed a complaint with HR. HR does not exist. +${pay}",
+ "He asked if you knew Crypto Dad. 'Ex-husband.' Double rate. +${pay}",
+ "Neon motel sign buzzed like a judgmental aunt. Paid anyway. +${pay}",
+ "Yelp review: three stars, 'Good listener.' +${pay}",
+ "You told him HODL. He did. You held the cash. +${pay}",
+ "Envelope on the nightstand. Not your wallet. +${pay}",
+ "CFO wanted 'discreet.' You invoiced as consulting. +${pay}",
+ "He brought a Lambo key fob. You brought boundaries. +${pay}"
+];
+
+const CRIME_ANECDOTES = [
+ "Wrong car. Right panic. Lost the night's take.",
+ "Undercover sting. Only thing exposed was his haircut.",
+ "Client tried to rob you. You kept the shoes AND the cash.",
+ "Pimp-adjacent guy wanted a cut. You gave him Crypto Dad's number.",
+ "Neighbor Linda was the CI. Of course she was."
+];
+
+let currentMenu = "intro";
+let inputLocked = false;
+let gameEnded = false;
+
+let gameState = {
+ week: 0,
+ liquid: 680,
+ savings: 0,
+ kids: 72,
+ stress: 62,
+ risk: 6,
+ reputation: 68,
+ mode: 'realistic',
+ rentDueIn: 4,
+ rentAmount: 1400,
+ nsfwAck: false,
+ evicted: false,
+ cpsFlag: false,
+ kidsTaken: false,
+ nightShifts: 0,
+ rentPaid: 0,
+ totalEarned: 0,
+ arrests: 0,
+ inJail: false,
+ jailWeeks: 0,
+ gigBanned: false,
+ pepperSpray: false,
+ doorCam: false,
+ burner: false,
+ hustleHoursUsed: 0
+};
+
+function updateGameImage(special = null) {
+ let src = "/assets/images/cryptomom/kitchen.svg";
+ if (special === "good_ending") src = "/assets/images/cryptomom/victory.svg";
+ else if (special === "game_over" || special === "eviction") src = "/assets/images/cryptomom/eviction.svg";
+ else if (special === "jail") src = "/assets/images/cryptomom/jail.svg";
+ else if (special === "doorstep") src = "/assets/images/cryptomom/doorstep.svg";
+ else if (special === "night_shift") src = "/assets/images/cryptomom/night_shift.svg";
+ else if (gameState.inJail) src = "/assets/images/cryptomom/jail.svg";
+ else if (gameState.risk >= 75) src = "/assets/images/cryptomom/risk_high.svg";
+ else if (gameState.kids <= 28) src = "/assets/images/cryptomom/kids_low.svg";
+ else if (gameState.kids >= 70 && gameState.risk < 25) src = "/assets/images/cryptomom/kids_high.svg";
+ momImage.src = src;
+}
+
+function print(text, color = '#ddbbff') {
+ const line = document.createElement('div');
+ line.className = 'line';
+ line.style.color = color;
+ line.textContent = text;
+ terminal.appendChild(line);
+ terminal.scrollTop = terminal.scrollHeight;
+}
+function clearTerminal() { terminal.innerHTML = ''; }
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+function fmt(n) { return Math.floor(n).toLocaleString(); }
+function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+function totalNetWorth() { return gameState.liquid + gameState.savings; }
+
+function getHustleHoursRemaining() {
+ return Math.max(0, MAX_HUSTLE_HOURS - (gameState.hustleHoursUsed || 0));
+}
+function formatHustleClock() {
+ const r = getHustleHoursRemaining();
+ return String(Math.floor(r)).padStart(2, '0') + ':' + String(Math.floor((r % 1) * 60)).padStart(2, '0');
+}
+
+async function consumeHustleHours(hours, label) {
+ const remaining = getHustleHoursRemaining();
+ if (remaining <= 0) {
+ print("⏱️ Your 20-hour hustle window is CLOSED this week.", "red");
+ print("Kids need you. The week advances...", "yellow");
+ await delay(420);
+ await advanceWeek();
+ return 'blocked';
+ }
+ if (hours > remaining) {
+ print(`⏱️ Only ${formatHustleClock()} left - not enough for ${label}.`, "red");
+ gameState.hustleHoursUsed = MAX_HUSTLE_HOURS;
+ await delay(420);
+ await advanceWeek();
+ return 'exhausted';
+ }
+ gameState.hustleHoursUsed += hours;
+ print(`⏱️ ${label} (~${hours}h) - ${formatHustleClock()} left`, "gray");
+ if (getHustleHoursRemaining() <= 0) {
+ print("⏱️ Hustle window EXHAUSTED. Week advances...", "yellow");
+ await delay(500);
+ await advanceWeek();
+ return 'exhausted';
+ }
+ return 'ok';
+}
+
+function calculateFinalScore() {
+ let s = 0;
+ s += Math.floor(gameState.kids * 22);
+ s += Math.floor((100 - gameState.stress) * 11);
+ s += Math.floor((gameState.week - 1) * 115);
+ s += Math.floor(totalNetWorth() / 95);
+ s += gameState.rentPaid * 200;
+ s -= gameState.arrests * 310;
+ if (gameState.cpsFlag) s -= 420;
+ if (gameState.evicted) s -= 520;
+ if (gameState.kidsTaken) s -= 480;
+ if (gameState.gigBanned) s -= 220;
+ s -= Math.floor(gameState.risk * 4.5);
+ if (gameState.risk < 18 && gameState.kids > 68) s = Math.floor(s * 1.14);
+ if (gameState.mode === 'arcade') s = Math.floor(s * 0.96);
+ return Math.max(120, Math.min(12500, Math.floor(s)));
+}
+
+function endRun(endingType) {
+ if (gameEnded) return;
+ gameEnded = true;
+ const score = calculateFinalScore();
+ localStorage.setItem('pending_cryptomom_score', JSON.stringify({
+ score, mode: gameState.mode, ending: endingType,
+ ts: new Date().toISOString().slice(0, 16).replace('T', ' ')
+ }));
+ clearTerminal();
+ print("════════════════════════════════════════", "yellow");
+ print(" RUN COMPLETE - CRYPTO MOM", "pink");
+ print("════════════════════════════════════════", "yellow");
+ print(`FINAL SCORE: ${score}`, "yellow");
+ print(`Mode: ${gameState.mode.toUpperCase()}`, "white");
+ print(`Weeks: ${gameState.week} | Rent paid: ${gameState.rentPaid}x | Arrests: ${gameState.arrests}`, "white");
+ print("");
+ print("Redirecting to the scoreboard...", "cyan");
+ print("You will be asked to log it with a soft signature (no funds, no tx permission).", "white");
+ print("");
+ currentMenu = "ended";
+ setTimeout(() => {
+ window.location.href = '/classic/pages/basement/cryptomom/scoreboard.html';
+ }, 1650);
+}
+
+function showStats() {
+ print("────────────────────────────────────", "white");
+ print(`WEEK ${gameState.week} | NET: $${fmt(totalNetWorth())}`, "white");
+ print(`CASH: $${fmt(gameState.liquid)} SAVED: $${fmt(gameState.savings)}`, "white");
+ print(`KIDS: ${gameState.kids}% STRESS: ${gameState.stress}% RISK: ${gameState.risk}% REP: ${gameState.reputation}%`, "white");
+ print(`RENT IN: ${gameState.rentDueIn}wk ($${fmt(gameState.rentAmount)}) HUSTLE: ${formatHustleClock()}`, gameState.rentDueIn <= 1 ? "red" : "white");
+ const gear = [];
+ if (gameState.pepperSpray) gear.push("🌶️ Pepper Spray");
+ if (gameState.doorCam) gear.push("📹 Door Cam");
+ if (gameState.burner) gear.push("📱 Burner");
+ if (gear.length) print("GEAR: " + gear.join(" "), "cyan");
+ print("────────────────────────────────────", "white");
+}
+
+function applyWeeklyDecay() {
+ const kidDecay = gameState.mode === 'arcade' ? 3 : 6;
+ const stressGain = gameState.mode === 'arcade' ? 2 : 4;
+ gameState.kids = clamp(gameState.kids - kidDecay, 0, 100);
+ gameState.stress = clamp(gameState.stress + stressGain, 0, 100);
+ if (gameState.risk > 0) gameState.risk = clamp(gameState.risk - 2, 0, 100);
+}
+
+function randomKidIncident() {
+ if (Math.random() > 0.35) return;
+ const roll = Math.random();
+ let cost = 0, kidHit = 0, msg = "";
+ if (roll < 0.09) { cost = 680; kidHit = 4; msg = "🚽 Toilet exploded at 3am. Plumber wants $680 or he's not coming."; }
+ else if (roll < 0.17) { cost = 2450; kidHit = 12; msg = "🦷 Kid needs braces. Orthodontist said 'shark teeth or $2,450.'"; }
+ else if (roll < 0.26) { cost = 1875; kidHit = 7; msg = "🏠 Roof leak during rain. Bucket army failed."; }
+ else if (roll < 0.33) { cost = 290; kidHit = 3; msg = "🐕 Dog ate the last of the good cheese. Kids blame you."; }
+ else if (roll < 0.41) { cost = 940; kidHit = 9; msg = "📺 Kid spent $940 on Roblox using your card."; }
+ else if (roll < 0.49) { cost = 420; kidHit = 6; msg = "🚗 Expired registration ticket. Crypto Dad was supposed to handle this."; }
+ else if (roll < 0.56) { cost = 1350; kidHit = 14; msg = "🏥 Broken arm at soccer. Urgent care after insurance."; }
+ else if (roll < 0.62) { cost = 780; kidHit = 5; msg = "🔌 Breaker panel died. House is from 1978 and so is your luck."; }
+ else if (roll < 0.70) { cost = 0; kidHit = 8; msg = "📱 Oldest googled 'why does Mom work at night.' Kids -8%."; }
+ else { cost = 320; kidHit = 4; msg = "📦 Amazon box wasn't yours. Landlord is now 'concerned.'"; }
+ gameState.liquid = Math.max(0, gameState.liquid - cost);
+ gameState.kids = clamp(gameState.kids - kidHit, 0, 100);
+ gameState.stress = clamp(gameState.stress + 3, 0, 100);
+ print(msg, "red");
+ if (cost) print(` -$${fmt(cost)} | Kids -${kidHit}%`, "gray");
+}
+
+function randomDadEvent() {
+ if (Math.random() > 0.18) return;
+ const roll = Math.random();
+ if (roll < 0.25) {
+ print("📵 Crypto Dad: 'Buy the dip.' Blocked.", "red");
+ gameState.stress += 5;
+ } else if (roll < 0.45) {
+ const cs = 60 + Math.floor(Math.random() * 120);
+ gameState.liquid += cs;
+ print(`💸 Child support from Dad's mom's account: +$${fmt(cs)}`, "green");
+ } else if (roll < 0.60) {
+ print("📵 Dad texted 'I'm coming home.' He did not.", "red");
+ gameState.kids = clamp(gameState.kids - 3, 0, 100);
+ gameState.stress += 6;
+ } else if (roll < 0.75) {
+ print("⚖️ Collection agency called about Dad's margin debt. They want YOUR address.", "red");
+ gameState.risk += 4;
+ gameState.stress += 8;
+ } else {
+ print("🖼️ Dad's NFT is worthless but a bro offered $40 for the frame.", "gray");
+ gameState.liquid += 40;
+ }
+}
+
+function checkCriticalConsequences() {
+ if (gameState.risk >= 92 && Math.random() < 0.55) {
+ if (gameState.doorCam) {
+ print("📹 Door cam footage helped. Raid damage reduced.", "yellow");
+ gameState.liquid = Math.floor(gameState.liquid * 0.55);
+ gameState.risk = 42;
+ } else {
+ print("🚔 WELLNESS CHECK TURNED SWEEP. They took cash and dignity.", "red");
+ gameState.liquid = Math.floor(gameState.liquid * 0.35);
+ gameState.savings = Math.floor(gameState.savings * 0.35);
+ gameState.risk = 38;
+ gameState.stress += 22;
+ gameState.kids = clamp(gameState.kids - 15, 0, 100);
+ }
+ }
+
+ if (gameState.risk >= 96) {
+ print("🚨 The block is too hot. You have to disappear.", "red");
+ updateGameImage("game_over");
+ setTimeout(() => endRun('risk_burn'), 380);
+ return true;
+ }
+
+ if (gameState.risk >= 78 && Math.random() < 0.38) {
+ triggerArrest();
+ return true;
+ }
+
+ if (gameState.kids <= 18 && !gameState.cpsFlag) {
+ if (Math.random() < (gameState.mode === 'arcade' ? 0.45 : 0.65)) {
+ gameState.cpsFlag = true;
+ print("📋 CPS opened a file. Neighbor Linda has been busy.", "red");
+ gameState.reputation = clamp(gameState.reputation - 22, 0, 100);
+ gameState.stress += 18;
+ gameState.kids = clamp(gameState.kids - 8, 0, 100);
+ }
+ }
+
+ if (gameState.kids <= 6 && !gameState.kidsTaken) {
+ gameState.kidsTaken = true;
+ print("💔 Sister took the kids 'temporarily.' It's been three weeks.", "red");
+ updateGameImage("game_over");
+ gameState.stress += 30;
+ gameState.risk += 20;
+ }
+
+ if (gameState.kids <= 2) {
+ print("💀 You lost the kids. There is nothing left to come home to.", "red");
+ updateGameImage("game_over");
+ setTimeout(() => endRun('kids_collapse'), 420);
+ return true;
+ }
+
+ if (gameState.stress >= 94) {
+ print("🪦 You haven't slept in days. The kids don't recognize you.", "red");
+ gameState.kids = clamp(gameState.kids - 8, 0, 100);
+ }
+
+ return false;
+}
+
+function triggerArrest() {
+ gameState.arrests++;
+ gameState.risk = Math.max(25, gameState.risk - 30);
+ gameState.inJail = true;
+ gameState.jailWeeks = 0;
+ clearTerminal();
+ updateGameImage("jail");
+ print("🚔 YOU GOT BUSTED.", "red");
+ print("Undercover sting at the motel. Or Linda called it in.", "red");
+ print("");
+ print("The kids are with your sister. CPS knows your name.", "red");
+ print("");
+ print("1. BETTER CALL SOL ($4200 - walk fast, risk stays high)");
+ print("2. SISTER BAILS YOU ($1850 - kids trust tanks)");
+ print("3. TAKE THE DEAL / SERVE TIME (cheap, many weeks)");
+ print("4. FIGHT IT IN COURT (50/50 walk or max time)");
+ currentMenu = "jail";
+}
+
+function handleRentTick() {
+ gameState.rentDueIn--;
+ if (gameState.rentDueIn > 0) return false;
+ print("🏠 RENT IS DUE.", "yellow");
+ if (gameState.liquid >= gameState.rentAmount) {
+ gameState.liquid -= gameState.rentAmount;
+ gameState.rentPaid++;
+ gameState.rentDueIn = 4;
+ gameState.stress = clamp(gameState.stress - 6, 0, 100);
+ print(`Paid rent: -$${fmt(gameState.rentAmount)}`, "green");
+ return false;
+ }
+ const short = gameState.rentAmount - gameState.liquid;
+ gameState.liquid = 0;
+ print(`SHORT $${fmt(short)} ON RENT.`, "red");
+ if (gameState.mode === 'arcade' && !gameState.evicted && gameState.rentPaid === 0) {
+ print("Arcade mercy: landlord gives ONE more week.", "yellow");
+ gameState.rentDueIn = 1;
+ return false;
+ }
+ if (!gameState.evicted) {
+ gameState.evicted = true;
+ print("📦 EVICTION NOTICE. Your key doesn't work anymore.", "red");
+ updateGameImage("eviction");
+ setTimeout(() => endRun('evicted'), 480);
+ return true;
+ }
+ return false;
+}
+
+async function advanceWeek() {
+ currentMenu = "processing";
+ gameState.week++;
+ gameState.hustleHoursUsed = 0;
+ updateGameImage();
+
+ print("");
+ print(`========= WEEK ${gameState.week} ========`, "white");
+
+ if (!gameState.gigBanned && !gameState.inJail) {
+ gameState.liquid += 720;
+ print("💵 Part-time paycheck (retail): +$720", "green");
+ } else if (gameState.gigBanned) {
+ print("📱 Gig apps banned. No paycheck - hustle only.", "red");
+ } else if (gameState.inJail) {
+ print("🔒 No paycheck while inside.", "red");
+ }
+
+ gameState.liquid = Math.max(0, gameState.liquid - 85);
+ print("🛒 Groceries / basics: -$85", "red");
+
+ if (gameState.week % 2 === 0) {
+ gameState.liquid = Math.max(0, gameState.liquid - 180);
+ print("💡 Utilities: -$180", "red");
+ }
+
+ randomDadEvent();
+ randomKidIncident();
+ applyWeeklyDecay();
+
+ if (gameState.risk > 55 && Math.random() < 0.22) {
+ print("👮 Someone is asking questions at the school pickup line.", "red");
+ gameState.risk += 8;
+ gameState.reputation = clamp(gameState.reputation - 5, 0, 100);
+ }
+
+ const rentFailed = handleRentTick();
+ if (rentFailed) return;
+
+ if (gameState.week >= 13 && gameState.kids > 64 && gameState.risk < 28 && !gameState.evicted && !gameEnded) {
+ print("🌅 You made it. Rent caught up. Kids still here. Dad still gone.", "yellow");
+ updateGameImage("good_ending");
+ setTimeout(() => endRun('good_ending'), 520);
+ return;
+ }
+
+ if (checkCriticalConsequences()) return;
+
+ showStats();
+
+ if (gameState.risk > 68 && Math.random() < 0.28 && !gameState.inJail) {
+ await policeEncounter();
+ return;
+ }
+
+ currentMenu = "main";
+ await showMainMenu();
+}
+
+async function showMainMenu() {
+ updateGameImage();
+ print("");
+ print("What are you doing this week, Mom?", "cyan");
+ print("1. HUSTLE (Gigs / Cards / Gray market / Night Shift)");
+ print("2. KIDS & HOME");
+ print("3. FOOD RUN (cook, order, or negotiate at the door)");
+ print("4. BANK (savings)");
+ print("5. STORE (protection & risk reduction)");
+ print("6. LAY LOW (pay bills and pray)");
+ print("7. VANTABLACK MARKET ($CRYPTOMOM not launched yet - no game effect)");
+ currentMenu = "main";
+}
+
+async function supportCryptoMomToken() {
+ print("🪙 $CRYPTOMOM isn't live yet - Mom's still drafting the whitepaper.", "pink");
+ print("Opening Vantablack Market. Launch Token when you're ready. This does NOT change your run.", "gray");
+ window.open(CRYPTOMOM_TOKEN_URL, '_blank', 'noopener,noreferrer');
+ await showMainMenu();
+}
+
+// ================== HUSTLE ==================
+
+async function hustleMenu() {
+ if (getHustleHoursRemaining() <= 0) {
+ print("⏱️ Hustle window closed. Pick Kids, Food, Bank, Store, or Lay Low.", "red");
+ await showMainMenu();
+ return;
+ }
+ print("");
+ print("=== HUSTLE ===", "yellow");
+ print(`Hustle clock: ${formatHustleClock()} remaining this week`, "gray");
+ print("LEGAL (no risk spike):");
+ print("1. Card Pulls (Pokemon / sports - gamble sealed product)");
+ print("2. DoorDash / Uber (safe, boring)");
+ print("3. Sell Crypto Dad's rigs & NFT frames");
+ print("");
+ print("GRAY (small risk):");
+ print("4. OnlyFans 'financial literacy' thirst traps");
+ print("");
+ print("RISKY [18+] (adds risk + arrest chance):");
+ print("5. Night Shift - quick meet");
+ print("6. Night Shift - standard");
+ print("7. Night Shift - bold");
+ print("8. Street promo (fast cash, dangerous)");
+ print("9. Hotel bar hustle (high reward felony energy)");
+ print("0. Back");
+ currentMenu = "hustle";
+}
+
+async function cardPulls() {
+ print("How much on packs? (amount or % of liquid)");
+ currentMenu = "card-pulls-amount";
+}
+
+async function doCardPulls(amount) {
+ if (amount > gameState.liquid) amount = gameState.liquid;
+ if (amount < 40) {
+ print("Need at least $40.", "red");
+ await hustleMenu();
+ return;
+ }
+ const t = await consumeHustleHours(HUSTLE_HOUR_COST.cards, 'Card pulls');
+ if (t !== 'ok') return;
+ gameState.liquid -= amount;
+ const hit = Math.random();
+ let payout = 0;
+ if (hit > 0.94) {
+ payout = Math.floor(amount * (8 + Math.random() * 11));
+ print(`🔥 HOLY SHIT. PSA 10. +$${fmt(payout)}`, "yellow");
+ } else if (hit > 0.78) {
+ payout = Math.floor(amount * (2.4 + Math.random() * 3.1));
+ print(`🃏 Good flip. +$${fmt(payout)}`, "green");
+ } else if (hit > 0.48) {
+ payout = Math.floor(amount * 0.6);
+ print(`🗑️ Mostly bulk. Got back $${fmt(payout)}.`, "gray");
+ } else {
+ print("Nothing. Kids don't even trade cards anymore.", "red");
+ }
+ gameState.liquid += payout;
+ gameState.kids = clamp(gameState.kids - 4, 0, 100);
+ gameState.stress = clamp(gameState.stress + 3, 0, 100);
+ gameState.totalEarned += payout;
+ currentMenu = "processing";
+ await advanceWeek();
+}
+
+async function doordash() {
+ const t = await consumeHustleHours(HUSTLE_HOUR_COST.gig, 'DoorDash');
+ if (t !== 'ok') return;
+ const earned = 95 + Math.floor(Math.random() * 85);
+ gameState.liquid += earned;
+ gameState.stress += 2;
+ gameState.kids = clamp(gameState.kids + 1, 0, 100);
+ gameState.totalEarned += earned;
+ print(`🚗 Seven hours of DoorDash. +$${fmt(earned)}. Back hurts.`, "green");
+ currentMenu = "processing";
+ await advanceWeek();
+}
+
+async function sellRigs() {
+ const t = await consumeHustleHours(HUSTLE_HOUR_COST.gig, 'Sell rigs');
+ if (t !== 'ok') return;
+ const earned = 180 + Math.floor(Math.random() * 420);
+ gameState.liquid += earned;
+ gameState.stress += 5;
+ gameState.totalEarned += earned;
+ print(`🖥️ Sold Dad's mining rigs. Teen paid in cash. +$${fmt(earned)}`, "green");
+ currentMenu = "processing";
+ await advanceWeek();
+}
+
+async function onlyFansGray() {
+ const t = await consumeHustleHours(HUSTLE_HOUR_COST.onlyfans, 'Thirst trap OF');
+ if (t !== 'ok') return;
+ const earned = 45 + Math.floor(Math.random() * 180);
+ gameState.liquid += earned;
+ gameState.risk = clamp(gameState.risk + 6, 0, 100);
+ gameState.reputation = clamp(gameState.reputation - 4, 0, 100);
+ gameState.totalEarned += earned;
+ print(`📸 'Hot single mom explains APR' post. +$${fmt(earned)}. Linda unfollowed.`, "yellow");
+ currentMenu = "processing";
+ await advanceWeek();
+}
+
+async function doNightShift(level) {
+ if (!gameState.nsfwAck) {
+ print("Type YES to acknowledge Night Shift [18+] content, or 0 to back.", "pink");
+ gameState._pendingNight = level;
+ currentMenu = "nsfw-ack";
+ return;
+ }
+ const costs = { 1: HUSTLE_HOUR_COST.night1, 2: HUSTLE_HOUR_COST.night2, 3: HUSTLE_HOUR_COST.night3 };
+ const t = await consumeHustleHours(costs[level], 'Night shift');
+ if (t !== 'ok') return;
+ updateGameImage("night_shift");
+ let pay = 0, risk = 0, rep = 0, stress = 0;
+ if (level === 1) { pay = 140 + Math.floor(Math.random() * 90); risk = 8; rep = -3; stress = 8; }
+ if (level === 2) { pay = 260 + Math.floor(Math.random() * 160); risk = 14; rep = -7; stress = 12; }
+ if (level === 3) { pay = 420 + Math.floor(Math.random() * 280); risk = 22; rep = -12; stress = 18; }
+ gameState.liquid += pay;
+ gameState.risk = clamp(gameState.risk + risk, 0, 100);
+ gameState.reputation = clamp(gameState.reputation + rep, 0, 100);
+ gameState.stress = clamp(gameState.stress + stress, 0, 100);
+ gameState.nightShifts++;
+ gameState.totalEarned += pay;
+ const anecdote = NIGHT_ANECDOTES[Math.floor(Math.random() * NIGHT_ANECDOTES.length)];
+ print(anecdote.replace("${pay}", fmt(pay)), "pink");
+ print(" (Scene fades. Punchline only.)", "gray");
+ const crimeRate = CRIME_RATE[gameState.mode] || 0.03;
+ if (Math.random() < crimeRate) {
+ print("⚠️ " + CRIME_ANECDOTES[Math.floor(Math.random() * CRIME_ANECDOTES.length)], "red");
+ gameState.liquid = Math.max(0, gameState.liquid - Math.floor(pay * 0.4));
+ gameState.risk = clamp(gameState.risk + 14, 0, 100);
+ gameState.stress += 10;
+ }
+ if (gameState.risk > 70 && Math.random() < 0.12) {
+ triggerArrest();
+ return;
+ }
+ currentMenu = "processing";
+ await advanceWeek();
+}
+
+async function streetPromo() {
+ const earned = 550 + Math.floor(Math.random() * 950);
+ gameState.liquid += earned;
+ gameState.risk += 32;
+ gameState.kids = clamp(gameState.kids - 11, 0, 100);
+ gameState.stress += 6;
+ gameState.totalEarned += earned;
+ print(`💄 Street promo. +$${fmt(earned)}. Linda saw everything.`, "yellow");
+ if (gameState.risk > 70 && Math.random() < 0.48) {
+ await delay(420);
+ triggerArrest();
+ return;
+ }
+ currentMenu = "processing";
+ await advanceWeek();
+}
+
+async function hotelHustle() {
+ print("=== HOTEL BAR HUSTLE (RISKY) ===", "red");
+ print("1. Light - drink chat ($420 spend, moderate risk)");
+ print("2. Big night - suite energy ($1200 spend, serious risk)");
+ print("3. Clean the bar out - felony vibes ($2800 spend)");
+ currentMenu = "hotel";
+}
+
+async function resolveHotel(level) {
+ let spend = 0, mult = 0, risk = 0, arrestChance = 0;
+ if (level === 1) { spend = 420; mult = 1.9; risk = 14; arrestChance = 0.09; }
+ if (level === 2) { spend = 1200; mult = 2.7; risk = 27; arrestChance = 0.22; }
+ if (level === 3) { spend = 2800; mult = 3.6; risk = 48; arrestChance = 0.47; }
+ if (gameState.liquid < spend) {
+ print("Not enough cash upfront.", "red");
+ await hustleMenu();
+ return;
+ }
+ const t = await consumeHustleHours(HUSTLE_HOUR_COST.hotel, 'Hotel hustle');
+ if (t !== 'ok') return;
+ gameState.liquid -= spend;
+ gameState.risk = clamp(gameState.risk + risk, 0, 100);
+ print(`You spent $${fmt(spend)} on heels, uber, and confidence...`, "gray");
+ const caught = Math.random();
+ if (caught < arrestChance) {
+ print("🚔 Hotel security called police. Sting adjacent.", "red");
+ await delay(600);
+ triggerArrest();
+ return;
+ }
+ if (caught < arrestChance + 0.18) {
+ const partial = Math.floor(spend * mult * 0.45);
+ gameState.liquid += partial;
+ print(`🏃 Almost busted. Partial score: +$${fmt(partial)}`, "yellow");
+ } else {
+ const payout = Math.floor(spend * mult * (0.85 + Math.random() * 0.6));
+ gameState.liquid += payout;
+ gameState.totalEarned += payout;
+ print(`💰 Clean night. +$${fmt(payout)}.`, "green");
+ }
+ gameState.kids = clamp(gameState.kids - 7, 0, 100);
+ gameState.stress += 5;
+ currentMenu = "processing";
+ await advanceWeek();
+}
+
+// ================== KIDS & HOME ==================
+
+async function kidsMenu() {
+ print("");
+ print("=== KIDS & HOME ===", "yellow");
+ print("1. Cook from scratch (cheap, kids +12)");
+ print("2. Homework + bedtime stories");
+ print("3. Park + ice cream ($55)");
+ print("4. Movie night at home ($35)");
+ print("5. Early bedtime (free evening, kids wonder why)");
+ print("0. Back");
+ currentMenu = "kids";
+}
+
+async function doKids(type) {
+ let kid = 0, str = 0, cost = 0, riskDrop = 0, msg = "";
+ if (type === 1) { kid = 12; str = -8; cost = 28; riskDrop = 4; msg = "🍝 Real vegetables smuggled into pasta."; }
+ if (type === 2) { kid = 10; str = -6; cost = 0; riskDrop = 3; msg = "📚 Fractions beaten. Youngest said thanks and meant it."; }
+ if (type === 3) { kid = 16; str = -10; cost = 55; riskDrop = 6; msg = "🍦 Sticky hands, full hearts."; }
+ if (type === 4) { kid = 13; str = -8; cost = 35; riskDrop = 5; msg = "🎬 Popcorn, blankets, no phones."; }
+ if (type === 5) { kid = 4; str = 6; cost = 0; riskDrop = 0; msg = "🌙 Kids down by 8. You bought a suspicious evening."; }
+ gameState.liquid = Math.max(0, gameState.liquid - cost);
+ gameState.kids = clamp(gameState.kids + kid, 0, 100);
+ gameState.stress = clamp(gameState.stress + str, 0, 100);
+ gameState.risk = clamp(gameState.risk - riskDrop, 0, 100);
+ print(msg, "green");
+ if (cost) print(` -$${cost}`, "gray");
+ currentMenu = "processing";
+ await advanceWeek();
+}
+
+// ================== FOOD RUN ==================
+
+async function foodMenu() {
+ print("");
+ print("=== FOOD RUN ===", "yellow");
+ print("1. Cook rice & beans ($22)");
+ print("2. DoorDash ($38)");
+ print("3. Pizza ($42)");
+ print("0. Back");
+ currentMenu = "food";
+}
+
+async function doFood(type) {
+ if (type === 1) {
+ gameState.liquid = Math.max(0, gameState.liquid - 22);
+ gameState.kids = clamp(gameState.kids + 8, 0, 100);
+ gameState.stress = clamp(gameState.stress - 3, 0, 100);
+ print("🥘 Rice, beans, prayer. Kids +8%.", "green");
+ currentMenu = "processing";
+ await advanceWeek();
+ return;
+ }
+ const orderCost = type === 2 ? 38 : 42;
+ const vendor = type === 2 ? "DoorDash" : "pizza";
+ if (gameState.liquid >= orderCost) {
+ gameState.liquid -= orderCost;
+ gameState.kids = clamp(gameState.kids + 11, 0, 100);
+ gameState.stress = clamp(gameState.stress - 5, 0, 100);
+ print(`🍕 Paid upfront. ${vendor} acquired. Kids +11%.`, "green");
+ currentMenu = "processing";
+ await advanceWeek();
+ return;
+ }
+ updateGameImage("doorstep");
+ print(`🚪 ${vendor.toUpperCase()} AT THE DOOR. Short $${fmt(orderCost - gameState.liquid)}.`, "pink");
+ print("1. Flash smile & negotiate 2. Creative payment [18+] 3. Crypto Dad horror stories 4. Send kid to door");
+ currentMenu = "doorstep";
+ gameState._doorOrder = { cost: orderCost, vendor };
+}
+
+async function resolveDoorstep(choice) {
+ const roll = Math.random();
+ if (choice === 1) {
+ if (roll > 0.45) {
+ gameState.kids = clamp(gameState.kids + 9, 0, 100);
+ gameState.reputation = clamp(gameState.reputation - 8, 0, 100);
+ print("😏 Fee waived. Food acquired. Blinds twitched.", "yellow");
+ } else {
+ gameState.kids = clamp(gameState.kids - 6, 0, 100);
+ print("🙄 He still wanted a tip. Cereal for dinner.", "red");
+ }
+ } else if (choice === 2) {
+ gameState.kids = clamp(gameState.kids + 12, 0, 100);
+ gameState.risk = clamp(gameState.risk + 5, 0, 100);
+ gameState.reputation = clamp(gameState.reputation - 6, 0, 100);
+ gameState.stress = clamp(gameState.stress - 4, 0, 100);
+ print("🚪 Door closed. Food acquired. Scene off-screen. Kids +12%.", "pink");
+ } else if (choice === 3) {
+ if (roll > 0.55) {
+ gameState.kids = clamp(gameState.kids + 10, 0, 100);
+ gameState.stress = clamp(gameState.stress - 6, 0, 100);
+ print("🍕 He laughed and forgot to charge. Free pizza.", "green");
+ } else {
+ gameState.kids = clamp(gameState.kids - 4, 0, 100);
+ print("😬 Story too sad. He cried and left.", "red");
+ }
+ } else {
+ gameState.kids = clamp(gameState.kids - 10, 0, 100);
+ gameState.reputation = clamp(gameState.reputation - 12, 0, 100);
+ print("👦 Kid answered the door. Questions were asked. Kids -10%.", "red");
+ }
+ delete gameState._doorOrder;
+ currentMenu = "processing";
+ await advanceWeek();
+}
+
+// ================== BANK ==================
+
+async function bankMenu() {
+ print("");
+ print("=== BANK ===", "yellow");
+ print(`Cash: $${fmt(gameState.liquid)} | Saved: $${fmt(gameState.savings)}`);
+ print("1. Stash to savings (%) 2. Pull from savings (%) 3. Pre-pay rent ($" + fmt(gameState.rentAmount) + ") 0. Back");
+ currentMenu = "bank";
+}
+
+async function doDeposit(pct) {
+ const amt = Math.floor(gameState.liquid * (pct / 100));
+ if (amt < 10) { print("Min $10.", "red"); await bankMenu(); return; }
+ gameState.liquid -= amt;
+ gameState.savings += amt;
+ print(`Stashed $${fmt(amt)}.`, "green");
+ await bankMenu();
+}
+
+async function doWithdraw(pct) {
+ const amt = Math.floor(gameState.savings * (pct / 100));
+ if (amt < 10) { print("Min $10.", "red"); await bankMenu(); return; }
+ gameState.savings -= amt;
+ gameState.liquid += amt;
+ print(`Pulled $${fmt(amt)}.`, "green");
+ await bankMenu();
+}
+
+async function doPrepayRent() {
+ if (gameState.liquid < gameState.rentAmount) { print("Not enough.", "red"); await bankMenu(); return; }
+ gameState.liquid -= gameState.rentAmount;
+ gameState.rentPaid++;
+ gameState.rentDueIn = 4;
+ gameState.stress = clamp(gameState.stress - 12, 0, 100);
+ print(`Rent prepaid. -$${fmt(gameState.rentAmount)}`, "green");
+ currentMenu = "processing";
+ await advanceWeek();
+}
+
+// ================== STORE ==================
+
+async function storeMenu() {
+ print("");
+ print("=== STORE (PROTECTION) ===", "yellow");
+ print("1. Pepper Spray - $420 [Fight chance in police encounter]");
+ print("2. Door Cam + cloud - $890 [Reduces sweep damage]");
+ print("3. Burner Phone - $290 [Lowers risk 12 points]");
+ print("0. Back");
+ currentMenu = "store";
+}
+
+async function buyStore(item) {
+ if (item === 1) {
+ if (gameState.liquid < 420) { print("Not enough.", "red"); await storeMenu(); return; }
+ gameState.liquid -= 420;
+ gameState.pepperSpray = true;
+ print("🌶️ Pepper spray acquired. Hope you never need it.", "green");
+ } else if (item === 2) {
+ if (gameState.liquid < 890) { print("Not enough.", "red"); await storeMenu(); return; }
+ gameState.liquid -= 890;
+ gameState.doorCam = true;
+ print("📹 Door cam live. Linda hates being on camera.", "green");
+ } else if (item === 3) {
+ if (gameState.liquid < 290) { print("Not enough.", "red"); await storeMenu(); return; }
+ gameState.liquid -= 290;
+ gameState.burner = true;
+ gameState.risk = clamp(gameState.risk - 12, 0, 100);
+ print("📱 New number. Old one is in a fountain.", "green");
+ }
+ await storeMenu();
+}
+
+// ================== POLICE ENCOUNTER ==================
+
+async function policeEncounter() {
+ clearTerminal();
+ updateGameImage("risk_high");
+ print("🚨 PULLED OVER / STOPPED", "red");
+ print("Two officers. School pickup line or motel parking lot.", "red");
+ print("1. PEPPER SPRAY & RUN (need spray - high risk)");
+ print("2. RUN (on foot - might make it)");
+ print("3. TALK YOUR WAY OUT (burner or high rep helps)");
+ print("4. COMPLY (hands up)");
+ currentMenu = "police";
+}
+
+async function resolvePolice(choice) {
+ if (choice === 1) {
+ if (!gameState.pepperSpray) {
+ print("No spray. Tackled and cuffed.", "red");
+ await delay(400);
+ triggerArrest();
+ return;
+ }
+ if (Math.random() > 0.58) {
+ print("You sprayed and vanished. Fugitive energy.", "yellow");
+ gameState.risk += 55;
+ gameState.liquid = Math.floor(gameState.liquid * 0.4);
+ currentMenu = "main";
+ await showMainMenu();
+ } else {
+ print("Wind wrong. You wake up in cuffs.", "red");
+ gameState.liquid = Math.floor(gameState.liquid * 0.15);
+ await delay(500);
+ triggerArrest();
+ }
+ } else if (choice === 2) {
+ if (Math.random() > 0.55) {
+ print("Fence vaulted. Alley won.", "yellow");
+ gameState.risk += 38;
+ currentMenu = "main";
+ await showMainMenu();
+ } else {
+ print("Taser. Concrete appetizer.", "red");
+ await delay(400);
+ triggerArrest();
+ }
+ } else if (choice === 3) {
+ const bonus = (gameState.burner ? 0.25 : 0) + (gameState.reputation > 60 ? 0.15 : 0);
+ if (Math.random() + bonus > 0.52) {
+ print("They let you go with a warning. For now.", "yellow");
+ gameState.risk += 12;
+ currentMenu = "main";
+ await showMainMenu();
+ } else {
+ triggerArrest();
+ }
+ } else {
+ triggerArrest();
+ }
+}
+
+// ================== JAIL ==================
+
+async function resolveJail(choice) {
+ if (choice === 1) {
+ const cost = 4200;
+ if (gameState.liquid + gameState.savings < cost) {
+ print("Can't afford SOL. Public defender is 23.", "red");
+ await delay(600);
+ await serveTime(5);
+ return;
+ }
+ gameState.liquid = Math.max(0, gameState.liquid - cost);
+ gameState.risk += 22;
+ gameState.inJail = false;
+ print("SOL got you out in 11 days. $4200 gone. DA has your name.", "yellow");
+ gameState.kids = clamp(gameState.kids - 18, 0, 100);
+ gameState.stress += 14;
+ currentMenu = "main";
+ await showMainMenu();
+ } else if (choice === 2) {
+ const cost = 1850;
+ if (gameState.liquid < cost) { print("Not enough cash.", "red"); return; }
+ gameState.liquid -= cost;
+ gameState.kids = clamp(gameState.kids - 22, 0, 100);
+ gameState.inJail = false;
+ print("Sister bailed you. Kids heard everything.", "red");
+ currentMenu = "main";
+ await showMainMenu();
+ } else if (choice === 3) {
+ await serveTime(7);
+ } else if (choice === 4) {
+ if (Math.random() > 0.48) {
+ print("Technicality. Case dismissed. SOL is a wizard.", "green");
+ gameState.risk += 18;
+ gameState.inJail = false;
+ currentMenu = "main";
+ await showMainMenu();
+ } else {
+ print("Judge gave you the max.", "red");
+ await serveTime(16);
+ }
+ }
+}
+
+async function serveTime(weeks) {
+ gameState.inJail = false;
+ gameState.jailWeeks += weeks;
+ gameState.week += weeks;
+ print(`You served ${weeks} weeks in county.`, "red");
+ print("Gig apps banned. Oldest won't look at you.", "red");
+ gameState.gigBanned = true;
+ gameState.kids = clamp(gameState.kids - 28, 0, 100);
+ gameState.stress += 25;
+ gameState.liquid = Math.floor(gameState.liquid * 0.25);
+ if (gameState.kids < 25 && Math.random() < 0.6) {
+ gameState.kidsTaken = true;
+ print("Sister has the kids 'until you're stable.'", "red");
+ }
+ if (gameState.kids <= 5 || gameState.stress >= 92) {
+ print("Your life as you knew it is finished.", "red");
+ setTimeout(() => endRun('jail_destroyed'), 520);
+ return;
+ }
+ currentMenu = "main";
+ showStats();
+ await showMainMenu();
+}
+
+// ================== COMMAND HANDLER ==================
+
+async function handleCommand(raw) {
+ const cmd = raw.trim().toUpperCase();
+ if (currentMenu === "processing") return;
+ if (gameEnded) { print("Run over. Refresh to replay.", "red"); return; }
+ print(`> ${cmd}`, "white");
+
+ if (currentMenu === "intro") { clearTerminal(); await startGame(); return; }
+
+ if (currentMenu === "choose-mode") {
+ if (cmd === "2" || cmd === "ARCADE") {
+ gameState.mode = 'arcade';
+ gameState.rentAmount = 1200;
+ print("ARCADE - softer decay, one rent mercy, ~1.5% night crime rate.", "yellow");
+ } else {
+ gameState.mode = 'realistic';
+ print("REALISTIC - validated 500k sim experience. ~3% night crime rate.", "red");
+ }
+ print("");
+ print("Crypto Dad lost everything. You're 38, two kids, $680, rent in 4 weeks.", "white");
+ print("Balance KIDS, STRESS, RISK, and RENT. Too much risk brings cuffs.", "cyan");
+ showStats();
+ updateGameImage();
+ print("Week 1 auto: cooked from scratch. Kids +12, Stress -8, Risk -4, -$28");
+ gameState.kids = clamp(gameState.kids + 12, 0, 100);
+ gameState.stress = clamp(gameState.stress - 8, 0, 100);
+ gameState.risk = clamp(gameState.risk - 4, 0, 100);
+ gameState.liquid = Math.max(0, gameState.liquid - 28);
+ gameState.week = 1;
+ print("Week 1 complete. Choose week 2 action.");
+ currentMenu = "main";
+ await showMainMenu();
+ return;
+ }
+
+ if (currentMenu === "nsfw-ack") {
+ if (cmd === "YES") {
+ gameState.nsfwAck = true;
+ print("Night Shift acknowledged.", "pink");
+ if (gameState._pendingNight) {
+ const lvl = gameState._pendingNight;
+ delete gameState._pendingNight;
+ await doNightShift(lvl);
+ } else await hustleMenu();
+ } else {
+ delete gameState._pendingNight;
+ await showMainMenu();
+ }
+ return;
+ }
+
+ if (currentMenu === "jail") {
+ const n = parseInt(cmd);
+ if ([1,2,3,4].includes(n)) await resolveJail(n);
+ return;
+ }
+
+ if (currentMenu === "police") {
+ const n = parseInt(cmd);
+ if ([1,2,3,4].includes(n)) await resolvePolice(n);
+ return;
+ }
+
+ if (currentMenu === "main") {
+ if (cmd === "1") await hustleMenu();
+ else if (cmd === "2") await kidsMenu();
+ else if (cmd === "3") await foodMenu();
+ else if (cmd === "4") await bankMenu();
+ else if (cmd === "5") await storeMenu();
+ else if (cmd === "6") { currentMenu = "processing"; await advanceWeek(); }
+ else if (cmd === "7") await supportCryptoMomToken();
+ return;
+ }
+
+ if (currentMenu === "hustle") {
+ const n = parseInt(cmd);
+ if (n === 1) await cardPulls();
+ else if (n === 2) await doordash();
+ else if (n === 3) await sellRigs();
+ else if (n === 4) await onlyFansGray();
+ else if (n === 5) await doNightShift(1);
+ else if (n === 6) await doNightShift(2);
+ else if (n === 7) await doNightShift(3);
+ else if (n === 8) await streetPromo();
+ else if (n === 9) await hotelHustle();
+ else if (cmd === "0") await showMainMenu();
+ return;
+ }
+
+ if (currentMenu === "card-pulls-amount") {
+ let amt = parseFloat(cmd);
+ if (cmd.includes("%")) amt = gameState.liquid * (parseFloat(cmd) / 100);
+ await doCardPulls(Math.floor(amt));
+ return;
+ }
+
+ if (currentMenu === "hotel") {
+ const n = parseInt(cmd);
+ if ([1,2,3].includes(n)) await resolveHotel(n);
+ else await hustleMenu();
+ return;
+ }
+
+ if (currentMenu === "kids") {
+ const n = parseInt(cmd);
+ if (n >= 1 && n <= 5) await doKids(n);
+ else if (cmd === "0") await showMainMenu();
+ return;
+ }
+
+ if (currentMenu === "food") {
+ const n = parseInt(cmd);
+ if (n >= 1 && n <= 3) await doFood(n);
+ else if (cmd === "0") await showMainMenu();
+ return;
+ }
+
+ if (currentMenu === "doorstep") {
+ const n = parseInt(cmd);
+ if (n >= 1 && n <= 4) await resolveDoorstep(n);
+ return;
+ }
+
+ if (currentMenu === "bank") {
+ if (cmd === "1") { print("Stash what %?"); currentMenu = "bank-deposit"; }
+ else if (cmd === "2") { print("Pull what %?"); currentMenu = "bank-withdraw"; }
+ else if (cmd === "3") await doPrepayRent();
+ else if (cmd === "0") await showMainMenu();
+ return;
+ }
+ if (currentMenu === "bank-deposit") { await doDeposit(parseFloat(cmd) || 0); return; }
+ if (currentMenu === "bank-withdraw") { await doWithdraw(parseFloat(cmd) || 0); return; }
+
+ if (currentMenu === "store") {
+ const n = parseInt(cmd);
+ if ([1,2,3].includes(n)) await buyStore(n);
+ else if (cmd === "0") await showMainMenu();
+ return;
+ }
+}
+
+async function startGame() {
+ print("================================================", "pink");
+ print(" CRYPTO MOM [18+]", "pink");
+ print("================================================", "pink");
+ print("CHOOSE MODE (500k Monte Carlo validated):", "cyan");
+ print("1. REALISTIC");
+ print("2. ARCADE");
+ currentMenu = "choose-mode";
+}
+
+document.getElementById('gateAccept').addEventListener('click', () => {
+ document.getElementById('gate-overlay').style.display = 'none';
+ input.disabled = false;
+ input.focus();
+ clearTerminal();
+ print("================================================", "pink");
+ print(" CRYPTO MOM [18+]", "pink");
+ print("================================================", "pink");
+ print("HIT ENTER TO START", "yellow");
+ print("");
+ print("Type NUMBER + ENTER. Balance KIDS, STRESS, RISK, RENT.", "white");
+ print("HUSTLE has 20 hours/week before time advances.", "cyan");
+ print("Too much RISK brings police. Ignore KIDS and CPS calls.", "red");
+ print("Night Shift [18+] - implied only, punchlines not scenes.", "pink");
+ currentMenu = "intro";
+});
+
+input.addEventListener('keydown', async function(e) {
+ if (e.repeat || e.key !== 'Enter' || input.disabled) return;
+ e.preventDefault();
+ if (inputLocked || currentMenu === 'processing') return;
+ inputLocked = true;
+ const val = input.value;
+ input.value = '';
+ try { await handleCommand(val); }
+ finally { setTimeout(() => { inputLocked = false; }, 180); }
+});
+</script>
+<script src="/assets/js/core/page-transition.js" data-page-transition="1"></script>
+<script src="/assets/js/core/site-shell.js?v=20260715d" data-site-shell="1"></script>
+ 
+<script>
+/* Era embed: when Present hosts this classic game, hide Past hub exits so you stay in Present */
+(function(){
+  try {
+    if (!/[?&]embed=1(?:&|$)/.test(location.search)) return;
+    document.documentElement.classList.add('era-embed');
+    var style = document.createElement('style');
+    style.textContent = '.era-embed a[href*="classic/hub"], .era-embed a[href="/classic/hub.html"]{display:none!important}';
+    document.head.appendChild(style);
+    // force parent era remains orbit when possible
+    try { if (window.parent && window.parent !== window && window.parent.DOSWAPZ_ERA) window.parent.DOSWAPZ_ERA.set("orbit"); } catch(e){}
+  } catch(e){}
+})();
+</script>
+</body>
+</html>

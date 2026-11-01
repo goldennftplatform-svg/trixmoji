@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+ <title>DOSWAPZ // AWARDZ POOL</title>
+ <meta name="description" content="Voluntary PVP arcade high-score pool. Deposit SOL or ETH at USD spot. No fees. Conversion leftover only. Own risk. Void where prohibited.">
+ <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.91.0/lib/index.iife.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ :root {
+  --cyan: #00ffcc;
+  --green: #33ff66;
+  --gold: #ffd700;
+  --red: #ff3355;
+  --dim: #1a9944;
+  --mute: #66aa99;
+  --line: #0a3018;
+  --panel: #041008;
+ }
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ html, body { min-height: 100%; background: #020805; color: var(--green); font-family: VT323, monospace; }
+ body {
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,215,0,0.07), transparent 52%), #020805;
+  padding: 18px 14px 56px;
+  padding-bottom: max(56px, env(safe-area-inset-bottom));
+ }
+ body::before {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 40;
+  background: repeating-linear-gradient(to bottom, transparent 0 3px, rgba(0,255,204,0.03) 3px 5px);
+ }
+ .wrap { position: relative; z-index: 10; max-width: 920px; margin: 0 auto; }
+ h1 {
+  text-align: center; letter-spacing: 8px; font-size: clamp(28px, 7vw, 52px);
+  color: var(--gold); text-shadow: 0 0 10px rgba(255,215,0,0.45); margin-bottom: 4px;
+ }
+ .sub { text-align: center; color: var(--dim); letter-spacing: 3px; margin-bottom: 14px; font-size: 16px; }
+ .banner {
+  border: 2px solid var(--gold); background: rgba(40,30,0,0.55);
+  color: var(--gold); text-align: center; padding: 12px 14px; margin-bottom: 16px; letter-spacing: 1px;
+ }
+ .banner strong { display: block; font-size: 20px; }
+ .banner span { display: block; color: #c8b060; font-size: 15px; margin-top: 4px; letter-spacing: 0; }
+ .vol, .card, .how, .sec {
+  border: 1px solid var(--line); background: var(--panel); padding: 12px 14px; margin-bottom: 16px;
+ }
+ .vol h2, .card h2, .how h2, .sec h2 { color: var(--gold); letter-spacing: 2px; font-size: 18px; margin-bottom: 8px; }
+ .vol p, .how li, .sec li { color: #7ab88a; font-size: 16px; line-height: 1.35; }
+ .vol p + p { margin-top: 8px; }
+ .periods { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 16px; }
+ @media (max-width: 700px) { .periods { grid-template-columns: 1fr; } }
+ .period {
+  border: 2px solid #004433; background: rgba(0,18,14,0.85); padding: 12px; text-align: left;
+  cursor: pointer; min-height: 44px; color: inherit; font: inherit; width: 100%;
+ }
+ .period:hover, .period:focus { border-color: var(--cyan); outline: none; }
+ .period.on { border-color: var(--gold); box-shadow: 0 0 14px rgba(255,215,0,0.22); }
+ .period .tag { color: var(--dim); letter-spacing: 2px; font-size: 12px; }
+ .period .name { color: var(--gold); font-size: 22px; letter-spacing: 2px; margin: 2px 0; }
+ .period .usd { color: var(--cyan); font-size: 28px; line-height: 1; }
+ .period .meta { color: var(--mute); font-size: 14px; margin-top: 6px; }
+ .grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 12px; margin-bottom: 16px; }
+ @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+ .card h3 { color: var(--cyan); letter-spacing: 2px; font-size: 15px; margin: 12px 0 6px; }
+ label { display: block; font-size: 12px; color: var(--dim); letter-spacing: 2px; margin: 8px 0 3px; }
+ input, select {
+  width: 100%; background: #020805; border: 1px solid var(--line); color: var(--green);
+  font: inherit; font-size: 18px; padding: 10px; min-height: 44px;
+ }
+ .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+ .btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+ button, .btn {
+  font: inherit; letter-spacing: 2px; cursor: pointer; border: 1px solid var(--green);
+  background: transparent; color: var(--green); padding: 10px 14px; min-height: 44px;
+  text-decoration: none; display: inline-flex; align-items: center; justify-content: center;
+ }
+ button:hover, .btn:hover { background: var(--green); color: #000; }
+ button.gold { border-color: var(--gold); color: var(--gold); }
+ button.gold:hover { background: var(--gold); color: #000; }
+ button:disabled { opacity: 0.35; cursor: not-allowed; }
+ button:disabled:hover { background: transparent; color: var(--green); }
+ button.gold:disabled:hover { color: var(--gold); }
+ .status { min-height: 20px; color: var(--mute); font-size: 15px; margin-top: 8px; }
+ .status.ok { color: var(--cyan); }
+ .status.warn { color: var(--gold); }
+ .status.bad { color: var(--red); }
+ .checks label.chk {
+  display: flex; gap: 10px; align-items: flex-start; font-size: 15px; letter-spacing: 0;
+  color: #7ab88a; margin: 8px 0; cursor: pointer;
+ }
+ .checks input { width: 18px; height: 18px; min-height: 0; margin-top: 2px; flex: 0 0 18px; }
+ .addr {
+  font-size: 13px; color: var(--cyan); word-break: break-all; border: 1px solid var(--line);
+  padding: 8px; background: #020805; margin-top: 4px;
+ }
+ .tiny { color: var(--dim); font-size: 13px; margin-top: 4px; }
+ .lead { border-top: 1px solid #06140a; padding: 6px 0; display: flex; justify-content: space-between; gap: 8px; color: #7ab88a; font-size: 16px; }
+ .lead .rank { color: var(--dim); }
+ .sec { border-color: #3a2200; background: rgba(28,16,0,0.35); }
+ .sec ul { margin: 0 0 8px 18px; color: #c8b060; font-size: 15px; }
+ .sec .k { color: var(--cyan); }
+ .how ol { margin-left: 20px; }
+ .how li { margin: 6px 0; }
+ .nav { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 18px; }
+ .wallet-chip { border: 1px dashed #004433; padding: 8px 10px; margin-top: 8px; color: var(--mute); font-size: 14px; }
+ .wallet-chip.on { border-color: var(--cyan); color: var(--cyan); }
+ #xAuthMount { margin-bottom: 16px; }
+ </style>
+</head>
+<body class="past-crt">
+ <div class="wrap">
+  <h1>AWARDZ POOL</h1>
+  <div class="sub">VOLUNTARY PVP · OWN RISK · NO FEES · USD SPOT</div>
+
+  <div class="banner" role="status">
+   <strong>PLAYER VERSUS PLAYER · YOU CAN LOSE 100%</strong>
+   <span>Play is free without this. If you opt in, you send SOL or ETH booked at live USD. No line-item fee. DOSWAPZ only keeps leftover coins if the crypto price moved up before payout. Void where prohibited. 18+.</span>
+  </div>
+
+  <div id="xAuthMount"></div>
+
+  <div class="vol">
+   <h2>VOLUNTARY PVP</h2>
+   <p>You compete against other players’ high scores at the end of a day, week, or month — not against DOSWAPZ as a house. Winner takes the USD book of the lock, paid in crypto at then-spot. Losers are not refunded.</p>
+   <p>USD on screen is live oracle, not a dollar IOU. Binding: <a href="/docs/legal.html#s11a" style="color:var(--gold)">Legal §11A</a> · <a href="/docs/awardz-pool-rules.html" style="color:var(--gold)">PVP rules</a>.</p>
+  </div>
+
+  <div class="tiny" id="pxLine">Loading live SOL / ETH USD…</div>
+  <div class="periods" id="periodCards"></div>
+
+  <div class="grid">
+   <div class="card">
+    <h2>OPT-IN ENTRY</h2>
+    <p class="tiny">Exact amount is computed from live USD. Send that amount only. A mint/launch payment will not count.</p>
+    <div class="row2">
+     <div>
+      <label for="lock">LOCK</label>
+      <select id="lock">
+       <option value="day">DAY · 00:00 UTC</option>
+       <option value="week">WEEK · Monday 00:00 UTC</option>
+       <option value="month">MONTH · 1st 00:00 UTC</option>
+      </select>
+     </div>
+     <div>
+      <label for="chain">CHAIN</label>
+      <select id="chain">
+       <option value="sol">SOL</option>
+       <option value="eth">ETH</option>
+      </select>
+     </div>
+    </div>
+    <label for="usd">USD WORTH (MIN $5)</label>
+    <input id="usd" type="number" min="5" step="1" value="5" inputmode="decimal">
+    <div class="tiny" id="quote">—</div>
+    <h3>PUBLISHED ADDRESS</h3>
+    <div class="tiny" id="addrLabel">SOL</div>
+    <div class="addr" id="addrBox"></div>
+    <div class="wallet-chip" id="walletChip">WALLET: DISCONNECTED · auto-disconnect after send</div>
+    <div class="checks" id="acks">
+     <label class="chk"><input type="checkbox" id="ackVol"> I am opting in. Play stays free without this.</label>
+     <label class="chk"><input type="checkbox" id="ackPvp"> This is PVP vs other players. DOSWAPZ is not my opponent. Entirely my own risk.</label>
+     <label class="chk"><input type="checkbox" id="ackLose"> I can lose the whole entry. Losers are not refunded. Winner takes the USD book.</label>
+     <label class="chk"><input type="checkbox" id="ackUsd"> USD is live spot, not a guaranteed dollar. House leftover is conversion only — no fee line.</label>
+     <label class="chk"><input type="checkbox" id="ackBurn"> Burner wallet, this amount only. Never a seed on DOSWAPZ.</label>
+     <label class="chk"><input type="checkbox" id="ackDc"> Wallet auto-disconnects after the tx. I will verify address + amount on an explorer.</label>
+     <label class="chk"><input type="checkbox" id="ackLegal"> I read Legal §11A and the Awardz PVP rules. I am 18+. Void where prohibited.</label>
+    </div>
+    <div class="btns">
+     <button type="button" id="btnConnect">CONNECT WALLET</button>
+     <button type="button" id="btnDeposit" class="gold" disabled>ENTER</button>
+     <button type="button" id="btnDisc" disabled>DISCONNECT NOW</button>
+    </div>
+    <div class="status warn" id="status">Connect with X, then a burner wallet. Native send only.</div>
+   </div>
+   <div class="card">
+    <h2>BOARD <span style="color:var(--dim);font-size:14px" id="boardLock">· DAY</span></h2>
+    <div class="tiny">Eligible = confirmed entry in this lock + a score posted during the window. Empty until someone enters.</div>
+    <div id="board"></div>
+    <h3>SETTLE</h3>
+    <p class="tiny">At close, highest eligible score wins. Payout to the same address that entered, in that asset. Auto-pay runs when operator keys are armed; otherwise payouts are queued from the same published wallets.</p>
+    <p class="tiny" id="settleHint">Pool USD is the real book. $0.00 until a matched deposit confirms.</p>
+   </div>
+  </div>
+
+  <div class="how">
+   <h2>NO FEE — CONVERSION ONLY</h2>
+   <ol>
+    <li>You pick $5+ USD worth. Live oracle prices SOL and ETH. You send that native amount to the published DOSWAPZ address.</li>
+    <li>Your stake is booked in USD so SOL and ETH share one pool. No fee is subtracted.</li>
+    <li>If you have the high score at close, the lock’s USD book is paid in crypto at the new spot. Your stake is part of that prize plus everyone else’s.</li>
+    <li>If the coin went up, fewer coins cover the USD book. Leftover coins stay with DOSWAPZ. That leftover is the conversion difference.</li>
+    <li>If the coin went down, the lock pays 100% of what it still holds. House leftover is zero. Not a dollar IOU.</li>
+   </ol>
+  </div>
+
+  <div class="sec">
+   <h2>COMSEC · OPSEC · WALLET</h2>
+   <ul>
+    <li><span class="k">VOLUNTARY PVP.</span> Skip this and still play every cabinet.</li>
+    <li><span class="k">COMSEC.</span> HTTPS. No seeds. No keys in the page. X is id + handle only.</li>
+    <li><span class="k">OPSEC.</span> Burner wallet. Bookmark the real host. Any seed prompt is a scam.</li>
+    <li><span class="k">AUTO-DISCONNECT.</span> Connect → send → disconnect. No silent reconnect.</li>
+    <li><span class="k">NATIVE ONLY.</span> SOL or ETH value. No token approve.</li>
+   </ul>
+  </div>
+
+  <div class="nav">
+   <a class="btn" href="/classic/pages/arcade/hub.html">&lt;- ARCADE HUB</a>
+   <a class="btn" href="/classic/pages/arcade/scores.html">SCORES</a>
+   <a class="btn" href="/docs/awardz-pool-rules.html">PVP RULES</a>
+   <a class="btn" href="/docs/legal.html#s11a">LEGAL §11A</a>
+  </div>
+ </div>
+
+ <script src="/assets/js/core/x-auth.js?v=20260820a"></script>
+ <script>
+ (function () {
+  var SOL = '5tJbQX5vRxDyHNEXdAmLEWtKR8EyrDTRdYtBFqujmpAc';
+  var ETH = '0x5be58476DF379BAdc88b552F603db227C0D95bac';
+  var snap = null;
+  var connected = null;
+  var busy = false;
+
+  function $(id) { return document.getElementById(id); }
+  function xUser() { return window.DOSWAPZ_X && window.DOSWAPZ_X.user; }
+  function pad(n) { return n < 10 ? '0' + n : String(n); }
+  function remain(ms) {
+   var s = Math.max(0, Math.floor(ms / 1000));
+   var d = Math.floor(s / 86400); s -= d * 86400;
+   var h = Math.floor(s / 3600); s -= h * 3600;
+   var m = Math.floor(s / 60); s -= m * 60;
+   return (d ? d + 'D ' : '') + pad(h) + ':' + pad(m) + ':' + pad(s);
+  }
+  function short(a) { a = String(a || ''); return a.length < 12 ? a : a.slice(0, 6) + '…' + a.slice(-4); }
+  function setStatus(msg, kind) {
+   var el = $('status');
+   el.textContent = msg;
+   el.className = 'status' + (kind ? ' ' + kind : '');
+  }
+  function acked() {
+   return ['ackVol', 'ackPvp', 'ackLose', 'ackUsd', 'ackBurn', 'ackDc', 'ackLegal'].every(function (id) {
+    return $(id).checked;
+   });
+  }
+  function px() {
+   return snap && snap.prices ? snap.prices : null;
+  }
+  function quoteAmt() {
+   var usd = Number($('usd').value) || 0;
+   var p = px();
+   var chain = $('chain').value;
+   if (!p) return '';
+   var price = chain === 'sol' ? p.sol : p.eth;
+   if (!(price > 0) || usd <= 0) return '';
+   var n = usd / price;
+   return chain === 'sol' ? n.toFixed(4) + ' SOL' : n.toFixed(5) + ' ETH';
+  }
+  function syncButtons() {
+   $('btnDeposit').disabled = busy || !connected || !acked() || !xUser() || Number($('usd').value) < 5;
+   $('btnDisc').disabled = !connected;
+   $('btnConnect').disabled = !!connected;
+  }
+
+  function renderPeriods() {
+   var lock = $('lock').value;
+   var html = '';
+   ['day', 'week', 'month'].forEach(function (k) {
+    var p = snap && snap.periods && snap.periods[k];
+    var usd = p ? Number(p.usd) || 0 : 0;
+    var n = p ? p.n || 0 : 0;
+    var left = p ? remain(p.remainMs) : '—';
+    var on = lock === k ? ' on' : '';
+    html += '<button type="button" class="period' + on + '" data-lock="' + k + '">' +
+     '<div class="tag">LOCK · UTC · LIVE</div>' +
+     '<div class="name">' + k.toUpperCase() + '</div>' +
+     '<div class="usd">$' + usd.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '</div>' +
+     '<div class="meta">' + n + ' entries · high score at close</div>' +
+     '<div class="meta">ENDS ' + left + '</div>' +
+     '</button>';
+   });
+   $('periodCards').innerHTML = html;
+  }
+
+  function renderQuote() {
+   var p = px();
+   var chain = $('chain').value;
+   var usd = Number($('usd').value) || 0;
+   $('addrLabel').textContent = chain === 'sol' ? 'SOL receive (same site wallet)' : 'ETH receive (same site wallet)';
+   $('addrBox').textContent = chain === 'sol' ? SOL : ETH;
+   if (p) {
+    $('pxLine').textContent = 'LIVE USD  SOL $' + Number(p.sol).toFixed(2) + '  ·  ETH $' + Number(p.eth).toFixed(2) +
+     '  ·  ' + (p.source || 'oracle');
+   }
+   if (usd < 5) $('quote').textContent = 'Minimum is $5 USD worth at live spot.';
+   else $('quote').textContent = p
+    ? '$' + usd.toFixed(2) + ' ≈ ' + quoteAmt() + ' at live spot. Exact amount is locked when you ENTER.'
+    : 'Waiting on oracle…';
+   var lock = $('lock').value;
+   var per = snap && snap.periods && snap.periods[lock];
+   $('boardLock').textContent = '· ' + lock.toUpperCase();
+   var usdBook = per ? Number(per.usd) || 0 : 0;
+   $('settleHint').textContent = 'This lock book is $' + usdBook.toFixed(2) + ' USD (real confirmed entries only).';
+   var board = (per && per.board) || [];
+   if (!board.length) {
+    $('board').innerHTML = '<div class="lead"><span>No eligible scores yet</span><span>$' + usdBook.toFixed(2) + '</span></div>';
+   } else {
+    $('board').innerHTML = board.map(function (r, i) {
+     return '<div class="lead"><span><span class="rank">#' + (i + 1) + '</span> @' + r.username +
+      (r.game ? ' · ' + r.game : '') + (r.usd ? ' · $' + Number(r.usd).toFixed(2) : '') +
+      '</span><span>' + Number(r.score).toLocaleString() + '</span></div>';
+    }).join('');
+   }
+  }
+
+  async function loadSnap() {
+   var res = await fetch('/api/awardz', { cache: 'no-store', credentials: 'same-origin' });
+   var data = await res.json();
+   if (!res.ok || !data.ok) throw new Error(data.error || 'Awardz API failed');
+   snap = data;
+   if (data.addresses && data.addresses.sol) SOL = data.addresses.sol;
+   if (data.addresses && data.addresses.eth) ETH = data.addresses.eth;
+   renderPeriods();
+   renderQuote();
+  }
+
+  function disconnect(reason) {
+   try {
+    if (window.solana && typeof window.solana.disconnect === 'function') window.solana.disconnect();
+   } catch (e) {}
+   try {
+    if (window.ethereum && window.ethereum.request) {
+     window.ethereum.request({ method: 'wallet_revokePermissions', params: [{ eth_accounts: {} }] }).catch(function () {});
+    }
+   } catch (e2) {}
+   connected = null;
+   $('walletChip').className = 'wallet-chip';
+   $('walletChip').textContent = 'WALLET: DISCONNECTED · ' + (reason || 'auto-disconnect');
+   syncButtons();
+  }
+
+  async function connect() {
+   var chain = $('chain').value;
+   if (chain === 'sol') {
+    var w = window.solana || window.solflare;
+    if (!w) throw new Error('No Solana wallet (Phantom / Solflare)');
+    var resp = await w.connect();
+    var pk = (resp && resp.publicKey ? resp.publicKey : w.publicKey).toString();
+    connected = { chain: 'sol', address: pk, provider: w };
+   } else {
+    if (!window.ethereum) throw new Error('No Ethereum wallet (MetaMask / Coinbase)');
+    var acc = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    var chainId = await window.ethereum.request({ method: 'eth_chainId' });
+    if (chainId !== '0x1') throw new Error('Switch to Ethereum mainnet');
+    connected = { chain: 'eth', address: acc[0], provider: window.ethereum };
+   }
+   $('walletChip').className = 'wallet-chip on';
+   $('walletChip').textContent = 'WALLET: ' + short(connected.address) + ' · will auto-disconnect after send';
+  }
+
+  async function sendSol(intent) {
+   if (!window.solanaWeb3) throw new Error('Solana library failed to load');
+   var w = connected.provider;
+   var from = new solanaWeb3.PublicKey(connected.address);
+   var to = new solanaWeb3.PublicKey(intent.to);
+   var lamports = Number(intent.amountNative);
+   var conn = new solanaWeb3.Connection(location.origin + '/api/solana-rpc', 'confirmed');
+   var tx = new solanaWeb3.Transaction().add(
+    solanaWeb3.SystemProgram.transfer({ fromPubkey: from, toPubkey: to, lamports: lamports })
+   );
+   tx.feePayer = from;
+   var bh = await conn.getLatestBlockhash();
+   tx.recentBlockhash = bh.blockhash;
+   var sig;
+   if (typeof w.signAndSendTransaction === 'function') {
+     var out = await w.signAndSendTransaction(tx);
+     sig = typeof out === 'string' ? out : out.signature;
+   } else {
+     var signed = await w.signTransaction(tx);
+     sig = await conn.sendRawTransaction(signed.serialize());
+   }
+   await conn.confirmTransaction(sig, 'confirmed');
+   return sig;
+  }
+
+  async function sendEth(intent) {
+   if (typeof ethers === 'undefined') throw new Error('ETH library failed to load');
+   var provider = new ethers.providers.Web3Provider(window.ethereum);
+   var net = await provider.getNetwork();
+   if (net.chainId !== 1) throw new Error('Switch to Ethereum mainnet');
+   var signer = provider.getSigner();
+   var tx = await signer.sendTransaction({
+    to: intent.to,
+    value: ethers.BigNumber.from(String(intent.amountNative))
+   });
+   await tx.wait(1);
+   return tx.hash;
+  }
+
+  async function enter() {
+   if (busy) return;
+   if (!xUser()) { setStatus('Connect with X first (identity only).', 'bad'); return; }
+   if (!acked()) { setStatus('Check every acknowledgment.', 'bad'); return; }
+   if (!connected) { setStatus('Connect a burner wallet first.', 'bad'); return; }
+   if (connected.chain !== $('chain').value) {
+    setStatus('Reconnect on the selected chain.', 'bad');
+    return;
+   }
+   busy = true;
+   syncButtons();
+   try {
+    setStatus('Locking live USD quote…', 'warn');
+    var ires = await fetch('/api/awardz', {
+     method: 'POST',
+     credentials: 'same-origin',
+     headers: { 'Content-Type': 'application/json' },
+     body: JSON.stringify({
+      action: 'intent',
+      lock: $('lock').value,
+      chain: $('chain').value,
+      usd: Number($('usd').value),
+      from: connected.address
+     })
+    });
+    var intentBody = await ires.json();
+    if (!ires.ok || !intentBody.ok) throw new Error(intentBody.error || 'Intent failed');
+    var intent = intentBody.intent;
+    setStatus('SEND ' + intent.display + ' → ' + short(intent.to) + ' · then auto-disconnect', 'warn');
+    var txid = intent.chain === 'sol' ? await sendSol(intent) : await sendEth(intent);
+    setStatus('Confirming ' + short(txid) + '…', 'warn');
+    var cres = await fetch('/api/awardz', {
+     method: 'POST',
+     credentials: 'same-origin',
+     headers: { 'Content-Type': 'application/json' },
+     body: JSON.stringify({ action: 'confirm', intentId: intent.id, txid: txid })
+    });
+    var cred = await cres.json();
+    if (!cres.ok || !cred.ok) throw new Error(cred.error || 'Credit failed');
+    disconnect('auto-disconnect after confirmed entry');
+    setStatus('IN · $' + Number(cred.usd).toFixed(2) + ' USD booked · wallet disconnected. Play and post a score this lock.', 'ok');
+    await loadSnap();
+   } catch (e) {
+    disconnect('disconnected after error');
+    setStatus(String(e && e.message ? e.message : e), 'bad');
+   } finally {
+    busy = false;
+    syncButtons();
+   }
+  }
+
+  $('periodCards').addEventListener('click', function (e) {
+   var b = e.target.closest('[data-lock]');
+   if (!b) return;
+   $('lock').value = b.getAttribute('data-lock');
+   renderPeriods();
+   renderQuote();
+  });
+  ['lock', 'chain', 'usd'].forEach(function (id) {
+   $(id).addEventListener('input', function () { renderQuote(); syncButtons(); });
+   $(id).addEventListener('change', function () { renderQuote(); syncButtons(); });
+  });
+  document.querySelectorAll('#acks input').forEach(function (c) {
+   c.addEventListener('change', syncButtons);
+  });
+  $('btnConnect').onclick = function () {
+   connect().then(function () {
+    setStatus('Wallet connected. Verify the address on screen before ENTER.', 'ok');
+    syncButtons();
+   }).catch(function (e) {
+    disconnect('connect failed');
+    setStatus(String(e && e.message ? e.message : e), 'bad');
+   });
+  };
+  $('btnDisc').onclick = function () {
+   disconnect('manual');
+   setStatus('Disconnected. Fresh click next time.', 'ok');
+  };
+  $('btnDeposit').onclick = enter;
+
+  loadSnap().then(function () {
+   setStatus('Live USD loaded. Pools show $0.00 until a real matched entry confirms.', 'ok');
+   syncButtons();
+  }).catch(function (e) {
+   setStatus('Could not load Awardz: ' + (e.message || e), 'bad');
+  });
+  window.setInterval(function () {
+   if (snap) { renderPeriods(); renderQuote(); }
+  }, 1000);
+  window.setInterval(function () { loadSnap().catch(function () {}); }, 30000);
+  if (window.DOSWAPZ_X) window.DOSWAPZ_X.onReady(function () { syncButtons(); });
+ })();
+ </script>
+ <script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+ <script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>
+</html>

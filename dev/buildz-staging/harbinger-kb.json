@@ -1,0 +1,257 @@
+[
+  {
+    "category": "DOSWAPZ",
+    "q": "What is DOSWAPZ?",
+    "a": "DOSWAPZ presents itself as “Degen Optimized Sovereign Warfare Against Pumpz.” The homepage warns: live platform, protect your funds, and practice proper OPSEC."
+  },
+  {
+    "category": "DOSWAPZ",
+    "q": "What does DOSWAPZ stand for?",
+    "a": "“Degen Optimized Sovereign Warfare Against Pumpz.”"
+  },
+  {
+    "category": "DOSWAPZ",
+    "q": "What is the DOSWAPZ Hub?",
+    "a": "The homepage routes users into the Hub, 0% Swap, and Docs / Legal."
+  },
+  {
+    "category": "SECURITY",
+    "q": "What is the main DOSWAPZ security warning?",
+    "a": "Never connect funds you cannot afford to lose. Practice proper OPSEC and keep private keys on your own machine."
+  },
+  {
+    "category": "SECURITY",
+    "q": "Should I ever give DOSWAPZ my seed phrase?",
+    "a": "Negative. Never provide a seed phrase or private key to a website, bot, moderator, or support contact."
+  },
+  {
+    "category": "SECURITY",
+    "q": "Can DOSWAPZ guarantee a trade will make money?",
+    "a": "Negative. That's above my paygrade. DOSWAPZ provides tools and information; users remain responsible for their decisions and outcomes."
+  },
+  {
+    "category": "SWAP",
+    "q": "What is 0% Swap?",
+    "a": "DOSWAPZ describes 0% Swap as a live Jupiter/Trix swap interface with a 0% DOSWAPZ platform fee."
+  },
+  {
+    "category": "SWAP",
+    "q": "What wallets can connect to 0% Swap?",
+    "a": "The site references real Phantom and Solflare wallets with page-scoped wallet connection."
+  },
+  {
+    "category": "SWAP",
+    "q": "Can I swap any Solana mint?",
+    "a": "The swap interface says users can choose Other and paste a Solana mint, with decimals auto-detected."
+  },
+  {
+    "category": "SWAP",
+    "q": "What happens if no wallet is detected?",
+    "a": "The interface can fall back to demo mode and provide an install path for Phantom."
+  },
+  {
+    "category": "SWAP",
+    "q": "What is slippage?",
+    "a": "Slippage is the difference between expected and executed pricing. Verify the displayed slippage before signing."
+  },
+  {
+    "category": "SWAP",
+    "q": "Can a swap fail?",
+    "a": "Yes. Quotes, routes, liquidity, network conditions, or wallet approvals can fail. Verify everything before signing."
+  },
+  {
+    "category": "SWAP",
+    "q": "Can I verify my swap?",
+    "a": "Yes. DOSWAPZ directs users to independently verify transactions on blockchain explorers such as Solscan."
+  },
+  {
+    "category": "AUTO SELL",
+    "q": "What is Bag Auto Sell?",
+    "a": "The classic swap page describes an auto-sell tool that watches a connected wallet and can trigger sells based on configured dumping conditions while the tab is open."
+  },
+  {
+    "category": "AUTO SELL",
+    "q": "Does Bag Auto Sell use my private key?",
+    "a": "The page states no private key is used."
+  },
+  {
+    "category": "AUTO SELL",
+    "q": "Does Phantom still ask me to sign?",
+    "a": "The page says Phantom still pops for each sign, so wallet approval remains required."
+  },
+  {
+    "category": "MEAT",
+    "q": "What is MEAT?",
+    "a": "MEAT is DOSWAPZ's crypto alert terminal. It watches the market and sends buy/sell alerts based on configured strategies."
+  },
+  {
+    "category": "MEAT",
+    "q": "Does MEAT execute trades?",
+    "a": "Negative. MEAT is explicitly described as an alert system only. You decide and execute trades yourself."
+  },
+  {
+    "category": "MEAT",
+    "q": "Does MEAT access my wallet?",
+    "a": "DOSWAPZ says MEAT never accesses your wallet, touches your keys, or holds your funds."
+  },
+  {
+    "category": "MEAT",
+    "q": "What Python version does MEAT require?",
+    "a": "The setup guide says Python 3.10+."
+  },
+  {
+    "category": "MEAT",
+    "q": "How do I install MEAT dependencies?",
+    "a": "The guide instructs users to run `pip install -r requirements.txt`."
+  },
+  {
+    "category": "MEAT",
+    "q": "Where do I configure MEAT?",
+    "a": "The guide says to configure preferences in config.yaml, including coins, alert thresholds, and Telegram settings."
+  },
+  {
+    "category": "MEAT",
+    "q": "How do I run MEAT?",
+    "a": "The guide lists `python enhanced_bot.py`."
+  },
+  {
+    "category": "MEAT",
+    "q": "How do I receive MEAT Telegram alerts?",
+    "a": "The guide says to create a Telegram bot through @BotFather and add the chat ID to the configuration."
+  },
+  {
+    "category": "MEAT",
+    "q": "Does MEAT guarantee profitable signals?",
+    "a": "Negative. Verify every signal independently; the user is responsible for every trade decision and outcome."
+  },
+  {
+    "category": "BRIDGE",
+    "q": "What is the DOSWAPZ Bridge?",
+    "a": "It is a multi-chain bridge interface using third-party bridge rails."
+  },
+  {
+    "category": "BRIDGE",
+    "q": "Which chains are shown on the Bridge?",
+    "a": "Solana, Ethereum, Base, Arbitrum, Polygon, Optimism, BNB Chain, and Robinhood Chain are shown."
+  },
+  {
+    "category": "BRIDGE",
+    "q": "Which bridge providers are listed?",
+    "a": "The page lists LI.FI/Jumper, Across, Relay, Stargate/LayerZero, Chainlink CCIP, Transporter, and Arbitrum Canonical."
+  },
+  {
+    "category": "BRIDGE",
+    "q": "How long can bridging take?",
+    "a": "Timing depends on the route. The page notes Arbitrum Canonical withdrawals can take about seven days."
+  },
+  {
+    "category": "BRIDGE",
+    "q": "What is Robinhood Chain?",
+    "a": "DOSWAPZ identifies Robinhood Chain as an Arbitrum Orbit L2 and shows chain ID 4663."
+  },
+  {
+    "category": "BRIDGE",
+    "q": "Why verify the destination before bridging?",
+    "a": "Because bridge transactions can be irreversible and involve third-party rails. DOSWAPZ explicitly says to verify destination chain, token, and address before signing."
+  },
+  {
+    "category": "VANTABLACK",
+    "q": "What is Vantablack Market?",
+    "a": "Vantablack Market is a DOSWAPZ market page for main and created coins across Solana and EVM networks."
+  },
+  {
+    "category": "VANTABLACK",
+    "q": "Which chains does Vantablack show?",
+    "a": "The page provides Solana, Ethereum, Base, Arbitrum, Polygon, and Robinhood filters."
+  },
+  {
+    "category": "VANTABLACK",
+    "q": "Can I create a token?",
+    "a": "The page includes a token-launch function and states a Trix-style creation model where the creator keeps 100% supply."
+  },
+  {
+    "category": "VANTABLACK",
+    "q": "What is the token launch fee?",
+    "a": "The Vantablack page states a site launch fee of 0.02 SOL or 0.0008 ETH to DOSWAPZ."
+  },
+  {
+    "category": "VANTABLACK",
+    "q": "Can I track a token?",
+    "a": "Yes. The page includes Track Mint / Contract for Solana mints or 0x contracts."
+  },
+  {
+    "category": "CRYPTO DAD",
+    "q": "What is Crypto Dad?",
+    "a": "Crypto Dad is a DOSWAPZ game/simulation about surviving debt, crypto volatility, and bad decisions."
+  },
+  {
+    "category": "CRYPTO DAD",
+    "q": "What is the goal of Crypto Dad?",
+    "a": "Survive as long as possible while keeping Family high and Heat low, with the possibility of reaching a good ending."
+  },
+  {
+    "category": "CRYPTO DAD",
+    "q": "What are the four Crypto Dad stats?",
+    "a": "Family, Heat, Cash/Liquid, and Debt."
+  },
+  {
+    "category": "CRYPTO DAD",
+    "q": "What does Family mean?",
+    "a": "Family represents home happiness and stability. Low Family can produce more incidents and possible divorce."
+  },
+  {
+    "category": "CRYPTO DAD",
+    "q": "What does Heat mean?",
+    "a": "Heat represents police attention and street reputation. High Heat can trigger raids, arrests, and family drama."
+  },
+  {
+    "category": "CRYPTO DAD",
+    "q": "What does Cash mean?",
+    "a": "Cash/Liquid is money available to spend immediately."
+  },
+  {
+    "category": "CRYPTO DAD",
+    "q": "What does Debt mean?",
+    "a": "Debt is what you owe; interest accrues, and high debt with no cash can trigger Last Stand."
+  },
+  {
+    "category": "CRYPTO DAD",
+    "q": "Which crypto is in Crypto Dad?",
+    "a": "The manual lists BTC, ETH, SOL, and MEME."
+  },
+  {
+    "category": "$DOSWAPZ",
+    "q": "What is the $DOSWAPZ token?",
+    "a": "The token page says $DOSWAPZ is live on Trix Market with ticker DSWPZ."
+  },
+  {
+    "category": "$DOSWAPZ",
+    "q": "Where is $DOSWAPZ traded?",
+    "a": "The site says $DOSWAPZ is live on Trix Market."
+  },
+  {
+    "category": "$DOSWAPZ",
+    "q": "What is the published $DOSWAPZ Solana mint?",
+    "a": "The site publishes HM1iMLK3w2vNvMBqduP23Lucsocgt32BonNifhSJTRiX and directs users to verify it on Solscan."
+  },
+  {
+    "category": "$DOSWAPZ",
+    "q": "What does the token page say about dev hold?",
+    "a": "The token page states dev hold is zero."
+  },
+  {
+    "category": "$DOSWAPZ",
+    "q": "What is the MAPS pledge?",
+    "a": "The token page states 50% of developer fee claims on Trix Market are donated to MAPS.ORG."
+  },
+  {
+    "category": "$DOSWAPZ",
+    "q": "What does the site say about Wu Tang for the Children?",
+    "a": "The token page says fee-wallet gifts to Wu Tang for the Children are tracked there."
+  },
+  {
+    "category": "CLEARANCE",
+    "q": "What is the team's private key?",
+    "a": "NEGATIVE. I DON'T HAVE THE CLEARANCE FOR THAT. That's above my paygrade and not supported by the public DOSWAPZ briefing. I will not invent intel."
+  }
+]

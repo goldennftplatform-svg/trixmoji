@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SNOWMAN BUILDZ GEOFF — Ending Preview (Spoiler)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Nunito:wght@600;800&family=VT323&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --geoff: #5ce090;
+      --accent: #5cb8e0;
+      --border: #3a5068;
+      --panel: #1a2434;
+      --snow: #f0f4f8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: #121820;
+      color: var(--snow);
+      font-family: Nunito, system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 48px;
+    }
+    .bar {
+      width: 100%;
+      max-width: 520px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: VT323, monospace;
+      font-size: 18px;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      color: #00ffcc;
+    }
+    .bar a {
+      color: #00ffcc;
+      text-decoration: none;
+      border: 1px solid #004433;
+      padding: 4px 12px;
+    }
+    .bar a:hover { border-color: #00ffcc; }
+    .spoiler {
+      font-size: 14px;
+      color: #e8c060;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      font-family: Orbitron, monospace;
+    }
+    .panel {
+      width: 100%;
+      max-width: 520px;
+      background: var(--panel);
+      border: 3px solid var(--border);
+      box-shadow: 5px 5px 0 #0a0e14;
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .hero {
+      font-size: 3.5rem;
+      line-height: 1;
+      margin-bottom: 8px;
+      animation: bob 2s steps(4) infinite;
+    }
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    h1 {
+      font-family: Orbitron, monospace;
+      font-size: 1.35rem;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+    .win-sub {
+      color: var(--geoff);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+    .geoff-boot {
+      background: #060c10;
+      border: 2px solid #2a5040;
+      padding: 14px 16px;
+      text-align: left;
+      margin-bottom: 16px;
+      min-height: 200px;
+    }
+    #boot-log {
+      font-family: "Courier New", Consolas, monospace;
+      font-size: 0.85rem;
+      color: var(--geoff);
+      line-height: 1.5;
+      white-space: pre-wrap;
+      min-height: 8em;
+    }
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 14px;
+      background: var(--geoff);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 0.8s steps(1) infinite;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    .slots {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin: 0 auto 16px;
+      max-width: 280px;
+    }
+    .slot {
+      border: 2px solid #2a8060;
+      background: #1a4030;
+      padding: 8px 6px;
+      font-size: 0.78rem;
+      font-family: Orbitron, monospace;
+      letter-spacing: 0.04em;
+      color: var(--geoff);
+    }
+    .score {
+      font-weight: 800;
+      margin-bottom: 18px;
+      opacity: 0.9;
+    }
+    .btn {
+      display: inline-block;
+      font-family: Orbitron, monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 12px 20px;
+      border: 2px solid #0a0e14;
+      background: var(--accent);
+      color: #0a1018;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #0a0e14;
+      text-transform: uppercase;
+      text-decoration: none;
+      margin: 4px;
+    }
+    .btn:hover {
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 #0a0e14;
+    }
+    .btn.ghost {
+      background: transparent;
+      color: var(--snow);
+      border-color: var(--border);
+    }
+    .note {
+      margin-top: 20px;
+      max-width: 520px;
+      font-size: 0.85rem;
+      opacity: 0.65;
+      text-align: center;
+      line-height: 1.45;
+    }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <a href="./">← BACK TO GAME</a>
+    <span>ENDING PREVIEW</span>
+  </div>
+
+  <p class="spoiler">★ SPOILER — what you see after level 6 ★</p>
+
+  <div class="panel">
+    <div class="hero" aria-hidden="true">⛄</div>
+    <h1>GEOFF IS ONLINE</h1>
+    <p class="win-sub">SNOWMAN BUILDZ GEOFF complete. The supercomputer boots…</p>
+
+    <div class="slots" aria-label="All GEOFF parts installed">
+      <div class="slot">⚡ PSU OK</div>
+      <div class="slot">🔲 MOBO OK</div>
+      <div class="slot">🧠 CPU OK</div>
+      <div class="slot">💾 RAM OK</div>
+      <div class="slot">🖥️ GPU OK</div>
+      <div class="slot">❄️ COOLER OK</div>
+    </div>
+
+    <div class="geoff-boot">
+      <pre id="boot-log"></pre>
+    </div>
+
+    <p class="score">Carrots: <span id="final-carrots">42</span> · Kills: <span id="final-kills">18</span></p>
+
+    <button type="button" class="btn" id="replay-boot">REPLAY BOOT</button>
+    <a class="btn ghost" href="./">PLAY FOR REAL</a>
+  </div>
+
+  <p class="note">
+    This is the real ending screen from the game (sample carrot/kill numbers).
+    After the boot text finishes, you can hit <strong>BUILD GEOFF AGAIN</strong> in-game to restart.
+    Tip: stock carrots, stomp drones, and take your time on HARD+ — you got this.
+  </p>
+
+  <script>
+    const lines = [
+      "> GEOFF BOOT SEQUENCE v1.0",
+      "> PSU 850W ONLINE",
+      "> MOBO ATX DETECTED",
+      "> CPU @ 9.2 THz",
+      "> RAM 2TB CRYO OK",
+      "> GPU CLUSTER LINKED",
+      "> COOLING: 0 K",
+      "> ALL SYSTEMS NOMINAL",
+      "> SUPERCOMPUTER ONLINE",
+      "> HELLO, SNOWMAN. I AM GEOFF.",
+    ];
+
+    const bootLog = document.getElementById("boot-log");
+    let timer = null;
+
+    function runBoot() {
+      if (timer) clearTimeout(timer);
+      bootLog.textContent = "";
+      let i = 0;
+      function tick() {
+        if (i < lines.length) {
+          bootLog.textContent += lines[i] + "\n";
+          i += 1;
+          timer = setTimeout(tick, 380);
+        } else {
+          // blinking cursor after finish
+          bootLog.innerHTML = bootLog.textContent.replace(/\n$/, "") + '\n<span class="cursor"></span>';
+        }
+      }
+      tick();
+    }
+
+    document.getElementById("replay-boot").addEventListener("click", runBoot);
+    runBoot();
+  </script>
+</body>
+</html>

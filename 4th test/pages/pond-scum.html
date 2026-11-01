@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong> Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong> Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>DOSWAPZ // POND SCUM // ORBIT</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style class="page-classic-styles">
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ /* orbit: :root stripped */
+ * { box-sizing: border-box; }
+
+ /* orbit: global html,body stripped */
+
+ .dos-screen { position:relative; min-height:0; background:transparent; padding:0; }
+
+ /* orbit: scanlines stripped */
+
+ /* orbit: .header stripped */
+
+ .content { max-width: 720px; margin: 18px auto 0; padding: 0 8px; }
+
+ /* orbit: .subhead stripped */
+
+ .pond-global {
+ border: 2px solid var(--panel-accent); background: rgba(20, 20, 0, 0.45);
+ padding: 10px 12px; text-align: center; font-size: 14px;
+ margin-bottom: 16px; letter-spacing: 0.5px;
+ }
+
+ .pond-global .highlight { color: var(--panel-accent); text-shadow: 0 0 6px var(--panel-accent); }
+
+ .dossier-box, .mining-box, .swap-box {
+ border: 3px solid var(--panel-accent); background: transparent;
+ padding: 14px; margin-bottom: 16px;
+ }
+
+ .mining-box { border-color: #66ccff; background: rgba(0, 18, 28, 0.55); }
+
+ .section-label {
+ text-align: center; font-size: 14px; color: var(--panel-accent);
+ margin-bottom: 8px; letter-spacing: 2px;
+ }
+
+ .mining-box .section-label { color: #66ccff; }
+
+ .dossier-row-wide {
+ grid-template-columns: 1fr;
+ gap: 4px;
+ }
+
+ .dossier-row-wide .dossier-val { text-align: left; }
+
+ .health-bar-wrap { width: 100%; }
+
+ .health-bar {
+ height: 14px; border: 1px solid var(--panel-accent);
+ background: transparent; overflow: hidden;
+ }
+
+ .health-bar-fill {
+ height: 100%;
+ background: linear-gradient(90deg, #006600, var(--panel-accent), var(--panel-accent));
+ box-shadow: 0 0 8px rgba(0, 255, 65, 0.45);
+ transition: width 180ms linear;
+ }
+
+ .health-bar-label {
+ margin-top: 4px; font-size: 14px; color: var(--panel-accent); text-align: right;
+ }
+
+ .mining-notes {
+ margin: 12px 0 0; padding: 0 0 0 18px;
+ font-size: 14px; color: #88ddff; line-height: 1.4;
+ }
+
+ .mining-notes li { margin: 4px 0; }
+ .mining-note-empty { list-style: none; margin-left: -18px; color: #006688; font-style: italic; }
+
+ .swap-box { border-color: var(--panel-accent); background: rgba(20, 20, 0, 0.25); }
+
+ .swap-note {
+ text-align: center; font-size: 12px; color: var(--panel-accent);
+ margin-bottom: 10px; line-height: 1.35;
+ }
+
+ .swap-frame-wrap {
+ width: 100%; min-height: 520px;
+ border: 1px solid rgba(255,255,255,0.14); background: transparent;
+ }
+
+ .swap-frame-wrap iframe {
+ width: 100%; height: 520px; border: 0; background: transparent;
+ }
+
+ .wallet-row { text-align: center; margin: 8px 0; }
+ .wallet-paste { margin: 10px 0; text-align: center; }
+
+ .wallet-paste input {
+ width: 100%; max-width: 520px;
+ background: transparent; color: rgba(255,255,255,0.38); border: 2px solid var(--panel-accent);
+ padding: 6px 8px; font-family: inherit; font-size: 16px;
+ }
+
+ .dossier-grid {
+ margin-top: 14px; border-top: 1px solid rgba(255,255,255,0.14); padding-top: 10px;
+ }
+
+ .dossier-row {
+ display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+ padding: 6px 0; border-bottom: 1px solid #002200; font-size: 18px;
+ }
+
+ .dossier-key { color: var(--panel-accent); letter-spacing: 1px; }
+ .dossier-val { color: var(--panel-accent); text-align: right; word-break: break-word; }
+
+ .dossier-empty {
+ text-align: center; color: #006600; font-style: italic; padding: 20px 8px;
+ }
+
+ .dossier-raw {
+ margin-top: 12px; border: 1px solid rgba(255,255,255,0.14); background: transparent;
+ padding: 8px; font-size: 12px; color: rgba(255,255,255,0.35);
+ white-space: pre-wrap; word-break: break-all;
+ max-height: 180px; overflow: auto;
+ }
+
+ .status-line {
+ font-size: 13px; min-height: 16px; text-align: center;
+ margin: 8px 0; color: #00cc00;
+ }
+
+ .btn {
+ font-size: 16px; color: rgba(255,255,255,0.38); background: transparent;
+ border: 2px solid rgba(255,255,255,0.38); padding: 5px 14px;
+ text-decoration: none; margin: 0 4px; display: inline-block; cursor: pointer;
+ }
+
+ .btn:hover { background: rgba(255,255,255,0.14); color: var(--panel-accent); border-color: var(--panel-accent); }
+ .small-btn { padding: 3px 8px; font-size: 13px; }
+
+ .disclaimer {
+ margin: 12px auto; padding: 10px 12px; border: 2px solid var(--panel-accent);
+ background: rgba(40, 30, 0, 0.35); font-size: 12px; line-height: 1.28; text-align: left;
+ }
+
+ .disclaimer-title {
+ color: var(--panel-accent); margin-bottom: 4px; letter-spacing: 1px;
+ text-align: center; font-size: 13px;
+ }
+
+ .field-notes { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.4; margin-top: 10px; }
+ .field-notes dt { color: var(--panel-accent); margin-top: 6px; }
+ .buttons { text-align: center; margin-top: 20px; }
+ .footer { margin-top: 18px; font-size: 13px; color: rgba(255,255,255,0.35); text-align: center; letter-spacing: 1px; }
+ .vignette {
+ position: fixed; inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.58) 84%);
+ pointer-events: none; z-index: 5;
+ }
+ .glitch-layer {
+ position: fixed; inset: 0; pointer-events: none; z-index: 20; mix-blend-mode: screen;
+ }
+ </style>
+</head>
+<body id="screen" class="orbit-void-inner">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+ <span class="crumb-zone">POND SCUM</span>
+ <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+ <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+ <div class="core-glow"></div>
+ <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+ <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ <div class="orbit-line" style="width:min(34vmin,34vw);height:min(34vmin,34vh)"></div>
+ </div>
+
+ <main class="stage" id="content">
+ <h1 class="hollow-title" id="orbitTitle">POND SCUM</h1>
+ <p class="hollow-sub" id="stageSub">dossier terminal<span class="cursor-blink">|</span></p>
+ <p class="page-path">/orbit/pages/pond-scum.html</p>
+ </main>
+
+ <div class="orbit-panel accent-pond" id="orbitPanel">
+<div class="subhead">
+ POND DOSSIER TERMINAL * SOFT WALLET SIGN ONLY * NO FUNDS<br>
+ SWAP EMBEDDED ON DOSWAPZ - NOT POND0X.COM
+ </div>
+
+ <div id="pondGlobalStats" class="pond-global">LOADING POND PROTOCOL STATS...</div>
+
+ <div class="dossier-box">
+ <div class="section-label">YOUR POND DOSSIER - CONNECT OR PASTE WALLET</div>
+
+ <div class="wallet-row">
+ <button id="pondConnectBtn" class="btn small-btn">CONNECT SOLANA (SOFT SIGN)</button>
+ <button id="pondDisconnectBtn" class="btn small-btn" style="display:none;">DISCONNECT</button>
+ <button id="pondRefreshDossier" class="btn small-btn">REFRESH DOSSIER</button>
+ </div>
+ <div id="pondWalletInfo" style="text-align:center; font-size:12px; color:#00cc00;"></div>
+ <div id="pondWalletHelp" style="text-align:center; font-size:10px; color:#ffaa00; margin:4px 0; display:none;">
+ No wallet? Paste your pubkey below. <a href="https://phantom.app" target="_blank" rel="noopener noreferrer" style="color:#ffcc66;">Install Phantom</a>
+ </div>
+
+ <div class="wallet-paste">
+ <input id="walletPaste" type="text" placeholder="Solana pubkey (base58) - or connect above">
+ <div style="margin-top:6px;">
+ <button id="pondSubmitWallet" class="btn small-btn">LOAD DOSSIER</button>
+ </div>
+ </div>
+
+ <div id="pondScumStatus" class="status-line">AWAITING WALLET</div>
+
+ <div id="dossierGrid" class="dossier-grid">
+ <div class="dossier-empty">CONNECT OR PASTE WALLET - DOSSIER AWAITS</div>
+ </div>
+
+ <details style="margin-top:10px;">
+ <summary style="cursor:pointer; color:rgba(255,255,255,0.35); font-size:13px;">RAW JSON</summary>
+ <pre id="dossierRaw" class="dossier-raw"></pre>
+ </details>
+
+ <dl class="field-notes">
+ <dt>SWAPS</dt>
+ <dd>Pond-recognized swap count on your dossier (filtered - not full chain history).</dd>
+ <dt>HAS TWITTER</dt>
+ <dd>Whether X is linked on Pond Pro dashboard.</dd>
+ <dt>BADGES / COPE / PRO</dt>
+ <dd>Same fields as Pond dossier feed - unaltered.</dd>
+ </dl>
+ </div>
+
+ <div class="mining-box">
+ <div class="section-label">MINING RIG STATS</div>
+
+ <div id="miningGrid" class="dossier-grid" style="margin-top:0; border-top:0; padding-top:0;">
+ <div class="dossier-empty">LOAD DOSSIER TO VIEW MINING STATS</div>
+ </div>
+
+ <div style="margin-top:10px; font-size:13px; color:#66ccff; letter-spacing:1px;">RIG INSIGHTS</div>
+ <ul id="miningNotes" class="mining-notes"></ul>
+
+ <details style="margin-top:10px;">
+ <summary style="cursor:pointer; color:#66ccff; font-size:13px;">RAW MINING JSON</summary>
+ <pre id="miningRaw" class="dossier-raw"></pre>
+ </details>
+
+ <dl class="field-notes">
+ <dt>HEALTH</dt>
+ <dd>Rig health 1 - 9 (7 = full bar). Updates with Pond market conditions.</dd>
+ <dt>SESSIONS / MEMPOOL</dt>
+ <dd>Total mining sessions and how many are waiting in the mempool queue.</dd>
+ <dt>DRIFT / PRIORITY</dt>
+ <dd>Drifted and at-risk sessions; priority is your claim queue position (higher is better).</dd>
+ <dt>ESTIMATES</dt>
+ <dd>USD estimates from Pond - fluid, recalculated every ~60 - 90 seconds.</dd>
+ </dl>
+ </div>
+
+ <div class="swap-box">
+ <div style="text-align:center; font-size:15px; color:#ffff00; margin-bottom:8px; letter-spacing:2px;">
+ DOSSIER SWAP - POND JUPITER ON DOSWAPZ
+ </div>
+ <div class="swap-note">
+ Pond0x SOL swap on their site is inactive right now. Swap here uses the Pond Jupiter plugin embedded on DOSWAPZ so trades can count toward your dossier when Pond indexes them. Refresh dossier after 3 - 5 min.
+ </div>
+ <div class="swap-frame-wrap">
+ <iframe id="dossierSwapFrame" title="Pond Jupiter swap on DOSWAPZ" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+ </div>
+ </div>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">SOFT VERIFY - SIGNATURE ONLY</div>
+ Dossier view = sign message only, no funds. Swap below = real wallet transactions.<br>
+ Dossier + mining data from Pond feeds (direct or proxy). Dossier swaps lag 3 - 5 min; mining estimates refresh ~60 - 90 sec.
+ </div>
+
+ <div class="buttons">
+ <a href="/orbit/hub.html" class="btn"><- BACK TO MENU</a>
+ <a href="/orbit/pages/doswapz/swap.html" class="btn">DOSWAPZ SWAP</a>
+ </div>
+
+ <div class="footer">DOSWAPZ - POND SCUM * DOSSIER + SWAP * ON-SITE</div>
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/config/ftwr-config.js"></script>
+ <script src="/assets/js/config/pond-config.js"></script>
+ <script src="/assets/js/pond/scum.js?v=3"></script>
+ <script src="/assets/js/core/price-ticker.js"></script>
+
+ <script>hollowPageBoot('POND SCUM');</script>
+</body>
+</html>

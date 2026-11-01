@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOSWAPZ // CRYPTO DAD</title>
+<meta name="description" content="Live Crypto Dad experience. Keep Family high and Heat low to survive. Validated mechanics. High-risk life simulation game.">
+<meta property="og:title" content="DOSWAPZ // CRYPTO DAD">
+<meta property="og:description" content="Live the bunker life. Make weekly choices. Safe play wins. 200k+ sims validated the logic. Pure client-side experience.">
+<meta property="og:image" content="https://doswapz.com/assets/images/cryptodad_colorful/11.jpg">
+<meta property="og:url" content="https://doswapz.com/classic/pages/cryptodad/play.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='32' fill='%2300ff00' text-anchor='middle' font-weight='bold'%3EDZ%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="/site.webmanifest">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <script src="https://cdn.tailwindcss.com"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+ --green: #00ff41;
+}
+
+body {
+ font-family: 'VT323', monospace;
+ background: #000;
+ color: #00ff41;
+ margin: 0;
+ overflow: hidden;
+ height: 100vh;
+}
+
+.crt {
+ width: 100%;
+ height: 100%;
+ display: flex;
+ flex-direction: column;
+ border: 10px solid #222;
+ box-shadow: 0 0 50px rgba(0,255,65,0.5);
+ background: black;
+ position: relative;
+}
+
+#game-visual {
+ height: 220px;
+ border-bottom: 4px solid #00ff41;
+ background: #0a0a0a;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ overflow: hidden;
+ z-index: 4;
+}
+
+#game-visual img {
+ max-height: 210px;
+ width: auto;
+ image-rendering: crisp-edges;
+ border: 3px solid #003300;
+}
+
+.scanlines {
+ position: absolute;
+ inset: 0;
+ background: repeating-linear-gradient(
+ transparent 0px,
+ transparent 3px,
+ rgba(0,255,65,0.06) 3px,
+ rgba(0,255,65,0.06) 6px
+ );
+ pointer-events: none;
+ z-index: 2;
+}
+
+#terminal {
+ flex: 1;
+ overflow-y: auto;
+ padding: 20px 28px;
+ font-size: 1.38rem;
+ line-height: 1.35;
+ z-index: 1;
+ white-space: pre-wrap;
+}
+
+.input-line {
+ display: flex;
+ align-items: center;
+ padding: 12px 28px;
+ border-top: 4px solid #00ff41;
+ background: #0a0a0a;
+ z-index: 3;
+}
+
+#commandInput {
+ flex: 1;
+ background: transparent;
+ border: none;
+ outline: none;
+ color: #00ff41;
+ font-size: 1.48rem;
+ font-family: 'VT323', monospace;
+}
+
+.line { margin-bottom: 1px; }
+.red { color: #ff5555; }
+.yellow { color: #ffcc00; }
+.cyan { color: #00ffff; }
+.white { color: #ffffff; }
+.green { color: #00ff41; }
+.gray { color: #888; }
+
+/* Toasty pop-up (head only, like MK easter egg) */
+.toasty {
+ position: fixed;
+ bottom: 40px;
+ right: 40px;
+ width: 92px;
+ height: auto;
+ z-index: 9999;
+ pointer-events: none;
+ opacity: 0;
+ transform: translateY(30px) scale(0.4);
+ transition: none;
+ image-rendering: pixelated;
+ border: 3px solid #ffff00;
+ box-shadow: 0 0 12px rgba(255,255,0,0.7);
+}
+
+.toasty.show {
+ opacity: 1;
+ transform: translateY(0) scale(1);
+ transition: transform 120ms cubic-bezier(0.2, 1.2, 0.3, 1), 
+ opacity 80ms linear;
+ pointer-events: auto;
+ cursor: pointer;
+}
+
+.toasty.hide {
+ opacity: 0;
+ transform: translateY(-20px) scale(0.7);
+ transition: transform 280ms ease, opacity 220ms linear;
+}
+
+.toasty-label {
+ position: fixed;
+ bottom: 138px;
+ right: 32px;
+ font-size: 26px;
+ color: #ffff00;
+ text-shadow: 0 0 6px #ffff00;
+ letter-spacing: 2px;
+ z-index: 10000;
+ pointer-events: none;
+ opacity: 0;
+ transform: translateX(20px);
+}
+
+.toasty-label.show {
+ opacity: 1;
+ transform: translateX(0);
+ transition: all 90ms linear;
+ pointer-events: auto;
+ cursor: pointer;
+}
+
+/* Secret pixel (pure luck Homestar-style discovery inside the visual pane)
+ 4px "specific pixel" - no obvious visual, only exact hover/click finds it.
+ For this test run: press [ (left bracket) while playing to temporarily highlight it. */
+.secret-pixel {
+ position: absolute;
+ left: 165px;
+ top: 210px;
+ width: 4px;
+ height: 4px;
+ z-index: 10;
+ background: transparent;
+ cursor: crosshair;
+ pointer-events: auto;
+}
+.secret-pixel.highlight {
+ outline: 2px solid #ff0000;
+ background: rgba(255, 0, 0, 0.25);
+ width: 8px;
+ height: 8px;
+ /* position comes from the element's current left/top (randomized per run) */
+}
+</style>
+ <link rel="stylesheet" href="/assets/css/era-present-cryptodad.css?v=neonvoid8" data-era-present-cryptodad>
+ <script src="/assets/js/core/era-present-cryptodad.js?v=neonvoid8"></script>
+</head>
+<body>
+
+<div class="crt" style="display:flex; flex-direction:row;">
+ <div class="scanlines"></div>
+
+ <!-- Easy back link + leaderboard for the whole site -->
+ <div style="position:absolute; top:8px; right:12px; z-index:50; display:flex; gap:6px;">
+ <a href="/classic/hub.html" style="color:#00ff00; font-size:16px; text-decoration:none; border:1px solid #00ff00; padding:2px 8px; background:rgba(0,0,0,0.6);"><- BACK TO HUB</a>
+ <a href="/classic/pages/cryptodad/scoreboard.html" style="color:#ffff00; font-size:16px; text-decoration:none; border:1px solid #ffff00; padding:2px 8px; background:rgba(0,0,0,0.6);">SCOREBOARD</a>
+ </div>
+
+ <!-- Terminal on left (text game, previous week results visible), image on right (current state, doesn't cover text) -->
+ <div style="flex:1; display:flex; flex-direction:column; min-width:0;">
+ <div id="terminal" style="flex:1;"></div>
+ <div class="input-line">
+ <span>&gt; </span>
+ <input id="commandInput" type="text" autocomplete="off" autofocus>
+ </div>
+ </div>
+ <div id="game-visual" style="width:280px; height:280px; margin-left:10px; border:4px solid #00ff41; background:#001100; flex-shrink:0;">
+ <img id="dadImage" src="/assets/images/cryptodad_colorful/11.jpg" alt="Crypto Dad State" style="width:100%; height:100%; object-fit:contain;">
+ <!-- Secret pixel (test run): tiny luck-based hotspot. Click it during a run for a hidden Crypto Dad animation. -->
+ <div id="secretPixel" class="secret-pixel" title=""></div>
+ </div>
+</div>
+
+<!-- Consistent safety note -->
+<div style="position:absolute; bottom:8px; left:12px; z-index:50; font-size:14px; color:#00aa00; background:rgba(0,0,0,0.6); padding:2px 6px; border:1px solid #003300;">
+ SCORES: Soft wallet signature only (no funds). Post on the new SCOREBOARD page.
+</div>
+
+<!-- Toasty head pop-up (triggers on crypto sells) -->
+<img id="toasty" class="toasty" src="/assets/images/toasty-head.jpg" alt="TOASTY">
+<div id="toastyText" class="toasty-label">TOASTY!</div>
+
+<script>
+// ================== CRYPTO DAD - FULL REWRITE v3 ==================
+// Dope Wars risk + Oregon Trail consequences + raw suburban dad survival
+
+const terminal = document.getElementById('terminal');
+const input = document.getElementById('commandInput');
+const dadImage = document.getElementById('dadImage');
+
+function updateGameImage(special = null) {
+ if (!dadImage) return;
+
+ let src = "/assets/images/cryptodad_colorful/11.jpg";
+
+ if (special === "last_stand") {
+ src = "/assets/images/cryptodad/last_stand.jpg";
+ } else if (special === "game_over") {
+ src = "/assets/images/cryptodad/game_over.jpg";
+ } else if (special === "good_ending") {
+ src = "/assets/images/cryptodad/good_ending.jpg";
+ } else if (special === "heat_high") {
+ src = "/assets/images/cryptodad/heat_high.jpg";
+ } else if (gameState) {
+ const f = gameState.family || 50;
+ const h = gameState.heat || 0;
+
+ if (f >= 80 && h < 25) src = "/assets/images/cryptodad_colorful/22.jpg"; // best
+ else if (f >= 65 && h < 40) src = "/assets/images/cryptodad_colorful/18.jpg";
+ else if (f >= 50 && h < 55) src = "/assets/images/cryptodad_colorful/12.jpg";
+ else if (f < 30 || h > 70) src = "/assets/images/cryptodad_colorful/3.jpg"; // bad
+ else if (h > 50) src = "/assets/images/cryptodad_colorful/7.jpg";
+ else src = "/assets/images/cryptodad_colorful/14.jpg";
+ }
+
+ dadImage.src = src;
+}
+
+let currentMenu = "intro";
+let inputLocked = false;
+
+let gameState = {
+ week: 0,
+
+ liquid: 1250, // cash on hand
+ savings: 0,
+ tradingCash: 0, // "Crypto Wallet"
+
+ morale: 100,
+ family: 100,
+ heat: 0,
+
+ mode: 'realistic', // 'realistic' (harsh family decay, sim-validated) or 'arcade' (easier for fun runs)
+
+ // Holdings (amount of coins)
+ crypto: { BTC: 0, ETH: 0, SOL: 0, MEME: 0 },
+
+ // Current prices (roughly real-world starting point May 2025 vibe)
+ prices: {
+ BTC: 104800,
+ ETH: 2480,
+ SOL: 152,
+ MEME: 0.018
+ },
+
+ // Equipment
+ firearm: false,
+ armor: false,
+ burner: false,
+
+ // Life state
+ inJail: false,
+ jailWeeks: 0,
+ jobLost: false,
+ divorced: false,
+ lostHouse: false,
+
+ // History
+ totalEarned: 0,
+ arrests: 0,
+
+ // In-game trading window per week (prevents infinite trade loops without advancing)
+ tradeHoursUsed: 0
+};
+
+const MAX_TRADE_HOURS = 24;
+const TRADE_HOUR_COST = {
+ stable: 4,
+ meme: 4,
+ deposit: 1,
+ withdraw: 1,
+ sell: 3
+};
+
+// ================== UTILITIES ==================
+
+function print(text, color = '#00ff41') {
+ const line = document.createElement('div');
+ line.className = 'line';
+ line.style.color = color;
+ line.textContent = text;
+ terminal.appendChild(line);
+ terminal.scrollTop = terminal.scrollHeight;
+}
+
+function clearTerminal() {
+ terminal.innerHTML = '';
+}
+
+function delay(ms) {
+ return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function fmt(n) {
+ return Math.floor(n).toLocaleString();
+}
+
+function getCryptoValue() {
+ return (gameState.crypto.BTC * gameState.prices.BTC) +
+ (gameState.crypto.ETH * gameState.prices.ETH) +
+ (gameState.crypto.SOL * gameState.prices.SOL) +
+ (gameState.crypto.MEME * gameState.prices.MEME);
+}
+
+function totalNetWorth() {
+ return gameState.liquid + gameState.savings + gameState.tradingCash + getCryptoValue();
+}
+
+function clamp(val, min, max) {
+ return Math.max(min, Math.min(max, val));
+}
+
+function getTradeHoursRemaining() {
+ return Math.max(0, MAX_TRADE_HOURS - (gameState.tradeHoursUsed || 0));
+}
+
+function formatTradeClock() {
+ const remaining = getTradeHoursRemaining();
+ const h = Math.floor(remaining);
+ const m = Math.floor((remaining - h) * 60);
+ return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+}
+
+async function consumeTradeHours(hours, actionLabel) {
+ const remaining = getTradeHoursRemaining();
+ if (remaining <= 0) {
+ print("⏱️ Your 24-hour trading window is CLOSED for this week.", "red");
+ print("Markets don't wait forever. The week advances...", "yellow");
+ await delay(420);
+ await advanceWeek();
+ return 'blocked';
+ }
+ if (hours > remaining) {
+ print(`⏱️ Only ${formatTradeClock()} left - not enough time for ${actionLabel}.`, "red");
+ print("You close the laptop. The week moves on.", "yellow");
+ gameState.tradeHoursUsed = MAX_TRADE_HOURS;
+ await delay(420);
+ await advanceWeek();
+ return 'exhausted';
+ }
+
+ gameState.tradeHoursUsed += hours;
+ print(`⏱️ ${actionLabel} (~${hours}h) - ${formatTradeClock()} left in this week's window`, "gray");
+
+ if (getTradeHoursRemaining() <= 0) {
+ print("⏱️ 24-hour trading window EXHAUSTED. Week advances...", "yellow");
+ await delay(500);
+ await advanceWeek();
+ return 'exhausted';
+ }
+ return 'ok';
+}
+
+// ================== FINAL SCORE + RUN END (auto-populate scoreboard) ==================
+
+let gameEnded = false;
+
+function calculateFinalScore() {
+ // Heavily rewards keeping family and morale alive. Survival + net worth help.
+ // Penalties for arrests, divorce, lost house, job loss, and high heat.
+ let s = 0;
+
+ s += Math.floor(gameState.family * 22); // family is the core
+ s += Math.floor(gameState.morale * 11);
+ s += Math.floor((gameState.week - 1) * 115); // weeks survived
+ s += Math.floor(totalNetWorth() / 95);
+
+ s -= gameState.arrests * 310;
+ if (gameState.divorced) s -= 520;
+ if (gameState.lostHouse) s -= 460;
+ if (gameState.jobLost) s -= 220;
+
+ // Heat drag at the end
+ s -= Math.floor(gameState.heat * 4.5);
+
+ // Good run bonus (low heat + strong family at the end)
+ if (gameState.heat < 18 && gameState.family > 68) {
+ s = Math.floor(s * 1.14);
+ }
+
+ // Mode scaling (arcade is a bit more forgiving on the high end for fun)
+ if (gameState.mode === 'arcade') {
+ s = Math.floor(s * 0.96);
+ }
+
+ // Reasonable bounds so it feels like a real score people want to sign
+ s = Math.max(120, Math.min(12500, Math.floor(s)));
+ return s;
+}
+
+function endRun(endingType) {
+ if (gameEnded) return;
+ gameEnded = true;
+
+ const score = calculateFinalScore();
+ const payload = {
+ score: score,
+ mode: gameState.mode || 'realistic',
+ ts: new Date().toISOString().slice(0, 16).replace('T', ' '),
+ ending: endingType || 'run_end'
+ };
+
+ localStorage.setItem('pending_score', JSON.stringify(payload));
+
+ clearTerminal();
+ print("════════════════════════════════════════", "yellow");
+ print(" RUN COMPLETE", "yellow");
+ print("════════════════════════════════════════", "yellow");
+ print("");
+ print(`FINAL SCORE: ${score}`, "yellow");
+ print(`Mode: ${(gameState.mode || 'realistic').toUpperCase()}`, "white");
+ print("");
+ print("Redirecting to the scoreboard...", "cyan");
+ print("You will be asked to log it with a soft signature (no funds, no tx permission).", "white");
+ print("");
+
+ // Short pause so the player sees the score, then go to the page that asks "log or not"
+ setTimeout(() => {
+ window.location.href = '/classic/pages/cryptodad/scoreboard.html';
+ }, 1650);
+}
+
+// ================== MARKET (Dope Wars style swings) ==================
+
+function updateMarket() {
+ // Stable coins - realistic but still volatile
+ gameState.prices.BTC *= (0.965 + Math.random() * 0.07);
+ gameState.prices.ETH *= (0.96 + Math.random() * 0.08);
+ gameState.prices.SOL *= (0.91 + Math.random() * 0.18);
+
+ // Meme - pure chaos (Dope Wars energy)
+ const memeRoll = Math.random();
+ if (memeRoll < 0.11) {
+ gameState.prices.MEME *= (0.04 + Math.random() * 0.12);
+ print("💀 MEME RUG - the dev sold and deleted the telegram.", "red");
+ } else if (memeRoll > 0.89) {
+ gameState.prices.MEME *= (5 + Math.random() * 9);
+ print("🚀 MEME MOONSHOT - some influencer posted it on X.", "yellow");
+ } else if (memeRoll > 0.72) {
+ gameState.prices.MEME *= (1.6 + Math.random() * 2.1);
+ print("📈 Meme pumping hard on pure vibes.", "yellow");
+ } else {
+ gameState.prices.MEME *= (0.55 + Math.random() * 1.3);
+ }
+
+ // Global black swans
+ const eventRoll = Math.random();
+ if (eventRoll < 0.04) {
+ gameState.prices.BTC *= 0.82;
+ gameState.prices.ETH *= 0.79;
+ print("🌍 WORLD EVENT: China cracks down again. Everything bleeds.", "red");
+ } else if (eventRoll > 0.96) {
+ gameState.prices.BTC *= 1.11;
+ gameState.prices.ETH *= 1.09;
+ print("🌍 WORLD EVENT: ETF approved / rate cut rumors. Green dildos.", "yellow");
+ } else if (eventRoll > 0.93) {
+ gameState.prices.SOL *= 0.71;
+ print("🌍 WORLD EVENT: Solana network shits the bed for 6 hours.", "red");
+ }
+
+ // Hard floors and sanity caps
+ gameState.prices.BTC = clamp(gameState.prices.BTC, 42000, 168000);
+ gameState.prices.ETH = clamp(gameState.prices.ETH, 980, 6200);
+ gameState.prices.SOL = clamp(gameState.prices.SOL, 38, 420);
+ gameState.prices.MEME = clamp(gameState.prices.MEME, 0.0008, 4.8);
+}
+
+// ================== CONSEQUENCE ENGINE (the heart of the game) ==================
+
+function applyWeeklyDecay() {
+ // Passive family/morale drain if you don't spend time
+ // Mode-aware: realistic is the harsh validated version from the 500k sims.
+ // Arcade is gentler so more players can experience good endings while still having risk.
+ const familyDecay = (gameState.mode === 'arcade') ? 3 : 6;
+ gameState.family = clamp(gameState.family - familyDecay, 0, 100);
+ gameState.morale = clamp(gameState.morale - 4, 0, 100);
+
+ // Heat slowly bleeds if you lay low
+ if (gameState.heat > 0) gameState.heat = clamp(gameState.heat - 2, 0, 100);
+}
+
+function randomFamilyIncident() {
+ // Only triggers ~35% of weeks - feels rare and mean
+ if (Math.random() > 0.35) return;
+
+ const roll = Math.random();
+ let cost = 0;
+ let famHit = 0;
+ let msg = "";
+
+ if (roll < 0.09) {
+ cost = 680; famHit = 4;
+ msg = "🚽 Toilet exploded at 3am. Plumber wants $680 cash or he's not coming.";
+ } else if (roll < 0.17) {
+ cost = 2450; famHit = 12;
+ msg = "🦷 Daughter needs braces. Orthodontist said \"or she can look like a shark\".";
+ } else if (roll < 0.26) {
+ cost = 1875; famHit = 7;
+ msg = "🏠 Roof leak during the monsoon. Water pouring into the living room.";
+ } else if (roll < 0.33) {
+ cost = 290; famHit = 3;
+ msg = "🐕 Dog ate your wife's AirPods... again. She is not amused.";
+ } else if (roll < 0.41) {
+ cost = 940; famHit = 9;
+ msg = "📺 Your son spent $940 on \"limited edition\" Fortnite skins using your card.";
+ } else if (roll < 0.49) {
+ cost = 420; famHit = 6;
+ msg = "🚗 Wife got a ticket for expired registration. She blames you.";
+ } else if (roll < 0.56) {
+ cost = 1350; famHit = 14;
+ msg = "🏥 Kid broke his arm at soccer. Urgent care wants $1350 after insurance.";
+ } else if (roll < 0.62) {
+ cost = 780; famHit = 5;
+ msg = "🔌 The whole breaker panel died. Electrician said \"your house is from 1978\".";
+ } else {
+ cost = 320; famHit = 4;
+ msg = "📦 Amazon box came. It was not for you. Wife is now suspicious of everything.";
+ }
+
+ gameState.liquid = Math.max(0, gameState.liquid - cost);
+ gameState.family = clamp(gameState.family - famHit, 0, 100);
+
+ print(msg, "red");
+ print(` -$${fmt(cost)} | Family -${famHit}%`, "gray");
+}
+
+function checkCriticalConsequences() {
+ // HEAT consequences
+ if (gameState.heat >= 92 && Math.random() < 0.55) {
+ if (tryConsumePixelChicken('raid')) {
+ // Chicken consumed - mitigated, lighter consequences
+ } else {
+ print("🚔 FED RAID. They kicked the door in at 6:12am.", "red");
+ gameState.liquid = Math.floor(gameState.liquid * 0.35);
+ gameState.tradingCash = Math.floor(gameState.tradingCash * 0.35);
+ gameState.heat = 38;
+ gameState.morale -= 22;
+ gameState.family -= 15;
+ print("They took everything they could find. You are lucky they didn't find the real stash.", "red");
+ }
+ }
+
+ // Very high sustained heat - eventual game over
+ if (gameState.heat >= 96) {
+ print("🚨 The net is closing. You can't keep this up.", "red");
+ updateGameImage("game_over");
+ setTimeout(() => endRun('heat_burn'), 380);
+ return true;
+ }
+ else if (gameState.heat >= 78 && Math.random() < 0.38) {
+ if (!tryConsumePixelChicken('arrest')) {
+ triggerArrest();
+ return true;
+ }
+ // Chicken saved you this time - some heat reduction but no full arrest
+ print("Close call. The rubber chicken bought you a little breathing room.", "yellow");
+ }
+
+ // FAMILY collapse
+ if (gameState.family <= 18 && !gameState.divorced) {
+ if (Math.random() < 0.65) {
+ gameState.divorced = true;
+ print("💔 She served you papers. \"You care more about your coins than your kids.\"", "red");
+ gameState.family = 8;
+ gameState.morale -= 35;
+ gameState.liquid = Math.floor(gameState.liquid * 0.55);
+ }
+ }
+
+ if (gameState.family <= 6 && !gameState.lostHouse) {
+ gameState.lostHouse = true;
+ print("🏚️ The bank foreclosed. Your family is moving in with her sister.", "red");
+ updateGameImage("heat_high");
+ gameState.morale -= 30;
+ gameState.heat += 25; // stress makes you sloppy
+ }
+
+ // Terminal family death - end the run and send score to scoreboard
+ if (gameState.family <= 2) {
+ print("💀 Your family is gone. There is nothing left to come home to.", "red");
+ updateGameImage("game_over");
+ setTimeout(() => endRun('family_collapse'), 420);
+ return true;
+ }
+
+ // Morale death spiral
+ if (gameState.morale <= 12) {
+ print("🪦 You haven't smiled in weeks. Your kids don't recognize you anymore.", "red");
+ gameState.family = clamp(gameState.family - 8, 0, 100);
+ }
+
+ return false;
+}
+
+function triggerArrest() {
+ gameState.arrests++;
+ gameState.heat = Math.max(25, gameState.heat - 30);
+ gameState.inJail = true;
+ gameState.jailWeeks = 0;
+
+ clearTerminal();
+ print("🚔 YOU GOT BUSTED.", "red");
+ print("Two detectives and a K9 unit showed up at the house.", "red");
+ print("");
+ print("They found the burner and three ounces in the shed.", "red");
+ print("");
+
+ if (gameState.firearm) {
+ print("You had the revolver. It made things... complicated.", "yellow");
+ gameState.heat += 18;
+ }
+
+ print("You are now in county lockup.", "red");
+ print("");
+ print("What do you want to do?", "cyan");
+ print("1. BETTER CALL SOL (expensive lawyer - $4200, heat stays high but you walk fast)");
+ print("2. HAVE FAMILY BAIL YOU OUT (costs money + family trust)");
+ print("3. TAKE THE DEAL / SERVE TIME (cheaper fine, but many weeks + lose job)");
+ print("4. FIGHT IT IN COURT (risky - 50/50 you get more time or walk)");
+
+ currentMenu = "jail";
+}
+
+// ================== WEEK ADVANCE ==================
+
+async function advanceWeek() {
+ currentMenu = "processing";
+ gameState.week++;
+ gameState.tradeHoursUsed = 0;
+ updateGameImage();
+
+ print("");
+ print(`========= WEEK ${gameState.week} ========`, "white");
+
+ // Paycheck / bills
+ if (!gameState.jobLost && !gameState.inJail) {
+ gameState.liquid += 1180;
+ print("💵 Paycheck landed: +$1,180", "green");
+ } else if (gameState.jobLost) {
+ print("💼 No paycheck. You lost your job.", "red");
+ }
+
+ // Positive long-term ending: survive long enough with the family mostly intact and heat low
+ if (gameState.week >= 13 && gameState.family > 64 && gameState.heat < 28 && !gameEnded) {
+ print("🌅 You made it. The heat is manageable. The family is still here.", "yellow");
+ updateGameImage("good_ending");
+ setTimeout(() => endRun('good_ending'), 520);
+ return;
+ }
+
+ gameState.liquid -= 920;
+ print("🏠 Bills + groceries: -$920", "red");
+
+ // Market moves
+ updateMarket();
+
+ // Random family disasters (not every week)
+ randomFamilyIncident();
+
+ // Passive decay
+ applyWeeklyDecay();
+
+ // Heat from previous risky behavior
+ if (gameState.heat > 55 && Math.random() < 0.22) {
+ print("👮 Someone is asking questions about you at the bar.", "red");
+ gameState.heat += 8;
+ }
+
+ // Critical checks
+ const arrested = checkCriticalConsequences();
+ if (arrested) return;
+
+ // Show state
+ showStats();
+
+ // Chance of random police encounter if heat is high
+ if (gameState.heat > 68 && Math.random() < 0.28 && !gameState.inJail) {
+ await policeEncounter();
+ return;
+ }
+
+ currentMenu = "main";
+ await showMainMenu();
+}
+
+// ================== STATS DISPLAY ==================
+
+function showStats() {
+ const cryptoVal = getCryptoValue();
+
+ print("────────────────────────────────────", "white");
+ print(`WEEK ${gameState.week} | NET WORTH: $${fmt(totalNetWorth())}`, "white");
+ print(`LIQUID: $${fmt(gameState.liquid)} SAVINGS: $${fmt(gameState.savings)}`, "white");
+ print(`CRYPTO WALLET: $${fmt(gameState.tradingCash)} HOLDINGS VALUE: $${fmt(cryptoVal)}`, "white");
+ print(`FAMILY: ${gameState.family}% MORALE: ${gameState.morale}% HEAT: ${gameState.heat}%`, "white");
+
+ if (gameState.firearm || gameState.armor || gameState.burner || gameState.pixelChicken) {
+ let gear = [];
+ if (gameState.firearm) gear.push("🔫 Revolver");
+ if (gameState.armor) gear.push("🦺 Armor");
+ if (gameState.burner) gear.push("📱 Burner");
+ if (gameState.pixelChicken) gear.push("🐔 Rubber Chicken (1 use)");
+ print("GEAR: " + gear.join(" "), "cyan");
+ }
+ print("────────────────────────────────────", "white");
+}
+
+// ================== MAIN MENU ==================
+
+async function showMainMenu() {
+ updateGameImage();
+ print("");
+ print("What are you doing this week, Dad?", "cyan");
+ print("1. TRADE (Stable or Meme coins)");
+ print("2. HUSTLE (Drugs / Cards / Uber / Opportunity)");
+ print("3. FAMILY TIME");
+ print("4. BANK (Savings)");
+ print("5. STORE (Protection & Heat reduction)");
+ print("6. LAY LOW (Just pay bills and pray)");
+
+ currentMenu = "main";
+}
+
+// ================== TRADE SYSTEM ==================
+
+async function tradeMenu() {
+ if (getTradeHoursRemaining() <= 0) {
+ print("⏱️ Trading window closed for this week (24h used). Pick another action or Lay Low.", "red");
+ await showMainMenu();
+ return;
+ }
+
+ print("");
+ print("=== TRADE ===", "yellow");
+ print(`⏱️ Market window this week: ${formatTradeClock()} remaining (max 24h)`, "cyan");
+ print(`Liquid: $${fmt(gameState.liquid)} Crypto Wallet: $${fmt(gameState.tradingCash)}`);
+ print(`Holdings Value: $${fmt(getCryptoValue())}`);
+ print(`Prices -> BTC $${fmt(gameState.prices.BTC)} ETH $${fmt(gameState.prices.ETH)} SOL $${fmt(gameState.prices.SOL)} MEME $${gameState.prices.MEME.toFixed(4)}`);
+ print("");
+ print("1. Buy STABLE (BTC/ETH - safer)");
+ print("2. Buy MEME (high risk / rugs possible)");
+ print("3. Deposit Liquid -> Crypto Wallet (1% fee)");
+ print("4. Withdraw Crypto Wallet -> Liquid (2% fee)");
+ print("5. Sell holdings back to Liquid (2% fee)");
+ print("0. Back to main menu");
+
+ currentMenu = "trade";
+}
+
+async function executeStableBuy(percent) {
+ const amount = Math.floor(gameState.tradingCash * (percent / 100));
+ if (amount < 50) {
+ print("Too small. At least $50 in your Crypto Wallet.", "red");
+ print(`Crypto Wallet balance: $${fmt(gameState.tradingCash)}`, "gray");
+ await tradeMenu();
+ return;
+ }
+
+ const timeResult = await consumeTradeHours(TRADE_HOUR_COST.stable, 'Stable trade');
+ if (timeResult !== 'ok') return;
+
+ gameState.tradingCash -= amount;
+
+ // 60% BTC 40% ETH
+ const btcBought = (amount * 0.60) / gameState.prices.BTC;
+ const ethBought = (amount * 0.40) / gameState.prices.ETH;
+
+ gameState.crypto.BTC += btcBought;
+ gameState.crypto.ETH += ethBought;
+
+ print(`Bought $${fmt(amount)} stable. +${btcBought.toFixed(4)} BTC +${ethBought.toFixed(4)} ETH`, "green");
+
+ gameState.heat += 3; // any trading raises heat a little
+ await tradeMenu(); // stay in trade menu - does not advance week
+}
+
+async function executeMemeBuy(percent) {
+ const amount = Math.floor(gameState.tradingCash * (percent / 100));
+ if (amount < 30) {
+ print("Too small. At least $30 in your Crypto Wallet for memes.", "red");
+ print(`Crypto Wallet balance: $${fmt(gameState.tradingCash)}`, "gray");
+ await tradeMenu();
+ return;
+ }
+
+ const timeResult = await consumeTradeHours(TRADE_HOUR_COST.meme, 'Meme trade');
+ if (timeResult !== 'ok') return;
+
+ gameState.tradingCash -= amount;
+
+ const solBought = (amount * 0.45) / gameState.prices.SOL;
+ const memeBought = (amount * 0.55) / gameState.prices.MEME;
+
+ gameState.crypto.SOL += solBought;
+ gameState.crypto.MEME += memeBought;
+
+ print(`Bought $${fmt(amount)} meme bags. +${solBought.toFixed(2)} SOL +${memeBought.toFixed(0)} MEME`, "yellow");
+ print("These are pure gambling tickets now.", "gray");
+
+ gameState.heat += 22; // meme trading is suspicious
+ await tradeMenu(); // stay in trade menu - does not advance week
+}
+
+async function sellHoldings(percent) {
+ const totalVal = getCryptoValue();
+ if (totalVal < 10) { print("You have nothing to sell.", "red"); await tradeMenu(); return; }
+
+ const timeResult = await consumeTradeHours(TRADE_HOUR_COST.sell, 'Sell holdings');
+ if (timeResult !== 'ok') return;
+
+ const sellValue = Math.floor(totalVal * (percent / 100));
+ // 2% fee on selling back to liquid (as requested)
+ const cashReceived = Math.floor(sellValue * 0.98);
+
+ // Pro-rata reduce holdings (simple way)
+ const ratio = percent / 100;
+ gameState.crypto.BTC *= (1 - ratio);
+ gameState.crypto.ETH *= (1 - ratio);
+ gameState.crypto.SOL *= (1 - ratio);
+ gameState.crypto.MEME *= (1 - ratio);
+
+ gameState.liquid += cashReceived;
+
+ print(`Sold ${percent}% of holdings for $${fmt(cashReceived)} (2% fee applied).`, "green");
+
+ triggerToasty(); // surprise head pop like Toasty
+
+ await tradeMenu(); // stay in trade menu - does not advance week
+}
+
+// --- Liquid <-> Crypto Wallet Transfers (with fees) ---
+
+async function transferLiquidToCryptoWallet(percent) {
+ const amount = Math.floor(gameState.liquid * (percent / 100));
+ if (amount < 20) {
+ print("Too small. Minimum $20.", "red");
+ print(`You have $${fmt(gameState.liquid)} in liquid.`, "gray");
+ await tradeMenu();
+ return;
+ }
+
+ const timeResult = await consumeTradeHours(TRADE_HOUR_COST.deposit, 'Wallet deposit');
+ if (timeResult !== 'ok') return;
+
+ const fee = Math.floor(amount * 0.01); // 1% fee
+ const received = amount - fee;
+
+ gameState.liquid -= amount;
+ gameState.tradingCash += received;
+
+ print(`Deposited $${fmt(amount)} from Liquid to Crypto Wallet.`, "green");
+ print(`Fee (1%): $${fmt(fee)} -> Net added: $${fmt(received)}`, "gray");
+
+ await tradeMenu(); // stay in trade menu - does not advance week
+}
+
+async function transferCryptoWalletToLiquid(percent) {
+ const amount = Math.floor(gameState.tradingCash * (percent / 100));
+ if (amount < 20) {
+ print("Too small. Minimum $20.", "red");
+ print(`Crypto Wallet balance: $${fmt(gameState.tradingCash)}`, "gray");
+ await tradeMenu();
+ return;
+ }
+
+ const timeResult = await consumeTradeHours(TRADE_HOUR_COST.withdraw, 'Wallet withdraw');
+ if (timeResult !== 'ok') return;
+
+ const fee = Math.floor(amount * 0.02); // 2% fee
+ const received = amount - fee;
+
+ gameState.tradingCash -= amount;
+ gameState.liquid += received;
+
+ print(`Withdrew $${fmt(amount)} from Crypto Wallet to Liquid.`, "green");
+ print(`Fee (2%): $${fmt(fee)} -> Net received: $${fmt(received)}`, "gray");
+
+ await tradeMenu(); // stay in trade menu - does not advance week
+}
+
+// ================== HUSTLE SYSTEM ==================
+
+async function hustleMenu() {
+ print("");
+ print("=== HUSTLE ===", "yellow");
+ print("LEGAL (no heat gain):");
+ print("1. Card Pulls (Pokemon / Sports cards - gamble on sealed product)");
+ print("2. Uber / DoorDash (safe, boring, low money)");
+ print("");
+ print("ILLEGAL / RISKY (adds heat + arrest risk):");
+ print("3. Sell Drugs (fast cash, very dangerous)");
+ print("4. Boost & Pawn (steal goods and flip at the pawn shop)");
+ print("0. Back");
+
+ currentMenu = "hustle";
+}
+
+async function sellDrugs() {
+ const earned = 650 + Math.floor(Math.random() * 1850);
+ gameState.liquid += earned;
+ gameState.heat += 32;
+ gameState.family -= 11;
+ gameState.morale -= 6;
+
+ print(`💊 You moved product. +$${fmt(earned)}`, "yellow");
+ print("Your wife can smell it on you when you come home.", "gray");
+ print("(Illegal - heavy heat and arrest risk.)", "red");
+
+ if (gameState.heat > 70 && Math.random() < 0.48) {
+ await delay(420);
+ triggerArrest();
+ return;
+ }
+
+ currentMenu = "processing";
+ await advanceWeek();
+}
+
+async function cardPulls() {
+ print("How much are you willing to spend on packs? (type amount or % of liquid)");
+ currentMenu = "card-pulls-amount";
+}
+
+async function doCardPulls(amount) {
+ if (amount > gameState.liquid) amount = gameState.liquid;
+ if (amount < 40) {
+ print("You need at least $40 to rip packs.", "red");
+ print(`You currently have $${fmt(gameState.liquid)} in liquid.`, "gray");
+ await hustleMenu();
+ return;
+ }
+
+ gameState.liquid -= amount;
+
+ const hit = Math.random();
+ let payout = 0;
+
+ if (hit > 0.94) {
+ payout = Math.floor(amount * (8 + Math.random() * 11));
+ print(`🔥🔥🔥 HOLY SHIT. You hit a Charizard 1st Edition + PSA 10. +$${fmt(payout)}`, "yellow");
+ } else if (hit > 0.78) {
+ payout = Math.floor(amount * (2.4 + Math.random() * 3.1));
+ print(`🃏 Nice pull. You flipped a few good cards. +$${fmt(payout)}`, "green");
+ } else if (hit > 0.48) {
+ payout = Math.floor(amount * 0.6);
+ print(`🗑️ Mostly bulk and base set. You got back $${fmt(payout)}.`, "gray");
+ } else {
+ print("You got absolutely nothing. Kids these days don't even play with cards.", "red");
+ }
+
+ gameState.liquid += payout;
+ gameState.family -= 4;
+ gameState.morale -= 3;
+
+ print("(Legal side hustle - no heat added.)", "gray");
+
+ currentMenu = "processing";
+ await advanceWeek();
+}
+
+async function uber() {
+ const earned = 95 + Math.floor(Math.random() * 85);
+ gameState.liquid += earned;
+ gameState.morale -= 2;
+ gameState.family -= 1;
+
+ print(`🚗 You drove for 7 hours. +$${fmt(earned)}. Your back hurts.`, "green");
+ print("(Legal side hustle - no heat added.)", "gray");
+
+ currentMenu = "processing";
+ await advanceWeek();
+}
+
+// ================== BOOST & PAWN (Illegal) ==================
+
+async function opportunityKnocks() {
+ print("");
+ print("=== BOOST & PAWN (ILLEGAL) ===", "red");
+ print("You know a guy. There's a storage unit or house with good stuff in it.");
+ print("You can boost it and flip the goods at the pawn shop.");
+ print("This is straight theft. High reward, high risk.");
+ print("");
+ print("How much risk are you taking? (type 1, 2, or 3)");
+ print("1. Light touch - a couple boxes ($420 spend, moderate heat)");
+ print("2. Go big - van full of product ($1200 spend, serious heat)");
+ print("3. Clean the place out - felony level ($2800 spend, extreme risk)");
+
+ currentMenu = "opportunity";
+}
+
+async function resolveOpportunity(level) {
+ // Boost & Pawn - illegal activity. Heat and arrest risk scale with ambition.
+ let spend = 0, baseReward = 0, heatGain = 0, arrestChance = 0;
+
+ if (level === 1) { spend = 420; baseReward = 1.9; heatGain = 14; arrestChance = 0.09; }
+ if (level === 2) { spend = 1200; baseReward = 2.7; heatGain = 27; arrestChance = 0.22; }
+ if (level === 3) { spend = 2800; baseReward = 3.6; heatGain = 48; arrestChance = 0.47; }
+
+ if (gameState.liquid < spend) {
+ print("You don't have that kind of cash on hand.", "red");
+ await hustleMenu(); return;
+ }
+
+ gameState.liquid -= spend;
+ gameState.heat += heatGain;
+
+ print(`You spent $${fmt(spend)} setting it up...`, "gray");
+
+ const caughtRoll = Math.random();
+
+ if (caughtRoll < arrestChance) {
+ print("🚔 You got caught boosting. Pawn shop owner called it in.", "red");
+ await delay(600);
+ triggerArrest();
+ return;
+ }
+
+ if (caughtRoll < arrestChance + 0.18) {
+ print("🏃 You got made. Owner chased you out and you dropped half the score.", "red");
+ const partial = Math.floor(spend * baseReward * 0.45);
+ gameState.liquid += partial;
+ print(`You still made $${fmt(partial)} after losing product.`, "yellow");
+ } else {
+ const payout = Math.floor(spend * baseReward * (0.85 + Math.random() * 0.6));
+ gameState.liquid += payout;
+ print(`💰 Clean flip. Pawn shop paid cash, no questions. +$${fmt(payout)}.`, "green");
+ }
+
+ print("(Illegal - heat and arrest risk applied.)", "red");
+
+ gameState.family -= 7;
+ gameState.morale -= 5;
+
+ currentMenu = "processing";
+ await advanceWeek();
+}
+
+// ================== FAMILY TIME ==================
+
+async function familyMenu() {
+ print("");
+ print("=== FAMILY TIME ===", "yellow");
+ print("1. Family dinner (home cooked, talk to the kids)");
+ print("2. Take the kids to the park + ice cream");
+ print("3. Date night with the wife (no phones)");
+ print("4. Help with homework + bedtime routine");
+ print("0. Back");
+
+ currentMenu = "family";
+}
+
+async function doFamilyAction(type) {
+ let fam = 0, mor = 0, heatDrop = 0, cost = 0;
+ let msg = "";
+
+ if (type === 1) { fam = 11; mor = 6; heatDrop = 6; cost = 45; msg = "🍝 Everyone actually talked at dinner. It was... nice."; }
+ if (type === 2) { fam = 14; mor = 8; heatDrop = 8; cost = 68; msg = "🎡 You pushed them on the swings until your arms hurt."; }
+ if (type === 3) { fam = 18; mor = 14; heatDrop = 11; cost = 115; msg = "❤️ You actually listened. She almost smiled at you."; }
+ if (type === 4) { fam = 9; mor = 5; heatDrop = 4; cost = 0; msg = "📚 You helped with math. Your son said \"thanks Dad\" and meant it."; }
+
+ gameState.liquid = Math.max(0, gameState.liquid - cost);
+ gameState.family = clamp(gameState.family + fam, 0, 100);
+ gameState.morale = clamp(gameState.morale + mor, 0, 100);
+ gameState.heat = clamp(gameState.heat - heatDrop, 0, 100);
+
+ print(msg, "green");
+ if (cost > 0) print(` -$${cost}`, "gray");
+
+ currentMenu = "processing";
+ await advanceWeek();
+}
+
+// ================== BANK ==================
+
+async function bankMenu() {
+ print("");
+ print("=== BANK ===", "yellow");
+ print(`Liquid: $${fmt(gameState.liquid)} | Savings: $${fmt(gameState.savings)}`);
+ print("");
+ print("1. Deposit to savings");
+ print("2. Withdraw from savings");
+ print("0. Back");
+
+ currentMenu = "bank";
+}
+
+async function doDeposit(percent) {
+ const amt = Math.floor(gameState.liquid * (percent / 100));
+ if (amt < 10) {
+ print("Too small. Minimum $10.", "red");
+ print(`Liquid: $${fmt(gameState.liquid)} | Savings: $${fmt(gameState.savings)}`, "gray");
+ await bankMenu();
+ return;
+ }
+
+ gameState.liquid -= amt;
+ gameState.savings += amt;
+
+ print(`Moved $${fmt(amt)} into savings.`, "green");
+ await bankMenu();
+}
+
+async function doWithdraw(percent) {
+ const amt = Math.floor(gameState.savings * (percent / 100));
+ if (amt < 10) {
+ print("Too small. Minimum $10.", "red");
+ print(`Liquid: $${fmt(gameState.liquid)} | Savings: $${fmt(gameState.savings)}`, "gray");
+ await bankMenu();
+ return;
+ }
+
+ gameState.savings -= amt;
+ gameState.liquid += amt;
+
+ print(`Pulled $${fmt(amt)} out of savings.`, "green");
+ await bankMenu();
+}
+
+// ================== STORE ==================
+
+async function storeMenu() {
+ print("");
+ print("=== STORE (PROTECTION) ===", "yellow");
+ print("1. Revolver (.38) - $820 [Gives you a real chance in a fight]");
+ print("2. Level III Body Armor - $1650 [Reduces raid damage]");
+ print("3. Burner Phone + 6 months service - $290 [Lowers heat 12 points]");
+ print("4. Rubber Chicken (Lucky) - PIXEL EXCLUSIVE (one-time use) [NOT FOR SALE]");
+ print("0. Back");
+
+ currentMenu = "store";
+}
+
+async function buyFromStore(item) {
+ if (item === 1) {
+ if (gameState.liquid < 820) { print("Not enough.", "red"); await storeMenu(); return; }
+ gameState.liquid -= 820;
+ gameState.firearm = true;
+ print("🔫 You now own a revolver. Let's hope you never have to use it.", "green");
+ }
+ if (item === 2) {
+ if (gameState.liquid < 1650) { print("Not enough.", "red"); await storeMenu(); return; }
+ gameState.liquid -= 1650;
+ gameState.armor = true;
+ print("🦺 Level III plates. You'll survive the first volley.", "green");
+ }
+ if (item === 3) {
+ if (gameState.liquid < 290) { print("Not enough.", "red"); await storeMenu(); return; }
+ gameState.liquid -= 290;
+ gameState.burner = true;
+ gameState.heat = clamp(gameState.heat - 12, 0, 100);
+ print("📱 New number. Old one is in a river.", "green");
+ }
+
+ await storeMenu();
+}
+
+// ================== POLICE ENCOUNTER (Fight or Run) ==================
+
+async function policeEncounter() {
+ clearTerminal();
+ print("🚨 PULLED OVER / APPROACHED", "red");
+ print("Two officers. One has his hand on his holster.");
+ print("They know who you are.");
+ print("");
+ print("1. FIGHT (you have the revolver - high risk, high reward)");
+ print("2. RUN (on foot - you might make it, might get shot)");
+ print("3. COMPLY (hands up, go quietly)");
+
+ currentMenu = "police-fight";
+}
+
+async function resolvePoliceFight(choice) {
+ if (choice === 1) { // FIGHT
+ if (!gameState.firearm) {
+ print("You have nothing to fight with. You get tackled and cuffed.", "red");
+ await delay(400);
+ triggerArrest();
+ return;
+ }
+ // Has firearm
+ const win = Math.random();
+ if (win > 0.62) {
+ print("You got one in the leg. The other one backed off. You escaped.", "yellow");
+ gameState.heat += 55;
+ gameState.liquid = Math.floor(gameState.liquid * 0.4);
+ print("You are now a fugitive. This is very bad.", "red");
+ currentMenu = "main";
+ await showMainMenu();
+ } else {
+ print("You missed. They lit you up. You wake up in the hospital in cuffs.", "red");
+ gameState.liquid = Math.floor(gameState.liquid * 0.15);
+ await delay(500);
+ triggerArrest();
+ }
+ }
+ else if (choice === 2) { // RUN
+ const escape = Math.random();
+ if (escape > 0.55) {
+ print("You vaulted a fence and lost them in the alley. You're bleeding but free.", "yellow");
+ gameState.heat += 38;
+ currentMenu = "main";
+ await showMainMenu();
+ } else {
+ print("Taser to the back. You ate concrete.", "red");
+ await delay(400);
+ triggerArrest();
+ }
+ }
+ else { // COMPLY
+ triggerArrest();
+ }
+}
+
+// ================== JAIL SYSTEM (Better Call SOL etc) ==================
+
+async function resolveJail(choice) {
+ if (choice === 1) { // Better Call SOL
+ const cost = 4200;
+ if (gameState.liquid + gameState.savings < cost) {
+ print("You can't afford SOL. The public defender looks 23 years old.", "red");
+ await delay(600);
+ await serveTime(5);
+ return;
+ }
+ gameState.liquid = Math.max(0, gameState.liquid - cost);
+ gameState.heat += 22;
+ gameState.inJail = false;
+ print("SOL got you out in 11 days. Cost you $4200 and the DA still has your name.", "yellow");
+ print("Your wife is not speaking to you.", "red");
+ gameState.family -= 18;
+ gameState.morale -= 14;
+ currentMenu = "main";
+ await showMainMenu();
+ }
+ else if (choice === 2) { // Family bails you
+ const cost = 1850;
+ if (gameState.liquid < cost) { print("Not enough liquid cash.", "red"); return; }
+ gameState.liquid -= cost;
+ gameState.family -= 22;
+ gameState.inJail = false;
+ print("Your brother-in-law put up the house as collateral. Your wife is done.", "red");
+ currentMenu = "main";
+ await showMainMenu();
+ }
+ else if (choice === 3) { // Serve time
+ await serveTime(7);
+ }
+ else if (choice === 4) { // Fight it in court
+ const win = Math.random();
+ if (win > 0.48) {
+ print("You beat the case on a technicality. SOL is a wizard.", "green");
+ gameState.heat += 18;
+ gameState.inJail = false;
+ currentMenu = "main";
+ await showMainMenu();
+ } else {
+ print("The judge gave you the max. 4 months.", "red");
+ await serveTime(16);
+ }
+ }
+}
+
+async function serveTime(weeks) {
+ gameState.inJail = false;
+ gameState.jailWeeks += weeks;
+ gameState.week += weeks;
+
+ print(`You served ${weeks} weeks in county.`, "red");
+ print("When you got out your job was gone. Your oldest son wouldn't look at you.", "red");
+
+ gameState.jobLost = true;
+ gameState.family = clamp(gameState.family - 28, 0, 100);
+ gameState.morale -= 25;
+ gameState.liquid = Math.floor(gameState.liquid * 0.25);
+
+ if (gameState.family < 25 && Math.random() < 0.6) {
+ gameState.divorced = true;
+ print("She filed while you were inside. You have nothing left.", "red");
+ }
+
+ // After a long jail sentence the run is effectively over for many players
+ if (gameState.family <= 5 || gameState.morale <= 8) {
+ print("Your life as you knew it is finished.", "red");
+ setTimeout(() => endRun('jail_destroyed'), 520);
+ return;
+ }
+
+ currentMenu = "main";
+ showStats();
+ await showMainMenu();
+}
+
+// ================== MAIN COMMAND HANDLER ==================
+
+async function handleCommand(raw) {
+ const cmd = raw.trim().toUpperCase();
+
+ if (currentMenu === "processing") return;
+ if (gameEnded) {
+ print("Run is over. Refresh the page or go to the scoreboard to log your score.", "red");
+ return;
+ }
+
+ print(`> ${cmd}`, "white");
+
+ // ================= INTRO =================
+ if (currentMenu === "intro") {
+ // Blank Enter or typing anything both start the game
+ clearTerminal();
+ await startGame();
+ return;
+ }
+
+ // ================= MODE CHOICE =================
+ if (currentMenu === "choose-mode") {
+ const n = parseInt(cmd);
+ let chosen = false;
+ if (!cmd || n === 1 || cmd === "REALISTIC" || cmd === "1") {
+ gameState.mode = 'realistic';
+ print("REALISTIC mode selected (harsh family decay - the validated sim experience).", "red");
+ chosen = true;
+ } else if (n === 2 || cmd === "ARCADE" || cmd === "2") {
+ gameState.mode = 'arcade';
+ print("ARCADE mode selected (easier family decay - more forgiving for fun runs).", "yellow");
+ chosen = true;
+ } else {
+ print("Invalid choice. Defaulting to REALISTIC mode.", "red");
+ gameState.mode = 'realistic';
+ chosen = true;
+ }
+ if (chosen) {
+ print("");
+ print("Mode locked for this run. Good luck, Dad.", "cyan");
+ print("");
+ print("You are a 42-year-old suburban father.", "white");
+ print("You have a wife, two kids, a mortgage, and a 401k you haven't touched.", "white");
+ print("You also have a growing suspicion that the only way out is through the blockchain.", "white");
+ print("");
+ print("Balance the money, the family, and the heat.", "cyan");
+ print("Too much heat and the feds kick your door in.", "red");
+ print("Ignore your family and you will lose everything that matters.", "red");
+ print("");
+
+ showStats();
+ updateGameImage();
+
+ // Reset secret pixel flag + randomize its position for this gameplay (pure luck, once per run)
+ secretPixelFoundThisRun = false;
+ const _sp = document.getElementById('secretPixel');
+ if (_sp) {
+ _sp.style.pointerEvents = 'auto';
+ // Random spot inside the 280x280 visual (keep away from edges a bit)
+ const pad = 22;
+ const max = 280 - 10 - pad;
+ _sp.style.left = (pad + Math.random() * max) + 'px';
+ _sp.style.top = (pad + Math.random() * max) + 'px';
+ }
+
+ // Auto-advance week 1 with default safe Family Time so the game visibly "starts" after mode choice.
+ // The player sees the result of the previous week (week 1) in the terminal while the menu for the following week is ready.
+ // The image on the right shows the current state without covering the text history.
+ print("Week 1 has begun. To get you started in " + gameState.mode.toUpperCase() + " mode, a default safe action (Family Time - date night) has been taken.");
+ gameState.family = clamp(gameState.family + 18, 0, 100);
+ gameState.morale = clamp(gameState.morale + 14, 0, 100);
+ gameState.heat = clamp(gameState.heat - 11, 0, 100);
+ gameState.liquid = Math.max(0, gameState.liquid - 115);
+ print("Family Time (date night): Family +18, Morale +14, Heat -11, -$115");
+ print("Week 1 complete. The result of the previous week is above in the terminal. Now choose your action for week 2 from the menu below.");
+
+ currentMenu = "main";
+ await showMainMenu();
+ }
+ return;
+ }
+
+ // ================= JAIL =================
+ if (currentMenu === "jail") {
+ const num = parseInt(cmd);
+ if ([1,2,3,4].includes(num)) {
+ await resolveJail(num);
+ }
+ return;
+ }
+
+ // ================= POLICE FIGHT =================
+ if (currentMenu === "police-fight") {
+ const num = parseInt(cmd);
+ if ([1,2,3].includes(num)) await resolvePoliceFight(num);
+ return;
+ }
+
+ // ================= MAIN =================
+ if (currentMenu === "main") {
+ if (cmd === "1") {
+ if (getTradeHoursRemaining() <= 0 && gameState.tradeHoursUsed >= MAX_TRADE_HOURS) {
+ print("⏱️ You already used your full 24-hour trading window this week.", "red");
+ print("Pick Family Time, Hustle, Bank, Store, or Lay Low.", "yellow");
+ return;
+ }
+ await tradeMenu();
+ }
+ else if (cmd === "2") await hustleMenu();
+ else if (cmd === "3") await familyMenu();
+ else if (cmd === "4") await bankMenu();
+ else if (cmd === "5") await storeMenu();
+ else if (cmd === "6") {
+ currentMenu = "processing";
+ await advanceWeek();
+ }
+ return;
+ }
+
+ // ================= TRADE =================
+ if (currentMenu === "trade") {
+ if (cmd === "1") {
+ print("What % of your Crypto Wallet to spend on stable coins?");
+ currentMenu = "trade-stable";
+ }
+ else if (cmd === "2") {
+ print("What % of your Crypto Wallet to gamble on memes?");
+ currentMenu = "trade-meme";
+ }
+ else if (cmd === "3") {
+ print("Deposit what % of Liquid into Crypto Wallet? (1% fee)");
+ currentMenu = "trade-deposit";
+ }
+ else if (cmd === "4") {
+ print("Withdraw what % from Crypto Wallet to Liquid? (2% fee)");
+ currentMenu = "trade-withdraw";
+ }
+ else if (cmd === "5") {
+ print("Sell what % of your current holdings? (2% fee)");
+ currentMenu = "trade-sell";
+ }
+ else if (cmd === "0") await showMainMenu();
+ return;
+ }
+
+ if (currentMenu === "trade-stable") { await executeStableBuy(parseFloat(cmd) || 0); return; }
+ if (currentMenu === "trade-meme") { await executeMemeBuy(parseFloat(cmd) || 0); return; }
+ if (currentMenu === "trade-deposit") { await transferLiquidToCryptoWallet(parseFloat(cmd) || 0); return; }
+ if (currentMenu === "trade-withdraw"){ await transferCryptoWalletToLiquid(parseFloat(cmd) || 0); return; }
+ if (currentMenu === "trade-sell") { await sellHoldings(parseFloat(cmd) || 0); return; }
+
+ // ================= HUSTLE =================
+ if (currentMenu === "hustle") {
+ if (cmd === "1") await cardPulls(); // Legal
+ else if (cmd === "2") await uber(); // Legal
+ else if (cmd === "3") await sellDrugs(); // Illegal
+ else if (cmd === "4") await opportunityKnocks(); // Illegal (Boost & Pawn)
+ else if (cmd === "0") await showMainMenu();
+ return;
+ }
+ if (currentMenu === "card-pulls-amount") {
+ let amt = parseFloat(cmd);
+ if (cmd.includes("%")) amt = gameState.liquid * (parseFloat(cmd) / 100);
+ await doCardPulls(Math.floor(amt));
+ return;
+ }
+ if (currentMenu === "opportunity") {
+ const n = parseInt(cmd);
+ if ([1,2,3].includes(n)) await resolveOpportunity(n);
+ else await hustleMenu();
+ return;
+ }
+
+ // ================= FAMILY =================
+ if (currentMenu === "family") {
+ const n = parseInt(cmd);
+ if ([1,2,3,4].includes(n)) await doFamilyAction(n);
+ else if (cmd === "0") await showMainMenu();
+ return;
+ }
+
+ // ================= BANK =================
+ if (currentMenu === "bank") {
+ if (cmd === "1") { print("Deposit what % of liquid?"); currentMenu = "bank-deposit"; }
+ else if (cmd === "2") { print("Withdraw what % of savings?"); currentMenu = "bank-withdraw"; }
+ else if (cmd === "0") await showMainMenu();
+ return;
+ }
+ if (currentMenu === "bank-deposit") { await doDeposit(parseFloat(cmd) || 0); return; }
+ if (currentMenu === "bank-withdraw") { await doWithdraw(parseFloat(cmd) || 0); return; }
+
+ // ================= STORE =================
+ if (currentMenu === "store") {
+ const n = parseInt(cmd);
+ if ([1,2,3].includes(n)) await buyFromStore(n);
+ else if (cmd === "0") await showMainMenu();
+ return;
+ }
+}
+
+// ================== START GAME ==================
+
+async function startGame() {
+ currentMenu = "main";
+
+ print("================================================", "yellow");
+ print(" CRYPTO DAD", "yellow");
+ print("================================================", "yellow");
+ print("");
+
+ // Mode choice (once per run)
+ print("CHOOSE MODE FOR THIS RUN:", "cyan");
+ print("1. REALISTIC (harsh family decay - the validated sim experience from the 500k Monte Carlos)");
+ print("2. ARCADE (easier family decay - more forgiving, fun runs, still has real risk)");
+ print("Type 1 or 2 then press Enter.");
+
+ currentMenu = "choose-mode";
+ return; // wait for input in the handler
+}
+
+// ================== INPUT HANDLING ==================
+
+input.addEventListener('keydown', async function(e) {
+ if (e.repeat) { e.preventDefault(); return; }
+ if (e.key !== 'Enter') return;
+
+ e.preventDefault();
+ if (inputLocked || currentMenu === 'processing') return;
+
+ inputLocked = true;
+ const val = input.value;
+ input.value = '';
+
+ try {
+ await handleCommand(val);
+ } finally {
+ setTimeout(() => { inputLocked = false; }, 180);
+ }
+});
+
+// ================== BOOT ==================
+
+window.onload = () => {
+ clearTerminal();
+
+ print("================================================", "yellow");
+ print(" CRYPTO DAD", "yellow");
+ print("================================================", "yellow");
+ print("");
+ print("HIT ENTER TO START", "yellow");
+ print("");
+ print("INSTRUCTIONS:", "cyan");
+ print("Type the NUMBER of your choice and press ENTER.", "white");
+ print("Balance FAMILY, HEAT, and MONEY.", "white");
+ print("TRADE has a 24-hour in-game window per week - then time advances.", "cyan");
+ print("Too much HEAT brings the police.", "red");
+ print("Ignore your FAMILY and you will lose everything.", "red");
+ print("When a run ends you will be sent to the scoreboard to decide whether to log the score (soft sign only).", "cyan");
+ print("");
+ print("Dry. Raw. Suburban. Dangerous.", "gray");
+
+ currentMenu = "intro";
+ input.focus();
+};
+
+// Toasty head pop-up (head-only cropped image, retro corner easter egg)
+const CRYPTODAD_SELL_TOKEN_URL = '/classic/pages/cryptodad/token.html';
+let toastyHideTimer = null;
+
+function triggerToasty() {
+ const img = document.getElementById('toasty');
+ const label = document.getElementById('toastyText');
+ if (!img || !label) return;
+
+ if (toastyHideTimer) {
+ clearTimeout(toastyHideTimer);
+ toastyHideTimer = null;
+ }
+
+ img.classList.remove('show', 'hide');
+ label.classList.remove('show');
+
+ void img.offsetWidth; // reflow
+
+ label.textContent = 'CLICK -> BUY';
+ img.classList.add('show');
+ label.classList.add('show');
+
+ const openSellerToken = () => {
+ window.open(CRYPTODAD_SELL_TOKEN_URL, '_blank', 'noopener,noreferrer');
+ };
+
+ const onClick = () => openSellerToken();
+ img.addEventListener('click', onClick);
+ label.addEventListener('click', onClick);
+
+ const hideToasty = () => {
+ img.removeEventListener('click', onClick);
+ label.removeEventListener('click', onClick);
+ img.classList.remove('show');
+ img.classList.add('hide');
+ label.classList.remove('show');
+ setTimeout(() => {
+ img.classList.remove('hide');
+ label.textContent = 'TOASTY!';
+ }, 300);
+ };
+
+ toastyHideTimer = setTimeout(() => {
+ hideToasty();
+ toastyHideTimer = null;
+ }, 7000);
+}
+
+// ================== SECRET PIXEL / LOST EPISODE TEST RUN ==================
+// Pure luck discovery (Homestar Runner style): tiny specific pixel in the visual pane.
+// No hints, no big cursor change. Found only by obsessive hovering/clicking.
+// Press '[' while the game is running to temporarily highlight the spot for testing.
+
+let secretPixelFoundThisRun = false;
+
+function initSecretPixel() {
+ const pixel = document.getElementById('secretPixel');
+ const img = document.getElementById('dadImage');
+ if (!pixel || !img) return;
+
+ pixel.addEventListener('click', (e) => {
+ e.stopPropagation();
+ if (secretPixelFoundThisRun || !gameState || currentMenu === 'intro') return;
+ triggerSecretPixelAnimation();
+ });
+
+ // Dev helper for this test run only: '[' highlights the pixel briefly so you can demo the animation easily.
+ document.addEventListener('keydown', (e) => {
+ if (e.key === '[' && pixel && img && gameState && currentMenu !== 'intro') {
+ pixel.classList.add('highlight');
+ setTimeout(() => {
+ if (pixel) pixel.classList.remove('highlight');
+ }, 2200);
+ }
+ });
+}
+
+async function triggerSecretPixelAnimation() {
+ const pixel = document.getElementById('secretPixel');
+ const img = document.getElementById('dadImage');
+ if (!img || secretPixelFoundThisRun) return;
+
+ secretPixelFoundThisRun = true;
+ if (pixel) pixel.style.pointerEvents = 'none';
+
+ const prevSrc = img.src;
+
+ print("");
+ print(">>> STATIC BREAK <<<", "yellow");
+ print("You caught it. A single pixel in the image didn't belong.", "white");
+ await sleep(650);
+
+ // Family photo glitch sequence (using mint portraits + colorful frames)
+ img.src = "/assets/images/cryptodad_mint/kid1_portrait.jpg";
+ print("The kid's face flickered for a frame.", "cyan");
+ await sleep(520);
+
+ img.src = "/assets/images/cryptodad_mint/mom_portrait.jpg";
+ print("She was already looking at the corner of the frame.", "cyan");
+ await sleep(520);
+
+ img.src = "/assets/images/cryptodad_mint/dad_portrait.jpg";
+ print("You. Holding something that wasn't there the week before.", "cyan");
+ await sleep(520);
+
+ // Toasty cameo at the peak
+ triggerToasty();
+ print("TOASTY", "yellow");
+ await sleep(400);
+
+ img.src = "/assets/images/cryptodad/heat_high.jpg";
+ print("The heat spiked for no reason the sim could explain.", "red");
+ await sleep(480);
+
+ img.src = "/assets/images/cryptodad_colorful/7.jpg";
+ print("Then the photo glitched into one of the runs that never got logged.", "white");
+ await sleep(480);
+
+ img.src = "/assets/images/cryptodad/last_stand.jpg";
+ print("You remember this one. The night the numbers stopped making sense.", "red");
+ await sleep(520);
+
+ img.src = "/assets/images/cryptodad/good_ending.jpg";
+ print("It resolved into the ending you never chose.", "green");
+ await sleep(650);
+
+ // Reward: a random item "glitched in" from the store (pixel-only luck)
+ // Weighted: Burner is most common. Rubber Chicken is the special pixel-exclusive one-time item.
+ const secretPool = [
+ { name: "Revolver (.38)", flag: "firearm", weight: 25, isOneTime: false,
+ msg: "🔫 A .38 phased out of the static. Let's hope the pixel wasn't a warning.",
+ effect: () => { gameState.firearm = true; } },
+ { name: "Level III Body Armor", flag: "armor", weight: 15, isOneTime: false,
+ msg: "🦺 Plates blinked into existence. First raid just got a lot less final.",
+ effect: () => { gameState.armor = true; } },
+ { name: "Burner Phone + 6 months", flag: "burner", weight: 45, isOneTime: false,
+ msg: "📱 New number clawed its way out of the noise. Old one is gone.",
+ effect: () => { gameState.burner = true; gameState.heat = clamp(gameState.heat - 12, 0, 100); } },
+ { name: "Rubber Chicken (Lucky)", flag: "pixelChicken", weight: 15, isOneTime: true,
+ msg: "🐔 A rubber chicken tumbled out of the glitch. One-time use only.",
+ effect: () => { gameState.pixelChicken = true; } }
+ ];
+
+ function pickWeightedSecret() {
+ const total = secretPool.reduce((s, i) => s + i.weight, 0);
+ let r = Math.random() * total;
+ for (const it of secretPool) {
+ r -= it.weight;
+ if (r <= 0) return it;
+ }
+ return secretPool[secretPool.length - 1];
+ }
+
+ let chosen = pickWeightedSecret();
+
+ // No dupes for permanent gear. For the one-time chicken, if already granted this run (shouldn't happen), fallback.
+ const alreadyOwned = gameState && (
+ (chosen.flag === "firearm" && gameState.firearm) ||
+ (chosen.flag === "armor" && gameState.armor) ||
+ (chosen.flag === "burner" && gameState.burner) ||
+ (chosen.flag === "pixelChicken" && gameState.pixelChicken)
+ );
+
+ if (gameState) {
+ if (alreadyOwned) {
+ gameState.liquid = (gameState.liquid || 0) + 380;
+ gameState.heat = clamp((gameState.heat || 0) - 8, 0, 100);
+ print("");
+ print("SECRET PIXEL CLAIMED", "yellow");
+ print("The static owed you. +$380 liquid * Heat -8", "green");
+ } else {
+ chosen.effect();
+ print("");
+ print("SECRET PIXEL CLAIMED - " + chosen.name, "yellow");
+ print(chosen.msg, "green");
+ }
+
+ // Small universal "the glitch was kind" bump (always)
+ gameState.family = Math.min(100, (gameState.family || 50) + 12);
+ gameState.morale = Math.min(100, (gameState.morale || 50) + 10);
+ }
+
+ print("Family +12 * Morale +10 (the image is a little kinder now)", "cyan");
+ print("(Pure chance. No hints. Tell no one where the pixel was.)", "gray");
+
+ await sleep(420);
+ img.src = prevSrc || "/assets/images/cryptodad_colorful/11.jpg";
+
+ // Let the normal updateGameImage logic take over again on next week
+ if (typeof updateGameImage === 'function') {
+ // small delay so the reward text settles, then let state drive the image
+ setTimeout(() => {
+ if (typeof updateGameImage === 'function') updateGameImage();
+ }, 650);
+ }
+}
+
+// Small helper used by the secret animation (non-blocking sleep)
+function sleep(ms) {
+ return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// One-time use pixel reward item (Rubber Chicken) consumption helper.
+// Call this before bad events. Returns true if it consumed the chicken and mitigated.
+function tryConsumePixelChicken(reason) {
+ if (!gameState || !gameState.pixelChicken) return false;
+ gameState.pixelChicken = false;
+
+ if (reason === 'raid') {
+ print("🐔 The rubber chicken went off like a car alarm in the next room. The agents looked at each other and left.", "yellow");
+ gameState.heat = clamp(gameState.heat - 30, 0, 100);
+ gameState.morale = clamp(gameState.morale + 12, 0, 100);
+ } else if (reason === 'arrest') {
+ print("🐔 You squeezed the rubber chicken at the last second. The K9 unit started playing with it instead of you.", "yellow");
+ gameState.heat = clamp(gameState.heat - 18, 0, 100);
+ } else {
+ print("🐔 The rubber chicken intervened. Luck shifted in your favor.", "yellow");
+ gameState.heat = clamp(gameState.heat - 15, 0, 100);
+ }
+ return true;
+}
+
+// Boot the secret pixel listener (called from the existing window.onload area)
+initSecretPixel();
+
+</script>
+ <div class="glitch-layer" id="glitchLayer"></div>
+
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.content, #content' });
+ </script>
+<div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+<script src="/assets/js/core/price-ticker.js"></script>
+ 
+<!-- Present soft skin: assets/js/core/era-present-cryptodad.js -->
+</body>
+</html>

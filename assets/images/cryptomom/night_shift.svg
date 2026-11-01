@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#050010"/>
+  <rect x="0" y="200" width="400" height="100" fill="#1a0033"/>
+  <rect x="140" y="80" width="120" height="60" fill="#ff66cc" opacity="0.6"/>
+  <text x="200" y="115" fill="#ffff00" font-family="monospace" font-size="22" text-anchor="middle">MOTEL</text>
+  <ellipse cx="200" cy="60" rx="50" ry="20" fill="#2a1040" stroke="#9944ff"/>
+  <text x="200" y="250" fill="#9944ff" font-family="monospace" font-size="14" text-anchor="middle">NIGHT SHIFT</text>
+</svg>

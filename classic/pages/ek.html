@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <script>
+  (function () {
+   document.documentElement.classList.add('look-neon')
+   document.documentElement.setAttribute('data-look', 'neon')
+  })()
+ </script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>E.K. // DOSWAPZ</title>
+ <meta name="description" content="E.K. Log in to sell. DOSWAPZ fee is zero. Crypto pays escrow. PayPal pays the seller.">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.91.0/lib/index.iife.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+ <style>
+  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+  .look-neon {
+   --bg:#000000; --card:#03060c; --line:#00d0ff; --ink:#4df6ff; --dim:#149ec8;
+   --hot:#b8fbff; --banner:#00080e; --banner-ink:#7efbff; --field:#000000; --warn:#ff4d6d;
+  }
+  html, body { margin:0; min-height:100%; background:#000; color:var(--ink, #4df6ff); font-family:VT323, 'Courier New', monospace; }
+  html.look-neon, body.look-neon {
+   background:#000;
+   color:#4df6ff;
+   text-shadow:0 0 6px rgba(0, 210, 255, 0.45);
+  }
+  .wrap, .wrap * { box-sizing:border-box; }
+  .wrap { max-width:980px; margin:0 auto; padding:28px 16px 90px; overflow-wrap:break-word; }
+  h1, h2, .price {
+   background:linear-gradient(180deg, #ffffff 0%, #d9fdff 32%, #3df3ff 62%, #0090ff 100%);
+   -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
+   filter:drop-shadow(0 0 8px rgba(0, 210, 255, 0.95)) drop-shadow(0 0 18px rgba(0, 110, 255, 0.55));
+   text-shadow:none;
+  }
+  h1 { letter-spacing:8px; text-align:center; font-size:clamp(36px,8vw,64px); margin:0; }
+  .sub { text-align:center; color:var(--dim); letter-spacing:1px; margin:0 0 14px; padding:0 8px; }
+  .banner {
+   text-align:center; color:var(--banner-ink); background:#000; letter-spacing:1px;
+   padding:6px 10px; margin:0 0 14px; line-height:1.2;
+   border:1px solid var(--line);
+   box-shadow:0 0 14px rgba(0, 200, 255, 0.45), inset 0 0 12px rgba(0, 160, 255, 0.12);
+  }
+  .box {
+   border:1px solid var(--line); padding:14px; margin-bottom:14px;
+   background:linear-gradient(180deg, rgba(0, 220, 255, 0.16), rgba(0, 220, 255, 0.03) 22%, #03060c 22%);
+   box-shadow:0 0 16px rgba(0, 180, 255, 0.22), inset 0 1px 0 rgba(190, 255, 255, 0.45);
+  }
+  h2 { letter-spacing:2px; font-size:22px; margin:0 0 8px; font-weight:normal; }
+  p, li { line-height:1.35; }
+  .note { color:var(--dim); text-shadow:0 0 6px rgba(0, 180, 255, 0.35); }
+  label { display:block; color:var(--dim); letter-spacing:1px; margin:10px 0 4px; }
+  input, select, textarea { width:100%; box-sizing:border-box; background:var(--field); border:1px solid var(--line); color:var(--ink); font:inherit; font-size:20px; padding:8px 10px; }
+  textarea { min-height:90px; resize:vertical; }
+  a { color:#7efbff; -webkit-text-fill-color:#7efbff; text-shadow:0 0 8px rgba(0, 220, 255, 0.85); }
+  button, .btn { font:inherit; letter-spacing:2px; cursor:pointer; border:1px solid var(--ink); background:#000; color:#7efbff; -webkit-text-fill-color:#7efbff; text-shadow:0 0 8px rgba(0, 220, 255, 0.85); padding:8px 12px; text-decoration:none; display:inline-block; box-shadow:0 0 10px rgba(0, 200, 255, 0.35), inset 0 0 8px rgba(0, 180, 255, 0.12); }
+  button:hover, .btn:hover, .filters button.on, .browse button.on, .tabs button.on { background:#00e8ff; color:#000; -webkit-text-fill-color:#000; text-shadow:none; filter:none; box-shadow:0 0 16px #00e8ff; }
+  button.hot { border-color:#7efbff; color:#e9feff; -webkit-text-fill-color:#e9feff; text-shadow:0 0 8px #00f0ff, 0 0 16px rgba(0, 140, 255, 0.9); }
+  button.hot:hover { background:#00e8ff; color:#000; -webkit-text-fill-color:#000; text-shadow:none; }
+  button.danger { border-color:var(--warn); color:var(--warn); background:transparent; -webkit-text-fill-color:var(--warn); filter:drop-shadow(0 0 6px rgba(255, 77, 109, 0.7)); }
+  button.danger:hover { background:var(--warn); color:#000; -webkit-text-fill-color:#000; filter:none; }
+  button:disabled { opacity:0.45; cursor:not-allowed; }
+  .row { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+  .check { display:flex; gap:8px; align-items:flex-start; margin:8px 0; color:var(--ink); }
+  .check input { width:auto; margin-top:4px; }
+  .status { min-height:22px; color:var(--hot); margin-top:8px; }
+  .split { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .board { display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:12px; }
+  .card { border:1px solid var(--line); background:#000; padding:10px; cursor:pointer; box-shadow:0 0 12px rgba(0, 180, 255, 0.2), inset 0 1px 0 rgba(190, 255, 255, 0.28); }
+  .card.on { border-color:#fff; box-shadow:0 0 18px rgba(0, 230, 255, 0.7); }
+  .card img { width:100%; height:140px; object-fit:cover; background:#000; display:block; margin-bottom:8px; }
+  .gallery { margin:0 0 12px; }
+  .gallery .main { width:100%; max-width:640px; max-height:480px; object-fit:contain; background:#000; border:1px solid var(--line); display:block; }
+  .thumbs { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+  .thumbs button { padding:0; width:72px; height:72px; line-height:0; }
+  .thumbs img { width:72px; height:72px; object-fit:cover; display:block; }
+  .thumbs button.on { box-shadow:0 0 0 2px #00e8ff, 0 0 12px #00e8ff; }
+  .price { font-size:26px; letter-spacing:1px; }
+  .tag { color:var(--dim); letter-spacing:1px; }
+  .sold { color:var(--warn); text-shadow:0 0 8px rgba(255, 77, 109, 0.7); }
+  .detail img { max-width:320px; width:100%; height:auto; }
+  .filters, .browse { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+  .browse button { letter-spacing:1px; padding:6px 8px; }
+  .cat-stage { margin:4px 0 12px; }
+  .cat-stage img { pointer-events:none; user-select:none; -webkit-user-drag:none; }
+  .cat-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); gap:10px; }
+  .cat-grid figure { margin:0; border:1px solid var(--line); background:#000; }
+  .cat-grid img { width:100%; height:120px; object-fit:cover; display:block; }
+  .cat-grid figcaption { padding:4px 6px; }
+  .cat-hero img { width:100%; max-height:420px; object-fit:contain; background:#000; border:1px solid var(--line); display:block; }
+  .tabs { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; }
+  .panel[hidden] { display:none; }
+  @media (max-width:700px) {
+   .split { grid-template-columns:1fr; }
+   h1 { letter-spacing:4px; }
+   .banner, .sub { letter-spacing:0; }
+  }
+ </style>
+</head>
+<body>
+ <div class="wrap">
+  <h1>E.K.</h1>
+  <p class="sub">THE SHOP · LOGIN TO SELL · ZERO FEE · CRYPTO IN ESCROW · PAYPAL TO THE SELLER</p>
+
+  <div class="box">
+   <h2>THE BOARD</h2>
+   <label for="q">SEARCH</label>
+   <input id="q" maxlength="80" autocomplete="off" placeholder="Title, type, or condition">
+   <div class="browse" id="browse"></div>
+   <div class="browse" id="browseSubs" hidden></div>
+   <div class="cat-stage" id="catStage"></div>
+   <div class="split">
+    <div>
+     <label for="sort">SORT</label>
+     <select id="sort">
+      <option value="new">NEWEST</option>
+      <option value="end">ENDING SOON</option>
+      <option value="low">PRICE LOW</option>
+      <option value="high">PRICE HIGH</option>
+      <option value="bids">MOST BIDS</option>
+     </select>
+    </div>
+    <div>
+     <label for="condFilter">CONDITION</label>
+     <select id="condFilter">
+      <option value="all">ANY CONDITION</option>
+      <option value="new">NEW</option>
+      <option value="like-new">LIKE NEW</option>
+      <option value="used">USED</option>
+      <option value="parts">FOR PARTS</option>
+     </select>
+    </div>
+   </div>
+   <div class="filters" id="filters">
+    <button type="button" class="on" data-filter="all">ALL</button>
+    <button type="button" data-filter="open">OPEN</button>
+    <button type="button" data-filter="sold">SOLD</button>
+    <button type="button" data-filter="sol">SOL</button>
+    <button type="button" data-filter="usdc-sol">USDC SOL</button>
+    <button type="button" data-filter="eth">ETH</button>
+    <button type="button" data-filter="usdc-eth">USDC ETH</button>
+    <button type="button" data-filter="paypal">PAYPAL</button>
+   </div>
+   <div class="board" id="board"></div>
+  </div>
+  <div class="box" id="detail" hidden></div>
+
+  <div class="tabs" id="shopTabs">
+   <button type="button" data-tab="sell">SELL</button>
+   <button type="button" data-tab="how">HOW IT WORKS</button>
+   <button type="button" data-tab="legal">LEGAL</button>
+  </div>
+
+  <div class="panel" id="howPanel" data-panel="how" hidden>
+  <div class="box warn">
+   <h2>HOW A SALE WORKS</h2>
+   <p>Anyone can look. Only a DOSWAPZ login can put an item up. Wallet login or email login both count. The login is the same door as the rest of the site.</p>
+   <p>DOSWAPZ fee is zero. There is no listing fee and no cut of the sale. SOL or USDC on Solana, and ETH or USDC on Ethereum, go to the published escrow wallet for that sale. The seller is not paid yet. PayPal still pays the seller. Gas, if the chain charges it, goes to the network. If PayPal charges the seller, that charge is PayPal's. DOSWAPZ does not add a fee on top.</p>
+   <p>The buyer is told when the crypto is locked. The seller posts USPS, UPS, FedEx, DHL, or Other plus tracking. Pickup and digital need a handoff note. If no proof is posted within 3 days, the full amount is refunded to the buyer. When the buyer marks the item received, the full amount is released to the seller. If the buyer stays quiet for 3 days after proof and does not open a dispute, the full amount is released to the seller. A dispute freezes the full amount until the seller accepts a full refund or the buyer drops the dispute. DOSWAPZ does not pick a winner and does not split the amount. The page checks the chain. It does not hold the escrow key, and it never asks for a seed.</p>
+   <p id="escrowLive" class="note">The checkout shows the escrow address for the chain you pay.</p>
+   <p>If the item ships, shipping is added to that payment. Use 0 if you ship free. The buyer enters a ship-to address. The seller sees that address only after crypto is in escrow, or after PayPal is marked sold, then posts the proof. DOSWAPZ does not ship the item. PayPal can still be disputed inside PayPal. Bitcoin is published and is not a way to pay on this page.</p>
+   <p>You can post up to 12 photos of the item. The first one is the cover on the board. The rest show when someone opens the item. Photos are free. The department pictures above the board are samples. They are not for sale and they cannot be used as a listing photo.</p>
+   <p>Pick a department and a type. Say if the item is new, like new, used, or for parts. Buy now has a set price, and a buyer can still send an offer. A bids listing starts at the price you type and stays open for 1, 3, 7, or 10 days. When that clock ends, new bids stop. The seller can still accept a bid. A bid or an offer is not a payment. If you accept one, crypto still pays escrow and PayPal still pays you, at that amount plus shipping. DOSWAPZ fee stays zero.</p>
+   <p>List only what is yours to sell. Stolen goods, weapons, drugs, and someone else's login or seed phrase are refused. The written terms are <a href="/docs/legal.html#s15b">Legal §15B</a>.</p>
+  </div>
+  </div>
+
+  <div class="panel" id="legalPanel" data-panel="legal" hidden>
+  <div class="box">
+   <h2>RULES</h2>
+   <p>DOSWAPZ fee is zero. No listing fee, no bid fee, no offer fee, no feedback fee. The sale amount is not a DOSWAPZ fee.</p>
+   <p>List only what is yours. Do not list stolen goods, weapons, ammunition, illegal drugs, counterfeit goods, or someone else's login, seed phrase, or private key.</p>
+   <p>A bid and an offer are talk, not a charge. After the seller accepts, crypto pays the escrow wallet and PayPal pays the seller. When a bid clock ends, new bids stop and no fee is charged.</p>
+   <p>Crypto sits in the published escrow wallet until the written rule says release or refund. If the two sides disagree, the full amount stays frozen. There is no insurance and no buyer-protection fund. DOSWAPZ keeps only yield left behind after the full amount is sent. The ship-to address stays off the public board. Feedback is one note from the buyer and one from the seller after the sale is finished.</p>
+  </div>
+
+  <div class="box">
+   <h2>VIOLATIONS</h2>
+   <p>Log in and report a listing that breaks a rule. Pick the rule: prohibited item, stolen, counterfeit, scam, not as described, or harassment. The report is not public. One report per account. A report does not pull the listing by itself and it does not move any money.</p>
+  </div>
+  <p class="note">The full written terms are <a href="/docs/legal.html#s15b">Legal §15B</a>. DOSWAPZ fee is zero. Crypto pays escrow. PayPal pays the seller.</p>
+  </div>
+
+  <div class="panel" id="sellPanel" data-panel="sell" hidden>
+  <div class="box" id="gateBox">
+   <h2>SELL</h2>
+   <p id="gateText" class="note">Checking your login…</p>
+   <div class="row">
+    <a class="btn" id="loginLink" href="/account/past" data-gate-skip>LOGIN</a>
+    <a class="btn" href="/classic/hub.html" data-gate-skip>HUB</a>
+   </div>
+  </div>
+
+  <form class="box" id="sellBox" hidden>
+   <h2>LIST AN ITEM</h2>
+   <div class="split">
+    <div>
+     <label for="dept">DEPARTMENT</label>
+     <select id="dept" required></select>
+    </div>
+    <div>
+     <label for="category">TYPE</label>
+     <select id="category" required></select>
+    </div>
+   </div>
+   <div class="split">
+    <div>
+     <label for="condition">CONDITION</label>
+     <select id="condition" required>
+      <option value="new">NEW</option>
+      <option value="like-new">LIKE NEW</option>
+      <option value="used" selected>USED</option>
+      <option value="parts">FOR PARTS</option>
+     </select>
+    </div>
+    <div>
+     <label for="mode">SALE</label>
+     <select id="mode">
+      <option value="fixed">BUY NOW · OFFERS OK</option>
+      <option value="auction">BIDS</option>
+     </select>
+    </div>
+   </div>
+   <div id="daysWrap" hidden>
+    <label for="days">BIDS STAY OPEN</label>
+    <select id="days">
+     <option value="1">1 DAY</option>
+     <option value="3">3 DAYS</option>
+     <option value="7" selected>7 DAYS</option>
+     <option value="10">10 DAYS</option>
+    </select>
+   </div>
+   <p class="note" id="modeNote">Buy now is a set price. Buyers can send an offer. An offer is not a payment. DOSWAPZ fee is zero. Crypto pays escrow.</p>
+   <label for="title">TITLE</label>
+   <input id="title" maxlength="80" required>
+   <label for="description">WHAT IS IT</label>
+   <textarea id="description" maxlength="800"></textarea>
+   <div class="split">
+    <div>
+     <label for="rail">BUYER PAYS IN</label>
+     <select id="rail"></select>
+    </div>
+    <div>
+     <label for="amount">PRICE</label>
+     <input id="amount" inputmode="decimal" autocomplete="off" required>
+    </div>
+   </div>
+   <label for="payout" id="payoutLabel">PAYOUT</label>
+   <input id="payout" autocomplete="off">
+   <div id="againWrap">
+    <label for="payoutAgain" id="againLabel">TYPE IT AGAIN</label>
+    <input id="payoutAgain" autocomplete="off">
+   </div>
+   <p class="note" id="payoutNote"></p>
+   <div class="split">
+    <div>
+     <label for="ship">HANDOFF</label>
+     <select id="ship">
+      <option value="ship">SHIP IT</option>
+      <option value="pickup">PICKUP</option>
+      <option value="digital">DIGITAL</option>
+     </select>
+    </div>
+    <div>
+     <label for="photo">PHOTOS</label>
+     <input id="photo" type="file" accept="image/*" multiple>
+    </div>
+   </div>
+   <div class="split" id="shipPriceWrap">
+    <div>
+     <label for="shipAmount">SHIPPING PRICE</label>
+     <input id="shipAmount" inputmode="decimal" autocomplete="off" value="0">
+    </div>
+    <div>
+     <label for="shipFrom">SHIPS FROM</label>
+     <input id="shipFrom" maxlength="80" autocomplete="off" placeholder="City, region">
+    </div>
+   </div>
+   <p class="note" id="shipPriceNote">Same coin or dollars as the item. Use 0 if you ship free. The buyer pays this on top of the price.</p>
+   <p class="note" id="photoNote">Up to 12 photos. The first one is the cover. PNG, JPG, and WEBP are fine. The page shrinks them. No photo fee.</p>
+   <div id="photoPreview" class="thumbs"></div>
+   <label for="shipNote">NOTE FOR THE BUYER</label>
+   <input id="shipNote" maxlength="200">
+   <label class="check"><input type="checkbox" id="mine"> This is mine to sell. It is not stolen, a weapon, a drug, or someone else's login.</label>
+   <label class="check"><input type="checkbox" id="direct"> Crypto pays the escrow wallet. PayPal pays me directly. DOSWAPZ fee is zero. The sale amount is not a DOSWAPZ fee.</label>
+   <div class="row"><button type="submit" class="hot" id="listBtn">LIST IT</button></div>
+  </form>
+  </div>
+
+  <div class="status" id="status" role="status"></div>
+ </div>
+ <script>document.body.classList.add('look-neon')</script>
+ <script src="/assets/js/ek/market.js?v=20261028ek9"></script>
+ <noscript><p style="color:#ffd700;text-align:center">E.K. needs JavaScript.</p></noscript>
+</body>
+</html>

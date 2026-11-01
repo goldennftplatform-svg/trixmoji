@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+ <title>DOSWAPZ // AREA 69...420</title>
+ <meta name="description" content="DOSWAPZ Area 69...420 — restricted sector. Scaffold online. Content under construction.">
+ <meta name="robots" content="noindex, nofollow">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='20' fill='%2300ff00' text-anchor='middle' font-weight='bold'%3E69%3C/text%3E%3C/svg%3E">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ :root { --green: #00ff41; --green-dim: #00aa00; --amber: #ffcc00; --hot: #ff66aa; }
+ * { box-sizing: border-box; }
+ html, body {
+  margin: 0; padding: 0; width: 100%; min-height: 100%;
+  background: #000; color: var(--green);
+  font-family: 'VT323', 'Courier New', monospace;
+  overflow-x: hidden; image-rendering: pixelated;
+ }
+ .dos-screen {
+  position: relative; min-height: 100vh; background: #000;
+  padding: 22px 18px 72px;
+ }
+ .dos-screen::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 30;
+  background: repeating-linear-gradient(
+   to bottom, transparent 0, transparent 3px,
+   rgba(0, 255, 65, 0.034) 3px, rgba(0, 255, 65, 0.034) 5px
+  );
+ }
+ .vignette {
+  position: fixed; inset: 0; pointer-events: none; z-index: 5;
+  background: radial-gradient(circle at center, transparent 48%, rgba(0,0,0,0.62) 86%);
+ }
+ .content {
+  position: relative; z-index: 10; max-width: 720px; margin: 0 auto;
+  font-size: 18px; line-height: 1.4;
+ }
+ .header {
+  text-align: center; font-size: clamp(28px, 7vw, 42px);
+  letter-spacing: 4px; text-shadow: 0 0 10px var(--green); margin-bottom: 4px;
+ }
+ .sub {
+  text-align: center; color: var(--amber); font-size: 16px;
+  letter-spacing: 3px; margin-bottom: 6px;
+ }
+ .tag {
+  text-align: center; color: var(--green-dim); font-size: 14px;
+  letter-spacing: 2px; margin-bottom: 20px;
+ }
+ .seal {
+  max-width: 420px; margin: 0 auto 18px; padding: 16px 14px;
+  border: 2px solid var(--green); background: rgba(0, 24, 0, 0.45);
+  text-align: center;
+ }
+ .seal .big {
+  font-size: clamp(36px, 9vw, 52px); letter-spacing: 3px; color: #fff;
+  text-shadow: 0 0 12px var(--hot), 0 0 24px rgba(0,255,65,0.35);
+  margin-bottom: 8px;
+ }
+ .seal p { margin: 0; color: var(--green-dim); font-size: 15px; line-height: 1.35; }
+ .panel {
+  border: 2px solid #003300; background: rgba(0, 16, 0, 0.4);
+  padding: 14px 14px; margin-bottom: 14px;
+ }
+ .panel h2 {
+  margin: 0 0 8px; color: var(--amber); font-size: 18px;
+  letter-spacing: 2px; font-weight: 400; border-bottom: 1px solid #003300;
+  padding-bottom: 4px;
+ }
+ .panel p { margin: 0 0 8px; color: #00cc66; }
+ .panel ul { margin: 0; padding-left: 18px; color: var(--green); }
+ .panel li { margin-bottom: 4px; }
+ .status {
+  text-align: center; color: var(--hot); letter-spacing: 2px;
+  border: 1px dashed var(--hot); padding: 10px; margin-bottom: 16px;
+  background: rgba(40, 0, 20, 0.25);
+ }
+ .grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;
+ }
+ @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+ .slot {
+  border: 1px solid #004400; padding: 12px 10px; text-align: center;
+  background: rgba(0, 12, 0, 0.5); min-height: 72px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 4px; color: var(--green-dim);
+ }
+ .slot .lab { color: var(--green); letter-spacing: 2px; font-size: 15px; }
+ .slot .hint { font-size: 13px; }
+ .buttons { text-align: center; margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+ .btn {
+  display: inline-block; color: var(--green); border: 2px solid var(--green);
+  padding: 8px 14px; text-decoration: none; font-size: 16px; letter-spacing: 1px;
+  background: transparent;
+ }
+ .btn:hover { color: #000; background: var(--green); }
+ .footer {
+  text-align: center; margin-top: 20px; font-size: 13px; color: #006633; letter-spacing: 1px;
+ }
+ </style>
+</head>
+<body>
+ <div class="dos-screen" id="screen">
+  <div class="vignette"></div>
+  <div class="content">
+   <div class="header">AREA 69...420</div>
+   <div class="sub">RESTRICTED SECTOR</div>
+   <div class="tag">DOSWAPZ // CLASSIFIED NODE // CLEARANCE TBD</div>
+
+   <div class="seal">
+    <div class="big">69...420</div>
+    <p>NEW PAGE SCAFFOLD · ONLINE<br>Coordinates locked. Payload not yet deployed.</p>
+   </div>
+
+   <div class="status">STATUS: FOUNDATION ONLY · CONTENT COMING SOON</div>
+
+   <div class="panel">
+    <h2>// BRIEFING</h2>
+    <p>
+     Area <strong>69...420</strong> is a reserved DOSWAPZ sector. This shell is live so we can
+     wire links, skins, and era routes while the real experience is built.
+    </p>
+    <ul>
+     <li>Past CRT entry — this page</li>
+     <li>Present soft entry — orbit twin</li>
+     <li>Hub + short URL aliases wired</li>
+    </ul>
+   </div>
+
+   <div class="panel">
+    <h2>// OPEN BAYS (EMPTY)</h2>
+    <div class="grid">
+     <div class="slot"><span class="lab">BAY A</span><span class="hint">TBD</span></div>
+     <div class="slot"><span class="lab">BAY B</span><span class="hint">TBD</span></div>
+     <div class="slot"><span class="lab">BAY C</span><span class="hint">TBD</span></div>
+     <div class="slot"><span class="lab">BAY D</span><span class="hint">TBD</span></div>
+    </div>
+    <p style="margin:0;color:#008844;font-size:14px;text-align:center">
+     Drop mechanics, media, markets, or a game here when ready.
+    </p>
+   </div>
+
+   <div class="buttons">
+    <a class="btn" href="/classic/hub.html">&lt;- HUB</a>
+    <a class="btn" href="/portal.html">TIME MACHINE</a>
+    <a class="btn" href="/orbit/pages/area-69-420.html">PRESENT VERSION</a>
+    <a class="btn" href="/classic/pages/basement.html">BASEMENT</a>
+   </div>
+
+   <div class="footer">DOSWAPZ · AREA 69...420 · NOT A FINANCIAL PRODUCT · DYOR</div>
+  </div>
+ </div>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/price-ticker.js"></script>
+</body>
+</html>

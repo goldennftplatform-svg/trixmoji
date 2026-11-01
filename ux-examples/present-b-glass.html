@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Present B · Glass grid</title>
+ <meta name="robots" content="noindex">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ html, body { min-height: 100%; background: #05050a; color: #e8ecff; font-family: Inter, system-ui, sans-serif; }
+ body {
+ background:
+ radial-gradient(ellipse 80% 50% at 20% -10%, rgba(100,120,255,0.2), transparent 50%),
+ radial-gradient(ellipse 60% 40% at 90% 20%, rgba(80,220,200,0.08), transparent 45%),
+ #05050a;
+ }
+ .top {
+ display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+ padding: 18px 22px; align-items: center;
+ }
+ .brand {
+ font-family: 'Space Grotesk', sans-serif;
+ font-weight: 600; letter-spacing: 0.18em; font-size: 13px; color: #8aa0ff;
+ }
+ .nav a {
+ color: #8b93b8; text-decoration: none; font-size: 12px; letter-spacing: 0.1em;
+ text-transform: uppercase; margin-left: 14px;
+ }
+ .nav a:hover { color: #fff; }
+ .nav a.hot { color: #fff; }
+ .hero { text-align: center; padding: 28px 16px 18px; }
+ .hero h1 {
+ font-family: 'Space Grotesk', sans-serif;
+ font-weight: 600; font-size: clamp(36px, 8vw, 56px);
+ letter-spacing: 0.12em; margin-bottom: 10px;
+ }
+ .hero p { color: #8b93b8; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; }
+ .grid {
+ max-width: 920px; margin: 0 auto; padding: 12px 16px 80px;
+ display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px;
+ }
+ a.card {
+ display: flex; flex-direction: column; gap: 8px;
+ padding: 18px 16px; min-height: 110px;
+ text-decoration: none; color: inherit;
+ border-radius: 16px;
+ border: 1px solid rgba(140,160,255,0.16);
+ background: rgba(255,255,255,0.04);
+ backdrop-filter: blur(12px);
+ transition: border-color .15s, transform .15s, background .15s;
+ }
+ a.card:hover {
+ border-color: rgba(160,180,255,0.45);
+ background: rgba(255,255,255,0.08);
+ transform: translateY(-2px);
+ }
+ .glyph {
+ width: 36px; height: 36px; border-radius: 50%;
+ border: 1px solid currentColor; display: grid; place-items: center;
+ font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14px;
+ }
+ .lab { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+ .sub { font-size: 11px; color: #6e7699; letter-spacing: 0.04em; }
+ .c1 { color: #00ff88; } .c2 { color: #66ccff; } .c3 { color: #ff66cc; }
+ .c4 { color: #ffcc66; } .c5 { color: #b388ff; } .c6 { color: #88ffe0; }
+ .era {
+ position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+ display: flex; gap: 8px;
+ }
+ .era a {
+ font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+ text-decoration: none; color: #8b93b8;
+ border: 1px solid rgba(140,160,255,0.2); padding: 7px 12px; border-radius: 999px;
+ background: rgba(8,10,20,0.85);
+ }
+ .era a.here { color: #88ffe0; border-color: rgba(100,255,210,0.35); }
+ .era a.future { color: #fff; border-color: rgba(255,255,255,0.4); }
+ </style>
+</head>
+<body>
+ <header class="top">
+ <div class="brand">DOSWAPZ · PRESENT</div>
+ <nav class="nav">
+ <a href="/portal.html">Time machine</a>
+ <a class="hot" href="/future/hub.html">Future →</a>
+ </nav>
+ </header>
+ <div class="hero">
+ <h1>DOSWAPZ</h1>
+ <p>Degen optimized sovereign warfare against pumpz</p>
+ </div>
+ <div class="grid">
+ <a class="card c1" href="/orbit/pages/doswapz/swap.html"><span class="glyph">⇄</span><span class="lab">Swap</span><span class="sub">0% Jupiter</span></a>
+ <a class="card c2" href="/orbit/pages/doswapz/bridge.html"><span class="glyph">⧉</span><span class="lab">Bridge</span><span class="sub">Multi-chain</span></a>
+ <a class="card c6" href="/orbit/pages/arcade/intro.html"><span class="glyph">■</span><span class="lab">Arcade</span><span class="sub">Cabinets</span></a>
+ <a class="card c3" href="/orbit/pages/basement.html"><span class="glyph">↓</span><span class="lab">Basement</span><span class="sub">Markets</span></a>
+ <a class="card c4" href="/orbit/pages/attic.html"><span class="glyph">▲</span><span class="lab">Attic</span><span class="sub">Drops</span></a>
+ <a class="card c5" href="/orbit/pages/harbinger.html"><span class="glyph">◎</span><span class="lab">Harbinger</span><span class="sub">Oracle</span></a>
+ <a class="card c2" href="/orbit/pages/doswapz/mint.html"><span class="glyph">◈</span><span class="lab">Mint</span><span class="sub">Math mint</span></a>
+ <a class="card c3" href="/orbit/pages/degen/trailer.html"><span class="glyph">▶</span><span class="lab">Degen$</span><span class="sub">Trailer</span></a>
+ <a class="card c1" href="/orbit/pages/pond-scum.html"><span class="glyph">≋</span><span class="lab">Pond</span><span class="sub">Scum desk</span></a>
+ <a class="card c4" href="/orbit/pages/i-see-you.html"><span class="glyph">◉</span><span class="lab">I See You</span><span class="sub">Track</span></a>
+ <a class="card c6" href="/orbit/pages/perpetual-vision-center.html"><span class="glyph">◎</span><span class="lab">Vision</span><span class="sub">Center</span></a>
+ <a class="card c5" href="/future/hub.html"><span class="glyph">◇</span><span class="lab">Future</span><span class="sub">Timeline</span></a>
+ </div>
+ <nav class="era">
+ <a href="/classic/hub.html">Past</a>
+ <a class="here" href="/orbit/hub.html">Present</a>
+ <a class="future" href="/future/hub.html">Future</a>
+ </nav>
+</body>
+</html>

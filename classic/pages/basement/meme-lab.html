@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // MEME LAB</title>
+ <meta name="description" content="Basement meme maker — upload a photo, stamp text, download. Stays in your browser.">
+ <meta property="og:title" content="DOSWAPZ // MEME LAB">
+ <meta property="og:description" content="Upload. Stamp text. Download. Nothing leaves your machine.">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='18' fill='%23ff66cc' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+:root {
+  --g: #33ff66;
+  --dim: #1a9944;
+  --p: #ddbbff;
+  --pk: #ff66cc;
+  --gold: #ffd700;
+  --base: #9944ff;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: #000;
+  color: var(--p);
+  font-family: VT323, "Courier New", monospace;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(to bottom, transparent 0, transparent 3px, rgba(153,68,255,.045) 3px, rgba(153,68,255,.045) 5px);
+  pointer-events: none;
+  z-index: 2;
+}
+.wrap { max-width: 1180px; margin: 0 auto; padding: 18px 14px 72px; position: relative; z-index: 5; }
+h1 { margin: 0; text-align: center; letter-spacing: 6px; color: var(--pk); font-size: clamp(26px, 6vw, 42px); text-shadow: 0 0 10px var(--base); }
+.sub { text-align: center; color: var(--base); letter-spacing: 3px; margin: 4px 0 16px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, .85fr); gap: 14px; }
+@media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+.panel {
+  border: 3px solid var(--base);
+  background: rgba(12,0,28,.82);
+  box-shadow: 0 0 16px rgba(153,68,255,.25);
+  padding: 12px;
+}
+.panel h2 { margin: 0 0 10px; font-size: 18px; letter-spacing: 3px; color: var(--g); border-bottom: 1px solid #5522aa; padding-bottom: 6px; }
+.stage-wrap { position: relative; background: #050208; min-height: 360px; }
+#mlDrop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 360px;
+  border: 2px dashed #5522aa;
+  color: #aa88cc;
+  text-align: center;
+  padding: 24px;
+  letter-spacing: 2px;
+}
+#mlDrop.hot { border-color: var(--pk); color: var(--pk); background: rgba(255,102,204,.06); }
+#mlStage { display: none; }
+#mlCanvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #111;
+  cursor: grab;
+  image-rendering: auto;
+}
+.row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+button, .btn, label.file {
+  font: inherit;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border: 1px solid var(--g);
+  background: transparent;
+  color: var(--g);
+  padding: 8px 12px;
+  text-decoration: none;
+  display: inline-block;
+}
+button:hover, .btn:hover, label.file:hover { background: var(--g); color: #000; }
+button.pink { border-color: var(--pk); color: var(--pk); }
+button.pink:hover { background: var(--pk); color: #000; }
+label.file { border-color: var(--gold); color: var(--gold); }
+label.file input { display: none; }
+label.field { display: block; font-size: 13px; color: #8866aa; letter-spacing: 2px; margin: 8px 0 3px; }
+input[type="text"], textarea, select {
+  width: 100%;
+  background: #0a0414;
+  border: 1px solid #5522aa;
+  color: var(--p);
+  font: inherit;
+  font-size: 18px;
+  padding: 8px 10px;
+}
+textarea { min-height: 72px; resize: vertical; }
+input[type="range"] { width: 100%; }
+.colors { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.note { color: #8866aa; font-size: 14px; line-height: 1.4; }
+.status { min-height: 18px; color: var(--gold); font-size: 15px; margin-top: 8px; }
+.temps button { font-size: 15px; padding: 6px 10px; border-color: #aa88cc; color: #aa88cc; }
+.temps button:hover { background: #aa88cc; color: #000; }
+.nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }
+ </style>
+</head>
+<body>
+ <div class="wrap">
+  <h1>MEME LAB</h1>
+  <div class="sub">UPLOAD * STAMP TEXT * DOWNLOAD * NEVER LEAVES YOUR MACHINE</div>
+
+  <div class="layout">
+   <div class="panel" id="mlStageWrap">
+    <h2>STAGE</h2>
+    <div class="stage-wrap">
+     <div id="mlDrop">
+      DROP / PASTE / UPLOAD A PHOTO<br>
+      <span style="color:#664488;font-size:15px">or pick a blank template on the right</span>
+      <label class="file">UPLOAD IMAGE<input id="mlFile" type="file" accept="image/*"></label>
+     </div>
+     <div id="mlStage">
+      <canvas id="mlCanvas" width="900" height="900"></canvas>
+     </div>
+    </div>
+    <div class="row">
+     <label class="file">SWAP IMAGE<input id="mlFile2" type="file" accept="image/*"></label>
+     <button type="button" id="mlDownload" class="pink">DOWNLOAD PNG</button>
+     <button type="button" id="mlCopy">COPY</button>
+     <button type="button" id="mlFlipH">FLIP H</button>
+     <button type="button" id="mlFlipV">FLIP V</button>
+     <button type="button" id="mlClear">CLEAR</button>
+    </div>
+    <div class="status" id="mlStatus">Client-side only. We never see your photo.</div>
+   </div>
+
+   <div>
+    <div class="panel">
+     <h2>TEMPLATES</h2>
+     <div class="row temps">
+      <button type="button" data-template="square">BLANK</button>
+      <button type="button" data-template="wide">WIDE</button>
+      <button type="button" data-template="two">2 PANEL</button>
+      <button type="button" data-template="three">3 PANEL</button>
+      <button type="button" data-template="grid">4 GRID</button>
+      <button type="button" data-template="brain">BRAIN</button>
+      <button type="button" data-template="crt">CRT</button>
+     </div>
+     <label class="field" for="mlFilter">FILTER</label>
+     <select id="mlFilter">
+      <option value="none">NONE</option>
+      <option value="crt">CRT SCAN</option>
+      <option value="vhs">VHS</option>
+      <option value="pixel">PIXEL</option>
+      <option value="fried">DEEP FRIED</option>
+      <option value="gray">GRAY</option>
+      <option value="invert">INVERT</option>
+     </select>
+     <label class="field"><input type="checkbox" id="mlStamp" checked> SMALL DOSWAPZ STAMP</label>
+    </div>
+
+    <div class="panel" style="margin-top:14px">
+     <h2>TEXT</h2>
+     <p class="note" id="mlEmptyEdit" style="display:none">Click a caption on the image, or add one.</p>
+     <div id="mlEdit">
+      <label class="field" for="mlText">CAPTION</label>
+      <textarea id="mlText" maxlength="240"></textarea>
+      <label class="field" for="mlSize">SIZE <span id="mlSizeVal">56</span></label>
+      <input id="mlSize" type="range" min="16" max="140" value="56">
+      <div class="colors">
+       <div>
+        <label class="field" for="mlColor">FILL</label>
+        <input id="mlColor" type="color" value="#ffffff">
+       </div>
+       <div>
+        <label class="field" for="mlStroke">OUTLINE</label>
+        <input id="mlStroke" type="color" value="#000000">
+       </div>
+      </div>
+      <label class="field" for="mlStrokeW">OUTLINE WIDTH</label>
+      <input id="mlStrokeW" type="range" min="0" max="16" value="6">
+      <label class="field" for="mlFont">FONT</label>
+      <select id="mlFont">
+       <option value="impact">IMPACT</option>
+       <option value="vt">VT323</option>
+       <option value="comic">COMIC</option>
+       <option value="serif">SERIF</option>
+       <option value="mono">MONO</option>
+      </select>
+      <label class="field" for="mlAlign">ALIGN</label>
+      <select id="mlAlign">
+       <option value="center">CENTER</option>
+       <option value="left">LEFT</option>
+       <option value="right">RIGHT</option>
+      </select>
+      <label class="field"><input type="checkbox" id="mlCaps" checked> ALL CAPS</label>
+     </div>
+     <div class="row">
+      <button type="button" id="mlAdd">+ TEXT</button>
+      <button type="button" id="mlRemove" class="pink">REMOVE</button>
+     </div>
+     <p class="note">Drag captions on the image. Add as many as you want.</p>
+    </div>
+   </div>
+  </div>
+
+  <div class="nav">
+   <a class="btn" href="/classic/pages/basement.html"><- BASEMENT</a>
+   <a class="btn" href="/classic/pages/basement/media-lab.html">MEDIA LAB</a>
+   <a class="btn" href="/classic/hub.html">HUB</a>
+  </div>
+ </div>
+
+ <script>
+ (function () {
+  var a = document.getElementById('mlFile');
+  var b = document.getElementById('mlFile2');
+  if (a && b) {
+   b.addEventListener('change', function () {
+    if (b.files && b.files[0] && window.DOSWAPZ_MEME) window.DOSWAPZ_MEME.loadImage(b.files[0]);
+    b.value = '';
+   });
+  }
+ })();
+ </script>
+ <script src="/assets/js/basement/meme-lab.js?v=20260816m"></script>
+ <script src="/assets/js/core/docs-footer.js?v=20260715e"></script>
+ <script src="/assets/js/core/shell-boot.js?v=20260906gag3"></script>
+</body>
+</html>

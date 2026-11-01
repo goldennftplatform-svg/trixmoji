@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>HAIR FORCE ONE — Doswapz Arcade</title>
+  <meta name="description" content="HAIR FORCE ONE — DDR-style rhythm arcade. Giant hair. 80s synth. Trade $HFO on DOSWAPZ." />
+  <link rel="stylesheet" href="style.css?v=hfo2" />
+</head>
+<body>
+  <nav class="arcade-bar" aria-label="Arcade nav">
+    <a href="/classic/pages/arcade/hub.html">← HUB</a>
+    <span class="arcade-bar-title">HAIR FORCE ONE</span>
+    <div class="arcade-bar-right">
+      <a
+        class="buy-link"
+        href="/classic/pages/doswapz/swap.html?toMint=9JvvWgzgBe5MZsbRWn25FbnoZijTdSWGLN5vK9ytTRiX"
+        target="_blank"
+        rel="noopener"
+      >$HFO SWAP</a>
+    </div>
+  </nav>
+
+  <div id="game-wrap">
+
+    <!-- TITLE -->
+    <section id="screen-title" class="screen active">
+      <img class="bg-art" src="assets/title.jpg" alt="" />
+      <div class="scrim"></div>
+      <div class="title-ui">
+        <p class="tag">DOSWAPZ ARCADE</p>
+        <button id="btn-start" type="button">PRESS START</button>
+        <a
+          class="buy-cta"
+          href="/classic/pages/doswapz/swap.html?toMint=9JvvWgzgBe5MZsbRWn25FbnoZijTdSWGLN5vK9ytTRiX"
+          target="_blank"
+          rel="noopener"
+        >BUY / SWAP $HFO</a>
+        <p class="hint">Hit arrows on time → he dances that move</p>
+        <p class="tiny">← ↓ ↑ → &nbsp;·&nbsp; original 80s synth &nbsp;·&nbsp; CA ends …TRiX</p>
+      </div>
+    </section>
+
+    <!-- SONG SELECT -->
+    <section id="screen-select" class="screen">
+      <img class="bg-art" src="assets/select.jpg" alt="" />
+      <div class="scrim dark"></div>
+      <div class="select-ui">
+        <p class="tag">SELECT TRACK</p>
+        <p class="legal">Original synth parodies · not affiliated with any artists</p>
+        <div id="song-list" class="song-list"></div>
+        <p class="hint select-hint">↑↓ pick &nbsp;·&nbsp; Enter / Space play &nbsp;·&nbsp; Esc back</p>
+        <a
+          class="buy-cta small"
+          href="/classic/pages/doswapz/swap.html?toMint=9JvvWgzgBe5MZsbRWn25FbnoZijTdSWGLN5vK9ytTRiX"
+          target="_blank"
+          rel="noopener"
+        >SWAP $HFO</a>
+      </div>
+    </section>
+
+    <!-- PLAY -->
+    <section id="screen-play" class="screen">
+      <div id="dance-stage">
+        <img id="play-bg-a" class="bg-art dance-frame active" src="assets/dance/neutral.jpg" alt="" />
+        <img id="play-bg-b" class="bg-art dance-frame" src="assets/dance/neutral.jpg" alt="" />
+      </div>
+      <div class="play-scrim"></div>
+
+      <div id="hud">
+        <div class="hud-left">
+          <div class="hud-line">SCORE <strong id="score">0</strong></div>
+          <div class="hud-line" id="song-label">TRACK</div>
+        </div>
+        <div class="hud-title">HAIR FORCE ONE</div>
+        <div class="hud-right">
+          <div class="hud-line">COMBO <strong id="combo">0</strong></div>
+          <div class="hud-line">MISS <strong id="c-miss">0</strong></div>
+        </div>
+      </div>
+
+      <div id="judgment"></div>
+
+      <div id="highway">
+        <div class="lane" data-dir="left">
+          <div class="receptor">◀</div>
+          <div class="notes"></div>
+        </div>
+        <div class="lane" data-dir="down">
+          <div class="receptor">▼</div>
+          <div class="notes"></div>
+        </div>
+        <div class="lane" data-dir="up">
+          <div class="receptor">▲</div>
+          <div class="notes"></div>
+        </div>
+        <div class="lane" data-dir="right">
+          <div class="receptor">▶</div>
+          <div class="notes"></div>
+        </div>
+      </div>
+
+      <div id="progress-wrap"><div id="progress"></div></div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="screen-results" class="screen">
+      <img class="bg-art" src="assets/results.jpg" alt="" />
+      <div class="scrim dark"></div>
+      <div class="results-ui">
+        <p class="tag">STAGE CLEAR</p>
+        <p class="grade" id="grade">S</p>
+        <ul>
+          <li>Score <span id="r-score">0</span></li>
+          <li>Max Combo <span id="r-combo">0</span></li>
+          <li>Perfect <span id="r-perfect">0</span></li>
+          <li>Great <span id="r-great">0</span></li>
+          <li>Good <span id="r-good">0</span></li>
+          <li>Miss <span id="r-miss">0</span></li>
+        </ul>
+        <button id="btn-retry" type="button">DANCE AGAIN</button>
+        <button id="btn-songs" type="button" class="btn-secondary">PICK SONG</button>
+        <a
+          class="buy-cta"
+          href="/classic/pages/doswapz/swap.html?toMint=9JvvWgzgBe5MZsbRWn25FbnoZijTdSWGLN5vK9ytTRiX"
+          target="_blank"
+          rel="noopener"
+        >BUY / SWAP $HFO</a>
+      </div>
+    </section>
+
+  </div>
+  <script src="music.js"></script>
+  <script src="game.js"></script>
+  <script src="/assets/js/core/crawler-portraits.js?v=20261029crawl" data-crawler-portraits="1"></script>
+</body>
+</html>

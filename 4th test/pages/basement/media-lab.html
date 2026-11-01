@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong>Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong>Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>DOSWAPZ // BASEMENT MEDIA LAB // ORBIT</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style class="page-classic-styles">
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ /* orbit: :root stripped */
+
+ * { box-sizing: border-box; }
+
+ /* orbit: global html,body stripped */
+
+ .dos-screen { position:relative; min-height:0; background:transparent; padding:0; }
+
+ /* orbit: scanlines stripped */
+
+ .wrap {
+ max-width: 960px;
+ margin: 0 auto;
+ position: relative;
+ z-index: 5;
+ }
+
+ /* orbit: .header stripped */
+
+ .header h1 {
+ margin: 0;
+ font-size: 30px;
+ letter-spacing: 6px;
+ color: #ddbbff;
+ text-shadow: 0 0 10px var(--basement);
+ }
+
+ .header /* orbit: .sub stripped */
+
+ .test-badge {
+ display: inline-block;
+ margin-top: 8px;
+ border: 2px solid var(--amber);
+ color: var(--amber);
+ padding: 2px 12px;
+ font-size: 15px;
+ letter-spacing: 4px;
+ animation: blink 1.2s step-end infinite;
+ }
+
+ @keyframes blink {
+ 50% { opacity: 0.35; }
+ }
+
+ .grid {
+ display: grid;
+ grid-template-columns: 1fr;
+ gap: 20px;
+ margin-top: 18px;
+ }
+
+ @media (min-width: 780px) {
+ .grid { grid-template-columns: 1fr 1fr; }
+ .panel-crt { grid-column: 1 / -1; }
+ }
+
+ .panel {
+ border: 3px solid var(--basement);
+ background: rgba(12, 0, 28, 0.75);
+ box-shadow: 0 0 16px rgba(153, 68, 255, 0.25);
+ padding: 14px;
+ }
+
+ .panel-title {
+ font-size: 20px;
+ letter-spacing: 3px;
+ color: var(--green);
+ text-shadow: 0 0 6px var(--green);
+ margin-bottom: 10px;
+ border-bottom: 1px solid var(--basement-dim);
+ padding-bottom: 6px;
+ }
+
+ .panel-note {
+ font-size: 14px;
+ color: #8866aa;
+ margin-bottom: 10px;
+ line-height: 1.35;
+ }
+
+ /* CRT TV */
+ .crt-unit {
+ max-width: 520px;
+ margin: 0 auto;
+ }
+
+ .crt-bezel {
+ background: linear-gradient(180deg, #2a2a2a 0%, transparent 40%, #1a1a1a 100%);
+ border: 4px solid #444;
+ border-radius: 14px;
+ padding: 18px 18px 14px;
+ box-shadow: inset 0 0 30px transparent, 0 8px 0 #0a0a0a;
+ }
+
+ .crt-brand {
+ text-align: center;
+ font-size: 13px;
+ color: #666;
+ letter-spacing: 6px;
+ margin-bottom: 8px;
+ }
+
+ .crt-screen-wrap {
+ position: relative;
+ aspect-ratio: 4 / 3;
+ background: transparent;
+ border: 6px solid #222;
+ border-radius: 20px;
+ overflow: hidden;
+ box-shadow: inset 0 0 40px rgba(0, 255, 65, 0.08);
+ }
+
+ .crt-screen {
+ position: absolute;
+ inset: 0;
+ overflow: hidden;
+ }
+
+ .crt-screen.roll {
+ animation: vroll 0.35s linear;
+ }
+
+ @keyframes vroll {
+ 0% { transform: translateY(0); }
+ 100% { transform: translateY(-12%); }
+ }
+
+ .crt-video {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ filter: contrast(1.15) saturate(0.85) brightness(0.9) sepia(0.15);
+ }
+
+ .crt-static {
+ position: absolute;
+ inset: 0;
+ width: 100%;
+ height: 100%;
+ opacity: 0.55;
+ mix-blend-mode: screen;
+ pointer-events: none;
+ }
+
+ .crt-scanlines {
+ position: absolute;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0, transparent 2px,
+ rgba(0, 0, 0, 0.35) 2px, rgba(0, 0, 0, 0.35) 4px
+ );
+ pointer-events: none;
+ }
+
+ .crt-vignette {
+ position: absolute;
+ inset: 0;
+ background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.65) 100%);
+ pointer-events: none;
+ }
+
+ .crt-ch {
+ position: absolute;
+ top: 8px;
+ right: 10px;
+ font-size: 16px;
+ color: var(--green);
+ text-shadow: 0 0 6px var(--green);
+ background: rgba(0,0,0,0.5);
+ padding: 2px 6px;
+ border: 1px solid var(--green-dim);
+ }
+
+ .crt-knobs {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-top: 10px;
+ padding: 0 8px;
+ font-size: 13px;
+ color: #555;
+ }
+
+ .crt-knob {
+ width: 22px;
+ height: 22px;
+ border-radius: 50%;
+ background: radial-gradient(circle at 35% 35%, #555, #222);
+ border: 2px solid #333;
+ }
+
+ /* Pirate Radio */
+ .radio-unit {
+ background: #1a1208;
+ border: 3px solid #3a2a10;
+ padding: 12px;
+ box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+ }
+
+ .radio-display {
+ background: #0a1a0a;
+ border: 2px inset #2a4a2a;
+ color: var(--green);
+ font-size: 18px;
+ letter-spacing: 2px;
+ padding: 8px 10px;
+ text-shadow: 0 0 8px var(--green);
+ margin-bottom: 12px;
+ min-height: 36px;
+ }
+
+ .radio-tuners {
+ display: grid;
+ grid-template-columns: repeat(5, 1fr);
+ gap: 6px;
+ margin-bottom: 10px;
+ }
+
+ .radio-btn {
+ font-family: inherit;
+ background: #2a1810;
+ border: 2px solid #5a3a20;
+ color: #cc9966;
+ padding: 8px 4px;
+ cursor: pointer;
+ font-size: 13px;
+ line-height: 1.2;
+ transition: none;
+ }
+
+ .radio-btn:hover {
+ border-color: var(--amber);
+ color: var(--amber);
+ }
+
+ .radio-btn.tuned {
+ background: #3a2010;
+ border-color: var(--green);
+ color: var(--green);
+ box-shadow: 0 0 10px rgba(0, 255, 65, 0.35);
+ }
+
+ .radio-btn .rb-ch {
+ display: block;
+ font-size: 15px;
+ letter-spacing: 1px;
+ }
+
+ .radio-btn .rb-name {
+ display: block;
+ font-size: 11px;
+ opacity: 0.75;
+ margin-top: 2px;
+ }
+
+ .radio-off {
+ font-family: inherit;
+ width: 100%;
+ background: #1a0a0a;
+ border: 2px solid #662222;
+ color: #ff6666;
+ padding: 6px;
+ cursor: pointer;
+ font-size: 15px;
+ letter-spacing: 2px;
+ }
+
+ .radio-off:hover {
+ background: #330a0a;
+ }
+
+ .radio-skull {
+ text-align: center;
+ font-size: 12px;
+ color: #665533;
+ margin-top: 8px;
+ letter-spacing: 2px;
+ }
+
+ /* Voicemail */
+ .vm-machine {
+ background: #1a1a22;
+ border: 2px solid #444;
+ padding: 10px;
+ }
+
+ .vm-tape {
+ display: flex;
+ gap: 8px;
+ align-items: center;
+ margin-bottom: 10px;
+ font-size: 14px;
+ color: #888;
+ }
+
+ .vm-reel {
+ width: 28px;
+ height: 28px;
+ border: 3px solid #666;
+ border-radius: 50%;
+ animation: spin 3s linear infinite;
+ }
+
+ @keyframes spin {
+ to { transform: rotate(360deg); }
+ }
+
+ .vm-list {
+ display: flex;
+ flex-direction: column;
+ gap: 8px;
+ max-height: 280px;
+ overflow-y: auto;
+ }
+
+ .vm-row {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ gap: 8px;
+ border: 1px solid #333;
+ padding: 6px 8px;
+ background: rgba(0,0,0,0.4);
+ }
+
+ .vm-meta {
+ display: flex;
+ flex-direction: column;
+ min-width: 0;
+ }
+
+ .vm-label {
+ font-size: 15px;
+ color: var(--pink);
+ }
+
+ .vm-date {
+ font-size: 12px;
+ color: #666;
+ }
+
+ .vm-btn {
+ font-family: inherit;
+ flex-shrink: 0;
+ background: #0a2a0a;
+ border: 2px solid var(--green-dim);
+ color: var(--green);
+ padding: 4px 10px;
+ cursor: pointer;
+ font-size: 14px;
+ letter-spacing: 1px;
+ }
+
+ .vm-btn:hover:not(:disabled) {
+ border-color: var(--green);
+ box-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
+ }
+
+ .vm-btn:disabled {
+ opacity: 0.4;
+ cursor: wait;
+ }
+
+ .nav {
+ text-align: center;
+ margin-top: 22px;
+ }
+
+ .btn {
+ font-family: inherit;
+ font-size: 17px;
+ color: rgba(255,255,255,0.38);
+ border: 2px solid rgba(255,255,255,0.38);
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px;
+ display: inline-block;
+ background: transparent;
+ }
+
+ .btn:hover {
+ background: rgba(255,255,255,0.14);
+ color: var(--panel-accent);
+ border-color: var(--panel-accent);
+ }
+
+ .btn-basement {
+ border-color: var(--basement);
+ color: #cc88ff;
+ }
+
+ .btn-basement:hover {
+ background: #1a0033;
+ color: #ffddff;
+ border-color: var(--pink);
+ }
+
+ .panel-beat { grid-column: 1 / -1; }
+ .beat-toolbar {
+ display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+ margin-bottom: 14px;
+ }
+ .beat-btn {
+ font-family: inherit; font-size: 16px; letter-spacing: 2px;
+ border: 2px solid var(--pink); background: #12001a; color: var(--pink);
+ padding: 6px 14px; cursor: pointer;
+ }
+ .beat-btn:hover { background: #1a0033; color: #fff; }
+ .beat-bpm { font-size: 15px; color: #aaa; display: flex; align-items: center; gap: 8px; }
+ .beat-bpm input { width: 120px; }
+ .beat-grid { display: flex; flex-direction: column; gap: 6px; overflow-x: auto; }
+ .beat-row { display: flex; align-items: center; gap: 8px; min-width: 520px; }
+ .beat-label {
+ width: 88px; flex-shrink: 0; font-size: 13px; letter-spacing: 1px;
+ color: var(--track-color, var(--pink));
+ }
+ .beat-steps { display: flex; gap: 4px; flex: 1; }
+ .beat-step {
+ flex: 1; min-width: 22px; height: 28px; border: 1px solid #333;
+ background: #0a0a0a; cursor: pointer; padding: 0;
+ }
+ .beat-step-on { background: var(--track-color, var(--pink)); box-shadow: 0 0 8px color-mix(in srgb, var(--track-color) 50%, transparent); }
+ .beat-step-active { outline: 2px solid #fff; outline-offset: 1px; }
+ .beat-step:nth-child(4n+1) { border-color: #555; }
+ </style>
+</head>
+<body id="screen" class="orbit-void-inner">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+ <span class="crumb-zone">BASEMENT MEDIA LAB</span>
+ <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+ <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+ <div class="core-glow"></div>
+ <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+ <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ <div class="orbit-line" style="width:min(34vmin,34vw);height:min(34vmin,34vh)"></div>
+ </div>
+
+ <main class="stage" id="content">
+ <h1 class="hollow-title" id="orbitTitle">BASEMENT MEDIA LAB</h1>
+ <p class="hollow-sub" id="stageSub">off the record<span class="cursor-blink">|</span></p>
+ <p class="page-path">/orbit/pages/basement/media-lab.html</p>
+ </main>
+
+ <div class="orbit-panel accent-basement" id="orbitPanel">
+<div class="header">
+ <h1>BASEMENT MEDIA LAB</h1>
+ <div class="sub">8-TRACK PRODUCTION * 808 DRUMS * OFF-RECORD BROADCAST</div>
+ <div class="test-badge">◆ NOW LIVE ◆</div>
+ </div>
+
+ <div class="grid">
+ <section class="panel panel-beat">
+ <div class="panel-title"> 8-TRACK PRODUCTION - 808 DRUM MACHINE</div>
+ <div class="panel-note">Click steps to program kicks, snares, hats, toms, and rim. 16-step sequencer - basement tape energy.</div>
+ <div id="beatSequencer"></div>
+ </section>
+
+ <!-- CRT TV -->
+ <section class="panel panel-crt">
+ <div class="panel-title">CRT STATIC TV - CH 03</div>
+ <div class="panel-note">Crypto Dad CRT loop. DOS-era scanlines + rolling static bursts over the tape.</div>
+ <div class="crt-unit">
+ <div class="crt-bezel">
+ <div class="crt-brand">DOSWAPZ /// MODEL 8087</div>
+ <div class="crt-screen-wrap">
+ <div class="crt-screen" id="crtScreen">
+ <video class="crt-video" id="crtVideo" src="/assets/videos/basement/crt-cryptodad-loop.mp4" loop muted playsinline autoplay preload="auto" volume="0"></video>
+ <canvas class="crt-static" id="crtStatic" width="640" height="480"></canvas>
+ <div class="crt-scanlines"></div>
+ <div class="crt-vignette"></div>
+ <div class="crt-ch">CH 03</div>
+ </div>
+ </div>
+ <div class="crt-knobs">
+ <span class="crt-knob"></span>
+ <span>VOL ◆ BRIGHT ◆ TINT</span>
+ <span class="crt-knob"></span>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- Pirate Radio -->
+ <section class="panel">
+ <div class="panel-title">☠ PIRATE RADIO - 5 CH STATIC</div>
+ <div class="panel-note">Button tuners only. Every station is dead air at a different tone. Click again to mute.</div>
+ <div class="radio-unit">
+ <div class="radio-display" id="radioDisplay">--- STATIC ---</div>
+ <div class="radio-tuners" id="radioTuners"></div>
+ <button type="button" class="radio-off" id="radioOff"> POWER OFF</button>
+ <div class="radio-skull">UNLICENSED * BASEMENT FM * NO SIGNAL DETECTED</div>
+ </div>
+ </section>
+
+ <!-- Dad Voicemails -->
+ <section class="panel">
+ <div class="panel-title">☎ DAD VOICEMAILS - 1987 TAPES</div>
+ <div class="panel-note">80s payphone quality - band-limited static, crackle, gravel voice. Click anywhere first if audio is blocked.</div>
+ <div class="vm-machine">
+ <div class="vm-tape">
+ <span class="vm-reel"></span>
+ <span>ANSWERING MACHINE - CASSETTE A - SIDE 1</span>
+ <span class="vm-reel"></span>
+ </div>
+ <div class="vm-list" id="vmList"></div>
+ </div>
+ </section>
+ </div>
+
+ <div class="nav">
+ <a href="/orbit/pages/basement.html" class="btn btn-basement"><- BACK TO BASEMENT</a>
+ <a href="/orbit/hub.html" class="btn">MENU</a>
+ </div>
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/basement/media-lab.js"></script>
+ <script src="/assets/js/basement/media-lab-beat.js"></script>
+ <script src="/assets/js/core/price-ticker.js"></script>
+
+ <script>hollowPageBoot('BASEMENT MEDIA LAB');</script>
+</body>
+</html>

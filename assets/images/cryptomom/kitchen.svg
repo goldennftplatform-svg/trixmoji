@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#12001f"/>
+  <rect x="20" y="180" width="360" height="8" fill="#5522aa"/>
+  <rect x="40" y="60" width="120" height="100" fill="#1a0033" stroke="#9944ff" stroke-width="3"/>
+  <text x="100" y="115" fill="#ff66cc" font-family="monospace" font-size="14" text-anchor="middle">BILLS</text>
+  <circle cx="280" cy="110" r="40" fill="#2a0055" stroke="#ddbbff" stroke-width="2"/>
+  <text x="280" y="115" fill="#ddbbff" font-family="monospace" font-size="12" text-anchor="middle">MOM</text>
+  <text x="200" y="260" fill="#9944ff" font-family="monospace" font-size="18" text-anchor="middle">CRYPTO MOM — KITCHEN</text>
+</svg>

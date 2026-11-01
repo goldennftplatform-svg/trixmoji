@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // THE BASEMENT</title>
+ <meta name="description" content="The Basement - adult games and off-record modes. Crypto Mom [18+] now playable.">
+ <meta property="og:title" content="DOSWAPZ // THE BASEMENT">
+ <meta property="og:description" content="Downstairs. Off the record. Crypto Mom [18+] is live.">
+ <meta property="og:url" content="https://doswapz.com/classic/pages/basement.html">
+ <meta name="twitter:card" content="summary_large_image">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='22' fill='%239944ff' text-anchor='middle' font-weight='bold'%3EBS%3C/text%3E%3C/svg%3E">
+ <link rel="manifest" href="/site.webmanifest">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ --basement: #9944ff;
+ --basement-dim: #5522aa;
+ --basement-glow: rgba(153, 68, 255, 0.35);
+ }
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ min-height: 100%;
+ background: #000000;
+ color: var(--green);
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: #000000;
+ padding: 24px 28px 60px;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px,
+ rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .header {
+ font-size: 34px;
+ letter-spacing: 8px;
+ text-shadow: 0 0 8px var(--basement);
+ color: #ddbbff;
+ text-align: center;
+ margin-bottom: 6px;
+ }
+
+ .sub {
+ text-align: center;
+ color: var(--basement);
+ font-size: 18px;
+ letter-spacing: 3px;
+ margin-bottom: 22px;
+ }
+
+ .content {
+ max-width: 720px;
+ margin: 0 auto;
+ font-size: 19px;
+ line-height: 1.38;
+ padding: 0 8px;
+ position: relative;
+ z-index: 10;
+ }
+
+ .stairs {
+ text-align: center;
+ font-size: 28px;
+ color: var(--basement-dim);
+ letter-spacing: 4px;
+ margin-bottom: 18px;
+ line-height: 1.1;
+ opacity: 0.85;
+ }
+
+ .coming-card {
+ border: 3px solid var(--basement);
+ background: rgba(20, 0, 40, 0.55);
+ padding: 28px 20px;
+ text-align: center;
+ margin: 24px 0;
+ box-shadow: 0 0 18px var(--basement-glow);
+ }
+
+ .coming-stamp {
+ font-size: 34px;
+ color: #ff66cc;
+ border: 4px solid #ff66cc;
+ padding: 6px 22px;
+ letter-spacing: 8px;
+ text-shadow: 0 0 8px #ff66cc;
+ transform: rotate(-8deg);
+ background: rgba(0, 0, 0, 0.65);
+ display: inline-block;
+ margin-bottom: 14px;
+ }
+
+ .coming-note {
+ font-size: 17px;
+ color: #dd99ff;
+ letter-spacing: 2px;
+ line-height: 1.45;
+ }
+
+ .teaser-list {
+ margin: 22px 0 0;
+ padding: 0;
+ list-style: none;
+ font-size: 17px;
+ color: #cc88ff;
+ letter-spacing: 1px;
+ text-align: left;
+ max-width: 420px;
+ margin-left: auto;
+ margin-right: auto;
+ }
+
+ .teaser-list li {
+ margin: 6px 0;
+ }
+
+ .teaser-list li::before {
+ content: ' ';
+ color: var(--basement-dim);
+ }
+
+ .locked {
+ margin-top: 18px;
+ font-size: 15px;
+ color: var(--green-dim);
+ letter-spacing: 2px;
+ }
+
+ .buttons {
+ text-align: center;
+ margin-top: 28px;
+ }
+
+ .btn {
+ font-size: 17px;
+ color: #00ff00;
+ border: 2px solid #00ff00;
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px;
+ display: inline-block;
+ }
+
+ .btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .btn-basement {
+ border-color: var(--basement);
+ color: #cc88ff;
+ }
+
+ .btn-basement:hover {
+ background: #1a0033;
+ color: #ffddff;
+ border-color: #ff66cc;
+ }
+
+ .footer {
+ margin-top: 24px;
+ font-size: 13px;
+ color: #00aa00;
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ .teaser-list li.phunk-lab-item {
+ cursor: default;
+ opacity: 0.55;
+ color: #8866aa;
+ }
+
+ .teaser-list li.phunk-lab-item.phunk-unlocked {
+ cursor: pointer;
+ opacity: 1;
+ color: #ffff00;
+ }
+
+ .teaser-list li.phunk-lab-item.phunk-unlocked:hover {
+ text-shadow: 0 0 6px #ffff00;
+ }
+
+ .phunk-status {
+ font-size: 13px;
+ color: var(--green-dim);
+ }
+
+ .teaser-list li.phunk-lab-item.phunk-unlocked .phunk-status {
+ color: #00ff00;
+ }
+
+ /* Keep [ LIVE ] / [ LOCKED ] as one unit — no orphan closing brackets */
+ .status-tag,
+ .phunk-status {
+ display: inline-block;
+ white-space: nowrap;
+ }
+ </style>
+</head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+
+ <div class="content">
+ <div class="header">THE BASEMENT</div>
+ <div class="sub">WHERE THE FUN HAPPENS</div>
+
+ <div class="coming-card">
+ <div class="coming-stamp" style="font-size:22px; letter-spacing:4px;">18+ ZONE</div>
+ <div class="coming-note">Downstairs. Off the record.<br>First game is wired up.<br>More drops loading behind the fuse box.
+ </div>
+ <ul class="teaser-list">
+ <li><strong style="color:#ff66cc;">CRYPTO MOM [18+]</strong> - playable now</li>
+ <li>Late-night modes</li>
+ <li>Chaos events &amp; side quests</li>
+ <li>Community games</li>
+ <li>Surprise drops</li>
+ <li id="phunkLabLink" class="phunk-lab-item" role="button" tabindex="0">
+ <strong>EAT SHIT</strong> - Phunk Lab <span class="phunk-status">[ LOCKED ]</span>
+ </li>
+ <li><strong style="color:#ffaa00;">MEDIA LAB</strong> - CRT TV / Pirate Radio / Dad Tapes <span class="status-tag" style="color:#00ff41;">[ LIVE ]</span></li>
+ <li><strong style="color:#66ffaa;">MEDIA PLAYER</strong> - CRT deck / JayFeezy + Slumpork library <span class="status-tag" style="color:#00ff41;">[ LIVE ]</span></li>
+ <li><strong style="color:#ffaa00;">BOOM BOX</strong> - voxel mega deck <span class="status-tag" style="color:#8866aa;">[ COMING SOON ]</span></li>
+ <li><strong style="color:#ff66cc;">MEME LAB</strong> - upload, stamp text, download <span class="status-tag" style="color:#00ff41;">[ LIVE ]</span></li>
+ <li><strong style="color:#6633cc;">VANTABLACK MARKET</strong> - token exchange + launcher <span class="status-tag" style="color:#00ff41;">[ LIVE ]</span></li>
+ </ul>
+ <div class="locked" style="color:#ff66cc;">[ MATURE CONTENT - ENTER AT OWN RISK ]</div>
+ </div>
+
+ <div class="buttons">
+ <a href="/classic/pages/basement/cryptomom/play.html" class="btn btn-basement" style="border-color:#ff66cc; color:#ff66cc; font-size:20px; padding:8px 20px;"> CRYPTO MOM [18+]</a>
+ <a href="/classic/pages/basement/cryptomom/scoreboard.html" class="btn btn-basement" style="border-color:#9944ff; color:#cc88ff; font-size:17px; padding:6px 16px;">CRYPTO MOM SCORES</a>
+ <a href="/classic/pages/basement/media-lab.html" class="btn btn-basement" style="border-color:#ffaa00; color:#ffaa00; font-size:17px; padding:6px 16px;"> MEDIA LAB</a>
+ <a href="/classic/pages/basement/media-player.html" class="btn btn-basement" style="border-color:#66ffaa; color:#66ffaa; font-size:17px; padding:6px 16px;"> MEDIA PLAYER</a>
+ <a href="/classic/pages/basement/boombox.html" class="btn btn-basement" style="border-color:#8866aa; color:#8866aa; font-size:17px; padding:6px 16px;"> BOOM BOX [SOON]</a>
+ <a href="/classic/pages/basement/meme-lab.html" class="btn btn-basement" style="border-color:#ff66cc; color:#ff66cc; font-size:17px; padding:6px 16px;"> MEME LAB</a>
+ <a href="/classic/pages/basement/fantasy.html" class="btn btn-basement" style="border-color:#ffff00; color:#ffff00; font-size:18px; padding:7px 18px;"> FANTASY FOOTBALL</a>
+ <a href="/classic/pages/basement/vantablack/market.html" class="btn btn-basement" style="border-color:#6633cc; color:#c8c8d0; font-size:18px; padding:7px 18px;"> VANTABLACK MARKET</a>
+ <br><br>
+ <a href="/classic/hub.html" class="btn"><- BACK TO MENU</a>
+ <a href="/classic/pages/attic.html" class="btn btn-basement">THE ATTIC</a>
+ </div>
+
+ <div class="footer">THE BASEMENT * DOSWAPZ * FUN LOADING...
+ </div>
+ </div>
+
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+ <script src="/assets/js/core/page-transition.js" data-page-transition="1"></script>
+ <script src="/assets/js/core/site-shell.js?v=20260715d" data-site-shell="1"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.content, #content' });
+ </script>
+ <script src="/assets/js/basement/basement-phunk-gate.js"></script>
+ <div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+ <script src="/assets/js/core/price-ticker.js"></script>
+ </body>
+</html>

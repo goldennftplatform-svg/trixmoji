@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Present D · Zone panels</title>
+ <meta name="robots" content="noindex">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&display=swap');
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ html, body { min-height: 100%; background: #040408; color: #e8ecff; font-family: Inter, system-ui, sans-serif; }
+ body {
+ background:
+ radial-gradient(circle at 10% 20%, rgba(0,255,140,0.08), transparent 40%),
+ radial-gradient(circle at 90% 10%, rgba(120,140,255,0.12), transparent 40%),
+ radial-gradient(circle at 50% 90%, rgba(255,80,180,0.08), transparent 40%),
+ #040408;
+ }
+ .head { text-align: center; padding: 36px 16px 20px; }
+ .head .era { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #6e7699; margin-bottom: 10px; }
+ .head h1 {
+ font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+ font-size: clamp(32px, 7vw, 48px); letter-spacing: 0.12em;
+ }
+ .head p { margin-top: 8px; color: #8b93b8; font-size: 13px; letter-spacing: 0.08em; }
+ .zones {
+ max-width: 1000px; margin: 0 auto; padding: 8px 16px 90px;
+ display: grid; gap: 14px;
+ }
+ @media (min-width: 800px) {
+ .zones { grid-template-columns: 1fr 1fr 1fr; }
+ }
+ .zone {
+ border-radius: 20px;
+ border: 1px solid rgba(140,160,255,0.14);
+ background: rgba(255,255,255,0.03);
+ padding: 20px 18px 16px;
+ min-height: 280px;
+ display: flex; flex-direction: column;
+ }
+ .zone.trade { border-color: rgba(0,255,140,0.25); }
+ .zone.play { border-color: rgba(100,220,255,0.25); }
+ .zone.explore { border-color: rgba(255,120,200,0.25); }
+ .zone h2 {
+ font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+ font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase;
+ margin-bottom: 6px;
+ }
+ .zone.trade h2 { color: #66ffb0; }
+ .zone.play h2 { color: #88ddff; }
+ .zone.explore h2 { color: #ff9ad4; }
+ .zone .desc { font-size: 12px; color: #6e7699; margin-bottom: 16px; line-height: 1.4; }
+ .zone a {
+ display: block; text-decoration: none; color: #c8d0f0;
+ font-size: 13px; letter-spacing: 0.06em; padding: 10px 0;
+ border-top: 1px solid rgba(255,255,255,0.06);
+ transition: color .15s, padding-left .15s;
+ }
+ .zone a:hover { color: #fff; padding-left: 6px; }
+ .zone a span { color: #5a6288; font-size: 11px; margin-left: 8px; }
+ .top-nav {
+ position: absolute; top: 14px; right: 16px;
+ }
+ .top-nav a {
+ font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+ color: #8b93b8; text-decoration: none; margin-left: 12px;
+ }
+ .top-nav a:hover { color: #fff; }
+ .era {
+ position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+ display: flex; gap: 8px;
+ }
+ .era a {
+ font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+ text-decoration: none; color: #8b93b8;
+ border: 1px solid rgba(140,160,255,0.2); padding: 7px 12px; border-radius: 999px;
+ background: rgba(8,10,20,0.85);
+ }
+ .era a.here { color: #88ffe0; border-color: rgba(100,255,210,0.35); }
+ .era a.future { color: #fff; border-color: rgba(255,255,255,0.4); }
+ </style>
+</head>
+<body>
+ <nav class="top-nav">
+ <a href="/portal.html">Time machine</a>
+ <a href="/future/hub.html">Future →</a>
+ </nav>
+ <header class="head">
+ <div class="era">Present · zones</div>
+ <h1>DOSWAPZ</h1>
+ <p>Pick a zone. Everything else is noise.</p>
+ </header>
+ <div class="zones">
+ <section class="zone trade">
+ <h2>Trade</h2>
+ <p class="desc">Move value. Stay sovereign.</p>
+ <a href="/orbit/pages/doswapz/swap.html">Swap <span>0%</span></a>
+ <a href="/orbit/pages/doswapz/bridge.html">Bridge <span>chains</span></a>
+ <a href="/orbit/pages/doswapz/mint.html">Mint <span>math</span></a>
+ <a href="/orbit/pages/hardwear/wallet.html">Hardwear <span>DIY</span></a>
+ </section>
+ <section class="zone play">
+ <h2>Play</h2>
+ <p class="desc">Cabinets, dad, chaos.</p>
+ <a href="/orbit/pages/arcade/intro.html">Arcade <span>enter</span></a>
+ <a href="/classic/pages/cryptodad/play.html">Crypto Dad <span>game</span></a>
+ <a href="/orbit/pages/degen/trailer.html">Degen$ <span>film</span></a>
+ <a href="/orbit/pages/tbb/play.html">TBB <span>bull</span></a>
+ </section>
+ <section class="zone explore">
+ <h2>Explore</h2>
+ <p class="desc">Culture layers under the bunker.</p>
+ <a href="/orbit/pages/basement.html">Basement <span>down</span></a>
+ <a href="/orbit/pages/attic.html">Attic <span>drops</span></a>
+ <a href="/orbit/pages/harbinger.html">Harbinger <span>chat</span></a>
+ <a href="/orbit/pages/pond-scum.html">Pond Scum <span>desk</span></a>
+ <a href="/future/hub.html">Future <span>white</span></a>
+ </section>
+ </div>
+ <nav class="era">
+ <a href="/classic/hub.html">Past</a>
+ <a class="here" href="#">Present</a>
+ <a class="future" href="/future/hub.html">Future</a>
+ </nav>
+</body>
+</html>

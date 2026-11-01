@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#100008"/>
+  <rect x="100" y="80" width="200" height="140" fill="#220011" stroke="#ff5555" stroke-width="4"/>
+  <text x="200" y="155" fill="#ff5555" font-family="monospace" font-size="18" text-anchor="middle">EVICTED</text>
+  <text x="200" y="270" fill="#888" font-family="monospace" font-size="12" text-anchor="middle">GAME OVER</text>
+</svg>

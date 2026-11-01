@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Hub Map A</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ * { box-sizing: border-box; }
+ html, body { margin: 0; min-height: 100%; background: #000; color: #00ff00; font-family: 'VT323', monospace; }
+ .screen { padding: 16px 12px 40px; min-height: 100vh; }
+ .badge { float: right; font-size: 11px; color: #ffff00; border: 1px solid #554400; padding: 2px 6px; }
+ .title { font-size: 28px; letter-spacing: 4px; color: #ffff00; clear: both; }
+ .sub { color: #00aa00; font-size: 13px; margin: 4px 0 12px; }
+ .map {
+ display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+ margin-bottom: 16px; padding: 8px 0; border-bottom: 1px solid #003300;
+ }
+ .map .lab { color: #00aa00; font-size: 12px; letter-spacing: 1px; margin-right: 4px; }
+ .map a {
+ color: #00ff41; text-decoration: none; border: 1px solid #004400;
+ padding: 5px 9px; font-size: 14px; letter-spacing: 0.5px;
+ }
+ .map a:hover { border-color: #00ff41; color: #ffff00; }
+ .sec { color: #ffff00; font-size: 18px; margin: 10px 0 4px; letter-spacing: 2px; }
+ .opt { color: #00ff00; font-size: 16px; padding: 4px 0 4px 12px; opacity: 0.85; }
+ .fake-ticker {
+ position: fixed; left: 0; right: 0; bottom: 0; height: 28px;
+ border-top: 1px solid #00ff41; background: #000; font-size: 12px;
+ display: flex; align-items: center; padding: 0 8px; color: #00aa00;
+ }
+ </style>
+</head>
+<body>
+ <div class="screen">
+ <div class="badge">MAP A ★</div>
+ <div class="title">DOSWAPZ</div>
+ <div class="sub">SYSTEM MENU - select a node</div>
+ <nav class="map" aria-label="Site map">
+ <span class="lab">// MAP</span>
+ <a href="#">SWAP</a>
+ <a href="#">GAMES</a>
+ <a href="#">ARCADE</a>
+ <a href="#">TIME</a>
+ <a href="#">BASEMENT</a>
+ <a href="#">DOCS</a>
+ </nav>
+ <div class="sec">▸ DOSWAPZ</div>
+ <div class="opt">Swap * Mint * Meat * Gallery</div>
+ <div class="sec">▸ CRYPTO_DAD</div>
+ <div class="opt">Play * How to * Scoreboard</div>
+ <div class="sec">▸ ARCADE</div>
+ <div class="opt">Hub * Scores * TBB</div>
+ <div class="sec">▸ THE_BASEMENT</div>
+ <div class="opt">Vantablack * Launcher * Phunk</div>
+ </div>
+ <div class="fake-ticker">LIVE TICKER * $SOL * $BONK * SWAPS 4 * ...</div>
+</body>
+</html>

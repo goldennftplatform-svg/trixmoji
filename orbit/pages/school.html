@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DOSWAPZ // CRYPTO SCHOOL // PRESENT</title>
+<meta name="description" content="DOSWAPZ crypto school from absolute zero. No trading. No transactions. No hype.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+:root{--bg:#000;--panel:#001100;--panel2:#001a00;--line:#00aa00;--text:#00ff00;--muted:#00aa00;--lime:#ffff00;--lime2:#00dd00;--cyan:#66ccff;--purple:#bd72ff;--orange:#ffaa00}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#000;color:var(--text);font-family:"VT323","Courier New",monospace;min-height:100vh;image-rendering:pixelated}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:40;background:repeating-linear-gradient(to bottom,transparent 0 3px,rgba(0,255,0,.035) 3px 5px)}
+button{font:inherit}
+.shell{display:grid;grid-template-columns:248px 1fr;min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;border-right:2px solid #00ff00;background:#000;padding:24px 18px;display:flex;flex-direction:column}
+.logo{display:flex;gap:12px;align-items:center;padding:0 6px 25px;border-bottom:1px solid var(--line)}
+.logo-mark{width:42px;height:42px;border:2px solid var(--lime);display:grid;place-items:center;color:var(--lime);font-size:21px;text-shadow:0 0 12px #8acb25}
+.logo h1{font:20px/1 "VT323","Courier New",monospace;margin:0;letter-spacing:2px;color:#00ff00;text-shadow:0 0 6px #00ff00}.logo small{color:var(--muted);font-size:12px}
+.nav{padding-top:24px}.nav button{width:100%;display:flex;gap:12px;align-items:center;border:0;background:none;color:#9bb0bf;text-align:left;padding:12px 10px;margin:2px 0;cursor:pointer}.nav button:hover,.nav button.active{background:var(--lime);color:#071008;box-shadow:0 0 22px rgba(182,255,53,.16)}.nav i{width:20px;text-align:center;font-style:normal}
+.sidebar-note{margin-top:auto;border:1px solid var(--line);padding:20px 15px;color:#b8c9d4;line-height:1.65;font-size:11px;background:#061019}.sidebar-note strong{display:block;color:var(--lime);font-size:13px;margin-bottom:5px}
+.brand{margin-top:22px;color:#617b8c;font-size:10px}.brand b{color:#9ab0bd}
+.main{min-width:0}.topbar{height:70px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 26px;color:#94aabd;font-size:12px}.topbar span{color:var(--lime)}
+.content{max-width:1250px;margin:auto;padding:20px 26px 60px}
+.hero{border:1px solid #26475e;background:linear-gradient(110deg,#06111a 0%,#08131c 56%,#041019 100%);min-height:350px;position:relative;overflow:hidden;display:grid;grid-template-columns:1.25fr .75fr;padding:34px 30px;box-shadow:inset 0 0 55px rgba(100,217,255,.025)}
+.hero:after{content:"";position:absolute;right:-50px;bottom:-120px;width:58%;height:310px;background:radial-gradient(ellipse at center,rgba(182,255,53,.11),transparent 62%);filter:blur(8px)}
+.terminal{color:var(--lime);font-size:12px;letter-spacing:.12em}.hero h2{font-size:clamp(42px,6vw,76px);line-height:.92;letter-spacing:4px;margin:14px 0 18px;color:#00ff00;text-shadow:0 0 8px #00ff00}.hero h2 span{color:var(--lime)}.hero p{color:#9db2c0;line-height:1.75;max-width:680px;font-size:14px}.hero-actions{margin-top:25px}.primary{background:var(--lime);color:#071008;border:0;padding:15px 21px;font-weight:700;cursor:pointer;box-shadow:0 0 20px rgba(182,255,53,.15)}.primary:hover{background:#d0ff75}.hero-art{position:relative;min-height:280px}.moon{position:absolute;width:180px;height:180px;border:1px dotted #658191;border-radius:50%;right:40px;top:8px;box-shadow:0 0 35px rgba(100,217,255,.08)}.mountain{position:absolute;inset:auto 0 5px 0;height:170px;background:linear-gradient(145deg,transparent 0 28%,#152c3a 29% 31%,transparent 32%),linear-gradient(35deg,transparent 0 43%,#0e2533 44% 46%,transparent 47%);clip-path:polygon(0 100%,0 65%,18% 46%,28% 68%,44% 28%,56% 60%,72% 37%,88% 68%,100% 45%,100% 100%);opacity:.9}.explorer{position:absolute;right:92px;bottom:43px;font-size:64px;color:#bfcdd4;text-shadow:0 0 15px rgba(255,255,255,.2);transform:scaleX(.8)}
+.progress-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}.progress-card{border:1px solid var(--line);background:#050c12;padding:18px}.progress-card h3{margin:0 0 12px;font-size:12px;color:#9eb2bf}.progress-number{font-size:28px;color:var(--lime);font-weight:700}.bar{height:7px;background:#142432;margin-top:13px}.bar span{display:block;height:100%;width:0;background:var(--lime);box-shadow:0 0 10px rgba(182,255,53,.3)}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin:38px 0 15px;border-bottom:1px solid var(--line);padding-bottom:12px}.section-head h2{font-size:21px;margin:0}.section-head small{color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{min-height:190px;background:linear-gradient(145deg,#061019,#040b10);border:1px solid var(--line);padding:17px;cursor:pointer;position:relative;transition:.15s}.card:hover{border-color:#50748b;transform:translateY(-2px)}.card-num{color:var(--muted);font-size:10px}.card-icon{font-size:30px;margin:17px 0 12px}.card h3{font-size:15px;margin:0 0 9px}.card p{font-size:10px;line-height:1.55;color:#718b9b}.mini-bar{position:absolute;left:17px;right:17px;bottom:16px;height:4px;background:#132431}.mini-bar span{display:block;width:0;height:100%;background:var(--lime)}
+.quote{margin-top:18px;border:1px solid var(--line);padding:20px;background:#061019;color:var(--lime);font-size:13px;line-height:1.7}
+.lesson{max-width:850px;margin:auto;padding:40px 0}.back{background:none;border:0;color:#8ba1b0;cursor:pointer;margin-bottom:35px}.lesson-meta{font-size:10px;color:var(--lime);letter-spacing:.12em}.lesson h2{font-size:clamp(36px,6vw,62px);line-height:1;margin:12px 0 28px;letter-spacing:-3px}.box{border:1px solid var(--line);background:#061019;padding:25px;margin:14px 0}.box label{display:block;color:var(--muted);font-size:10px;margin-bottom:12px}.box p{font-size:17px;line-height:1.7;margin:0}.analogy{border-color:#315c35;background:#07130b}.analogy label{color:var(--lime)}.quiz{border:1px solid var(--line);padding:24px;margin-top:20px}.quiz h3{font-size:17px}.answer{width:100%;border:1px solid #223b4d;background:#08121a;color:#b9cbd6;padding:14px;text-align:left;margin:7px 0;cursor:pointer}.answer:hover{border-color:var(--cyan);color:white}.answer.correct{border-color:var(--lime);color:var(--lime);background:#0b1809}.answer.wrong{border-color:#ff6666;color:#ff9999}.lesson-nav{display:flex;justify-content:space-between;margin-top:25px;gap:10px}
+@media(max-width:1000px){.cards{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}.hero-art{display:none}}
+@media(max-width:700px){.shell{display:block}.sidebar{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--line)}.nav{display:grid;grid-template-columns:1fr 1fr}.sidebar-note,.brand{display:none}.topbar{font-size:9px}.content{padding:14px}.hero{padding:25px 20px}.hero h2{font-size:48px}.cards{grid-template-columns:1fr}.progress-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="sidebar">
+  <div class="logo"><div class="logo-mark">DZ</div><div><h1>DOSWAPZ<br>SCHOOL</h1><small>PRESENT // START FROM ZERO</small></div></div>
+  <nav class="nav">
+    <button class="active" onclick="home()"><i>⌂</i> HOME</button>
+    <button onclick="home();setTimeout(()=>document.getElementById('path').scrollIntoView(),50)"><i>▤</i> LEARNING PATH</button>
+    <button onclick="home();setTimeout(()=>document.getElementById('path').scrollIntoView(),50)"><i>≡</i> LESSONS</button>
+    <button onclick="alert('Quiz mode is built into each lesson in this prototype.')"><i>?</i> QUIZ</button>
+    <button onclick="alert('Glossary is coming next.')"><i>AZ</i> GLOSSARY</button>
+    <button onclick="alert('Progress is shown on the dashboard.')"><i>▥</i> PROGRESS</button>
+  </nav>
+  <div class="sidebar-note"><strong>YOU DON'T NEED TO KNOW ANYTHING.</strong>Just curiosity.<br><br><span style="color:var(--lime)">████████</span></div>
+  <div class="brand">◉ &nbsp; <b>DOSWAPZ SCHOOL</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/orbit/hub.html" style="color:#00ff00">HUB</a></div>
+</aside>
+<main class="main">
+<header class="topbar"><div>C:\DOSWAPZ\SCHOOL&gt; CRYPTO FROM <span>ABSOLUTE ZERO</span>_</div><div>NO MONEY. NO TRADING. NO KEYS. &nbsp;▣</div></header>
+<div class="content" id="app"></div>
+</main>
+</div>
+<script>
+const lessons=[
+["LEVEL 0 // START FROM ZERO","What is money?","Money is a way people agree to store and exchange value.","Think of it like a scoreboard for who has provided value and who can claim value later."],
+["LEVEL 0 // START FROM ZERO","What is a bank?","A bank is a trusted organization that keeps financial records and helps move money.","Think of a bank as a trusted record keeper and traffic controller."],
+["LEVEL 0 // START FROM ZERO","What is a ledger?","A ledger is a record of transactions: who sent what and who received it.","Imagine a giant notebook tracking every payment."],
+["LEVEL 0 // START FROM ZERO","What does centralized mean?","Centralized means control or record keeping is concentrated in one main authority or small group.","One teacher has the master gradebook."],
+["LEVEL 0 // START FROM ZERO","What does decentralized mean?","Decentralized means control or record keeping is distributed across multiple independent participants.","Instead of one master notebook, many people keep matching copies."],
+["LEVEL 1 // BITCOIN","What is Bitcoin?","Bitcoin is a decentralized digital currency and payment network that uses a public blockchain.","Imagine internet-native money with a public transaction history."],
+["LEVEL 1 // BITCOIN","What is BTC?","BTC is the commonly used ticker symbol for bitcoin, the native asset of the Bitcoin network.","BTC is to bitcoin roughly what USD is to the U.S. dollar."],
+["LEVEL 1 // BITCOIN","What is mining?","Mining is the process used by Bitcoin's proof-of-work network to order transactions, add blocks and help secure the chain.","Miners compete using computing work to earn the right to propose blocks."],
+["LEVEL 2 // BLOCKCHAIN","What is a blockchain?","A blockchain is a shared, ordered record of data organized into blocks and linked together using cryptography.","Think of a public notebook whose pages are connected."],
+["LEVEL 2 // BLOCKCHAIN","What is a block?","A block is a batch of transactions or other data accepted into a blockchain's ordered history.","A block is like one page added to the shared notebook."],
+["LEVEL 2 // BLOCKCHAIN","What is a node?","A node is a computer running blockchain software that participates in the network.","Think of nodes as independent rule-checkers."],
+["LEVEL 2 // BLOCKCHAIN","What is consensus?","Consensus is how network participants agree on which valid state or history the network recognizes.","It keeps independent computers from all keeping different official histories."],
+["LEVEL 3 // WALLETS","What is a crypto wallet?","A wallet is software or hardware that manages the cryptographic keys used to interact with blockchain assets.","A wallet is more like a key ring than a physical box holding coins."],
+["LEVEL 3 // WALLETS","Where is my crypto?","Blockchain assets are represented by records on a blockchain. A wallet manages the keys that let you authorize actions.","The ledger records the state; your wallet helps you prove you can act."],
+["LEVEL 3 // WALLETS","What is a private key?","A private key is secret cryptographic information used to authorize transactions.","Treat it like a secret master key."],
+["LEVEL 3 // WALLETS","What is a seed phrase?","A recovery phrase can restore wallet keys, depending on the wallet standard.","Anyone who gets it may be able to control the assets in that wallet."],
+["LEVEL 4 // ETHEREUM","What is Ethereum?","Ethereum is a blockchain platform designed to support programmable smart contracts and decentralized applications.","Think of it as a shared computer network that can run agreed-upon programs."],
+["LEVEL 4 // ETHEREUM","What is ETH?","ETH is the native asset of the Ethereum network.","ETH is used within Ethereum for fees and other network functions."],
+["LEVEL 4 // ETHEREUM","What is a smart contract?","A smart contract is blockchain-deployed code that executes according to its programmed rules.","It is a program whose state and execution are handled by a blockchain."],
+["LEVEL 5 // SOLANA","What is Solana?","Solana is a blockchain designed for high-throughput applications, using proof of stake alongside Proof of History.","Think of Solana as a blockchain engineered to process lots of activity quickly."],
+["LEVEL 5 // SOLANA","What is SOL?","SOL is Solana's native asset and is used for network fees and other functions.","SOL is the native asset and fuel of the Solana network."],
+["LEVEL 5 // SOLANA","What is Proof of History?","Proof of History is a cryptographic timing mechanism used by Solana to help establish ordering and timing.","Think of it as a verifiable clock-like sequence that helps coordinate events."],
+["LEVEL 5 // SOLANA","What are Solana programs?","Solana separates accounts that hold state from executable programs that contain logic.","Think of accounts as data containers and programs as the instructions."],
+["LEVEL 6 // THE REST OF CRYPTO","What is a token?","A token is a blockchain-based asset or unit represented by a protocol or smart-contract standard.","A token can represent many things depending on the system that creates it."],
+["LEVEL 6 // THE REST OF CRYPTO","What is a stablecoin?","A stablecoin is designed to maintain a relatively stable value, often relative to a reference currency.","It is crypto designed to behave more like a stable unit of account."],
+["LEVEL 6 // THE REST OF CRYPTO","What is DeFi?","DeFi means decentralized finance: financial applications built using blockchains and smart contracts.","Software on a blockchain performs defined financial functions."],
+["LEVEL 6 // THE REST OF CRYPTO","CEX vs DEX","A CEX is operated by a centralized entity; a DEX uses blockchain-based protocols and smart contracts for trading functions.","CEX is company-operated; DEX is protocol-based."],
+["LEVEL 7 // SECURITY","The seed phrase rule","Never share your recovery phrase or private key. Legitimate support should not need it.","Treat it like the master key to everything controlled by that wallet."],
+["LEVEL 7 // SECURITY","What is phishing?","Phishing is an attack designed to trick you into revealing secrets or taking a dangerous action.","A fake login page can look real while stealing your information."],
+["LEVEL 7 // SECURITY","Too good to be true","Guaranteed profits, urgent giveaways and requests to send crypto first are common scam warning signs.","If someone says 'send me 1 ETH and I'll send you 2,' stop."],
+["LEVEL 7 // SECURITY","Verify before you trust","Use official sources, double-check domains and addresses, and never rely only on screenshots or DMs.","A convincing-looking message can still be completely fake."]
+];
+let done=JSON.parse(localStorage.getItem("cs_done")||"[]"), current=0;
+const icons=["◎","₿","◇","▣","◆","◈","⬡","⬢"];
+function save(){localStorage.setItem("cs_done",JSON.stringify(done))}
+function home(){
+const levels=[...new Set(lessons.map(x=>x[0]))];
+document.getElementById("app").innerHTML=`
+<section class="hero">
+ <div><div class="terminal">[ SYSTEM ONLINE ] // WELCOME, STUDENT_</div>
+ <h2>DOSWAPZ<br><span>SCHOOL</span></h2>
+ <p>Crypto, explained from absolute zero. We'll take you from “What is money?” to Bitcoin, blockchain, wallets, Ethereum, Solana, DeFi and security — step by step, no jargon required.</p>
+ <div class="hero-actions"><button class="primary" onclick="lesson(0)">START AT ZERO →</button></div></div>
+ <div class="hero-art"><div class="moon"></div><div class="mountain"></div><div class="explorer">♟</div></div>
+</section>
+<div class="progress-grid">
+ <div class="progress-card"><h3>YOUR PROGRESS</h3><div class="progress-number">${Math.round(done.length/lessons.length*100)}%</div><div>${done.length} / ${lessons.length} LESSONS COMPLETE</div><div class="bar"><span style="width:${done.length/lessons.length*100}%"></span></div></div>
+ <div class="progress-card"><h3>CURRENT LEVEL</h3><div style="color:var(--lime);font-size:15px">● ${done.length<5?"LEVEL 0: START FROM ZERO":done.length<8?"LEVEL 1: BITCOIN":"KEEP EXPLORING"}</div><p style="color:var(--muted);font-size:10px;line-height:1.6">Learn one concept at a time. You can always come back and review.</p></div>
+</div>
+<div class="section-head" id="path"><h2>THE LEARNING PATH</h2><small>${lessons.length} LESSONS // 8 LEVELS</small></div>
+<div class="cards">${levels.map((level,n)=>{let arr=lessons.map((x,i)=>[x,i]).filter(z=>z[0][0]===level);return `<div class="card" onclick="lesson(${arr[0][1]})"><div class="card-num">${String(n).padStart(2,"0")} // ${level.split(" // ")[1]}</div><div class="card-icon">${icons[n]}</div><h3>${level.split(" // ")[1]}</h3><p>${arr.length} LESSONS · ${arr[0][0][2]}</p><div class="mini-bar"><span style="width:${arr.filter(z=>done.includes(z[1])).length/arr.length*100}%"></span></div></div>`}).join("")}</div>
+<div class="quote">> REAL KNOWLEDGE. NO HYPE.<br><span style="color:#78909d;font-size:10px">YOU DON'T NEED TO KNOW ANYTHING. JUST CURIOSITY.</span></div>`;
+}
+function lesson(i){
+current=i;let x=lessons[i];
+document.getElementById("app").innerHTML=`<section class="lesson">
+<button class="back" onclick="home()">← RETURN TO LEARNING PATH</button>
+<div class="lesson-meta">${x[0]} // LESSON ${i+1} OF ${lessons.length}</div>
+<h2>${x[1]}</h2>
+<div class="box"><label>01 // THE SIMPLE ANSWER</label><p>${x[2]}</p></div>
+<div class="box analogy"><label>02 // THINK OF IT LIKE…</label><p>${x[3]}</p></div>
+<div class="quiz"><label>03 // QUICK CHECK</label><h3>Do you understand this concept?</h3>
+<button class="answer" onclick="check(this,true)">✓ YES — I GOT IT</button>
+<button class="answer" onclick="check(this,false)">? I NEED TO REVIEW</button><div id="feedback" style="margin-top:12px;color:var(--muted);font-size:11px"></div></div>
+<div class="lesson-nav">${i?`<button class="secondary" onclick="lesson(${i-1})">← PREVIOUS</button>`:"<span></span>"}<button class="primary" onclick="completeNext()">${i<lessons.length-1?"COMPLETE & NEXT →":"FINISH COURSE ✓"}</button></div>
+</section>`;
+}
+function check(btn,yes){document.querySelectorAll(".answer").forEach(x=>x.disabled=true);btn.classList.add(yes?"correct":"wrong");document.getElementById("feedback").textContent=yes?"CORRECT. KEEP GOING.":"NO PROBLEM. REVIEW IT AND TRY AGAIN."}
+function completeNext(){if(!done.includes(current)){done.push(current);save()} if(current<lessons.length-1)lesson(current+1);else home()}
+home();
+</script>
+</body>
+</html>

@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // KNIGHTS DEMPLAR - CHARACTER DOSSIER</title>
+ <meta name="description" content="Knights Demplar dossier, the world, and the lounges. Demplar Lands, the LilyPad Lounge, and the public hall at knightsdemplar.com. Snapshot 2 Oct 2026.">
+ <meta property="og:title" content="DOSWAPZ // KNIGHTS DEMPLAR - CHARACTER DOSSIER">
+ <meta property="og:description" content="Knights Demplar dossier with the world, the lounges, and my Demplar Lands plot. Snapshot 2 Oct 2026.">
+ <meta property="og:image" content="https://doswapz.com/assets/images/demplar/MAIN.jpg">
+ <meta property="og:url" content="https://doswapz.com/classic/pages/demplar/character.html">
+ <meta name="twitter:card" content="summary_large_image">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='44' font-family='monospace' font-size='28' fill='%23d4a84b' text-anchor='middle' font-weight='bold'%3E%E2%9A%94%3C/text%3E%3C/svg%3E">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ --gold: #d4a84b;
+ --gold-dim: #8a6b2e;
+ --gold-glow: rgba(212, 168, 75, 0.45);
+ }
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ min-height: 100%;
+ background: #000000;
+ color: var(--green);
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: #000000;
+ padding: 24px 28px 60px;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px,
+ rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .header {
+ font-size: clamp(26px, 5vw, 34px);
+ letter-spacing: 5px;
+ text-shadow: 0 0 5px var(--gold), 0 0 10px var(--gold-dim);
+ text-align: center;
+ margin-bottom: 4px;
+ color: var(--gold);
+ }
+
+ .sub {
+ text-align: center;
+ color: var(--green-dim);
+ font-size: 16px;
+ letter-spacing: 2px;
+ margin-bottom: 20px;
+ }
+
+ .content {
+ max-width: 920px;
+ margin: 0 auto;
+ font-size: 19px;
+ line-height: 1.38;
+ padding: 0 8px;
+ position: relative;
+ z-index: 20;
+ }
+
+ .portal-banner {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ justify-content: center;
+ gap: 16px;
+ margin-bottom: 22px;
+ padding: 14px 16px;
+ border: 2px solid var(--gold);
+ background: rgba(40, 28, 0, 0.35);
+ box-shadow: 0 0 14px var(--gold-glow);
+ }
+
+ .portal-emblem {
+ width: 72px;
+ height: 72px;
+ border: 2px solid var(--gold-dim);
+ border-radius: 4px;
+ object-fit: contain;
+ background: #000;
+ padding: 4px;
+ image-rendering: auto;
+ flex-shrink: 0;
+ }
+
+ .portal-copy {
+ flex: 1 1 240px;
+ text-align: left;
+ font-size: 17px;
+ line-height: 1.35;
+ }
+
+ .portal-copy strong {
+ color: var(--gold);
+ letter-spacing: 2px;
+ }
+
+ .portal-actions {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 8px;
+ justify-content: center;
+ width: 100%;
+ }
+
+ .portal-btn {
+ font-size: 17px;
+ color: var(--gold);
+ border: 2px solid var(--gold);
+ padding: 6px 16px;
+ text-decoration: none;
+ display: inline-block;
+ letter-spacing: 2px;
+ background: rgba(0, 0, 0, 0.6);
+ }
+
+ .portal-btn:hover {
+ background: rgba(60, 40, 0, 0.55);
+ color: #ffffff;
+ border-color: #ffffff;
+ text-shadow: 0 0 6px var(--gold);
+ }
+
+ .portal-btn.secondary {
+ color: var(--green);
+ border-color: var(--green-dim);
+ }
+
+ .portal-btn.secondary:hover {
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .dossier {
+ display: grid;
+ grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+ gap: 18px;
+ margin-bottom: 22px;
+ }
+
+ @media (max-width: 720px) {
+ .dossier { grid-template-columns: 1fr; }
+ }
+
+ .portrait-panel {
+ border: 2px solid var(--gold-dim);
+ background: rgba(0, 20, 0, 0.45);
+ padding: 14px;
+ text-align: center;
+ }
+
+ .portrait-frame {
+ width: 100%;
+ max-width: 280px;
+ aspect-ratio: 1;
+ margin: 0 auto 12px;
+ border: 3px solid var(--gold);
+ background:
+ radial-gradient(circle at 50% 35%, rgba(212, 168, 75, 0.18), transparent 58%),
+ #000800;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ position: relative;
+ overflow: hidden;
+ }
+
+ .portrait-img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ object-position: center top;
+ display: block;
+ image-rendering: auto;
+ }
+
+ .portrait-caption {
+ font-size: 14px;
+ color: var(--green-dim);
+ letter-spacing: 2px;
+ }
+
+ .knight-name {
+ font-size: 30px;
+ color: #ffff00;
+ letter-spacing: 4px;
+ text-shadow: 0 0 6px var(--gold);
+ margin: 8px 0 2px;
+ word-break: break-word;
+ }
+
+ .knight-epithet {
+ font-size: 17px;
+ color: var(--gold);
+ letter-spacing: 2px;
+ margin-bottom: 10px;
+ }
+
+ .stat-grid {
+ display: grid;
+ grid-template-columns: repeat(2, minmax(0, 1fr));
+ gap: 8px;
+ margin-top: 10px;
+ }
+
+ .stat-card {
+ border: 1px solid #003300;
+ background: rgba(0, 30, 0, 0.4);
+ padding: 8px 10px;
+ text-align: left;
+ }
+
+ .stat-label {
+ font-size: 13px;
+ color: var(--green-dim);
+ letter-spacing: 1px;
+ }
+
+ .stat-value {
+ font-size: 22px;
+ color: #ffff00;
+ line-height: 1.1;
+ margin-top: 2px;
+ word-break: break-word;
+ }
+
+ .detail-panel {
+ border: 2px solid #003300;
+ background: rgba(0, 25, 0, 0.4);
+ padding: 14px 16px;
+ }
+
+ .section {
+ margin-bottom: 20px;
+ }
+
+ .section-title {
+ font-size: 22px;
+ color: var(--gold);
+ margin-bottom: 6px;
+ border-bottom: 1px solid var(--gold-dim);
+ padding-bottom: 3px;
+ letter-spacing: 2px;
+ }
+
+ .section p {
+ margin: 0 0 10px;
+ }
+
+ .tag-row {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 8px;
+ margin: 10px 0 4px;
+ }
+
+ .tag {
+ font-size: 15px;
+ padding: 3px 10px;
+ border: 1px solid var(--green-dim);
+ color: var(--green);
+ letter-spacing: 1px;
+ }
+
+ .tag.faction-demplar {
+ border-color: var(--gold);
+ color: var(--gold);
+ }
+
+ .lore-quote {
+ color: #ffcc88;
+ background: rgba(40, 28, 0, 0.4);
+ border-left: 3px solid var(--gold);
+ padding: 10px 14px;
+ margin: 12px 0;
+ font-size: 18px;
+ line-height: 1.35;
+ }
+
+ .loadout-list {
+ margin: 0;
+ padding-left: 20px;
+ }
+
+ .loadout-list li {
+ margin-bottom: 6px;
+ }
+
+ .edit-panel {
+ margin-top: 18px;
+ padding: 14px;
+ border: 2px dashed var(--green-dim);
+ background: rgba(0, 0, 0, 0.35);
+ }
+
+ .edit-panel summary {
+ cursor: pointer;
+ color: #ffff00;
+ font-size: 18px;
+ letter-spacing: 2px;
+ user-select: none;
+ }
+
+ .edit-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+ gap: 10px;
+ margin-top: 12px;
+ }
+
+ .edit-field label {
+ display: block;
+ font-size: 14px;
+ color: var(--green-dim);
+ margin-bottom: 4px;
+ letter-spacing: 1px;
+ }
+
+ .edit-field input,
+ .edit-field select,
+ .edit-field textarea {
+ width: 100%;
+ background: #0a0a0a;
+ color: var(--green);
+ border: 2px solid #003300;
+ font-family: inherit;
+ font-size: 17px;
+ padding: 6px 8px;
+ }
+
+ .edit-field textarea {
+ min-height: 88px;
+ resize: vertical;
+ }
+
+ .edit-actions {
+ margin-top: 12px;
+ display: flex;
+ flex-wrap: wrap;
+ gap: 8px;
+ }
+
+ .btn {
+ font-size: 17px;
+ color: var(--green);
+ border: 2px solid var(--green);
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0;
+ display: inline-block;
+ background: transparent;
+ cursor: pointer;
+ font-family: inherit;
+ letter-spacing: 1px;
+ }
+
+ .btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .buttons {
+ text-align: center;
+ margin-top: 28px;
+ }
+
+ .buttons .btn {
+ margin: 0 5px;
+ }
+
+ .footer {
+ margin-top: 28px;
+ font-size: 13px;
+ color: var(--green-dim);
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ .disclaimer {
+ margin-top: 18px;
+ padding: 10px 12px;
+ border: 2px solid var(--gold-dim);
+ background: rgba(40, 28, 0, 0.25);
+ font-size: 14px;
+ line-height: 1.3;
+ color: var(--green-dim);
+ }
+
+ .world-block { margin: 6px 0 26px; }
+
+ .world-lead { color: var(--green); }
+
+ .world-hero,
+ .shot-card {
+ margin: 0;
+ border: 2px solid var(--gold-dim);
+ background: #000;
+ }
+
+ .world-hero { margin-bottom: 16px; }
+
+ .world-hero img,
+ .shot-card img {
+ display: block;
+ width: 100%;
+ height: auto;
+ image-rendering: auto;
+ }
+
+ .world-hero figcaption,
+ .shot-card figcaption {
+ padding: 8px 10px 10px;
+ color: var(--green-dim);
+ font-size: 16px;
+ line-height: 1.3;
+ }
+
+ .shot-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 14px;
+ margin-bottom: 18px;
+ }
+
+ .hall-grid {
+ display: grid;
+ grid-template-columns: 1fr;
+ gap: 12px;
+ }
+
+ .hall-card {
+ border: 2px solid #003300;
+ background: rgba(0, 25, 0, 0.4);
+ padding: 12px 12px 8px;
+ }
+
+ .hall-card h3 {
+ margin: 0 0 8px;
+ color: var(--gold);
+ font-size: 20px;
+ font-weight: normal;
+ letter-spacing: 2px;
+ }
+
+ .hall-card p,
+ .hall-card li { font-size: 17px; }
+
+ .hall-card ul {
+ margin: 0 0 10px;
+ padding-left: 18px;
+ }
+
+ .hall-card a { color: #ffff00; }
+
+ @media (max-width: 720px) {
+ .shot-grid { grid-template-columns: 1fr; }
+ }
+ </style>
+</head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+
+ <div class="header">KNIGHTS DEMPLAR // CHARACTER DOSSIER</div>
+ <div class="sub">DEMPLARVERSE - THE HALL, THE LOUNGES, AND THE LANDS</div>
+
+ <div class="content">
+ <div class="portal-banner">
+ <img
+ class="portal-emblem"
+ src="/assets/images/demplar/brand-lion.png?v=20261002world"
+ alt="Knights Demplar lion"
+ width="72"
+ height="72"
+ >
+ <div class="portal-copy">
+ <strong>ENTER THE DEMPLARVERSE</strong><br>
+ Knights Demplar is a live dungeon-crawl on X Spaces, and a world you can walk.
+ This dossier tracks <em>your</em> knight. The public hall is knightsdemplar.com.
+ Demplar Lands and the LilyPad Lounge are the world and the members door.
+ </div>
+ <div class="portal-actions">
+ <a href="https://knightsdemplar.com/" class="portal-btn" target="_blank" rel="noopener noreferrer"> -> KNIGHTSDEMPLAR.COM</a>
+ <a href="https://demplar.thelilypadlounge.io/" class="portal-btn" target="_blank" rel="noopener noreferrer">THE WORLD</a>
+ <a href="https://thelilypadlounge.io/" class="portal-btn" target="_blank" rel="noopener noreferrer">LILYPAD LOUNGE</a>
+ <a href="https://knightsdemplar.com/lounge/" class="portal-btn secondary" target="_blank" rel="noopener noreferrer">LOUNGE HALL</a>
+ <a href="https://knightsdemplar.com/embassy/" class="portal-btn secondary" target="_blank" rel="noopener noreferrer">EMBASSY</a>
+ <a href="https://codex.knightsdemplar.com/" class="portal-btn secondary" target="_blank" rel="noopener noreferrer">THE CODEX</a>
+ </div>
+ </div>
+
+ <div class="dossier">
+ <div class="portrait-panel">
+ <div class="portrait-frame">
+ <img
+ class="portrait-img"
+ id="portraitImg"
+ src="/assets/images/demplar/MAIN.jpg"
+ alt="My Knights Demplar character"
+ width="280"
+ height="280"
+ >
+ </div>
+ <div class="portrait-caption">ACTIVE KNIGHT RECORD</div>
+ <div class="knight-name" id="displayName">YOUR KNIGHT</div>
+ <div class="knight-epithet" id="displayEpithet">Awaiting epithet in the Codex</div>
+ <div class="stat-grid">
+ <div class="stat-card">
+ <div class="stat-label">LEVEL</div>
+ <div class="stat-value" id="displayLevel"> - </div>
+ </div>
+ <div class="stat-card">
+ <div class="stat-label">FACTION</div>
+ <div class="stat-value" id="displayFaction">DEMPLAR</div>
+ </div>
+ <div class="stat-card">
+ <div class="stat-label">CLASS</div>
+ <div class="stat-value" id="displayClass"> - </div>
+ </div>
+ <div class="stat-card">
+ <div class="stat-label">STATUS</div>
+ <div class="stat-value" id="displayStatus">ACTIVE</div>
+ </div>
+ </div>
+ </div>
+
+ <div class="detail-panel">
+ <div class="section">
+ <div class="section-title">ORIGIN</div>
+ <p id="displayOrigin">A knight sworn into the Demplarverse - forged in live sessions where every roll and raid writes history in real time.</p>
+ <div class="tag-row" id="tagRow">
+ <span class="tag faction-demplar" id="tagFaction">DEMPLAR</span>
+ <span class="tag" id="tagRole">LIVE RPG</span>
+ <span class="tag" id="tagRealm">X SPACES</span>
+ </div>
+ </div>
+
+ <div class="section">
+ <div class="section-title">LEGEND</div>
+ <div class="lore-quote" id="displayQuote">"Demplar isn't a realm. It's a reckoning."</div>
+ <p id="displayBio">Your character's story unfolds across live dungeon crawls, boss fights, and the chaos between revolutions. Update this dossier as your legend grows - or sync details from the Codex when your entry goes live.</p>
+ </div>
+
+ <div class="section">
+ <div class="section-title">ARSENAL</div>
+ <ul class="loadout-list" id="displayLoadout">
+ <li>Primary weapon - assign in edit mode</li>
+ <li>Secondary gear - assign in edit mode</li>
+ <li>Signature ability - assign in edit mode</li>
+ </ul>
+ </div>
+ </div>
+ </div>
+
+ <section class="world-block" id="the-world">
+ <div class="section-title">THE WORLD // 2 OCT 2026</div>
+ <p class="world-lead">The new knightsdemplar.com is the public hall of the Order. Demplar Lands is the world you walk. The lounges are where landowners check in, swap, and play. The shots are from those live pages on 2 Oct 2026, plus my plot.</p>
+
+ <figure class="world-hero">
+ <img src="/assets/images/demplar/plot-of-land.jpg?v=20261002world" alt="My Demplar Lands plot at night, with a lit house, crop rows, a pond, a torch, pines, and a stone border" width="1400" height="788">
+ <figcaption>MY PLOT. Night on Demplar Lands. The house lamps are on, the crop rows are in, a pond sits off the path, and a torch lights the yard. Pines and a stone border hold the plot. A rock hangs in the starfield above it.</figcaption>
+ </figure>
+
+ <div class="shot-grid">
+ <figure class="shot-card">
+ <img src="/assets/images/demplar/world-gate.jpg?v=20261002world" alt="Demplar Embassy gate with Knights, Aetherkanna, Rewards, and Demplar Lands" width="1280" height="978">
+ <figcaption>THE WORLD GATE. demplar.thelilypadlounge.io opens on the Demplar Embassy. Doors: Knights, Aetherkanna, Rewards, Demplar Lands. Check In sits in the corner. Schmiffin Schmuffin. Conjured by Ghosthorama. Raised by Atlantis. Helpe x Knightage.</figcaption>
+ </figure>
+ <figure class="shot-card">
+ <img src="/assets/images/demplar/world-lands.jpg?v=20261002world" alt="Demplar Lands directory for the Heartlands, plots with View and Check In" width="1280" height="978">
+ <figcaption>DEMPLAR LANDS. Browse the realm. Check in to claim a plot. This frame is The Heartlands, Schmiffin Schmuffin, area 01, still surveying. Each plot has View and Check In.</figcaption>
+ </figure>
+ <figure class="shot-card">
+ <img src="/assets/images/demplar/lilypad-gate.jpg?v=20261002world" alt="The Lilypad Lounge members-only door asking for the Phantom wallet that holds Demplar land" width="1280" height="978">
+ <figcaption>THE LILYPAD LOUNGE. thelilypadlounge.io is a VIP door. Connect the Phantom wallet that holds Demplar land. Ordinary wallets are refused.</figcaption>
+ </figure>
+ <figure class="shot-card">
+ <img src="/assets/images/demplar/site-lounge.jpg?v=20261002world" alt="LilyPad Lounge page on knightsdemplar.com, floating above planet Saargano" width="1280" height="978">
+ <figcaption>LOUNGE HALL. knightsdemplar.com/lounge/ calls it the LilyPad Lounge, floating above planet Saargano. Four doors: Embassy, The Tavern, Areas, and LilyPad. The Dance Space and Andre the Scientist's laboratory are on this page.</figcaption>
+ </figure>
+ <figure class="shot-card">
+ <img src="/assets/images/demplar/site-embassy.jpg?v=20261002world" alt="The Embassy page with the liquidity lock and wPond abundance on 2 Oct 2026" width="1280" height="978">
+ <figcaption>THE EMBASSY. The Order is open. Land for members. The lounge still turning. The lock is 99.67% of the $DEMPLAR/SOL pool, about $5,177 sealed. 32,004,081,710 $wPond sent from knightsdemplar.sol. 669 works in the hall. 18 knights in Creative Works rooms. Dated 2 Oct 2026.</figcaption>
+ </figure>
+ <figure class="shot-card">
+ <img src="/assets/images/demplar/site-areas.jpg?v=20261002world" alt="Areas and Relics page: land in the lounge, relics from pickaxes and mining badges" width="1280" height="978">
+ <figcaption>AREAS AND RELICS. Land is Areas in the lounge: plant, store, check in, keep a place. Pickaxes and mining badges are now Relics. Character cards stay Legacy until the table reaches the next Legacy.</figcaption>
+ </figure>
+ <figure class="shot-card">
+ <img src="/assets/images/demplar/site-community.jpg?v=20261002world" alt="Community hall listing films, magazine, chronicles, and creative works" width="1280" height="978">
+ <figcaption>COMMUNITY. The hall of films, Atlantis Magazine, chronicles, and knight-made works. This screen shows Films and Stories 44, Atlantis Magazine 12, Chronicles 33, From the Creator 1, Demplar Creative Works 19, Earlier Titles 5.</figcaption>
+ </figure>
+ </div>
+
+ <div class="hall-grid">
+ <article class="hall-card">
+ <h3>PUBLIC HALL</h3>
+ <p>Nav on knightsdemplar.com: How to Play, Areas, Lore, Embassy, Community, Join.</p>
+ <ul>
+ <li>Game Night is Saturday at 8 PM ET when @DemplarOfficial calls a Space. Atlantis (@altcoin_q) is the DM.</li>
+ <li>Enlist in The Tavern. One character per X account unless Official says otherwise. Listeners can send emojis in the Space to boost a fight.</li>
+ <li>Join, The Tavern, Areas, and LilyPad on this site open an invite. The world and the members lounge are already open at the other two addresses.</li>
+ </ul>
+ <p><a href="https://knightsdemplar.com/" target="_blank" rel="noopener noreferrer">knightsdemplar.com</a></p>
+ </article>
+ <article class="hall-card">
+ <h3>THE LOUNGES</h3>
+ <ul>
+ <li>The LilyPad Lounge page sits above planet Saargano. Embassy is check-in. The Tavern is enlist. Areas is land and Relics. LilyPad is the wider lounge, including rewards. DJ Shmiffen Shmoffen runs the Demplar Dance Space. Andre the Scientist has a laboratory.</li>
+ <li>thelilypadlounge.io is the members lounge. You sign in Phantom. The lounge does not hold the keys. Behind the door: Landclaims v3.3.0, My Land, the Relic Forge, the Blooming Lotus mining rig, and the KnightsDemplar SRPG.</li>
+ <li>Areas 10-1 through 20-10 are listed at 1 SOL and include a free Relic. Areas 1-1 through 9-10 already include a Relic.</li>
+ <li>Lounge Embassy check-in is for landowners, once a month, days 15-20. Building on a plot still uses Check In on the world, with the same Phantom.</li>
+ <li>SRPG classes: Knight, Farmer, Wizard, Villager, Scientist, Healer. World Map, parties up to 16, a landowner bazaar, area chat free, world chat 0.01 SOL. Fast travel is 3 times in 24 hours, 12 for landowners.</li>
+ </ul>
+ <p><a href="https://thelilypadlounge.io/" target="_blank" rel="noopener noreferrer">thelilypadlounge.io</a><br>
+ <a href="https://knightsdemplar.com/lounge/" target="_blank" rel="noopener noreferrer">knightsdemplar.com/lounge/</a></p>
+ </article>
+ <article class="hall-card">
+ <h3>DEMPLAR LANDS</h3>
+ <p>The world is demplar.thelilypadlounge.io. Plots granted in the lounge are viewed there. The gate leads to Knights, Aetherkanna, Rewards, and Demplar Lands.</p>
+ <ul>
+ <li>Lands says: browse the realm, check in to claim a plot. The Heartlands on this pass is Schmiffin Schmuffin, area 01.</li>
+ <li>The Embassy tally the same day: 99.67% of the $DEMPLAR/SOL pool locked, fees to knightsdemplar.sol, and 32,004,081,710 $wPond sent. The hall count there is 669 works: Official 144, Magazine 12, Chronicles 33, Creative Works 423, Storymode 42, Intercepts 10.</li>
+ <li>$DEMPLAR mint 4kU3B6hvnMEWNZadKWkQatky8fBgDLt7R9HwoysVpump</li>
+ </ul>
+ <p><a href="https://demplar.thelilypadlounge.io/" target="_blank" rel="noopener noreferrer">Open the world</a><br>
+ <a href="https://demplar.thelilypadlounge.io/lands" target="_blank" rel="noopener noreferrer">Demplar Lands</a></p>
+ </article>
+ </div>
+ </section>
+
+ <details class="edit-panel">
+ <summary>EDIT DOSSIER (SAVED IN THIS BROWSER)</summary>
+ <div class="edit-grid">
+ <div class="edit-field">
+ <label for="fieldName">Knight name</label>
+ <input id="fieldName" type="text" maxlength="48" placeholder="Your knight's name">
+ </div>
+ <div class="edit-field">
+ <label for="fieldEpithet">Epithet / title</label>
+ <input id="fieldEpithet" type="text" maxlength="64" placeholder="e.g. Blade of the Fracture">
+ </div>
+ <div class="edit-field">
+ <label for="fieldLevel">Level</label>
+ <input id="fieldLevel" type="text" maxlength="8" placeholder=" - ">
+ </div>
+ <div class="edit-field">
+ <label for="fieldFaction">Faction</label>
+ <select id="fieldFaction">
+ <option value="DEMPLAR">Demplar</option>
+ <option value="POND">Pond</option>
+ <option value="PORK">Pork</option>
+ <option value="UNDECIDED">Undecided</option>
+ </select>
+ </div>
+ <div class="edit-field">
+ <label for="fieldClass">Class / role</label>
+ <input id="fieldClass" type="text" maxlength="32" placeholder="Fighter, scout, mystic...">
+ </div>
+ <div class="edit-field">
+ <label for="fieldStatus">Status</label>
+ <input id="fieldStatus" type="text" maxlength="24" placeholder="ACTIVE">
+ </div>
+ <div class="edit-field" style="grid-column: 1 / -1;">
+ <label for="fieldOrigin">Origin</label>
+ <textarea id="fieldOrigin" maxlength="500"></textarea>
+ </div>
+ <div class="edit-field" style="grid-column: 1 / -1;">
+ <label for="fieldQuote">Battle quote</label>
+ <input id="fieldQuote" type="text" maxlength="160">
+ </div>
+ <div class="edit-field" style="grid-column: 1 / -1;">
+ <label for="fieldBio">Legend / bio</label>
+ <textarea id="fieldBio" maxlength="1200"></textarea>
+ </div>
+ <div class="edit-field" style="grid-column: 1 / -1;">
+ <label for="fieldLoadout">Arsenal (one item per line)</label>
+ <textarea id="fieldLoadout" maxlength="600" placeholder="Sword of the Old Man&#10;Shadow cloak&#10;Reckoning strike"></textarea>
+ </div>
+ </div>
+ <div class="edit-actions">
+ <button type="button" class="btn" id="saveDossierBtn">SAVE DOSSIER</button>
+ <button type="button" class="btn" id="resetDossierBtn">RESET TO DEFAULTS</button>
+ </div>
+ </details>
+
+ <div class="disclaimer">
+ Character data on this page is stored locally in your browser only - not on DOSWAPZ servers.
+ The world numbers above were read from the live halls on 2 Oct 2026.
+ Public hall: <a href="https://knightsdemplar.com/" target="_blank" rel="noopener noreferrer" style="color:#ffff00;">knightsdemplar.com</a>.
+ World: <a href="https://demplar.thelilypadlounge.io/" target="_blank" rel="noopener noreferrer" style="color:#ffff00;">demplar.thelilypadlounge.io</a>.
+ Members lounge: <a href="https://thelilypadlounge.io/" target="_blank" rel="noopener noreferrer" style="color:#ffff00;">thelilypadlounge.io</a>.
+ Codex: <a href="https://codex.knightsdemplar.com/" target="_blank" rel="noopener noreferrer" style="color:#ffff00;">codex.knightsdemplar.com</a>.
+ </div>
+
+ <div class="buttons">
+ <a href="/classic/hub.html" class="btn"><- BACK TO MENU</a>
+ <a href="https://demplar.thelilypadlounge.io/lands" class="btn" target="_blank" rel="noopener noreferrer">DEMPLAR LANDS</a>
+ <a href="https://thelilypadlounge.io/" class="btn" target="_blank" rel="noopener noreferrer">LILYPAD LOUNGE</a>
+ <a href="https://knightsdemplar.com/" class="btn" target="_blank" rel="noopener noreferrer">OFFICIAL SITE</a>
+ </div>
+
+ <div class="footer">
+ DOSWAPZ - KNIGHTS DEMPLAR * THE WORLD AND THE LOUNGES * 2 OCT 2026
+ </div>
+ </div>
+
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+ <script>
+ const STORAGE_KEY = 'doswapz_demplar_dossier_v1';
+
+ const DEFAULTS = {
+ name: 'YOUR KNIGHT',
+ epithet: 'Awaiting epithet in the Codex',
+ level: ' - ',
+ faction: 'DEMPLAR',
+ class: ' - ',
+ status: 'ACTIVE',
+ origin: 'A knight sworn into the Demplarverse - forged in live sessions where every roll and raid writes history in real time.',
+ quote: '"Demplar isn\'t a realm. It\'s a reckoning."',
+ bio: 'Your character\'s story unfolds across live dungeon crawls, boss fights, and the chaos between revolutions. Update this dossier as your legend grows - or sync details from the Codex when your entry goes live.',
+ loadout: 'Primary weapon - assign in edit mode\nSecondary gear - assign in edit mode\nSignature ability - assign in edit mode'
+ };
+
+ const fields = {
+ name: document.getElementById('fieldName'),
+ epithet: document.getElementById('fieldEpithet'),
+ level: document.getElementById('fieldLevel'),
+ faction: document.getElementById('fieldFaction'),
+ class: document.getElementById('fieldClass'),
+ status: document.getElementById('fieldStatus'),
+ origin: document.getElementById('fieldOrigin'),
+ quote: document.getElementById('fieldQuote'),
+ bio: document.getElementById('fieldBio'),
+ loadout: document.getElementById('fieldLoadout')
+ };
+
+ const displays = {
+ name: document.getElementById('displayName'),
+ epithet: document.getElementById('displayEpithet'),
+ level: document.getElementById('displayLevel'),
+ faction: document.getElementById('displayFaction'),
+ class: document.getElementById('displayClass'),
+ status: document.getElementById('displayStatus'),
+ origin: document.getElementById('displayOrigin'),
+ quote: document.getElementById('displayQuote'),
+ bio: document.getElementById('displayBio'),
+ loadout: document.getElementById('displayLoadout'),
+ tagFaction: document.getElementById('tagFaction')
+ };
+
+ function loadDossier() {
+ try {
+ const raw = localStorage.getItem(STORAGE_KEY);
+ if (!raw) return { ...DEFAULTS };
+ return { ...DEFAULTS, ...JSON.parse(raw) };
+ } catch (e) {
+ return { ...DEFAULTS };
+ }
+ }
+
+ function saveDossier(data) {
+ localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+ }
+
+ function renderLoadout(text) {
+ const items = (text || '').split('\n').map(s => s.trim()).filter(Boolean);
+ displays.loadout.innerHTML = items.length
+ ? items.map(item => `<li>${escapeHtml(item)}</li>`).join('')
+ : '<li> - </li>';
+ }
+
+ function escapeHtml(str) {
+ return String(str)
+ .replace(/&/g, '&amp;')
+ .replace(/</g, '&lt;')
+ .replace(/>/g, '&gt;')
+ .replace(/"/g, '&quot;');
+ }
+
+ function applyDossier(data) {
+ displays.name.textContent = data.name || DEFAULTS.name;
+ displays.epithet.textContent = data.epithet || DEFAULTS.epithet;
+ displays.level.textContent = data.level || DEFAULTS.level;
+ displays.faction.textContent = data.faction || DEFAULTS.faction;
+ displays.class.textContent = data.class || DEFAULTS.class;
+ displays.status.textContent = data.status || DEFAULTS.status;
+ displays.origin.textContent = data.origin || DEFAULTS.origin;
+ displays.quote.textContent = data.quote || DEFAULTS.quote;
+ displays.bio.textContent = data.bio || DEFAULTS.bio;
+ displays.tagFaction.textContent = data.faction || DEFAULTS.faction;
+ renderLoadout(data.loadout);
+
+ const faction = (data.faction || 'DEMPLAR').toUpperCase();
+ displays.tagFaction.className = 'tag' + (faction === 'DEMPLAR' ? ' faction-demplar' : '');
+ }
+
+ function fillForm(data) {
+ fields.name.value = data.name || '';
+ fields.epithet.value = data.epithet || '';
+ fields.level.value = data.level === ' - ' ? '' : (data.level || '');
+ fields.faction.value = data.faction || 'DEMPLAR';
+ fields.class.value = data.class === ' - ' ? '' : (data.class || '');
+ fields.status.value = data.status || '';
+ fields.origin.value = data.origin || '';
+ fields.quote.value = data.quote || '';
+ fields.bio.value = data.bio || '';
+ fields.loadout.value = data.loadout || '';
+ }
+
+ function readForm() {
+ return {
+ name: fields.name.value.trim() || DEFAULTS.name,
+ epithet: fields.epithet.value.trim() || DEFAULTS.epithet,
+ level: fields.level.value.trim() || ' - ',
+ faction: fields.faction.value || 'DEMPLAR',
+ class: fields.class.value.trim() || ' - ',
+ status: fields.status.value.trim() || DEFAULTS.status,
+ origin: fields.origin.value.trim() || DEFAULTS.origin,
+ quote: fields.quote.value.trim() || DEFAULTS.quote,
+ bio: fields.bio.value.trim() || DEFAULTS.bio,
+ loadout: fields.loadout.value.trim() || DEFAULTS.loadout
+ };
+ }
+
+ const initial = loadDossier();
+ applyDossier(initial);
+ fillForm(initial);
+
+ document.getElementById('saveDossierBtn').addEventListener('click', () => {
+ const data = readForm();
+ saveDossier(data);
+ applyDossier(data);
+ });
+
+ document.getElementById('resetDossierBtn').addEventListener('click', () => {
+ if (!confirm('Reset dossier to defaults? Saved character data will be cleared.')) return;
+ localStorage.removeItem(STORAGE_KEY);
+ applyDossier(DEFAULTS);
+ fillForm(DEFAULTS);
+ });
+ </script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '#screen', content: '.content' });
+ </script>
+ <div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+<script src="/assets/js/core/price-ticker.js"></script>
+ </body>
+</html>

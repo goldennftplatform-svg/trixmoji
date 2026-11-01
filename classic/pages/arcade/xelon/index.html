@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+  <title>XELON // DOSWAPZ ARCADE</title>
+  <meta name="description" content="XELON — Gradius-style horizontal shooter. Pilot the rocket. Clear 12 stages. Trade $XELON on DOSWAPZ." />
+  <meta property="og:title" content="XELON // DOSWAPZ ARCADE" />
+  <meta property="og:description" content="Gradius-type left-to-right shooter. 12 stages. Power meter. Options. Bosses." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="/assets/css/era-present-game.css?v=20260809era" />
+</head>
+<body data-present-label="XELON">
+  <nav class="arcade-bar">
+    <a href="/classic/pages/arcade/hub.html">← HUB</a>
+    <span class="arcade-bar-title">XELON</span>
+    <div class="arcade-bar-right">
+      <a
+        href="/classic/pages/doswapz/swap.html?toMint=76Cf2zrKqwQEMGj7TaZ6hJ1Ja6hNsXXrK2UVBRjKTRiX"
+        target="_blank"
+        rel="noopener"
+      >$XELON</a>
+    </div>
+  </nav>
+
+  <div id="wrap">
+    <div id="stage">
+      <div id="intro" class="active" aria-label="Title intro">
+        <video
+          id="intro-video"
+          src="assets/intro.mp4"
+          autoplay
+          loop
+          playsinline
+          preload="auto"
+        ></video>
+        <div id="intro-overlay">
+          <div id="intro-prompt" class="blink">HIT ENTER TO START</div>
+          <div id="intro-sub">Z / SPACE fire · X power-up · ARROWS move</div>
+          <a
+            id="buy-xelon"
+            class="buy-xelon"
+            href="/classic/pages/doswapz/swap.html?toMint=76Cf2zrKqwQEMGj7TaZ6hJ1Ja6hNsXXrK2UVBRjKTRiX"
+            target="_blank"
+            rel="noopener"
+            onclick="event.stopPropagation()"
+          >BUY $XELON ON DOSWAPZ</a>
+        </div>
+      </div>
+      <canvas id="game" width="960" height="540" hidden></canvas>
+    </div>
+    <div id="hint">
+      <kbd>Arrows</kbd>/<kbd>WASD</kbd> move · <kbd>Z</kbd>/<kbd>Space</kbd> fire ·
+      <kbd>X</kbd>/<kbd>Shift</kbd> power-up · <kbd>P</kbd> pause · <kbd>Enter</kbd> start
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/assets.js"></script>
+  <script src="js/levels.js"></script>
+  <script src="js/draw.js"></script>
+  <script src="js/entities.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
+  <script src="/assets/js/core/era-present-game.js?v=20260809era"></script>
+</body>
+</html>

@@ -1,0 +1,1525 @@
+/* DOSWAPZ - shared CRT shell overlays */
+
+/* ── Global smoothness (GPU + input + scroll) ───────────────── */
+html {
+ -webkit-text-size-adjust: 100%;
+ text-size-adjust: 100%;
+ /* Wheel / trackpad must always be able to scroll document */
+ overflow-x: hidden !important;
+ overflow-y: auto !important;
+ height: auto !important;
+ max-height: none !important;
+ min-height: 100%;
+ scroll-behavior: auto;
+}
+
+html.dos-smooth,
+body.dos-smooth {
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
+ text-rendering: optimizeLegibility;
+}
+
+body,
+body.dos-smooth {
+ overscroll-behavior-y: auto;
+ -webkit-overflow-scrolling: touch;
+ overflow-x: hidden !important;
+ overflow-y: auto !important;
+ height: auto !important;
+ max-height: none !important;
+ min-height: 100%;
+ position: relative;
+}
+
+/* Splash / full-screen games opt out */
+html.dos-no-scroll,
+html.dos-no-scroll body,
+body.splash-page,
+body.dos-no-scroll,
+html.dos-no-scroll body.dos-smooth {
+ overflow: hidden !important;
+ height: 100% !important;
+ max-height: 100% !important;
+}
+
+/* Never let CRT overlays eat the scroll wheel */
+.vignette,
+.glitch-layer,
+.dos-screen::before,
+#screen::before,
+.mosh-band,
+.water-ripple,
+.dos-brownout-black,
+.dos-brownout-ping,
+.grain,
+.bg-canvas,
+#stars,
+.orbit-line,
+.core-glow {
+ pointer-events: none !important;
+}
+
+/* Backdrop field shouldn't steal wheel; buttons inside stay clickable */
+.float-field {
+ pointer-events: none !important;
+}
+.float-field .hollow-btn,
+.float-field a,
+.float-field button {
+ pointer-events: auto !important;
+}
+
+/* Legacy debug badge - permanently killed (PAST / INTRO v...) */
+#arcadeEraBadge,
+#arcadeEraBadge .era-pill,
+#arcadeEraBadge .era-ver {
+ display: none !important;
+ visibility: hidden !important;
+ opacity: 0 !important;
+ pointer-events: none !important;
+}
+
+/* Soft page enter - avoids hard pop when shell boots */
+body.dos-smooth.dos-page-enter {
+ animation: dos-page-enter 280ms cubic-bezier(0.22, 0.9, 0.28, 1) both;
+}
+
+@keyframes dos-page-enter {
+ from {
+ opacity: 0.72;
+ transform: translate3d(0, 4px, 0);
+ }
+ to {
+ opacity: 1;
+ transform: translate3d(0, 0, 0);
+ }
+}
+
+/* Interactive chrome eases without fighting pixel aesthetic */
+body.dos-smooth a,
+body.dos-smooth button,
+body.dos-smooth .btn,
+body.dos-smooth .option,
+body.dos-smooth select,
+body.dos-smooth summary {
+ transition:
+ color 140ms ease,
+ background-color 140ms ease,
+ border-color 140ms ease,
+ opacity 140ms ease,
+ transform 160ms cubic-bezier(0.22, 0.9, 0.28, 1),
+ box-shadow 160ms ease;
+ -webkit-tap-highlight-color: rgba(0, 255, 65, 0.12);
+}
+
+body.dos-smooth a:active,
+body.dos-smooth button:active,
+body.dos-smooth .btn:active,
+body.dos-smooth .option:active {
+ transform: translate3d(0, 1px, 0) scale(0.985);
+}
+
+/* Never clobber centering transforms on gate buttons (breaks click) */
+body.dos-smooth .enter-btn:active,
+body.dos-smooth button.enter-btn:active,
+body.dos-smooth .enter-btn:hover,
+body.dos-smooth button.enter-btn:hover {
+ transform: translate(-50%, -50%) scale(0.98);
+}
+
+body.dos-smooth .btn:focus-visible,
+body.dos-smooth a:focus-visible,
+body.dos-smooth button:focus-visible,
+body.dos-smooth .option:focus-visible {
+ outline: 1px solid rgba(0, 255, 65, 0.55);
+ outline-offset: 2px;
+}
+
+/* Prefer compositor for heavy CRT layers */
+.vignette {
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 55%, rgba(0, 0, 0, 0.55) 82%);
+ pointer-events: none;
+ z-index: 5;
+ contain: strict;
+ transform: translateZ(0);
+}
+
+.dos-screen > .vignette,
+#screen > .vignette {
+ position: absolute;
+}
+
+.glitch-layer {
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 20;
+ mix-blend-mode: screen;
+ contain: strict;
+ transform: translateZ(0);
+ backface-visibility: hidden;
+ /* Limit paint cost of dozens of flash children */
+ isolation: isolate;
+}
+
+/* Phone: skip expensive full-screen blend if low-power class set */
+body.dos-perf-lite .glitch-layer {
+ mix-blend-mode: normal;
+ opacity: 0.85;
+}
+
+body.dos-perf-lite .water-ripple,
+body.dos-perf-lite .mosh-band {
+ box-shadow: none !important;
+}
+
+.mosh-band {
+ pointer-events: none;
+ z-index: 25;
+ opacity: 0;
+}
+
+.water-ripple {
+ height: 1.5px;
+ background: rgba(0, 255, 195, 0.48);
+ mix-blend-mode: screen;
+ pointer-events: none;
+ z-index: 23;
+ opacity: 0.72;
+ box-shadow: 0 0 5px rgba(0, 255, 180, 0.55);
+}
+
+.color-letter {
+ display: inline-block;
+ text-shadow: 0 0 8px currentColor, 0 0 16px currentColor;
+}
+
+.doswap .color-letter {
+ display: inline-block;
+ text-shadow: 0 0 8px currentColor, 0 0 16px currentColor;
+}
+
+@keyframes ftwr-rabbit-hop {
+ 0%,
+ 49% {
+ background-image: var(--ftwr-rabbit-icon-url);
+ transform: translateY(0);
+ }
+ 50%,
+ 100% {
+ background-image: var(--ftwr-rabbit-icon-url-alt, var(--ftwr-rabbit-icon-url));
+ transform: translateY(-2px);
+ }
+}
+
+.ftwr-rabbit-icon {
+ display: inline-block;
+ width: 14px;
+ height: 14px;
+ vertical-align: -2px;
+ margin-right: 3px;
+ background-image: var(--ftwr-rabbit-icon-url);
+ background-size: contain;
+ background-repeat: no-repeat;
+ background-position: center;
+ image-rendering: pixelated;
+ image-rendering: crisp-edges;
+ flex-shrink: 0;
+ animation: ftwr-rabbit-hop 0.42s steps(1, end) infinite;
+}
+
+.ftwr-word {
+ white-space: inherit;
+}
+
+/* Live price ticker - site-wide (all pages except home splash) */
+body.has-doswapz-ticker {
+ padding-bottom: calc(34px + env(safe-area-inset-bottom, 0px));
+}
+
+body.has-doswapz-ticker .comsec {
+ bottom: calc(46px + env(safe-area-inset-bottom, 0px));
+}
+
+.price-ticker-bar {
+ position: fixed;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ z-index: 40;
+ background: rgba(0, 0, 0, 0.94);
+ border-top: 2px solid #00ff41;
+ font-family: 'VT323', 'Courier New', monospace;
+ font-size: 13px;
+ line-height: 1;
+ overflow: hidden;
+ height: 30px;
+ /* iPhone home indicator / notched devices */
+ padding-bottom: env(safe-area-inset-bottom, 0px);
+ height: calc(30px + env(safe-area-inset-bottom, 0px));
+ -webkit-backdrop-filter: blur(6px);
+ backdrop-filter: blur(6px);
+ /* Keep off the compositor jank path on low-end phones */
+ contain: layout style;
+ touch-action: pan-y;
+}
+
+.price-ticker-inner {
+ display: flex;
+ align-items: center;
+ height: 30px;
+ white-space: nowrap;
+ max-width: 100%;
+}
+
+.price-ticker-label {
+ flex-shrink: 0;
+ padding: 0 10px;
+ background: #003300;
+ color: #ffff00;
+ font-size: 11px;
+ letter-spacing: 1px;
+ border-right: 1px solid #00ff41;
+ height: 100%;
+ display: flex;
+ align-items: center;
+}
+
+.price-ticker-status {
+ flex-shrink: 0;
+ padding: 0 8px;
+ color: #00aa00;
+ font-size: 10px;
+ border-right: 1px solid #003300;
+ height: 100%;
+ display: flex;
+ align-items: center;
+ max-width: 42vw;
+ overflow: hidden;
+ text-overflow: ellipsis;
+}
+
+.price-ticker-viewport {
+ flex: 1;
+ min-width: 0;
+ overflow: hidden;
+ height: 100%;
+ display: flex;
+ align-items: center;
+ -webkit-mask-image: linear-gradient(90deg, transparent, #000 8px, #000 calc(100% - 8px), transparent);
+ mask-image: linear-gradient(90deg, transparent, #000 8px, #000 calc(100% - 8px), transparent);
+}
+
+.price-ticker-track {
+ display: inline-flex;
+ align-items: center;
+ gap: 18px;
+ padding-left: 100%;
+ /* Longer loop so full VB + Trix catalog can scroll readably */
+ animation: doswapz-ticker-scroll 120s linear infinite;
+ will-change: transform;
+ backface-visibility: hidden;
+ transform: translateZ(0);
+}
+
+.price-ticker-track:hover,
+.price-ticker-track.is-paused {
+ animation-play-state: paused;
+}
+
+@keyframes doswapz-ticker-scroll {
+ 0% { transform: translate3d(0, 0, 0); }
+ 100% { transform: translate3d(-50%, 0, 0); }
+}
+
+.ticker-item {
+ display: inline-flex;
+ align-items: center;
+ gap: 6px;
+ color: #00ff00;
+ text-decoration: none;
+ /* Comfortable tap targets without blowing bar height */
+ min-height: 28px;
+ padding: 0 2px;
+ -webkit-tap-highlight-color: rgba(0, 255, 65, 0.15);
+}
+
+a.ticker-item:hover,
+a.ticker-item:focus-visible {
+ color: #ffff00;
+ outline: none;
+}
+
+a.ticker-item:hover .ticker-symbol,
+a.ticker-item:focus-visible .ticker-symbol {
+ color: #ffffff;
+}
+
+.ticker-tag {
+ color: #00aa00;
+ font-size: 9px;
+ letter-spacing: 0.5px;
+ border: 1px solid #004400;
+ padding: 1px 4px;
+}
+
+.ticker-symbol {
+ color: #ffff00;
+ font-weight: bold;
+}
+
+.ticker-price {
+ color: #00ff00;
+}
+
+.ticker-change {
+ font-size: 11px;
+}
+
+.ticker-change.up {
+ color: #00ff88;
+}
+
+.ticker-change.down {
+ color: #ff6666;
+}
+
+.ticker-sep {
+ color: #004400;
+ margin: 0 4px;
+}
+
+.ticker-item.ticker-world .ticker-price {
+ color: #aaffaa;
+ letter-spacing: 0.5px;
+}
+
+/* Phone / narrow / coarse pointer */
+@media (max-width: 700px), (pointer: coarse) {
+ body.has-doswapz-ticker {
+ padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+ }
+
+ body.has-doswapz-ticker .comsec {
+ bottom: calc(52px + env(safe-area-inset-bottom, 0px));
+ }
+
+ .price-ticker-bar {
+ height: calc(36px + env(safe-area-inset-bottom, 0px));
+ border-top-width: 1px;
+ font-size: 14px;
+ }
+
+ .price-ticker-inner {
+ height: 36px;
+ }
+
+ .price-ticker-label {
+ padding: 0 8px;
+ font-size: 12px;
+ letter-spacing: 0.5px;
+ }
+
+ .price-ticker-status {
+ display: none; /* reclaim width for prices on small screens */
+ }
+
+ .price-ticker-track {
+ gap: 14px;
+ animation-duration: 90s; /* snappier on phones; JS may override */
+ }
+
+ .ticker-item {
+ gap: 4px;
+ min-height: 34px;
+ }
+
+ .ticker-tag {
+ display: none; /* compact: symbol + price only */
+ }
+
+ .ticker-change {
+ font-size: 12px;
+ }
+
+ .ticker-sep {
+ margin: 0 2px;
+ }
+
+ /* Glitch dial: above ticker, tappable, doesn't cover content center */
+ .glitch-dial {
+ left: 6px;
+ right: auto;
+ bottom: calc(44px + env(safe-area-inset-bottom, 0px));
+ flex-wrap: wrap;
+ max-width: calc(100vw - 12px);
+ padding: 4px 6px;
+ font-size: 12px;
+ gap: 4px;
+ }
+
+ .glitch-dial button {
+ min-height: 32px;
+ min-width: 44px;
+ padding: 4px 8px;
+ font-size: 12px;
+ }
+
+ body:not(.has-doswapz-ticker) .glitch-dial {
+ bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+ }
+
+ body.has-doswapz-ticker.has-dos-docs-footer-compact .glitch-dial {
+ bottom: calc(78px + env(safe-area-inset-bottom, 0px));
+ }
+
+ body.has-doswapz-ticker.has-dos-docs-footer .dos-docs-footer:not(.dos-docs-footer--compact) {
+ margin-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+ }
+
+ body.has-doswapz-ticker.has-dos-docs-footer-compact {
+ padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+ }
+
+ body.has-doswapz-ticker.has-dos-docs-footer-compact .price-ticker-bar {
+ bottom: calc(34px + env(safe-area-inset-bottom, 0px));
+ }
+
+ .dos-docs-compact-inner {
+ font-size: 11px;
+ gap: 4px 8px;
+ padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+ line-height: 1.3;
+ }
+
+ .dos-docs-one-liner {
+ display: none; /* keep kicker + full-terms link only on phones */
+ }
+
+ .dos-docs-panel {
+ padding: 14px 12px calc(18px + env(safe-area-inset-bottom, 0px));
+ }
+
+ .dos-docs-title {
+ font-size: 16px;
+ letter-spacing: 1px;
+ }
+
+ .dos-docs-banner {
+ font-size: 13px;
+ padding: 8px 10px;
+ }
+
+ .dos-docs-col p,
+ .dos-docs-fine p {
+ font-size: 13px;
+ }
+
+ .dos-docs-actions {
+ display: flex;
+ flex-direction: column;
+ gap: 8px;
+ font-size: 14px !important;
+ }
+
+ .dos-docs-actions a {
+ display: inline-block;
+ padding: 6px 0;
+ min-height: 40px;
+ line-height: 1.3;
+ }
+
+ .dos-docs-sep {
+ display: none;
+ }
+
+ .dos-path-bar {
+ margin: 0 8px 10px;
+ font-size: 12px;
+ padding: 6px 8px;
+ }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+ .price-ticker-label {
+ padding: 0 6px;
+ font-size: 11px;
+ }
+
+ .price-ticker-label::after {
+ content: none;
+ }
+
+ .ticker-item {
+ font-size: 13px;
+ }
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+ html,
+ body,
+ body.dos-smooth {
+ scroll-behavior: auto !important;
+ }
+
+ body.dos-smooth.dos-page-enter,
+ body.dos-page-enter {
+ animation: none !important;
+ }
+
+ body.dos-smooth a,
+ body.dos-smooth button,
+ body.dos-smooth .btn,
+ body.dos-smooth .option {
+ transition: none !important;
+ }
+
+ .price-ticker-track {
+ animation: none !important;
+ padding-left: 8px;
+ overflow-x: auto;
+ -webkit-overflow-scrolling: touch;
+ max-width: 100%;
+ }
+
+ .price-ticker-viewport {
+ -webkit-mask-image: none;
+ mask-image: none;
+ overflow-x: auto;
+ }
+
+ .ftwr-rabbit-icon {
+ animation: none !important;
+ }
+
+ .glitch-layer,
+ .mosh-band,
+ .water-ripple {
+ display: none !important;
+ }
+}
+
+/* Tube CRT wipe used by page transitions - GPU friendly */
+.tube-power {
+ will-change: height, top, opacity;
+ transform: translateZ(0);
+ backface-visibility: hidden;
+ pointer-events: none;
+}
+
+/* Smooth select/input feel on mobile forms */
+@media (max-width: 700px), (pointer: coarse) {
+ body.dos-smooth select,
+ body.dos-smooth input,
+ body.dos-smooth textarea,
+ body.dos-smooth button,
+ body.dos-smooth .btn {
+ font-size: 16px; /* prevents iOS zoom-on-focus jank */
+ }
+
+ body.dos-smooth .btn,
+ body.dos-smooth button.btn {
+ min-height: 44px;
+ }
+
+ /* Less aggressive active scale on touch */
+ body.dos-smooth a:active,
+ body.dos-smooth button:active,
+ body.dos-smooth .btn:active,
+ body.dos-smooth .option:active {
+ transform: scale(0.99);
+ }
+
+ body.dos-perf-lite .price-ticker-track {
+ will-change: auto;
+ }
+
+ /* Global room for fixed ticker + compact legal + home indicator */
+ body.has-doswapz-ticker.has-dos-docs-footer:not(.has-dos-docs-footer-compact) .dos-screen,
+ body.has-doswapz-ticker.has-dos-docs-footer:not(.has-dos-docs-footer-compact) #screen,
+ body.has-doswapz-ticker.has-dos-docs-footer:not(.has-dos-docs-footer-compact) .content {
+ scroll-padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
+ }
+
+ /* Hub / menus: keep last options above the ticker */
+ body.has-doswapz-ticker {
+ padding-bottom: calc(42px + env(safe-area-inset-bottom, 0px)) !important;
+ }
+
+ body.has-doswapz-ticker.has-dos-docs-footer-compact {
+ padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)) !important;
+ }
+
+ /* Horizontal overflow guard on phones - keep vertical scroll */
+ html, body {
+ max-width: 100%;
+ overflow-x: hidden;
+ overflow-y: auto;
+ }
+
+ html.dos-no-scroll,
+ body.splash-page,
+ body.dos-no-scroll {
+ overflow-y: hidden !important;
+ }
+
+ img, video, canvas {
+ max-width: 100%;
+ height: auto;
+ }
+}
+
+/* Random system brownout (~2/hour) */
+.dos-brownout-black {
+ position: fixed;
+ inset: 0;
+ background: #000;
+ z-index: 99990;
+ pointer-events: none;
+ opacity: 0;
+ transition: opacity 40ms linear;
+}
+
+.dos-brownout-black.dos-brownout-active {
+ opacity: 1;
+}
+
+.dos-brownout-ping {
+ position: fixed;
+ left: 50%;
+ top: 50%;
+ transform: translate(-50%, -50%);
+ z-index: 99991;
+ pointer-events: none;
+ font-family: 'VT323', Consolas, monospace;
+ font-size: clamp(14px, 3.2vw, 20px);
+ letter-spacing: 0.14em;
+ color: #00ff41;
+ text-shadow: 0 0 8px #00ff41, 0 0 18px rgba(0, 255, 65, 0.45);
+ text-align: center;
+ max-width: min(92vw, 520px);
+ padding: 10px 14px;
+ border: 1px solid rgba(0, 255, 65, 0.35);
+ background: rgba(0, 8, 0, 0.82);
+ opacity: 0;
+ transition: opacity 120ms ease-out;
+}
+
+.dos-brownout-ping.dos-brownout-ping-show {
+ opacity: 1;
+}
+
+body.dos-brownout-glitch .glitch-layer {
+ animation: dos-brownout-flicker 180ms steps(2) 3;
+}
+
+@keyframes dos-brownout-flicker {
+ 0%, 100% { opacity: 1; filter: none; }
+ 50% { opacity: 0.35; filter: contrast(1.8) hue-rotate(90deg); }
+}
+
+body.orbit-void-inner .dos-brownout-ping {
+ color: rgba(180, 220, 255, 0.9);
+ text-shadow: 0 0 10px rgba(180, 200, 255, 0.4);
+ border-color: rgba(180, 200, 255, 0.25);
+ background: rgba(0, 0, 0, 0.78);
+}
+
+/* CRT tube page transition */
+.tube-power {
+ position: fixed;
+ left: 0;
+ right: 0;
+ top: 50%;
+ height: 0;
+ background: #00ff00;
+ box-shadow: 0 0 18px #00ff00, 0 0 38px #00ff00, 0 0 70px #00aa00;
+ z-index: 200;
+ pointer-events: none;
+ opacity: 0.95;
+ display: none;
+}
+
+/* Terminal path breadcrumb */
+.dos-path-bar {
+ max-width: 760px;
+ margin: 0 auto 10px;
+ padding: 4px 10px;
+ font-family: 'VT323', 'Courier New', monospace;
+ font-size: 13px;
+ color: #00aa00;
+ letter-spacing: 1px;
+ border: 1px solid #003300;
+ background: rgba(0, 12, 0, 0.55);
+ text-align: left;
+}
+
+.dos-path-root {
+ color: #ffff00;
+}
+
+.dos-path-trail {
+ color: #00ff00;
+}
+
+/* CRT control strip (glitch + motion + text + scan + hi-con) */
+.glitch-dial,
+.crt-controls {
+ position: fixed;
+ left: 8px;
+ bottom: 36px;
+ z-index: 45;
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ gap: 4px;
+ font-family: 'VT323', 'Courier New', monospace;
+ font-size: 11px;
+ background: rgba(0, 0, 0, 0.92);
+ border: 1px solid #00ff41;
+ box-shadow: 0 0 12px rgba(0, 255, 65, 0.12);
+ padding: 5px 7px;
+ max-width: calc(100vw - 16px);
+ backdrop-filter: blur(4px);
+ -webkit-backdrop-filter: blur(4px);
+}
+
+.crt-controls-row {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ gap: 4px;
+}
+
+.glitch-dial-label {
+ color: #ffff00;
+ margin-right: 2px;
+ letter-spacing: 1px;
+ font-size: 10px;
+}
+
+.glitch-dial button,
+.crt-controls button {
+ font-family: inherit;
+ font-size: 11px;
+ color: #00aa00;
+ background: transparent;
+ border: 1px solid #003300;
+ padding: 3px 6px;
+ cursor: pointer;
+ min-height: 26px;
+ line-height: 1;
+ -webkit-tap-highlight-color: rgba(0, 255, 65, 0.2);
+}
+
+.glitch-dial button:hover,
+.crt-controls button:hover {
+ color: #ffff00;
+ border-color: #00ff41;
+}
+
+.glitch-dial button.active,
+.crt-controls button.active,
+.glitch-dial button.chip-toggle.active,
+.crt-controls button.chip-toggle.active {
+ color: #000;
+ background: #00ff41;
+ border-color: #00ff41;
+}
+
+.glitch-dial button:disabled,
+.crt-controls button:disabled {
+ opacity: 0.35;
+ cursor: default;
+ color: #005500;
+ border-color: #002200;
+}
+
+.glitch-dial-sep {
+ width: 1px;
+ height: 16px;
+ background: #003300;
+ margin: 0 2px;
+ flex-shrink: 0;
+}
+
+.glitch-dial .motion-toggle,
+.glitch-dial .chip-toggle {
+ min-width: 34px;
+}
+
+.glitch-dial .chip-readout {
+ min-width: 28px;
+ color: #ffff00 !important;
+ border-color: #335500 !important;
+ background: #001a00 !important;
+ opacity: 1 !important;
+ cursor: default !important;
+ font-size: 10px !important;
+ letter-spacing: 1px;
+}
+
+.crt-controls-help {
+ padding-top: 2px;
+ border-top: 1px solid #002200;
+}
+
+/* HIDE -> collapses strip to a small CTRL tab (stays clickable) */
+.glitch-dial .crt-show-tab {
+ display: none;
+ min-width: 44px;
+ min-height: 32px;
+ letter-spacing: 2px;
+ color: #00ff41 !important;
+ border-color: #00ff41 !important;
+ background: rgba(0, 20, 0, 0.95) !important;
+ box-shadow: 0 0 10px rgba(0, 255, 65, 0.25);
+}
+
+.glitch-dial .crt-hide-btn {
+ color: #ffaa00;
+ border-color: #664400;
+ letter-spacing: 1px;
+ margin-left: 2px;
+}
+
+.glitch-dial .crt-hide-btn:hover {
+ color: #000 !important;
+ background: #ffaa00 !important;
+ border-color: #ffaa00 !important;
+}
+
+.glitch-dial .crt-controls-panel {
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ gap: 4px;
+}
+
+/* Hidden state: full panel gone, only CTRL tab visible */
+.glitch-dial.is-hidden,
+html.dos-crt-hidden .glitch-dial {
+ padding: 4px;
+ background: transparent;
+ border-color: transparent;
+ box-shadow: none;
+ backdrop-filter: none;
+ -webkit-backdrop-filter: none;
+}
+
+.glitch-dial.is-hidden .crt-controls-panel,
+html.dos-crt-hidden .glitch-dial .crt-controls-panel {
+ display: none !important;
+}
+
+.glitch-dial.is-hidden .crt-show-tab,
+html.dos-crt-hidden .glitch-dial .crt-show-tab {
+ display: inline-flex !important;
+ align-items: center;
+ justify-content: center;
+}
+
+/* When expanded, show tab is hidden */
+.glitch-dial:not(.is-hidden) .crt-show-tab {
+ display: none !important;
+}
+
+/* MOTION OFF - calm CRT, keep theme, kill FX thrash */
+html.dos-motion-off .glitch-layer,
+html[data-motion='off'] .glitch-layer,
+body.dos-motion-off .glitch-layer {
+ display: none !important;
+}
+
+html.dos-motion-off .mosh-band,
+html.dos-motion-off .water-ripple,
+html[data-motion='off'] .mosh-band,
+html[data-motion='off'] .water-ripple {
+ display: none !important;
+}
+
+html.dos-motion-off .ftwr-rabbit-icon,
+html[data-motion='off'] .ftwr-rabbit-icon {
+ animation: none !important;
+}
+
+html.dos-motion-off .price-ticker-track,
+html[data-motion='off'] .price-ticker-track {
+ animation-duration: 180s !important;
+}
+
+/* SCANLINES OFF */
+html.dos-scan-off .dos-screen::before,
+html[data-scan='off'] .dos-screen::before,
+html.dos-scan-off #screen::before,
+body.dos-scan-off .dos-screen::before {
+ opacity: 0 !important;
+ background: none !important;
+ display: none !important;
+}
+
+/*
+ * TEXT size (A− / A+): NO document zoom (that blurred VT323 / jacked layout).
+ * Scaling is applied only to main content columns via JS (see site-shell.js).
+ */
+
+/* HIGH CONTRAST - brighter phosphor, harder borders */
+html.dos-hicon,
+html[data-hicon='on'] {
+ --green: #33ff66;
+ --green-dim: #00cc44;
+}
+
+html.dos-hicon body,
+html[data-hicon='on'] body {
+ color: #33ff66 !important;
+ text-shadow: 0 0 1px rgba(0, 255, 80, 0.35);
+}
+
+html.dos-hicon a,
+html.dos-hicon .option,
+html.dos-hicon .section-head,
+html.dos-hicon .btn,
+html[data-hicon='on'] a,
+html[data-hicon='on'] .option,
+html[data-hicon='on'] .section-head,
+html[data-hicon='on'] .btn {
+ color: #66ff99 !important;
+}
+
+html.dos-hicon .glitch-dial,
+html.dos-hicon .crt-controls,
+html.dos-hicon .price-ticker-bar,
+html.dos-hicon .dos-docs-footer,
+html[data-hicon='on'] .glitch-dial,
+html[data-hicon='on'] .price-ticker-bar {
+ border-color: #66ff99 !important;
+}
+
+/* Mobile CRT controls - bigger hits, wrap cleanly */
+@media (max-width: 700px), (pointer: coarse) {
+ .glitch-dial,
+ .crt-controls {
+ left: 6px;
+ right: 6px;
+ max-width: none;
+ width: auto;
+ bottom: calc(42px + env(safe-area-inset-bottom, 0px));
+ padding: 6px 8px;
+ }
+
+ .glitch-dial button,
+ .crt-controls button {
+ min-height: 32px;
+ min-width: 36px;
+ padding: 5px 8px;
+ font-size: 12px;
+ }
+
+ .glitch-dial-label {
+ font-size: 11px;
+ }
+
+ body.has-doswapz-ticker.has-dos-docs-footer-compact .glitch-dial,
+ body.has-doswapz-ticker.has-dos-docs-footer-compact .crt-controls {
+ bottom: calc(78px + env(safe-area-inset-bottom, 0px));
+ }
+}
+
+body:not(.has-doswapz-ticker) .glitch-dial {
+ bottom: 8px;
+}
+
+/* Hub menu UX */
+.hub-flavor-line {
+ pointer-events: none;
+}
+
+.menu .section-head,
+.menu .option,
+details.menu-section {
+ pointer-events: auto;
+ cursor: pointer;
+}
+
+.last-boot::after {
+ content: ' LAST';
+ font-size: 11px;
+ color: #00ff88;
+ letter-spacing: 1px;
+ margin-left: 6px;
+ text-shadow: 0 0 6px #00ff41;
+}
+
+/* Intro skip checkbox */
+.intro-skip-opt {
+ display: block;
+ margin-top: 10px;
+ font-size: 13px;
+ color: #00aa00;
+ letter-spacing: 1px;
+ cursor: pointer;
+ text-align: center;
+}
+
+.intro-skip-opt input {
+ margin-right: 6px;
+ accent-color: #00ff41;
+}
+
+/* Pond Scum badge chips */
+.pond-badge-strip {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 6px;
+ justify-content: flex-end;
+ margin-top: 2px;
+}
+
+.pond-badge-chip {
+ display: inline-block;
+ font-size: 12px;
+ letter-spacing: 1px;
+ color: #ffff00;
+ border: 1px solid #00ff41;
+ background: rgba(0, 30, 0, 0.6);
+ padding: 2px 8px;
+ text-transform: uppercase;
+ text-shadow: 0 0 4px rgba(255, 255, 0, 0.35);
+}
+
+.pond-badge-chip.badge-diamond { border-color: #88ddff; color: #ccffff; }
+.pond-badge-chip.badge-void { border-color: #aa66ff; color: #ddbbff; }
+.pond-badge-chip.badge-pork { border-color: #ffaa88; color: #ffddcc; }
+.pond-badge-chip.badge-chef { border-color: #ffff88; color: #ffffcc; }
+.pond-badge-chip.badge-points { border-color: #00ff88; color: #aaffcc; }
+.pond-badge-chip.badge-swap { border-color: #00ff41; color: #88ffaa; }
+
+/* Attic - share link + highlight */
+.pull-share {
+ display: inline-block;
+ margin-top: 8px;
+ font-size: 13px;
+ color: #ccaa66;
+ text-decoration: none;
+ border: 1px solid #554422;
+ padding: 2px 8px;
+ letter-spacing: 1px;
+}
+
+.pull-share:hover {
+ color: #ffdd88;
+ border-color: #ccaa66;
+}
+
+.pull-card.highlighted {
+ border-color: #ffaa00;
+ box-shadow: 0 0 12px rgba(255, 170, 0, 0.35);
+}
+/* Hub: no hover flavor text */
+.hub-flavor-line { display: none !important; opacity: 0 !important; height: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; }
+
+/* ── Site-wide DOCS chip (replaces giant bottom footer) ─────── */
+/* Full legal packet stays on /docs/legal.html only. */
+
+/* Kill legacy full footer if any cached script injects it */
+#dosDocsFooter,
+.dos-docs-footer {
+ display: none !important;
+ height: 0 !important;
+ max-height: 0 !important;
+ overflow: hidden !important;
+ margin: 0 !important;
+ padding: 0 !important;
+ border: 0 !important;
+ pointer-events: none !important;
+}
+
+body.has-dos-docs-footer,
+body.has-dos-docs-footer-compact,
+body.has-dos-docs-chip {
+ padding-bottom: 0 !important;
+}
+
+/* Floating DOCS / LEGAL access - bottom-right, does not cover content */
+.dos-docs-chip {
+ position: fixed;
+ right: 10px;
+ bottom: 10px;
+ z-index: 55;
+ display: flex;
+ align-items: stretch;
+ gap: 0;
+ font-family: 'VT323', 'Courier New', monospace;
+ pointer-events: none;
+}
+
+.dos-docs-chip a {
+ pointer-events: auto;
+ text-decoration: none;
+ -webkit-tap-highlight-color: transparent;
+}
+
+.dos-docs-chip-btn {
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ justify-content: center;
+ gap: 0;
+ min-height: 40px;
+ padding: 6px 12px 6px 10px;
+ background: rgba(0, 0, 0, 0.88);
+ border: 1px solid #00ff41;
+ border-right: 0;
+ border-radius: 2px 0 0 2px;
+ box-shadow: 0 0 14px rgba(0, 255, 65, 0.18);
+ line-height: 1.05;
+}
+
+.dos-docs-chip-lab {
+ color: #ffff00;
+ font-size: 13px;
+ letter-spacing: 2px;
+}
+
+.dos-docs-chip-sub {
+ color: #00ff41;
+ font-size: 11px;
+ letter-spacing: 2px;
+ opacity: 0.85;
+}
+
+.dos-docs-chip-mini {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ min-width: 28px;
+ min-height: 40px;
+ padding: 0 6px;
+ background: rgba(0, 24, 0, 0.92);
+ border: 1px solid #00ff41;
+ border-radius: 0 2px 2px 0;
+ color: #00ff41;
+ font-size: 16px;
+ letter-spacing: 0;
+ box-shadow: 0 0 14px rgba(0, 255, 65, 0.12);
+}
+
+.dos-docs-chip-btn:hover,
+.dos-docs-chip-mini:hover {
+ background: #00ff41;
+ color: #000;
+}
+
+.dos-docs-chip-btn:hover .dos-docs-chip-lab,
+.dos-docs-chip-btn:hover .dos-docs-chip-sub {
+ color: #000;
+}
+
+/* Clear ticker if present */
+body.has-doswapz-ticker .dos-docs-chip {
+ bottom: 42px;
+}
+
+/* Soft future / orbit tints */
+body.future-pearl .dos-docs-chip-btn,
+body.future-era .dos-docs-chip-btn,
+#screen.hub-bubbles ~ .dos-docs-chip .dos-docs-chip-btn {
+ border-color: rgba(120, 130, 170, 0.55);
+ background: rgba(255, 255, 255, 0.72);
+ box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+}
+
+body.future-pearl .dos-docs-chip-lab,
+body.future-era .dos-docs-chip-lab {
+ color: #4a5070;
+}
+
+body.future-pearl .dos-docs-chip-sub,
+body.future-era .dos-docs-chip-sub {
+ color: #6a7090;
+}
+
+body.future-pearl .dos-docs-chip-mini,
+body.future-era .dos-docs-chip-mini {
+ border-color: rgba(120, 130, 170, 0.55);
+ background: rgba(255, 255, 255, 0.55);
+ color: #5a6080;
+}
+
+body.orbit-void-inner .dos-docs-chip-btn {
+ border-color: rgba(140, 180, 255, 0.45);
+ box-shadow: 0 0 12px rgba(120, 160, 255, 0.15);
+}
+
+@media (max-width: 560px) {
+ .dos-docs-chip {
+ right: 8px;
+ bottom: 8px;
+ }
+ body.has-doswapz-ticker .dos-docs-chip {
+ bottom: 40px;
+ }
+ .dos-docs-chip-btn {
+ min-height: 36px;
+ padding: 5px 10px;
+ }
+ .dos-docs-chip-mini {
+ min-height: 36px;
+ min-width: 26px;
+ }
+}
+
+/* ── Sitewide Past / Present / Future timeline rail ─────────────
+   Stack (bottom of viewport, no overlap):
+   left  = era rail
+   right = docs chip
+   content pages get padding-bottom so controls aren't covered
+*/
+.dos-era-rail,
+#dosEraRail {
+ position: fixed;
+ left: 10px;
+ bottom: max(10px, env(safe-area-inset-bottom, 0px));
+ z-index: 99980;
+ display: flex;
+ flex-wrap: nowrap;
+ align-items: center;
+ gap: 3px;
+ max-width: min(420px, calc(100vw - 120px));
+ padding: 4px 5px;
+ background: rgba(0, 0, 0, 0.92);
+ border: 1px solid rgba(0, 255, 65, 0.45);
+ border-radius: 10px;
+ box-shadow: 0 0 16px rgba(0, 255, 65, 0.12);
+ font-family: 'VT323', 'Courier New', monospace;
+ pointer-events: auto;
+ /* keep a known height so content clearance can match */
+ min-height: 36px;
+ box-sizing: border-box;
+}
+
+/* Docs chip stays bottom-right, never over era rail */
+.dos-docs-chip,
+#dosDocsChip {
+ right: 10px !important;
+ left: auto !important;
+ bottom: max(10px, env(safe-area-inset-bottom, 0px)) !important;
+ z-index: 99970 !important;
+}
+
+/* Room for bottom chrome on scrollable content pages */
+body.has-dos-era-rail {
+ --dos-era-rail-h: 48px;
+ padding-bottom: calc(var(--dos-era-rail-h) + 12px + env(safe-area-inset-bottom, 0px)) !important;
+ box-sizing: border-box !important;
+}
+body.has-dos-era-rail.has-dos-docs-chip {
+ padding-bottom: calc(var(--dos-era-rail-h) + 12px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+/* Full-bleed game / embed shells: lift iframe so rail never covers controls.
+   IMPORTANT: never use height:auto on fixed iframes — it collapses them and
+   pins fixed chrome (ticker / glitch / rails) near the top of the viewport. */
+body.has-dos-era-rail > iframe {
+ top: 0 !important;
+ left: 0 !important;
+ right: 0 !important;
+ bottom: auto !important;
+ height: calc(100vh - var(--dos-era-rail-h, 48px) - 10px - env(safe-area-inset-bottom, 0px)) !important;
+ max-height: calc(100vh - var(--dos-era-rail-h, 48px) - 10px - env(safe-area-inset-bottom, 0px)) !important;
+}
+/* Top present bar + game iframe (Crypto Dad shells, etc.) */
+body.has-dos-era-rail > nav.bar + iframe,
+body.has-dos-era-rail > .bar + iframe {
+ top: 42px !important;
+ left: 0 !important;
+ right: 0 !important;
+ bottom: auto !important;
+ height: calc(100vh - 42px - var(--dos-era-rail-h, 48px) - 10px - env(safe-area-inset-bottom, 0px)) !important;
+ max-height: calc(100vh - 42px - var(--dos-era-rail-h, 48px) - 10px - env(safe-area-inset-bottom, 0px)) !important;
+}
+
+/* Fixed bottom game UIs clear the rail */
+body.has-dos-era-rail .input-line,
+body.has-dos-era-rail .crt .input-line {
+ padding-bottom: calc(4px + env(safe-area-inset-bottom, 0px)) !important;
+ margin-bottom: 0 !important;
+}
+body.has-dos-era-rail .crt {
+ margin-bottom: calc(var(--dos-era-rail-h, 48px) + 10px + env(safe-area-inset-bottom, 0px)) !important;
+ height: calc(100% - var(--dos-era-rail-h, 48px) - 18px - env(safe-area-inset-bottom, 0px)) !important;
+ max-height: calc(100% - var(--dos-era-rail-h, 48px) - 18px - env(safe-area-inset-bottom, 0px)) !important;
+}
+/* CRT controls / glitch dial sit ABOVE the era rail, not under it */
+body.has-dos-era-rail .glitch-dial,
+body.has-dos-era-rail .crt-controls {
+ bottom: calc(var(--dos-era-rail-h, 48px) + 14px + env(safe-area-inset-bottom, 0px)) !important;
+ left: 10px !important;
+ z-index: 99970 !important;
+}
+body.has-dos-era-rail.has-doswapz-ticker .glitch-dial,
+body.has-dos-era-rail.has-doswapz-ticker .crt-controls {
+ bottom: calc(var(--dos-era-rail-h, 48px) + 48px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+/* Present hub: page owns .era-rail — kill duplicate floating rail */
+body.hub-bubbles #dosEraRail,
+body.hub-bubbles .dos-era-rail,
+body[data-no-era-rail] #dosEraRail,
+body[data-no-era-rail] .dos-era-rail {
+ display: none !important;
+}
+
+/* Present game bar (top) + era rail (bottom-left) + docs (bottom-right) */
+body.era-present.has-present-bar.has-dos-era-rail {
+ padding-bottom: calc(var(--dos-era-rail-h, 48px) + 12px + env(safe-area-inset-bottom, 0px)) !important;
+}
+body.era-present #dosEraRail,
+body.era-present .dos-era-rail {
+ bottom: max(10px, env(safe-area-inset-bottom, 0px));
+ max-width: min(380px, calc(100vw - 120px));
+}
+body.era-present .dos-docs-chip {
+ bottom: max(10px, env(safe-area-inset-bottom, 0px)) !important;
+}
+
+.dos-era-rail a,
+#dosEraRail a {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ min-height: 28px;
+ padding: 2px 10px;
+ color: #88cc88;
+ text-decoration: none;
+ letter-spacing: 1.5px;
+ font-size: 14px;
+ border: 1px solid transparent;
+ border-radius: 1px;
+ -webkit-tap-highlight-color: transparent;
+}
+
+.dos-era-rail a:hover,
+#dosEraRail a:hover {
+ color: #fff;
+ border-color: rgba(0, 255, 100, 0.45);
+ background: rgba(0, 40, 0, 0.55);
+}
+
+.dos-era-rail a.here,
+#dosEraRail a.here {
+ color: #00ff66;
+ border-color: rgba(0, 255, 100, 0.55);
+ background: rgba(0, 50, 10, 0.45);
+}
+
+.dos-era-rail a[data-era="orbit"],
+#dosEraRail a[data-era="orbit"] {
+ color: #88aaff;
+}
+.dos-era-rail a[data-era="orbit"].here,
+#dosEraRail a[data-era="orbit"].here {
+ color: #a8d0ff;
+ border-color: rgba(120, 170, 255, 0.5);
+ background: rgba(10, 20, 50, 0.55);
+}
+
+.dos-era-rail a[data-era="future"],
+#dosEraRail a[data-era="future"] {
+ color: #d0d4f0;
+}
+.dos-era-rail a[data-era="future"].here,
+#dosEraRail a[data-era="future"].here {
+ color: #fff;
+ border-color: rgba(220, 220, 255, 0.45);
+ background: rgba(30, 30, 50, 0.55);
+}
+
+.dos-era-rail a.tm,
+#dosEraRail a.tm {
+ color: #ffcc66;
+ border-color: rgba(255, 180, 60, 0.25);
+}
+
+.dos-era-rail a.tm:hover,
+#dosEraRail a.tm:hover {
+ color: #ffe099;
+ border-color: rgba(255, 200, 80, 0.55);
+}
+
+/* Orbit / future tint */
+body.orbit-void-inner .dos-era-rail,
+body.orbit-void-inner #dosEraRail,
+#screen.hub-bubbles .dos-era-rail,
+body.hub-bubbles .dos-era-rail {
+ border-color: rgba(140, 180, 255, 0.4);
+ box-shadow: 0 0 14px rgba(100, 140, 255, 0.12);
+}
+
+body.future-pearl .dos-era-rail,
+body.future-era .dos-era-rail {
+ border-color: rgba(180, 185, 220, 0.45);
+ background: rgba(255, 255, 255, 0.72);
+ box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+}
+body.future-pearl .dos-era-rail a,
+body.future-era .dos-era-rail a {
+ color: #4a5070;
+}
+body.future-pearl .dos-era-rail a.here,
+body.future-era .dos-era-rail a.here {
+ color: #222;
+ border-color: rgba(80, 90, 130, 0.4);
+}
+
+body.has-doswapz-ticker .dos-era-rail,
+body.has-doswapz-ticker #dosEraRail {
+ bottom: calc(42px + env(safe-area-inset-bottom, 0px));
+}
+body.has-doswapz-ticker .dos-docs-chip,
+body.has-doswapz-ticker #dosDocsChip {
+ bottom: calc(42px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+@media (max-width: 560px) {
+ .dos-era-rail,
+ #dosEraRail {
+  left: 6px;
+  bottom: max(6px, env(safe-area-inset-bottom, 0px));
+  gap: 2px;
+  padding: 3px 4px;
+  max-width: calc(100vw - 96px);
+ }
+ .dos-era-rail a,
+ #dosEraRail a {
+  min-height: 26px;
+  padding: 2px 7px;
+  font-size: 12px;
+  letter-spacing: 1px;
+ }
+ body.has-doswapz-ticker .dos-era-rail,
+ body.has-doswapz-ticker #dosEraRail {
+  bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+ }
+ body.has-dos-era-rail {
+  --dos-era-rail-h: 44px;
+  padding-bottom: calc(var(--dos-era-rail-h) + 14px + env(safe-area-inset-bottom, 0px)) !important;
+ }
+ body.has-dos-era-rail > iframe {
+  height: calc(100vh - var(--dos-era-rail-h, 44px) - 12px - env(safe-area-inset-bottom, 0px)) !important;
+  max-height: calc(100vh - var(--dos-era-rail-h, 44px) - 12px - env(safe-area-inset-bottom, 0px)) !important;
+ }
+ body.has-dos-era-rail > nav.bar + iframe,
+ body.has-dos-era-rail > .bar + iframe {
+  top: 42px !important;
+  height: calc(100vh - 42px - var(--dos-era-rail-h, 44px) - 12px - env(safe-area-inset-bottom, 0px)) !important;
+  max-height: calc(100vh - 42px - var(--dos-era-rail-h, 44px) - 12px - env(safe-area-inset-bottom, 0px)) !important;
+ }
+}
+

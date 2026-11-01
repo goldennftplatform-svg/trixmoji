@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+ <title>DOSWAPZ // @DOSWAPZ</title>
+ <meta name="description" content="Official DOSWAPZ X account. Handle @doswapz. Public page only. Not a login and not custody.">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='18' fill='%23e7e9ea' text-anchor='middle'%3EX%3C/text%3E%3C/svg%3E">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ :root { --green: #00ff41; --green-dim: #00aa00; --paper: #e7e9ea; }
+ * { box-sizing: border-box; }
+ html, body {
+  margin: 0; padding: 0; width: 100%; min-height: 100%;
+  background: #000; color: var(--green);
+  font-family: 'VT323', 'Courier New', monospace;
+  overflow-x: hidden;
+ }
+ .dos-screen { position: relative; min-height: 100vh; background: #000; padding: 22px 18px 72px; }
+ .vignette {
+  position: fixed; inset: 0; pointer-events: none; z-index: 5;
+  background: radial-gradient(circle at center, transparent 48%, rgba(0,0,0,0.62) 86%);
+ }
+ .content { position: relative; z-index: 10; max-width: 640px; margin: 0 auto; font-size: 18px; line-height: 1.4; }
+ .header { text-align: center; font-size: clamp(28px, 7vw, 42px); letter-spacing: 4px; text-shadow: 0 0 10px var(--green); margin-bottom: 4px; }
+ .sub { text-align: center; color: var(--paper); font-size: 16px; letter-spacing: 3px; margin-bottom: 16px; }
+ .seal {
+  max-width: 460px; margin: 0 auto 16px; padding: 18px 14px;
+  border: 2px solid var(--paper); background: #050505; text-align: center;
+  box-shadow: 0 0 18px rgba(231, 233, 234, 0.2);
+ }
+ .seal .kicker { letter-spacing: 4px; color: #8b98a5; font-size: 16px; }
+ .seal .big { font-size: clamp(40px, 10vw, 64px); letter-spacing: 2px; color: #fff; margin: 6px 0; }
+ .seal p { margin: 0; color: var(--green-dim); font-size: 16px; }
+ .go {
+  display: inline-block; margin-top: 14px; color: #000; background: var(--paper);
+  text-decoration: none; padding: 8px 16px; letter-spacing: 2px; font-size: 20px;
+ }
+ .go:hover { background: var(--green); }
+ .panel { border: 2px solid #003300; background: rgba(0, 16, 0, 0.4); padding: 14px; margin-bottom: 14px; }
+ .panel h2 { margin: 0 0 8px; color: #ffcc00; font-size: 18px; letter-spacing: 2px; font-weight: 400; }
+ .panel p { margin: 0 0 8px; color: #00cc66; }
+ .panel p:last-child { margin: 0; }
+ .buttons { text-align: center; margin-top: 18px; }
+ .btn { display: inline-block; color: var(--green); border: 2px solid var(--green); padding: 8px 14px; text-decoration: none; letter-spacing: 1px; }
+ .btn:hover { color: #000; background: var(--green); }
+ .footer { text-align: center; margin-top: 18px; font-size: 13px; color: #006633; letter-spacing: 1px; }
+ </style>
+</head>
+<body>
+ <div class="dos-screen" id="screen">
+  <div class="vignette"></div>
+  <div class="content">
+   <div class="header">SOCIAL</div>
+   <div class="sub">OFFICIAL X HANDLE</div>
+   <div class="seal">
+    <div class="kicker">X</div>
+    <div class="big">@doswapz</div>
+    <p>Public account. The handle is exactly @doswapz.</p>
+    <a class="go" href="https://x.com/doswapz" target="_blank" rel="noopener noreferrer">OPEN @DOSWAPZ</a>
+   </div>
+   <div class="panel">
+    <h2>// WHAT THIS IS</h2>
+    <p>This page is the door to the DOSWAPZ account on X. It does not post for you, log you in, or connect a wallet.</p>
+    <p>Wallet login and email login stay on LOGIN. X login for scores stays on its own gate. Mail Gate stays Mail Gate.</p>
+    <p>Opening @doswapz does not move funds and does not ask for a seed phrase.</p>
+   </div>
+   <div class="buttons">
+    <a class="btn" href="/past">&lt;- HUB</a>
+   </div>
+   <div class="footer">DOSWAPZ · @doswapz · X · NOT CUSTODY</div>
+  </div>
+ </div>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/price-ticker.js"></script>
+</body>
+</html>

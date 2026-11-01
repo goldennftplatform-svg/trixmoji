@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong> Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong> Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>DOSWAPZ // THE LILY PAD // ORBIT</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style class="page-classic-styles">
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ /* orbit: :root stripped */
+
+ * { box-sizing: border-box; }
+
+ /* orbit: global html,body stripped */
+
+ .dos-screen { position:relative; min-height:0; background:transparent; padding:0; }
+
+ /* orbit: scanlines stripped */
+
+ /* orbit: .header stripped */
+
+ .content {
+ max-width: 920px;
+ margin: 18px auto 0;
+ font-size: 19px;
+ line-height: 1.38;
+ padding: 0 8px;
+ }
+
+ .section {
+ margin-bottom: 24px;
+ }
+
+ .section-title {
+ font-size: 22px;
+ color: var(--panel-accent);
+ margin-bottom: 6px;
+ border-bottom: 1px solid rgba(255,255,255,0.14);
+ padding-bottom: 3px;
+ }
+
+ .warning {
+ color: var(--panel-accent);
+ background: rgba(40, 20, 0, 0.4);
+ padding: 10px 14px;
+ border-left: 3px solid var(--panel-accent);
+ margin: 14px 0;
+ }
+
+ .btn {
+ font-size: 17px;
+ color: rgba(255,255,255,0.38);
+ background: transparent;
+ border: 2px solid rgba(255,255,255,0.38);
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px;
+ display: inline-block;
+ cursor: pointer;
+ }
+
+ .btn:hover {
+ background: rgba(255,255,255,0.14);
+ color: var(--panel-accent);
+ border-color: var(--panel-accent);
+ }
+
+ .disclaimer {
+ margin: 14px auto;
+ padding: 10px 12px;
+ border: 2px solid var(--panel-accent);
+ background: rgba(40, 30, 0, 0.35);
+ font-size: 13px;
+ line-height: 1.28;
+ max-width: 920px;
+ text-align: left;
+ }
+
+ .disclaimer-title {
+ color: var(--panel-accent);
+ margin-bottom: 4px;
+ letter-spacing: 1px;
+ text-align: center;
+ font-size: 13px;
+ }
+
+ .buttons {
+ text-align: center;
+ margin-top: 20px;
+ }
+
+ .footer {
+ margin-top: 18px;
+ font-size: 13px;
+ color: rgba(255,255,255,0.35);
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ .vignette {
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.58) 84%);
+ pointer-events: none;
+ z-index: 5;
+ }
+
+ .glitch-layer {
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 20;
+ mix-blend-mode: screen;
+ }
+
+ .mosh-band {
+ position: fixed;
+ left: 0;
+ width: 100%;
+ background: rgba(0, 255, 0, 0.16);
+ mix-blend-mode: difference;
+ pointer-events: none;
+ z-index: 25;
+ opacity: 0;
+ }
+
+ .node-sim {
+ border: 2px solid rgba(255,255,255,0.38);
+ background: transparent;
+ padding: 12px;
+ margin: 14px 0;
+ font-size: 15px;
+ }
+
+ .node-log {
+ background: transparent;
+ border: 1px solid rgba(255,255,255,0.14);
+ padding: 8px;
+ height: 120px;
+ overflow-y: auto;
+ white-space: pre-line;
+ font-size: 14px;
+ color: rgba(255,255,255,0.35);
+ margin-top: 8px;
+ }
+ </style>
+</head>
+<body id="screen" class="orbit-void-inner">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+ <span class="crumb-zone">THE LILY PAD</span>
+ <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+ <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+ <div class="core-glow"></div>
+ <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+ <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ <div class="orbit-line" style="width:min(34vmin,34vw);height:min(34vmin,34vh)"></div>
+ </div>
+
+ <main class="stage" id="content">
+ <h1 class="hollow-title" id="orbitTitle">THE LILY PAD</h1>
+ <p class="hollow-sub" id="stageSub">the lily pad<span class="cursor-blink">|</span></p>
+ <p class="page-path">/orbit/pages/nodes.html</p>
+ </main>
+
+ <div class="orbit-panel accent-lily" id="orbitPanel">
+<div class="header">THE LILY PAD</div>
+ <div style="text-align:center; font-size:15px; color:rgba(255,255,255,0.35); margin-bottom:18px; letter-spacing:1px;">
+ SIMULATED SOVEREIGNTY * LILY ACCESS
+ </div>
+
+ <div class="section">
+ <div class="section-title">WHAT IS A NODE?</div>
+ <p>In Solana (and most blockchains), a <strong>node</strong> is just a computer running the blockchain software.</p>
+ <p><strong>RPC node</strong> - answers queries ("what's my balance?") and can submit transactions. This is what the swap page uses when you pick "your own node".</p>
+ <p><strong>Validator / full node</strong> - participates in consensus, validates blocks, can earn rewards (but needs serious hardware and stake).</p>
+ <p>Public RPCs (like the default Jupiter one) are convenient but centralized - everyone uses the same few servers.</p>
+ </div>
+
+ <div class="warning">
+ <strong>IMPORTANT:</strong> You <strong>cannot</strong> run a real Solana node from this website or any browser tab.<br>
+ Browsers are sandboxed, can't open the required ports, and don't have the resources or uptime. Running a node is a server process (Linux VPS, dedicated machine, Raspberry Pi cluster, etc.).
+ </div>
+
+ <div class="section">
+ <div class="section-title">SIMULATE "YOUR NODE" RIGHT HERE</div>
+ <p>The swap page already has a node selector. Pick "Simulate your own node" or paste a custom RPC URL and the route text changes. It's all client-side theater - but it teaches the concept.</p>
+ <p>Click the button below to run a fake "sync" with your imaginary node and see live-style logs.</p>
+
+ <div class="node-sim">
+ <button onclick="simulateNodeConnect()" class="btn">CONNECT TO MY NODE (SIM)</button>
+ <div id="nodeStatus" style="margin-top:8px; color:#ffff00;"></div>
+ <div id="nodeLogs" class="node-log" style="display:none;"></div>
+ </div>
+ </div>
+
+ <div class="section">
+ <div class="section-title">HOW TO ACTUALLY RUN A REAL NODE</div>
+ <p><strong>For RPC / queries (what the swap page cares about):</strong></p>
+ <ul style="margin-left:20px; line-height:1.4;">
+ <li>Cheap VPS (Hetzner, DigitalOcean, Contabo ~$5-12/mo)</li>
+ <li>Install Solana CLI, run a <strong>RPC node</strong> (not full validator)</li>
+ <li>Point your Jupiter or custom tools at your server's RPC URL</li>
+ <li>Optional: add a reverse proxy + firewall so only you (or your dapp) can use it</li>
+ </ul>
+
+ <p><strong>Official starting point:</strong> <a href="https://docs.solana.com/running-validator" target="_blank" style="color:#ffff00;">Solana Docs - Running a Validator / RPC node</a></p>
+
+ <p>For most people the sweet spot is a <strong>light client</strong> or just a personal RPC node on a cheap VPS + the swap page's "custom RPC" option.</p>
+ </div>
+
+ <div class="section">
+ <div class="section-title">TIE-IN TO THE REST OF DOSWAPZ</div>
+ <p><strong>DIY Hardware Wallet page</strong> - run a signer on your own hardware (Raspberry Pi + SeedSigner style). Combine with your own RPC node = maximum self-sovereignty.</p>
+ <p><strong>Meat (Alerts) page</strong> - the Telegram bot you run yourself is basically "your own alerts node". Self-hosted signals instead of trusting someone else's server.</p>
+ <p><strong>Swap page "node options"</strong> - choose public, simulate your node, or paste the RPC URL of the one you actually spun up.</p>
+ </div>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">LIVE GUIDES - SIMULATED IN BROWSER</div>
+ Nothing on this page runs a real node in your browser. The "connect to my node" button is a fun client-side animation. Real nodes require servers you control 24/7. Always verify official Solana docs before spending money or time on infrastructure.
+ </div>
+
+ <div class="buttons">
+ <a href="/orbit/hub.html" class="btn"><- BACK TO MENU</a>
+ <a href="/orbit/pages/doswapz/swap.html" class="btn">SWAP + NODE SELECTOR</a>
+ <a href="/orbit/pages/hardwear/wallet.html" class="btn">DIY HARDWARE + NODES</a>
+ <a href="/orbit/pages/doswapz/meat.html" class="btn">MEAT (YOUR ALERTS NODE)</a>
+ </div>
+
+ <div class="footer">
+ DOSWAPZ - THE LILY PAD * SIMULATED IN BROWSER
+ </div>
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/core/price-ticker.js"></script>
+
+ <script>hollowPageBoot('THE LILY PAD');</script>
+</body>
+</html>

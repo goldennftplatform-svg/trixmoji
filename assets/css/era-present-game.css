@@ -1,0 +1,203 @@
+/**
+ * DOSWAPZ — Present-era game skin (shared)
+ * Applied when body.era-present is set.
+ * Keep games top-down / original camera — modern Present hub look only.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500;600&display=swap');
+
+html.era-present,
+body.era-present {
+  --present-void: #02040c;
+  --present-panel: rgba(8, 12, 28, 0.92);
+  --present-line: rgba(140, 160, 255, 0.22);
+  --present-cyan: #66ffe0;
+  --present-blue: #7ec8ff;
+  --present-text: rgba(220, 228, 255, 0.88);
+  --present-dim: rgba(160, 180, 220, 0.55);
+  --green: #66ffe0;
+  --accent: #7ec8ff;
+}
+
+body.era-present {
+  font-family: 'Inter', system-ui, sans-serif !important;
+  background:
+    radial-gradient(ellipse at 50% 15%, rgba(80, 120, 255, 0.1), transparent 42%),
+    radial-gradient(ellipse at 80% 90%, rgba(0, 255, 200, 0.05), transparent 40%),
+    var(--present-void) !important;
+  color: var(--present-text) !important;
+  image-rendering: auto;
+}
+
+/* Top chrome */
+#presentEraBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: rgba(4, 8, 18, 0.94);
+  border-bottom: 1px solid var(--present-line);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--present-dim);
+  backdrop-filter: blur(10px);
+}
+#presentEraBar span {
+  color: var(--present-cyan);
+  letter-spacing: 0.18em;
+  font-weight: 500;
+}
+#presentEraBar a {
+  color: rgba(200, 210, 255, 0.6);
+  text-decoration: none;
+  border: 1px solid rgba(140, 160, 255, 0.22);
+  background: rgba(8, 10, 20, 0.88);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+#presentEraBar a:hover {
+  color: #fff;
+  border-color: rgba(160, 180, 255, 0.5);
+}
+body.era-present.has-present-bar {
+  padding-top: 42px !important;
+  box-sizing: border-box !important;
+}
+/* Keep game HUD/controls clear of bottom era rail + docs chip */
+body.era-present.has-present-bar.has-dos-era-rail {
+  padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px)) !important;
+}
+body.era-present #dosEraRail,
+body.era-present .dos-era-rail {
+  z-index: 99980;
+  max-width: min(360px, calc(100vw - 120px));
+}
+body.era-present .dos-docs-chip {
+  z-index: 99970;
+}
+
+/* Typography */
+body.era-present h1,
+body.era-present h2,
+body.era-present .brand,
+body.era-present .title,
+body.era-present .logo {
+  font-family: 'Space Grotesk', system-ui, sans-serif !important;
+  letter-spacing: 0.14em !important;
+  font-weight: 600 !important;
+}
+
+/* Common CRT → Present remaps */
+body.era-present .scan,
+body.era-present .scanlines,
+body.era-present .crt-scan {
+  display: none !important;
+}
+
+body.era-present button,
+body.era-present .btn,
+body.era-present .button {
+  font-family: 'Space Grotesk', system-ui, sans-serif !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase;
+  border-radius: 999px !important;
+}
+
+body.era-present a {
+  color: var(--present-blue);
+}
+
+/* Arcade bar / nav */
+body.era-present .arcade-bar,
+body.era-present nav.arcade-bar {
+  background: rgba(4, 8, 18, 0.94) !important;
+  border-bottom: 1px solid var(--present-line) !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  letter-spacing: 0.12em;
+}
+body.era-present .arcade-bar a {
+  color: var(--present-cyan) !important;
+}
+
+/* Soft panels */
+body.era-present .overlay,
+body.era-present .panel,
+body.era-present .modal,
+body.era-present .board-panel {
+  background: rgba(6, 10, 24, 0.9) !important;
+  border: 1px solid var(--present-line) !important;
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+}
+
+/* Pixel canvases still crisp but stage can soft-render FX */
+body.era-present canvas.soft-present {
+  image-rendering: auto !important;
+}
+
+/* ── TBB Bull Run ── */
+body.era-present {
+  --crt-green: #66ffe0;
+  --crt-dim: #2a8a78;
+  --crt-dark: #061018;
+  --bg: #02040c;
+  --panel: #080c1c;
+}
+body.era-present[data-present-label*="TBB"],
+body.era-present:has(title) {
+  /* TBB uses body flex center — keep full height */
+}
+
+/* ── Lily Leap / Snowman / Degen arcade bars already covered ── */
+body.era-present .arcade-bar-title,
+body.era-present .title {
+  color: #e8eeff !important;
+  text-shadow: 0 0 16px rgba(120, 180, 255, 0.35) !important;
+}
+
+/* ── Pipe Rush (Plumber) ── */
+body.era-present #hud {
+  color: #a8c4ff !important;
+  text-shadow: none !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  letter-spacing: 0.1em;
+  font-size: 11px !important;
+}
+body.era-present #hud b {
+  color: #66ffe0 !important;
+  text-shadow: none !important;
+}
+body.era-present #stage {
+  border-color: rgba(120, 160, 255, 0.35) !important;
+  box-shadow:
+    0 0 0 1px rgba(20, 30, 60, 0.9),
+    0 0 40px rgba(80, 140, 255, 0.12) !important;
+}
+
+/* ── Sell Sell Sell ── */
+body.era-present .shell {
+  max-width: 100% !important;
+}
+body.era-present {
+  --gold: #ffd98a;
+  --green: #66ffe0;
+  --cyan: #7ec8ff;
+  --pink: #d4a0ff;
+}
+
+/* ── Full-bleed shells when present ── */
+body.era-present.has-present-bar .shell,
+body.era-present.has-present-bar #wrap,
+body.era-present.has-present-bar #app {
+  min-height: calc(100vh - 42px);
+}

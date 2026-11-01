@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // FUTURE ARCADE</title>
+ <meta name="description" content="Future Arcade teaser - cabinets not fully online yet.">
+ <meta name="robots" content="noindex">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Outfit:wght@200;300;400&display=swap');
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ html, body { min-height: 100%; background: #e8e6f0; font-family: Outfit, system-ui, sans-serif; color: #5a5f78; }
+ .pearl {
+ position: fixed; inset: 0;
+ background: radial-gradient(ellipse 90% 70% at 50% 40%, #fff 0%, #f4f1fa 35%, #e4e0f0 62%, #d0cce0 100%);
+ z-index: 0;
+ }
+ .haze {
+ position: fixed; inset: -10%;
+ background:
+ radial-gradient(circle at 30% 40%, rgba(255,255,255,0.85), transparent 42%),
+ radial-gradient(circle at 70% 35%, rgba(255,250,255,0.7), transparent 38%);
+ filter: blur(28px); z-index: 1; pointer-events: none;
+ }
+ .wrap {
+ position: relative; z-index: 10; max-width: 720px; margin: 0 auto;
+ padding: 72px 20px 48px; text-align: center;
+ }
+ .era-tag {
+ position: fixed; top: 18px; left: 50%; transform: translateX(-50%); z-index: 30;
+ font-size: 11px; letter-spacing: 0.45em; text-transform: uppercase; color: rgba(90,100,130,0.45);
+ }
+ .nav-quiet {
+ position: fixed; top: 14px; right: 16px; z-index: 30; display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; max-width: 55vw;
+ }
+ .nav-quiet a {
+ font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+ color: rgba(90,100,130,0.4); text-decoration: none; border: 1px solid rgba(120,130,160,0.2);
+ padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,0.35);
+ }
+ h1 {
+ font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300;
+ font-size: clamp(32px, 7vw, 52px); letter-spacing: 0.08em; color: rgba(70,78,110,0.75); margin-bottom: 10px;
+ }
+ .sub { font-size: 13px; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(90,100,130,0.4); margin-bottom: 28px; }
+ .cabinets { display: grid; gap: 12px; text-align: left; }
+ .cab {
+ border: 1px solid rgba(140,150,190,0.28);
+ background: linear-gradient(160deg, rgba(255,255,255,0.72), rgba(255,255,255,0.28));
+ padding: 16px 18px; border-radius: 14px;
+ }
+ .cab.online { border-color: rgba(100, 160, 140, 0.45); }
+ .cab .tag { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(90,100,130,0.45); margin-bottom: 4px; }
+ .cab .name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; color: rgba(70,78,110,0.8); }
+ .cab .blurb { margin-top: 6px; font-size: 14px; color: rgba(90,100,130,0.55); line-height: 1.4; }
+ .cab.locked .name { opacity: 0.55; }
+ .stamp {
+ display: inline-block; margin-top: 8px; font-size: 11px; letter-spacing: 0.2em;
+ text-transform: uppercase; color: rgba(120,100,160,0.65); border: 1px solid rgba(120,100,160,0.25);
+ padding: 3px 8px; border-radius: 999px;
+ }
+ .foot { margin-top: 28px; font-size: 12px; letter-spacing: 0.2em; color: rgba(90,100,130,0.4); }
+ .links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 22px; }
+ .links a {
+ font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none;
+ color: rgba(70,78,110,0.7); border: 1px solid rgba(120,130,160,0.28); padding: 8px 14px; border-radius: 999px;
+ background: rgba(255,255,255,0.45);
+ }
+ </style>
+</head>
+<body class="future-pearl">
+ <div class="pearl"></div>
+ <div class="haze"></div>
+ <div class="era-tag">FUTURE</div>
+ <div class="nav-quiet">
+ <a href="/portal.html">Time Machine</a>
+ <a href="/future/hub.html">Future Hub</a>
+ <a href="/classic/pages/arcade/hub.html">Past Arcade</a>
+ <a href="/orbit/pages/arcade/hub.html">Present Arcade</a>
+ </div>
+
+ <div class="wrap">
+ <h1>Arcade</h1>
+ <div class="sub">Cabinets arriving through the haze</div>
+
+ <div class="cabinets">
+ <div class="cab locked">
+ <div class="tag">Cabinet 00</div>
+ <div class="name">Signal Unstable</div>
+ <div class="blurb">Future cabinets are not fully online. You can still play today’s games in Past or Present.</div>
+ <span class="stamp">Coming Online</span>
+ </div>
+ <div class="cab locked">
+ <div class="tag">Preview * Soft Echo</div>
+ <div class="name">Dad * Bull * Rabbit * Mom</div>
+ <div class="blurb">The same four spirits exist elsewhere in the timeline. Future skins will arrive without overwriting the past CRT or present void.</div>
+ <span class="stamp">Not Built Yet</span>
+ </div>
+ <div class="cab online">
+ <div class="tag">Bridge</div>
+ <div class="name">Play Now (other eras)</div>
+ <div class="blurb">Jump to a live arcade while this room stays pearly and unfinished.</div>
+ <div class="links" style="justify-content:flex-start;margin-top:12px">
+ <a href="/classic/pages/arcade/intro.html">Past Arcade</a>
+ <a href="/orbit/pages/arcade/intro.html">Present Arcade</a>
+ <a href="/classic/pages/arcade/scores.html">Scores</a>
+ </div>
+ </div>
+ </div>
+
+ <div class="foot">FUTURE ARCADE * TEASER ONLY * NO FUNDS</div>
+ <div class="links">
+ <a href="/future/hub.html">Back to Future Hub</a>
+ <a href="/portal.html">Time Machine</a>
+ </div>
+ </div>
+ <script src="/assets/js/arcade/arcade-core.js?v=20260715b"></script>
+ <script>
+</script>
+<script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+<script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>
+</html>

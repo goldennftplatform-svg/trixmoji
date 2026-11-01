@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Hub H - Hybrid recommended</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ * { box-sizing: border-box; }
+ html, body { margin: 0; min-height: 100%; background: #000; color: #00ff00; font-family: 'VT323', monospace; }
+ .screen {
+ padding: 16px 14px 100px; max-width: 540px; margin: 0 auto;
+ background: repeating-linear-gradient(to bottom, transparent 0 3px, rgba(0,255,0,.02) 3px 5px);
+ }
+ .badge {
+ float: right; font-size: 11px; color: #000; background: #ffff00;
+ border: 1px solid #ffff00; padding: 2px 8px; letter-spacing: 1px;
+ }
+ .title {
+ font-size: clamp(34px, 10vw, 44px); letter-spacing: 6px; color: #ffff00;
+ text-shadow: 0 0 8px #00ff00; clear: both; line-height: 1;
+ }
+ .status {
+ margin: 8px 0 14px; font-size: 13px; color: #00aa00; letter-spacing: 1px;
+ line-height: 1.35;
+ }
+ .status b { color: #ffff00; font-weight: normal; }
+
+ /* 3 primary commands - not 6 chips + accordion */
+ .cmd {
+ display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 8px; margin-bottom: 16px;
+ }
+ @media (max-width: 420px) {
+ .cmd { grid-template-columns: 1fr; }
+ }
+ .cmd a {
+ text-decoration: none; border: 2px solid #00ff41; background: rgba(0,18,0,.5);
+ padding: 12px 10px; min-height: 72px; display: flex; flex-direction: column;
+ justify-content: center; gap: 2px;
+ }
+ .cmd a.main {
+ border-color: #ffff00; box-shadow: 0 0 14px rgba(255,255,0,.12);
+ }
+ .cmd a .k { font-size: 11px; color: #00aa00; letter-spacing: 1px; }
+ .cmd a.main .k { color: #aa8800; }
+ .cmd a .n { font-size: 18px; letter-spacing: 1px; color: #00ff41; }
+ .cmd a.main .n { color: #ffff00; font-size: 20px; }
+ .cmd a:hover { background: #002a00; }
+
+ .sec-h {
+ font-size: 12px; letter-spacing: 2px; color: #00aa00;
+ border-bottom: 1px solid #003300; padding-bottom: 4px; margin: 0 0 8px;
+ }
+
+ /* Open by default style list - no closed accordions for top paths */
+ .menu a {
+ display: flex; justify-content: space-between; align-items: center;
+ text-decoration: none; color: #00ff00;
+ padding: 11px 8px; min-height: 46px;
+ border-bottom: 1px solid #001500; font-size: 16px;
+ }
+ .menu a:hover { color: #ffff00; background: rgba(0,30,0,.35); }
+ .menu a .t { letter-spacing: 1px; }
+ .menu a .s { color: #006600; font-size: 12px; }
+ .menu a.arcade .t { color: #00ffcc; }
+ .menu a.dark .t { color: #cc88ff; }
+
+ details {
+ border-bottom: 1px solid #001500;
+ }
+ summary {
+ list-style: none; cursor: pointer; padding: 11px 8px; min-height: 46px;
+ display: flex; align-items: center; color: #00dd00; font-size: 16px;
+ letter-spacing: 1px;
+ }
+ summary::-webkit-details-marker { display: none; }
+ summary::before { content: '+ '; color: #00aa00; }
+ details[open] summary::before { content: '− '; }
+ details .opt {
+ display: block; padding: 10px 8px 10px 22px; color: #00aa00;
+ text-decoration: none; font-size: 15px; min-height: 42px;
+ }
+ details .opt:hover { color: #ffff00; }
+
+ .opsec {
+ margin-top: 18px; padding: 10px 12px; border: 1px solid #443300;
+ background: rgba(30,20,0,.35); font-size: 12px; color: #887744; line-height: 1.35;
+ }
+ .opsec b { color: #ccaa55; font-weight: normal; }
+
+ .exit {
+ margin-top: 14px; text-align: center; font-size: 13px;
+ }
+ .exit a { color: #ffaa00; text-decoration: none; margin: 0 8px; }
+ </style>
+</head>
+<body>
+ <div class="screen">
+ <div class="badge">H ★</div>
+ <div class="title">DOSWAPZ</div>
+ <div class="status">
+ <b>SOVEREIGN NODE</b> * no custody * no middleman<br>
+ DEGEN OPTIMIZED SOVEREIGN WARFARE AGAINST PUMPZ
+ </div>
+
+ <div class="cmd">
+ <a class="main" href="#"><span class="k">STRIKE</span><span class="n">0% SWAP</span></a>
+ <a href="#"><span class="k">PLAY</span><span class="n">ARCADE</span></a>
+ <a href="#"><span class="k">DARK</span><span class="n">BASEMENT</span></a>
+ </div>
+
+ <div class="sec-h">// DESTINATIONS</div>
+ <nav class="menu">
+ <a class="arcade" href="#"><span class="t">ARCADE</span><span class="s">cabinets</span></a>
+ <a href="#"><span class="t">CRYPTO DAD / MOM</span><span class="s">games</span></a>
+ <a class="dark" href="#"><span class="t">BASEMENT / VANTABLACK</span><span class="s">market</span></a>
+ <a href="#"><span class="t">POND SCUM</span><span class="s">dossier</span></a>
+ <a href="#"><span class="t">I SEE YOU</span><span class="s">watch</span></a>
+ <a href="#"><span class="t">TIME MACHINE</span><span class="s">eras</span></a>
+ <details>
+ <summary>MORE * LORE / GEAR / LEGAL</summary>
+ <a class="opt" href="#">DEGEN$ Trailer</a>
+ <a class="opt" href="#">Knights Demplar</a>
+ <a class="opt" href="#">Hardwear &amp; Merch</a>
+ <a class="opt" href="#">13th Step</a>
+ <a class="opt" href="#">Docs / Legal</a>
+ </details>
+ </nav>
+
+ <div class="opsec">
+ <b>OPSEC</b> - Live rails can move funds. Burner wallets. Verify on-chain.
+ Never connect size you can’t lose. 18+.
+ </div>
+ <div class="exit">
+ <a href="#">◎ TIME</a>
+ <a href="#"><- SPLASH</a>
+ <a href="#">DOCS</a>
+ </div>
+ </div>
+</body>
+</html>

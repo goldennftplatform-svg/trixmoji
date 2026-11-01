@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DOSWAPZ // JIMMY EDGAR'S BIG BRAWL</title>
+<meta name="description" content="Jimmy Edgar's Big Brawl - pixel-art boxing gauntlet. Thirteen challengers, one ring, no mercy.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+<style>
+:root{--bg:#060b1c;--ink:#cfe3ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#dfe9fb;--ink:#0a1430}}
+:root[data-theme="light"]{--bg:#dfe9fb;--ink:#0a1430}
+:root[data-theme="dark"]{--bg:#060b1c;--ink:#cfe3ff}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:"Press Start 2P",monospace;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:12px;min-height:100vh;touch-action:manipulation}
+canvas{width:100%;max-width:800px;height:auto;image-rendering:pixelated;border:3px solid #3a8fe8;border-radius:4px;touch-action:none}
+p{margin:0;font-size:10px;line-height:1.6;text-align:center;max-width:800px}
+nav{width:100%;max-width:800px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:10px}
+nav a{color:#3a8fe8;text-decoration:none;border:2px solid #3a8fe8;padding:6px 10px;border-radius:4px}
+nav a:hover,nav a:focus{color:#ffd23f;border-color:#ffd23f}
+nav .title{color:#ff4f8b;letter-spacing:1px}
+.pad{width:100%;max-width:800px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.moves{display:grid;grid-template-columns:repeat(3,52px);gap:6px}
+.moves .up{grid-column:2}
+.pad button{font:inherit;font-size:12px;color:#cfe3ff;background:#0a1430;border:2px solid #3a8fe8;border-radius:4px;min-width:52px;min-height:48px;touch-action:none;user-select:none;-webkit-user-select:none}
+.pad button:active{color:#ffd23f;border-color:#ffd23f}
+#punch{min-width:132px;min-height:104px;color:#ff4f8b;border-color:#ff4f8b}
+@media (max-width:560px){nav .title{display:none}}
+@media (hover:hover) and (pointer:fine){.pad{display:none}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/classic/pages/arcade/hub.html">&larr; ARCADE</a>
+  <span class="title">CABINET 14</span>
+  <a href="/classic/hub.html">MAIN MENU</a>
+</nav>
+<canvas id="c" width="800" height="450"></canvas>
+<p>Arrows or WASD to move. Space to punch. Punch spends stamina. On a phone, use the pad.</p>
+<div class="pad" aria-label="Touch controls">
+  <div class="moves">
+    <button type="button" class="up" data-hold="ArrowUp" aria-label="Move up">&#9650;</button>
+    <button type="button" data-hold="ArrowLeft" aria-label="Move left">&#9664;</button>
+    <button type="button" data-hold="ArrowDown" aria-label="Move down">&#9660;</button>
+    <button type="button" data-hold="ArrowRight" aria-label="Move right">&#9654;</button>
+  </div>
+  <button type="button" id="punch" aria-label="Punch">PUNCH</button>
+</div>
+<script src="/classic/pages/arcade/jimmy-edgar-big-brawl/game.js"></script>
+</body>
+</html>

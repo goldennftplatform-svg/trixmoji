@@ -1,0 +1,21 @@
+QUANTUM TRADER MASTER PACKAGE
+
+This folder combines your original trader bot with the dashboard.
+
+ONE-CLICK START:
+1. Double-click START-TRADER.cmd
+2. The dashboard opens at http://127.0.0.1:8787
+3. The bot starts in its own PowerShell/cmd window.
+
+The original bot files are preserved. The dashboard is a separate local server.
+The dashboard reads swing-state.json and live-trades.jsonl from this same folder.
+
+If your bot uses environment variables (.env or PowerShell variables), keep using
+the same setup you used with the original bot.
+
+Detected live npm script: live
+
+IMPORTANT:
+- Keep this entire folder together.
+- Do not put BOT_SECRET_KEY or private keys into dashboard files.
+- Dashboard is bound to 127.0.0.1 (local computer only).

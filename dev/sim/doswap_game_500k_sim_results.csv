@@ -1,0 +1,31 @@
+Strategy,Metric,Value,Notes
+SAFE,Runs,500000,
+SAFE,Avg weeks survived,23.09,
+SAFE,Survival rate (full 52 weeks),0.07%,Extremely rare even with safe play
+SAFE,Arrest endings,0 (0.00%),
+SAFE,Family collapse endings,499638 (99.93%),
+SAFE,Avg final Family,2.4,Very low
+SAFE,Avg final Heat,24.4,Controlled
+SAFE,Avg image triggers per run,11.53,
+SAFE,Bad/heat image triggers,3458314,
+SAFE,Good image triggers,2306665,
+RISKY,Runs,500000,
+RISKY,Avg weeks survived,8.61,
+RISKY,Survival rate (full 52 weeks),0.00%,
+RISKY,Arrest endings,286681 (57.34%),Suicidal
+RISKY,Family collapse endings,213319 (42.66%),
+RISKY,Avg final Family,17.1,
+RISKY,Avg final Heat,64.3,Very high
+RISKY,Avg image triggers per run,6.62,Shorter runs
+RISKY,Bad/heat image triggers,2478995,
+RISKY,Good image triggers,832277,
+MIXED,Runs,500000,Realistic player
+MIXED,Avg weeks survived,22.96,Almost identical to safe
+MIXED,Survival rate (full 52 weeks),0.07%,
+MIXED,Arrest endings,14752 (2.95%),
+MIXED,Family collapse endings,484918 (96.98%),
+MIXED,Avg final Family,2.8,
+MIXED,Avg final Heat,50.0,Higher than pure safe
+MIXED,Avg image triggers per run,11.50,
+MIXED,Bad/heat image triggers,3575315,
+MIXED,Good image triggers,2176722,

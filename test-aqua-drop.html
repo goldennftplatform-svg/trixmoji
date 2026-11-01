@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>DOSWAPZ - Aqua Drop Test</title>
+ <meta name="robots" content="noindex">
+ <style>
+ body {
+ margin: 0; min-height: 100vh;
+ background: #05080f;
+ color: #cde;
+ font-family: system-ui, sans-serif;
+ padding: 28px;
+ }
+ h1 { margin: 0 0 8px; font-size: 26px; }
+ p { color: #8ab; max-width: 520px; line-height: 1.5; }
+ .box {
+ border: 1px solid #345;
+ background: #0a1220;
+ border-radius: 12px;
+ padding: 16px;
+ max-width: 480px;
+ margin-top: 16px;
+ }
+ button, a.btn {
+ display: inline-block;
+ margin: 6px 6px 0 0;
+ padding: 10px 14px;
+ border-radius: 8px;
+ border: 1px solid #468;
+ background: #123;
+ color: #9cf;
+ font-weight: 600;
+ text-decoration: none;
+ cursor: pointer;
+ }
+ code { color: #8f8; }
+ </style>
+</head>
+<body>
+ <h1>Aqua drop test</h1>
+ <p>
+ Every <strong>1 minute</strong> a drop <strong>drips from a random spot</strong> (pure vertical - no side swoop).
+ White background is keyed out so you only see the <strong>drop</strong>.
+ First drip on this page ~1s. Click -> <strong>https://aquavaults.com/</strong>
+ </p>
+ <div class="box">
+ <div>Video: <code>/assets/media/aqua-drop.mp4</code> (white removed live)</div>
+ <div>Interval: <code>60000 ms</code> (1 minute)</div>
+ <div style="margin-top:12px">
+ <button type="button" id="force">Show drop now</button>
+ <a class="btn" href="https://aquavaults.com/" target="_blank" rel="noopener noreferrer">Open Aqua Vaults</a>
+ <a class="btn" href="/go.html">Back to go menu</a>
+ </div>
+ </div>
+ <!-- checkerboard so transparency is obvious -->
+ <div style="margin-top:24px;width:280px;height:180px;background:
+ linear-gradient(45deg,#222 25%,transparent 25%),
+ linear-gradient(-45deg,#222 25%,transparent 25%),
+ linear-gradient(45deg,transparent 75%,#222 75%),
+ linear-gradient(-45deg,transparent 75%,#222 75%);
+ background-size:20px 20px;background-position:0 0,0 10px,10px -10px,-10px 0px;
+ background-color:#111;border:1px solid #345;border-radius:8px;
+ position:relative;">
+ <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#678;font-size:13px;">
+ checkerboard - white should not show on the drop
+ </div>
+ </div>
+
+ <script src="/assets/js/core/aqua-drop.js?v=drip2" data-aqua-drop="1"></script>
+ <script>
+ document.getElementById('force').addEventListener('click', function () {
+ if (window.DOSWAPZ_AQUA_DROP) DOSWAPZ_AQUA_DROP.show();
+ });
+ </script>
+<script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+</body>
+</html>

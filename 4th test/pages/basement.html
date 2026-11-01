@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong>Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong>Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>DOSWAPZ // THE BASEMENT // ORBIT</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style class="page-classic-styles">
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ /* orbit: :root stripped */
+
+ * { box-sizing: border-box; }
+
+ /* orbit: global html,body stripped */
+
+ .dos-screen { position:relative; min-height:0; background:transparent; padding:0; }
+
+ /* orbit: scanlines stripped */
+
+ /* orbit: .header stripped */
+
+ /* orbit: .sub stripped */
+
+ .content {
+ max-width: 720px;
+ margin: 0 auto;
+ font-size: 19px;
+ line-height: 1.38;
+ padding: 0 8px;
+ position: relative;
+ z-index: 10;
+ }
+
+ .stairs {
+ text-align: center;
+ font-size: 28px;
+ color: var(--basement-dim);
+ letter-spacing: 4px;
+ margin-bottom: 18px;
+ line-height: 1.1;
+ opacity: 0.85;
+ }
+
+ .coming-card {
+ border: 3px solid var(--basement);
+ background: rgba(20, 0, 40, 0.55);
+ padding: 28px 20px;
+ text-align: center;
+ margin: 24px 0;
+ box-shadow: 0 0 18px var(--basement-glow);
+ }
+
+ .coming-stamp {
+ font-size: 34px;
+ color: #ff66cc;
+ border: 4px solid #ff66cc;
+ padding: 6px 22px;
+ letter-spacing: 8px;
+ text-shadow: 0 0 8px #ff66cc;
+ transform: rotate(-8deg);
+ background: rgba(0, 0, 0, 0.65);
+ display: inline-block;
+ margin-bottom: 14px;
+ }
+
+ .coming-note {
+ font-size: 17px;
+ color: #dd99ff;
+ letter-spacing: 2px;
+ line-height: 1.45;
+ }
+
+ .teaser-list {
+ margin: 22px 0 0;
+ padding: 0;
+ list-style: none;
+ font-size: 17px;
+ color: #cc88ff;
+ letter-spacing: 1px;
+ text-align: left;
+ max-width: 420px;
+ margin-left: auto;
+ margin-right: auto;
+ }
+
+ .teaser-list li {
+ margin: 6px 0;
+ }
+
+ .teaser-list li::before {
+ content: ' ';
+ color: var(--basement-dim);
+ }
+
+ .locked {
+ margin-top: 18px;
+ font-size: 15px;
+ color: var(--green-dim);
+ letter-spacing: 2px;
+ }
+
+ .buttons {
+ text-align: center;
+ margin-top: 28px;
+ }
+
+ .btn {
+ font-size: 17px;
+ color: rgba(255,255,255,0.38);
+ border: 2px solid rgba(255,255,255,0.38);
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px;
+ display: inline-block;
+ }
+
+ .btn:hover {
+ background: rgba(255,255,255,0.14);
+ color: var(--panel-accent);
+ border-color: var(--panel-accent);
+ }
+
+ .btn-basement {
+ border-color: var(--basement);
+ color: #cc88ff;
+ }
+
+ .btn-basement:hover {
+ background: #1a0033;
+ color: #ffddff;
+ border-color: #ff66cc;
+ }
+
+ .footer {
+ margin-top: 24px;
+ font-size: 13px;
+ color: rgba(255,255,255,0.35);
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ .teaser-list li.phunk-lab-item {
+ cursor: default;
+ opacity: 0.55;
+ color: #8866aa;
+ }
+
+ .teaser-list li.phunk-lab-item.phunk-unlocked {
+ cursor: pointer;
+ opacity: 1;
+ color: var(--panel-accent);
+ }
+
+ .teaser-list li.phunk-lab-item.phunk-unlocked:hover {
+ text-shadow: 0 0 6px var(--panel-accent);
+ }
+
+ .phunk-status {
+ font-size: 13px;
+ color: var(--green-dim);
+ }
+
+ .teaser-list li.phunk-lab-item.phunk-unlocked .phunk-status {
+ color: rgba(255,255,255,0.38);
+ }
+
+ /* Keep [ LIVE ] / [ LOCKED ] as one unit — no orphan closing brackets */
+ .status-tag,
+ .phunk-status {
+ display: inline-block;
+ white-space: nowrap;
+ }
+ </style>
+</head>
+<body id="screen" class="orbit-void-inner">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+ <span class="crumb-zone">THE BASEMENT</span>
+ <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+ <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+ <div class="core-glow"></div>
+ <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+ <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ <div class="orbit-line" style="width:min(34vmin,34vw);height:min(34vmin,34vh)"></div>
+ </div>
+
+ <main class="stage" id="content">
+ <h1 class="hollow-title" id="orbitTitle">THE BASEMENT</h1>
+ <p class="hollow-sub" id="stageSub">off the record<span class="cursor-blink">|</span></p>
+ <p class="page-path">/orbit/pages/basement.html</p>
+ </main>
+
+ <div class="orbit-panel accent-basement" id="orbitPanel">
+<div class="header">THE BASEMENT</div>
+ <div class="sub">WHERE THE FUN HAPPENS</div>
+
+ <div class="coming-card">
+ <div class="coming-stamp" style="font-size:22px; letter-spacing:4px;">18+ ZONE</div>
+ <div class="coming-note">Downstairs. Off the record.<br>First game is wired up.<br>More drops loading behind the fuse box.
+ </div>
+ <ul class="teaser-list">
+ <li><strong style="color:#ff66cc;">CRYPTO MOM [18+]</strong> - playable now</li>
+ <li>Late-night modes</li>
+ <li>Chaos events &amp; side quests</li>
+ <li>Community games</li>
+ <li>Surprise drops</li>
+ <li id="phunkLabLink" class="phunk-lab-item" role="button" tabindex="0">
+ <strong>EAT SHIT</strong> - Phunk Lab <span class="phunk-status">[ LOCKED ]</span>
+ </li>
+ <li><strong style="color:#ffaa00;">MEDIA LAB</strong> - CRT TV / Pirate Radio / Dad Tapes <span class="status-tag" style="color:var(--panel-accent);">[ LIVE ]</span></li>
+ <li><strong style="color:#6633cc;">VANTABLACK MARKET</strong> - token exchange + launcher <span class="status-tag" style="color:var(--panel-accent);">[ LIVE ]</span></li>
+ </ul>
+ <div class="locked" style="color:#ff66cc;">[ MATURE CONTENT - ENTER AT OWN RISK ]</div>
+ </div>
+
+ <div class="buttons">
+ <a href="/classic/pages/basement/cryptomom/play.html" class="btn btn-basement" style="border-color:#ff66cc; color:#ff66cc; font-size:20px; padding:8px 20px;"> CRYPTO MOM [18+]</a>
+ <a href="/orbit/pages/basement/media-lab.html" class="btn btn-basement" style="border-color:#ffaa00; color:#ffaa00; font-size:17px; padding:6px 16px;"> MEDIA LAB</a>
+ <a href="/orbit/pages/basement/vantablack/market.html" class="btn btn-basement" style="border-color:#6633cc; color:#c8c8d0; font-size:18px; padding:7px 18px;"> VANTABLACK MARKET</a>
+ <br><br>
+ <a href="/orbit/hub.html" class="btn"><- BACK TO MENU</a>
+ <a href="/orbit/pages/attic.html" class="btn btn-basement">THE ATTIC</a>
+ </div>
+
+ <div class="footer">THE BASEMENT * DOSWAPZ * FUN LOADING...
+ </div>
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/basement/basement-phunk-gate.js"></script>
+ <script src="/assets/js/core/price-ticker.js"></script>
+
+ <script>hollowPageBoot('THE BASEMENT');</script>
+</body>
+</html>

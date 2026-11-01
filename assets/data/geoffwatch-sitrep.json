@@ -1,0 +1,168 @@
+{
+  "updatedAt": "2026-09-27T14:11:51.185Z",
+  "status": "SITEMAP REREAD 2026-09-27 07:28:10.541 UTC * PUBLIC GEOFF ONLY",
+  "now": "GEOFF.AI SITEMAP HAS 10 PUBLIC URLS. EVERY LASTMOD IS 2026-09-27 07:28:10.541 UTC.",
+  "headline": "GEOFF.AI PUBLIC PAGES LASTMODDED 2026-09-27 07:28:10.541 UTC.",
+  "summary": "Public reread 2026-09-27 14:11:51.185 UTC: www.geoff.ai/sitemap.xml lastmod 2026-09-27T07:28:10.541Z on all 10 URLs. TRiX /api/mkt/state is 404. Live TRiX meters on this page come from /api/posts, /api/launches, and the on-chain BuyPack minted counter. Not a trade signal.",
+  "watch": [
+    "wildfire:preview leaving preview / gaining studio+agent. Docs say a disabled catalog entry is not an activation claim.",
+    "GeoffAi GitHub leaving empty. Director-1.5 / Studio-2 are labeled agent-proxy and still have no files.",
+    "hWonderOfTheWorld originals: ultralitenode + magma-boilerplate-monorepo. Newest GH metadata bump on this account was Aug 27 (hashpool fork / autofi_bot fork / magma boilerplate).",
+    "Geoff.ai TITLE or BYTE SIZE change. Home hash flipping at the same size is a live token, not a drop.",
+    "TRiX leftover meters stay 404. Watch /api/posts arrivalSequence and BuyPack minted, not the retired remaining counts."
+  ],
+  "read": [
+    "HOW GEOFF WORKS IS THE MAP ABOVE. THIS BOX IS A PUBLIC-POST HEADS-UP. UPTIME IS BELOW.",
+    "OFFICIAL STUDIO: geoff.ai. OFFICIAL DOCS: docs.geoff.ai. NODE CLIENT: github.com/hWonderOfTheWorld/ultralitenode.",
+    "THEIR OWN LOOP: make memes on geoff.ai. Post them on TRiX. That is not a bypass.",
+    "JULY 26 NODE-KEY THREAD WAS DISCLAIMED BY PAULY. DO NOT TREAT THOSE NUMBERS AS A SITREP.",
+    "GEOFFWATCH NEVER LOGS INTO TRIX, NEVER HITS /connect /settings, NEVER COUNTS THEIR VISITORS.",
+    "NOT FINANCIAL ADVICE. NO TRADE SIGNAL."
+  ],
+  "links": [
+    {
+      "label": "GEOFF.AI",
+      "url": "https://www.geoff.ai/"
+    },
+    {
+      "label": "DOCS",
+      "url": "https://docs.geoff.ai/"
+    },
+    {
+      "label": "METAMODELS",
+      "url": "https://www.hwonder.com/posts/metamodels"
+    },
+    {
+      "label": "HWONDER GH",
+      "url": "https://github.com/hWonderOfTheWorld"
+    },
+    {
+      "label": "GEOFFAI GH",
+      "url": "https://github.com/GeoffAi"
+    },
+    {
+      "label": "TRIX MARKET",
+      "url": "https://trix.market/"
+    },
+    {
+      "label": "MEME BOARD",
+      "url": "/classic/pages/geoffwatch-box.html#memeBoard"
+    },
+    {
+      "label": "@trix_mrkt",
+      "url": "https://x.com/trix_mrkt"
+    },
+    {
+      "label": "@hWonderofWorld",
+      "url": "https://x.com/hWonderofWorld"
+    },
+    {
+      "label": "@Wonka0x",
+      "url": "https://x.com/Wonka0x"
+    }
+  ],
+  "posts": [
+    {
+      "ts": "2026-09-27T14:11:51.185Z",
+      "tag": "GEOFF",
+      "title": "SITEMAP REREAD 2026-09-27 07:28:10.541 UTC",
+      "body": "/ lastmod 2026-09-27T07:28:10.541Z. /explore lastmod 2026-09-27T07:28:10.541Z. /music lastmod 2026-09-27T07:28:10.541Z. /image lastmod 2026-09-27T07:28:10.541Z. /video lastmod 2026-09-27T07:28:10.541Z. /pages lastmod 2026-09-27T07:28:10.541Z. /code/showcase lastmod 2026-09-27T07:28:10.541Z. /install lastmod 2026-09-27T07:28:10.541Z. /terms lastmod 2026-09-27T07:28:10.541Z. /privacy lastmod 2026-09-27T07:28:10.541Z. Official culture loop is still make memes on geoff.ai and land them on TRiX. Not a trade signal."
+    },
+    {
+      "ts": "2026-09-19T23:59:00.000Z",
+      "tag": "HWONDER",
+      "title": "HWONDER.COM INDEXED. GH EVENTS NOW PAGE NOTICES.",
+      "body": "Public hwonder.com homepage lists 16 posts (promptme, metavault, metaproofs, metamodels, mft, swap-harder, reward-router, lp-short, lp-long, sybil-resistance, awesome-execution, plug, mega, gigaswaps, unchain, don-t-be-gaye). GeoffWatch and Pond Scum now watch that index plus github.com/hWonderOfTheWorld public events. Newest public GH event sampled 2026-09-15 Create Liquidity-Mining-Auction. Newest repo push sampled 2026-09-16 bifrost fork. Moves queue an X-gate draft. Not a trade signal."
+    },
+    {
+      "ts": "2026-09-19T23:39:16.222Z",
+      "tag": "SITE",
+      "title": "GEOFF.AI SITEMAP LASTMOD IS SEP 18 23:13 UTC.",
+      "body": "www.geoff.ai/sitemap.xml pulled 2026-09-19T23:39:16Z: lastmod 2026-09-18T23:13:17.613Z on all nine public URLs. Same paths as Sep 5. robots.txt still Disallow /api/ /connect /settings. This is a lastmod bump, not a new public page."
+    },
+    {
+      "ts": "2026-09-19T23:39:16.222Z",
+      "tag": "TRIX",
+      "title": "TRIX LEFTOVER METERS STAY RETIRED. FEED SEQUENCE IS LIVE.",
+      "body": "https://www.trix.market/api/mkt/state returns 404. BOXES LEFT and remaining-meme meters are not published. Live public meters: /api/posts arrivalSequence (memes posted), /api/launches total, BuyPack on-chain minted counter. Census who-made-how-many still comes from public meme-image user feeds and can lag the feed sequence."
+    },
+    {
+      "ts": "2026-09-12T18:00:00.000Z",
+      "tag": "DOCS",
+      "title": "WILDFIRE PREVIEW LANDED ON THE MODEL-LAYER PAGE.",
+      "body": "docs.geoff.ai now documents wildfire:preview: text orchestration, separate orchestration_effort (low/medium/high/max, default medium), independent of reasoning_effort. Chat picker only enables it when the authenticated network catalog reports wildfire_run_v1. Studio and agent consumers remain disabled in this initial text-chat slice. Resume original request continues a held body; it is not a fresh retry. Text Chat API adds idempotencyKey for Wildfire. This is docs copy, not a live catalog scrape."
+    },
+    {
+      "ts": "2026-09-12T16:00:00.000Z",
+      "tag": "GH",
+      "title": "HWONDER ACCOUNT STILL 33 PUBLIC REPOS. ORIGINALS UNCHANGED.",
+      "body": "github.com/hWonderOfTheWorld: public_repos 33, user updated_at 2026-07-20. Originals: magma-boilerplate-monorepo (metadata Aug 27), ultralitenode, truffle-template. Newest metadata bumps are forks (hashpool, autofi_bot). GeoffAi org still Geoff-v1.8 / Director-1.5 / Studio-2, last updated Aug 26, no source files. 24h digest now fingerprints these repos so a push shows on this page."
+    },
+    {
+      "ts": "2026-09-06T01:10:00.000Z",
+      "tag": "LEGAL",
+      "title": "816 HOLDINGS IS THE GEOFF FRONT. TRIX TERMS NAME GEOFF AS A THIRD PARTY.",
+      "body": "Indexed Geoff Terms (Aug 13 2026): 816 HOLDINGS PTE. LTD. provides a web app that routes prompts to a P2P network of independent AI service providers and says it does not own that network. TRiX Terms the same date (CHILDREN OF GOD, LLC): TRiX does not host models; meme/card image gen is third-party including StackNet and GEOFF. Pond0x Terms (May 8 2024) do not mention Geoff. First-party X still treats Geoff as their product. Empty GeoffAi org still has only Cary0x issue #1 on Geoff-v1.8 (movie/Brief/Director UI overlap)."
+    },
+    {
+      "ts": "2026-09-05T23:39:59.000Z",
+      "tag": "DOCS",
+      "title": "SITEMAP STILL THE SAME NINE PUBLIC URLS. DOCS ARE THE NEW SURFACE.",
+      "body": "www.geoff.ai/sitemap.xml lastmod Sep 5 23:39 UTC: /, /explore, /music, /image, /video, /pages, /code/showcase, /install, /terms, /privacy. robots.txt still Disallow /api/ /connect /settings. The product map that was missing from this page is on docs.geoff.ai: Magma, Magma 2.1, Pyro, Geoff Code, Stacknet SDK, x402 PAYG, token plans."
+    },
+    {
+      "ts": "2026-09-05T21:08:00.000Z",
+      "tag": "CODE",
+      "title": "GEOFF CODE + PYRO + x402 ARE DOCUMENTED.",
+      "body": "docs.geoff.ai/geoff-code: install via curl geoff.ai/code/install.sh or npm i -g @geoff/code. Default model pyro. TUI, -p, geoff acp. Auth page: Bearer key from Settings > API Keys, or Solana x402 PAYG minting a pg_ key against stacknet.magma-rpc.com stackId geoff. Plans: Basic $19/150M, Pro $199/2B, Max $499/7B, Turbo $999/20B. Unfiltered 10x tokens. This is docs copy, not a live billing scrape."
+    },
+    {
+      "ts": "2026-09-04T09:05:00.000Z",
+      "tag": "LAYER",
+      "title": "MAGMA 2.1 LANDED ON THE MODEL-LAYER PAGE.",
+      "body": "docs.geoff.ai model layers now list three IDs: magma, magma-2.1, pyro. All 1M context, all Mixture of Models. Magma 2.1 is described as three frontier models on every request, best answer selected, video-in, reference-to-image/video. Pyro is text/image in, text out, SOTA agentic coding. Duce still appears on the video endpoint page as a fast music/media layer. Not independently benchmarked here."
+    },
+    {
+      "ts": "2026-08-27T04:14:00.000Z",
+      "tag": "GH",
+      "title": "HWONDER ORIGINALS: ULTRALITENODE + MAGMA BOILERPLATE. GEOFFAI ORG EMPTY.",
+      "body": "github.com/hWonderOfTheWorld as of this dive: 3 original repos, 30 forks. Magma UltraLiteNode v0 (on-chain register, validation hash, slash bad streams, LST bond) and magma-boilerplate-monorepo (dapp + Nextra docs + contracts) both touched Aug 27. GeoffAi org last updated Aug 26: Geoff-v1.8 / Director-1.5 / Studio-2 are public and empty. Director and Studio descriptions say Backlog, Bugs & Ideas Agent Proxy."
+    },
+    {
+      "ts": "2026-07-26T19:20:23.000Z",
+      "tag": "THEATER",
+      "title": "PAULY COPIED A STACKNET THREAD, THEN TOLD YOU TO IGNORE IT.",
+      "body": "@JackDorsey0x quote-posted a 12-part Geoff explainer (node keys, GLM-4.6 + Qwen3, TEE, 174 keys sold, $425/key) and closed with: he has no idea who wrote it, treat it as pure fabrication. Some product names in that thread now match docs. The economic numbers do not have a primary source on this page."
+    },
+    {
+      "ts": "2026-08-31T05:28:16.000Z",
+      "tag": "LOOP",
+      "title": "120+ DEPLOYMENTS. 2500+ MEMES. WHAT HAPPENS NEXT.",
+      "body": "@trix_mrkt: \"over 120 deployments today / over 2500 memes created today / what happens next . . . .\" Same public loop: make the meme on geoff.ai, land it on TRiX. They also said \"verify your deployments chief.\""
+    },
+    {
+      "ts": "2026-08-30T15:08:00.000Z",
+      "tag": "BAIT",
+      "title": "PAULY TOLD PEOPLE TO STOP",
+      "body": "@Wonka0x posted \"Stop making memes with Geoff.\" Same day he posted Geoff going \"sentient.\" Public bait, not a shutdown. Geoff.ai home is still up."
+    },
+    {
+      "ts": "2026-08-30T04:53:00.000Z",
+      "tag": "HOOK",
+      "title": "1 MEME = 1 ?",
+      "body": "After posting just \"geoff\" and \"we need more memes to begin / MEME MOAR\", TRiX posted \"1 meme = 1 ?\". Public replies are people generating on geoff.ai and dropping the output on TRiX coin pages."
+    },
+    {
+      "ts": "2026-08-30T02:50:00.000Z",
+      "tag": "SIGNAL",
+      "title": "TRIX SAID THE WORD GEOFF",
+      "body": "Official TRiX account posted a one-word post: \"geoff\". Pond / DOSWAPZ crowd was already cooking TRiX memes on geoff.ai the night before. This page only watches public geoff.ai URLs for uptime / hash drift."
+    },
+    {
+      "ts": "2026-06-30T05:51:00.000Z",
+      "tag": "BACKSTORY",
+      "title": "TRIX ALREADY HAD A MEME BUTTON",
+      "body": "TRiX previously said coin pages had an AI GENERATE MEME control. Tonight's Geoff wave is the same public mechanic with a different generator. Older public line: launch a coin, deploy a meme community."
+    }
+  ]
+}

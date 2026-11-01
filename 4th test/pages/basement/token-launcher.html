@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong> Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong> Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>VANTABLACK // TOKEN LAUNCHER // ORBIT</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style class="page-classic-styles">
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ /* orbit: :root stripped */
+
+ * { box-sizing: border-box; }
+
+ /* orbit: global html,body stripped */
+
+ .dos-screen { position:relative; min-height:0; background:transparent; padding:0; }
+
+ /* orbit: scanlines stripped */
+
+ .wrap {
+ max-width: 640px;
+ margin: 0 auto;
+ position: relative;
+ z-index: 5;
+ }
+
+ /* orbit: .header stripped */
+
+ .header h1 {
+ margin: 0;
+ font-size: 28px;
+ letter-spacing: 5px;
+ color: #ddbbff;
+ text-shadow: 0 0 10px var(--basement);
+ }
+
+ .header /* orbit: .sub stripped */
+
+ .badge {
+ display: inline-block;
+ margin-top: 10px;
+ font-size: 14px;
+ color: var(--pink);
+ border: 2px solid var(--pink);
+ padding: 2px 12px;
+ letter-spacing: 3px;
+ }
+
+ .panel {
+ border: 3px solid var(--basement);
+ background: rgba(18, 0, 31, 0.85);
+ padding: 20px 18px;
+ margin: 16px 0;
+ box-shadow: 0 0 16px rgba(153, 68, 255, 0.25);
+ }
+
+ .panel h2 {
+ margin: 0 0 12px;
+ font-size: 20px;
+ color: var(--panel-accent);
+ letter-spacing: 3px;
+ }
+
+ .field {
+ margin-bottom: 14px;
+ }
+
+ .field label {
+ display: block;
+ font-size: 15px;
+ color: #cc88ff;
+ letter-spacing: 2px;
+ margin-bottom: 4px;
+ }
+
+ .field input[type="text"],
+ .field input[type="number"] {
+ width: 100%;
+ background: #0a0014;
+ border: 2px solid var(--basement-dim);
+ color: #ddbbff;
+ font-family: inherit;
+ font-size: 20px;
+ padding: 6px 10px;
+ outline: none;
+ }
+
+ .field input:focus {
+ border-color: var(--pink);
+ }
+
+ .field .hint {
+ font-size: 13px;
+ color: #8866aa;
+ margin-top: 4px;
+ letter-spacing: 1px;
+ }
+
+ .field-check {
+ display: flex;
+ align-items: flex-start;
+ gap: 8px;
+ font-size: 15px;
+ color: #cc88ff;
+ letter-spacing: 1px;
+ margin: 12px 0;
+ }
+
+ .field-check input {
+ margin-top: 3px;
+ accent-color: var(--pink);
+ }
+
+ .wallet-row {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ gap: 10px;
+ margin-bottom: 8px;
+ }
+
+ .wallet-addr {
+ font-size: 18px;
+ color: var(--green);
+ letter-spacing: 2px;
+ }
+
+ .btn {
+ font-family: inherit;
+ font-size: 17px;
+ cursor: pointer;
+ border: 2px solid var(--basement);
+ background: #1a0033;
+ color: #ddbbff;
+ padding: 6px 16px;
+ text-decoration: none;
+ display: inline-block;
+ letter-spacing: 2px;
+ }
+
+ .btn:hover {
+ border-color: var(--pink);
+ color: var(--pink);
+ }
+
+ .btn-pink {
+ border-color: var(--pink);
+ color: var(--pink);
+ font-size: 20px;
+ padding: 8px 22px;
+ width: 100%;
+ margin-top: 8px;
+ }
+
+ .btn-pink:disabled {
+ opacity: 0.45;
+ cursor: not-allowed;
+ }
+
+ .btn-pink:not(:disabled):hover {
+ background: #2a0044;
+ color: #ffddff;
+ }
+
+ .status {
+ margin-top: 12px;
+ font-size: 16px;
+ letter-spacing: 1px;
+ min-height: 22px;
+ }
+
+ .warn {
+ font-size: 14px;
+ color: #ff8888;
+ letter-spacing: 1px;
+ line-height: 1.4;
+ margin-top: 12px;
+ border-top: 1px solid #442266;
+ padding-top: 12px;
+ }
+
+ .result {
+ display: none;
+ margin-top: 16px;
+ padding: 14px;
+ border: 2px solid var(--green);
+ background: rgba(0, 40, 0, 0.35);
+ }
+
+ .result h3 {
+ margin: 0 0 8px;
+ color: var(--green);
+ font-size: 18px;
+ letter-spacing: 3px;
+ }
+
+ .mint-box {
+ font-size: 15px;
+ word-break: break-all;
+ color: var(--panel-accent);
+ margin: 8px 0;
+ padding: 8px;
+ border: 1px solid #004400;
+ background: transparent;
+ }
+
+ .result-actions {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 8px;
+ margin-top: 12px;
+ }
+
+ .result-actions .btn {
+ border-color: var(--panel-accent);
+ color: var(--panel-accent);
+ }
+
+ .nav {
+ text-align: center;
+ margin-top: 24px;
+ }
+
+ .nav .btn {
+ margin: 4px;
+ border-color: var(--panel-accent);
+ color: var(--panel-accent);
+ }
+
+ .steps {
+ margin: 0;
+ padding: 0 0 0 18px;
+ font-size: 15px;
+ color: #aa88cc;
+ line-height: 1.5;
+ }
+
+ .steps li { margin: 4px 0; }
+ </style>
+</head>
+<body id="screen" class="orbit-void-inner">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+ <span class="crumb-zone">VANTABLACK // TOKEN LAUNCHER</span>
+ <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+ <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+ <div class="core-glow"></div>
+ <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+ <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ <div class="orbit-line" style="width:min(34vmin,34vw);height:min(34vmin,34vh)"></div>
+ </div>
+
+ <main class="stage" id="content">
+ <h1 class="hollow-title" id="orbitTitle">VANTABLACK // TOKEN LAUNCHER</h1>
+ <p class="hollow-sub" id="stageSub">off the record<span class="cursor-blink">|</span></p>
+ <p class="page-path">/orbit/pages/basement/token-launcher.html</p>
+ </main>
+
+ <div class="orbit-panel accent-basement" id="orbitPanel">
+<div class="header">
+ <h1>VANTABLACK LAUNCHER</h1>
+ <div class="sub">BASEMENT * SOLANA MAINNET</div>
+ <div class="badge">VANTABLACK MARKET * 18+</div>
+ </div>
+
+ <div class="panel">
+ <h2>HOW IT WORKS</h2>
+ <ol class="steps">
+ <li>Connect Phantom or Solflare - your wallet signs everything.</li>
+ <li>We create a real SPL mint on Solana and mint your supply to you.</li>
+ <li>Auto-lists on <a href="/orbit/pages/basement/vantablack/market.html" style="color:#ffaa00;">Vantablack Market</a> after mint confirms.</li>
+ <li>Trade via DOSWAPZ swap rail once liquidity exists.</li>
+ </ol>
+ <p class="warn">
+ Real mainnet transaction. Costs SOL for rent + fees. DOSWAPZ never holds your keys.
+ Revoke mint authority recommended so supply cannot be inflated later.
+ </p>
+ </div>
+
+ <div class="panel">
+ <h2>WALLET</h2>
+ <div class="wallet-row">
+ <button type="button" class="btn" id="connectWalletBtn">CONNECT WALLET</button>
+ <span class="wallet-addr" id="walletAddr"> - </span>
+ </div>
+ </div>
+
+ <div class="panel">
+ <h2>TOKEN</h2>
+ <div class="field">
+ <label for="tokenName">NAME</label>
+ <input type="text" id="tokenName" maxlength="32" placeholder="Crypto Mom Coin" autocomplete="off">
+ </div>
+ <div class="field">
+ <label for="tokenSymbol">SYMBOL</label>
+ <input type="text" id="tokenSymbol" maxlength="10" placeholder="MOM" autocomplete="off">
+ </div>
+ <div class="field">
+ <label for="tokenDecimals">DECIMALS</label>
+ <input type="number" id="tokenDecimals" value="9" min="0" max="9" step="1">
+ <div class="hint">Usually 9 on Solana (like SOL).</div>
+ </div>
+ <div class="field">
+ <label for="tokenSupply">INITIAL SUPPLY</label>
+ <input type="text" id="tokenSupply" placeholder="1000000000" autocomplete="off">
+ <div class="hint">Whole tokens - e.g. 1,000,000,000 minted to your wallet.</div>
+ </div>
+ <label class="field-check">
+ <input type="checkbox" id="revokeMint" checked>
+ <span>Revoke mint authority after launch (fixed supply - recommended)</span>
+ </label>
+ <button type="button" class="btn btn-pink" id="launchTokenBtn" disabled>LAUNCH ON SOLANA</button>
+ <div class="status" id="launchStatus">Connect wallet to begin.</div>
+
+ <div class="result" id="launchResult">
+ <h3>TOKEN LIVE</h3>
+ <div>Mint address:</div>
+ <div class="mint-box" id="resultMint"></div>
+ <div>Tx: <span id="resultSig"></span></div>
+ <div class="result-actions">
+ <a class="btn" id="marketListBtn" href="/orbit/pages/doswapz/swap.html">SWAP ON DOSWAPZ -> </a>
+ <a class="btn" id="swapTokenBtn" href="/orbit/pages/doswapz/swap.html">SWAP RAIL -> </a>
+ </div>
+ </div>
+ </div>
+
+ <div class="nav">
+ <a href="/orbit/pages/basement/vantablack/market.html" class="btn"><- VANTABLACK MARKET</a>
+ <a href="/orbit/pages/basement.html" class="btn">BASEMENT</a>
+ <a href="/orbit/hub.html" class="btn">HUB</a>
+ </div>
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/config/vantablack-config.js"></script>
+ <script src="/assets/js/basement/vantablack-market.js"></script>
+ <script src="/assets/js/basement/token-launcher.js"></script>
+
+ <script>hollowPageBoot('VANTABLACK // TOKEN LAUNCHER');</script>
+</body>
+</html>

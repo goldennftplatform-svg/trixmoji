@@ -1,0 +1,27 @@
+{
+  "name": "cryptodad-mobile",
+  "version": "1.0.0",
+  "description": "Crypto Dad — DOSWAPZ mobile life simulation",
+  "private": true,
+  "scripts": {
+    "prepare:www": "node scripts/prepare-www.js",
+    "test:mobile": "python test_mobile_game.py",
+    "cap:sync": "npm run prepare:www && npx cap sync",
+    "cap:android": "npx cap open android",
+    "cap:ios": "npx cap open ios",
+    "build:icons": "node scripts/check-icons.js"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/ios": "^7.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.0.0"
+  },
+  "capacitor": {
+    "appId": "com.doswapz.cryptodad",
+    "appName": "Crypto Dad",
+    "webDir": "www"
+  }
+}

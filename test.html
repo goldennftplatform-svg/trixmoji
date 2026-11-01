@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // FULL SITE TEST</title>
+ <meta name="robots" content="noindex">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;500;600&display=swap');
+ :root {
+ --bg: #050508;
+ --card: #0e1018;
+ --line: #252a3a;
+ --text: #e8ecf8;
+ --muted: #8b93b0;
+ --past: #4dff7a;
+ --present: #8aa8ff;
+ --future: #f0ecff;
+ --hot: #ff9ed0;
+ --bad: #ff6688;
+ --ok: #66ff99;
+ }
+ * { box-sizing: border-box; }
+ html, body {
+ margin: 0; min-height: 100%;
+ background: var(--bg);
+ color: var(--text);
+ font-family: 'Outfit', system-ui, sans-serif;
+ }
+ body {
+ background:
+ radial-gradient(ellipse 70% 40% at 10% 0%, rgba(0,255,100,0.06), transparent 50%),
+ radial-gradient(ellipse 60% 40% at 90% 0%, rgba(100,140,255,0.1), transparent 50%),
+ var(--bg);
+ }
+ .wrap { max-width: 980px; margin: 0 auto; padding: 28px 18px 80px; }
+ h1 { margin: 0 0 6px; font-size: clamp(26px, 5vw, 36px); font-weight: 600; }
+ .sub { color: var(--muted); font-size: 15px; line-height: 1.5; margin-bottom: 18px; max-width: 620px; }
+ .status {
+ border-radius: 14px;
+ padding: 14px 16px;
+ margin-bottom: 18px;
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 12px;
+ line-height: 1.55;
+ border: 1px solid var(--line);
+ background: var(--card);
+ }
+ .status.bad { border-color: rgba(255,102,136,0.45); color: #ffc0d0; background: #1a0a10; }
+ .status.ok { border-color: rgba(102,255,153,0.35); color: #b8ffd0; background: #0a1810; }
+ .status a { color: #9cf; }
+ .row {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+ gap: 12px;
+ margin-bottom: 28px;
+ }
+ .big {
+ display: flex; flex-direction: column; gap: 8px;
+ text-decoration: none; color: inherit;
+ border-radius: 16px; padding: 18px 16px;
+ border: 1px solid var(--line); background: var(--card);
+ min-height: 120px; transition: transform .15s, border-color .15s;
+ }
+ .big:hover { transform: translateY(-2px); }
+ .big.past { border-color: rgba(77,255,122,0.25); }
+ .big.present { border-color: rgba(138,168,255,0.28); }
+ .big.future { border-color: rgba(240,236,255,0.25); }
+ .big.machine { border-color: rgba(255,158,208,0.3); }
+ .big .era {
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+ }
+ .big.past .era { color: var(--past); }
+ .big.present .era { color: var(--present); }
+ .big.future .era { color: var(--future); }
+ .big.machine .era { color: var(--hot); }
+ .big strong { font-size: 18px; font-weight: 600; }
+ .big span { font-size: 13px; color: var(--muted); line-height: 1.4; font-weight: 300; }
+ h2 {
+ margin: 8px 0 12px; font-size: 12px; letter-spacing: 0.18em;
+ text-transform: uppercase; color: var(--muted); font-weight: 500;
+ }
+ .list {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+ gap: 8px;
+ margin-bottom: 26px;
+ }
+ .list a {
+ display: block; text-decoration: none; color: var(--text);
+ background: var(--card); border: 1px solid var(--line);
+ border-radius: 10px; padding: 12px 12px 10px; font-size: 14px;
+ }
+ .list a:hover { border-color: rgba(138,168,255,0.4); }
+ .list a small {
+ display: block; margin-top: 4px;
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 10px; color: #667; word-break: break-all;
+ }
+ .foot { margin-top: 20px; color: #556; font-size: 12px; font-family: 'JetBrains Mono', monospace; }
+ </style>
+</head>
+<body>
+ <div class="wrap">
+ <h1>Full site test</h1>
+ <p class="sub">
+ Use this page only after the black server window is running.
+ Address bar must say <strong>http://127.0.0.1:8890/...</strong> - not a file path.
+ </p>
+
+ <div class="status" id="status">Checking server...</div>
+
+ <h2>Start here</h2>
+ <div class="row" id="mainLinks">
+ <!-- filled by JS with correct base URL -->
+ </div>
+
+ <h2>Quick pages</h2>
+ <div class="list" id="quickLinks"></div>
+
+ <p class="foot">DOSWAPZ local test * keep START-DOSWAPZ-SITE.bat window open</p>
+ </div>
+
+ <script>
+ (function () {
+ var status = document.getElementById('status');
+ var mainLinks = document.getElementById('mainLinks');
+ var quickLinks = document.getElementById('quickLinks');
+
+ var isFile = location.protocol === 'file:';
+ var base = isFile ? 'http://127.0.0.1:8890' : (location.origin || 'http://127.0.0.1:8890');
+
+ function url(path) {
+ if (path.charAt(0) !== '/') path = '/' + path;
+ return base.replace(/\/$/, '') + path;
+ }
+
+ var mains = [
+ { href: '/portal.html', era: 'machine', eraLabel: 'Time machine', title: 'Portal', desc: 'Pick PAST * PRESENT * FUTURE', cls: 'machine' },
+ { href: '/classic/hub.html', era: 'past', eraLabel: 'Past', title: 'Classic hub', desc: 'Green CRT menu', cls: 'past' },
+ { href: '/orbit/hub.html', era: 'present', eraLabel: 'Present', title: 'Orbit hub', desc: 'Bubble void hub', cls: 'present' },
+ { href: '/orbit/test-hub.html', era: 'present', eraLabel: 'Present', title: 'All-pages test hub', desc: 'Search every page', cls: 'present' },
+ { href: '/future/hub.html', era: 'future', eraLabel: 'Future', title: 'Pearl future', desc: 'Think of your destination', cls: 'future' },
+ { href: '/classic/pages/perpetual-vision-center.html', era: 'center', eraLabel: 'Center', title: 'Vision Center', desc: 'X live playlist', cls: 'present' }
+ ];
+
+ var quick = [
+ ['Swap', '/orbit/pages/doswapz/swap.html'],
+ ['Pond Scum', '/orbit/pages/pond-scum.html'],
+ ['I See You', '/orbit/pages/i-see-you.html'],
+ ['Vantablack Market', '/orbit/pages/basement/vantablack/market.html'],
+ ['Token launcher', '/orbit/pages/basement/token-launcher.html'],
+ ['Vision Center (orbit)', '/orbit/pages/perpetual-vision-center.html'],
+ ['Harbinger', '/orbit/pages/harbinger.html'],
+ ['Lily Pad', '/orbit/pages/lily-pad.html'],
+ ['The Attic', '/orbit/pages/attic.html'],
+ ['The Basement', '/orbit/pages/basement.html'],
+ ['Crypto Dad', '/classic/pages/cryptodad/play.html'],
+ ['Boot splash', '/index.html']
+ ];
+
+ mains.forEach(function (m) {
+ var a = document.createElement('a');
+ a.className = 'big ' + m.cls;
+ a.href = url(m.href);
+ a.innerHTML = '<div class="era">' + m.eraLabel + '</div><strong>' + m.title + '</strong><span>' + m.desc + '</span>';
+ mainLinks.appendChild(a);
+ });
+
+ quick.forEach(function (pair) {
+ var a = document.createElement('a');
+ a.href = url(pair[1]);
+ a.innerHTML = pair[0] + '<small>' + url(pair[1]) + '</small>';
+ quickLinks.appendChild(a);
+ });
+
+ if (isFile) {
+ status.className = 'status bad';
+ status.innerHTML =
+ '<strong>WRONG WAY TO OPEN THIS FILE</strong><br>' +
+ 'You opened a local file. Links will break.<br><br>' +
+ '1. Double-click Desktop <code>START-DOSWAPZ-SITE.bat</code><br>' +
+ '2. Leave the black window open<br>' +
+ '3. Open this link in the browser:<br>' +
+ '<a href="http://127.0.0.1:8890/test.html"><strong>http://127.0.0.1:8890/test.html</strong></a>';
+ return;
+ }
+
+ // Probe a few key pages so user sees green/red
+ var probes = ['/portal.html', '/classic/hub.html', '/orbit/hub.html', '/future/hub.html', '/assets/js/core/era-portal.js'];
+ var ok = 0;
+ var fail = [];
+ var left = probes.length;
+
+ probes.forEach(function (p) {
+ fetch(p, { cache: 'no-store' }).then(function (r) {
+ if (r.ok) ok++;
+ else fail.push(p + ' (' + r.status + ')');
+ }).catch(function () {
+ fail.push(p + ' (network)');
+ }).finally(function () {
+ left--;
+ if (left > 0) return;
+ if (fail.length === 0) {
+ status.className = 'status ok';
+ status.innerHTML =
+ '<strong>SERVER OK</strong> - pages should open when you click.<br>' +
+ 'You are on <code>' + location.href + '</code><br>' +
+ 'Checked ' + ok + ' routes successfully.';
+ } else {
+ status.className = 'status bad';
+ status.innerHTML =
+ '<strong>SERVER PROBLEM</strong> - main page loaded but other routes failed.<br>' +
+ fail.join('<br>') +
+ '<br><br>Close other black windows, run <code>START-DOSWAPZ-SITE.bat</code> again, then refresh.';
+ }
+ });
+ });
+ })();
+ </script>
+<script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+</body>
+</html>

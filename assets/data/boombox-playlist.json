@@ -1,0 +1,40 @@
+{
+  "title": "DOSWAPZ COMMUNITY RADIO",
+  "stations": [
+    {
+      "freq": 88.1,
+      "name": "DOSWAPZ LOFI",
+      "artist": "DOSWAPZ",
+      "kind": "video",
+      "url": "/assets/media/lofi/doswapz-lofi.mp4"
+    },
+    {
+      "freq": 91.7,
+      "name": "GARDEN LOOP",
+      "artist": "DOSWAPZ",
+      "kind": "video",
+      "url": "/assets/media/lofi/doswapz-lofi-garden.mp4"
+    },
+    {
+      "freq": 95.3,
+      "name": "BASEMENT MIX",
+      "artist": "DOSWAPZ",
+      "kind": "video",
+      "url": "/assets/media/live-sim-lofi.mp4"
+    },
+    {
+      "freq": 98.7,
+      "name": "LILY PAD",
+      "artist": "DOSWAPZ",
+      "kind": "video",
+      "url": "/assets/media/lily-pad.mp4"
+    },
+    {
+      "freq": 102.5,
+      "name": "AQUA DROP",
+      "artist": "DOSWAPZ",
+      "kind": "video",
+      "url": "/assets/media/aqua-drop.mp4"
+    }
+  ]
+}

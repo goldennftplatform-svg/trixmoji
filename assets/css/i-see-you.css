@@ -1,0 +1,407 @@
+/* I SEE YOU - wallet surveillance terminal */
+
+.isy-screen .header {
+ width: 100%;
+ text-align: center;
+ font-size: clamp(28px, 7vw, 40px);
+ letter-spacing: 0.22em;
+ text-shadow: 0 0 8px #ff3366, 0 0 18px rgba(255, 51, 102, 0.35);
+ color: #ff4477;
+ margin: 0 0 6px;
+ position: relative;
+ z-index: 40;
+}
+
+body.orbit-void-inner .isy-screen .header {
+ display: none;
+}
+
+.isy-subhead {
+ text-align: center;
+ font-size: 14px;
+ color: #aa6688;
+ letter-spacing: 0.14em;
+ margin-bottom: 18px;
+ line-height: 1.4;
+}
+
+.isy-panel {
+ border: 3px solid #ff3366;
+ background: rgba(20, 0, 10, 0.55);
+ padding: 14px;
+ margin-bottom: 16px;
+ box-shadow: 0 0 24px rgba(255, 51, 102, 0.12);
+}
+
+.isy-panel .section-label {
+ color: #ff6699;
+ text-shadow: 0 0 6px rgba(255, 102, 153, 0.4);
+}
+
+.isy-row {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 8px;
+ justify-content: center;
+ margin: 10px 0;
+}
+
+.isy-field {
+ width: 100%;
+ max-width: 520px;
+ margin: 0 auto;
+ position: relative;
+ z-index: 50;
+}
+
+.isy-field label {
+ display: block;
+ text-align: center;
+ font-size: 13px;
+ color: #ffaa66;
+ letter-spacing: 0.1em;
+ margin-bottom: 4px;
+}
+
+.isy-chain-pick {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 6px;
+ justify-content: center;
+ margin-bottom: 8px;
+ position: relative;
+ z-index: 50;
+ pointer-events: auto;
+}
+
+.isy-chain-opt {
+ font-family: inherit;
+ font-size: 14px;
+ color: #ff99bb;
+ background: rgba(0, 0, 0, 0.65);
+ border: 2px solid #ff3366;
+ padding: 5px 10px;
+ cursor: pointer;
+ letter-spacing: 0.04em;
+ pointer-events: auto;
+}
+
+.isy-chain-opt:hover,
+.isy-chain-opt.is-active {
+ color: #ffff66;
+ border-color: #ffff66;
+ background: rgba(80, 0, 30, 0.55);
+}
+
+.isy-chain-native {
+ position: absolute;
+ width: 1px;
+ height: 1px;
+ opacity: 0;
+ pointer-events: none;
+ overflow: hidden;
+ clip: rect(0, 0, 0, 0);
+ white-space: nowrap;
+ border: 0;
+ padding: 0;
+ margin: -1px;
+}
+
+.isy-field select:not(.isy-chain-native),
+.isy-field input {
+ width: 100%;
+ background: #000;
+ color: #ff99bb;
+ border: 2px solid #ff3366;
+ padding: 8px 10px;
+ font-family: inherit;
+ font-size: 16px;
+ position: relative;
+ z-index: 50;
+ pointer-events: auto;
+ cursor: pointer;
+ appearance: auto;
+ -webkit-appearance: menulist;
+}
+
+.isy-target {
+ text-align: center;
+ font-size: 13px;
+ color: #cc88aa;
+ letter-spacing: 0.08em;
+ margin: 8px 0 4px;
+ word-break: break-all;
+}
+
+.isy-stats {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 12px 18px;
+ justify-content: center;
+ margin: 12px 0 8px;
+ font-size: 14px;
+ color: #aa7799;
+}
+
+.isy-stat strong {
+ color: #ff6699;
+ margin-right: 4px;
+}
+
+.isy-table-wrap {
+ overflow-x: auto;
+ border: 1px solid rgba(255, 51, 102, 0.35);
+ background: rgba(0, 0, 0, 0.45);
+}
+
+.isy-table {
+ width: 100%;
+ border-collapse: collapse;
+ font-size: 15px;
+}
+
+.isy-table th {
+ text-align: left;
+ color: #ffaa44;
+ letter-spacing: 0.08em;
+ font-size: 13px;
+ padding: 8px 10px;
+ border-bottom: 1px solid rgba(255, 51, 102, 0.35);
+}
+
+.isy-table td {
+ padding: 8px 10px;
+ border-bottom: 1px solid rgba(80, 20, 40, 0.55);
+ color: #dd99aa;
+ vertical-align: top;
+}
+
+.isy-time {
+ white-space: nowrap;
+ font-size: 13px;
+ color: #aa7788;
+}
+
+.isy-detail {
+ max-width: 280px;
+ word-break: break-word;
+}
+
+.isy-hash a {
+ color: #66ccff;
+ text-decoration: none;
+}
+
+.isy-hash a:hover {
+ color: #ffff66;
+}
+
+.isy-type {
+ display: inline-block;
+ padding: 2px 6px;
+ font-size: 12px;
+ letter-spacing: 0.06em;
+ border: 1px solid currentColor;
+}
+
+.isy-type-swap {
+ color: #ffff44;
+ border-color: #ffff44;
+ text-shadow: 0 0 6px rgba(255, 255, 68, 0.45);
+}
+
+.isy-type-transfer,
+.isy-type-token {
+ color: #66ffaa;
+}
+
+.isy-type-tx,
+.isy-type-contract_call {
+ color: #88aaff;
+}
+
+.isy-type-failed {
+ color: #ff6666;
+}
+
+/* —— PnL radar —— */
+.isy-pnl-summary {
+ margin: 4px 0 0;
+}
+
+.isy-pnl-banner {
+ text-align: center;
+ font-size: 13px;
+ color: #886677;
+ letter-spacing: 0.06em;
+ padding: 10px 8px;
+}
+
+.isy-pnl-cards {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+ gap: 8px;
+}
+
+.isy-pnl-card {
+ border: 1px solid rgba(255, 51, 102, 0.35);
+ background: rgba(0, 0, 0, 0.45);
+ padding: 8px 10px;
+ text-align: center;
+}
+
+.isy-pnl-card-label {
+ font-size: 11px;
+ color: #ffaa66;
+ letter-spacing: 0.1em;
+ margin-bottom: 4px;
+}
+
+.isy-pnl-card-value {
+ font-size: 18px;
+ letter-spacing: 0.04em;
+ word-break: break-word;
+}
+
+.isy-pnl-pos {
+ color: #44ff99 !important;
+ text-shadow: 0 0 8px rgba(68, 255, 153, 0.35);
+}
+
+.isy-pnl-neg {
+ color: #ff5566 !important;
+ text-shadow: 0 0 8px rgba(255, 85, 102, 0.35);
+}
+
+.isy-pnl-flat {
+ color: #cc99aa;
+}
+
+.isy-pnl-muted {
+ color: #665566;
+ font-size: 12px;
+}
+
+.isy-pnl-note {
+ margin-top: 10px;
+ font-size: 11px;
+ line-height: 1.4;
+ color: #886677;
+ text-align: center;
+ letter-spacing: 0.03em;
+}
+
+.isy-pnl-table th,
+.isy-pnl-table td {
+ font-size: 13px;
+ white-space: nowrap;
+}
+
+.isy-pnl-table .isy-token-sym a {
+ color: #ff99bb;
+ text-decoration: none;
+}
+
+.isy-pnl-table .isy-token-sym a:hover {
+ color: #ffff66;
+}
+
+.isy-tx-pnl {
+ font-size: 13px;
+ white-space: nowrap;
+}
+
+.content {
+ max-width: 960px;
+}
+
+.isy-empty {
+ text-align: center;
+ color: #664455;
+ font-style: italic;
+ padding: 28px 12px;
+}
+
+.isy-status {
+ min-height: 18px;
+ text-align: center;
+ font-size: 13px;
+ margin: 10px 0;
+ color: #00cc66;
+ letter-spacing: 0.06em;
+}
+
+.isy-btn {
+ font-family: inherit;
+ font-size: 15px;
+ color: #ff6699;
+ background: transparent;
+ border: 2px solid #ff3366;
+ padding: 6px 14px;
+ cursor: pointer;
+ letter-spacing: 0.06em;
+}
+
+.isy-btn:hover:not(:disabled) {
+ background: rgba(80, 0, 30, 0.55);
+ color: #ffff66;
+ border-color: #ffff66;
+}
+
+.isy-btn:disabled {
+ opacity: 0.45;
+ cursor: not-allowed;
+}
+
+.isy-btn-small {
+ font-size: 13px;
+ padding: 4px 10px;
+}
+
+.isy-disclaimer {
+ border: 2px solid rgba(255, 170, 68, 0.55);
+ background: rgba(30, 15, 0, 0.35);
+ padding: 10px 12px;
+ font-size: 12px;
+ line-height: 1.35;
+ color: #ccaa88;
+}
+
+.isy-disclaimer-title {
+ color: #ffaa44;
+ text-align: center;
+ letter-spacing: 0.1em;
+ margin-bottom: 6px;
+}
+
+/* Present-era overrides live in orbit-void-content.css (.accent-iseeyou)
+ so void panel rules don't wash out the surveillance UI. */
+
+body#screen.orbit-void-inner .accent-iseeyou .isy-panel {
+ border-color: rgba(255, 80, 130, 0.4);
+ background: rgba(12, 2, 8, 0.92);
+}
+
+body#screen.orbit-void-inner .accent-iseeyou .isy-chain-opt {
+ border-color: rgba(255, 80, 130, 0.4);
+ color: #ffb0c8;
+ background: rgba(8, 0, 4, 0.85);
+}
+
+body#screen.orbit-void-inner .accent-iseeyou .isy-chain-opt:hover,
+body#screen.orbit-void-inner .accent-iseeyou .isy-chain-opt.is-active {
+ border-color: #ffe080;
+ color: #fff0b0;
+}
+
+body#screen.orbit-void-inner .accent-iseeyou .isy-field select:not(.isy-chain-native),
+body#screen.orbit-void-inner .accent-iseeyou .isy-field input {
+ border-color: rgba(255, 80, 130, 0.45);
+ color: #ffc0d4;
+ background: #08040a;
+}
+
+body#screen.orbit-void-inner .accent-iseeyou .isy-btn {
+ border-color: rgba(255, 80, 130, 0.5);
+ color: #ff9ab8;
+}

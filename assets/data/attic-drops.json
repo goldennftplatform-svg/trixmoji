@@ -1,0 +1,146 @@
+{
+ "updated": "2026-09-12",
+ "note": "Manual drop board, checked 12 Sep 2026. status: live | preorder | upcoming | soldout. cat: sports | pokemon | other. Links are store search/product pages — stock moves fast, verify before you pay.",
+ "products": [
+ {
+ "id": "pk-30th",
+ "cat": "pokemon",
+ "status": "preorder",
+ "title": "Pokémon TCG 30th Celebration",
+ "brand": "Pokémon TCG",
+ "date": "Street * Sep 16 2026",
+ "msrp": "ETB ~$54.99",
+ "note": "Worldwide same-day launch. All-foil packs. Core products Sep 16; Booster Bundle Oct 2; Ultra-Premium Collections Nov 6.",
+ "links": [
+ { "label": "POKE CENTER", "href": "https://www.pokemoncenter.com/category/tcg" },
+ { "label": "TARGET", "href": "https://www.target.com/s?searchTerm=pokemon+30th+celebration" }
+ ]
+ },
+ {
+ "id": "pk-pitch-black",
+ "cat": "pokemon",
+ "status": "live",
+ "title": "Mega Evolution — Pitch Black ETB",
+ "brand": "Pokémon TCG",
+ "date": "Released * Jul 17 * restock hunt",
+ "msrp": "$54.99",
+ "note": "Mega Darkrai ex set. Watch Pokemon Center + big-box restocks.",
+ "links": [
+ { "label": "POKE CENTER", "href": "https://www.pokemoncenter.com/category/tcg" },
+ { "label": "WALMART", "href": "https://www.walmart.com/search?q=pokemon+pitch+black" }
+ ]
+ },
+ {
+ "id": "pk-delta-reign",
+ "cat": "pokemon",
+ "status": "upcoming",
+ "title": "Mega Evolution — Delta Reign",
+ "brand": "Pokémon TCG",
+ "date": "Street * Nov 6 2026 * prerelease Oct 24",
+ "msrp": "$ - ",
+ "note": "Mega Rayquaza ex. Pokemon Center preorders expected after 30th Celebration.",
+ "links": [
+ { "label": "POKE CENTER", "href": "https://www.pokemoncenter.com/category/tcg" },
+ { "label": "POKEMON NEWS", "href": "https://www.pokemon.com/us/pokemon-tcg" }
+ ]
+ },
+ {
+ "id": "sp-bowman-chrome",
+ "cat": "sports",
+ "status": "live",
+ "title": "2026 Bowman Chrome Baseball",
+ "brand": "Topps",
+ "date": "Released * Sep 9 2026",
+ "msrp": "$ - ",
+ "note": "Prospect chrome. Hobby + mega in shops now. Heat is on the prospect autos.",
+ "links": [
+ { "label": "DAVE & ADAM", "href": "https://www.dacardworld.com/search?q=2026+bowman+chrome" },
+ { "label": "BECKETT", "href": "https://www.beckett.com" }
+ ]
+ },
+ {
+ "id": "sp-topps-update",
+ "cat": "sports",
+ "status": "preorder",
+ "title": "2026 Topps Update Series Baseball",
+ "brand": "Topps",
+ "date": "Preorder window * Sep 14",
+ "msrp": "$ - ",
+ "note": "Second-half call-ups + trades. Confirm street date on Topps / hobby shops.",
+ "links": [
+ { "label": "TOPPS", "href": "https://www.topps.com" },
+ { "label": "DAVE & ADAM", "href": "https://www.dacardworld.com/search?q=2026+topps+update" }
+ ]
+ },
+ {
+ "id": "sp-topps-chrome",
+ "cat": "sports",
+ "status": "soldout",
+ "title": "2026 Topps Chrome Baseball Hobby",
+ "brand": "Topps",
+ "date": "Released * Jul 22 * watch restocks",
+ "msrp": "$ - ",
+ "note": "30th anniversary Chrome. Primary sold through; secondary only.",
+ "links": [
+ { "label": "DAVE & ADAM", "href": "https://www.dacardworld.com/search?q=2026+topps+chrome+baseball" },
+ { "label": "EBAY", "href": "https://www.ebay.com/sch/i.html?_nkw=2026+topps+chrome+baseball+hobby", "dim": true }
+ ]
+ },
+ {
+ "id": "ot-op17",
+ "cat": "other",
+ "status": "live",
+ "title": "One Piece OP-17 Booster Box",
+ "brand": "Bandai",
+ "date": "EN street * Aug 28 2026",
+ "msrp": "$144",
+ "note": "Elbaf / Four Emperors. LGS + specialty still getting cases.",
+ "links": [
+ { "label": "TROLL AND TOAD", "href": "https://www.trollandtoad.com" },
+ { "label": "TCGPLAYER", "href": "https://www.tcgplayer.com/search/one-piece-card-game/product?q=OP-17" }
+ ]
+ },
+ {
+ "id": "ot-op-eb05",
+ "cat": "other",
+ "status": "upcoming",
+ "title": "One Piece EB-05 Heroines Edition Vol. 2",
+ "brand": "Bandai",
+ "date": "Window * Oct 30 2026",
+ "msrp": "$ - ",
+ "note": "Extra booster. Confirm your distributor day.",
+ "links": [
+ { "label": "BANDAI", "href": "https://en.onepiece-cardgame.com" },
+ { "label": "TCGPLAYER", "href": "https://www.tcgplayer.com/search/one-piece-card-game/product?q=EB-05" }
+ ]
+ },
+ {
+ "id": "ot-mtg-eoe",
+ "cat": "other",
+ "status": "live",
+ "title": "MTG — Edge of Eternities",
+ "brand": "Wizards",
+ "date": "Released * Aug 1 2026",
+ "msrp": "Bundle ~$49.99",
+ "note": "In shops. LGS first for play product.",
+ "links": [
+ { "label": "WIZARDS", "href": "https://magic.wizards.com/en/products/edge-of-eternities" },
+ { "label": "TCGPLAYER", "href": "https://www.tcgplayer.com/search/magic/product?q=edge+of+eternities" }
+ ]
+ },
+ {
+ "id": "ot-mtg-rf",
+ "cat": "other",
+ "status": "preorder",
+ "title": "MTG — Reality Fracture",
+ "brand": "Wizards",
+ "date": "Street * Oct 2 2026",
+ "msrp": "$ - ",
+ "note": "Next Standard set. Preorders open at LGS / online.",
+ "links": [
+ { "label": "WIZARDS", "href": "https://magic.wizards.com" },
+ { "label": "TCGPLAYER", "href": "https://www.tcgplayer.com/search/magic/product?q=reality+fracture" }
+ ]
+ }
+ ]
+}

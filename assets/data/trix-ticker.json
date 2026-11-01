@@ -1,0 +1,118 @@
+{
+  "updatedAt": "2026-09-27T14:11:50.523Z",
+  "source": "trix.market/api/trending",
+  "tokens": [
+    {
+      "mint": "4G5YDqDvwgwSS3nLPDGDpGuetbG7rZYzNSBb1U4Tqbzi",
+      "symbol": "ARENA",
+      "name": "Arena of Memes",
+      "price": 0.0008487,
+      "change24h": 47.56,
+      "marketCap": 841780
+    },
+    {
+      "mint": "GtAUoL7YiDQoRtoZEvBKkUXEftsouJkxoGXqLERa9Thg",
+      "symbol": "DOOMSCROLLER",
+      "name": "The Doomscroller",
+      "price": 0.0001005,
+      "change24h": 98.81,
+      "marketCap": 100548
+    },
+    {
+      "mint": "9n8LcQVsryuRm2GM1tYsxFCxTUjvy86jAwuciX8xpump",
+      "symbol": "CINEMAPAD",
+      "name": "cinemapad.fun",
+      "price": 0.00004199,
+      "change24h": 1097,
+      "marketCap": 41999.33
+    },
+    {
+      "mint": "BQyKKFQCYhBQJgDARvrzUKqN4yMM1VB2rhZte8JMpump",
+      "symbol": "LEGS",
+      "name": "Parlay Legs",
+      "price": 0.00004053,
+      "change24h": 1026,
+      "marketCap": 40539.01
+    },
+    {
+      "mint": "6Rhs8iuUiepGYpiP6ZEhNF9jRemVV8xYdD3hVuqtKTAR",
+      "symbol": "NEARCAT",
+      "name": "NEARPADCAT",
+      "price": 0.00002759,
+      "change24h": 600,
+      "marketCap": 27591.01
+    },
+    {
+      "mint": "SaPFjDCz4bcrqVkU6JWjskJftp9jENNxP5T9Ur1pump",
+      "symbol": "TIFFANY",
+      "name": "Tiffany Fong",
+      "price": 0.00002398,
+      "change24h": -52.29,
+      "marketCap": 22926
+    },
+    {
+      "mint": "9AhDqdeKsChWiQedRDX2CaZYnS2kKXr37dnBBswXDrop",
+      "symbol": "DROP",
+      "name": "DROP",
+      "price": 0.0000218,
+      "change24h": 531,
+      "marketCap": 21806.08
+    },
+    {
+      "mint": "3eSai2ARUTmetz1D5S6Bz2WYoUNEgojETguwYT31pump",
+      "symbol": "YES YES",
+      "name": "High Frequency Trader",
+      "price": 0.00002066,
+      "change24h": 509,
+      "marketCap": 20669.47
+    },
+    {
+      "mint": "4rwGjVhCf7nDiJBEhkyFRwJQAdvTmLSxqsiqZwAAz1ve",
+      "symbol": "부캉이",
+      "name": "Bukang Shark",
+      "price": 0.00001488,
+      "change24h": 237,
+      "marketCap": 14881.9
+    },
+    {
+      "mint": "CnSo1hTFftwdzX8gfU5JiQMZmwV3bYSo6QESKxhnzNPr",
+      "symbol": "NEARKATS",
+      "name": "Nearkats",
+      "price": 0.000006544,
+      "change24h": 84.17,
+      "marketCap": 6544.11
+    },
+    {
+      "mint": "39JRjoQBnxzMqGmieYf3Y22Hk58pUiTijmfyqt4Cpump",
+      "symbol": "THESIS",
+      "name": "Thesis Arena",
+      "price": 0.000003523,
+      "change24h": -93.09,
+      "marketCap": 3524
+    },
+    {
+      "mint": "9zriPbmELWGzEqEJH29qQY4TZ4xVMQLVLXV3RtSDpump",
+      "symbol": "XPAY",
+      "name": "XPay Day",
+      "price": 0.000002728,
+      "change24h": -97.07,
+      "marketCap": 2662
+    },
+    {
+      "mint": "BJDfhK6xJhj9Ln7PXCFZL6ZofEXfuDAo9cAmKCFvpump",
+      "symbol": "CAKECAT",
+      "name": "Cake Cat",
+      "price": 0.000002568,
+      "change24h": -97.26,
+      "marketCap": 2536
+    },
+    {
+      "mint": "FvYjAkbhhzpp3Rk3BoSLVKjYpi2zJ4baAS26R9hupump",
+      "symbol": "XLIFE",
+      "name": "XLife",
+      "price": 0.000002476,
+      "change24h": -97.44,
+      "marketCap": 2445
+    }
+  ]
+}

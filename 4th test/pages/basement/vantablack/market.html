@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong> Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong> Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>VANTABLACK MARKET // DOSWAPZ BASEMENT // ORBIT</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style class="page-classic-styles">
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ /* orbit: :root stripped */
+ * { box-sizing:border-box; }
+ /* orbit: global html,body stripped */
+ .dos-screen { position:relative; min-height:0; background:transparent; padding:0; }
+ /* orbit: scanlines stripped */
+ .wrap { max-width:820px; margin:0 auto; position:relative; z-index:5; }
+ /* orbit: .header stripped */
+ .header h1 { margin:0; font-size:34px; letter-spacing:8px; color:#e8e8f0; text-shadow:0 0 12px var(--vb); }
+ .header /* orbit: .sub stripped */
+ .header .tag { margin-top:10px; font-size:14px; color:var(--pink); border:1px solid #442266; padding:2px 12px; display:inline-block; letter-spacing:3px; }
+ .actions { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:18px 0 22px; }
+ .btn {
+ font-family:inherit; font-size:17px; cursor:pointer; border:2px solid var(--vb-dim);
+ background:#050508; color:var(--vb-text); padding:7px 18px; text-decoration:none; letter-spacing:2px;
+ }
+ .btn:hover { border-color:var(--vb); color:#fff; }
+ .btn-launch { border-color:var(--pink); color:var(--pink); font-size:19px; }
+ .btn-launch:hover { background:#12001a; }
+ .search {
+ width:100%; background:#050508; border:2px solid var(--vb-dim); color:var(--vb-text);
+ font-family:inherit; font-size:20px; padding:8px 12px; margin-bottom:16px; outline:none;
+ }
+ .search:focus { border-color:var(--vb); }
+ .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; }
+ .coin-card {
+ border:2px solid #1a1a22; background:#040406; padding:14px 12px; color:inherit;
+ display:flex; flex-direction:column; gap:10px; transition:border-color .12s;
+ }
+ .coin-card:hover { border-color:var(--vb); }
+ .coin-actions { display:flex; gap:8px; flex-wrap:wrap; }
+ .coin-swap {
+ font-family:inherit; font-size:15px; cursor:pointer; border:2px solid var(--pink);
+ background:#12001a; color:var(--pink); padding:5px 12px; text-decoration:none; letter-spacing:2px;
+ }
+ .coin-swap:hover { background:#1a0033; color:#fff; }
+ .market-note {
+ text-align:center; font-size:15px; color:var(--vb-muted); margin:0 0 14px; letter-spacing:1px; line-height:1.4;
+ }
+ .coin-card.featured { border-color:#442266; box-shadow:0 0 10px rgba(102,51,204,0.15); }
+ .coin-symbol { font-size:22px; color:#fff; letter-spacing:2px; }
+ .coin-name { font-size:15px; color:var(--vb-muted); margin-top:4px; }
+ .coin-mint { font-size:13px; color:#444455; margin-top:8px; word-break:break-all; }
+ .coin-tag { font-size:11px; color:var(--vb); letter-spacing:2px; margin-top:6px; }
+ .empty { text-align:center; color:var(--vb-muted); padding:30px 10px; letter-spacing:2px; }
+ .nav { text-align:center; margin-top:28px; }
+ .nav .btn { border-color:#334433; color:#88aa88; margin:4px; }
+ .status { text-align:center; font-size:15px; color:var(--vb-muted); margin-bottom:12px; min-height:20px; }
+ </style>
+</head>
+<body id="screen" class="orbit-void-inner">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+ <span class="crumb-zone">VANTABLACK MARKET // DOSWAPZ BASEMENT</span>
+ <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+ <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+ <div class="core-glow"></div>
+ <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+ <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ <div class="orbit-line" style="width:min(34vmin,34vw);height:min(34vmin,34vh)"></div>
+ </div>
+
+ <main class="stage" id="content">
+ <h1 class="hollow-title" id="orbitTitle">VANTABLACK MARKET // DOSWAPZ BASEMENT</h1>
+ <p class="hollow-sub" id="stageSub">off the record<span class="cursor-blink">|</span></p>
+ <p class="page-path">/orbit/pages/basement/vantablack/market.html</p>
+ </main>
+
+ <div class="orbit-panel accent-basement" id="orbitPanel">
+<div class="header">
+ <h1>VANTABLACK MARKET</h1>
+ <div class="sub">DOSWAPZ BASEMENT * SOLANA</div>
+ <div class="tag">BASEMENT * SOLANA</div>
+ </div>
+
+ <div class="actions">
+ <a href="/orbit/pages/basement/token-launcher.html" class="btn btn-launch"> LAUNCH TOKEN</a>
+ <a href="/orbit/pages/doswapz/swap.html" class="btn">DOSWAPZ SWAP (SPWZ RAIL)</a>
+ </div>
+
+ <p class="market-note">Buy and trade basement tokens via the live DOSWAPZ swap - 0% platform fee, Jupiter routes.</p>
+
+ <input type="text" class="search" id="coinSearch" placeholder="Search symbol, name, or mint..." autocomplete="off" spellcheck="false">
+ <div class="status" id="marketStatus">Loading catalog...</div>
+ <div class="grid" id="coinGrid"></div>
+ <div class="empty" id="emptyState" style="display:none;">No coins match.</div>
+
+ <div class="nav">
+ <a href="/orbit/pages/basement.html" class="btn"><- BASEMENT</a>
+ <a href="/orbit/hub.html" class="btn">HUB</a>
+ </div>
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/config/vantablack-config.js"></script>
+ <script src="/assets/js/basement/vantablack-market.js"></script>
+ <script>
+(function () {
+ var grid = document.getElementById('coinGrid');
+ var status = document.getElementById('marketStatus');
+ var empty = document.getElementById('emptyState');
+ var search = document.getElementById('coinSearch');
+ var all = [];
+
+ function shortMint(m) {
+ return m.slice(0, 4) + '...' + m.slice(-4);
+ }
+
+ function render(list) {
+ grid.innerHTML = '';
+ if (!list.length) {
+ empty.style.display = 'block';
+ return;
+ }
+ empty.style.display = 'none';
+ var swapBase = (location.pathname.indexOf('/orbit/') >= 0)
+ ? window.DOSWAPZ_VANTABLACK.orbitSwapUrl
+ : window.DOSWAPZ_VANTABLACK.swapUrl;
+ list.forEach(function (c) {
+ var card = document.createElement('div');
+ card.className = 'coin-card' + (c.featured ? ' featured' : '');
+ card.innerHTML =
+ '<div class="coin-symbol">$' + c.symbol + '</div>' +
+ '<div class="coin-name">' + c.name + '</div>' +
+ '<div class="coin-mint">' + shortMint(c.mint) + '</div>' +
+ '<div class="coin-tag">' + (c.featured ? 'FEATURED' : c.tag || 'community').toUpperCase() + '</div>' +
+ '<div class="coin-actions">' +
+ '<a class="coin-swap" href="' + swapBase(c.mint) + '">BUY / SWAP</a>' +
+ '</div>';
+ grid.appendChild(card);
+ });
+ }
+
+ function filter() {
+ var q = (search.value || '').trim().toLowerCase();
+ if (!q) return render(all);
+ render(all.filter(function (c) {
+ return c.symbol.toLowerCase().indexOf(q) >= 0 ||
+ c.name.toLowerCase().indexOf(q) >= 0 ||
+ c.mint.toLowerCase().indexOf(q) >= 0;
+ }));
+ }
+
+ search.addEventListener('input', filter);
+
+ window.DOSWAPZ_VANTABLACK.fetchCatalog().then(function (coins) {
+ all = coins;
+ status.textContent = coins.length + ' coin' + (coins.length === 1 ? '' : 's') + ' on Vantablack';
+ render(all);
+ }).catch(function () {
+ status.textContent = 'Catalog offline - refresh.';
+ });
+ })();
+ </script>
+
+ <script>hollowPageBoot('VANTABLACK MARKET // DOSWAPZ BASEMENT');</script>
+</body>
+</html>

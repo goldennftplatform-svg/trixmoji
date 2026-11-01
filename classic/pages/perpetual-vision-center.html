@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // PERPETUAL VISION CENTER</title>
+ <meta name="description" content="PERPETUAL VISION CENTER - live X broadcast playlist on DOSWAPZ. Credit to creators.">
+ <meta property="og:title" content="DOSWAPZ // PERPETUAL VISION CENTER">
+ <meta property="og:description" content="Live X broadcast center - playlist of 24h feeds. Creators credited.">
+ <meta property="og:url" content="https://doswapz.com/classic/pages/perpetual-vision-center.html">
+ <meta name="twitter:card" content="summary_large_image">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='14' fill='%2399ddff' text-anchor='middle' font-weight='bold'%3EPVV%3C/text%3E%3C/svg%3E">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ :root {
+ --pvv: #88ccff;
+ --pvv-dim: #446688;
+ --pvv-hot: #cc99ff;
+ --pvv-bg: #020408;
+ --pvv-live: #66ff99;
+ }
+ * { box-sizing: border-box; }
+ html, body {
+ margin: 0; padding: 0; width: 100%; min-height: 100%;
+ background: #000; color: var(--pvv);
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ }
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: radial-gradient(ellipse at 50% 20%, #0a1020 0%, #000 70%);
+ padding: 22px 16px 72px;
+ }
+ .dos-screen::before {
+ content: '';
+ position: fixed; inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px, transparent 3px,
+ rgba(120, 180, 255, 0.03) 3px, rgba(120, 180, 255, 0.03) 5px
+ );
+ pointer-events: none; z-index: 30;
+ }
+ .vignette {
+ position: fixed; inset: 0;
+ background: radial-gradient(circle at center, transparent 48%, rgba(0,0,0,0.72) 88%);
+ pointer-events: none; z-index: 5;
+ }
+ .wrap {
+ position: relative; z-index: 10;
+ max-width: 1180px; margin: 0 auto; text-align: center;
+ }
+ .header h1 {
+ margin: 0;
+ font-size: clamp(28px, 6vw, 42px);
+ letter-spacing: 6px;
+ color: #e8f4ff;
+ text-shadow: 0 0 10px var(--pvv), 0 0 28px rgba(100,160,255,0.35);
+ }
+ .header .sub {
+ margin-top: 8px;
+ font-size: 18px;
+ letter-spacing: 4px;
+ color: var(--pvv-dim);
+ }
+ .header .tag {
+ display: inline-block;
+ margin-top: 12px;
+ border: 1px solid #553388;
+ color: var(--pvv-hot);
+ padding: 2px 14px;
+ font-size: 14px;
+ letter-spacing: 3px;
+ }
+ .note {
+ margin: 14px auto 18px;
+ max-width: 720px;
+ font-size: 16px;
+ line-height: 1.45;
+ color: #7799bb;
+ letter-spacing: 1px;
+ }
+
+ /* YouTube-style player + playlist */
+ .pvv-layout {
+ display: grid;
+ grid-template-columns: minmax(0, 1fr) 320px;
+ gap: 14px;
+ text-align: left;
+ align-items: start;
+ }
+ @media (max-width: 900px) {
+ .pvv-layout {
+ grid-template-columns: 1fr;
+ }
+ }
+
+ .player-col { min-width: 0; }
+ .pvv-frame {
+ position: relative;
+ border: 2px solid #224466;
+ background: var(--pvv-bg);
+ box-shadow:
+ 0 0 0 1px #112233,
+ 0 0 40px rgba(80, 140, 255, 0.12),
+ inset 0 0 60px rgba(0, 40, 80, 0.35);
+ padding: 10px;
+ }
+ .pvv-frame::before {
+ content: 'NOW PLAYING';
+ position: absolute;
+ top: -11px; left: 16px;
+ background: #000;
+ color: var(--pvv-live);
+ font-size: 13px;
+ letter-spacing: 3px;
+ padding: 0 8px;
+ }
+ .broadcast-mount {
+ width: 100%;
+ min-height: 420px;
+ background: #000;
+ display: flex;
+ align-items: stretch;
+ justify-content: center;
+ position: relative;
+ overflow: hidden;
+ }
+ .broadcast-mount .twitter-broadcast,
+ .broadcast-mount iframe,
+ .broadcast-mount twitter-widget {
+ width: 100% !important;
+ max-width: 100% !important;
+ min-height: 360px !important;
+ flex: 1 1 auto;
+ }
+
+ /* Local / sim loop player */
+ .sim-player {
+ position: relative;
+ width: 100%;
+ min-height: 360px;
+ aspect-ratio: 16 / 9;
+ background: #000;
+ overflow: hidden;
+ }
+ .sim-player video {
+ display: block;
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ background: #000;
+ }
+ .sim-overlay-top {
+ position: absolute;
+ top: 12px; left: 12px; right: 12px;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ gap: 10px;
+ pointer-events: none;
+ z-index: 3;
+ }
+ .sim-live-pill {
+ display: inline-flex;
+ align-items: center;
+ gap: 8px;
+ border: 1px solid var(--pvv-live);
+ color: var(--pvv-live);
+ background: rgba(0,0,0,0.72);
+ padding: 4px 12px;
+ font-size: 15px;
+ letter-spacing: 3px;
+ box-shadow: 0 0 14px rgba(102,255,153,0.22);
+ }
+ .sim-live-pill .dot {
+ width: 8px; height: 8px;
+ border-radius: 50%;
+ background: var(--pvv-live);
+ box-shadow: 0 0 8px var(--pvv-live);
+ animation: simPulse 1.2s ease-in-out infinite;
+ }
+ @keyframes simPulse {
+ 0%, 100% { opacity: 1; }
+ 50% { opacity: 0.35; }
+ }
+ .sim-viewers {
+ border: 1px solid #334455;
+ color: #cce8dd;
+ background: rgba(0,0,0,0.72);
+ padding: 4px 12px;
+ font-size: 14px;
+ letter-spacing: 2px;
+ }
+ .sim-overlay-bottom {
+ position: absolute;
+ left: 0; right: 0; bottom: 0;
+ padding: 28px 14px 12px;
+ background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+ pointer-events: none;
+ z-index: 3;
+ }
+ .sim-channel-title {
+ font-size: 20px;
+ letter-spacing: 2px;
+ color: #e8fff4;
+ }
+ .sim-channel-sub {
+ margin-top: 4px;
+ font-size: 14px;
+ color: #88aa99;
+ letter-spacing: 1px;
+ }
+ .pl-thumb.sim {
+ border-color: #446655;
+ color: var(--pvv-live);
+ background: linear-gradient(135deg, #0a2018 0%, #0a1020 100%);
+ }
+ .pl-item.active .pl-thumb.sim {
+ border-color: var(--pvv-live);
+ }
+ .broadcast-card {
+ display: flex;
+ flex-direction: column;
+ gap: 14px;
+ align-items: center;
+ justify-content: center;
+ width: 100%;
+ min-height: 360px;
+ padding: 28px 20px;
+ color: #88aacc;
+ font-size: 18px;
+ letter-spacing: 2px;
+ text-align: center;
+ background:
+ radial-gradient(ellipse at 50% 30%, rgba(40,80,140,0.35) 0%, transparent 60%),
+ linear-gradient(180deg, #060a12 0%, #020408 100%);
+ }
+ .broadcast-card .live-pill {
+ display: inline-block;
+ border: 1px solid #66ff99;
+ color: #66ff99;
+ padding: 2px 12px;
+ font-size: 14px;
+ letter-spacing: 3px;
+ margin-bottom: 4px;
+ box-shadow: 0 0 12px rgba(102,255,153,0.25);
+ }
+ .broadcast-card .card-title {
+ font-size: 28px;
+ color: #e8f4ff;
+ letter-spacing: 3px;
+ }
+ .broadcast-card .card-credit {
+ font-size: 17px;
+ color: #99aacc;
+ }
+ .broadcast-card .card-credit a {
+ color: #aaddff;
+ text-decoration: none;
+ border-bottom: 1px solid #446688;
+ }
+ .broadcast-card a.card-open {
+ color: var(--pvv-hot);
+ border: 2px solid #6644aa;
+ padding: 10px 22px;
+ text-decoration: none;
+ letter-spacing: 2px;
+ margin-top: 6px;
+ }
+ .broadcast-card a.card-open:hover {
+ background: #120820;
+ color: #fff;
+ border-color: var(--pvv-hot);
+ }
+ .broadcast-card .x-note {
+ max-width: 420px;
+ margin-top: 4px;
+ padding: 10px 14px;
+ border: 1px solid #334466;
+ background: rgba(8, 16, 32, 0.85);
+ color: #a8c0d8;
+ font-size: 14px;
+ letter-spacing: 1px;
+ line-height: 1.45;
+ }
+ .broadcast-card .x-note strong {
+ color: #ffcc66;
+ font-weight: normal;
+ letter-spacing: 2px;
+ }
+ .broadcast-card .x-links {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ justify-content: center;
+ margin-top: 8px;
+ }
+ .broadcast-card a.card-profile {
+ color: #aaddff;
+ border: 1px solid #446688;
+ padding: 8px 16px;
+ text-decoration: none;
+ letter-spacing: 2px;
+ font-size: 14px;
+ }
+ .broadcast-card a.card-profile:hover {
+ background: #0a1828;
+ color: #fff;
+ border-color: #88ccff;
+ }
+ .broadcast-fallback {
+ display: none;
+ flex-direction: column;
+ gap: 12px;
+ align-items: center;
+ justify-content: center;
+ min-height: 280px;
+ padding: 24px;
+ color: #88aacc;
+ font-size: 18px;
+ letter-spacing: 2px;
+ text-align: center;
+ position: absolute;
+ inset: 0;
+ background: rgba(0,0,0,0.92);
+ z-index: 2;
+ }
+ .broadcast-fallback.show { display: flex; }
+ .broadcast-fallback .x-note {
+ max-width: 420px;
+ font-size: 14px;
+ color: #a8c0d8;
+ line-height: 1.45;
+ letter-spacing: 1px;
+ }
+ .broadcast-fallback .x-note strong { color: #ffcc66; font-weight: normal; }
+ .broadcast-fallback a {
+ color: var(--pvv-hot);
+ border: 2px solid #6644aa;
+ padding: 8px 18px;
+ text-decoration: none;
+ letter-spacing: 2px;
+ }
+ .broadcast-fallback a:hover {
+ background: #120820;
+ color: #fff;
+ border-color: var(--pvv-hot);
+ }
+ .broadcast-fallback .x-links {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ justify-content: center;
+ }
+
+ .now-meta {
+ margin-top: 12px;
+ padding: 10px 12px;
+ border: 1px solid #223344;
+ background: #050810;
+ }
+ .now-title {
+ font-size: 22px;
+ letter-spacing: 2px;
+ color: #e8f4ff;
+ }
+ .now-credit {
+ margin-top: 6px;
+ font-size: 17px;
+ color: #99aacc;
+ letter-spacing: 1px;
+ }
+ .now-credit a {
+ color: #aaddff;
+ text-decoration: none;
+ border-bottom: 1px solid #446688;
+ }
+ .now-credit a:hover {
+ color: #fff;
+ border-bottom-color: #88ccff;
+ }
+ .now-desc {
+ margin-top: 4px;
+ font-size: 15px;
+ color: #667788;
+ letter-spacing: 1px;
+ }
+
+ .playlist-col {
+ border: 2px solid #224466;
+ background: #04060c;
+ min-height: 200px;
+ display: flex;
+ flex-direction: column;
+ max-height: 620px;
+ }
+ .playlist-head {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 10px 12px;
+ border-bottom: 1px solid #223344;
+ font-size: 15px;
+ letter-spacing: 2px;
+ color: #aaccff;
+ background: #080c14;
+ }
+ .playlist-count { color: #556677; font-size: 14px; }
+ .playlist {
+ overflow-y: auto;
+ flex: 1;
+ }
+ .pl-item {
+ display: grid;
+ grid-template-columns: 28px 72px 1fr;
+ gap: 10px;
+ align-items: center;
+ width: 100%;
+ text-align: left;
+ border: 0;
+ border-bottom: 1px solid #152030;
+ background: transparent;
+ color: inherit;
+ font-family: inherit;
+ padding: 10px 10px;
+ cursor: pointer;
+ transition: background .12s;
+ }
+ .pl-item:hover { background: #0a1220; }
+ .pl-item.active {
+ background: #101828;
+ box-shadow: inset 3px 0 0 var(--pvv-live);
+ }
+ .pl-num {
+ font-size: 16px;
+ color: #556677;
+ text-align: center;
+ }
+ .pl-item.active .pl-num { color: var(--pvv-live); }
+ .pl-thumb {
+ width: 72px;
+ height: 42px;
+ border: 1px solid #334455;
+ background:
+ linear-gradient(135deg, #0a1830 0%, #1a0a28 100%);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 11px;
+ letter-spacing: 1px;
+ color: #6688aa;
+ position: relative;
+ }
+ .pl-item.active .pl-thumb {
+ border-color: var(--pvv-live);
+ color: var(--pvv-live);
+ }
+ .pl-thumb .live-dot {
+ position: absolute;
+ top: 3px; right: 3px;
+ width: 6px; height: 6px;
+ border-radius: 50%;
+ background: var(--pvv-live);
+ box-shadow: 0 0 6px var(--pvv-live);
+ }
+ .pl-body { min-width: 0; }
+ .pl-title {
+ font-size: 16px;
+ letter-spacing: 1px;
+ color: #ddeeff;
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ }
+ .pl-credit {
+ margin-top: 2px;
+ font-size: 14px;
+ color: #7788aa;
+ letter-spacing: 1px;
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ }
+ .pl-credit strong { color: #99bbdd; font-weight: normal; }
+
+ .credits-board {
+ margin-top: 18px;
+ border: 1px solid #223344;
+ background: #050810;
+ padding: 12px 14px;
+ text-align: left;
+ }
+ .credits-board h2 {
+ margin: 0 0 10px;
+ font-size: 16px;
+ letter-spacing: 3px;
+ color: #88aacc;
+ font-weight: normal;
+ }
+ .credits-list {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px 18px;
+ margin: 0;
+ padding: 0;
+ list-style: none;
+ }
+ .credits-list li {
+ font-size: 16px;
+ color: #8899aa;
+ letter-spacing: 1px;
+ }
+ .credits-list a {
+ color: #aaddff;
+ text-decoration: none;
+ border-bottom: 1px solid #335566;
+ }
+ .credits-list a:hover { color: #fff; border-bottom-color: #88ccff; }
+
+ .actions {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ justify-content: center;
+ margin-top: 20px;
+ }
+ .btn {
+ font-family: inherit;
+ font-size: 17px;
+ letter-spacing: 2px;
+ color: var(--pvv);
+ background: #050810;
+ border: 2px solid #335577;
+ padding: 7px 16px;
+ text-decoration: none;
+ cursor: pointer;
+ }
+ .btn:hover {
+ border-color: var(--pvv);
+ color: #fff;
+ box-shadow: 0 0 12px rgba(100,160,255,0.25);
+ }
+ .btn-hot {
+ border-color: #6644aa;
+ color: var(--pvv-hot);
+ }
+ .status {
+ margin-top: 14px;
+ min-height: 20px;
+ font-size: 15px;
+ color: var(--pvv-dim);
+ letter-spacing: 2px;
+ text-align: center;
+ }
+ </style>
+</head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+ <div class="wrap">
+ <div class="header">
+ <h1>PERPETUAL VISION CENTER</h1>
+ <div class="sub">DOSWAPZ * LIVE X PLAYLIST</div>
+ <div class="tag">24-HOUR FEEDS * CREATORS CREDITED</div>
+ </div>
+
+ <p class="note">
+ Main channel is the LOFI perpetual sim loop. Playlist also includes live X broadcasts -
+ select a feed on the right. X embeds credit their creators; if blocked, use OPEN ON X.
+ </p>
+
+ <div class="pvv-layout">
+ <div class="player-col">
+ <div class="pvv-frame" id="pvvFrame">
+ <div class="broadcast-mount" id="broadcastMount" aria-live="polite">
+ <!-- filled by JS -->
+ </div>
+ </div>
+ <div class="now-meta">
+ <div class="now-title" id="nowTitle"> - </div>
+ <div class="now-credit" id="nowCredit"> - </div>
+ <div class="now-desc" id="nowDesc"></div>
+ </div>
+ </div>
+
+ <aside class="playlist-col" aria-label="Broadcast playlist">
+ <div class="playlist-head">
+ <span>PLAYLIST</span>
+ <span class="playlist-count" id="playlistCount">0 feeds</span>
+ </div>
+ <div class="playlist" id="playlist" role="listbox" aria-label="Feeds"></div>
+ </aside>
+ </div>
+
+ <div class="credits-board">
+ <h2>CREATOR CREDITS</h2>
+ <ul class="credits-list" id="creditsList"></ul>
+ </div>
+
+ <div class="status" id="pvvStatus">Initializing Playlist...</div>
+
+ <div class="actions">
+ <a class="btn btn-hot" id="openOnX" href="#" target="_blank" rel="noopener noreferrer">OPEN ON X</a>
+ <a class="btn" id="openCreator" href="#" target="_blank" rel="noopener noreferrer">CREATOR</a>
+ <a class="btn" href="/classic/hub.html"><- HUB</a>
+ <a class="btn" href="/classic/pages/lily-pad.html">LILY PAD</a>
+ </div>
+ </div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+ <script>
+ window.DOSWAPZ_PVV = {
+ feeds: [
+ {
+ id: 'doswapz-lofi-garden',
+ type: 'local',
+ title: 'DOSWAPZ LOFI // GARDEN',
+ desc: 'Official DOSWAPZ lofi channel * garden loop',
+ handle: 'doswapz',
+ name: 'DOSWAPZ',
+ label: 'DOSWAPZ LOFI',
+ profileUrl: 'https://doswapz.com',
+ videoUrl: '/assets/media/lofi/doswapz-lofi-garden.mp4',
+ broadcastUrl: '/classic/pages/perpetual-vision-center.html'
+ },
+ {
+ id: 'doswapz-lofi',
+ type: 'local',
+ title: 'DOSWAPZ LOFI',
+ desc: 'Official DOSWAPZ lofi channel * main loop',
+ handle: 'doswapz',
+ name: 'DOSWAPZ',
+ label: 'DOSWAPZ LOFI',
+ profileUrl: 'https://doswapz.com',
+ videoUrl: '/assets/media/lofi/doswapz-lofi.mp4',
+ broadcastUrl: '/classic/pages/perpetual-vision-center.html'
+ },
+ {
+ id: '1XxyggpdQpWGM',
+ type: 'x',
+ title: 'PondTV',
+ desc: 'Community live rotation',
+ handle: 'boudahh',
+ name: 'The P.I.G.',
+ label: 'PondTV',
+ profileUrl: 'https://x.com/boudahh',
+ broadcastUrl: 'https://x.com/i/broadcasts/1XxyggpdQpWGM'
+ },
+ {
+ id: '1mxPaaAVyodKN',
+ type: 'x',
+ title: 'PAULY',
+ desc: 'Live broadcast',
+ handle: 'Sparrow_X_',
+ name: 'Sparrow',
+ label: 'PAULY',
+ profileUrl: 'https://x.com/Sparrow_X_',
+ broadcastUrl: 'https://x.com/i/broadcasts/1mxPaaAVyodKN'
+ }
+ ],
+ activeIndex: 0
+ };
+ </script>
+ <script>
+ (function () {
+ var cfg = window.DOSWAPZ_PVV || {};
+ var feeds = Array.isArray(cfg.feeds) ? cfg.feeds : [];
+ var mount = document.getElementById('broadcastMount');
+ var playlistEl = document.getElementById('playlist');
+ var creditsList = document.getElementById('creditsList');
+ var status = document.getElementById('pvvStatus');
+ var nowTitle = document.getElementById('nowTitle');
+ var nowCredit = document.getElementById('nowCredit');
+ var nowDesc = document.getElementById('nowDesc');
+ var openOnX = document.getElementById('openOnX');
+ var openCreator = document.getElementById('openCreator');
+ var playlistCount = document.getElementById('playlistCount');
+ var widgetsReady = false;
+ var widgetsLoading = false;
+ var loadToken = 0;
+ var simViewerTimer = null;
+ var WIDGET_SRCS = [
+ 'https://platform.twitter.com/widgets.js',
+ 'https://platform.x.com/widgets.js'
+ ];
+
+ function setStatus(msg) {
+ if (status) status.textContent = msg;
+ }
+
+ function esc(s) {
+ return String(s == null ? '' : s)
+ .replace(/&/g, '&amp;')
+ .replace(/</g, '&lt;')
+ .replace(/>/g, '&gt;')
+ .replace(/"/g, '&quot;');
+ }
+
+ function isLocal(f) {
+ return f && (f.type === 'local' || f.type === 'sim');
+ }
+
+ function cardHtml(f) {
+ return (
+ '<div class="broadcast-card" id="broadcastCard">' +
+ '<div class="live-pill">● X STREAM</div>' +
+ '<div class="card-title">' + esc(f.title) + '</div>' +
+ '<div class="card-credit">courtesy of ' +
+ '<a href="' + esc(f.profileUrl) + '" target="_blank" rel="noopener noreferrer">@' + esc(f.handle) + '</a>' +
+ ' * ' + esc(f.name) +
+ '</div>' +
+ '<div class="x-note">' +
+ '<strong>NOTE:</strong> X does not allow reliable in-page live embeds. ' +
+ 'Watch this stream on X — full credit to the creator.' +
+ '</div>' +
+ '<div class="x-links">' +
+ '<a class="card-open" href="' + esc(f.broadcastUrl) + '" target="_blank" rel="noopener noreferrer">OPEN STREAM ON X →</a>' +
+ '<a class="card-profile" href="' + esc(f.profileUrl) + '" target="_blank" rel="noopener noreferrer">@' + esc(f.handle).toUpperCase() + ' PROFILE</a>' +
+ '</div>' +
+ '</div>'
+ );
+ }
+
+ function simHtml(f) {
+ var viewers = 980 + Math.floor(Math.random() * 80);
+ return (
+ '<div class="sim-player" id="simPlayer">' +
+ '<video id="simVideo" playsinline autoplay muted loop preload="auto" controlslist="nodownload">' +
+ '<source src="' + esc(f.videoUrl) + '" type="video/mp4">' +
+ '</video>' +
+ '<div class="sim-overlay-top">' +
+ '<div class="sim-live-pill"><span class="dot" aria-hidden="true"></span>LIVE</div>' +
+ '<div class="sim-viewers" id="simViewers">VIEWERS ' + viewers.toLocaleString('en-US') + '</div>' +
+ '</div>' +
+ '<div class="sim-overlay-bottom">' +
+ '<div class="sim-channel-title">' + esc(f.title) + '</div>' +
+ '<div class="sim-channel-sub">' + esc(f.label || 'SIM LOOP') + ' // CHANNEL 07</div>' +
+ '</div>' +
+ '</div>'
+ );
+ }
+
+ function clearSimTimers() {
+ if (simViewerTimer) {
+ clearInterval(simViewerTimer);
+ simViewerTimer = null;
+ }
+ }
+
+ function wireSimPlayer(f) {
+ var video = document.getElementById('simVideo');
+ var viewersEl = document.getElementById('simViewers');
+ if (!video) return;
+
+ clearSimTimers();
+ var base = 980 + Math.floor(Math.random() * 80);
+
+ function tryPlay() {
+ var p = video.play();
+ if (p && typeof p.then === 'function') {
+ p.then(function () {
+ setStatus('ON AIR * ' + f.title + ' * DOSWAPZ LOFI');
+ }).catch(function () {
+ setStatus('Tap player to start * ' + f.title);
+ });
+ } else {
+ setStatus('ON AIR * ' + f.title + ' * DOSWAPZ LOFI');
+ }
+ }
+
+ video.addEventListener('playing', function () {
+ setStatus('ON AIR * ' + f.title + ' * DOSWAPZ LOFI');
+ });
+ video.addEventListener('error', function () {
+ setStatus('Signal lost * could not load lofi video');
+ });
+ video.addEventListener('ended', function () {
+ video.currentTime = 0;
+ tryPlay();
+ });
+ video.addEventListener('click', function () {
+ video.muted = !video.muted;
+ syncOpenBtn(f, video);
+ if (video.paused) tryPlay();
+ setStatus(video.muted ? 'AUDIO MUTED * ' + f.title : 'AUDIO LIVE * ' + f.title);
+ });
+
+ if (viewersEl) {
+ simViewerTimer = setInterval(function () {
+ var drift = Math.floor(Math.sin(Date.now() / 9000) * 40) + Math.floor(Math.random() * 9) - 4;
+ var n = Math.max(412, base + drift);
+ viewersEl.textContent = 'VIEWERS ' + n.toLocaleString('en-US');
+ }, 3500);
+ }
+
+ tryPlay();
+ syncOpenBtn(f, video);
+ }
+
+ function syncOpenBtn(f, video) {
+ if (!openOnX) return;
+ if (isLocal(f)) {
+ openOnX.removeAttribute('target');
+ openOnX.href = '#';
+ openOnX.textContent = video && !video.muted ? 'MUTE' : 'UNMUTE';
+ openOnX.onclick = function (e) {
+ e.preventDefault();
+ var v = document.getElementById('simVideo');
+ if (!v) return;
+ v.muted = !v.muted;
+ if (!v.muted && v.paused) v.play().catch(function () {});
+ syncOpenBtn(f, v);
+ setStatus(v.muted ? 'AUDIO MUTED * ' + f.title : 'AUDIO LIVE * ' + f.title);
+ };
+ } else {
+ openOnX.onclick = null;
+ openOnX.target = '_blank';
+ openOnX.rel = 'noopener noreferrer';
+ openOnX.href = f.broadcastUrl || '#';
+ openOnX.textContent = 'OPEN ON X';
+ }
+ }
+
+ function injectScript(src, onOk, onFail) {
+ var existing = document.querySelector('script[data-pvv-widgets="' + src + '"]');
+ if (existing) {
+ if (window.twttr && window.twttr.widgets) onOk();
+ else existing.addEventListener('load', onOk);
+ return;
+ }
+ var s = document.createElement('script');
+ s.async = true;
+ s.src = src;
+ s.charset = 'utf-8';
+ s.setAttribute('data-pvv-widgets', src);
+ s.onload = onOk;
+ s.onerror = onFail || function () {};
+ document.body.appendChild(s);
+ }
+
+ function loadWidgets(cb) {
+ if (widgetsReady || (window.twttr && window.twttr.widgets)) {
+ widgetsReady = true;
+ if (cb) cb();
+ return;
+ }
+ if (widgetsLoading) {
+ var t = setInterval(function () {
+ if (widgetsReady || (window.twttr && window.twttr.widgets)) {
+ clearInterval(t);
+ widgetsReady = true;
+ if (cb) cb();
+ }
+ }, 80);
+ setTimeout(function () { clearInterval(t); }, 12000);
+ return;
+ }
+ widgetsLoading = true;
+ var idx = 0;
+ function tryNext() {
+ if (idx >= WIDGET_SRCS.length) {
+ widgetsLoading = false;
+ setStatus('X widgets blocked - playlist works, use OPEN ON X.');
+ if (cb) cb();
+ return;
+ }
+ var src = WIDGET_SRCS[idx++];
+ injectScript(src, function () {
+ widgetsReady = true;
+ widgetsLoading = false;
+ if (cb) cb();
+ }, tryNext);
+ }
+ tryNext();
+ }
+
+ function hydrate() {
+ if (!window.twttr) return;
+ var run = function () {
+ try {
+ if (window.twttr.widgets && window.twttr.widgets.load) {
+ window.twttr.widgets.load(mount);
+ }
+ } catch (e) {}
+ };
+ if (typeof window.twttr.ready === 'function') {
+ window.twttr.ready(run);
+ } else {
+ run();
+ }
+ }
+
+ function hasEmbed() {
+ if (!mount) return false;
+ return !!(
+ mount.querySelector('iframe') ||
+ mount.querySelector('twitter-widget') ||
+ mount.querySelector('[data-twitter-extracted-i4t]')
+ );
+ }
+
+ function showFallback(f) {
+ var fb = document.getElementById('broadcastFallback');
+ if (fb) {
+  fb.classList.add('show');
+  fb.innerHTML =
+   '<div class="x-note"><strong>NOTE:</strong> X blocked the in-page player. Open their stream on X.</div>' +
+   '<div class="x-links">' +
+   '<a href="' + esc(f.broadcastUrl) + '" target="_blank" rel="noopener noreferrer">OPEN STREAM ON X →</a>' +
+   '<a href="' + esc(f.profileUrl) + '" target="_blank" rel="noopener noreferrer">@' + esc(f.handle).toUpperCase() + ' PROFILE</a>' +
+   '</div>';
+ }
+ if (mount && !mount.querySelector('#broadcastCard')) {
+ var q = mount.querySelector('blockquote.twitter-broadcast');
+ if (q) q.style.display = 'none';
+ mount.insertAdjacentHTML('afterbegin', cardHtml(f));
+ }
+ setStatus('Watch on X * ' + f.title + ' * @' + f.handle);
+ if (openOnX) {
+  openOnX.href = f.broadcastUrl || '#';
+  openOnX.target = '_blank';
+  openOnX.rel = 'noopener noreferrer';
+  openOnX.textContent = 'OPEN STREAM ON X';
+  openOnX.onclick = null;
+ }
+ }
+
+ function renderCredits() {
+ if (!creditsList) return;
+ var seen = {};
+ creditsList.innerHTML = '';
+ feeds.forEach(function (f) {
+ if (seen[f.handle]) return;
+ seen[f.handle] = true;
+ var li = document.createElement('li');
+ if (isLocal(f)) {
+ li.innerHTML =
+ '<a href="' + esc(f.profileUrl) + '">' + esc(f.name) + '</a>' +
+ ' * ' + esc(f.label || 'SIM LOOP') +
+ ' * internal channel';
+ } else {
+ li.innerHTML =
+ '<a href="' + esc(f.profileUrl) + '" target="_blank" rel="noopener noreferrer">@' + esc(f.handle) + '</a>' +
+ ' * ' + esc(f.name) +
+ (f.label ? ' * ' + esc(f.label) : '') +
+ ' * <a href="' + esc(f.broadcastUrl) + '" target="_blank" rel="noopener noreferrer">stream</a>';
+ }
+ creditsList.appendChild(li);
+ });
+ }
+
+ function renderPlaylist() {
+ if (!playlistEl) return;
+ playlistEl.innerHTML = '';
+ if (playlistCount) {
+ playlistCount.textContent = feeds.length + ' feed' + (feeds.length === 1 ? '' : 's');
+ }
+ if (!feeds.length) {
+ playlistEl.innerHTML =
+ '<div style="padding:18px;color:#778;letter-spacing:1px;font-size:15px">' +
+ 'No feeds configured.</div>';
+ return;
+ }
+ feeds.forEach(function (f, i) {
+ var btn = document.createElement('button');
+ btn.type = 'button';
+ btn.className = 'pl-item' + (i === cfg.activeIndex ? ' active' : '');
+ btn.setAttribute('role', 'option');
+ btn.setAttribute('aria-selected', i === cfg.activeIndex ? 'true' : 'false');
+ var thumbLabel = isLocal(f) ? 'LOFI' : 'LIVE';
+ var thumbClass = isLocal(f) ? 'pl-thumb sim' : 'pl-thumb';
+ var creditLine = isLocal(f)
+ ? esc(f.label || 'DOSWAPZ LOFI') + ' * ' + esc(f.name)
+ : 'by <strong>@' + esc(f.handle) + '</strong> * ' + esc(f.name);
+ btn.innerHTML =
+ '<span class="pl-num">' + (i + 1) + '</span>' +
+ '<span class="' + thumbClass + '">' + thumbLabel + '<span class="live-dot"></span></span>' +
+ '<span class="pl-body">' +
+ '<div class="pl-title">' + esc(f.title) + '</div>' +
+ '<div class="pl-credit">' + creditLine + '</div>' +
+ '</span>';
+ btn.addEventListener('click', function () { selectFeed(i); });
+ playlistEl.appendChild(btn);
+ });
+ }
+
+ function selectFeed(index) {
+ if (index < 0 || index >= feeds.length || !mount) return;
+ cfg.activeIndex = index;
+ var f = feeds[index];
+ var token = ++loadToken;
+ clearSimTimers();
+
+ if (nowTitle) nowTitle.textContent = f.title;
+ if (nowCredit) {
+ if (isLocal(f)) {
+ nowCredit.innerHTML =
+ 'DOSWAPZ LOFI CHANNEL * ' +
+ '<a href="' + esc(f.profileUrl) + '">' + esc(f.name) + '</a>' +
+ (f.label ? ' * ' + esc(f.label) : '');
+ } else {
+ nowCredit.innerHTML =
+ 'X STREAM * credit ' +
+ '<a href="' + esc(f.profileUrl) + '" target="_blank" rel="noopener noreferrer">@' + esc(f.handle) + '</a>' +
+ ' * ' + esc(f.name) +
+ ' * <a href="' + esc(f.broadcastUrl) + '" target="_blank" rel="noopener noreferrer">OPEN STREAM</a>' +
+ (f.label ? ' * ' + esc(f.label) : '');
+ }
+ }
+ if (nowDesc) {
+  nowDesc.textContent = isLocal(f)
+   ? (f.desc || '')
+   : ((f.desc || 'X live stream') + ' — embeds blocked by X; use OPEN STREAM ON X.');
+ }
+
+ if (openCreator) {
+ openCreator.href = f.profileUrl || '#';
+ openCreator.textContent = isLocal(f) ? 'DOSWAPZ' : ('@' + f.handle.toUpperCase());
+ if (isLocal(f)) {
+ openCreator.removeAttribute('target');
+ } else {
+ openCreator.target = '_blank';
+ openCreator.rel = 'noopener noreferrer';
+ }
+ }
+
+ renderPlaylist();
+
+ // --- Local sim loop (main channel) ---
+ if (isLocal(f)) {
+ mount.innerHTML = simHtml(f);
+ wireSimPlayer(f);
+ return;
+ }
+
+ // --- X stream: note + direct links (embed attempted, but X often blocks) ---
+ syncOpenBtn(f, null);
+ if (openOnX) {
+  openOnX.href = f.broadcastUrl || '#';
+  openOnX.target = '_blank';
+  openOnX.rel = 'noopener noreferrer';
+  openOnX.textContent = 'OPEN STREAM ON X';
+  openOnX.onclick = null;
+ }
+ mount.innerHTML =
+ cardHtml(f) +
+ '<blockquote class="twitter-broadcast" data-broadcast-id="' + esc(f.id) + '" data-dnt="true" data-theme="dark" style="position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none">' +
+ '<a href="' + esc(f.broadcastUrl) + '">' + esc(f.title) + ' live on X</a>' +
+ '</blockquote>' +
+ '<div class="broadcast-fallback" id="broadcastFallback">' +
+ '<div class="x-note"><strong>NOTE:</strong> X blocked the in-page player. Open their stream on X.</div>' +
+ '<div class="x-links">' +
+ '<a href="' + esc(f.broadcastUrl) + '" target="_blank" rel="noopener noreferrer">OPEN STREAM ON X →</a>' +
+ '<a href="' + esc(f.profileUrl) + '" target="_blank" rel="noopener noreferrer">@' + esc(f.handle).toUpperCase() + ' PROFILE</a>' +
+ '</div>' +
+ '</div>';
+
+ setStatus('X stream * ' + f.title + ' * open on X * @' + f.handle);
+
+ loadWidgets(function () {
+ if (token !== loadToken) return;
+ hydrate();
+
+ var tries = 0;
+ var poll = setInterval(function () {
+ if (token !== loadToken) {
+ clearInterval(poll);
+ return;
+ }
+ tries += 1;
+ if (hasEmbed()) {
+ clearInterval(poll);
+ var card = document.getElementById('broadcastCard');
+ if (card) card.style.display = 'none';
+ setStatus('LIVE * ' + f.title + ' * courtesy of @' + f.handle);
+ return;
+ }
+ if (tries >= 8) {
+ clearInterval(poll);
+ /* Keep card + note + links visible; show fallback overlay only if card missing */
+ showFallback(f);
+ }
+ }, 500);
+ });
+ }
+
+ renderCredits();
+ renderPlaylist();
+
+ if (!feeds.length) {
+ setStatus('No feeds in playlist.');
+ return;
+ }
+
+ if (location.protocol === 'file:') {
+ setStatus('Open via local server for embeds. Playlist still works.');
+ }
+
+ selectFeed(typeof cfg.activeIndex === 'number' ? cfg.activeIndex : 0);
+ })();
+ </script>
+ <script src="/assets/js/core/page-transition.js" data-page-transition="1"></script>
+ <script src="/assets/js/core/site-shell.js?v=20260715d" data-site-shell="1"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ if (window.DOSWAPZ_GLITCH) {
+ DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.wrap' });
+ }
+ </script>
+</body>
+</html>

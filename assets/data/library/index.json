@@ -1,0 +1,19 @@
+{
+  "title": "DOSWAPZ MEDIA LIBRARY",
+  "artists": [
+    {
+      "id": "jayfeezy",
+      "name": "JayFeezy",
+      "file": "artists/jayfeezy.json",
+      "tracks": 48,
+      "site": "https://jaifeezy.netlify.app/"
+    },
+    {
+      "id": "slumpork",
+      "name": "Slumpork",
+      "file": "artists/slumpork.json",
+      "tracks": 1,
+      "suno": "https://suno.com/song/db2dd24f-01cd-48ad-ae9a-17cae4a0cdfc"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // BOOM BOX TEST</title>
+ <meta name="robots" content="noindex">
+ <meta name="description" content="Stationary boom box test — tight hits, telescoping antenna, digital zoom into media player.">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='16' fill='%23ffaa00' text-anchor='middle'%3EFM%3C/text%3E%3C/svg%3E">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <link rel="stylesheet" href="/assets/css/boombox-v2.css?v=bbv29">
+</head>
+<body>
+ <div class="dos-screen" id="screen">
+  <div class="header">
+   <h1>DOSWAPZ // BOOM BOX TEST</h1>
+   <div class="sub">STATIONARY * TIGHT HITS * DIGITAL IN</div>
+  </div>
+  <div class="hud" id="hud">
+   <span><b id="hudFreq">98.7</b> FM</span>
+   <span id="hudName">READY</span>
+   <span id="hudMode">BOOMBOX</span>
+   <span id="hudVol">VOL 7</span>
+   <span id="hudAnt">ANT 7</span>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="stage" id="stage">
+   <div class="rig" id="rig">
+    <div class="view is-gone" id="boomView" style="opacity:0;">
+     <img class="skin" id="boxImg" src="/assets/images/boombox/v2/boombox-no-ant.jpg" alt="voxel boom box" draggable="false">
+
+     <button type="button" class="hit circle" id="spkL" data-act="muteL" title="LEFT SPK"></button>
+     <button type="button" class="hit circle" id="spkR" data-act="muteR" title="RIGHT SPK"></button>
+     <button type="button" class="hit circle knob" id="volK" data-act="vol" title="VOL"></button>
+     <button type="button" class="hit circle knob" id="bassK" data-act="bass" title="BASS"></button>
+     <button type="button" class="hit circle knob" id="tuneK" data-act="tune" title="TUNE"></button>
+     <button type="button" class="hit circle knob" id="trebK" data-act="treble" title="TREB"></button>
+     <button type="button" class="hit circle" id="cdL" data-act="cd" title="CD L"></button>
+     <button type="button" class="hit circle" id="cdR" data-act="cd" title="CD R"></button>
+     <button type="button" class="hit tuner" id="tuner" data-act="tuner" title="TUNER"></button>
+     <button type="button" class="hit" id="play" data-act="play" title="PLAY"></button>
+     <button type="button" class="hit" id="stop" data-act="stop" title="STOP"></button>
+     <button type="button" class="hit" id="rew" data-act="rew" title="REW"></button>
+     <button type="button" class="hit" id="ff" data-act="ff" title="FF"></button>
+     <button type="button" class="hit" id="pause" data-act="pause" title="PAUSE"></button>
+     <button type="button" class="hit" id="rec" data-act="rec" title="REC"></button>
+     <button type="button" class="hit" id="rec2" data-act="rec" title="REC"></button>
+     <button type="button" class="hit" id="tr0" data-act="track:0" title="T1"></button>
+     <button type="button" class="hit" id="tr1" data-act="track:1" title="T2"></button>
+     <button type="button" class="hit" id="tr2" data-act="track:2" title="T3"></button>
+     <button type="button" class="hit" id="tapeA" data-act="tapeA" title="TAPE A"></button>
+     <button type="button" class="hit" id="digital" data-act="digital" title="DIGITAL"></button>
+     <button type="button" class="hit" id="tapeAPlay" data-act="play" title="PLAY"></button>
+     <button type="button" class="hit" id="tapeAStop" data-act="stop" title="STOP"></button>
+     <button type="button" class="hit" id="bot0" data-act="track:3" title="T4"></button>
+     <button type="button" class="hit" id="bot1" data-act="track:4" title="T5"></button>
+     <button type="button" class="hit" id="bot2" data-act="rec" title="REC"></button>
+     <button type="button" class="hit" id="power" data-act="power" title="POWER"></button>
+     <button type="button" class="hit circle" id="jack" data-act="phones" title="JACK"></button>
+
+     <div class="ant" id="ant">
+      <div class="ant-mast" id="antMast">
+       <div class="ant-seg"></div>
+       <div class="ant-tip"></div>
+      </div>
+     </div>
+    </div>
+
+    <div class="view is-live" id="playerView" style="transform: scale(1);">
+     <div class="art" id="playerArt">
+      <img class="skin" id="playerImg" src="/assets/images/boombox/v2/player-skin.jpg" alt="digital media player" draggable="false">
+      <canvas id="viz" width="240" height="168"></canvas>
+      <div class="lib-screen is-on" id="libScreen"></div>
+      <img class="img-cap" id="playCap" src="/assets/images/boombox/v2/play.png" alt="" draggable="false">
+      <img class="img-cap" id="knobCap" src="/assets/images/boombox/v2/knob.png" alt="" draggable="false">
+      <button type="button" class="hit" id="pFile" title="FILE" style="left:15.4%;top:31.6%;width:14.2%;height:6.4%;"></button>
+      <button type="button" class="hit" id="pPlay" title="PLAY" style="left:71.719%;top:59.444%;width:3.438%;height:5.556%;"></button>
+      <button type="button" class="hit circle" id="pKnob" title="VOL" style="left:68.359%;top:67.083%;width:11.016%;height:19.583%;"></button>
+      <button type="button" class="hit" id="pBack" title="ZOOM OUT" style="left:7.4%;top:7.2%;width:3.2%;height:5.6%;"></button>
+     </div>
+    </div>
+   </div>
+   <div class="probe" id="probe">CLICK EMPTY SPACE FOR % COORDS * D = HITS</div>
+  </div>
+
+  <div class="bar">
+   <button type="button" class="dbtn on" id="btnPower">POWER</button>
+   <button type="button" class="dbtn" id="btnPlay">PLAY</button>
+   <button type="button" class="dbtn" id="btnStop">STOP</button>
+   <button type="button" class="dbtn" id="btnRew">REW</button>
+   <button type="button" class="dbtn" id="btnFf">FF</button>
+   <button type="button" class="dbtn" id="btnHits">HITS</button>
+   <button type="button" class="dbtn" id="btnBoom">BOOM BOX</button>
+   <button type="button" class="dbtn on" id="btnDigital">DIGITAL IN</button>
+   <button type="button" class="dbtn" id="btnLib">LIBRARY</button>
+  </div>
+  <div class="hint">
+   LEFT SCREEN = ARTISTS / TRACKS * GREEN KEY = PLAY * TWIST THE KNOB
+  </div>
+  <div class="nav">
+   <a href="/classic/pages/basement.html" class="btn btn-basement">&lt;- BASEMENT</a>
+   <a href="/classic/hub.html" class="btn">MENU</a>
+  </div>
+ </div>
+
+ <video id="deckVideo" playsinline loop crossorigin="anonymous" style="position:absolute;width:0;height:0;opacity:0;pointer-events:none"></video>
+ <audio id="deckAudio"></audio>
+ <script src="/assets/js/core/page-transition.js" data-page-transition="1"></script>
+ <script src="/assets/js/core/site-shell.js?v=20260715d" data-site-shell="1"></script>
+ <script src="/assets/js/basement/boombox-v2.js?v=bbv30"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+Disallow: /connect
+Disallow: /settings
+
+Sitemap: https://www.geoff.ai/sitemap.xml

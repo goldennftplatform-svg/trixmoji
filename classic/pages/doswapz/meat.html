@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // MEAT</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ }
+
+ * {
+ box-sizing: border-box;
+ }
+
+ html, body {
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ min-height: 100%;
+ background: #000000;
+ color: #00ff00;
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: #000000;
+ padding: 24px 28px 60px;
+ }
+
+ /* Strong phosphor scanlines to match homepage feel */
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px,
+ rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .header {
+ font-size: 32px;
+ letter-spacing: 6px;
+ text-shadow: 0 0 5px #00ff00;
+ text-align: center;
+ margin-bottom: 6px;
+ }
+
+ .content {
+ max-width: 920px;
+ margin: 18px auto 0;
+ font-size: 19px;
+ line-height: 1.38;
+ padding: 0 8px;
+ }
+
+ .section {
+ margin-bottom: 24px;
+ }
+
+ .section-title {
+ font-size: 22px;
+ color: #ffff00;
+ margin-bottom: 6px;
+ border-bottom: 1px solid #003300;
+ padding-bottom: 3px;
+ }
+
+ .screenshot {
+ border: 3px solid #00ff41;
+ padding: 14px;
+ background: #001100;
+ margin: 10px 0;
+ text-align: center;
+ color: #ffff00;
+ font-size: 15px;
+ font-family: 'VT323', monospace;
+ }
+
+ .warning {
+ color: #ffaa00;
+ background: rgba(40, 20, 0, 0.4);
+ padding: 12px 14px;
+ border-left: 3px solid #ffaa00;
+ margin: 14px 0;
+ }
+
+ .disclaimer {
+ margin: 22px 0;
+ padding: 14px 16px;
+ border: 2px solid #ffff00;
+ background: rgba(40, 30, 0, 0.35);
+ font-size: 17px;
+ line-height: 1.35;
+ }
+
+ .disclaimer-title {
+ color: #ffff00;
+ margin-bottom: 6px;
+ letter-spacing: 1px;
+ }
+
+ .buttons {
+ text-align: center;
+ margin-top: 28px;
+ }
+
+ .btn {
+ font-size: 17px;
+ color: #00ff00;
+ border: 2px solid #00ff00;
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px;
+ display: inline-block;
+ }
+
+ .btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .footer {
+ margin-top: 28px;
+ font-size: 13px;
+ color: #00aa00;
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ /* Vignette like the homepage */
+ .vignette {
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.58) 84%);
+ pointer-events: none;
+ z-index: 5;
+ }
+
+ /* Glitch layer (reduced-volume engine for content pages) */
+ .glitch-layer {
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 20;
+ mix-blend-mode: screen;
+ }
+
+ .mosh-band {
+ position: fixed;
+ left: 0;
+ width: 100%;
+ background: rgba(0, 255, 0, 0.16);
+ mix-blend-mode: difference;
+ pointer-events: none;
+ z-index: 25;
+ opacity: 0;
+ }
+ </style>
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ </head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+ <div class="header">DOSWAPZ // MEAT</div>
+
+ <div class="content">
+
+ <div class="warning">
+ <strong>IMPORTANT:</strong> This is ONLY an alert system. You receive signals. You decide and execute trades yourself with your own wallet. Meat never touches your keys or funds.
+ </div>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">OPERATIONAL DIRECTIVE - READ AND COMPLY</div>
+ MEAT IS A LIVE ALERT TOOL.<br>
+ * You are solely responsible for every trade decision and execution.<br>
+ * Meat never executes trades, accesses your wallet, or holds your funds.<br>
+ * Independently verify every signal before acting. Never risk more than you can afford to lose.<br>
+ * DOSWAPZ provides tools and information. You bear complete responsibility for all actions and outcomes.
+ </div>
+
+ <div class="section">
+ <div class="section-title">WHAT IS MEAT?</div>
+ <p>Meat is your personal crypto alert terminal. It runs on your machine, watches the market 24/7, and sends clear buy/sell alerts based on the strategies you configure. You stay in full control.</p>
+ </div>
+
+ <div class="section">
+ <div class="section-title">A-Z SETUP GUIDE (BEGINNER FRIENDLY)</div>
+
+ <p><strong>Step 1 - Verify your environment</strong><br>
+ Make sure you have Python 3.10+ installed and the required packages available (the screenshot shows a clean check with pip list).</p>
+
+ <div class="screenshot"><img src="/assets/images/meat/step1_python_pip.png" alt="Terminal showing python --version and pip list" style="width:100%; display:block; border:1px solid #003300;"></div>
+
+ <p><strong>Step 2 - Download / clone the bot folder</strong><br>
+ Get the crypto-trading_bot directory (the screenshot shows a typical cloned repo with enhanced_bot.py, config.yaml, requirements.txt, etc.).</p>
+
+ <div class="screenshot"><img src="/assets/images/meat/step2_folder.png" alt="GitHub repo folder structure" style="width:100%; display:block; border:1px solid #003300;"></div>
+
+ <p><strong>Step 3 - Install dependencies</strong></p>
+ <pre style="background:#111; padding:10px; border:1px solid #00ff41;">pip install -r requirements.txt</pre>
+
+ <div class="screenshot"><img src="/assets/images/meat/step3_pip_install.png" alt="Successful pip install output" style="width:100%; display:block; border:1px solid #003300;"></div>
+
+ <p><strong>Step 4 - Configure your settings</strong><br>
+ Open config.yaml and fill in your preferences (coins to watch, alert thresholds, Telegram bot token, etc.).</p>
+
+ <div class="screenshot"><img src="/assets/images/meat/step4_config.png" alt="config.yaml example filled in" style="width:100%; display:block; border:1px solid #003300;"></div>
+
+ <p><strong>Step 5 - Set up Telegram alerts</strong><br>
+ Create a Telegram bot via @BotFather and add your chat ID in the config.</p>
+
+ <div class="screenshot"><img src="/assets/images/meat/step5_telegram.png" alt="Telegram bot creation and chat ID" style="width:100%; display:block; border:1px solid #003300;"></div>
+
+ <p><strong>Step 6 - Run the bot</strong></p>
+ <pre style="background:#111; padding:10px; border:1px solid #00ff41;">python enhanced_bot.py</pre>
+
+ <div class="screenshot"><img src="/assets/images/meat/step6_bot_running.png" alt="Bot running and listening for signals" style="width:100%; display:block; border:1px solid #003300;"></div>
+
+ <p><strong>Step 7 - Receive alerts in Telegram</strong><br>
+ You will get clean push notifications like the one in the screenshot:<br>
+ "SOL - Strong buy signal detected (volume + RSI). Current price: $142.30"</p>
+
+ <div class="screenshot"><img src="/assets/images/meat/step7_alert.png" alt="Example Telegram buy signal alert" style="width:100%; display:block; border:1px solid #003300;"></div>
+ </div>
+
+ <div class="section">
+ <div class="section-title">VIDEO GUIDE (HIGHLY RECOMMENDED)</div>
+ <p>Watch this full setup video for visual learners:</p>
+ <p><strong>COMING SOON - https://www.youtube.com/watch?v=example-doswap-meat-setup</strong></p>
+ <p>The video walks through every step with screen recordings.</p>
+ </div>
+
+ <div class="warning">
+ This is an alert system only. Trade responsibly. Never risk more than you can afford to lose.
+ </div>
+
+ </div>
+
+ <div class="buttons">
+ <a href="/classic/hub.html" class="btn"><- BACK TO MENU</a>
+ </div>
+
+ <div class="footer">
+ DOSWAPZ - MEAT ALERT SYSTEM
+ </div>
+
+ <!-- Glitch layer (driven by reduced-volume engine for content pages) -->
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+<script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.content, #content' });
+ </script>
+<div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+<script src="/assets/js/core/price-ticker.js"></script>
+ </body>
+</html>

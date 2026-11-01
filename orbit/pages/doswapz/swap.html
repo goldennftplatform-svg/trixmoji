@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <script>
+  (function () {
+    if (location.protocol !== 'file:') return;
+    var u = 'http://127.0.0.1:8890/orbit/pages/doswapz/swap.html';
+    document.documentElement.innerHTML =
+      '<head><meta charset="UTF-8"><title>DOSWAPZ</title>  <link rel="stylesheet" href="/assets/css/era-present-soft.css?v=neonvoid5">
+</head>' +
+      '<body style="margin:0;background:#000;color:#0f0;font-family:monospace;padding:40px">' +
+      '<p>Open via local server:</p><p><a href="' + u + '" style="color:#6cf">' + u + '</a></p></body>';
+  })();
+  </script>
+  <title>DOSWAPZ // 0% SWAP // ORBIT</title>
+  <meta name="description" content="DOSWAPZ Live 0% Swap - Jupiter-powered Solana swap.">
+  <link rel="stylesheet" href="/assets/css/hollow-base.css">
+  <link rel="stylesheet" href="/assets/css/orbit-void.css">
+  <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+<link rel="stylesheet" href="/assets/css/era-transition.css">
+  <link rel="stylesheet" href="/assets/css/swap-orbit.css?v=swapfix6">
+  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.91.0/lib/index.iife.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+  </style>
+  <link rel="stylesheet" href="/assets/css/era-present-soft.css?v=neonvoid5">
+</head>
+<body id="screen" class="orbit-void-inner swap-orbit">
+  <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+  <div id="stars"></div>
+  <div class="grain"></div>
+  <div class="vignette"></div>
+  <div class="glitch-layer" id="glitchLayer"></div>
+
+  <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+    <span class="crumb-zone">0% SWAP</span>
+    <a href="/portal.html" class="tm-static">TIME MACHINE</a>
+    <a href="/orbit/hub.html" class="hub-static">HUB</a>
+  </nav>
+
+  <div class="float-field" id="field" style="display:none" aria-hidden="true"></div>
+
+  <main class="stage" id="stage">
+    <h1 class="hollow-title" id="orbitTitle">0% SWAP</h1>
+    <p class="hollow-sub" id="stageSub">jupiter * trix * live<span class="cursor-blink">|</span></p>
+  </main>
+
+  <div class="orbit-panel accent-swap" id="orbitPanel">
+    <div class="swap-sub">JUPITER SWAP * TRIX MARKET * 0% PLATFORM FEE * LIVE</div>
+
+    <div class="swap-live-ticker" aria-live="polite">
+      <div class="swap-live-ticker-label">LIVE</div>
+      <div class="swap-live-ticker-track" id="swapCountTickerTrack">
+        TOTAL SWAPS COMPLETED ON DOSWAPZ: <span class="count" id="swapCountValue">-</span>
+        /// EVERY CONFIRMED SWAP INCREMENTS THE COUNTER /// VERIFY ON SOLSCAN ///
+      </div>
+    </div>
+
+    <div class="swap-container">
+      <div class="swap-box">
+        <div class="swap-note">
+          <strong>OPEN TO ANY SOLANA WALLET</strong> — regular Jupiter (this page).<br>
+          Pond old-rails (community only) -&gt; <a href="/orbit/pages/pond-scum.html">POND SCUM</a>
+        </div>
+
+        <div id="jupiterSwapPanel">
+          <div class="trix-dropdown-note ftwr-rabbit-skip">
+            Trix Market tokens load into FROM/TO (sorted by market cap).<br>
+            Not listed? Choose Other and paste any Solana mint.
+          </div>
+
+          <div class="wallet-row">
+            <button type="button" onclick="connectSwapWallet()" id="connectBtnSwap" class="btn">CONNECT SOLANA</button>
+            <button type="button" onclick="disconnectSwapWallet()" id="disconnectBtnSwap" class="btn" style="display:none;">DISCONNECT</button>
+          </div>
+          <div id="walletInfoSwap"></div>
+          <div id="walletBalanceSwap" class="wallet-balance-line"></div>
+          <div id="walletHelpSwap" class="wallet-meta" style="display:none;">
+            No Solana wallet detected.
+            <a href="https://phantom.app" target="_blank" rel="noopener" style="color:#ffcc66;">Install Phantom</a>
+          </div>
+          <div class="wallet-meta">REAL WALLET (Phantom / Solflare) - PAGE-SCOPED ONLY</div>
+
+          <div class="input-row">
+            <select id="fromToken" onchange="updateSwapQuote()">
+              <option>SOL</option>
+              <option>USDC</option>
+              <option>BONK</option>
+              <option>XELON</option>
+              <option>CRACK</option>
+              <option>Other (paste mint)</option>
+            </select>
+            <input type="number" id="fromAmount" placeholder="Amount" value="1" min="0" step="any" oninput="updateSwapQuote()">
+          </div>
+          <div id="fromCustomWrap" class="custom-mint-wrap">
+            <input id="fromCustomMint" type="text" placeholder="Any Solana mint (decimals auto-detected)" oninput="updateSwapQuote()">
+          </div>
+
+          <div class="swap-arrow">v</div>
+
+          <div class="input-row">
+            <select id="toToken" onchange="updateSwapQuote()">
+              <option>USDC</option>
+              <option>SOL</option>
+              <option>BONK</option>
+              <option selected>XELON</option>
+              <option>CRACK</option>
+              <option>Other (paste mint)</option>
+            </select>
+            <input type="text" id="toAmount" placeholder="You receive" readonly>
+          </div>
+          <div id="toCustomWrap" class="custom-mint-wrap">
+            <input id="toCustomMint" type="text" placeholder="Any Solana mint (decimals auto-detected)" oninput="updateSwapQuote()">
+          </div>
+
+          <div id="routeLine" class="route-line">ROUTE VIA JUPITER * 0% DOSWAPZ FEE * LIVE QUOTE</div>
+          <div id="swapStatus" class="status-line">LOADING LIVE JUPITER QUOTE...</div>
+
+          <button type="button" onclick="simulateSwap()" id="swapBtn" class="btn" disabled>SWAP</button>
+
+          <div class="disclaimer">
+            <div class="disclaimer-title">WALLET SAFETY - SWAP ONLY</div>
+            Button tries real Phantom/Solflare first (if installed in this browser).<br>
+            If no wallet detected -&gt; demo mode with install link.<br>
+            <strong>Connection is page-scoped only. Never connect funds you cannot afford to lose.</strong><br>
+            <strong>Your wallet auto-disconnects after every completed swap for safety.</strong><br>
+            Reconnect manually before your next swap. Verify on Jupiter/Solscan.
+          </div>
+
+          <div class="node-row">
+            NODE / ROUTE:
+            <select id="nodeSelect" onchange="updateNodeRoute()">
+              <option value="public">Public Jupiter (default)</option>
+              <option value="own">Simulate your own node</option>
+              <option value="custom">Custom RPC (paste URL)</option>
+            </select>
+            <span id="nodeStatus" style="margin-left:8px;color:#ffff00;"></span>
+            <input id="customRpc" type="text" placeholder="https://your-rpc.com" style="display:none;margin-top:8px;" oninput="updateNodeRoute()">
+          </div>
+          <div id="nodeBenefits" style="display:none;text-align:center;font-size:12px;color:#aaffaa;margin-top:6px;">
+            NODE BENEFITS ACTIVE: Private queries * No public rate limits * (demo)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="disclaimer" style="margin-top:14px;">
+      <div class="disclaimer-title">VERIFICATION DIRECTIVE - READ AND COMPLY</div>
+      Live 0% swap powered by Jupiter. Real wallet connect can create real Solana transactions.<br>
+      Always verify mints, routes, and txs on Solscan / Jupiter before signing.<br>
+      DOSWAPZ accepts NO responsibility for loss of funds. DYOR.
+    </div>
+
+    <div class="swap-nav">
+      <a class="btn" href="/orbit/hub.html">&lt;- HUB</a>
+      <a class="btn" href="/orbit/pages/doswapz/bridge.html">BRIDGE</a>
+      <a class="btn" href="/orbit/pages/doswapz/mint.html">MINT</a>
+      <a class="btn" href="/orbit/pages/doswapz/gallery.html">GALLERY</a>
+      <a class="btn" href="/orbit/pages/pond-scum.html">POND SCUM</a>
+    </div>
+    <div class="swap-footer">DOSWAPZ - 0% SWAP * SOLANA * PAGE-SCOPED</div>
+  </div>
+
+  <p class="glitch-credit">powered by Glitch Protocol</p>
+
+  <script src="/assets/js/core/hollow-spawn.js"></script>
+  <script src="/assets/js/core/hollow-orbit.js"></script>
+  <script src="/assets/js/core/era-portal.js"></script>
+  <script src="/assets/js/core/era-transition.js"></script>
+  <script src="/assets/js/core/glitch.js"></script>
+  <script src="/assets/js/config/ftwr-config.js"></script>
+  <script src="/assets/js/config/pond-config.js"></script>
+  <script src="/assets/js/core/swap-stats.js"></script>
+  <script src="/assets/js/swap/trix-tokens.js"></script>
+  <script src="/assets/js/config/vantablack-config.js"></script>
+  <script src="/assets/js/basement/vantablack-market.js"></script>
+  <script src="/assets/js/swap/swap.js"></script>
+  <script>
+    /* Disable rabbit icons on this page (they looked like garbage glyphs) */
+    window.FTWR_RABBIT = {
+      decorate: function () {},
+      makeIcon: function () { return document.createElement('span'); }
+    };
+  </script>
+  <script src="/assets/js/core/price-ticker.js"></script>
+  <script>
+    DOSWAPZ_ERA.set('orbit');
+    if (typeof hollowMandelBg === 'function') {
+      hollowMandelBg('bg', ['#000', '#020804', '#041008'], { opacity: 0.08, speed: 0.00002, fast: true });
+    }
+    if (typeof hollowStars === 'function') hollowStars(28);
+    if (window.DOSWAPZ_GLITCH) {
+      DOSWAPZ_GLITCH.init({
+        screen: '#screen',
+        content: '#orbitPanel',
+        titleEl: '#orbitTitle',
+        titleText: '0% SWAP',
+        interval: 800,
+        letterInterval: 2800
+      });
+    }
+
+    (function initSwapCountTicker() {
+      var valueEl = document.getElementById('swapCountValue');
+      if (!valueEl || !window.DOSWAPZ_SWAP_STATS) return;
+      function paint(total) { valueEl.textContent = String(total); }
+      DOSWAPZ_SWAP_STATS.refresh(true).then(paint).catch(function () {
+        DOSWAPZ_SWAP_STATS.getTotal().then(paint).catch(function () {});
+      });
+      DOSWAPZ_SWAP_STATS.subscribe(function () {
+        DOSWAPZ_SWAP_STATS.getTotal().then(paint).catch(function () {});
+      });
+    })();
+  </script>
+</body>
+</html>

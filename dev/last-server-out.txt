@@ -1,0 +1,11 @@
+  Loaded .env
+  APIs: attic-image, attic-posts, attic-share, harbinger-chat, pond-dossier, pond-manifest, pond-mining, pond-stats, solana-rpc, swap-stats, trix-ticker, vantablack-coins, vantablack-token-stats, wallet-trades
+
+  DOSWAPZ site is RUNNING
+  =======================
+  HUB:  http://127.0.0.1:8890/classic/hub.html
+  API:  14 routes under /api/*
+  KEYS: XAI_API_KEY=no  KV=no  SOLANA_RPC=public
+
+  KEEP THIS WINDOW OPEN
+

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong> Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong> Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>DOSWAPZ // 0% SWAP // ORBIT</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style class="page-classic-styles">
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ /* orbit: :root stripped */
+
+ * {
+ box-sizing: border-box;
+ }
+
+ /* orbit: global html,body stripped */
+
+ .dos-screen { position:relative; min-height:0; background:transparent; padding:0; }
+
+ .custom-mint-wrap {
+ display: none;
+ margin: -4px 0 8px;
+ font-size: 12px;
+ }
+
+ .custom-mint-wrap input {
+ width: 100%;
+ background: transparent;
+ color: rgba(255,255,255,0.38);
+ border: 1px solid var(--panel-accent);
+ padding: 4px 6px;
+ font-family: inherit;
+ font-size: 12px;
+ margin-top: 4px;
+ }
+
+ .trix-dropdown-note {
+ text-align: center;
+ font-size: 11px;
+ color: rgba(255,255,255,0.35);
+ letter-spacing: 1px;
+ margin-bottom: 8px;
+ line-height: 1.35;
+ }
+
+ /* Strong phosphor scanlines to match homepage + mint feel */
+ /* orbit: scanlines stripped */
+
+ /* orbit: .header stripped */
+
+ .content {
+ max-width: 620px;
+ margin: 18px auto 0;
+ font-size: 19px;
+ line-height: 1.38;
+ padding: 0 8px;
+ }
+
+ /* orbit: .subhead stripped */
+
+ .swap-container {
+ max-width: 560px;
+ margin: 0 auto;
+ border: 1px solid rgba(255,255,255,0.14);
+ padding: 12px 10px;
+ background: rgba(0, 0, 0, 0.15);
+ }
+
+ .swap-box {
+ background: transparent;
+ border: 3px solid var(--panel-accent);
+ padding: 16px 14px;
+ }
+
+ .input-row {
+ display: flex;
+ gap: 10px;
+ margin-bottom: 10px;
+ }
+
+ .input-row input, .input-row select {
+ flex: 1;
+ background: transparent;
+ color: rgba(255,255,255,0.38);
+ border: 2px solid var(--panel-accent);
+ padding: 6px 8px;
+ font-family: inherit;
+ font-size: 17px;
+ }
+
+ .wallet-row {
+ text-align: center;
+ margin: 8px 0 6px;
+ }
+
+ .status-line {
+ font-size: 13px;
+ min-height: 16px;
+ text-align: center;
+ margin: 6px 0;
+ color: #00cc00;
+ }
+
+ .btn {
+ font-size: 16px;
+ color: rgba(255,255,255,0.38);
+ background: transparent;
+ border: 2px solid rgba(255,255,255,0.38);
+ padding: 5px 14px;
+ text-decoration: none;
+ margin: 0 4px;
+ display: inline-block;
+ cursor: pointer;
+ }
+
+ .btn:hover {
+ background: rgba(255,255,255,0.14);
+ color: var(--panel-accent);
+ border-color: var(--panel-accent);
+ }
+
+ .small-btn {
+ padding: 3px 8px;
+ font-size: 13px;
+ }
+
+ .disclaimer {
+ margin: 10px auto;
+ padding: 10px 12px;
+ border: 2px solid var(--panel-accent);
+ background: rgba(40, 30, 0, 0.35);
+ font-size: 12px;
+ line-height: 1.28;
+ max-width: 100%;
+ text-align: left;
+ }
+
+ .disclaimer-title {
+ color: var(--panel-accent);
+ margin-bottom: 4px;
+ letter-spacing: 1px;
+ text-align: center;
+ font-size: 13px;
+ }
+
+ .buttons {
+ text-align: center;
+ margin-top: 22px;
+ }
+
+ .footer {
+ margin-top: 22px;
+ font-size: 13px;
+ color: rgba(255,255,255,0.35);
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ /* Vignette like the homepage */
+ .vignette {
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.58) 84%);
+ pointer-events: none;
+ z-index: 5;
+ }
+
+ /* Glitch layer (reduced-volume engine for content pages) */
+ .glitch-layer {
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 20;
+ mix-blend-mode: screen;
+ }
+
+ .mosh-band {
+ position: fixed;
+ left: 0;
+ width: 100%;
+ background: rgba(0, 255, 0, 0.16);
+ mix-blend-mode: difference;
+ pointer-events: none;
+ z-index: 25;
+ opacity: 0;
+ }
+
+ .wallet-balance-line {
+ text-align: center;
+ font-size: 12px;
+ color: var(--panel-accent);
+ margin: 2px 0 6px;
+ letter-spacing: 0.5px;
+ display: none;
+ }
+
+ .swap-live-ticker {
+ max-width: 560px;
+ margin: 0 auto 14px;
+ border: 2px solid var(--panel-accent);
+ background: rgba(20, 20, 0, 0.55);
+ overflow: hidden;
+ height: 34px;
+ display: flex;
+ align-items: center;
+ }
+
+ .swap-live-ticker-label {
+ flex-shrink: 0;
+ padding: 0 10px;
+ background: #333300;
+ color: var(--panel-accent);
+ font-size: 12px;
+ letter-spacing: 1px;
+ height: 100%;
+ display: flex;
+ align-items: center;
+ border-right: 1px solid var(--panel-accent);
+ }
+
+ .swap-live-ticker-track {
+ flex: 1;
+ white-space: nowrap;
+ padding-left: 100%;
+ animation: swap-count-scroll 18s linear infinite;
+ color: rgba(255,255,255,0.38);
+ font-size: 18px;
+ letter-spacing: 1px;
+ }
+
+ .swap-live-ticker-track .count {
+ color: var(--panel-accent);
+ text-shadow: 0 0 6px var(--panel-accent);
+ font-size: 22px;
+ }
+
+ @keyframes swap-count-scroll {
+ 0% { transform: translateX(0); }
+ 100% { transform: translateX(-100%); }
+ }
+
+ .rail-switch {
+ display: flex;
+ gap: 8px;
+ justify-content: center;
+ margin-bottom: 12px;
+ flex-wrap: wrap;
+ }
+
+ .rail-btn {
+ font-size: 14px;
+ padding: 4px 12px;
+ border: 2px solid rgba(255,255,255,0.35);
+ background: transparent;
+ color: rgba(255,255,255,0.35);
+ cursor: pointer;
+ font-family: inherit;
+ letter-spacing: 1px;
+ }
+
+ .rail-btn.rail-active {
+ border-color: var(--panel-accent);
+ color: var(--panel-accent);
+ background: rgba(40, 40, 0, 0.35);
+ text-shadow: 0 0 6px var(--panel-accent);
+ }
+
+ .rail-status {
+ text-align: center;
+ font-size: 11px;
+ color: rgba(255,255,255,0.38);
+ margin-bottom: 10px;
+ line-height: 1.35;
+ letter-spacing: 0.5px;
+ }
+
+ .pond-rail-panel {
+ border: 2px solid var(--panel-accent);
+ background: transparent;
+ padding: 8px;
+ }
+
+ .pond-frame-wrap {
+ position: relative;
+ width: 100%;
+ min-height: 520px;
+ border: 1px solid rgba(255,255,255,0.14);
+ background: transparent;
+ }
+
+ .pond-frame-wrap iframe {
+ width: 100%;
+ height: 520px;
+ border: 0;
+ background: transparent;
+ }
+
+ .pond-frame-fallback {
+ text-align: center;
+ font-size: 12px;
+ color: rgba(255,255,255,0.35);
+ margin-top: 8px;
+ line-height: 1.4;
+ }
+
+ .pond-frame-fallback a {
+ color: var(--panel-accent);
+ }
+ </style>
+ <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.91.0/lib/index.iife.min.js"></script>
+</head>
+<body id="screen" class="orbit-void-inner">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+ <span class="crumb-zone">0% SWAP</span>
+ <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+ <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+ <div class="core-glow"></div>
+ <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+ <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ <div class="orbit-line" style="width:min(34vmin,34vw);height:min(34vmin,34vh)"></div>
+ </div>
+
+ <main class="stage" id="content">
+ <h1 class="hollow-title" id="orbitTitle">0% SWAP</h1>
+ <p class="hollow-sub" id="stageSub">0% jupiter swap<span class="cursor-blink">|</span></p>
+ <p class="page-path">/orbit/pages/doswapz/swap.html</p>
+ </main>
+
+ <div class="orbit-panel accent-swap" id="orbitPanel">
+<div class="subhead">JUPITER SWAP * TRIX MARKET * 0% PLATFORM FEE * LIVE</div>
+
+ <div class="swap-live-ticker" aria-live="polite">
+ <div class="swap-live-ticker-label">LIVE</div>
+ <div class="swap-live-ticker-track" id="swapCountTickerTrack">
+ TOTAL SWAPS COMPLETED ON DOSWAPZ: <span class="count" id="swapCountValue"> - </span>
+ /// EVERY CONFIRMED SWAP INCREMENTS THE COUNTER /// VERIFY ON SOLSCAN ///
+ </div>
+ </div>
+
+ <div class="swap-container">
+ <div class="swap-box">
+ <div style="text-align:center; font-size:11px; color:#ffaa00; margin-bottom:10px;">
+ Pond dossier swaps -> <a href="/orbit/pages/pond-scum.html" style="color:#ffff00;">POND SCUM</a> (embedded Pond Jupiter on DOSWAPZ)
+ </div>
+
+ <div id="jupiterSwapPanel">
+ <div class="trix-dropdown-note">
+ Trix Market token database loads into FROM/TO dropdown (sorted by market cap).<br>
+ Not listed? Choose Other and paste any Solana mint.
+ </div>
+
+ <!-- Wallet connection (page-scoped only for this swap) -->
+ <div class="wallet-row">
+ <button onclick="connectSwapWallet()" id="connectBtnSwap" class="btn small-btn">CONNECT SOLANA</button>
+ <button onclick="disconnectSwapWallet()" id="disconnectBtnSwap" class="btn small-btn" style="display:none;">DISCONNECT</button>
+ </div>
+ <div id="walletInfoSwap" style="text-align:center; font-size:12px; margin:2px 0; color:#00cc00;"></div>
+ <div id="walletBalanceSwap" class="wallet-balance-line"></div>
+ <div id="walletHelpSwap" style="text-align:center; font-size:10px; color:#ffaa00; margin-bottom:4px; display:none;">
+ No Solana wallet detected. <a href="https://phantom.app" target="_blank" style="color:#ffcc66;">Install Phantom</a> for real connect.
+ </div>
+ <div style="text-align:center; font-size:11px; color:rgba(255,255,255,0.35); margin-bottom:6px;">
+ REAL WALLET (Phantom / Solflare) - PAGE-SCOPED ONLY
+ </div>
+
+ <div class="input-row">
+ <select id="fromToken" onchange="updateSwapQuote()">
+ <option>SOL</option>
+ <option>USDC</option>
+ <option>BONK</option>
+ <option>Other (paste mint)</option>
+ </select>
+ <input type="number" id="fromAmount" placeholder="Amount" value="1" min="0" step="any" oninput="updateSwapQuote()">
+ </div>
+ <div id="fromCustomWrap" class="custom-mint-wrap">
+ <input id="fromCustomMint" type="text" placeholder="Any Solana mint (decimals auto-detected)" oninput="updateSwapQuote()">
+ </div>
+
+ <div style="text-align:center; margin:4px 0; color:rgba(255,255,255,0.35); font-size:18px;">v</div>
+
+ <div class="input-row">
+ <select id="toToken" onchange="updateSwapQuote()">
+ <option>USDC</option>
+ <option>SOL</option>
+ <option>BONK</option>
+ <option>Other (paste mint)</option>
+ </select>
+ <input type="text" id="toAmount" placeholder="You receive" readonly>
+ </div>
+ <div id="toCustomWrap" class="custom-mint-wrap">
+ <input id="toCustomMint" type="text" placeholder="Any Solana mint (decimals auto-detected)" oninput="updateSwapQuote()">
+ </div>
+
+ <div id="routeLine" style="text-align:center; margin:4px 0; font-size:12px; color:rgba(255,255,255,0.35);">
+ ROUTE VIA JUPITER * 0% DOSWAPZ FEE * LIVE QUOTE
+ </div>
+
+ <div id="swapStatus" class="status-line">LOADING LIVE JUPITER QUOTE...</div>
+
+ <div style="text-align:center; margin:6px 0;">
+ <button onclick="simulateSwap()" id="swapBtn" class="btn" style="width:100%; max-width:320px;" disabled>SWAP</button>
+ </div>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">WALLET SAFETY - SWAP ONLY</div>
+ Button tries real Phantom/Solflare first (if installed in this browser).<br>
+ If no wallet detected -> demo mode with install link.<br>
+ <strong>Connection is page-scoped only. Never connect funds you cannot afford to lose.</strong><br>
+ <strong>Your wallet auto-disconnects after every completed swap transaction for safety.</strong><br>
+ Reconnect manually before your next swap. Verify on Jupiter/Solscan. Crypto involves real risk of loss.
+ </div>
+
+ <!-- Node / RPC options (for "run your own node" feel) -->
+ <div style="margin-top:12px; font-size:12px; color:rgba(255,255,255,0.35);">
+ NODE / ROUTE:
+ <select id="nodeSelect" onchange="updateNodeRoute()" style="background:#000; color:var(--panel-accent); border:1px solid #00ff00; font-family:inherit; font-size:12px; padding:2px 4px;">
+ <option value="public">Public Jupiter (default)</option>
+ <option value="own">Simulate your own node</option>
+ <option value="custom">Custom RPC (paste URL)</option>
+ </select>
+ <span id="nodeStatus" style="margin-left:8px; color:#ffff00;"></span>
+ <input id="customRpc" type="text" placeholder="https://your-rpc.com" style="display:none; width:180px; background:#000; color:var(--panel-accent); border:1px solid #00ff00; font-size:11px; padding:2px; margin-left:4px;" oninput="updateNodeRoute()">
+ </div>
+
+ <div id="nodeBenefits" style="margin-top:6px; font-size:11px; color:#aaffaa; display:none;">
+ NODE BENEFITS ACTIVE: Private queries * No public rate limits * (demo) simulated 0.02% better execution
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Shared strong military-style disclaimer (uniform with mint + other pages) -->
+ <div class="disclaimer" style="max-width:560px; margin:14px auto;">
+ <div class="disclaimer-title">VERIFICATION DIRECTIVE - READ AND COMPLY</div>
+ Live 0% swap powered by Jupiter. When you connect a real wallet and execute, real transactions can occur on Solana.<br>
+ Always independently verify token mints, routes, and transaction details on official blockchain explorers (Solscan, Jupiter) before signing anything.<br>
+ DOSWAPZ accepts NO responsibility for any loss of funds. Connect wallets and interact at your own risk.<br>
+ <strong>For safety, your wallet automatically disconnects after each completed swap - reconnect to trade again.</strong><br>
+ Do your own research. Do not trust links, DMs, or anyone. Never risk more than you can afford to lose.
+ </div>
+
+ <div class="buttons">
+ <a href="/orbit/hub.html" class="btn"><- BACK TO MENU</a>
+ <a href="/orbit/pages/doswapz/mint.html" class="btn">MINT</a>
+ <a href="/orbit/pages/doswapz/gallery.html" class="btn">GALLERY</a>
+ <a href="/orbit/pages/pond-scum.html" class="btn">POND SCUM</a>
+ <a href="/classic/pages/cryptodad/scoreboard.html" class="btn">CRYPTO DAD SCORES</a>
+ </div>
+
+ <div class="footer">
+ DOSWAPZ - 0% SWAP * SOLANA TOKENS ONLY * PAGE-SCOPED CONNECTION
+ </div>
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/config/ftwr-config.js"></script>
+ <script src="/assets/js/config/pond-config.js"></script>
+ <script src="/assets/js/core/rabbit-icon.js"></script>
+ <script src="/assets/js/core/swap-stats.js"></script>
+ <script src="/assets/js/swap/trix-tokens.js"></script>
+ <script src="/assets/js/config/vantablack-config.js"></script>
+ <script src="/assets/js/basement/vantablack-market.js"></script>
+ <script src="/assets/js/swap/swap.js"></script>
+ <script src="/assets/js/core/price-ticker.js"></script>
+
+ <script>hollowPageBoot('0% SWAP');</script>
+</body>
+</html>

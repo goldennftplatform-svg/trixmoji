@@ -1,0 +1,2585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1">
+ <title>FTWR - Follow The White Rabbit</title>
+ <meta name="description" content="FTWR maze chase. Follow the white rabbit. Wrong turn and you lose.">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+ <style>
+ :root {
+ --void: #000000;
+ --ink: #e8e8e8;
+ --dim: #3a3a3a;
+ --ghost: #1a1a1a;
+ --green: #00ff41;
+ --green-dim: #0a3d18;
+ --amber: #ffb000;
+ --red: #ff3355;
+ --cyan: #66ffe0;
+ }
+
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+
+ html, body {
+ width: 100%;
+ height: 100%;
+ background: var(--void);
+ color: var(--ink);
+ font-family: 'VT323', monospace;
+ overflow: hidden;
+ touch-action: none;
+ user-select: none;
+ -webkit-user-select: none;
+ }
+
+ body {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ background:
+ radial-gradient(ellipse at 50% 20%, rgba(0, 255, 65, 0.04), transparent 45%),
+ radial-gradient(ellipse at 50% 100%, rgba(255, 255, 255, 0.03), transparent 40%),
+ #000;
+ }
+
+ .shell {
+ position: relative;
+ width: min(100vw, 920px);
+ height: min(100vh, 720px);
+ display: grid;
+ grid-template-rows: auto 1fr auto;
+ padding: 12px;
+ gap: 8px;
+ }
+
+ .topbar {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ gap: 12px;
+ padding: 4px 6px;
+ border-bottom: 1px solid #111;
+ font-size: 18px;
+ letter-spacing: 2px;
+ color: #666;
+ z-index: 5;
+ }
+
+ .brand {
+ color: #fff;
+ letter-spacing: 4px;
+ text-shadow: 0 0 18px rgba(255, 255, 255, 0.25);
+ }
+
+ .brand span {
+ color: var(--green);
+ font-size: 14px;
+ letter-spacing: 3px;
+ margin-left: 8px;
+ opacity: 0.85;
+ }
+
+ .hud {
+ display: flex;
+ gap: 18px;
+ flex-wrap: wrap;
+ justify-content: flex-end;
+ font-size: 16px;
+ }
+
+ .hud b {
+ color: var(--green);
+ font-weight: normal;
+ }
+
+ .hud b.danger {
+ color: var(--red);
+ text-shadow: 0 0 10px rgba(255, 51, 85, 0.55);
+ }
+
+ .hud b.warn {
+ color: var(--amber);
+ }
+
+ .stage-wrap {
+ position: relative;
+ min-height: 0;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ border: 1px solid #141414;
+ box-shadow:
+ 0 0 0 1px #050505,
+ inset 0 0 60px rgba(0, 0, 0, 0.85),
+ 0 0 40px rgba(0, 255, 65, 0.04);
+ background:
+ repeating-linear-gradient(
+ 0deg,
+ transparent,
+ transparent 2px,
+ rgba(0, 0, 0, 0.18) 2px,
+ rgba(0, 0, 0, 0.18) 4px
+ ),
+ #020202;
+ overflow: hidden;
+ }
+
+ #game {
+ display: block;
+ width: 100%;
+ height: 100%;
+ image-rendering: pixelated;
+ image-rendering: crisp-edges;
+ cursor: none;
+ }
+
+ .overlay {
+ position: absolute;
+ inset: 0;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+ background: rgba(0, 0, 0, 0.82);
+ backdrop-filter: blur(2px);
+ z-index: 10;
+ padding: 24px;
+ transition: opacity 0.25s ease;
+ }
+
+ .overlay.hidden {
+ opacity: 0;
+ pointer-events: none;
+ }
+
+ .overlay h1 {
+ font-family: 'Press Start 2P', monospace;
+ font-size: clamp(16px, 3.2vw, 28px);
+ letter-spacing: 4px;
+ color: #fff;
+ text-shadow: 0 0 24px rgba(255, 255, 255, 0.35);
+ margin-bottom: 10px;
+ }
+
+ .overlay .tag {
+ font-size: 20px;
+ letter-spacing: 6px;
+ color: var(--green);
+ margin-bottom: 22px;
+ text-shadow: 0 0 12px rgba(0, 255, 65, 0.45);
+ }
+
+ .overlay p {
+ max-width: 420px;
+ font-size: 20px;
+ line-height: 1.35;
+ color: #9a9a9a;
+ margin-bottom: 10px;
+ }
+
+ .overlay .hint {
+ color: #555;
+ font-size: 16px;
+ letter-spacing: 2px;
+ margin-top: 8px;
+ margin-bottom: 28px;
+ }
+
+ .overlay .result {
+ font-family: 'Press Start 2P', monospace;
+ font-size: clamp(12px, 2.4vw, 18px);
+ letter-spacing: 3px;
+ margin-bottom: 14px;
+ }
+
+ .overlay .result.win { color: var(--green); text-shadow: 0 0 16px rgba(0, 255, 65, 0.5); }
+ .overlay .result.lose { color: var(--red); text-shadow: 0 0 16px rgba(255, 51, 85, 0.45); }
+
+ .btn {
+ font-family: 'Press Start 2P', monospace;
+ font-size: 11px;
+ letter-spacing: 2px;
+ color: #000;
+ background: #fff;
+ border: none;
+ padding: 14px 22px;
+ cursor: pointer;
+ box-shadow: 0 0 0 2px #000, 0 0 0 4px #fff, 0 0 28px rgba(255, 255, 255, 0.25);
+ transition: transform 0.12s ease, background 0.12s ease;
+ }
+
+ .btn:hover {
+ background: var(--green);
+ box-shadow: 0 0 0 2px #000, 0 0 0 4px var(--green), 0 0 28px rgba(0, 255, 65, 0.35);
+ transform: translateY(-1px);
+ }
+
+ .btn:active { transform: translateY(1px); }
+
+ .footer {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ gap: 10px;
+ font-size: 15px;
+ letter-spacing: 2px;
+ color: #333;
+ padding: 2px 4px;
+ }
+
+ .footer a {
+ color: #555;
+ text-decoration: none;
+ }
+
+ .footer a:hover { color: var(--green); }
+
+ .keys {
+ display: flex;
+ gap: 8px;
+ flex-wrap: wrap;
+ }
+
+ .key {
+ border: 1px solid #222;
+ color: #666;
+ padding: 2px 8px;
+ min-width: 28px;
+ text-align: center;
+ font-size: 14px;
+ }
+
+ .dpad {
+ display: none;
+ position: absolute;
+ right: 16px;
+ bottom: 16px;
+ z-index: 8;
+ width: 150px;
+ height: 150px;
+ touch-action: none;
+ }
+
+ .dpad button {
+ position: absolute;
+ width: 46px;
+ height: 46px;
+ border: 1px solid #2a2a2a;
+ background: rgba(10, 10, 10, 0.85);
+ color: #888;
+ font-family: 'Press Start 2P', monospace;
+ font-size: 10px;
+ cursor: pointer;
+ }
+
+ .dpad button:active { background: rgba(0, 255, 65, 0.15); color: var(--green); border-color: var(--green); }
+ .dpad .u { left: 52px; top: 0; }
+ .dpad .d { left: 52px; bottom: 0; }
+ .dpad .l { left: 0; top: 52px; }
+ .dpad .r { right: 0; top: 52px; }
+
+ @media (max-width: 720px), (pointer: coarse) {
+ .dpad { display: block; }
+ .shell { height: 100vh; width: 100vw; padding: 8px; }
+ .topbar { font-size: 14px; }
+ .hud { gap: 10px; font-size: 14px; }
+ .footer { font-size: 12px; }
+ }
+
+ .scan {
+ pointer-events: none;
+ position: absolute;
+ inset: 0;
+ z-index: 6;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0 2px,
+ rgba(0, 0, 0, 0.12) 2px 4px
+ );
+ mix-blend-mode: multiply;
+ }
+
+ .vignette {
+ pointer-events: none;
+ position: absolute;
+ inset: 0;
+ z-index: 7;
+ background: radial-gradient(ellipse at center, transparent 35%, rgba(0, 0, 0, 0.75) 100%);
+ }
+
+ .overlay-actions {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ justify-content: center;
+ margin-top: 4px;
+ }
+
+ .btn.ghost {
+ color: #fff;
+ background: transparent;
+ box-shadow: 0 0 0 2px #333, 0 0 0 4px #666;
+ }
+
+ .btn.ghost:hover {
+ background: #111;
+ color: var(--green);
+ box-shadow: 0 0 0 2px #000, 0 0 0 4px var(--green), 0 0 28px rgba(0, 255, 65, 0.35);
+ }
+
+ /* Scoreboard panel */
+ .board {
+ position: absolute;
+ inset: 0;
+ z-index: 20;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ background: rgba(0, 0, 0, 0.9);
+ padding: 16px;
+ opacity: 0;
+ pointer-events: none;
+ transition: opacity 0.2s ease;
+ }
+
+ .board.open {
+ opacity: 1;
+ pointer-events: auto;
+ }
+
+ .board-panel {
+ width: min(520px, 100%);
+ max-height: min(560px, 92%);
+ overflow: auto;
+ border: 1px solid #1a1a1a;
+ background: #050505;
+ box-shadow: 0 0 0 1px #0a0a0a, 0 0 40px rgba(0, 255, 65, 0.08);
+ padding: 16px 18px 18px;
+ }
+
+ .board-panel h2 {
+ font-family: 'Press Start 2P', monospace;
+ font-size: 12px;
+ letter-spacing: 2px;
+ color: #fff;
+ text-align: center;
+ margin-bottom: 6px;
+ }
+
+ .board-panel .sub {
+ text-align: center;
+ color: #555;
+ font-size: 15px;
+ letter-spacing: 2px;
+ margin-bottom: 14px;
+ }
+
+ .board-panel table {
+ width: 100%;
+ border-collapse: collapse;
+ font-size: 17px;
+ margin-bottom: 14px;
+ }
+
+ .board-panel th {
+ color: var(--amber);
+ text-align: left;
+ border-bottom: 1px solid #1a1a1a;
+ padding: 6px 4px;
+ font-weight: normal;
+ letter-spacing: 1px;
+ font-size: 14px;
+ }
+
+ .board-panel td {
+ padding: 7px 4px;
+ border-bottom: 1px solid #0e0e0e;
+ color: #9a9a9a;
+ }
+
+ .board-panel tr.you td {
+ color: var(--green);
+ text-shadow: 0 0 8px rgba(0, 255, 65, 0.35);
+ }
+
+ .board-panel .rank { width: 36px; color: #666; }
+ .board-panel .score { color: #fff; text-align: right; }
+ .board-panel .depth { text-align: center; color: var(--green); }
+ .board-panel .empty {
+ text-align: center;
+ color: #333;
+ font-style: italic;
+ padding: 20px 8px;
+ }
+
+ .board-stats {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 8px;
+ margin-bottom: 14px;
+ font-size: 16px;
+ color: #666;
+ }
+
+ .board-stats b {
+ color: var(--green);
+ font-weight: normal;
+ }
+
+ .name-row {
+ display: none;
+ flex-direction: column;
+ gap: 8px;
+ align-items: center;
+ justify-content: center;
+ margin-bottom: 12px;
+ text-align: center;
+ }
+
+ .name-row.show { display: flex; }
+
+ .name-row .pending-score {
+ font-family: 'Press Start 2P', monospace;
+ font-size: 11px;
+ color: var(--amber);
+ letter-spacing: 1px;
+ }
+
+ .name-row .soft-blurb {
+ color: #666;
+ font-size: 14px;
+ letter-spacing: 1px;
+ max-width: 360px;
+ line-height: 1.3;
+ }
+
+ .name-row .soft-status {
+ min-height: 18px;
+ font-size: 14px;
+ color: var(--green);
+ }
+
+ .name-row .soft-status.err { color: var(--red); }
+
+ .board-note {
+ text-align: center;
+ color: #333;
+ font-size: 13px;
+ letter-spacing: 1px;
+ margin-top: 8px;
+ }
+
+ /* ===== PRESENT ERA SKIN (orbit hub look, top-down) ===== */
+ html.era-present,
+ body.era-present {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+ }
+ body.era-present {
+  display: block !important; /* override past flex-center (that made the stage tiny) */
+  font-family: 'Inter', system-ui, sans-serif;
+  background:
+   radial-gradient(ellipse at 50% 18%, rgba(80, 120, 255, 0.1), transparent 42%),
+   radial-gradient(ellipse at 70% 90%, rgba(0, 255, 200, 0.05), transparent 40%),
+   #02040c;
+  color: rgba(220, 228, 255, 0.85);
+ }
+ /* Present era indicator bar */
+ #presentEraBar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: rgba(4, 8, 18, 0.92);
+  border-bottom: 1px solid rgba(140, 160, 255, 0.18);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(200, 210, 255, 0.45);
+  backdrop-filter: blur(10px);
+ }
+ #presentEraBar span {
+  color: #88ffe0;
+  letter-spacing: 0.2em;
+ }
+ #presentEraBar a {
+  color: rgba(200, 210, 255, 0.55);
+  text-decoration: none;
+  border: 1px solid rgba(140, 160, 255, 0.22);
+  background: rgba(8, 10, 20, 0.88);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+ }
+ #presentEraBar a:hover {
+  color: #fff;
+  border-color: rgba(160, 180, 255, 0.45);
+ }
+ body.era-present .shell {
+  position: fixed !important;
+  top: 40px !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 4px 6px 4px !important;
+  display: grid !important;
+  grid-template-rows: auto minmax(0, 1fr) auto !important;
+  gap: 4px !important;
+  box-sizing: border-box !important;
+ }
+ body.era-present .topbar {
+  padding: 2px 8px !important;
+  font-size: 11px !important;
+ }
+ body.era-present .footer {
+  padding: 2px 6px !important;
+  font-size: 11px !important;
+ }
+ body.era-present .dpad {
+  display: block !important;
+  width: 190px !important;
+  height: 190px !important;
+  right: 20px !important;
+  bottom: 28px !important;
+  opacity: 0.92;
+ }
+ body.era-present .dpad button {
+  width: 60px !important;
+  height: 60px !important;
+  font-size: 16px !important;
+ }
+ body.era-present .dpad .u { left: 65px !important; top: 0 !important; }
+ body.era-present .dpad .d { left: 65px !important; bottom: 0 !important; }
+ body.era-present .dpad .l { left: 0 !important; top: 65px !important; }
+ body.era-present .dpad .r { right: 0 !important; top: 65px !important; }
+ body.era-present .stage-wrap {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  flex: 1 1 auto !important;
+  border: 1px solid rgba(120, 160, 255, 0.22) !important;
+  box-shadow:
+   0 0 0 1px rgba(20, 30, 60, 0.8),
+   inset 0 0 80px rgba(0, 10, 40, 0.45),
+   0 0 48px rgba(60, 120, 255, 0.08) !important;
+  background: #010208 !important;
+  overflow: hidden !important;
+ }
+ body.era-present #game {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  image-rendering: auto !important;
+  cursor: default !important;
+ }
+ body.era-present .topbar {
+  border-bottom: 1px solid rgba(120, 150, 255, 0.18);
+  color: rgba(160, 180, 230, 0.55);
+  font-family: 'Inter', system-ui, sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 12px;
+ }
+ body.era-present .brand {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: rgba(230, 236, 255, 0.95);
+  text-shadow: 0 0 22px rgba(120, 180, 255, 0.35);
+ }
+ body.era-present .brand span {
+  color: #66ffe0;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  opacity: 0.9;
+ }
+ body.era-present .hud b { color: #7ec8ff; }
+ body.era-present .hud b.danger { color: #ff6b8a; text-shadow: 0 0 12px rgba(255, 80, 120, 0.4); }
+ body.era-present .hud b.warn { color: #ffcc66; }
+ body.era-present .stage-wrap {
+  border: 1px solid rgba(120, 160, 255, 0.2);
+  box-shadow:
+   0 0 0 1px rgba(20, 30, 60, 0.8),
+   inset 0 0 80px rgba(0, 10, 40, 0.55),
+   0 0 48px rgba(60, 120, 255, 0.08);
+  background:
+   radial-gradient(ellipse at 50% 40%, rgba(30, 50, 100, 0.25), transparent 55%),
+   #010208;
+ }
+ body.era-present #game {
+  image-rendering: auto;
+  cursor: default;
+ }
+ body.era-present .scan { display: none !important; }
+ body.era-present .vignette {
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 4, 16, 0.72) 100%);
+ }
+ body.era-present .overlay {
+  background: rgba(4, 8, 20, 0.88);
+  backdrop-filter: blur(10px);
+ }
+ body.era-present .overlay h1 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #eef2ff;
+  text-shadow: 0 0 28px rgba(140, 180, 255, 0.45);
+ }
+ body.era-present .overlay .tag {
+  color: #66ffe0;
+  letter-spacing: 0.28em;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  text-shadow: 0 0 16px rgba(100, 255, 220, 0.35);
+ }
+ body.era-present .overlay p { color: rgba(180, 195, 230, 0.7); font-size: 15px; }
+ body.era-present .overlay .hint {
+  color: rgba(140, 160, 200, 0.45);
+  font-family: 'Inter', system-ui, sans-serif;
+  letter-spacing: 0.14em;
+  font-size: 11px;
+  text-transform: uppercase;
+ }
+ body.era-present .btn {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #041018;
+  background: linear-gradient(135deg, #9eefff, #7ec8ff);
+  border-radius: 999px;
+  box-shadow: 0 0 0 1px rgba(150, 220, 255, 0.4), 0 0 28px rgba(100, 200, 255, 0.25);
+ }
+ body.era-present .btn:hover {
+  background: linear-gradient(135deg, #b8fff0, #a0d8ff);
+  box-shadow: 0 0 0 1px rgba(150, 255, 230, 0.5), 0 0 32px rgba(100, 255, 220, 0.3);
+ }
+ body.era-present .btn.ghost {
+  color: rgba(200, 220, 255, 0.85);
+  background: transparent;
+  box-shadow: 0 0 0 1px rgba(140, 170, 255, 0.35);
+ }
+ body.era-present .btn.ghost:hover {
+  color: #fff;
+  background: rgba(80, 120, 255, 0.12);
+  box-shadow: 0 0 0 1px rgba(160, 190, 255, 0.55);
+ }
+ body.era-present .board-panel {
+  background: rgba(6, 10, 24, 0.96);
+  border: 1px solid rgba(120, 160, 255, 0.22);
+  border-radius: 12px;
+  box-shadow: 0 0 40px rgba(40, 80, 200, 0.15);
+ }
+ body.era-present .board-panel h2 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  letter-spacing: 0.18em;
+  color: #e8eeff;
+ }
+ body.era-present .footer {
+  color: rgba(120, 140, 180, 0.45);
+  font-family: 'Inter', system-ui, sans-serif;
+  letter-spacing: 0.1em;
+  font-size: 12px;
+  text-transform: uppercase;
+ }
+ body.era-present .footer a { color: rgba(150, 180, 255, 0.55); }
+ body.era-present .footer a:hover { color: #9eefff; }
+ body.era-present .key {
+  border: 1px solid rgba(100, 140, 220, 0.25);
+  color: rgba(160, 180, 220, 0.55);
+  border-radius: 6px;
+  font-family: 'Inter', system-ui, sans-serif;
+ }
+ body.era-present .dpad button {
+  border: 1px solid rgba(100, 140, 220, 0.3);
+  background: rgba(8, 14, 32, 0.9);
+  color: rgba(180, 200, 255, 0.7);
+  border-radius: 10px;
+ }
+ body.era-present .dpad button:active {
+  background: rgba(80, 140, 255, 0.2);
+  color: #9eefff;
+  border-color: #7ec8ff;
+ }
+ </style>
+ <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+ <div class="shell">
+ <div class="topbar">
+ <div class="brand">FTWR <span id="brandSub">// FOLLOW THE WHITE RABBIT</span></div>
+ <div class="hud">
+ <div>DEPTH <b id="hudLevel">01</b></div>
+ <div>SCORE <b id="hudScore">0</b></div>
+ <div>STRIKES <b id="hudStrikes">0/3</b></div>
+ <div>GAP <b id="hudGap">0</b></div>
+ <div>BEST <b id="hudBest"> - </b></div>
+ </div>
+ </div>
+
+ <div class="stage-wrap" id="stage">
+ <canvas id="game"></canvas>
+ <div class="scan"></div>
+ <div class="vignette"></div>
+
+ <div class="overlay" id="overlay">
+ <h1 id="titleMain">FTWR</h1>
+ <div class="tag" id="titleTag">FOLLOW THE WHITE RABBIT</div>
+ <p id="titleCopy">
+ The rabbit already knows the way out.
+ Stay on its trail. One wrong turn and the hole closes.
+ </p>
+ <div class="hint" id="titleHint">ARROWS / WASD * ESC PAUSE * TAB SCORES * ENTER START</div>
+ <div class="overlay-actions">
+ <button class="btn" id="startBtn" type="button">ENTER THE HOLE</button>
+ <button class="btn ghost" id="scoresBtn" type="button">SCOREBOARD</button>
+ </div>
+ </div>
+
+ <div class="board" id="board" aria-hidden="true">
+ <div class="board-panel">
+ <h2>FTWR SCOREBOARD</h2>
+ <div class="sub">LOCAL HOLE RECORDS * TOP 10</div>
+ <div class="board-stats">
+ <div>BEST DEPTH <b id="statBestDepth"> - </b></div>
+ <div>BEST SCORE <b id="statBestScore"> - </b></div>
+ <div>RUNS LOGGED <b id="statRuns">0</b></div>
+ <div>THIS RUN <b id="statRun">0</b></div>
+ </div>
+ <div class="name-row" id="nameRow">
+ <div class="pending-score" id="pendingScoreLabel">RUN READY</div>
+ <div class="soft-blurb">
+ SOFT WALLET SIGN ONLY - Phantom / Solflare / MetaMask.<br>
+ No funds. No tx. Just a message signature to post this run.
+ </div>
+ <button class="btn" id="saveScoreBtn" type="button">SIGN &amp; POST (NO FUNDS)</button>
+ <div class="soft-status" id="softStatus"></div>
+ </div>
+ <table>
+ <thead>
+ <tr>
+ <th class="rank">#</th>
+ <th>WALLET</th>
+ <th class="depth">DEPTH</th>
+ <th class="score">SCORE</th>
+ </tr>
+ </thead>
+ <tbody id="boardBody">
+ <tr><td class="empty" colspan="4">no rabbits caught yet</td></tr>
+ </tbody>
+ </table>
+ <div class="overlay-actions">
+ <button class="btn ghost" id="boardCloseBtn" type="button">CLOSE</button>
+ <a class="btn ghost" id="boardPageLink" href="/classic/pages/cryptodad/ftwr-scoreboard.html" style="display:inline-block;text-decoration:none;line-height:1.2;padding-top:16px;padding-bottom:16px;">FULL BOARD</a>
+ </div>
+ <div class="board-note">SOFT SIGN * NO FUNDS * LOCAL BOARD * TAB TO TOGGLE</div>
+ </div>
+ </div>
+
+ <div class="dpad" id="dpad" aria-hidden="true">
+ <button class="u" data-dir="0,-1" type="button">▲</button>
+ <button class="d" data-dir="0,1" type="button">▼</button>
+ <button class="l" data-dir="-1,0" type="button">◀</button>
+ <button class="r" data-dir="1,0" type="button"></button>
+ </div>
+ </div>
+
+ <div class="footer">
+ <div class="keys">
+ <span class="key">^</span><span class="key">v</span><span class="key"><- </span><span class="key"> -> </span>
+ <span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span>
+ <span class="key">TAB</span>
+ <span>move * scores * keep up</span>
+ </div>
+ <div>
+ <a href="/classic/pages/cryptodad/ftwr-scoreboard.html">SCORES</a>
+ * 
+ <a href="/classic/pages/cryptodad/rabbit.html">GATE</a>
+ * 
+ <a href="/classic/pages/cryptodad/token.html">$DOSWAPZ</a>
+ * 
+ <a href="/classic/hub.html">HUB</a>
+ </div>
+ </div>
+ </div>
+
+ <script src="/assets/js/core/soft-score.js"></script>
+ <script>
+(function () {
+ 'use strict';
+
+ /* Era skin: past (default) | present (orbit). Mechanics identical. */
+ const params = new URLSearchParams(location.search || '');
+ const pathEra = /\/orbit\//i.test(location.pathname || '') ? 'present' : '';
+ const ERA = (params.get('era') || pathEra || 'past').toLowerCase() === 'present' ? 'present' : 'past';
+ const IS_PRESENT = ERA === 'present';
+ if (IS_PRESENT) {
+  document.documentElement.classList.add('era-present');
+  document.body.classList.add('era-present');
+  try { document.title = 'FTWR // PRESENT — Follow The White Rabbit'; } catch (e) {}
+  const brandSub = document.getElementById('brandSub');
+  if (brandSub) brandSub.textContent = '// PRESENT  ·  FOLLOW THE WHITE RABBIT';
+  const hubA = document.querySelector('.footer a[href="/classic/hub.html"]');
+  if (hubA) {
+   hubA.href = '/orbit/hub.html';
+   hubA.textContent = 'PRESENT HUB';
+   hubA.setAttribute('data-era', 'orbit');
+   hubA.setAttribute('data-no-era', '');
+   hubA.setAttribute('data-plain', '');
+  }
+  if (!document.getElementById('presentEraBar')) {
+   const bar = document.createElement('div');
+   bar.id = 'presentEraBar';
+   bar.innerHTML =
+    '<span>PRESENT ERA · FTWR</span>' +
+    '<a href="/orbit/hub.html" data-era="orbit" data-no-era data-plain>HUB</a>' +
+    '<a href="/classic/hub.html" data-era="past" data-no-era data-plain>PAST HUB</a>' +
+    '<a href="/future/hub.html" data-era="future" data-no-era data-plain>FUTURE</a>' +
+    '<a href="/classic/pages/cryptodad/ftwr-maze.html" data-no-era data-plain>PAST VERSION</a>';
+   document.body.insertBefore(bar, document.body.firstChild);
+  }
+  /* Era rail without shell-boot (shell-boot breaks FTWR playfield height) */
+  if (!document.querySelector('script[data-era-portal]')) {
+   const es = document.createElement('script');
+   es.src = '/assets/js/core/era-portal.js?v=20260809era';
+   es.setAttribute('data-era-portal', '1');
+   es.onload = function () {
+    try {
+     if (window.DOSWAPZ_ERA) {
+      DOSWAPZ_ERA.set('orbit');
+      if (DOSWAPZ_ERA.installLinkGuard) DOSWAPZ_ERA.installLinkGuard();
+      if (DOSWAPZ_ERA.injectEraRail) DOSWAPZ_ERA.injectEraRail();
+     }
+    } catch (eEra) {}
+   };
+   document.body.appendChild(es);
+  }
+  // Re-layout after chrome mounts so canvas is full-size (not a tiny default)
+  requestAnimationFrame(function () {
+   try { layout(); } catch (e) {}
+   requestAnimationFrame(function () { try { layout(); } catch (e2) {} });
+  });
+ }
+
+ const canvas = document.getElementById('game');
+ const ctx = canvas.getContext('2d');
+ const overlay = document.getElementById('overlay');
+ const titleMain = document.getElementById('titleMain');
+ const titleTag = document.getElementById('titleTag');
+ const titleCopy = document.getElementById('titleCopy');
+ const titleHint = document.getElementById('titleHint');
+ const startBtn = document.getElementById('startBtn');
+ const hudLevel = document.getElementById('hudLevel');
+ const hudScore = document.getElementById('hudScore');
+ const hudStrikes = document.getElementById('hudStrikes');
+ const hudGap = document.getElementById('hudGap');
+ const hudBest = document.getElementById('hudBest');
+ const stage = document.getElementById('stage');
+ const boardEl = document.getElementById('board');
+ const boardBody = document.getElementById('boardBody');
+ const nameRow = document.getElementById('nameRow');
+ const saveScoreBtn = document.getElementById('saveScoreBtn');
+ const softStatus = document.getElementById('softStatus');
+ const pendingScoreLabel = document.getElementById('pendingScoreLabel');
+ const scoresBtn = document.getElementById('scoresBtn');
+ const boardCloseBtn = document.getElementById('boardCloseBtn');
+ const statBestDepth = document.getElementById('statBestDepth');
+ const statBestScore = document.getElementById('statBestScore');
+ const statRuns = document.getElementById('statRuns');
+ const statRun = document.getElementById('statRun');
+
+ const SCORE_KEY = 'ftwr_scores_v1';
+ const BEST_KEY = 'ftwr_best_depth';
+ const PENDING_KEY = 'pending_ftwr_score';
+ const MAX_BOARD = 10;
+ const Soft = window.DOSWAPZ_SOFT_SCORE;
+
+ // Official FTWR pixel rabbit frames (from site render script)
+ const RABBIT = [
+ [
+ '..WW....',
+ '.WWWW...',
+ '.WBBW...',
+ '.WWWW...',
+ 'WWWWWW..',
+ '..WW.WW.',
+ '..W..W..',
+ '...WW...'
+ ],
+ [
+ 'WW..WW..',
+ '.WWWW...',
+ '.WBBW...',
+ '.WWWW...',
+ 'WWWWWW..',
+ '..WW.WW.',
+ '..W..W..',
+ '...WW...'
+ ]
+ ];
+
+ // Player: small degen cursor (green CRT diamond)
+ const PLAYER = [
+ '...G...',
+ '..GGG..',
+ '.GGGGG.',
+ 'GGGWGGG',
+ '.GGGGG.',
+ '..GGG..',
+ '...G...'
+ ];
+
+ const DIRS = [
+ { x: 0, y: -1 },
+ { x: 1, y: 0 },
+ { x: 0, y: 1 },
+ { x: -1, y: 0 }
+ ];
+
+ const state = {
+ mode: 'title', // title | play | win | lose | pause
+ level: 1,
+ steps: 0,
+ best: 0,
+ cols: 0,
+ rows: 0,
+ grid: null, // 0 wall, 1 path
+ trail: null, // cells rabbit has visited (safe)
+ trailOrder: [], // ordered trail for decay
+ solution: null, // full solution path cells
+ rabbitPath: [], // ordered cells rabbit will take
+ rabbitIdx: 0,
+ player: { x: 0, y: 0 },
+ rabbit: { x: 0, y: 0 },
+ exit: { x: 0, y: 0 },
+ cell: 24,
+ ox: 0,
+ oy: 0,
+ t: 0,
+ rabbitTimer: 0,
+ rabbitPeriod: 420,
+ rabbitHops: 1, // cells per rabbit tick (rises with depth)
+ trailMax: 999, // max trail length - shortens with depth
+ maxGap: 12, // lose if rabbit pulls this far ahead
+ maxStrikes: 3, // wall hits allowed this depth
+ strikes: 0,
+ stunUntil: 0, // player frozen after wall hit
+ wallInstant: false, // depth where walls = instant death
+ hopFrame: 0,
+ shake: 0,
+ flash: 0,
+ message: '',
+ particles: [],
+ matrix: [],
+ lastMoveAt: 0,
+ stunMsgUntil: 0,
+ // scoring / run
+ runScore: 0,
+ runSteps: 0,
+ runStrikes: 0,
+ runStartedAt: 0,
+ depthSteps: 0,
+ depthStrikesAtStart: 0,
+ pendingEntry: null, // { score, depth, steps, strikes, ts }
+ boardOpen: false,
+ resumeMode: null
+ };
+
+ try {
+ state.best = parseInt(localStorage.getItem(BEST_KEY) || '0', 10) || 0;
+ } catch (e) {}
+ hudBest.textContent = state.best > 0 ? String(state.best).padStart(2, '0') : ' - ';
+
+ function loadScores() {
+ if (Soft && Soft.loadBoard) return Soft.loadBoard(SCORE_KEY);
+ try {
+ const raw = localStorage.getItem(SCORE_KEY);
+ const list = raw ? JSON.parse(raw) : [];
+ return Array.isArray(list) ? list : [];
+ } catch (e) {
+ return [];
+ }
+ }
+
+ function formatScore(n) {
+ return String(Math.max(0, Math.floor(n || 0))).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+ }
+
+ function depthClearPoints(level, steps, strikesThisDepth, pathLen) {
+ const base = level * 1000 + level * level * 120;
+ const ideal = Math.max(1, pathLen || 1);
+ const efficiency = Math.max(0, 1 - Math.max(0, steps - ideal) / (ideal * 2.5));
+ const effBonus = Math.round(level * 400 * efficiency);
+ const cleanBonus = strikesThisDepth === 0 ? level * 250 : 0;
+ const strikeTax = strikesThisDepth * (80 + level * 20);
+ return Math.max(100, base + effBonus + cleanBonus - strikeTax);
+ }
+
+ function qualifiesForBoard(score) {
+ if (score <= 0) return false;
+ const list = loadScores();
+ if (list.length < MAX_BOARD) return true;
+ const worst = list[list.length - 1];
+ return score > (worst.score || 0);
+ }
+
+ function setSoftStatus(msg, isErr) {
+ if (!softStatus) return;
+ softStatus.textContent = msg || '';
+ softStatus.className = 'soft-status' + (isErr ? ' err' : '');
+ }
+
+ function renderBoard(highlightTs) {
+ const list = loadScores();
+ const bestScore = list.length ? list[0].score : 0;
+ statBestDepth.textContent = state.best > 0 ? String(state.best).padStart(2, '0') : ' - ';
+ statBestScore.textContent = bestScore > 0 ? formatScore(bestScore) : ' - ';
+ statRuns.textContent = String(list.length);
+ statRun.textContent = formatScore(state.runScore);
+
+ if (!list.length) {
+ boardBody.innerHTML = '<tr><td class="empty" colspan="4">no soft-signed scores yet</td></tr>';
+ return;
+ }
+
+ boardBody.innerHTML = list.map((row, i) => {
+ const you = highlightTs && row.ts === highlightTs;
+ const label = row.wallet || row.name || '????';
+ return (
+ '<tr class="' + (you ? 'you' : '') + '">' +
+ '<td class="rank">' + String(i + 1).padStart(2, '0') + '</td>' +
+ '<td>' + escapeHtml(label) + '</td>' +
+ '<td class="depth">' + String(row.depth || 0).padStart(2, '0') + '</td>' +
+ '<td class="score">' + formatScore(row.score) + '</td>' +
+ '</tr>'
+ );
+ }).join('');
+ }
+
+ function escapeHtml(s) {
+ return String(s)
+ .replace(/&/g, '&amp;')
+ .replace(/</g, '&lt;')
+ .replace(/>/g, '&gt;')
+ .replace(/"/g, '&quot;');
+ }
+
+ function openBoard(opts) {
+ opts = opts || {};
+ state.boardOpen = true;
+ if (state.mode === 'play' || state.mode === 'pause') {
+ state.resumeMode = state.mode === 'play' ? 'play' : 'pause';
+ if (state.mode === 'play') state.mode = 'pause';
+ }
+ renderBoard(opts.highlightTs || null);
+ if (opts.promptSave && state.pendingEntry) {
+ nameRow.classList.add('show');
+ if (pendingScoreLabel) {
+ pendingScoreLabel.textContent =
+ 'RUN ' + formatScore(state.pendingEntry.score) +
+ ' * DEPTH ' + String(state.pendingEntry.depth).padStart(2, '0');
+ }
+ setSoftStatus('');
+ } else {
+ nameRow.classList.remove('show');
+ }
+ boardEl.classList.add('open');
+ boardEl.setAttribute('aria-hidden', 'false');
+ }
+
+ function closeBoard() {
+ state.boardOpen = false;
+ boardEl.classList.remove('open');
+ boardEl.setAttribute('aria-hidden', 'true');
+ nameRow.classList.remove('show');
+ if (state.resumeMode === 'play' && overlay.classList.contains('hidden')) {
+ state.mode = 'play';
+ }
+ state.resumeMode = null;
+ }
+
+ function toggleBoard() {
+ if (state.boardOpen) closeBoard();
+ else openBoard();
+ }
+
+ async function commitScoreSoft() {
+ if (!state.pendingEntry) {
+ setSoftStatus('No pending run to post.', true);
+ return;
+ }
+ if (!Soft || typeof Soft.signScore !== 'function') {
+ setSoftStatus('Soft-score module missing. Refresh the page.', true);
+ return;
+ }
+
+ saveScoreBtn.disabled = true;
+ const p = state.pendingEntry;
+ const result = await Soft.signScore({
+ game: 'FTWR',
+ score: p.score,
+ fields: {
+ depth: p.depth,
+ steps: p.steps,
+ strikes: p.strikes
+ },
+ onStatus: function (msg) { setSoftStatus(msg, false); }
+ });
+
+ if (!result.ok) {
+ setSoftStatus(result.error || 'Soft sign failed', true);
+ saveScoreBtn.disabled = false;
+ return;
+ }
+
+ Soft.saveBoardEntry(SCORE_KEY, {
+ wallet: result.wallet,
+ walletShort: result.short,
+ score: p.score,
+ depth: p.depth,
+ steps: p.steps,
+ strikes: p.strikes,
+ chain: result.chain,
+ soft: true,
+ ts: p.ts || Date.now()
+ }, { max: MAX_BOARD, keepBestPerWallet: true });
+
+ try { localStorage.removeItem(PENDING_KEY); } catch (e) {}
+ state.pendingEntry = null;
+ nameRow.classList.remove('show');
+ setSoftStatus('POSTED AS ' + result.short + ' * soft sign * no funds', false);
+ renderBoard(p.ts);
+ saveScoreBtn.disabled = false;
+ }
+
+ function finalizeRun(reason) {
+ const finalScore = state.runScore;
+ const finalDepth = state.level;
+ if (finalScore <= 0 && finalDepth <= 1 && state.runSteps < 3) {
+ return;
+ }
+
+ const entry = {
+ score: finalScore,
+ depth: finalDepth,
+ steps: state.runSteps,
+ strikes: state.runStrikes,
+ ts: Date.now()
+ };
+ state.pendingEntry = entry;
+ try {
+ localStorage.setItem(PENDING_KEY, JSON.stringify(entry));
+ } catch (e) {}
+
+ // Always offer soft-sign post after a real run (optional)
+ if (finalScore > 0) {
+ openBoard({ promptSave: true, highlightTs: null });
+ }
+ }
+
+ function updateScoreHud() {
+ if (hudScore) hudScore.textContent = formatScore(state.runScore);
+ }
+
+ function rand(n) { return Math.floor(Math.random() * n); }
+
+ function key(x, y) { return x + ',' + y; }
+
+ function inBounds(x, y) {
+ return x >= 0 && y >= 0 && x < state.cols && y < state.rows;
+ }
+
+ function isPath(x, y) {
+ return inBounds(x, y) && state.grid[y][x] === 1;
+ }
+
+ // Maze: recursive backtracker on odd cells
+ function generateMaze(cols, rows) {
+ // Force odd dimensions so walls/corridors alternate cleanly
+ if (cols % 2 === 0) cols--;
+ if (rows % 2 === 0) rows--;
+ const grid = Array.from({ length: rows }, () => Array(cols).fill(0));
+ const stack = [];
+ const sx = 1;
+ const sy = 1;
+ grid[sy][sx] = 1;
+ stack.push([sx, sy]);
+
+ while (stack.length) {
+ const [cx, cy] = stack[stack.length - 1];
+ const neighbors = [];
+ for (const d of DIRS) {
+ const nx = cx + d.x * 2;
+ const ny = cy + d.y * 2;
+ if (nx > 0 && ny > 0 && nx < cols - 1 && ny < rows - 1 && grid[ny][nx] === 0) {
+ neighbors.push([nx, ny, d.x, d.y]);
+ }
+ }
+ if (!neighbors.length) {
+ stack.pop();
+ continue;
+ }
+ const [nx, ny, dx, dy] = neighbors[rand(neighbors.length)];
+ grid[cy + dy][cx + dx] = 1;
+ grid[ny][nx] = 1;
+ stack.push([nx, ny]);
+ }
+
+ // Ensure border solid
+ for (let x = 0; x < cols; x++) {
+ grid[0][x] = 0;
+ grid[rows - 1][x] = 0;
+ }
+ for (let y = 0; y < rows; y++) {
+ grid[y][0] = 0;
+ grid[y][cols - 1] = 0;
+ }
+
+ return grid;
+ }
+
+ function neighbors4(x, y) {
+ const out = [];
+ for (const d of DIRS) {
+ const nx = x + d.x;
+ const ny = y + d.y;
+ if (isPath(nx, ny)) out.push({ x: nx, y: ny });
+ }
+ return out;
+ }
+
+ function bfsPath(sx, sy, ex, ey) {
+ const q = [[sx, sy]];
+ const prev = new Map();
+ prev.set(key(sx, sy), null);
+ while (q.length) {
+ const [x, y] = q.shift();
+ if (x === ex && y === ey) break;
+ for (const n of neighbors4(x, y)) {
+ const k = key(n.x, n.y);
+ if (prev.has(k)) continue;
+ prev.set(k, { x, y });
+ q.push([n.x, n.y]);
+ }
+ }
+ if (!prev.has(key(ex, ey))) return null;
+ const path = [];
+ let cur = { x: ex, y: ey };
+ while (cur) {
+ path.push(cur);
+ cur = prev.get(key(cur.x, cur.y));
+ }
+ path.reverse();
+ return path;
+ }
+
+ function farthestCell(sx, sy) {
+ const q = [[sx, sy, 0]];
+ const seen = new Set([key(sx, sy)]);
+ let best = { x: sx, y: sy, d: 0 };
+ while (q.length) {
+ const [x, y, d] = q.shift();
+ if (d > best.d) best = { x, y, d };
+ for (const n of neighbors4(x, y)) {
+ const k = key(n.x, n.y);
+ if (seen.has(k)) continue;
+ seen.add(k);
+ q.push([n.x, n.y, d + 1]);
+ }
+ }
+ return best;
+ }
+
+ // ---- Progressive difficulty curve ----
+ // Depth 1 is already a chase. Each depth: bigger maze, faster rabbit,
+ // shorter trail, fewer wall strikes, then multi-hop + instant wall death.
+
+ function levelSize(level) {
+ const L = Math.max(1, level);
+ // 13x11 -> grows hard; cap so it still fits the stage
+ const rows = Math.min(31, 11 + L * 2);
+ const cols = Math.min(37, rows + 4 + Math.floor(L / 2) * 2);
+ return { cols: cols | 1, rows: rows | 1 }; // force odd-ish via later generator
+ }
+
+ function rabbitPeriodMs(level) {
+ // ms between rabbit ticks - drops fast
+ // L1 ~340ms, L3 ~250, L5 ~190, L8 ~140, L12+ floors ~95
+ const L = Math.max(1, level);
+ let ms = Math.max(95, Math.round(360 - L * 28 - Math.max(0, L - 5) * 12));
+ // Present: slightly slower rabbit so movement feels fair with 3D camera
+ if (IS_PRESENT) ms = Math.round(ms * 1.28 + 40);
+ return ms;
+ }
+
+ function rabbitHopsPerTick(level) {
+ if (IS_PRESENT) {
+  // Present: never multi-hop until deeper, and max 2
+  if (level >= 10) return 2;
+  return 1;
+ }
+ if (level >= 12) return 3;
+ if (level >= 8) return 2;
+ if (level >= 5) return 2;
+ return 1;
+ }
+
+ function trailMaxLen(level) {
+ // How many cells of white trail stay lit behind the rabbit
+ // Short trail = must keep up or get stranded (wrong turn / no path)
+ if (IS_PRESENT) {
+  // Present: longer trail = easier to stay on path
+  if (level <= 1) return 28;
+  if (level === 2) return 22;
+  if (level === 3) return 18;
+  if (level === 4) return 14;
+  if (level === 5) return 12;
+  if (level <= 7) return 10;
+  if (level <= 10) return 8;
+  return 7;
+ }
+ if (level <= 1) return 18;
+ if (level === 2) return 14;
+ if (level === 3) return 11;
+ if (level === 4) return 9;
+ if (level === 5) return 7;
+ if (level <= 7) return 6;
+ if (level <= 10) return 5;
+ return 4;
+ }
+
+ function maxGapAllowed(level) {
+ // Path-index gap between rabbit and player before "too far"
+ const base = Math.max(5, 14 - Math.floor(level * 0.7));
+ return IS_PRESENT ? base + 4 : base;
+ }
+
+ function maxStrikesForLevel(level) {
+ // Wall hits allowed before death
+ if (IS_PRESENT) {
+  if (level >= 12) return 1;
+  if (level >= 8) return 2;
+  return 4;
+ }
+ if (level >= 10) return 0; // instant death on wall
+ if (level >= 7) return 1;
+ if (level >= 4) return 2;
+ return 3;
+ }
+
+ function headStartCells(level) {
+ // Rabbit already this far down the path when the depth begins
+ return Math.min(8, 1 + Math.floor((level - 1) * 0.85));
+ }
+
+ function headStartDelay(level) {
+ // Negative rabbitTimer = grace before first hop (shrinks with depth)
+ const period = rabbitPeriodMs(level);
+ if (level <= 1) return -period * 0.35;
+ if (level <= 3) return -period * 0.15;
+ return period * 0.15; // already mid-tick - bolts almost immediately
+ }
+
+ function playerPathIndex() {
+ // Nearest rabbitPath index to player (for gap calc)
+ let best = 0;
+ let bestD = Infinity;
+ for (let i = 0; i < state.rabbitPath.length; i++) {
+ const p = state.rabbitPath[i];
+ const d = Math.abs(p.x - state.player.x) + Math.abs(p.y - state.player.y);
+ if (d < bestD) {
+ bestD = d;
+ best = i;
+ }
+ if (d === 0) return i;
+ }
+ return best;
+ }
+
+ function updateHud() {
+ hudLevel.textContent = String(state.level).padStart(2, '0');
+ const maxS = state.maxStrikes;
+ if (maxS <= 0) {
+ hudStrikes.textContent = 'WALL=DEATH';
+ hudStrikes.className = 'danger';
+ } else {
+ const left = Math.max(0, maxS - state.strikes);
+ hudStrikes.textContent = state.strikes + '/' + maxS;
+ hudStrikes.className = left <= 1 ? 'danger' : (left <= 2 ? 'warn' : '');
+ }
+ const gap = Math.max(0, state.rabbitIdx - playerPathIndex());
+ hudGap.textContent = String(gap);
+ hudGap.className = gap >= state.maxGap - 2 ? 'danger' : (gap >= state.maxGap - 4 ? 'warn' : '');
+ updateScoreHud();
+ }
+
+ function pruneTrail() {
+ // Burn only trail BEHIND the player. Player -> rabbit corridor stays lit.
+ if (!state.rabbitPath || !state.rabbitPath.length) return;
+ const pIdx = playerPathIndex();
+ // trailMax = how far you may backtrack; shrinks with depth
+ const keepFrom = Math.max(0, pIdx - state.trailMax);
+ const nextTrail = new Set();
+ const nextOrder = [];
+
+ for (let i = keepFrom; i <= state.rabbitIdx && i < state.rabbitPath.length; i++) {
+ const k = key(state.rabbitPath[i].x, state.rabbitPath[i].y);
+ if (!nextTrail.has(k)) {
+ nextTrail.add(k);
+ nextOrder.push(k);
+ }
+ }
+ // Always keep actual positions
+ for (const pos of [state.player, state.rabbit]) {
+ const k = key(pos.x, pos.y);
+ if (!nextTrail.has(k)) {
+ nextTrail.add(k);
+ nextOrder.push(k);
+ }
+ }
+
+ state.trail = nextTrail;
+ state.trailOrder = nextOrder;
+ }
+
+ function addTrailCell(x, y) {
+ const k = key(x, y);
+ if (!state.trail.has(k)) {
+ state.trail.add(k);
+ state.trailOrder.push(k);
+ } else {
+ const idx = state.trailOrder.indexOf(k);
+ if (idx >= 0) state.trailOrder.splice(idx, 1);
+ state.trailOrder.push(k);
+ }
+ pruneTrail();
+ }
+
+ function hopRabbitOnce() {
+ if (state.rabbitIdx >= state.rabbitPath.length - 1) {
+ if (!(state.player.x === state.rabbit.x && state.player.y === state.rabbit.y)) {
+ lose('THE RABBIT ESCAPED THE HOLE.');
+ }
+ return false;
+ }
+ state.rabbitIdx++;
+ const next = state.rabbitPath[state.rabbitIdx];
+ state.rabbit.x = next.x;
+ state.rabbit.y = next.y;
+ addTrailCell(next.x, next.y);
+ state.hopFrame = (state.hopFrame + 1) % 2;
+ spawnDust(
+ state.ox + (next.x + 0.5) * state.cell,
+ state.oy + (next.y + 0.5) * state.cell,
+ 'rgba(255,255,255,0.7)',
+ 3
+ );
+ if (state.player.x === state.rabbit.x && state.player.y === state.rabbit.y) {
+ win();
+ return false;
+ }
+ return true;
+ }
+
+ function checkGapFail() {
+ if (state.mode !== 'play') return;
+ const gap = state.rabbitIdx - playerPathIndex();
+ if (gap >= state.maxGap) {
+ lose('TOO SLOW. THE RABBIT PULLED AWAY.');
+ }
+ updateHud();
+ }
+
+ function wallPenalty() {
+ // Harsher with depth: stun + rabbit free hops + strikes -> death
+ const now = performance.now();
+ const L = state.level;
+
+ // Instant wall death at high depth
+ if (state.maxStrikes <= 0 || state.wallInstant) {
+ state.shake = 22;
+ state.flash = 1;
+ spawnDust(
+ state.ox + (state.player.x + 0.5) * state.cell,
+ state.oy + (state.player.y + 0.5) * state.cell,
+ 'rgba(255,51,85,0.95)',
+ 14
+ );
+ lose('WALL HIT. DEPTH ' + String(L).padStart(2, '0') + ' - NO MERCY.');
+ return;
+ }
+
+ state.strikes++;
+ state.runStrikes++;
+ state.shake = 12 + L * 1.5;
+ state.flash = 0.85;
+
+ // Stun scales with depth + how many strikes you've already burned
+ // Present: short stun so recovery feels snappy
+ const stunMs = IS_PRESENT
+  ? Math.max(90, 120 + L * 18 + state.strikes * 40)
+  : 280 + L * 55 + state.strikes * 120;
+ state.stunUntil = now + stunMs;
+ state.stunMsgUntil = now + stunMs;
+
+ spawnDust(
+ state.ox + (state.player.x + 0.5) * state.cell,
+ state.oy + (state.player.y + 0.5) * state.cell,
+ 'rgba(255,51,85,0.9)',
+ 8 + state.strikes * 3
+ );
+
+ // Rabbit bolts free hops - punishment for banging walls
+ const freeHops = Math.min(
+ state.rabbitPath.length - 1 - state.rabbitIdx,
+ 1 + Math.floor(L / 2) + state.strikes
+ );
+ for (let i = 0; i < freeHops; i++) {
+ if (state.mode !== 'play') break;
+ if (!hopRabbitOnce()) break;
+ }
+
+ // Trail burns faster after a wall hit (hole closes)
+ state.trailMax = Math.max(3, state.trailMax - 1);
+ pruneTrail();
+
+ updateHud();
+
+ if (state.mode !== 'play') return;
+
+ if (state.strikes >= state.maxStrikes) {
+ lose('WALL STRIKES SPENT. YOU\'RE LOST.');
+ return;
+ }
+
+ checkGapFail();
+ }
+
+ function bootLevel(level) {
+ const size = levelSize(level);
+ state.cols = size.cols;
+ state.rows = size.rows;
+ state.grid = generateMaze(state.cols, state.rows);
+ state.cols = state.grid[0].length;
+ state.rows = state.grid.length;
+
+ const start = { x: 1, y: 1 };
+ let exit = farthestCell(start.x, start.y);
+ // Prefer long routes
+ if (exit.d < Math.floor((state.cols + state.rows) / 2.2)) {
+ exit = farthestCell(start.x, start.y);
+ }
+
+ let path = bfsPath(start.x, start.y, exit.x, exit.y);
+ let tries = 0;
+ while ((!path || path.length < 8 + level * 2) && tries < 4) {
+ tries++;
+ const bump = 2 + tries * 2;
+ state.grid = generateMaze(size.cols + bump, size.rows + bump);
+ state.cols = state.grid[0].length;
+ state.rows = state.grid.length;
+ exit = farthestCell(1, 1);
+ path = bfsPath(1, 1, exit.x, exit.y);
+ }
+ if (!path || path.length < 4) {
+ path = path || [{ x: 1, y: 1 }];
+ }
+
+ state.rabbitPath = path;
+ state.solution = new Set(path.map((p) => key(p.x, p.y)));
+ state.exit = { x: path[path.length - 1].x, y: path[path.length - 1].y };
+
+ // Difficulty knobs first (trail max before seeding)
+ state.rabbitPeriod = rabbitPeriodMs(level);
+ state.rabbitHops = rabbitHopsPerTick(level);
+ state.trailMax = trailMaxLen(level);
+ state.maxGap = maxGapAllowed(level);
+ state.maxStrikes = maxStrikesForLevel(level);
+ state.wallInstant = level >= 10;
+
+ // Player at entrance; rabbit already ahead
+ const hs = Math.min(headStartCells(level), Math.max(0, path.length - 2));
+ state.player = { x: path[0].x, y: path[0].y };
+ state.rabbitIdx = Math.max(0, hs);
+ state.rabbit = { x: path[state.rabbitIdx].x, y: path[state.rabbitIdx].y };
+
+ state.trail = new Set();
+ state.trailOrder = [];
+ // Full chase corridor lit: entrance -> rabbit head-start
+ for (let i = 0; i <= state.rabbitIdx; i++) {
+ const k = key(path[i].x, path[i].y);
+ state.trail.add(k);
+ state.trailOrder.push(k);
+ }
+
+ state.strikes = 0;
+ state.stunUntil = 0;
+ state.stunMsgUntil = 0;
+ state.rabbitTimer = headStartDelay(level);
+ state.steps = 0;
+ state.depthSteps = 0;
+ state.depthStrikesAtStart = state.runStrikes;
+ state.particles = [];
+ state.shake = 0;
+ state.flash = 0;
+ state.message = '';
+ state.lastMoveAt = 0;
+
+ updateHud();
+ updateScoreHud();
+ layout();
+ }
+
+ function layout() {
+ // PRESENT: size from window so the playfield is always large (ignore broken CSS)
+ let rw;
+ let rh;
+ if (IS_PRESENT) {
+  // Almost full window — larger playfield
+  const topChrome = 40 + 38; // era bar + compact topbar
+  const botChrome = 28;
+  const sidePad = 8;
+  rw = Math.max(360, window.innerWidth - sidePad);
+  rh = Math.max(400, window.innerHeight - topChrome - botChrome);
+  stage.style.width = rw + 'px';
+  stage.style.height = rh + 'px';
+  stage.style.minHeight = rh + 'px';
+  canvas.style.position = 'absolute';
+  canvas.style.left = '0';
+  canvas.style.top = '0';
+ } else {
+  const rect = stage.getBoundingClientRect();
+  rw = rect.width;
+  rh = rect.height;
+  if (rw < 32 || rh < 32) {
+   rw = Math.max(320, window.innerWidth - 24);
+   rh = Math.max(280, window.innerHeight - 80);
+  }
+ }
+ const dpr = Math.min(window.devicePixelRatio || 1, 2);
+ canvas.width = Math.max(1, Math.floor(rw * dpr));
+ canvas.height = Math.max(1, Math.floor(rh * dpr));
+ canvas.style.width = rw + 'px';
+ canvas.style.height = rh + 'px';
+ ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+ const cols = Math.max(1, state.cols || 11);
+ const rows = Math.max(1, state.rows || 11);
+ const pad = IS_PRESENT ? 8 : 16;
+ const cw = rw - pad * 2;
+ const ch = rh - pad * 2;
+ const cell = Math.floor(Math.min(cw / cols, ch / rows));
+ state.cell = Math.max(10, cell || 16);
+ state.ox = Math.floor((rw - cols * state.cell) / 2);
+ state.oy = Math.floor((rh - rows * state.cell) / 2);
+
+ // matrix rain / star columns for atmosphere
+ const colsN = Math.max(8, Math.ceil(rw / 14));
+ if (!state.matrix.length || state.matrix.length !== colsN) {
+ state.matrix = Array.from({ length: colsN }, () => ({
+ y: Math.random() * rh,
+ speed: 20 + Math.random() * 60,
+ alpha: 0.03 + Math.random() * 0.06
+ }));
+ }
+ }
+
+ function spawnDust(x, y, color, n) {
+ for (let i = 0; i < n; i++) {
+ state.particles.push({
+ x, y,
+ vx: (Math.random() - 0.5) * 2.4,
+ vy: (Math.random() - 0.5) * 2.4,
+ life: 0.35 + Math.random() * 0.45,
+ age: 0,
+ color
+ });
+ }
+ }
+
+ function tryMove(dx, dy) {
+ if (state.mode !== 'play') return;
+ const now = performance.now();
+
+ // Stunned after wall hit - inputs eat themselves, rabbit keeps running
+ if (now < state.stunUntil) {
+ state.shake = Math.max(state.shake, 4);
+ return;
+ }
+
+ // Input lock — Present is snappier so 3D chase feels easy to steer
+ const debounce = IS_PRESENT
+  ? Math.max(28, 52 - state.level * 2)
+  : Math.max(48, 88 - state.level * 3);
+ if (now - state.lastMoveAt < debounce) return;
+ state.lastMoveAt = now;
+
+ const nx = state.player.x + dx;
+ const ny = state.player.y + dy;
+
+ if (!isPath(nx, ny)) {
+ wallPenalty();
+ return;
+ }
+
+ // WRONG DIRECTION RULE:
+ // Only trail the rabbit has already painted (or its current cell).
+ const k = key(nx, ny);
+ const onRabbit = nx === state.rabbit.x && ny === state.rabbit.y;
+ const onTrail = state.trail.has(k);
+
+ if (!onTrail && !onRabbit) {
+ state.player.x = nx;
+ state.player.y = ny;
+ state.steps++;
+ state.depthSteps++;
+ state.runSteps++;
+ // Off-trail is still instant lose - wrong hole
+ lose('WRONG TURN. THE RABBIT IS GONE.');
+ return;
+ }
+
+ state.player.x = nx;
+ state.player.y = ny;
+ state.steps++;
+ state.depthSteps++;
+ state.runSteps++;
+ // Keep player cell on trail so decay doesn't strand you mid-step
+ addTrailCell(nx, ny);
+ spawnDust(
+ state.ox + (nx + 0.5) * state.cell,
+ state.oy + (ny + 0.5) * state.cell,
+ 'rgba(0,255,65,0.8)',
+ 4
+ );
+
+ updateHud();
+
+ if (onRabbit || (nx === state.rabbit.x && ny === state.rabbit.y)) {
+ win();
+ return;
+ }
+ checkGapFail();
+ }
+
+ function advanceRabbit(dt) {
+ if (state.mode !== 'play') return;
+ state.rabbitTimer += dt;
+ while (state.rabbitTimer >= state.rabbitPeriod) {
+ state.rabbitTimer -= state.rabbitPeriod;
+ // Multi-hop at deeper depths
+ for (let h = 0; h < state.rabbitHops; h++) {
+ if (state.mode !== 'play') return;
+ if (!hopRabbitOnce()) return;
+ }
+ // Trail keeps burning even when standing still
+ pruneTrail();
+ checkGapFail();
+ if (state.mode !== 'play') return;
+ }
+ }
+
+ function win() {
+ if (state.mode !== 'play') return;
+ state.mode = 'win';
+ state.flash = 1;
+ state.message = 'YOU FOUND THE RABBIT';
+
+ const pathLen = Math.max(1, state.rabbitIdx + 1);
+ const gained = depthClearPoints(state.level, state.depthSteps, state.strikes, pathLen);
+ state.runScore += gained;
+ updateScoreHud();
+
+ if (state.level > state.best) {
+ state.best = state.level;
+ try { localStorage.setItem(BEST_KEY, String(state.best)); } catch (e) {}
+ hudBest.textContent = String(state.best).padStart(2, '0');
+ }
+
+ const nextHint = state.level >= 4
+ ? 'Next depth: faster hops' + (state.level >= 6 ? ', multi-step rabbit' : '') + (state.level >= 9 ? ', walls kill' : '') + '.'
+ : 'The rabbit looks back once. Deeper holes wait.';
+ showOverlay({
+ main: 'CAUGHT',
+ tag: '+' + formatScore(gained) + ' * RUN ' + formatScore(state.runScore),
+ copy: 'Depth ' + String(state.level).padStart(2, '0') + ' cleared. ' + nextHint,
+ hint: 'ENTER * NEXT DEPTH * TAB SCORES',
+ btn: 'GO DEEPER',
+ result: 'win'
+ });
+ }
+
+ function lose(reason) {
+ if (state.mode !== 'play') return;
+ state.mode = 'lose';
+ state.shake = 18;
+ state.flash = 1;
+ state.message = reason;
+ updateHud();
+
+ // Consolation: points for how deep you got this run (once)
+ if (state.level > 1 && state.runScore === 0) {
+ state.runScore = Math.max(0, (state.level - 1) * 200);
+ }
+ // Small death tax so wall spam doesn't farm
+ state.runScore = Math.max(0, state.runScore - state.strikes * 15);
+ updateScoreHud();
+
+ const boardNote = qualifiesForBoard(state.runScore)
+ ? ' NEW BOARD SCORE - save your tag.'
+ : ' Run logged locally if it cracks top 10.';
+
+ showOverlay({
+ main: 'LOST',
+ tag: reason,
+ copy: 'RUN SCORE ' + formatScore(state.runScore) + ' * DEPTH ' + String(state.level).padStart(2, '0') + '. Soft-sign wallet to post (no funds).' + boardNote,
+ hint: 'ENTER * RETRY * TAB SCORES',
+ btn: 'TRY AGAIN',
+ result: 'lose'
+ });
+
+ finalizeRun(reason);
+ }
+
+ function showOverlay(opts) {
+ titleMain.textContent = opts.main;
+ titleTag.textContent = opts.tag;
+ titleCopy.textContent = opts.copy;
+ titleHint.textContent = opts.hint;
+ startBtn.textContent = opts.btn;
+ titleMain.className = '';
+ titleTag.className = 'tag';
+ if (opts.result === 'win') {
+ titleMain.style.color = '#00ff41';
+ } else if (opts.result === 'lose') {
+ titleMain.style.color = '#ff3355';
+ } else {
+ titleMain.style.color = '#fff';
+ }
+ overlay.classList.remove('hidden');
+ }
+
+ function hideOverlay() {
+ overlay.classList.add('hidden');
+ }
+
+ function startGame(resetLevel) {
+ if (resetLevel) {
+ state.level = 1;
+ state.runScore = 0;
+ state.runSteps = 0;
+ state.runStrikes = 0;
+ state.runStartedAt = Date.now();
+ state.pendingEntry = null;
+ }
+ bootLevel(state.level);
+ state.mode = 'play';
+ hideOverlay();
+ if (state.boardOpen) closeBoard();
+ updateScoreHud();
+ }
+
+ function nextOrRetry() {
+ // Don't start a new run while soft-sign prompt is open
+ if (state.boardOpen && nameRow.classList.contains('show') && state.pendingEntry) {
+ return;
+ }
+ if (state.mode === 'title') {
+ startGame(true);
+ return;
+ }
+ if (state.mode === 'win') {
+ state.level++;
+ bootLevel(state.level);
+ state.mode = 'play';
+ hideOverlay();
+ if (state.boardOpen) closeBoard();
+ return;
+ }
+ if (state.mode === 'lose') {
+ startGame(true);
+ return;
+ }
+ if (state.mode === 'pause') {
+ state.mode = 'play';
+ hideOverlay();
+ if (state.boardOpen) closeBoard();
+ }
+ }
+
+ // Drawing helpers
+ function drawSprite(frame, px, py, scale, colors) {
+ const rows = frame.length;
+ const cols = frame[0].length;
+ const ps = scale;
+ const w = cols * ps;
+ const h = rows * ps;
+ const ox = Math.floor(px - w / 2);
+ const oy = Math.floor(py - h / 2);
+ for (let r = 0; r < rows; r++) {
+ for (let c = 0; c < cols; c++) {
+ const ch = frame[r][c];
+ if (ch === '.') continue;
+ if (ch === 'W') ctx.fillStyle = colors.W || '#ffffff';
+ else if (ch === 'B') ctx.fillStyle = colors.B || '#000000';
+ else if (ch === 'G') ctx.fillStyle = colors.G || '#00ff41';
+ else continue;
+ ctx.fillRect(ox + c * ps, oy + r * ps, ps, ps);
+ }
+ }
+ }
+
+ function drawMatrix(dt, w, h) {
+ for (let i = 0; i < state.matrix.length; i++) {
+ const m = state.matrix[i];
+ m.y += m.speed * dt;
+ if (m.y > h + 20) m.y = -20;
+ if (IS_PRESENT) {
+  // soft starfield drift instead of matrix rain
+  ctx.fillStyle = 'rgba(160,190,255,' + (m.alpha * 0.55) + ')';
+  const sz = 1 + (i % 3) * 0.6;
+  ctx.beginPath();
+  ctx.arc((i * 37) % w, m.y, sz, 0, Math.PI * 2);
+  ctx.fill();
+ } else {
+  ctx.fillStyle = 'rgba(0,255,65,' + m.alpha + ')';
+  ctx.fillRect(i * 14, m.y, 2, 10);
+ }
+ }
+ }
+
+ function roundRect(x, y, w, h, r) {
+  const rr = Math.min(r, w / 2, h / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + rr, y);
+  ctx.arcTo(x + w, y, x + w, y + h, rr);
+  ctx.arcTo(x + w, y + h, x, y + h, rr);
+  ctx.arcTo(x, y + h, x, y, rr);
+  ctx.arcTo(x, y, x + w, y, rr);
+  ctx.closePath();
+ }
+
+ /* PRESENT: top-down like Past, but Orbit/Present hub look (hollow glow, cyan-teal, void) */
+ function drawPresentModern(w, h) {
+  // Present hub void
+  const bg = ctx.createRadialGradient(w * 0.5, h * 0.35, 10, w * 0.5, h * 0.5, Math.max(w, h) * 0.65);
+  bg.addColorStop(0, '#0c1024');
+  bg.addColorStop(0.5, '#050812');
+  bg.addColorStop(1, '#02040a');
+  ctx.fillStyle = bg;
+  ctx.fillRect(-10, -10, w + 20, h + 20);
+
+  // soft starfield (present, not matrix green)
+  for (let i = 0; i < state.matrix.length; i++) {
+   const m = state.matrix[i];
+   m.y += m.speed * 0.012;
+   if (m.y > h + 10) m.y = -10;
+   ctx.fillStyle = 'rgba(180,200,255,' + (m.alpha * 0.7) + ')';
+   ctx.beginPath();
+   ctx.arc((i * 47 + m.y * 0.3) % w, m.y, 0.8 + (i % 3) * 0.5, 0, Math.PI * 2);
+   ctx.fill();
+  }
+
+  if (!state.grid) return;
+
+  const pad = 16;
+  const cw = w - pad * 2;
+  const ch = h - pad * 2;
+  const cell = Math.max(20, Math.floor(Math.min(cw / state.cols, ch / state.rows)));
+  const ox = Math.floor((w - state.cols * cell) / 2);
+  const oy = Math.floor((h - state.rows * cell) / 2);
+  state.cell = cell;
+  state.ox = ox;
+  state.oy = oy;
+  const gap = Math.max(1, Math.floor(cell * 0.08));
+  const rr = Math.max(3, cell * 0.18);
+
+  // soft orbit rings behind maze (present hub vibe)
+  ctx.save();
+  ctx.translate(w * 0.5, h * 0.5);
+  ctx.strokeStyle = 'rgba(140,160,255,0.06)';
+  ctx.lineWidth = 1;
+  for (let r = 80; r < Math.max(w, h); r += 90) {
+   ctx.beginPath();
+   ctx.arc(0, 0, r, 0, Math.PI * 2);
+   ctx.stroke();
+  }
+  ctx.restore();
+
+  // maze board plate
+  ctx.fillStyle = 'rgba(8, 12, 28, 0.75)';
+  roundRect(ox - 10, oy - 10, state.cols * cell + 20, state.rows * cell + 20, 14);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(120, 160, 255, 0.22)';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  // outer glow
+  ctx.shadowColor = 'rgba(100, 160, 255, 0.25)';
+  ctx.shadowBlur = 18;
+  ctx.strokeStyle = 'rgba(102, 255, 224, 0.12)';
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+
+  for (let y = 0; y < state.rows; y++) {
+   for (let x = 0; x < state.cols; x++) {
+    const px = ox + x * cell;
+    const py = oy + y * cell;
+    if (state.grid[y][x] === 0) {
+     // HOLLOW WALL — Present hub bubble style: dark fill + cyan/lilac ring
+     const inset = gap;
+     roundRect(px + inset, py + inset, cell - inset * 2, cell - inset * 2, rr);
+     ctx.fillStyle = 'rgba(18, 24, 48, 0.95)';
+     ctx.fill();
+     // double ring like hollow-btn
+     ctx.strokeStyle = 'rgba(160, 190, 255, 0.55)';
+     ctx.lineWidth = Math.max(1.5, cell * 0.07);
+     ctx.stroke();
+     ctx.strokeStyle = 'rgba(102, 255, 224, 0.35)';
+     ctx.lineWidth = 1;
+     roundRect(px + inset + 2, py + inset + 2, cell - inset * 2 - 4, cell - inset * 2 - 4, Math.max(2, rr - 2));
+     ctx.stroke();
+     // soft inner glow so walls stay obvious
+     ctx.fillStyle = 'rgba(120, 160, 255, 0.08)';
+     roundRect(px + inset + 3, py + inset + 3, cell - inset * 2 - 6, cell - inset * 2 - 6, Math.max(2, rr - 3));
+     ctx.fill();
+    } else {
+     // PATH — pure void corridor
+     ctx.fillStyle = 'rgba(2, 6, 16, 0.9)';
+     ctx.fillRect(px + 1, py + 1, cell - 2, cell - 2);
+
+     const k = key(x, y);
+     if (state.trail.has(k)) {
+      // soft present trail (white → cyan)
+      const pulse = 0.4 + 0.25 * Math.sin(state.t * 3.5 + x * 0.6 + y * 0.5);
+      const cx = px + cell / 2;
+      const cy = py + cell / 2;
+      const tg = ctx.createRadialGradient(cx, cy, 1, cx, cy, cell * 0.4);
+      tg.addColorStop(0, 'rgba(255,255,255,' + pulse + ')');
+      tg.addColorStop(0.4, 'rgba(160,240,255,' + (pulse * 0.55) + ')');
+      tg.addColorStop(1, 'rgba(102,255,224,0)');
+      ctx.fillStyle = tg;
+      ctx.beginPath();
+      ctx.arc(cx, cy, cell * 0.36, 0, Math.PI * 2);
+      ctx.fill();
+      // center pip
+      ctx.fillStyle = 'rgba(255,255,255,' + (0.5 + pulse * 0.3) + ')';
+      ctx.beginPath();
+      ctx.arc(cx, cy, Math.max(2, cell * 0.1), 0, Math.PI * 2);
+      ctx.fill();
+     }
+
+     if (x === state.exit.x && y === state.exit.y) {
+      const pulse = 0.55 + 0.3 * Math.sin(state.t * 4.5);
+      const cx = px + cell / 2;
+      const cy = py + cell / 2;
+      // Present hollow exit rings (mint/cyan)
+      for (let r = 3; r >= 1; r--) {
+       ctx.strokeStyle = 'rgba(102,255,224,' + (pulse * (0.25 + r * 0.18)) + ')';
+       ctx.lineWidth = 2;
+       ctx.beginPath();
+       ctx.arc(cx, cy, cell * (0.16 + r * 0.11), 0, Math.PI * 2);
+       ctx.stroke();
+      }
+      ctx.fillStyle = 'rgba(102,255,224,' + (0.15 * pulse) + ')';
+      ctx.beginPath();
+      ctx.arc(cx, cy, cell * 0.14, 0, Math.PI * 2);
+      ctx.fill();
+     }
+    }
+   }
+  }
+
+  // light fog on distant path only
+  if (state.mode === 'play' || state.mode === 'lose') {
+   for (let y = 0; y < state.rows; y++) {
+    for (let x = 0; x < state.cols; x++) {
+     if (state.grid[y][x] === 0) continue;
+     const k = key(x, y);
+     if (state.trail.has(k)) continue;
+     if (x === state.rabbit.x && y === state.rabbit.y) continue;
+     const dx = x - state.player.x;
+     const dy = y - state.player.y;
+     const dist = Math.sqrt(dx * dx + dy * dy);
+     if (dist > 6.5) {
+      ctx.fillStyle = 'rgba(2, 4, 12,' + Math.min(0.5, 0.1 + (dist - 6.5) * 0.07) + ')';
+      ctx.fillRect(ox + x * cell, oy + y * cell, cell, cell);
+     }
+    }
+   }
+  }
+
+  for (const p of state.particles) {
+   ctx.globalAlpha = Math.max(0, 1 - p.age / p.life);
+   ctx.fillStyle = p.color.indexOf('255,51') >= 0 || p.color.indexOf('255,80') >= 0
+    ? 'rgba(255,120,160,0.9)'
+    : 'rgba(160,240,255,0.9)';
+   ctx.beginPath();
+   ctx.arc(p.x, p.y, 2.4, 0, Math.PI * 2);
+   ctx.fill();
+   ctx.globalAlpha = 1;
+  }
+
+  // rabbit
+  const rpx = ox + (state.rabbit.x + 0.5) * cell;
+  const rpy = oy + (state.rabbit.y + 0.5) * cell;
+  const hop = Math.sin(state.t * 10) * (cell * 0.05);
+  const rScale = Math.max(2, Math.floor(cell / 6.5));
+  ctx.fillStyle = 'rgba(255,255,255,0.12)';
+  ctx.beginPath();
+  ctx.arc(rpx, rpy + hop, cell * 0.48, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(200,220,255,0.35)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.arc(rpx, rpy + hop, cell * 0.42, 0, Math.PI * 2);
+  ctx.stroke();
+  drawSprite(RABBIT[state.hopFrame], rpx, rpy + hop, rScale, { W: '#f6f8ff', B: '#141a30' });
+
+  // player — present cyan hollow diamond
+  const ppx = ox + (state.player.x + 0.5) * cell;
+  const ppy = oy + (state.player.y + 0.5) * cell;
+  const bloom = ctx.createRadialGradient(ppx, ppy, 1, ppx, ppy, cell * 0.55);
+  bloom.addColorStop(0, 'rgba(160,255,255,0.45)');
+  bloom.addColorStop(1, 'rgba(102,255,224,0)');
+  ctx.fillStyle = bloom;
+  ctx.beginPath();
+  ctx.arc(ppx, ppy, cell * 0.52, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(10, 20, 40, 0.85)';
+  ctx.strokeStyle = '#66ffe0';
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.moveTo(ppx, ppy - cell * 0.34);
+  ctx.lineTo(ppx + cell * 0.3, ppy);
+  ctx.lineTo(ppx, ppy + cell * 0.34);
+  ctx.lineTo(ppx - cell * 0.3, ppy);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+  ctx.strokeStyle = 'rgba(180,255,255,0.5)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(ppx, ppy - cell * 0.2);
+  ctx.lineTo(ppx + cell * 0.18, ppy);
+  ctx.lineTo(ppx, ppy + cell * 0.2);
+  ctx.lineTo(ppx - cell * 0.18, ppy);
+  ctx.closePath();
+  ctx.stroke();
+
+  if (state.mode === 'play') {
+   ctx.font = '500 12px Inter, system-ui, sans-serif';
+   ctx.textAlign = 'center';
+   ctx.letterSpacing = '0.12em';
+   const now = performance.now();
+   if (now < state.stunMsgUntil) {
+    ctx.fillStyle = 'rgba(255,120,160,0.95)';
+    ctx.fillText('STUNNED — RABBIT BOLTS', w / 2, 22);
+   } else {
+    ctx.fillStyle = 'rgba(180,200,255,0.5)';
+    const hops = state.rabbitHops > 1 ? '  ·  ×' + state.rabbitHops + ' HOPS' : '';
+    ctx.fillText('STAY ON THE TRAIL' + hops, w / 2, 22);
+   }
+  }
+ }
+
+ function draw() {
+ const rect = stage.getBoundingClientRect();
+ const w = Math.max(rect.width, 1);
+ const h = Math.max(rect.height, 1);
+
+ let sx = 0, sy = 0;
+ if (state.shake > 0) {
+ sx = (Math.random() - 0.5) * state.shake;
+ sy = (Math.random() - 0.5) * state.shake;
+ }
+
+ ctx.save();
+ ctx.translate(sx, sy);
+
+ if (IS_PRESENT) {
+  drawPresentModern(w, h);
+  if (state.flash > 0) {
+   ctx.fillStyle = state.mode === 'win'
+    ? 'rgba(100,255,220,' + (state.flash * 0.22) + ')'
+    : 'rgba(255,80,120,' + (state.flash * 0.28) + ')';
+   ctx.fillRect(0, 0, w, h);
+  }
+  ctx.restore();
+  return;
+ }
+
+ // ===== PAST (original CRT top-down) =====
+ ctx.fillStyle = '#000';
+ ctx.fillRect(-10, -10, w + 20, h + 20);
+
+ drawMatrix(0.016, w, h);
+
+ if (!state.grid) {
+ ctx.restore();
+ return;
+ }
+
+ const cell = state.cell;
+ const ox = state.ox;
+ const oy = state.oy;
+
+ ctx.fillStyle = 'rgba(0, 20, 8, 0.35)';
+ ctx.fillRect(ox - 4, oy - 4, state.cols * cell + 8, state.rows * cell + 8);
+
+ // walls + trail
+ for (let y = 0; y < state.rows; y++) {
+ for (let x = 0; x < state.cols; x++) {
+ const px = ox + x * cell;
+ const py = oy + y * cell;
+ if (state.grid[y][x] === 0) {
+  ctx.fillStyle = '#0a0a0a';
+  ctx.fillRect(px, py, cell, cell);
+  if (cell >= 14) {
+   ctx.fillStyle = '#101010';
+   ctx.fillRect(px + 1, py + 1, cell - 2, cell - 2);
+   ctx.fillStyle = 'rgba(0,255,65,0.035)';
+   ctx.fillRect(px + 2, py + 2, cell - 4, 1);
+  }
+ } else {
+  ctx.fillStyle = '#030303';
+  ctx.fillRect(px, py, cell, cell);
+
+  const k = key(x, y);
+  if (state.trail.has(k)) {
+   const pulse = 0.08 + 0.06 * Math.sin(state.t * 4 + x * 0.4 + y * 0.3);
+   ctx.fillStyle = 'rgba(255,255,255,' + pulse + ')';
+   ctx.fillRect(px + cell * 0.3, py + cell * 0.3, cell * 0.4, cell * 0.4);
+  }
+
+  if (x === state.exit.x && y === state.exit.y) {
+   const g = 0.15 + 0.1 * Math.sin(state.t * 5);
+   ctx.fillStyle = 'rgba(0,255,65,' + g + ')';
+   ctx.fillRect(px + 2, py + 2, cell - 4, cell - 4);
+   ctx.strokeStyle = 'rgba(0,255,65,0.35)';
+   ctx.strokeRect(px + 3, py + 3, cell - 6, cell - 6);
+  }
+ }
+ }
+ }
+
+ if (state.mode === 'play' || state.mode === 'lose') {
+ for (let y = 0; y < state.rows; y++) {
+ for (let x = 0; x < state.cols; x++) {
+ if (state.grid[y][x] === 0) continue;
+ const k = key(x, y);
+ if (state.trail.has(k)) continue;
+ if (x === state.rabbit.x && y === state.rabbit.y) continue;
+ const dx = x - state.player.x;
+ const dy = y - state.player.y;
+ const dist = Math.sqrt(dx * dx + dy * dy);
+ if (dist > 4.5) {
+  ctx.fillStyle = 'rgba(0,0,0,' + Math.min(0.85, 0.2 + (dist - 4.5) * 0.12) + ')';
+  ctx.fillRect(ox + x * cell, oy + y * cell, cell, cell);
+ }
+ }
+ }
+ }
+
+ for (const p of state.particles) {
+ ctx.globalAlpha = Math.max(0, 1 - p.age / p.life);
+ ctx.fillStyle = p.color;
+ ctx.fillRect(p.x, p.y, 2, 2);
+ ctx.globalAlpha = 1;
+ }
+
+ const rpx = ox + (state.rabbit.x + 0.5) * cell;
+ const rpy = oy + (state.rabbit.y + 0.5) * cell;
+ const hop = Math.sin(state.t * 10) * (cell * 0.06);
+ const rScale = Math.max(1, Math.floor(cell / 9));
+ ctx.fillStyle = 'rgba(255,255,255,0.08)';
+ ctx.beginPath();
+ ctx.arc(rpx, rpy + hop, cell * 0.55, 0, Math.PI * 2);
+ ctx.fill();
+ drawSprite(RABBIT[state.hopFrame], rpx, rpy + hop, rScale, { W: '#ffffff', B: '#000000' });
+
+ const ppx = ox + (state.player.x + 0.5) * cell;
+ const ppy = oy + (state.player.y + 0.5) * cell;
+ const pScale = Math.max(1, Math.floor(cell / 10));
+ ctx.fillStyle = 'rgba(0,255,65,0.1)';
+ ctx.beginPath();
+ ctx.arc(ppx, ppy, cell * 0.4, 0, Math.PI * 2);
+ ctx.fill();
+ drawSprite(PLAYER, ppx, ppy, pScale, { G: '#00ff41', W: '#ffffff' });
+
+ if (state.mode === 'play') {
+ ctx.font = '16px VT323, monospace';
+ ctx.textAlign = 'center';
+ const now = performance.now();
+ if (now < state.stunMsgUntil) {
+ ctx.fillStyle = 'rgba(255,51,85,0.9)';
+ ctx.fillText('STUNNED - RABBIT BOLTS', w / 2, 18);
+ } else {
+ ctx.fillStyle = 'rgba(255,255,255,0.25)';
+ const hops = state.rabbitHops > 1 ? ' * x' + state.rabbitHops + ' HOPS' : '';
+ ctx.fillText('STAY ON THE TRAIL' + hops, w / 2, 18);
+ }
+ }
+
+ if (state.flash > 0) {
+ ctx.fillStyle = state.mode === 'win'
+  ? 'rgba(0,255,65,' + (state.flash * 0.25) + ')'
+  : 'rgba(255,51,85,' + (state.flash * 0.3) + ')';
+ ctx.fillRect(0, 0, w, h);
+ }
+
+ ctx.restore();
+ }
+
+ let last = performance.now();
+ function frame(now) {
+ const dt = Math.min(0.05, (now - last) / 1000);
+ last = now;
+ state.t += dt;
+
+ if (state.shake > 0) state.shake = Math.max(0, state.shake - dt * 40);
+ if (state.flash > 0) state.flash = Math.max(0, state.flash - dt * 1.6);
+
+ // particles
+ for (let i = state.particles.length - 1; i >= 0; i--) {
+ const p = state.particles[i];
+ p.age += dt;
+ p.x += p.vx * 40 * dt;
+ p.y += p.vy * 40 * dt;
+ if (p.age >= p.life) state.particles.splice(i, 1);
+ }
+
+ advanceRabbit(dt * 1000);
+ try {
+  draw();
+ } catch (err) {
+  // Never freeze the loop if a present-skin draw glitch happens
+  if (!window.__ftwrDrawErr) {
+   window.__ftwrDrawErr = true;
+   console.error('FTWR draw error', err);
+   try {
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.fillStyle = '#200';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#f88';
+    ctx.font = '14px monospace';
+    ctx.fillText('DRAW ERROR — see console', 12, 24);
+   } catch (e2) {}
+  }
+ }
+ requestAnimationFrame(frame);
+ }
+
+ // Input - arrows + WASD (e.code so layout/caps don't break it)
+ const keyMap = {
+ ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0],
+ KeyW: [0, -1], KeyS: [0, 1], KeyA: [-1, 0], KeyD: [1, 0],
+ w: [0, -1], s: [0, 1], a: [-1, 0], d: [1, 0],
+ W: [0, -1], S: [0, 1], A: [-1, 0], D: [1, 0]
+ };
+
+ // Present: hold-to-move (easier continuous steering)
+ const heldMove = { dx: 0, dy: 0, code: '' };
+
+ function moveFromEvent(e) {
+ return keyMap[e.code] || keyMap[e.key] || null;
+ }
+
+ window.addEventListener('keydown', (e) => {
+ // Past: ignore key-repeat. Present: allow hold / repeat for easier control
+ if (e.repeat && moveFromEvent(e) && !IS_PRESENT) return;
+
+ if (e.key === 'Tab') {
+ e.preventDefault();
+ toggleBoard();
+ return;
+ }
+
+ if (e.key === 'Enter' || e.key === ' ') {
+ e.preventDefault();
+ if (state.boardOpen && state.pendingEntry && nameRow.classList.contains('show')) {
+ commitScoreSoft();
+ return;
+ }
+ if (state.boardOpen && !nameRow.classList.contains('show')) {
+ closeBoard();
+ return;
+ }
+ if (state.mode === 'title' || state.mode === 'win' || state.mode === 'lose' || state.mode === 'pause') {
+ nextOrRetry();
+ }
+ return;
+ }
+
+ if (e.key === 'Escape') {
+ if (state.boardOpen) {
+ closeBoard();
+ return;
+ }
+ if (state.mode === 'play') {
+ state.mode = 'pause';
+ showOverlay({
+ main: 'PAUSED',
+ tag: 'RUN ' + formatScore(state.runScore) + ' * DEPTH ' + String(state.level).padStart(2, '0'),
+ copy: 'Trail is temporary. Resume, open scoreboard (TAB), or restart from the hole.',
+ hint: 'ENTER * RESUME * TAB SCORES',
+ btn: 'RESUME'
+ });
+ } else if (state.mode === 'pause') {
+ state.mode = 'play';
+ hideOverlay();
+ }
+ return;
+ }
+
+ if (state.boardOpen) return;
+
+ const m = moveFromEvent(e);
+ if (m) {
+ e.preventDefault();
+ if (IS_PRESENT) {
+  heldMove.dx = m[0];
+  heldMove.dy = m[1];
+  heldMove.code = e.code || e.key;
+ }
+ tryMove(m[0], m[1]);
+ }
+ });
+
+ window.addEventListener('keyup', (e) => {
+ if (!IS_PRESENT) return;
+ const m = moveFromEvent(e);
+ if (!m) return;
+ // clear hold only if releasing the active direction
+ if ((e.code || e.key) === heldMove.code || (heldMove.dx === m[0] && heldMove.dy === m[1])) {
+  heldMove.dx = 0;
+  heldMove.dy = 0;
+  heldMove.code = '';
+ }
+ });
+
+ // Present hold-to-move pulse
+ if (IS_PRESENT) {
+  setInterval(function () {
+   if (state.mode !== 'play') return;
+   if (!heldMove.dx && !heldMove.dy) return;
+   tryMove(heldMove.dx, heldMove.dy);
+  }, 70);
+ }
+
+ startBtn.addEventListener('click', () => nextOrRetry());
+ scoresBtn.addEventListener('click', () => openBoard());
+ boardCloseBtn.addEventListener('click', () => closeBoard());
+ saveScoreBtn.addEventListener('click', () => { commitScoreSoft(); });
+ boardEl.addEventListener('click', (e) => {
+ if (e.target === boardEl) closeBoard();
+ });
+
+ (function bindDpad() {
+  const pad = document.getElementById('dpad');
+  if (!pad) return;
+  let dpadTimer = null;
+  function dirFromBtn(btn) {
+   if (!btn) return null;
+   const parts = btn.getAttribute('data-dir').split(',');
+   return [Number(parts[0]), Number(parts[1])];
+  }
+  function startHold(btn) {
+   const d = dirFromBtn(btn);
+   if (!d) return;
+   tryMove(d[0], d[1]);
+   if (!IS_PRESENT) return;
+   heldMove.dx = d[0];
+   heldMove.dy = d[1];
+   heldMove.code = 'dpad';
+   if (dpadTimer) clearInterval(dpadTimer);
+   dpadTimer = setInterval(function () {
+    if (state.mode === 'play') tryMove(d[0], d[1]);
+   }, 70);
+  }
+  function endHold() {
+   if (dpadTimer) { clearInterval(dpadTimer); dpadTimer = null; }
+   if (heldMove.code === 'dpad') {
+    heldMove.dx = 0; heldMove.dy = 0; heldMove.code = '';
+   }
+  }
+  pad.addEventListener('pointerdown', (e) => {
+   const btn = e.target.closest('button[data-dir]');
+   if (!btn) return;
+   e.preventDefault();
+   startHold(btn);
+  });
+  pad.addEventListener('pointerup', endHold);
+  pad.addEventListener('pointercancel', endHold);
+  pad.addEventListener('pointerleave', endHold);
+ })();
+
+ window.addEventListener('resize', () => {
+ layout();
+ });
+
+ // Title rabbit idle: boot a silent maze in background for atmosphere
+ bootLevel(1);
+ state.mode = 'title';
+ renderBoard();
+ layout();
+ showOverlay({
+ main: IS_PRESENT ? 'FTWR' : 'FTWR',
+ tag: IS_PRESENT ? 'PRESENT · FOLLOW THE WHITE RABBIT' : 'FOLLOW THE WHITE RABBIT',
+ copy: IS_PRESENT
+  ? 'Same chase as Past — modern look, clear walls. Stay on the trail. Hold WASD/arrows to move. Soft-sign scores only.'
+  : 'Chase the rabbit. Stay on its fading trail. Walls stun you and feed free hops. Post scores with a soft wallet signature only - no funds, no txs. Phantom / Solflare / MetaMask.',
+ hint: 'ARROWS / WASD · ENTER START · TAB SCORES · ESC PAUSE',
+ btn: 'ENTER THE HOLE'
+ });
+ // Ensure canvas fills after first paint
+ setTimeout(function () { try { layout(); } catch (e) {} }, 50);
+ setTimeout(function () { try { layout(); } catch (e) {} }, 250);
+
+ // Auto-hop rabbit on title for life
+ setInterval(() => {
+ if (state.mode === 'title' || state.mode === 'pause') {
+ state.hopFrame = (state.hopFrame + 1) % 2;
+ }
+ }, 280);
+
+ requestAnimationFrame(frame);
+})();
+ </script>
+<!-- No shell-boot / docs-footer on FTWR: they force scroll/height:auto and shrink the playfield. -->
+<script>
+/* Era embed: when Present hosts this classic game, hide Past hub exits so you stay in Present */
+(function(){
+  try {
+    if (!/[?&]embed=1(?:&|$)/.test(location.search)) return;
+    document.documentElement.classList.add('era-embed');
+    var style = document.createElement('style');
+    style.textContent = '.era-embed a[href*="classic/hub"], .era-embed a[href="/classic/hub.html"]{display:none!important}';
+    document.head.appendChild(style);
+    try { if (window.parent && window.parent !== window && window.parent.DOSWAPZ_ERA) window.parent.DOSWAPZ_ERA.set("orbit"); } catch(e){}
+  } catch(e){}
+})();
+</script>
+</body>
+</html>

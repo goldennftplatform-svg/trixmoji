@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // DROP BOARD - EXAMPLE A</title>
+ <meta name="robots" content="noindex">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ --attic: #ccaa66;
+ --attic-dim: #887744;
+ }
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0; padding: 0;
+ width: 100%; min-height: 100%;
+ background: #000;
+ color: var(--green);
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: #000;
+ padding: 24px 28px 70px;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px, transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px, rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .header {
+ font-size: 34px;
+ letter-spacing: 8px;
+ text-shadow: 0 0 6px var(--green);
+ text-align: center;
+ margin-bottom: 4px;
+ }
+
+ .subhead {
+ text-align: center;
+ color: var(--attic);
+ font-size: 17px;
+ letter-spacing: 2px;
+ margin-bottom: 8px;
+ }
+
+ .example-tag {
+ text-align: center;
+ font-size: 14px;
+ color: #ffff00;
+ margin-bottom: 18px;
+ letter-spacing: 1px;
+ }
+
+ .example-tag a { color: #66ccff; }
+
+ .content { max-width: 1060px; margin: 0 auto; padding: 0 8px; }
+
+ .section-title {
+ font-size: 22px;
+ color: #ffff00;
+ border-bottom: 1px solid #003300;
+ padding-bottom: 4px;
+ margin: 22px 0 12px;
+ letter-spacing: 2px;
+ }
+
+ .alert-strip {
+ border: 2px solid #ffff00;
+ background: rgba(40, 30, 0, 0.4);
+ padding: 10px 14px;
+ font-size: 16px;
+ margin-bottom: 18px;
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px 18px;
+ align-items: center;
+ }
+
+ .alert-strip .live {
+ color: #ff6666;
+ animation: blink 1.2s step-end infinite;
+ }
+
+ @keyframes blink {
+ 50% { opacity: 0.35; }
+ }
+
+ .alert-strip button, .btn {
+ font-size: 16px;
+ color: var(--green);
+ background: transparent;
+ border: 2px solid var(--green);
+ padding: 4px 12px;
+ cursor: pointer;
+ font-family: inherit;
+ }
+
+ .alert-strip button:hover, .btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .feed-toolbar {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ gap: 8px;
+ margin-bottom: 14px;
+ }
+
+ .filter-btn {
+ font-size: 15px;
+ padding: 4px 12px;
+ border: 2px solid #003300;
+ background: #001100;
+ color: var(--green-dim);
+ cursor: pointer;
+ font-family: inherit;
+ }
+
+ .filter-btn.active, .filter-btn:hover {
+ border-color: var(--attic);
+ color: var(--attic);
+ }
+
+ .feed-status {
+ margin-left: auto;
+ font-size: 14px;
+ color: var(--green-dim);
+ }
+
+ .drop-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+ gap: 14px;
+ }
+
+ .drop-card {
+ border: 3px solid #00ff41;
+ background: #0a0804;
+ padding: 10px 12px;
+ display: flex;
+ flex-direction: column;
+ gap: 6px;
+ }
+
+ .drop-card[data-status="live"] { border-color: #ff6666; box-shadow: 0 0 12px rgba(255, 80, 80, 0.25); }
+ .drop-card[data-status="preorder"] { border-color: var(--attic); }
+ .drop-card[data-status="upcoming"] { border-color: #003300; }
+ .drop-card[data-status="soldout"] { border-color: #444; opacity: 0.72; }
+
+ .drop-top {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 6px 8px;
+ align-items: center;
+ font-size: 13px;
+ }
+
+ .badge {
+ padding: 1px 7px;
+ border: 1px solid;
+ letter-spacing: 1px;
+ }
+
+ .cat-sports { color: #66ccff; border-color: #66ccff; }
+ .cat-pokemon { color: #ffaa00; border-color: #ffaa00; }
+ .cat-other { color: #cc88ff; border-color: #cc88ff; }
+
+ .st-live { color: #ff6666; border-color: #ff6666; }
+ .st-preorder { color: var(--attic); border-color: var(--attic); }
+ .st-upcoming { color: var(--green-dim); border-color: #003300; }
+ .st-soldout { color: #888; border-color: #555; }
+
+ .drop-title {
+ font-size: 20px;
+ color: #ccffcc;
+ letter-spacing: 1px;
+ line-height: 1.15;
+ }
+
+ .drop-meta {
+ font-size: 15px;
+ color: var(--green-dim);
+ line-height: 1.3;
+ }
+
+ .drop-meta strong { color: var(--attic); font-weight: normal; }
+
+ .drop-links {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 8px;
+ margin-top: 6px;
+ }
+
+ .drop-links a {
+ font-size: 15px;
+ color: #ffff00;
+ text-decoration: none;
+ border: 1px solid #334400;
+ padding: 2px 8px;
+ background: #001100;
+ }
+
+ .drop-links a:hover {
+ color: #fff;
+ border-color: #ffff00;
+ background: #002200;
+ }
+
+ .drop-links a.dim {
+ color: var(--green-dim);
+ border-color: #003300;
+ }
+
+ .watch-btn {
+ margin-top: 4px;
+ align-self: flex-start;
+ font-size: 14px;
+ color: var(--attic);
+ background: transparent;
+ border: 1px dashed var(--attic-dim);
+ padding: 3px 10px;
+ cursor: pointer;
+ font-family: inherit;
+ }
+
+ .watch-btn.on {
+ background: #221a0a;
+ border-style: solid;
+ color: #ffdd88;
+ }
+
+ .footer {
+ margin-top: 28px;
+ font-size: 13px;
+ color: var(--green-dim);
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ .nav-row {
+ text-align: center;
+ margin-bottom: 16px;
+ font-size: 15px;
+ }
+
+ .nav-row a {
+ color: var(--attic);
+ text-decoration: none;
+ margin: 0 8px;
+ }
+
+ .nav-row a:hover { color: #ffff00; }
+ </style>
+</head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+
+ <div class="header">THE ATTIC</div>
+ <div class="subhead">DROP BOARD * RELEASES &amp; LINKS</div>
+ <div class="example-tag">
+ EXAMPLE A - card-grid (same bones as pull feed) * 
+ <a href="drop-board-gallery.html">all examples</a> * 
+ <a href="/classic/pages/attic.html">live attic</a>
+ </div>
+
+ <div class="content">
+ <div class="alert-strip">
+ <span><span class="live">● LIVE</span> 2 drops flagged in-stock (mock)</span>
+ <span style="color:var(--green-dim)">Discord webhook: ready</span>
+ <button type="button" id="toggleNotify">[ ENABLE BROWSER ALERTS ]</button>
+ </div>
+
+ <div class="section-title">// THIS WEEK</div>
+
+ <div class="feed-toolbar">
+ <button type="button" class="filter-btn active" data-filter="all">ALL</button>
+ <button type="button" class="filter-btn" data-filter="pokemon">POKÉMON</button>
+ <button type="button" class="filter-btn" data-filter="sports">SPORTS</button>
+ <button type="button" class="filter-btn" data-filter="other">OTHER TCG</button>
+ <button type="button" class="filter-btn" data-filter="live">LIVE ONLY</button>
+ <span class="feed-status" id="countLabel">6 products</span>
+ </div>
+
+ <div class="drop-grid" id="dropGrid">
+ <!-- filled by script -->
+ </div>
+
+ <div class="section-title">// HOW THIS FITS DOSWAPZ</div>
+ <p style="font-size:16px;line-height:1.35;color:#aaffaa;max-width:720px">
+ This is <strong style="color:var(--attic)">THE ATTIC</strong> - drop board only.
+ Same filters (sports / pokemon / other), same CRT shell, same yellow section titles.
+ Watchlist is local (or Discord ping later). No pull-photo posting.
+ </p>
+
+ <div class="footer">
+ MOCK DATA ONLY * not live retail * DOSWAPZ UX EXAMPLE A
+ </div>
+ </div>
+ </div>
+
+ <script>
+ var PRODUCTS = [
+ {
+ id: 'pk-destined',
+ cat: 'pokemon',
+ status: 'live',
+ title: 'Destined Rivals ETB',
+ brand: 'Pokémon TCG',
+ date: 'Jul 12 * restock wave',
+ msrp: '$54.99',
+ note: 'Pokemon Center + Target online',
+ links: [
+ { label: 'POKE CENTER', href: 'https://www.pokemoncenter.com', primary: true },
+ { label: 'TARGET', href: 'https://www.target.com' },
+ { label: 'DETAILS', href: '#', dim: true }
+ ]
+ },
+ {
+ id: 'sp-chrome',
+ cat: 'sports',
+ status: 'preorder',
+ title: '2026 Topps Chrome Baseball Hobby',
+ brand: 'Topps',
+ date: 'Release * Jul 18',
+ msrp: '$ - ',
+ note: 'Hobby boxes - secondary heat expected',
+ links: [
+ { label: 'DAVE & ADAM', href: 'https://www.dacardworld.com', primary: true },
+ { label: 'BECKETT CAL', href: 'https://www.beckett.com', dim: true }
+ ]
+ },
+ {
+ id: 'pk-prismatic',
+ cat: 'pokemon',
+ status: 'soldout',
+ title: 'Prismatic Evolutions Booster Bundle',
+ brand: 'Pokémon TCG',
+ date: 'Last seen * Jul 10',
+ msrp: '$26.99',
+ note: 'Watchlist for next wave',
+ links: [
+ { label: 'WALMART', href: 'https://www.walmart.com' },
+ { label: 'AMAZON', href: 'https://www.amazon.com', dim: true }
+ ]
+ },
+ {
+ id: 'sp-prizm',
+ cat: 'sports',
+ status: 'upcoming',
+ title: 'Panini Prizm Football Blaster',
+ brand: 'Panini',
+ date: 'Window * Fall 2026',
+ msrp: '$ - ',
+ note: 'Draft / season timing',
+ links: [
+ { label: 'PANINI', href: 'https://www.paniniamerica.net', primary: true },
+ { label: 'CALENDAR', href: '#', dim: true }
+ ]
+ },
+ {
+ id: 'ot-onepiece',
+ cat: 'other',
+ status: 'live',
+ title: 'One Piece OP-09 Booster Box',
+ brand: 'Bandai',
+ date: 'In stock * select shops',
+ msrp: '$144',
+ note: 'LGS + online specialty',
+ links: [
+ { label: 'TROLL AND TOAD', href: 'https://www.trollandtoad.com', primary: true },
+ { label: 'TCGPLAYER', href: 'https://www.tcgplayer.com' }
+ ]
+ },
+ {
+ id: 'ot-mtg',
+ cat: 'other',
+ status: 'preorder',
+ title: 'MTG - Edge of Eternities Bundle',
+ brand: 'Wizards',
+ date: 'Preorder open',
+ msrp: '$49.99',
+ note: 'Local game stores first',
+ links: [
+ { label: 'WIZARDS', href: 'https://magic.wizards.com', primary: true },
+ { label: 'LGS FINDER', href: '#', dim: true }
+ ]
+ }
+ ];
+
+ var STATUS_LABEL = {
+ live: 'LIVE',
+ preorder: 'PREORDER',
+ upcoming: 'UPCOMING',
+ soldout: 'SOLD OUT'
+ };
+
+ var CAT_LABEL = {
+ sports: 'SPORTS',
+ pokemon: 'POKÉMON',
+ other: 'OTHER'
+ };
+
+ var filter = 'all';
+ var watched = {};
+
+ function render() {
+ var grid = document.getElementById('dropGrid');
+ var list = PRODUCTS.filter(function (p) {
+ if (filter === 'all') return true;
+ if (filter === 'live') return p.status === 'live';
+ return p.cat === filter;
+ });
+
+ document.getElementById('countLabel').textContent = list.length + ' product' + (list.length === 1 ? '' : 's');
+
+ grid.innerHTML = list.map(function (p) {
+ var links = p.links.map(function (l) {
+ return '<a href="' + l.href + '" target="_blank" rel="noopener"' +
+ (l.dim ? ' class="dim"' : '') + '>' + l.label + '</a>';
+ }).join('');
+ var on = watched[p.id] ? ' on' : '';
+ return (
+ '<article class="drop-card" data-status="' + p.status + '" data-cat="' + p.cat + '">' +
+ '<div class="drop-top">' +
+ '<span class="badge cat-' + p.cat + '">' + CAT_LABEL[p.cat] + '</span>' +
+ '<span class="badge st-' + p.status + '">' + STATUS_LABEL[p.status] + '</span>' +
+ '</div>' +
+ '<div class="drop-title">' + p.title + '</div>' +
+ '<div class="drop-meta"><strong>' + p.brand + '</strong> * ' + p.date + '</div>' +
+ '<div class="drop-meta">MSRP ' + p.msrp + ' * ' + p.note + '</div>' +
+ '<div class="drop-links">' + links + '</div>' +
+ '<button type="button" class="watch-btn' + on + '" data-id="' + p.id + '">' +
+ (watched[p.id] ? '[ ★ WATCHING ]' : '[ + WATCH ]') +
+ '</button>' +
+ '</article>'
+ );
+ }).join('');
+
+ grid.querySelectorAll('.watch-btn').forEach(function (btn) {
+ btn.addEventListener('click', function () {
+ var id = btn.getAttribute('data-id');
+ watched[id] = !watched[id];
+ render();
+ });
+ });
+ }
+
+ document.querySelectorAll('.filter-btn').forEach(function (btn) {
+ btn.addEventListener('click', function () {
+ document.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+ btn.classList.add('active');
+ filter = btn.getAttribute('data-filter');
+ render();
+ });
+ });
+
+ document.getElementById('toggleNotify').addEventListener('click', function () {
+ var b = this;
+ if (b.dataset.on === '1') {
+ b.dataset.on = '0';
+ b.textContent = '[ ENABLE BROWSER ALERTS ]';
+ return;
+ }
+ if (!('Notification' in window)) {
+ alert('Browser notifications not supported - Discord webhook would still work.');
+ return;
+ }
+ Notification.requestPermission().then(function (perm) {
+ if (perm === 'granted') {
+ b.dataset.on = '1';
+ b.textContent = '[ ALERTS ON ]';
+ new Notification('DOSWAPZ Drop Board', {
+ body: 'You will get pings when watched products go LIVE (demo).'
+ });
+ } else {
+ alert('Permission denied - use Discord alerts instead.');
+ }
+ });
+ });
+
+ render();
+ </script>
+</body>
+</html>

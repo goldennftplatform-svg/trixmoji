@@ -1,0 +1,2 @@
+﻿This folder is legacy / experimental and excluded from Netlify deploy via .netlifyignore.
+Not part of the live classic/orbit product path. Safe to ignore.

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>DOSWAPZ - 10 Hub Concepts (local preview)</title>
+ <meta name="robots" content="noindex">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&family=Orbitron:wght@500;700&family=Share+Tech+Mono&display=swap');
+ :root {
+ --g: #00ff66;
+ --g2: #39ff14;
+ --p: #c44dff;
+ --p2: #ff00aa;
+ --c: #00e5ff;
+ --bg: #050508;
+ }
+ * { box-sizing: border-box; }
+ html { scroll-behavior: smooth; }
+ body {
+ margin: 0;
+ background: #030306;
+ color: #d8ffe8;
+ font-family: 'Share Tech Mono', monospace;
+ }
+ .index {
+ position: sticky; top: 0; z-index: 100;
+ background: rgba(0,0,0,.92);
+ border-bottom: 1px solid #1a3;
+ padding: 12px 16px;
+ display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+ }
+ .index strong { color: var(--g); letter-spacing: 2px; margin-right: 8px; }
+ .index a {
+ color: #8f8; text-decoration: none; font-size: 12px;
+ border: 1px solid #253; padding: 4px 8px; border-radius: 4px;
+ }
+ .index a:hover { color: #fff; border-color: var(--g); }
+ .note {
+ max-width: 900px; margin: 16px auto; padding: 0 16px;
+ color: #6a8; font-size: 13px; line-height: 1.45;
+ }
+ .concept {
+ min-height: 100vh;
+ border-bottom: 3px solid #0a2;
+ position: relative;
+ overflow: hidden;
+ }
+ .concept-label {
+ position: absolute; top: 12px; left: 12px; z-index: 20;
+ background: rgba(0,0,0,.75); border: 1px solid var(--g);
+ color: var(--g); font-size: 13px; letter-spacing: 2px;
+ padding: 6px 10px;
+ }
+ .mock {
+ min-height: 100vh;
+ display: grid;
+ place-items: center;
+ padding: 48px 20px 40px;
+ position: relative;
+ }
+ .menu a {
+ display: block; text-decoration: none; cursor: default;
+ }
+ </style>
+</head>
+<body>
+ <nav class="index">
+ <strong>10 HUB CONCEPTS</strong>
+ <a href="#c1">01 Split Face</a>
+ <a href="#c2">02 Target Lock</a>
+ <a href="#c3">03 HUD Overlay</a>
+ <a href="#c4">04 Terminal Left</a>
+ <a href="#c5">05 Neon Portal</a>
+ <a href="#c6">06 Glitch Grid</a>
+ <a href="#c7">07 Wireframe Ring</a>
+ <a href="#c8">08 Dual Lens</a>
+ <a href="#c9">09 Data Rain</a>
+ <a href="#c10">10 Full Bleed</a>
+ <a href="/classic/hub.html">current hub</a>
+ <a href="/go.html">go menu</a>
+ </nav>
+ <p class="note">
+ Local mockups only - not live. Inspired by your two cyber-AI refs (side profile HUD + frontal neon head).
+ Menu items are visual placeholders. Pick a direction and we can build the real hub later.
+ </p>
+
+ <!-- ========== 01 SPLIT FACE ========== -->
+ <section class="concept" id="c1">
+ <div class="concept-label">01 * SPLIT FACE HUB</div>
+ <div class="mock" style="
+ background:
+ linear-gradient(90deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.2) 45%, rgba(0,0,0,.75) 100%),
+ url('/assets/images/hub-ref-acm2p.jpg') center/cover no-repeat #000;
+ ">
+ <div style="width:min(920px,100%);display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center">
+ <div>
+ <div style="font-family:Orbitron,sans-serif;font-size:clamp(36px,7vw,64px);color:var(--g);text-shadow:0 0 20px #0f6;letter-spacing:8px">DOSWAPZ</div>
+ <div style="color:#8f8;letter-spacing:4px;margin:8px 0 20px">SYSTEM MENU // PROFILE LOCK</div>
+ <div class="menu" style="display:grid;gap:8px;max-width:340px">
+ <a style="border:1px solid #0a4;padding:10px 14px;color:var(--g);background:rgba(0,20,0,.55)">CRYPTO DAD</a>
+ <a style="border:1px solid #0a4;padding:10px 14px;color:var(--g);background:rgba(0,20,0,.55)">SWAP</a>
+ <a style="border:1px solid #0a4;padding:10px 14px;color:var(--g);background:rgba(0,20,0,.55)">MINT GALLERY</a>
+ <a style="border:1px solid #0a4;padding:10px 14px;color:var(--g);background:rgba(0,20,0,.55)">LILY PAD</a>
+ <a style="border:1px solid #0a4;padding:10px 14px;color:var(--g);background:rgba(0,20,0,.55)">BASEMENT</a>
+ <a style="border:1px solid #0a4;padding:10px 14px;color:var(--g);background:rgba(0,20,0,.55)">TIME MACHINE</a>
+ </div>
+ </div>
+ <div style="text-align:right;color:#6a6;font-size:12px;letter-spacing:2px">
+ TARGET LOCKED<br>SYSTEM ONLINE<br><span style="color:var(--g)">45.6789 N</span>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- ========== 02 TARGET LOCK ========== -->
+ <section class="concept" id="c2">
+ <div class="concept-label">02 * TARGET LOCK HUB</div>
+ <div class="mock" style="
+ background:
+ radial-gradient(circle at 55% 45%, transparent 12%, rgba(0,0,0,.7) 55%, #000 100%),
+ url('/assets/images/hub-ref-acm2p.jpg') 60% center/cover no-repeat #000;
+ ">
+ <div style="text-align:center;position:relative">
+ <div style="width:220px;height:220px;margin:0 auto 18px;border:1px solid rgba(0,255,100,.45);border-radius:50%;
+ box-shadow:0 0 0 40px rgba(0,255,80,.04), inset 0 0 40px rgba(0,255,80,.08);
+ display:grid;place-items:center">
+ <div style="width:12px;height:12px;border:2px solid var(--g);border-radius:50%"></div>
+ </div>
+ <div style="font-family:Orbitron,sans-serif;font-size:42px;color:var(--g);letter-spacing:10px;text-shadow:0 0 16px #0f6">DOSWAPZ</div>
+ <div style="color:#7a7;margin:8px 0 22px;letter-spacing:3px">SELECT DESTINATION * RETICLE ACTIVE</div>
+ <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:560px;margin:0 auto">
+ <a style="border:1px solid #0c5;color:var(--g);padding:8px 14px;background:rgba(0,0,0,.55)">CRYPTO DAD</a>
+ <a style="border:1px solid #0c5;color:var(--g);padding:8px 14px;background:rgba(0,0,0,.55)">DEGEN$</a>
+ <a style="border:1px solid #0c5;color:var(--g);padding:8px 14px;background:rgba(0,0,0,.55)">SWAP</a>
+ <a style="border:1px solid #0c5;color:var(--g);padding:8px 14px;background:rgba(0,0,0,.55)">MINT</a>
+ <a style="border:1px solid #0c5;color:var(--g);padding:8px 14px;background:rgba(0,0,0,.55)">GALLERY</a>
+ <a style="border:1px solid #0c5;color:var(--g);padding:8px 14px;background:rgba(0,0,0,.55)">VISION CENTER</a>
+ <a style="border:1px solid #0c5;color:var(--g);padding:8px 14px;background:rgba(0,0,0,.55)">BASEMENT</a>
+ <a style="border:1px solid #0c5;color:var(--g);padding:8px 14px;background:rgba(0,0,0,.55)">PORTAL</a>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- ========== 03 HUD OVERLAY ========== -->
+ <section class="concept" id="c3">
+ <div class="concept-label">03 * HUD OVERLAY HUB</div>
+ <div class="mock" style="
+ display:block;padding:0;
+ background:url('/assets/images/hub-ref-neon-head.jpg') center/cover no-repeat #000;
+ ">
+ <div style="min-height:100vh;background:linear-gradient(180deg,rgba(0,0,0,.65),rgba(0,0,0,.35) 40%,rgba(0,0,0,.8));
+ display:grid;grid-template-rows:auto 1fr auto;padding:20px">
+ <div style="display:flex;justify-content:space-between;font-size:11px;color:#6f6;letter-spacing:2px">
+ <span>DOSWAPZ OS v2</span><span style="color:var(--p)">NEURAL LINK</span><span>[CONNECTED]</span>
+ </div>
+ <div style="display:grid;place-items:center;text-align:center">
+ <div>
+ <div style="font-family:Orbitron,sans-serif;font-size:clamp(40px,8vw,72px);color:#fff;
+ text-shadow:0 0 12px var(--p),0 0 30px var(--g);letter-spacing:10px">DOSWAPZ</div>
+ <div style="color:#c8f;margin:10px 0 24px;letter-spacing:4px">select destination </div>
+ <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:420px;margin:0 auto;text-align:left">
+ <a style="border:1px solid rgba(0,255,150,.4);padding:10px;color:var(--g);background:rgba(0,0,0,.45)">CRYPTO DAD</a>
+ <a style="border:1px solid rgba(200,80,255,.4);padding:10px;color:#e9f;background:rgba(0,0,0,.45)">DEGEN$</a>
+ <a style="border:1px solid rgba(0,255,150,.4);padding:10px;color:var(--g);background:rgba(0,0,0,.45)">SWAP</a>
+ <a style="border:1px solid rgba(200,80,255,.4);padding:10px;color:#e9f;background:rgba(0,0,0,.45)">MINT</a>
+ <a style="border:1px solid rgba(0,255,150,.4);padding:10px;color:var(--g);background:rgba(0,0,0,.45)">LILY PAD</a>
+ <a style="border:1px solid rgba(200,80,255,.4);padding:10px;color:#e9f;background:rgba(0,0,0,.45)">BASEMENT</a>
+ </div>
+ </div>
+ </div>
+ <div style="text-align:center;font-size:11px;color:#567">powered by Glitch Protocol</div>
+ </div>
+ </div>
+ </section>
+
+ <!-- ========== 04 TERMINAL LEFT ========== -->
+ <section class="concept" id="c4">
+ <div class="concept-label">04 * TERMINAL LEFT / FACE RIGHT</div>
+ <div class="mock" style="
+ display:grid;grid-template-columns:minmax(280px,380px) 1fr;padding:0;min-height:100vh;
+ background:#000;
+ ">
+ <div style="background:#020804;border-right:1px solid #0a3;padding:28px 20px;display:flex;flex-direction:column">
+ <div style="font-family:VT323,monospace;font-size:42px;color:var(--g);letter-spacing:6px">DOSWAPZ</div>
+ <div style="color:#3a5;font-size:14px;margin-bottom:20px">// SYSTEM MENU</div>
+ <div class="menu" style="display:grid;gap:6px;flex:1">
+ <a style="color:var(--g);border-left:3px solid var(--g);padding:8px 10px;background:rgba(0,40,0,.35)">▸ CRYPTO DAD</a>
+ <a style="color:#6c6;border-left:3px solid #243;padding:8px 10px">▸ DEGEN$</a>
+ <a style="color:#6c6;border-left:3px solid #243;padding:8px 10px">▸ HARDWEAR</a>
+ <a style="color:#6c6;border-left:3px solid #243;padding:8px 10px">▸ SWAP</a>
+ <a style="color:#6c6;border-left:3px solid #243;padding:8px 10px">▸ MINT GALLERY</a>
+ <a style="color:#6c6;border-left:3px solid #243;padding:8px 10px">▸ VISION CENTER</a>
+ <a style="color:#6c6;border-left:3px solid #243;padding:8px 10px">▸ LILY PAD</a>
+ <a style="color:#6c6;border-left:3px solid #243;padding:8px 10px">▸ BASEMENT</a>
+ <a style="color:#6c6;border-left:3px solid #243;padding:8px 10px">▸ TIME MACHINE</a>
+ </div>
+ <div style="font-size:11px;color:#364;margin-top:16px">[CONNECTED] - STABLE</div>
+ </div>
+ <div style="background:url('/assets/images/hub-ref-acm2p.jpg') center/cover;position:relative">
+ <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.5),transparent 40%)"></div>
+ <div style="position:absolute;bottom:20px;right:20px;color:var(--g);font-size:12px;letter-spacing:2px;text-align:right">
+ SYSTEM ONLINE<br>TARGET LOCKED
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- ========== 05 NEON PORTAL ========== -->
+ <section class="concept" id="c5">
+ <div class="concept-label">05 * NEON PORTAL HUB</div>
+ <div class="mock" style="
+ background:
+ radial-gradient(ellipse at 50% 40%, rgba(180,0,255,.15), transparent 50%),
+ radial-gradient(ellipse at 50% 60%, rgba(0,255,120,.12), transparent 45%),
+ url('/assets/images/hub-ref-neon-head.jpg') center 30%/cover no-repeat #050010;
+ ">
+ <div style="text-align:center;max-width:640px">
+ <div style="font-size:12px;color:var(--c);letter-spacing:6px;margin-bottom:10px">◇ PAST * PRESENT * FUTURE ◇</div>
+ <div style="font-family:Orbitron,sans-serif;font-size:clamp(36px,8vw,68px);color:#fff;
+ text-shadow: -2px 0 var(--p), 2px 0 var(--g), 0 0 40px #f0f;letter-spacing:8px">DOSWAPZ</div>
+ <div style="color:#b8f;margin:12px 0 28px;letter-spacing:3px">ENTER THE WIRE</div>
+ <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+ <a style="padding:12px 18px;border-radius:999px;border:1px solid var(--g);color:var(--g);background:rgba(0,0,0,.4)">CRYPTO DAD</a>
+ <a style="padding:12px 18px;border-radius:999px;border:1px solid var(--p);color:#eaf;background:rgba(0,0,0,.4)">SWAP</a>
+ <a style="padding:12px 18px;border-radius:999px;border:1px solid var(--c);color:var(--c);background:rgba(0,0,0,.4)">MINT</a>
+ <a style="padding:12px 18px;border-radius:999px;border:1px solid var(--g);color:var(--g);background:rgba(0,0,0,.4)">GALLERY</a>
+ <a style="padding:12px 18px;border-radius:999px;border:1px solid var(--p);color:#eaf;background:rgba(0,0,0,.4)">BASEMENT</a>
+ <a style="padding:12px 18px;border-radius:999px;border:1px solid var(--c);color:var(--c);background:rgba(0,0,0,.4)">PORTAL</a>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- ========== 06 GLITCH GRID ========== -->
+ <section class="concept" id="c6">
+ <div class="concept-label">06 * GLITCH GRID HUB</div>
+ <div class="mock" style="
+ background:
+ linear-gradient(rgba(0,255,80,.05) 1px, transparent 1px),
+ linear-gradient(90deg, rgba(0,255,80,.05) 1px, transparent 1px),
+ linear-gradient(rgba(0,0,0,.72), rgba(0,0,0,.72)),
+ url('/assets/images/hub-ref-neon-head.jpg') center/cover #000;
+ background-size: 40px 40px, 40px 40px, auto, cover;
+ ">
+ <div style="width:min(800px,100%)">
+ <div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+ <div>
+ <div style="font-family:Orbitron,sans-serif;font-size:40px;color:var(--g);letter-spacing:6px;text-shadow:2px 0 #f0a,-2px 0 #0ff">DOSWAPZ</div>
+ <div style="color:#6a6;letter-spacing:3px">GRID MENU // 12 NODES</div>
+ </div>
+ <div style="font-size:12px;color:var(--p)">SIGNAL 98%</div>
+ </div>
+ <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">
+ <a style="aspect-ratio:1.4;border:1px solid #0a4;background:rgba(0,15,5,.7);display:grid;place-items:center;color:var(--g)">CRYPTO DAD</a>
+ <a style="aspect-ratio:1.4;border:1px solid #504;background:rgba(20,0,20,.7);display:grid;place-items:center;color:#e9f">DEGEN$</a>
+ <a style="aspect-ratio:1.4;border:1px solid #0a4;background:rgba(0,15,5,.7);display:grid;place-items:center;color:var(--g)">SWAP</a>
+ <a style="aspect-ratio:1.4;border:1px solid #045;background:rgba(0,10,20,.7);display:grid;place-items:center;color:var(--c)">MINT</a>
+ <a style="aspect-ratio:1.4;border:1px solid #0a4;background:rgba(0,15,5,.7);display:grid;place-items:center;color:var(--g)">GALLERY</a>
+ <a style="aspect-ratio:1.4;border:1px solid #504;background:rgba(20,0,20,.7);display:grid;place-items:center;color:#e9f">VISION</a>
+ <a style="aspect-ratio:1.4;border:1px solid #0a4;background:rgba(0,15,5,.7);display:grid;place-items:center;color:var(--g)">LILY PAD</a>
+ <a style="aspect-ratio:1.4;border:1px solid #504;background:rgba(20,0,20,.7);display:grid;place-items:center;color:#e9f">BASEMENT</a>
+ <a style="aspect-ratio:1.4;border:1px solid #045;background:rgba(0,10,20,.7);display:grid;place-items:center;color:var(--c)">ATTIC</a>
+ <a style="aspect-ratio:1.4;border:1px solid #0a4;background:rgba(0,15,5,.7);display:grid;place-items:center;color:var(--g)">HARDWEAR</a>
+ <a style="aspect-ratio:1.4;border:1px solid #504;background:rgba(20,0,20,.7);display:grid;place-items:center;color:#e9f">HARBINGER</a>
+ <a style="aspect-ratio:1.4;border:1px solid #045;background:rgba(0,10,20,.7);display:grid;place-items:center;color:var(--c)">PORTAL</a>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- ========== 07 WIREFRAME RING ========== -->
+ <section class="concept" id="c7">
+ <div class="concept-label">07 * WIREFRAME RING HUB</div>
+ <div class="mock" style="
+ background:
+ radial-gradient(circle at center, transparent 28%, rgba(0,0,0,.85) 70%),
+ url('/assets/images/hub-ref-acm2p.jpg') center/cover #000;
+ ">
+ <div style="width:min(520px,92vw);height:min(520px,92vw);border:1px dashed rgba(0,255,100,.35);border-radius:50%;
+ display:grid;place-items:center;position:relative;
+ box-shadow:0 0 0 1px rgba(180,0,255,.15), 0 0 60px rgba(0,255,100,.08)">
+ <div style="text-align:center;padding:20px">
+ <div style="font-family:Orbitron,sans-serif;font-size:34px;color:var(--g);letter-spacing:6px">DOSWAPZ</div>
+ <div style="color:#6a6;font-size:12px;margin:8px 0 16px;letter-spacing:3px">ORBIT MENU</div>
+ <div style="display:grid;gap:6px;font-size:14px">
+ <a style="color:var(--g)">CRYPTO DAD</a>
+ <a style="color:#9f9">SWAP * MINT * GALLERY</a>
+ <a style="color:#9f9">LILY PAD * NODES</a>
+ <a style="color:#c9f">BASEMENT * ATTIC</a>
+ <a style="color:var(--g)">TIME MACHINE</a>
+ </div>
+ </div>
+ <!-- faux orbit labels -->
+ <span style="position:absolute;top:8%;left:50%;transform:translateX(-50%);font-size:11px;color:#6f6">POND</span>
+ <span style="position:absolute;bottom:10%;left:50%;transform:translateX(-50%);font-size:11px;color:#c8f">DEGEN$</span>
+ <span style="position:absolute;left:6%;top:50%;font-size:11px;color:#6cf">HARDWEAR</span>
+ <span style="position:absolute;right:6%;top:50%;font-size:11px;color:#fc6">VISION</span>
+ </div>
+ </div>
+ </section>
+
+ <!-- ========== 08 DUAL LENS ========== -->
+ <section class="concept" id="c8">
+ <div class="concept-label">08 * DUAL LENS HUB</div>
+ <div class="mock" style="display:grid;grid-template-columns:1fr 1fr;padding:0;min-height:100vh;gap:0">
+ <div style="background:url('/assets/images/hub-ref-acm2p.jpg') center/cover;position:relative">
+ <div style="position:absolute;inset:0;background:rgba(0,20,0,.45);display:grid;place-items:center;padding:24px">
+ <div style="text-align:center">
+ <div style="font-size:12px;color:var(--g);letter-spacing:4px;margin-bottom:10px">PAST LENS</div>
+ <div style="font-family:VT323,monospace;font-size:36px;color:var(--g)">CLASSIC MENU</div>
+ <div style="margin-top:16px;display:grid;gap:6px">
+ <a style="color:var(--g);border:1px solid #0a4;padding:8px;background:rgba(0,0,0,.4)">CRYPTO DAD</a>
+ <a style="color:var(--g);border:1px solid #0a4;padding:8px;background:rgba(0,0,0,.4)">SWAP</a>
+ <a style="color:var(--g);border:1px solid #0a4;padding:8px;background:rgba(0,0,0,.4)">LILY PAD</a>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div style="background:url('/assets/images/hub-ref-neon-head.jpg') center/cover;position:relative">
+ <div style="position:absolute;inset:0;background:rgba(20,0,30,.45);display:grid;place-items:center;padding:24px">
+ <div style="text-align:center">
+ <div style="font-size:12px;color:#e9f;letter-spacing:4px;margin-bottom:10px">PRESENT LENS</div>
+ <div style="font-family:Orbitron,sans-serif;font-size:28px;color:#fff;text-shadow:0 0 12px #f0f">ORBIT MENU</div>
+ <div style="margin-top:16px;display:grid;gap:6px">
+ <a style="color:#e9f;border:1px solid #a4f;padding:8px;background:rgba(0,0,0,.4)">VISION CENTER</a>
+ <a style="color:#e9f;border:1px solid #a4f;padding:8px;background:rgba(0,0,0,.4)">GALLERY</a>
+ <a style="color:#e9f;border:1px solid #a4f;padding:8px;background:rgba(0,0,0,.4)">TIME MACHINE</a>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;
+ font-family:Orbitron,sans-serif;background:#000;border:1px solid #fff;color:#fff;
+ padding:10px 16px;letter-spacing:4px;font-size:14px">DOSWAPZ</div>
+ </div>
+ </section>
+
+ <!-- ========== 09 DATA RAIN ========== -->
+ <section class="concept" id="c9">
+ <div class="concept-label">09 * DATA RAIN HUB</div>
+ <div class="mock" style="
+ background:
+ linear-gradient(180deg, rgba(0,0,0,.8), rgba(0,0,0,.55)),
+ url('/assets/images/hub-ref-neon-head.jpg') center top/cover #000;
+ ">
+ <div style="width:min(700px,100%);border:1px solid #0a4;background:rgba(0,10,5,.75);padding:28px 22px;
+ box-shadow:0 0 40px rgba(0,255,100,.1), inset 0 0 60px rgba(0,40,20,.3)">
+ <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:11px;color:#3a5">
+ <span>STREAM // LIVE</span><span>LATENCY 12ms</span>
+ </div>
+ <div style="font-family:VT323,monospace;font-size:48px;color:var(--g);letter-spacing:8px;text-align:center;
+ text-shadow:0 0 10px #0f6">DOSWAPZ</div>
+ <div style="text-align:center;color:#4a6;margin:4px 0 18px;letter-spacing:3px">select destination </div>
+ <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;font-size:16px">
+ <a style="color:var(--g);border-bottom:1px solid #143;padding:8px 0">CRYPTO DAD</a>
+ <a style="color:var(--g);border-bottom:1px solid #143;padding:8px 0">DEGEN$</a>
+ <a style="color:var(--g);border-bottom:1px solid #143;padding:8px 0">HARDWEAR</a>
+ <a style="color:var(--g);border-bottom:1px solid #143;padding:8px 0">SWAP</a>
+ <a style="color:var(--g);border-bottom:1px solid #143;padding:8px 0">MINT GALLERY</a>
+ <a style="color:var(--g);border-bottom:1px solid #143;padding:8px 0">VISION CENTER</a>
+ <a style="color:var(--g);border-bottom:1px solid #143;padding:8px 0">LILY PAD</a>
+ <a style="color:var(--g);border-bottom:1px solid #143;padding:8px 0">BASEMENT</a>
+ <a style="color:var(--g);border-bottom:1px solid #143;padding:8px 0">ATTIC</a>
+ <a style="color:var(--g);border-bottom:1px solid #143;padding:8px 0">TIME MACHINE</a>
+ </div>
+ <div style="margin-top:18px;text-align:center;font-size:12px;color:#365">[CONNECTED] - STABLE</div>
+ </div>
+ </div>
+ </section>
+
+ <!-- ========== 10 FULL BLEED ========== -->
+ <section class="concept" id="c10">
+ <div class="concept-label">10 * FULL BLEED IMMERSIVE</div>
+ <div class="mock" style="
+ padding:0;display:block;
+ background:url('/assets/images/hub-ref-neon-head.jpg') center/cover #000;
+ ">
+ <div style="min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;
+ background:linear-gradient(transparent 20%, rgba(0,0,0,.4) 50%, rgba(0,0,0,.92) 100%);
+ padding:24px 20px 36px">
+ <div style="max-width:900px;margin:0 auto;width:100%">
+ <div style="font-family:Orbitron,sans-serif;font-size:clamp(32px,7vw,60px);color:#fff;
+ text-shadow:0 0 20px var(--p),0 0 40px var(--g);letter-spacing:8px">DOSWAPZ</div>
+ <div style="color:#caf;letter-spacing:4px;margin:6px 0 18px">THE NETWORK LOOKS BACK</div>
+ <div style="display:flex;flex-wrap:wrap;gap:8px">
+ <a style="padding:10px 14px;background:rgba(0,255,100,.12);border:1px solid var(--g);color:var(--g)">CRYPTO DAD</a>
+ <a style="padding:10px 14px;background:rgba(200,0,255,.12);border:1px solid #c4f;color:#eaf">DEGEN$</a>
+ <a style="padding:10px 14px;background:rgba(0,255,100,.12);border:1px solid var(--g);color:var(--g)">SWAP</a>
+ <a style="padding:10px 14px;background:rgba(0,200,255,.12);border:1px solid var(--c);color:var(--c)">MINT</a>
+ <a style="padding:10px 14px;background:rgba(0,255,100,.12);border:1px solid var(--g);color:var(--g)">GALLERY</a>
+ <a style="padding:10px 14px;background:rgba(200,0,255,.12);border:1px solid #c4f;color:#eaf">VISION</a>
+ <a style="padding:10px 14px;background:rgba(0,255,100,.12);border:1px solid var(--g);color:var(--g)">LILY PAD</a>
+ <a style="padding:10px 14px;background:rgba(200,0,255,.12);border:1px solid #c4f;color:#eaf">BASEMENT</a>
+ <a style="padding:10px 14px;background:rgba(0,200,255,.12);border:1px solid var(--c);color:var(--c)">PORTAL</a>
+ </div>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <p class="note" style="padding-bottom:40px">
+ End of concepts * local only * not production.<br>
+ Tell me a number (1 - 10) or a mix (e.g. “04 terminal + 05 neon pills”) and we can build that hub for real.
+ </p>
+<script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+</body>
+</html>

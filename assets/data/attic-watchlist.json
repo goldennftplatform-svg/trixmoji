@@ -1,0 +1,141 @@
+{
+  "version": "1.0.0",
+  "mode": "prep",
+  "live": false,
+  "note": "LAUNCH PREP ONLY. live=false means checkers must not poll retailers. Fill real product URLs/SKUs before enabling ATTIC_DROPS_LIVE=1.",
+  "updated": "2026-07-16",
+  "defaults": {
+    "pollSecondsHot": 120,
+    "pollSecondsCold": 900,
+    "notifyOn": ["preorder", "live"],
+    "categories": ["sports", "pokemon", "other"]
+  },
+  "retailers": {
+    "walmart": {
+      "id": "walmart",
+      "label": "WALMART",
+      "enabled": false,
+      "adapter": "walmart",
+      "home": "https://www.walmart.com",
+      "notes": "Hostile to bots. Prefer official product URLs + SKU. Adapter stub only until launch."
+    },
+    "target": {
+      "id": "target",
+      "label": "TARGET",
+      "enabled": false,
+      "adapter": "target",
+      "home": "https://www.target.com",
+      "notes": "Use TCIN / product URL. Adapter stub only until launch."
+    },
+    "bestbuy": {
+      "id": "bestbuy",
+      "label": "BEST BUY",
+      "enabled": false,
+      "adapter": "bestbuy",
+      "home": "https://www.bestbuy.com",
+      "notes": "Use SKU. Adapter stub only until launch."
+    },
+    "dicks": {
+      "id": "dicks",
+      "label": "DICK'S",
+      "enabled": false,
+      "adapter": "dicks",
+      "home": "https://www.dickssportinggoods.com",
+      "notes": "Sports / select sealed product. Adapter stub only until launch."
+    },
+    "pokemoncenter": {
+      "id": "pokemoncenter",
+      "label": "POKE CENTER",
+      "enabled": false,
+      "adapter": "pokemoncenter",
+      "home": "https://www.pokemoncenter.com",
+      "notes": "Good first live retailer after prep. Adapter stub only until launch."
+    },
+    "amazon": {
+      "id": "amazon",
+      "label": "AMAZON",
+      "enabled": false,
+      "adapter": "amazon",
+      "home": "https://www.amazon.com",
+      "notes": "Optional. High noise / third-party sellers. Adapter stub only."
+    }
+  },
+  "products": [
+    {
+      "id": "pk-prismatic-bundle",
+      "cat": "pokemon",
+      "title": "Prismatic Evolutions Booster Bundle",
+      "brand": "Pokémon TCG",
+      "msrp": "$26.99",
+      "priority": "hot",
+      "publish": true,
+      "note": "EXAMPLE watch row — replace urls/skus before launch",
+      "retailers": [
+        {
+          "store": "walmart",
+          "sku": "REPLACE_ME",
+          "url": "https://www.walmart.com",
+          "status": "soldout",
+          "lastChecked": null,
+          "lastChange": null
+        },
+        {
+          "store": "target",
+          "sku": "REPLACE_ME",
+          "url": "https://www.target.com",
+          "status": "soldout",
+          "lastChecked": null,
+          "lastChange": null
+        },
+        {
+          "store": "amazon",
+          "sku": "REPLACE_ME",
+          "url": "https://www.amazon.com",
+          "status": "soldout",
+          "lastChecked": null,
+          "lastChange": null,
+          "dim": true
+        }
+      ]
+    },
+    {
+      "id": "pk-destined-etb",
+      "cat": "pokemon",
+      "title": "Destined Rivals ETB",
+      "brand": "Pokémon TCG",
+      "msrp": "$54.99",
+      "priority": "hot",
+      "publish": true,
+      "note": "EXAMPLE — set real Pokemon Center / Target product URLs",
+      "retailers": [
+        {
+          "store": "pokemoncenter",
+          "sku": "REPLACE_ME",
+          "url": "https://www.pokemoncenter.com",
+          "status": "live",
+          "lastChecked": null,
+          "lastChange": null
+        },
+        {
+          "store": "target",
+          "sku": "REPLACE_ME",
+          "url": "https://www.target.com",
+          "status": "live",
+          "lastChecked": null,
+          "lastChange": null
+        }
+      ]
+    },
+    {
+      "id": "sp-topps-chrome-2026",
+      "cat": "sports",
+      "title": "2026 Topps Chrome Baseball Hobby",
+      "brand": "Topps",
+      "msrp": "$ - ",
+      "priority": "cold",
+      "publish": true,
+      "note": "Sports example — add Dave & Adam / retailer SKUs later",
+      "retailers": []
+    }
+  ]
+}

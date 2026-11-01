@@ -1,0 +1,13 @@
+ansem: 61
+bitboy: 61
+crypto-bitlord: 61
+degen: 62
+dogedesigner: 61
+donalt: 61
+jason-williams: 61
+jimmy-edgar: 61
+michael-saylor: 61
+pauly0x: 66
+roger-ver: 61
+vitalik-buterin: 61
+TOTAL: 738

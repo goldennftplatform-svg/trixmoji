@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chopper Daddy</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070d1b;--panel:#061426;--blue:#168bff;--cyan:#51caff;--gold:#ffdf22;--orange:#ff6b1c;--white:#f3f5ff;--muted:#a8c7df;--green:#67ff56}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:#030713;color:var(--white);font-family:"Press Start 2P","Courier New",monospace;image-rendering:pixelated;-webkit-font-smoothing:none}
+body{overflow:auto;background:radial-gradient(ellipse at 50% 0%,#172c5b 0,#080e20 55%,#02040a 100%)}
+button,select{font-family:inherit;font-weight:bold;color:var(--white);background:#06172b;border:2px solid var(--blue);padding:8px 9px;cursor:pointer;border-radius:0;box-shadow:inset 0 0 0 1px #051020}
+button:hover,select:hover,button:focus,select:focus{border-color:var(--gold);color:var(--gold);outline:none}
+button.primary{background:#09274a;border:2px solid var(--gold);color:var(--gold);text-shadow:1px 1px #7e3100}
+#game{width:min(1600px,100%);margin:0 auto;padding:8px 8px 58px;display:grid;grid-template-columns:1fr 1.12fr 1fr;grid-template-rows:220px 270px 260px;gap:8px;min-height:100vh}
+.panel{position:relative;border-radius:0;background:linear-gradient(180deg,#061b33f5,#020b18f5);border:3px solid var(--blue);box-shadow:0 0 0 2px #02040a,inset 0 0 0 1px #50b9ff;overflow:hidden}
+.panel:before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:#6ed9ff}
+.panel h2{margin:0;padding:6px 9px;background:#09284b;border-bottom:2px solid var(--blue);font-size:clamp(12px,1vw,16px);letter-spacing:1px;line-height:1.15;text-shadow:2px 2px #000}
+.panelbody{padding:8px;position:relative;height:calc(100% - 31px);overflow:auto}
+.titlepanel{background:#131d50}
+#titleArt{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
+.titlecontent{position:absolute;inset:0;padding:15px 12px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(90deg,#060c19c9 0%,#06102650 70%,transparent)}
+.logo{font-size:clamp(23px,3vw,44px);font-weight:1000;line-height:.82;font-style:italic;letter-spacing:-3px;color:#ffb51d;text-shadow:3px 3px #8b1d11,5px 5px #080713;transform:skew(-7deg)}
+.logo span{display:block;color:#fff0a5}
+.tag{font-size:11px;color:var(--gold);font-weight:bold;text-shadow:2px 2px #000}
+.titlebuttons{width:52%;margin-left:auto;display:grid;gap:2px}
+.titlebuttons button{padding:3px 4px;border:0;background:#071024cc;text-align:left;text-shadow:2px 2px #000;font-size:10px}
+.titlebuttons button:first-child{color:var(--gold)}
+.version{font-size:8px;color:#fff;text-shadow:2px 2px #000}
+.garageArt{height:calc(100% - 31px);position:relative;background:#091b2c}
+#garageCanvas,#rideCanvas{display:block;width:100%;height:100%;image-rendering:pixelated}
+#parts{display:grid;grid-template-columns:110px 1fr;gap:7px}
+.tabs{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:7px}
+.tab{padding:5px 6px;font-size:8px;border:1px solid var(--blue);background:#06172b;color:#9ddcff}
+.tab.active{color:#07101a;background:var(--gold);border-color:#fff09a}
+.partlist{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.part{border:2px solid #147ed8;padding:5px;text-align:center;min-width:0;cursor:pointer;background:#061426}
+.part.selected{border-color:#000;background:var(--orange);box-shadow:inset 0 0 0 2px var(--gold)}.part.selected b,.part.selected small,.part.selected .mini{color:#000}
+.part .mini{height:46px;display:flex;align-items:center;justify-content:center;color:#d4e8f6;font-size:8px}
+.part b{display:block;font-size:8px;color:#bde8ff}
+.part small{font-size:8px;color:var(--gold)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:3px 10px;font-size:8px}
+.stats div{display:flex;justify-content:space-between;border-bottom:1px dotted #174b79;padding:3px 0;color:var(--muted)}
+.stats b{color:var(--white)}
+.rowbuttons{display:flex;gap:5px;margin-top:7px}.rowbuttons button{flex:1;font-size:8px;padding:6px}
+#assemblyList{display:grid;grid-template-columns:1fr 1.3fr;gap:8px}
+.steps{display:grid;gap:3px}
+.step{font-size:8px;text-align:left;padding:5px 6px;border:1px solid #135da1;background:#07172a;color:#d8edff}
+.step.done{color:var(--green);border-color:#2eaa54}.step.active{background:#a5ed32;color:#0b2109;border-color:#eaff7c}
+#engineInfo{font-size:8px;color:var(--muted);margin-top:6px;line-height:1.35}
+#contractInfo{font-size:8px;line-height:1.45;color:#d2e7f7}
+#contractInfo strong{color:var(--gold)}
+#jobList{display:grid;gap:4px}
+.job{display:grid;grid-template-columns:1fr auto auto;gap:7px;align-items:center;padding:5px;background:#06172a;border:1px solid #164f83;font-size:8px;cursor:pointer}
+.job.active{border-color:var(--gold);color:var(--gold)}
+.stars{color:var(--gold)}
+#collection{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.bikecard{border:2px solid #126bb7;background:#061426;text-align:center;font-size:8px;padding:4px;cursor:pointer}
+.bikecard.active{border-color:var(--gold)}
+.bikecard canvas{width:100%;height:44px;display:block}
+.achievement{display:grid;grid-template-columns:25px 1fr;gap:6px;align-items:center;padding:4px;border-bottom:1px solid #17426b;font-size:8px}
+.medal{width:23px;height:23px;display:grid;place-items:center;background:#172c42;border:2px solid var(--gold);color:var(--gold);font-size:12px}
+.achievement b{display:block;color:var(--gold)}
+#garageLower{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#customer{display:grid;grid-template-columns:72px 1fr;gap:8px}
+.portrait{height:88px;background:#13243c;border:2px solid #147ed8;display:grid;place-items:center;font-size:42px}
+.check{color:var(--green)}.unchecked{color:#5f8ba7}
+#rideHud{position:absolute;top:6px;right:6px;padding:5px;background:#041020dd;border:2px solid var(--blue);font-size:8px}
+#rideHud strong{font-size:18px;color:var(--white)}
+#toast{position:fixed;z-index:20;top:12px;left:50%;transform:translateX(-50%);background:#061426;border:2px solid var(--gold);padding:10px 15px;display:none;box-shadow:4px 4px #000;color:var(--gold);font-size:12px;max-width:90vw}
+#how{position:fixed;inset:0;z-index:30;display:none;overflow:auto;background:#030713f2;padding:12px}
+#how.on{display:block}
+.howcard{max-width:820px;margin:12px auto 40px;border:3px solid var(--blue);background:#061426;box-shadow:0 0 0 2px #02040a}
+.howcard h2{font-size:14px}
+.howcard .pad{padding:12px}
+.howcard p,.howcard li{font-size:9px;line-height:1.7;color:var(--muted)}
+.howcard a{color:var(--gold)}
+#bottom{position:fixed;bottom:0;left:0;right:0;z-index:10;background:#030914f2;border-top:2px solid #1269b3;display:flex;justify-content:center;align-items:center;gap:8px;padding:6px;flex-wrap:wrap}
+.pill{font-size:8px;color:#a9cbe3;border:1px solid #1b5c92;padding:5px 8px}.pill b{color:var(--gold)}
+#bottom button{font-size:11px;padding:6px 12px}
+@media(max-width:950px){#game{grid-template-columns:1fr 1fr;grid-template-rows:220px 260px 260px auto auto;min-height:unset;padding-bottom:62px}.titlepanel{grid-column:1}.garagePanel{grid-column:2}.catalogPanel{grid-column:1 / -1}.assemblyPanel{grid-column:1}.completePanel{grid-column:2}.ridePanel{grid-column:1 / -1}.jobsPanel{grid-column:1}.collectionPanel{grid-column:2}.customerPanel{grid-column:1 / -1}}
+@media(max-width:600px){#game{display:flex;flex-direction:column;padding:5px;padding-bottom:70px}.panel{min-height:220px}.titlepanel{height:220px}.garagePanel{height:240px}.catalogPanel{height:300px}.assemblyPanel{height:280px}.completePanel{height:260px}.ridePanel{height:240px}.jobsPanel{height:280px}.collectionPanel{height:280px}.customerPanel{height:270px}.logo{font-size:32px}.partlist{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div id="game">
+ <section class="panel titlepanel">
+  <canvas id="titleArt"></canvas><div class="titlecontent">
+   <div><div class="logo">CHOPPER<span>DADDY</span></div><div class="tag">BUILD. RIDE. REPEAT.</div></div>
+   <div class="titlebuttons"><button onclick="newGame()">▶ NEW GAME</button><button onclick="toast('Welcome back to the garage.')">CONTINUE</button><button onclick="showHow()">INSTRUCTIONS</button><button onclick="toggleSound()">SETTINGS</button><button onclick="toast('Keep the rubber side down.')">EXIT</button></div>
+   <div class="version">CHOPPER DADDY v0.3 — 16-BIT SHOP</div>
+  </div>
+ </section>
+ <section class="panel garagePanel"><h2>YOUR GARAGE <span style="float:right;color:var(--gold)">CASH: <span id="cashTop">$4,850</span></span></h2><div class="garageArt"><canvas id="garageCanvas"></canvas></div></section>
+ <section class="panel catalogPanel"><h2>PARTS CATALOG</h2><div class="panelbody">
+  <div class="tabs" id="tabs"></div><div id="parts"></div>
+  <div class="stats" style="margin-top:8px"><div><span>WEIGHT</span><b id="weight">410 lb</b></div><div><span>FRAME LENGTH</span><b id="length">82 in</b></div><div><span>SEAT HEIGHT</span><b id="seatheight">26 in</b></div><div><span>FITMENT</span><b id="fitment">CHECKED</b></div></div>
+ </div></section>
+ <section class="panel assemblyPanel"><h2>ASSEMBLY / REAL MECHANICS</h2><div class="panelbody" id="assemblyList">
+  <div class="steps" id="steps"></div><div><canvas id="assemblyCanvas" style="width:100%;height:160px;image-rendering:pixelated"></canvas><div id="engineInfo">Select a step to view the assembly note.</div></div>
+ </div></section>
+ <section class="panel completePanel"><h2>BUILD COMPLETE</h2><div class="panelbody"><canvas id="completeCanvas" style="width:100%;height:150px;display:block;image-rendering:pixelated"></canvas><div class="stats"><div><span>TOP SPEED</span><b id="topspeed">112 mph</b></div><div><span>ACCELERATION</span><b id="accel">7.2 / 10</b></div><div><span>HANDLING</span><b id="handling">8 / 10</b></div><div><span>BUILD COST</span><b id="buildcost">$4,320</b></div></div><div class="rowbuttons"><button class="primary" onclick="testRide()">▶ TEST RIDE</button><button onclick="inspectBuild()">INSPECT</button><input type="color" id="paint" value="#c43c2f" title="Paint color" oninput="render()" style="width:46px;height:30px;padding:0;border:2px solid var(--gold);background:#000;cursor:pointer"></div></div></section>
+ <section class="panel ridePanel"><h2>TEST RIDE / DESERT HIGHWAY</h2><div class="garageArt"><canvas id="rideCanvas"></canvas><div id="rideHud">SPEED<br><strong><span id="speed">000</span></strong> MPH</div></div></section>
+ <section class="panel jobsPanel"><h2>MAP & JOBS</h2><div class="panelbody"><canvas id="mapCanvas" style="width:100%;height:105px;display:block;image-rendering:pixelated"></canvas><div id="jobList"></div><div class="rowbuttons"><button class="primary" onclick="acceptJob()">ACCEPT JOB</button></div><div id="jobDesc" class="small" style="margin-top:6px;color:var(--muted)">Build a solid custom chopper for a local rider.</div></div></section>
+ <section class="panel collectionPanel"><h2>YOUR GARAGE / ACHIEVEMENTS</h2><div class="panelbody"><div id="collection"></div><div id="garageLower" style="margin-top:7px"><div><div class="small" style="color:var(--gold);margin-bottom:4px">ACHIEVEMENTS</div><div id="achievements"></div></div><div><div class="small" style="color:var(--gold);margin-bottom:4px">SHOP REPUTATION</div><div id="rep" style="font-size:12px">ROOKIE</div><div style="height:7px;background:#15314a;margin-top:8px"><div id="repbar" style="height:7px;width:20%;background:var(--green)"></div></div><div class="small" id="reptext">1 / 5 reputation</div></div></div></div></section>
+ <section class="panel customerPanel"><h2>CUSTOMER ORDER</h2><div class="panelbody"><div id="customer"><div class="portrait">🧔🏻</div><div id="contractInfo"><strong>NAME: ROCKO</strong><br>BUDGET: $2,800<br>STYLE: TRADITIONAL CHOPPER<br>“Make it mean, make it ride smooth. Real steel. Make it loud.”</div></div><div style="margin-top:8px;font-size:8px;line-height:1.6"><div id="reqs"></div></div><div class="rowbuttons"><button class="primary" onclick="submitBuild()">✓ ACCEPT / SUBMIT</button><button onclick="nextCustomer()">NEXT CUSTOMER</button></div></div></section>
+</div>
+<div id="toast"></div>
+<div id="how">
+ <div class="howcard">
+  <h2>INSTRUCTIONS</h2>
+  <div class="pad">
+   <p>Buy parts, bolt them on, take a job, and ride. Sound starts on. The browser stays quiet until you click or press a key.</p>
+   <ul>
+    <li><b>W / Up</b> accelerate. <b>S / Down</b> slow down. <b>A / D</b> or arrows steer. <b>Space</b> brakes. <b>R</b> returns to the garage.</li>
+    <li>A new game starts at <b>$4,850</b>. Click a catalog part to fit it. You pay the difference from the part already on the bike. A cheaper part pays you back. A short shop refuses the sale.</li>
+    <li>Fitting a part turns a wrench. <b>Drag Pipes</b> lope deep, <b>Upswept Pipes</b> crack bright, <b>Shotgun Pipes</b> bark wide, and <b>Wrapped Pipes</b> stay muffled. The test ride keeps that exhaust.</li>
+    <li>Assembly has ten steps. <b>INSTALL STEP</b> turns the wrench. Submit a job only after the frame and engine steps are in.</li>
+    <li>Accept a job, then <b>ACCEPT / SUBMIT</b> to get paid. <b>SETTINGS</b> and <b>SOUND</b> toggle the audio.</li>
+   </ul>
+   <p>This is a game, not a real shop manual.</p>
+   <div class="rowbuttons">
+    <button class="primary" onclick="closeHow()">BACK TO THE GARAGE</button>
+    <button onclick="location.href='/classic/pages/arcade/chopper-daddy/instructions.html'">FULL INSTRUCTIONS</button>
+   </div>
+  </div>
+ </div>
+</div>
+<div id="bottom"><span class="pill"><b>MODE</b> <span id="mode">GARAGE</span></span><button onclick="testRide()">▶ RIDE</button><button onclick="returnGarage()">↩ GARAGE</button><button id="soundPill" onclick="toggleSound()">SOUND ON</button><button onclick="showHow()">HOW TO</button><span class="pill">GEAR <b id="gear">1</b></span><span class="pill">RPM <b id="rpm">1200</b></span><span class="pill">GOAL <b id="goal">0 / 5</b></span></div>
+<script src="/classic/pages/arcade/chopper-daddy/sound.js?v=20261025chop"></script>
+<script>
+const $=id=>document.getElementById(id);
+function shop(){return window.ChopperSound}
+function paintSound(){var b=$('soundPill'); if(!b) return; b.textContent=shop()&&shop().enabled()?'SOUND ON':'SOUND OFF'}
+function toggleSound(){var s=shop(); if(!s){toast('Sound did not load.'); return} s.unlock(); var on=s.toggle(); paintSound(); toast(on?'Sound on. The wrench, each exhaust, and the test ride are live.':'Sound off.')}
+function showHow(){var box=$('how'); if(box) box.classList.add('on'); if(shop()){shop().unlock(); shop().ui()}}
+function closeHow(){var box=$('how'); if(box) box.classList.remove('on')}
+let rideGear=1;
+const categories={
+ Frames:[['Rigid Frame','$350','rigid'],['Softail Frame','$750','softail'],['Hardtail Frame','$620','hardtail'],['Stretch Frame','$880','stretch'],['Sportster Frame','$580','sportster'],['Custom Frame','$1,200','custom']],
+ Engines:[['883cc V-Twin','$900','883'],['1200cc V-Twin','$1,800','1200'],['124ci V-Twin','$2,850','124'],['Shovelhead','$2,200','shovel'],['Panhead','$2,600','pan'],['Knucklehead','$3,100','knuckle']],
+ 'Front End':[['Springer Fork','$450','springer'],['Telescopic Fork','$250','telescopic'],['+10” Long Fork','$500','long'],['Inverted Fork','$650','inverted']],
+ Wheels:[['Spoked Wheels','$300','spoke'],['Cast Alloy','$420','alloy'],['Fat Rear Set','$500','fat'],['Billet Wheels','$700','billet']],
+ Tanks:[['Peanut Tank','$150','peanut'],['Mustang Tank','$220','mustang'],['Coffin Tank','$260','coffin'],['Frisco Tank','$240','frisco']],
+ Exhaust:[['Drag Pipes','$180','drag'],['Upswept Pipes','$220','up'],['Shotgun Pipes','$250','shotgun'],['Wrapped Pipes','$290','wrapped']],
+ Misc:[['Solo Seat','$90','solo'],['Ape Hangers','$120','apes'],['Sissy Bar','$140','sissy'],['Chrome Kit','$320','chrome']]
+};
+let selectedCat='Frames',selected={Frames:2,Engines:1,'Front End':0,Wheels:0,Tanks:0,Exhaust:0,Misc:0},installed=new Set(),cash=4850,rep=0,goals=0,selectedJob=0,rideOn=false,rideSpeed=0,rideX=0,rideTime=0,ach=new Set(),currentCustomer=0;
+const stepsData=[['Frame','Choose a frame first. Confirm the backbone, steering neck, rear axle, and engine-mount layout.'],['Engine','Match the engine mounting points to the frame. Check clearance, primary drive alignment, and service access.'],['Transmission','Select a compatible transmission and align its output shaft with the primary and final drive.'],['Primary Drive','Fit the primary drive and verify belt/chain alignment and correct tension.'],['Rear Wheel','Confirm axle width, sprocket alignment, tire clearance, and brake compatibility.'],['Front End','Match steering neck geometry, fork length, wheel axle, and brake mounts.'],['Tank','Check tunnel clearance, mount spacing, fuel line routing, and steering clearance.'],['Seat','Verify seat mounts and clearance from the rear tire and suspension travel.'],['Exhaust','Check exhaust mount points and clearance from controls, rider, and moving parts.'],['Controls','Install compatible controls, cables, brake lines, lights, and switches.']];
+let activeStep=0;
+function G(w,h){this.w=w;this.h=h;this.a=new Array(w*h).fill(null)}
+G.prototype.s=function(x,y,c){x=Math.round(x);y=Math.round(y);if(x>=0&&y>=0&&x<this.w&&y<this.h)this.a[y*this.w+x]=c};
+G.prototype.r=function(x,y,w,h,c){x=Math.round(x);y=Math.round(y);for(let j=0;j<h;j++)for(let i=0;i<w;i++)this.s(x+i,y+j,c)};
+G.prototype.l=function(x0,y0,x1,y1,c,t){t=t||1;x0=Math.round(x0);y0=Math.round(y0);x1=Math.round(x1);y1=Math.round(y1);const dx=Math.abs(x1-x0),dy=-Math.abs(y1-y0),sx=x0<x1?1:-1,sy=y0<y1?1:-1;let e=dx+dy;for(;;){this.r(x0,y0,t,t,c);if(x0===x1&&y0===y1)break;const e2=2*e;if(e2>=dy){e+=dy;x0+=sx}if(e2<=dx){e+=dx;y0+=sy}}};
+G.prototype.d=function(cx,cy,r,c){for(let y=-r;y<=r;y++)for(let x=-r;x<=r;x++)if(x*x+y*y<=r*r+r*.5)this.s(cx+x,cy+y,c)};
+G.prototype.blit=function(o,ox,oy){for(let y=0;y<o.h;y++)for(let x=0;x<o.w;x++){const c=o.a[y*o.w+x];if(c)this.s(ox+x,oy+y,c)}};
+G.prototype.outline=function(c){const b=this.a.slice(),w=this.w,h=this.h;for(let y=0;y<h;y++)for(let x=0;x<w;x++){if(b[y*w+x])continue;if((x>0&&b[y*w+x-1])||(x<w-1&&b[y*w+x+1])||(y>0&&b[(y-1)*w+x])||(y<h-1&&b[(y+1)*w+x]))this.a[y*w+x]=c}};
+G.prototype.draw=function(cv){cv.width=this.w;cv.height=this.h;const c=cv.getContext('2d');c.imageSmoothingEnabled=false;for(let y=0;y<this.h;y++)for(let x=0;x<this.w;x++){const v=this.a[y*this.w+x];if(v){c.fillStyle=v;c.fillRect(x,y,1,1)}}};
+function shade(hex,k){const n=parseInt(hex.slice(1),16);const f=v=>Math.max(0,Math.min(255,Math.round(v*k)));return '#'+[(n>>16)&255,(n>>8)&255,n&255].map(v=>f(v).toString(16).padStart(2,'0')).join('')}
+function skyBands(g,bands,H){const n=bands.length,bh=H/n;for(let y=0;y<H;y++){const i=Math.min(n-1,Math.floor(y/bh));for(let x=0;x<g.w;x++){let c=bands[i];if(i<n-1&&y-i*bh>=bh-3&&((x+y)&1))c=bands[i+1];g.s(x,y,c)}}}
+const bikeCache={};
+function bikeSprite(o){
+ const key=JSON.stringify(o);if(bikeCache[key])return bikeCache[key];
+ const col=o.color||'#c43c2f',p={c:col,h:shade(col,1.5),d:shade(col,.55)};
+ const fx=52+(o.front==='long'?8:0)+(o.frame==='stretch'?6:0),ang=o.ang||0,alloy=o.wheel==='alloy'||o.wheel==='billet';
+ const b=new G(fx+14,36);
+ const W=(x,y)=>{b.d(x,y,8,'#0d0d14');b.d(x,y,6,'#c9d3dc');b.d(x,y,5,'#1b2330');if(alloy){for(let k=0;k<5;k++){const a=k*Math.PI*2/5+ang;b.l(x,y,x+Math.cos(a)*5,y+Math.sin(a)*5,'#c9d3dc',2)}}else{for(let k=0;k<8;k++){const a=k*Math.PI/4+ang;b.l(x,y,x+Math.cos(a)*5,y+Math.sin(a)*5,'#8fa0ae',1)}}b.r(x-1,y-1,2,2,'#f2f5f7')};
+ W(12,26);W(fx,26);
+ b.l(5,19,18,17,'#8fa0ae',2);
+ b.l(12,26,24,18,p.d,2);b.l(24,18,fx-6,21,p.d,2);b.l(26,18,30,11,p.c,2);
+ b.r(26,17,12,9,'#5b6874');b.r(26,17,12,2,'#aab6c0');
+ b.r(28,13,4,5,'#7f8c97');b.r(34,12,4,6,'#7f8c97');b.r(28,13,4,1,'#dfe6ea');b.r(34,12,4,1,'#dfe6ea');
+ for(let y=20;y<26;y+=2)b.r(26,y,12,1,'#3a444d');
+ b.d(31,24,2,'#e8c34a');
+ b.r(30,8,14,5,p.c);b.r(32,7,10,1,p.c);b.r(30,12,14,1,p.d);b.r(32,8,8,1,p.h);b.r(31,9,4,1,p.h);
+ b.r(16,11,12,3,'#1a1a22');b.r(17,10,9,1,'#4a4a58');
+ b.l(fx-5,10,fx,26,'#dfe6ea',2);
+ if(o.front==='springer')b.l(fx-3,12,fx-1,22,'#f5c542',1);
+ b.l(fx-6,9,fx-3,2,'#dfe6ea',1);b.l(fx-3,2,fx+3,2,'#dfe6ea',1);
+ b.d(fx+1,14,2,'#fff2a8');
+ b.l(28,27,4,24,'#dfe6ea',2);b.r(3,23,3,3,'#8fa0ae');
+ b.outline('#0a0a12');bikeCache[key]=b;return b}
+function tile(w,P,off,items,fn){const o=((off%P)+P)%P;for(let k=-1;k*P<w+P;k++)items.forEach(it=>fn(it,it[0]+k*P-o))}
+function desertScene(g,w,sc){
+ const bands=['#2b0f5e','#6a1b7a','#c2347a','#ff6a3d','#ffa93a','#ffd36b'];
+ skyBands(g,bands,64);
+ const sx=Math.round(w*.7);g.d(sx,58,18,'#ffe27a');
+ for(let y=0;y<64;y++)for(let x=sx-18;x<=sx+18;x++){const slit=(y>=52&&y<54)||(y>=56&&y<59)||(y>=60&&y<64);if(slit&&x>=0&&x<w&&g.a[y*w+x]==='#ffe27a')g.a[y*w+x]=bands[Math.min(5,Math.floor(y/(64/6)))]}
+ tile(w,160,sc*.15,[[0,52,34,12],[6,47,18,6],[84,56,26,8],[90,51,14,6]],(it,x)=>{g.r(x,it[1],it[2],it[3],'#7a2450');g.r(x,it[1],it[2],1,'#a8386a')});
+ tile(w,160,sc*.35,[[20,60,40,6],[100,62,36,4]],(it,x)=>g.r(x,it[1],it[2],it[3],'#4a1844'));
+ g.r(0,64,w,36,'#e08a3a');const o=Math.round(sc);
+ for(let y=66;y<76;y+=3)for(let x=0;x<w;x++)if(((x+o+y*5)%9)<2)g.s(x,y,'#b85a26');
+ g.r(0,76,w,24,'#2c2c3a');g.r(0,76,w,2,'#f2d88a');g.r(0,98,w,2,'#f2d88a');
+ tile(w,176,sc*1.4,[[0,88,11,2],[44,88,11,2],[88,88,11,2],[132,88,11,2]],(it,x)=>g.r(x,88,11,2,'#f2d88a'));
+ tile(w,160,sc*.7,[[30,0],[120,0]],(it,x)=>{g.r(x,52,4,20,'#1f7a3a');g.r(x-6,58,3,8,'#1f7a3a');g.r(x-6,64,10,2,'#1f7a3a');g.r(x+7,56,3,8,'#1f7a3a');g.r(x+3,62,7,2,'#1f7a3a');g.r(x,52,1,20,'#4ad06a')})}
+function garageScene(g,w){
+ g.r(0,0,w,76,'#16233a');for(let y=0;y<76;y+=6){g.r(0,y,w,1,'#1d2c47');for(let x=((y/6)%2)*10;x<w;x+=20)g.r(x,y,1,6,'#1d2c47')}
+ for(let y=76;y<100;y+=6)for(let x=0;x<w;x+=12){const k=((y-76)/6)%2;g.r(x+k*6,y,6,6,'#2b3340');g.r(x+6-k*6,y,6,6,'#232a35')}
+ const pg=Math.round(w*.45);g.r(pg,10,56,32,'#3a4254');for(let y=13;y<40;y+=5)for(let x=pg+3;x<pg+54;x+=5)g.r(x,y,1,1,'#1a1f2b');
+ g.l(pg+8,16,pg+8,30,'#c9d3dc',1);g.r(pg+6,14,5,3,'#c9d3dc');g.r(pg+28,16,5,5,'#e8c34a');g.l(pg+42,14,pg+42,32,'#d8362c',2);
+ g.r(6,12,40,24,'#0b1020');g.r(8,14,36,20,'#2a5ac0');g.r(8,14,36,8,'#3a7bff');g.r(25,14,2,20,'#0b1020');g.r(8,23,36,2,'#0b1020');
+ g.r(w-30,6,24,10,'#ff2e7e');g.r(w-28,8,20,6,'#ffd1e6');
+ g.r(0,60,38,4,'#6b4a2e');g.r(2,64,4,12,'#4a3220');g.r(32,64,4,12,'#4a3220');g.r(6,54,6,6,'#b8c4ca');g.r(16,56,10,4,'#d8362c');
+ g.r(w-26,52,16,24,'#b03a2e');g.r(w-26,56,16,2,'#e0a040');g.r(w-26,68,16,2,'#e0a040');g.r(w-26,52,16,1,'#e88a7a');
+ g.r(Math.round(w/2)-43,86,86,3,'#5b6c7a');g.r(Math.round(w/2)-43,89,86,1,'#0a0a12')}
+function drawPixelScene(canvas,kind='garage',opts={}){
+ const r=canvas.getBoundingClientRect(),H=100,w=Math.max(80,Math.round(H*Math.max(40,r.width)/Math.max(40,r.height)));
+ const g=new G(w,H),sc=opts.scroll||0;
+ const b=bikeSprite({color:opts.color,front:opts.front,wheel:opts.wheel,frame:opts.frame,ang:Math.round((opts.spin||0)*4)/4%(Math.PI/4)});
+ if(kind==='garage'){garageScene(g,w);g.blit(b,Math.round(w/2-b.w/2),52)}
+ else{desertScene(g,w,sc);const by=kind==='ride'?Math.round(58+(opts.lane||0)*.35):58,bx=kind==='title'?Math.round(w*.04):Math.round(w/2-b.w/2);g.r(bx+2,by+36,b.w-4,2,'#1a1a24');g.blit(b,bx,by+(kind==='ride'&&opts.speed>5?(Math.floor(sc/4)%2):0))}
+ g.draw(canvas)}
+function drawMap(){const cv=$('mapCanvas'),r=cv.getBoundingClientRect();cv.width=Math.max(150,r.width/2);cv.height=210;let c=cv.getContext('2d');c.imageSmoothingEnabled=false;let w=cv.width,h=cv.height;c.fillStyle='#b1a05c';c.fillRect(0,0,w,h);for(let i=0;i<15;i++){c.fillStyle=['#597f42','#7f9c4a','#d3bd71'][i%3];c.fillRect((i*47)%w,(i*31)%h,24,19)}c.strokeStyle='#f3d9a2';c.lineWidth=4;c.beginPath();c.moveTo(0,h*.7);c.lineTo(w*.3,h*.52);c.lineTo(w*.5,h*.58);c.lineTo(w*.72,h*.24);c.lineTo(w,h*.2);c.stroke();for(let i=0;i<6;i++){let x=15+(i*37)%(w-20),y=20+(i*29)%(h-30);c.fillStyle=['#168bff','#e72d3a','#34a853'][i%3];c.fillRect(x,y,8,8);c.fillStyle='#fff';c.fillRect(x+2,y+2,4,4)}}
+function bikeOpts(){return{color:$('paint')?.value||'#c43c2f',engine:categories.Engines[selected.Engines][2],front:categories['Front End'][selected['Front End']][2],wheel:categories.Wheels[selected.Wheels][2],frame:categories.Frames[selected.Frames][2]}}
+function render(){const o=bikeOpts();drawPixelScene($('titleArt'),'title',o);drawPixelScene($('garageCanvas'),'garage',o);drawPixelScene($('assemblyCanvas'),'garage',o);drawPixelScene($('completeCanvas'),'garage',o);drawPixelScene($('rideCanvas'),'ride',o);drawMap();updateStats()}
+function drawPartIcon(name){if(name.toLowerCase().includes('frame'))return '╱╲';if(name.toLowerCase().includes('wheel'))return '◉';if(name.toLowerCase().includes('fork'))return '╱╱';if(name.toLowerCase().includes('tank'))return '⬟';if(name.toLowerCase().includes('engine')||name.toLowerCase().includes('twin')||name.toLowerCase().includes('head'))return '⚙';if(name.toLowerCase().includes('pipe'))return '═';return '◆'}
+function renderTabs(){ $('tabs').innerHTML=Object.keys(categories).map(cat=>`<button class="tab ${cat===selectedCat?'active':''}" onclick="selectCat('${cat}')">${cat.toUpperCase()}</button>`).join('');const list=categories[selectedCat]; let pipeNote=''; if(selectedCat==='Exhaust'&&shop()){const p=shop().pipe(list[selected.Exhaust][2]); pipeNote=`<div style="margin-top:6px;font-size:8px;color:var(--gold)">${p.name.toUpperCase()} · ${p.note.toUpperCase()}</div>`} $('parts').innerHTML=`<div style="font-size:8px;color:#9bc8e8">${selectedCat.toUpperCase()}<br><span style="color:var(--gold)">CHOOSE A PART</span></div><div class="partlist">${list.map((p,i)=>`<div class="part ${selected[selectedCat]===i?'selected':''}" onclick="choosePart(${i})"><div class="mini">${drawPartIcon(p[0])}</div><b>${p[0]}</b><small>${p[1]}</small></div>`).join('')}</div>${pipeNote}`}
+function selectCat(cat){if(!categories[cat])return;selectedCat=cat;renderTabs()}
+function partPrice(cat,i){return parseInt(String(categories[cat][i][1]).replace(/[$,]/g,''),10)||0}
+function choosePart(i){
+ var list=categories[selectedCat];
+ if(!list||i<0||i>=list.length){if(shop())shop().deny(); toast('That part is not on the rack.');return}
+ if(selected[selectedCat]===i){if(shop())shop().ui(); toast('Already on the bike: '+list[i][0]);return}
+ var delta=partPrice(selectedCat,i)-partPrice(selectedCat,selected[selectedCat]);
+ if(delta>cash){if(shop())shop().deny(); toast('Not enough cash for '+list[i][0]+'.');return}
+ cash-=delta;
+ selected[selectedCat]=i;
+ if(list[i][2]==='chrome'||list[i][2]==='124')ach.add('Chrome');
+ if(shop()){shop().unlock(); shop().fit(selectedCat, list[i][2])}
+ renderTabs();render();renderAchievements();
+ toast((delta>0?'Bought ':delta<0?'Swapped ':'Fitted ')+list[i][0]+(delta?' · Cash '+(delta>0?'-':'+')+'$'+Math.abs(delta).toLocaleString():''));
+}
+function price(){return Object.keys(categories).reduce((n,k)=>n+partPrice(k,selected[k]),0)}
+function updateStats(){const eng=categories.Engines[selected.Engines][2],frame=categories.Frames[selected.Frames][2],front=categories['Front End'][selected['Front End']][2],wheel=categories.Wheels[selected.Wheels][2];$('weight').textContent=(eng==='124'?465:eng==='883'?385:410)+' lb';$('length').textContent=frame==='stretch'?'90 in':front==='long'?'88 in':'82 in';$('seatheight').textContent=frame==='softail'?'27 in':'26 in';$('fitment').textContent=front==='long'?'REVIEW':'CHECKED';$('topspeed').textContent=(eng==='124'?135:eng==='883'?92:112)+' mph';$('accel').textContent=eng==='124'?'8.5 / 10':eng==='883'?'6.0 / 10':'7.2 / 10';$('handling').textContent=front==='long'?'5 / 10':wheel==='fat'?'7 / 10':'8 / 10';$('buildcost').textContent='$'+price().toLocaleString();$('cashTop').textContent='$'+cash.toLocaleString()}
+function renderSteps(){$('steps').innerHTML=stepsData.map((s,i)=>`<button class="step ${installed.has(i)?'done':i===activeStep?'active':''}" onclick="setStep(${i})">${installed.has(i)?'✓':' '+(i+1)} ${s[0]}</button>`).join('');$('engineInfo').innerHTML='<b style="color:var(--gold)">'+stepsData[activeStep][0].toUpperCase()+'</b><br>'+stepsData[activeStep][1]+'<br><br><button onclick="installStep()">INSTALL STEP</button>'}
+function setStep(i){activeStep=i;renderSteps()}
+function installStep(){installed.add(activeStep);ach.add('Wrench'); if(shop()){shop().unlock(); if(activeStep===8) shop().fit('Exhaust', categories.Exhaust[selected.Exhaust][2]); else shop().wrench(activeStep===0||activeStep===1||activeStep===4?'Frames':'Misc')} renderSteps();renderAchievements();toast(stepsData[activeStep][0]+' marked installed. Verify fitment before moving on.')}
+const jobs=[['Local Run','$1,200','★','Build a solid custom chopper for a local rider.','Classic'],['Hell’s Angel','$2,800','★★','Build a lean, loud old-school chopper.','Old school'],['Desert Tour','$3,500','★★★','Build a reliable long-distance highway bike.','Touring'],['Show Special','$5,200','★★★★','Create a show-winning custom with premium details.','Show bike'],['Outlaw Build','$7,500','★★★★★','A full custom build with high-end parts and a bold stance.','Extreme']];
+function renderJobs(){$('jobList').innerHTML=jobs.map((j,i)=>`<div class="job ${i===selectedJob?'active':''}" onclick="selectJob(${i})"><span>▶ ${j[0]}</span><b>${j[1]}</b><span class="stars">${j[2]}</span></div>`).join('');$('jobDesc').innerHTML=`<b style="color:var(--gold)">${jobs[selectedJob][0]}</b><br>${jobs[selectedJob][3]}<br>Style: ${jobs[selectedJob][4]} · Pay: ${jobs[selectedJob][1]}`}
+function selectJob(i){selectedJob=i;renderJobs()}
+function acceptJob(){if(shop())shop().ui(); toast('Accepted: '+jobs[selectedJob][0]+'. Check the customer requirements.');$('contractInfo').innerHTML=`<strong>NAME: ${['ROCKO','DUSTY','MACK','JUNE','ACE'][selectedJob]}</strong><br>BUDGET: ${jobs[selectedJob][1]}<br>STYLE: ${jobs[selectedJob][4].toUpperCase()}<br>“Make it mean. Make it ride right. Real steel.”`;renderReqs()}
+function renderReqs(){$('reqs').innerHTML=['Rigid or hardtail frame','Big twin engine (110+ ci)','Solo seat','Custom paint','Loud exhaust'].map((s,i)=>`<div class="${i<installed.size?'check':'unchecked'}">${i<installed.size?'☑':'☐'} ${s}</div>`).join('')}
+function renderCollection(){$('collection').innerHTML=[['BASIC BOBBER','#a85a2c'],['CUSTOM CHOPPER','#bd3327'],['RAT ROD','#353b43'],['LONG FORK','#cf9e36']].map((b,i)=>`<div class="bikecard ${i===1?'active':''}" onclick="loadPreset(${i})"><canvas id="mini${i}"></canvas><b>${b[0]}</b><br><span style="color:var(--gold)">$${[3200,7450,5800,9200][i].toLocaleString()}</span></div>`).join('');[0,1,2,3].forEach(i=>drawPixelScene($('mini'+i),'garage',{color:['#a85a2c','#bd3327','#353b43','#cf9e36'][i]}))}
+function loadPreset(i){
+ var names=['Basic Bobber','Custom Chopper','Rat Rod','Long Fork'];
+ if(i<0||i>3){if(shop())shop().deny(); toast('Unknown preset.');return}
+ var next={Frames:[0,2,0,3][i],Engines:[0,2,3,1][i],'Front End':[1,0,1,2][i],Wheels:[0,0,1,2][i],Tanks:[0,2,1,0][i]};
+ var delta=0;Object.keys(next).forEach(function(k){delta+=partPrice(k,next[k])-partPrice(k,selected[k])});
+ if(delta>cash){if(shop())shop().deny(); toast('Not enough cash for '+names[i]+'.');return}
+ cash-=delta;Object.keys(next).forEach(function(k){selected[k]=next[k]});
+ if(shop()){shop().unlock(); shop().wrench('Frames')}
+ if(categories.Engines[selected.Engines][2]==='124')ach.add('Chrome');
+ renderTabs();render();renderAchievements();
+ toast('Loaded garage preset: '+names[i]+(delta?' · Cash '+(delta>0?'-':'+')+'$'+Math.abs(delta).toLocaleString():''));
+}
+function renderAchievements(){$('achievements').innerHTML=[['First Ride','Take your first test ride'],['Wrench Time','Install 5 assembly steps'],['Chrome Addict','Choose a premium part'],['Road Tested','Complete a ride'],['Customer Satisfaction','Submit a contract'],['Chopper Daddy','Complete 5 goals']].map((a,i)=>{let yes=[ach.has('Ride'),installed.size>=5,ach.has('Chrome'),ach.has('Ride'),ach.has('Contract'),goals>=5][i];return `<div class="achievement"><div class="medal">${yes?'★':'✧'}</div><div><b>${a[0]}</b><span style="color:#a9cce6">${a[1]}</span></div></div>`}).join('');$('rep').textContent=rep>=4?'SHOP LEGEND':rep>=2?'GARAGE HAND':'ROOKIE';$('repbar').style.width=Math.min(100,20+rep*16)+'%';$('reptext').textContent=rep+' / 5 reputation'}
+function inspectBuild(){let issues=[];let front=categories['Front End'][selected['Front End']][2];if(front==='long')issues.push('Extended fork: steering geometry and handling require careful review.');if(!installed.has(0))issues.push('Frame installation not checked.');if(!installed.has(1))issues.push('Engine mounts not checked.');$('engineInfo').innerHTML='<b style="color:var(--gold)">INSPECTION REPORT</b><br>'+(issues.length?issues.join('<br>'):'Visual checklist complete.')+'<br><br><span style="color:#8ab5d4">Game-only checks; real motorcycle builds require verified fitment specs and qualified inspection.</span>';toast(issues.length?'Inspection found checklist items.':'Visual checklist complete.')}
+function submitBuild(){if(!installed.has(0)||!installed.has(1)){if(shop())shop().deny(); toast('Install the frame and engine steps before submitting.');return}goals++;cash+=parseInt(jobs[selectedJob][1].replace(/[$,]/g,''));rep++;ach.add('Contract');if(categories.Engines[selected.Engines][2]==='124'||categories.Misc[selected.Misc][2]==='chrome')ach.add('Chrome');if(goals>=5)ach.add('Chopper Daddy');$('goal').textContent=Math.min(goals,5)+' / 5';renderAchievements();updateStats(); if(shop()){shop().unlock(); shop().pay()} toast('Contract submitted! Cash +'+jobs[selectedJob][1]+' · Reputation +1')}
+function nextCustomer(){currentCustomer++;selectedJob=(selectedJob+1)%jobs.length;acceptJob();renderJobs()}
+function testRide(){rideOn=true; rideGear=1; closeHow(); $('mode').textContent='TEST RIDE';ach.add('Ride');renderAchievements(); if(shop()){shop().unlock(); shop().bark(categories.Exhaust[selected.Exhaust][2])} toast('Test ride! Use W/S to accelerate, A/D to steer, SPACE to brake.')}
+function returnGarage(){rideOn=false;rideSpeed=0; if(shop())shop().stopRide(); $('mode').textContent='GARAGE';$('speed').textContent='000';toast('Back in the garage.')}
+function newGame(){cash=4850;rep=0;goals=0;installed.clear();ach.clear();selected={Frames:2,Engines:1,'Front End':0,Wheels:0,Tanks:0,Exhaust:0,Misc:0};selectedCat='Frames';selectedJob=0;activeStep=0;rideOn=false;rideSpeed=0;rideX=0;rideTime=0;rideGear=1;currentCustomer=0; if(shop()){shop().unlock(); shop().stopRide(); shop().wrench('Frames')} $('mode').textContent='GARAGE';$('speed').textContent='000';$('gear').textContent='1';$('rpm').textContent='1200';$('goal').textContent='0 / 5';renderSteps();renderJobs();renderTabs();renderAchievements();acceptJob();updateStats();paintSound();toast('New game started. Build your first chopper!')}
+function toast(s){let t=$('toast');t.textContent=s;t.style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.style.display='none',2400)}
+const keys={};addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;if(e.key===' '&&rideOn)e.preventDefault();if(e.key.toLowerCase()==='r')returnGarage()});addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
+function rideTick(){if(!rideOn){if(shop())shop().stopRide(); return} if(keys.w||keys.arrowup)rideSpeed=Math.min(135,rideSpeed+1.1);else if(keys.s||keys.arrowdown)rideSpeed=Math.max(0,rideSpeed-1.6);else rideSpeed=Math.max(0,rideSpeed-.2);if(keys[' '])rideSpeed=Math.max(0,rideSpeed-3);if(keys.a||keys.arrowleft)rideX=Math.max(-30,rideX-1.2);if(keys.d||keys.arrowright)rideX=Math.min(30,rideX+1.2);var gear=Math.max(1,Math.min(5,Math.floor(rideSpeed/25)+1)); if(gear!==rideGear){rideGear=gear; if(shop())shop().shift()} $('speed').textContent=String(Math.round(rideSpeed)).padStart(3,'0');$('rpm').textContent=String(Math.round(1000+rideSpeed*35));$('gear').textContent=String(gear); if(keys[' ']&&rideSpeed>1&&shop())shop().brake(); if(shop())shop().ride(1000+rideSpeed*35, categories.Exhaust[selected.Exhaust][2]); rideTime+=rideSpeed*.12;drawPixelScene($('rideCanvas'),'ride',{...bikeOpts(),scroll:rideTime,spin:rideTime/6,lane:rideX,speed:rideSpeed})}
+function loop(){rideTick();requestAnimationFrame(loop)}
+window.selectCat=selectCat;window.choosePart=choosePart;window.setStep=setStep;window.installStep=installStep;window.selectJob=selectJob;window.loadPreset=loadPreset;window.acceptJob=acceptJob;window.submitBuild=submitBuild;window.nextCustomer=nextCustomer;window.testRide=testRide;window.returnGarage=returnGarage;window.inspectBuild=inspectBuild;window.newGame=newGame;window.toast=toast;window.toggleSound=toggleSound;window.showHow=showHow;window.closeHow=closeHow;
+paintSound();
+addEventListener('pointerdown',function(){if(shop())shop().unlock()});
+renderTabs();renderSteps();renderJobs();renderCollection();renderAchievements();renderReqs();render();loop();
+addEventListener('resize',()=>{render();renderCollection()});
+requestAnimationFrame(function(){render();renderCollection()});
+</script>
+</body></html>

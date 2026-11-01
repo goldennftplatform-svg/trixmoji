@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title>  <link rel="stylesheet" href="/assets/css/era-present-soft.css?v=neonvoid2">
+</head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Run OPEN-PREVIEW.bat then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div><script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+<script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>';})();
+ </script>
+ <title>DOSWAPZ // PRESENT * TEST SITE HUB</title>
+ <meta name="description" content="Present-era test site hub - every live page in one clean searchable index.">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+ :root {
+ --bg: #07070c;
+ --panel: rgba(18, 20, 32, 0.82);
+ --line: rgba(140, 160, 255, 0.14);
+ --text: #e8ecff;
+ --muted: #8b93b8;
+ --accent: #8aa0ff;
+ --accent2: #66e0c8;
+ --hot: #ff8ec8;
+ }
+ * { box-sizing: border-box; }
+ html, body {
+ margin: 0; min-height: 100%;
+ background: var(--bg);
+ color: var(--text);
+ font-family: 'Outfit', system-ui, sans-serif;
+ }
+ body {
+ background:
+ radial-gradient(ellipse 80% 50% at 20% -10%, rgba(100,120,255,0.18), transparent 50%),
+ radial-gradient(ellipse 60% 40% at 90% 10%, rgba(80,220,200,0.08), transparent 45%),
+ radial-gradient(ellipse 50% 30% at 50% 100%, rgba(255,120,200,0.06), transparent 50%),
+ var(--bg);
+ }
+ .top {
+ position: sticky; top: 0; z-index: 40;
+ display: flex; flex-wrap: wrap; gap: 12px;
+ align-items: center; justify-content: space-between;
+ padding: 14px 22px;
+ background: rgba(7,7,12,0.78);
+ backdrop-filter: blur(16px);
+ border-bottom: 1px solid var(--line);
+ }
+ .brand {
+ display: flex; flex-direction: column; gap: 2px;
+ }
+ .brand strong {
+ font-weight: 600; letter-spacing: 0.18em;
+ font-size: 13px; color: var(--accent);
+ }
+ .brand span {
+ font-size: 12px; color: var(--muted); letter-spacing: 0.06em;
+ }
+ .top-nav { display: flex; flex-wrap: wrap; gap: 8px; }
+ .chip {
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 11px; letter-spacing: 0.06em;
+ color: var(--muted);
+ text-decoration: none;
+ border: 1px solid var(--line);
+ background: rgba(255,255,255,0.02);
+ padding: 7px 12px;
+ border-radius: 999px;
+ transition: border-color .15s, color .15s, background .15s;
+ }
+ .chip:hover { color: #fff; border-color: rgba(140,160,255,0.4); background: rgba(140,160,255,0.08); }
+ .chip.primary { color: var(--accent2); border-color: rgba(102,224,200,0.35); }
+
+ .wrap {
+ max-width: 1100px;
+ margin: 0 auto;
+ padding: 28px 20px 80px;
+ }
+ .hero {
+ margin-bottom: 28px;
+ }
+ .hero h1 {
+ margin: 0;
+ font-size: clamp(28px, 5vw, 40px);
+ font-weight: 500;
+ letter-spacing: -0.02em;
+ line-height: 1.15;
+ }
+ .hero h1 em {
+ font-style: normal;
+ color: var(--accent);
+ }
+ .hero p {
+ margin: 10px 0 0;
+ max-width: 560px;
+ color: var(--muted);
+ font-size: 15px;
+ line-height: 1.55;
+ font-weight: 300;
+ }
+ .stats {
+ display: flex; flex-wrap: wrap; gap: 10px;
+ margin-top: 18px;
+ }
+ .stat {
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 11px;
+ color: var(--muted);
+ border: 1px solid var(--line);
+ border-radius: 8px;
+ padding: 8px 12px;
+ background: var(--panel);
+ }
+ .stat b { color: var(--text); font-weight: 500; }
+
+ .search {
+ width: 100%;
+ margin: 0 0 22px;
+ padding: 14px 16px;
+ border-radius: 12px;
+ border: 1px solid var(--line);
+ background: rgba(12,14,24,0.9);
+ color: var(--text);
+ font-family: inherit;
+ font-size: 15px;
+ outline: none;
+ }
+ .search:focus { border-color: rgba(140,160,255,0.45); box-shadow: 0 0 0 3px rgba(140,160,255,0.1); }
+ .search::placeholder { color: #5a6288; }
+
+ .section {
+ margin-bottom: 28px;
+ }
+ .section-head {
+ display: flex; align-items: baseline; justify-content: space-between;
+ gap: 12px; margin-bottom: 12px;
+ }
+ .section-head h2 {
+ margin: 0;
+ font-size: 12px;
+ font-weight: 500;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ color: var(--muted);
+ }
+ .grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+ gap: 10px;
+ }
+ .card {
+ display: flex;
+ flex-direction: column;
+ gap: 6px;
+ text-decoration: none;
+ color: inherit;
+ padding: 14px 14px 12px;
+ border-radius: 14px;
+ border: 1px solid var(--line);
+ background: var(--panel);
+ transition: transform .15s, border-color .15s, box-shadow .15s;
+ min-height: 92px;
+ }
+ .card:hover {
+ transform: translateY(-2px);
+ border-color: rgba(140,160,255,0.35);
+ box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+ }
+ .card .name {
+ font-size: 15px;
+ font-weight: 500;
+ letter-spacing: 0.01em;
+ }
+ .card .path {
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 10px;
+ color: #6a7398;
+ word-break: break-all;
+ line-height: 1.35;
+ }
+ .card .tag {
+ margin-top: auto;
+ font-size: 10px;
+ letter-spacing: 0.12em;
+ text-transform: uppercase;
+ color: var(--accent2);
+ opacity: 0.85;
+ }
+ .card.era-past .tag { color: #7dff9a; }
+ .card.era-present .tag { color: var(--accent); }
+ .card.era-future .tag { color: #fff; opacity: 0.7; }
+ .empty {
+ display: none;
+ text-align: center;
+ color: var(--muted);
+ padding: 40px 16px;
+ }
+ .empty.show { display: block; }
+ .foot {
+ margin-top: 36px;
+ padding-top: 18px;
+ border-top: 1px solid var(--line);
+ color: var(--muted);
+ font-size: 12px;
+ letter-spacing: 0.04em;
+ }
+ </style>
+  <link rel="stylesheet" href="/assets/css/era-present-soft.css?v=neonvoid2">
+</head>
+<body>
+ <header class="top">
+ <div class="brand">
+ <strong>DEV * PAGE MAP</strong>
+ <span>QA index only * not the live Present hub</span>
+ </div>
+ <nav class="top-nav">
+ <a class="chip primary" href="/orbit/hub.html">Present hub</a>
+ <a class="chip" href="/portal.html">Time machine</a>
+ <a class="chip" href="/classic/hub.html">Past hub</a>
+ <a class="chip" href="/future/hub.html">Future</a>
+ </nav>
+ </header>
+
+ <div class="wrap">
+ <div class="hero">
+ <h1>Dev page map - <em>every destination</em></h1>
+ <p>
+ Local/QA jump list. Live Present is the orbit void hub at
+ <a href="/orbit/hub.html" style="color:var(--accent2)">/orbit/hub.html</a>.
+ Past stays green CRT. This map is not shown in the Time Machine.
+ </p>
+ <div class="stats">
+ <div class="stat">role <b>DEV ONLY</b></div>
+ <div class="stat" id="pageCount">pages <b> - </b></div>
+ <div class="stat">filter <b>live</b></div>
+ </div>
+ </div>
+
+ <input class="search" id="search" type="search" placeholder="Filter pages... swap, basement, vision, degen..." autocomplete="off" spellcheck="false">
+
+ <div id="sections"></div>
+ <div class="empty" id="empty">No pages match.</div>
+
+ <p class="foot">
+ Present site map * DOSWAPZ
+ </p>
+ </div>
+
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script>
+ DOSWAPZ_ERA.set('orbit');
+
+ var CATALOG = [
+ {
+ section: 'Hubs & machine',
+ items: [
+ { name: 'Orbit hub (bubbles)', path: '/orbit/hub.html', tag: 'present' },
+ { name: 'Present site map', path: '/orbit/test-hub.html', tag: 'present' },
+ { name: 'Past hub (classic)', path: '/classic/hub.html', tag: 'past' },
+ { name: 'Future hub', path: '/future/hub.html', tag: 'future' },
+ { name: 'Time machine portal', path: '/portal.html', tag: 'present' },
+ { name: 'Boot splash', path: '/index.html', tag: 'past' }
+ ]
+ },
+ {
+ section: 'DOSWAPZ rails',
+ items: [
+ { name: 'Swap', path: '/orbit/pages/doswapz/swap.html', tag: 'present' },
+ { name: 'Bridge (multi-chain)', path: '/orbit/pages/doswapz/bridge.html', tag: 'present' },
+ { name: 'Meat alerts', path: '/orbit/pages/doswapz/meat.html', tag: 'present' },
+ { name: 'Mint', path: '/orbit/pages/doswapz/mint.html', tag: 'present' },
+ { name: 'Gallery', path: '/orbit/pages/doswapz/gallery.html', tag: 'present' }
+ ]
+ },
+ {
+ section: 'Live terminals',
+ items: [
+ { name: 'Pond Scum', path: '/orbit/pages/pond-scum.html', tag: 'present' },
+ { name: 'I See You', path: '/orbit/pages/i-see-you.html', tag: 'present' },
+ { name: '13th Step', path: '/orbit/pages/13th-step.html', tag: 'present' },
+ { name: 'Perpetual Vision Center', path: '/orbit/pages/perpetual-vision-center.html', tag: 'present' },
+ { name: 'Lily Pad', path: '/orbit/pages/lily-pad.html', tag: 'present' },
+ { name: 'Nodes', path: '/orbit/pages/nodes.html', tag: 'present' }
+ ]
+ },
+ {
+ section: 'Worlds',
+ items: [
+ { name: 'The Attic', path: '/orbit/pages/attic.html', tag: 'present' },
+ { name: 'The Basement', path: '/orbit/pages/basement.html', tag: 'present' },
+ { name: 'Token launcher', path: '/orbit/pages/basement/token-launcher.html', tag: 'present' },
+ { name: 'Vantablack Market', path: '/orbit/pages/basement/vantablack/market.html', tag: 'present' },
+ { name: 'Phunk maker', path: '/orbit/pages/basement/phunk-maker.html', tag: 'present' },
+ { name: 'Media lab', path: '/orbit/pages/basement/media-lab.html', tag: 'present' },
+ { name: 'Harbinger', path: '/orbit/pages/harbinger.html', tag: 'present' },
+ { name: 'Knights Demplar', path: '/orbit/pages/demplar/character.html', tag: 'present' }
+ ]
+ },
+ {
+ section: 'DEGEN$ & Hardwear',
+ items: [
+ { name: 'DEGEN$ trailer', path: '/orbit/pages/degen/trailer.html', tag: 'present' },
+ { name: 'DEGEN$ synopsis', path: '/orbit/pages/degen/synopsis.html', tag: 'present' },
+ { name: 'DEGEN$ donate', path: '/orbit/pages/degen/donate.html', tag: 'present' },
+ { name: 'DIY hardware wallet', path: '/orbit/pages/hardwear/wallet.html', tag: 'present' },
+ { name: 'Merch', path: '/orbit/pages/hardwear/merch.html', tag: 'present' }
+ ]
+ },
+ {
+ section: 'Arcade',
+ items: [
+ { name: 'Arcade intro (past)', path: '/classic/pages/arcade/intro.html', tag: 'past' },
+ { name: 'Arcade hub (past)', path: '/classic/pages/arcade/hub.html', tag: 'past' },
+ { name: 'Arcade preview (past)', path: '/classic/pages/arcade/preview.html', tag: 'past' },
+ { name: 'Arcade scores (past)', path: '/classic/pages/arcade/scores.html', tag: 'past' },
+ { name: 'Arcade smoke check (past)', path: '/classic/pages/arcade/smoke-checklist.html', tag: 'past' },
+ { name: 'Arcade intro (present)', path: '/orbit/pages/arcade/intro.html', tag: 'present' },
+ { name: 'Arcade hub (present)', path: '/orbit/pages/arcade/hub.html', tag: 'present' },
+ { name: 'Arcade preview (present)', path: '/orbit/pages/arcade/preview.html', tag: 'present' },
+ { name: 'Arcade scores (present)', path: '/orbit/pages/arcade/scores.html', tag: 'present' },
+ { name: 'Arcade smoke check (present)', path: '/orbit/pages/arcade/smoke-checklist.html', tag: 'present' },
+ { name: 'Arcade teaser (future)', path: '/future/pages/arcade.html', tag: 'future' },
+ { name: 'Crypto Dad play', path: '/classic/pages/cryptodad/play.html', tag: 'past' },
+ { name: '$TBB Bull Run', path: '/classic/pages/tbb/play.html', tag: 'past' },
+ { name: 'FTWR maze', path: '/classic/pages/cryptodad/ftwr-maze.html', tag: 'past' },
+ { name: 'Crypto Mom [18+]', path: '/classic/pages/basement/cryptomom/play.html', tag: 'past' },
+ { name: 'Dad scores', path: '/classic/pages/cryptodad/scoreboard.html', tag: 'past' },
+ { name: 'TBB scores', path: '/classic/pages/tbb/scoreboard.html', tag: 'past' },
+ { name: 'FTWR scores', path: '/classic/pages/cryptodad/ftwr-scoreboard.html', tag: 'past' },
+ { name: 'Mom scores', path: '/classic/pages/basement/cryptomom/scoreboard.html', tag: 'past' }
+ ]
+ },
+ {
+ section: 'Crypto Dad (classic only)',
+ items: [
+ { name: 'Be a Dad', path: '/classic/pages/cryptodad/play.html', tag: 'past' },
+ { name: 'Mobile', path: '/classic/pages/cryptodad/mobile.html', tag: 'past' },
+ { name: 'How to play', path: '/classic/pages/cryptodad/how-to-play.html', tag: 'past' },
+ { name: 'FTWR rabbit', path: '/classic/pages/cryptodad/rabbit.html', tag: 'past' },
+ { name: '$DOSWAPZ token / ledger', path: '/classic/pages/cryptodad/token.html', tag: 'past' },
+ { name: 'Scoreboard', path: '/classic/pages/cryptodad/scoreboard.html', tag: 'past' },
+ { name: 'Donate', path: '/classic/pages/cryptodad/donate.html', tag: 'past' },
+ { name: 'Launch animation', path: '/classic/pages/cryptodad/launch.html', tag: 'past' }
+ ]
+ },
+ {
+ section: 'Misc',
+ items: [
+ { name: 'Donate', path: '/orbit/pages/donate.html', tag: 'present' },
+ { name: 'Eat Shit', path: '/orbit/pages/eat-shit.html', tag: 'present' },
+ { name: 'Vision Center (classic path)', path: '/classic/pages/perpetual-vision-center.html', tag: 'past' }
+ ]
+ }
+ ];
+
+ var sectionsEl = document.getElementById('sections');
+ var empty = document.getElementById('empty');
+ var search = document.getElementById('search');
+ var pageCount = document.getElementById('pageCount');
+
+ function countAll() {
+ return CATALOG.reduce(function (n, s) { return n + s.items.length; }, 0);
+ }
+
+ function render(q) {
+ q = (q || '').trim().toLowerCase();
+ sectionsEl.innerHTML = '';
+ var shown = 0;
+
+ CATALOG.forEach(function (sec) {
+ var items = sec.items.filter(function (it) {
+ if (!q) return true;
+ return (it.name + ' ' + it.path + ' ' + it.tag + ' ' + sec.section).toLowerCase().indexOf(q) >= 0;
+ });
+ if (!items.length) return;
+
+ var wrap = document.createElement('section');
+ wrap.className = 'section';
+ wrap.innerHTML =
+ '<div class="section-head"><h2>' + sec.section + '</h2></div>' +
+ '<div class="grid"></div>';
+ var grid = wrap.querySelector('.grid');
+ items.forEach(function (it) {
+ shown++;
+ var a = document.createElement('a');
+ a.className = 'card era-' + it.tag;
+ a.href = it.path;
+ a.innerHTML =
+ '<div class="name">' + it.name + '</div>' +
+ '<div class="path">' + it.path + '</div>' +
+ '<div class="tag">' + it.tag + '</div>';
+ grid.appendChild(a);
+ });
+ sectionsEl.appendChild(wrap);
+ });
+
+ empty.className = 'empty' + (shown ? '' : ' show');
+ pageCount.innerHTML = 'pages <b>' + (q ? shown + ' / ' + countAll() : countAll()) + '</b>';
+ }
+
+ search.addEventListener('input', function () { render(search.value); });
+ render('');
+ </script>
+<script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+<script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>
+</html>

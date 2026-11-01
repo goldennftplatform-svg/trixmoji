@@ -1,0 +1,3 @@
+idle-r.png: 570088 bytes
+high-punch-r.png: 667214 bytes
+high-kick-r.png: 494814 bytes

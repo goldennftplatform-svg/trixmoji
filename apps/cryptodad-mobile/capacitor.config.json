@@ -1,0 +1,14 @@
+{
+  "appId": "com.doswapz.cryptodad",
+  "appName": "Crypto Dad",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": false
+  },
+  "ios": {
+    "contentInset": "automatic"
+  }
+}

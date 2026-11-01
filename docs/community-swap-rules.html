@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // DOCS - POND COMMUNITY SWAP RULES</title>
+ <meta name="description" content="DOSWAPZ swap access: Jupiter open to any Solana wallet; old rails require activated Pond0x rig from Dune DB. Community rules, safety caps, API and operator notes.">
+ <meta name="robots" content="index,follow">
+ <link rel="canonical" href="https://doswapz.com/docs/community-swap-rules.html">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ :root {
+ --g: #00ff41;
+ --gd: #00aa00;
+ --y: #ffff00;
+ --r: #ff4466;
+ --dim: #006600;
+ --bg: #000;
+ --panel: #020802;
+ }
+ * { box-sizing: border-box; }
+ html, body {
+ margin: 0;
+ min-height: 100%;
+ background: var(--bg);
+ color: var(--g);
+ font-family: 'VT323', 'Courier New', monospace;
+ }
+ body { padding-bottom: 48px; }
+ .wrap {
+ max-width: 920px;
+ margin: 0 auto;
+ padding: 28px 18px 80px;
+ }
+ .topnav {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px 16px;
+ margin-bottom: 22px;
+ font-size: 18px;
+ }
+ .topnav a { color: var(--y); text-decoration: none; }
+ .topnav a:hover { color: #fff; text-decoration: underline; }
+ h1 {
+ font-size: clamp(26px, 5.5vw, 40px);
+ letter-spacing: 3px;
+ margin: 0 0 8px;
+ color: var(--y);
+ text-shadow: 0 0 12px rgba(255, 255, 0, 0.25);
+ }
+ .sub {
+ color: var(--gd);
+ font-size: 16px;
+ margin-bottom: 18px;
+ line-height: 1.35;
+ }
+ .banner {
+ border: 2px solid var(--r);
+ background: rgba(40, 0, 8, 0.55);
+ padding: 14px 16px;
+ margin: 16px 0 28px;
+ color: #ffb3c0;
+ font-size: 17px;
+ line-height: 1.4;
+ }
+ .banner strong { color: #fff; }
+ .banner.ok {
+ border-color: var(--g);
+ background: rgba(0, 40, 10, 0.45);
+ color: #b8ffb8;
+ }
+ .toc {
+ border: 1px solid var(--dim);
+ background: var(--panel);
+ padding: 14px 16px;
+ margin-bottom: 28px;
+ }
+ .toc h2 {
+ margin: 0 0 10px;
+ font-size: 20px;
+ color: var(--y);
+ letter-spacing: 2px;
+ }
+ .toc ol {
+ margin: 0;
+ padding-left: 22px;
+ font-size: 16px;
+ line-height: 1.55;
+ }
+ @media (min-width: 700px) {
+ .toc ol { columns: 2; column-gap: 28px; }
+ }
+ .toc a { color: var(--g); text-decoration: none; }
+ .toc a:hover { color: #fff; text-decoration: underline; }
+ section {
+ border-top: 1px solid var(--dim);
+ padding: 22px 0 8px;
+ scroll-margin-top: 16px;
+ }
+ section h2 {
+ margin: 0 0 10px;
+ font-size: 22px;
+ color: var(--y);
+ letter-spacing: 1px;
+ }
+ section h3 {
+ margin: 16px 0 8px;
+ font-size: 18px;
+ color: #aaffaa;
+ }
+ p, li {
+ font-size: 17px;
+ line-height: 1.45;
+ color: #b8ffb8;
+ }
+ p { margin: 0 0 12px; }
+ ul, ol { margin: 0 0 12px; padding-left: 22px; }
+ li { margin-bottom: 6px; }
+ .muted { color: var(--gd); }
+ .box {
+ border: 1px solid #335500;
+ background: rgba(0, 20, 0, 0.45);
+ padding: 12px 14px;
+ margin: 12px 0;
+ }
+ .box.warn {
+ border-color: #663300;
+ background: rgba(40, 20, 0, 0.4);
+ }
+ .box.pin {
+ border-color: var(--y);
+ background: rgba(30, 30, 0, 0.35);
+ }
+ pre.copy {
+ margin: 10px 0 14px;
+ padding: 12px 14px;
+ border: 1px solid var(--dim);
+ background: #010501;
+ color: #deffde;
+ font-size: 15px;
+ line-height: 1.4;
+ white-space: pre-wrap;
+ word-break: break-word;
+ overflow-x: auto;
+ }
+ table {
+ width: 100%;
+ border-collapse: collapse;
+ margin: 12px 0 16px;
+ font-size: 16px;
+ }
+ th, td {
+ border: 1px solid var(--dim);
+ padding: 8px 10px;
+ text-align: left;
+ vertical-align: top;
+ color: #b8ffb8;
+ }
+ th {
+ color: var(--y);
+ background: rgba(0, 30, 0, 0.5);
+ }
+ .footer-note {
+ margin-top: 36px;
+ padding-top: 16px;
+ border-top: 1px dashed var(--dim);
+ color: var(--gd);
+ font-size: 15px;
+ }
+ code, .mono {
+ font-family: inherit;
+ color: #deffde;
+ }
+ .tag {
+ display: inline-block;
+ border: 1px solid var(--dim);
+ color: var(--y);
+ padding: 1px 8px;
+ font-size: 14px;
+ margin-right: 6px;
+ letter-spacing: 1px;
+ }
+ </style>
+</head>
+<body>
+ <div class="wrap">
+ <nav class="topnav" aria-label="Docs navigation">
+ <a href="/classic/hub.html">&lt;- HUB</a>
+ <a href="/">SPLASH</a>
+ <a href="/docs/">DOCS HOME</a>
+ <a href="/docs/legal.html">LEGAL</a>
+ <a href="/docs/the-missing-layer.html">THE MISSING LAYER</a>
+ <a href="#toc">TOC</a>
+ </nav>
+
+ <h1>DOSWAPZ DOCS // POND COMMUNITY SWAP RULES</h1>
+ <p class="sub">
+ COMMUNITY NORMS + LIVE SITE ACCESS RULES * PRO-SWAP * ANTI-BOT * ANTI-DRAIN<br>
+ <span class="muted">Last updated: October 21, 2026 * Live on doswapz.com * Complements (does not replace) <a href="/docs/legal.html" style="color:#ffff00">Legal / Terms</a> * Quantum is a separate desk (<a href="/docs/legal.html#s8a" style="color:#ffff00">§8A</a>) * E.K. is a separate shop (<a href="/docs/legal.html#s15b" style="color:#ffff00">§15B</a>): DOSWAPZ fee is zero, crypto pays a published escrow, and PayPal pays the seller * ETHSCRIPTIONS is a separate market (<a href="/docs/legal.html#s15c" style="color:#ffff00">§15C</a>): a mint keeps 0.5%, a resale price includes 2.5% for the creator and DOSWAPZ takes 0, the seller receives 97.5%, and if the creator chose 5% DOSWAPZ takes 0.5% and the seller receives the ask</span>
+ </p>
+
+ <div class="banner">
+ <strong>WHAT THIS DOCUMENT IS.</strong>
+ (1) Community rules so people can swap safely without bots, wash farms, phishing mirrors, or old-rails chaos.
+ (2) <strong>How DOSWAPZ actually gates access today</strong> — regular Jupiter vs old rewards-pool rails.
+ <br><br>
+ <strong>WHAT THIS IS NOT.</strong>
+ Not financial advice. Not a guarantee that Pond0x will count swaps, pay rewards, or keep any rail open.
+ Not full on-chain control of Solana or Pond protocol. Platform <a href="/docs/legal.html" style="color:#ffff00">Legal / Terms</a> still apply.
+ </div>
+
+ <div class="banner ok">
+ <strong>LIVE ACCESS (DOSWAPZ) — MEMORIZE THIS.</strong><br>
+ <strong>Regular Jupiter</strong> = <strong>any Solana wallet</strong> →
+ <a href="/classic/pages/doswapz/swap.html" style="color:#ffff00">/classic/pages/doswapz/swap.html</a><br>
+ <strong>Old rewards-pool rails</strong> (Pond Scum) = <strong>activated Pond0x rig only</strong> (Dune → DB) →
+ <a href="/classic/pages/pond-scum.html" style="color:#ffff00">/classic/pages/pond-scum.html</a><br>
+ Continuous auto-farm <strong>off</strong>. Auto max 5. Gate always on.
+ </div>
+
+ <div class="banner ok">
+ <strong>ONE-LINER.</strong>
+ Jupiter = any Solana wallet. Old rails = activated Pond0x rig only (Dune list in our DB). Don’t bot. Don’t wash-spam. Don’t share seeds.
+ </div>
+
+ <div class="banner">
+ <strong>QUANTUM IS NOT EITHER OF THOSE RAILS.</strong>
+ <a href="/quantum/past" style="color:#ffff00">Quantum</a> is an optional ten-level scanner for Solana and Ethereum. It is not the 0% Jupiter page and it is not the old rewards-pool gate. It is not advice. You can lose everything. You log your own wallet in. DOSWAPZ does not hold keys. Login is only for transactions. After login, Quantum chooses the buys and sells, and your wallet signs each one or nothing is sent. DOSWAPZ fee on Quantum is 0. Nothing is routed to doswapz.com. The SOL meter starts at 0.01, and gas sits on top. Level 03 is Super Degen Crazy Aggressive. Levels 04–10 are looser. Read <a href="/docs/legal.html#s8a" style="color:#ffff00">Legal §8A</a> before you log in.
+ </div>
+
+ <div class="toc" id="toc">
+ <h2>// TABLE OF CONTENTS</h2>
+ <ol>
+ <li><a href="#s0">Quick start: which swap do I use?</a></li>
+ <li><a href="#s1">Why these rules exist (full explanation)</a></li>
+ <li><a href="#s2">What we optimize for</a></li>
+ <li><a href="#s3">Scope</a></li>
+ <li><a href="#s4">Core principles</a></li>
+ <li><a href="#s5">Wallet rules</a></li>
+ <li><a href="#s6">Good swapping vs bad swapping</a></li>
+ <li><a href="#s7">Safety (non-negotiable)</a></li>
+ <li><a href="#s8">Fair-share honor system</a></li>
+ <li><a href="#s9">Problems these rules defend against</a></li>
+ <li><a href="#s10">Pin text (Discord / TG / X)</a></li>
+ <li><a href="#s11">Full community rules (copy block)</a></li>
+ <li><a href="#s12">Moderator enforcement ladder</a></li>
+ <li><a href="#s13">Mod reply pack</a></li>
+ <li><a href="#s14">How to ship this in community</a></li>
+ <li><a href="#s15">Relationship to DOSWAPZ / legal</a></li>
+ <li><a href="#s16">Technical access gate (old rails vs Jupiter) — CURRENT</a></li>
+ <li><a href="#s17">API, env vars, and operator notes</a></li>
+ </ol>
+ </div>
+
+ <!-- ========== S0 ========== -->
+ <section id="s0">
+ <h2>0. Quick start: which swap do I use?</h2>
+ <table>
+ <thead>
+ <tr><th>I want…</th><th>Use</th><th>Who can</th></tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>Normal trade / Trix / any mint / open access</td>
+ <td><a href="/classic/pages/doswapz/swap.html" style="color:#ffff00">Regular DOSWAPZ Jupiter</a></td>
+ <td><strong>Any Solana wallet</strong></td>
+ </tr>
+ <tr>
+ <td>Old rewards-pool rails (Metis v1 + Pond fee vaults)</td>
+ <td><a href="/classic/pages/pond-scum.html" style="color:#ffff00">Pond Scum dossier swap</a></td>
+ <td><strong>Activated Pond0x rig only</strong> (wallet on Dune → backend DB)</td>
+ </tr>
+ <tr>
+ <td>Just view dossier / mining stats</td>
+ <td>Pond Scum (connect or paste pubkey)</td>
+ <td>Anyone can <em>view</em>; old-rails <em>swap</em> still requires activated rig</td>
+ </tr>
+ </tbody>
+ </table>
+ <div class="box">
+ <strong>If old rails say LOCKED:</strong> expected unless your wallet is on the activated-rigs list (or allowlist).
+ Use <a href="/classic/pages/doswapz/swap.html" style="color:#ffff00">regular Jupiter</a> anytime, or activate a Pond0x mining rig and wait for the next Dune sync, then reconnect.
+ </div>
+ </section>
+
+ <!-- ========== S1 ========== -->
+ <section id="s1">
+ <h2>1. Why these rules exist (full explanation)</h2>
+ <p>
+ Pond-style ecosystems often reward <strong>swap activity</strong> (counts, boost, mining offset, leaderboards, drops). That is fine when people make <strong>real, intentional swaps</strong>. It breaks when:
+ </p>
+ <ul>
+ <li><strong>Everyone farms the same loophole</strong> (e.g. “old rails still open”) and dilutes rewards.</li>
+ <li><strong>Bots and multi-wallet fleets</strong> spam dust loops faster than humans can trade.</li>
+ <li><strong>Unofficial frontends</strong> appear (“connected to old rails,” mirrors, “Pond Scum boost tools”) and become <strong>phishing magnets</strong>.</li>
+ <li><strong>Wash swaps</strong> burn gas for fake volume while looking like “healthy activity.”</li>
+ <li><strong>Side rails get slammed shut</strong> after a rush — late farmers pay fees for nothing; early spam already hurt the culture.</li>
+ </ul>
+ <p>
+ Community rules cannot rewrite smart contracts. They <strong>can</strong> set culture: what we celebrate, what we refuse to amplify, and how mods protect people who just want to swap safely.
+ </p>
+ <div class="box">
+ <strong>Design choice:</strong> open trading for everyone on regular Jupiter;
+ <strong>old rails on DOSWAPZ</strong> limited to wallets with an <strong>activated Pond0x mining rig</strong> (list from Dune, stored server-side), plus safety caps (no continuous auto, max 5/session).
+ Social rules + technical gate. We do not control Pond0x.com or the base chain.
+ </div>
+ </section>
+
+ <!-- ========== S2 ========== -->
+ <section id="s2">
+ <h2>2. What we optimize for</h2>
+ <table>
+ <thead>
+ <tr><th>YES</th><th>NO</th></tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>People swapping on Pond protocol wallets</td>
+ <td>Bot arms races and script fleets</td>
+ </tr>
+ <tr>
+ <td>Official DOSWAPZ pages + recognized Pond data</td>
+ <td>Random mirrors / “secret rails” as the main path</td>
+ </tr>
+ <tr>
+ <td>Jupiter open to any Solana wallet</td>
+ <td>Unlimited old-rails auto-farm loops on our UI</td>
+ </tr>
+ <tr>
+ <td>Human-scale, intentional trades</td>
+ <td>Wash / dust loop spam for counts only</td>
+ </tr>
+ <tr>
+ <td>Safety, clear warnings, seed protection</td>
+ <td>FOMO pressure to connect unknown UIs</td>
+ </tr>
+ <tr>
+ <td>Calling out drains and farm-spam culture</td>
+ <td>Phishing packaged as “alpha”</td>
+ </tr>
+ </tbody>
+ </table>
+ </section>
+
+ <!-- ========== S3 ========== -->
+ <section id="s3">
+ <h2>3. Scope (Pond protocol wallets only)</h2>
+ <ul>
+ <li>These norms apply to <strong>Pond protocol wallets</strong> and Pond-related swap talk / activity in community spaces that adopt this doc.</li>
+ <li>Off-protocol farming, unknown boost tools, and non-Pond score games are <strong>not</strong> “how we do it here.”</li>
+ <li>Trade freely. Farm carefully. Don’t wreck the pond for everyone.</li>
+ <li>If official Pond documentation or protocol operators publish different rules, <strong>their rules win</strong> for protocol behavior. This doc governs <em>community conduct</em>.</li>
+ </ul>
+ </section>
+
+ <!-- ========== S4 ========== -->
+ <section id="s4">
+ <h2>4. Core principles</h2>
+ <ol>
+ <li><strong>Swaps are for using the protocol</strong> — not only for spamming a counter.</li>
+ <li><strong>One human, fair share</strong> — multi-wallet bot farms are against community spirit.</li>
+ <li><strong>Safety over FOMO</strong> — non-official links are hostile until proven otherwise.</li>
+ <li><strong>Don’t externalize costs</strong> — your farm should not dilute or endanger everyone else.</li>
+ <li><strong>Rules &gt; loopholes</strong> — if a back door helps you and hurts the pond, do not normalize it.</li>
+ </ol>
+ </section>
+
+ <!-- ========== S5 ========== -->
+ <section id="s5">
+ <h2>5. Wallet rules</h2>
+ <h3>DO</h3>
+ <ul>
+ <li>Use a <strong>dedicated Pond / degen wallet</strong> for protocol activity when possible; keep long-term bags separate.</li>
+ <li>Connect that wallet only to <strong>official Pond</strong> surfaces the community recognizes.</li>
+ <li>Prefer <strong>normal, intentional swaps</strong> (size you actually meant to trade).</li>
+ <li>Reject wrong domains, surprise approvals, and weird routes — walk away.</li>
+ <li>Revoke junk approvals you no longer need (trusted revoke tools only, on your own schedule).</li>
+ </ul>
+ <h3>DON’T</h3>
+ <ul>
+ <li>Connect Pond wallets to random “old rails,” mirrors, or “secret boost” sites.</li>
+ <li>Sign unlimited or blind approvals “just to farm.”</li>
+ <li>Run <strong>bot fleets / script farms</strong> on Pond wallets to spam swap counts.</li>
+ <li>Share seed phrases, “support” DMs, or “sync wallet” links. <strong>Never.</strong></li>
+ </ul>
+ </section>
+
+ <!-- ========== S6 ========== -->
+ <section id="s6">
+ <h2>6. Good swapping vs bad swapping</h2>
+ <h3>Encouraged</h3>
+ <ul>
+ <li>Swapping because you want the asset, liquidity, or normal protocol use.</li>
+ <li>A reasonable, human number of swaps.</li>
+ <li>Helping others swap <strong>safely</strong> (official links only).</li>
+ <li>Calling out drains, fakes, and farm spam without brigading.</li>
+ </ul>
+ <h3>Against community rules</h3>
+ <ul>
+ <li>Dust loops and pure wash cycles whose only goal is count / boost.</li>
+ <li>Coordinated multi-wallet rings funded to game rewards.</li>
+ <li>Teaching “spam old rails before they close” as the main strategy.</li>
+ <li>Guilt-tripping people into connecting sketchy UIs “or you’ll miss out.”</li>
+ </ul>
+ <div class="box">
+ <strong>Community standard:</strong> if the swap only makes sense as a farm exploit and not as a trade, do not socialize it as the meta.
+ </div>
+ </section>
+
+ <!-- ========== S7 ========== -->
+ <section id="s7">
+ <h2>7. Safety (non-negotiable)</h2>
+ <ol>
+ <li><strong>Official Pond only</strong> for anything that needs your Pond wallet.</li>
+ <li><strong>No seed in chat. Ever.</strong></li>
+ <li><strong>No “support”</strong> that needs your wallet, seed, or screen share of seed.</li>
+ <li>If official swaps are down — <strong>wait</strong>. Do not “fix” with unknown rails.</li>
+ <li>Loss limit = gas + what you meant to trade — not your whole bag on a farm.</li>
+ <li>Assume side / old rails can die or stop counting — do not build identity on them.</li>
+ </ol>
+ </section>
+
+ <!-- ========== S8 ========== -->
+ <section id="s8">
+ <h2>8. Fair-share honor system</h2>
+ <p>
+ Because this is <strong>rules only</strong> (not code), enforcement is social + mod-side:
+ </p>
+ <ul>
+ <li>Aim for human-scale activity on wallets you actually use.</li>
+ <li>Do not treat thousands of wash swaps as an achievement.</li>
+ <li>If rewards feel share-based, leave room — pure extraction culture kills the pond.</li>
+ <li>Teach new people: <strong>safe swap first</strong>, farm second (or never).</li>
+ </ul>
+ <p class="muted">Not a legal contract between members — a social contract so the place stays usable.</p>
+ </section>
+
+ <!-- ========== S9 ========== -->
+ <section id="s9">
+ <h2>9. Problems these rules defend against</h2>
+ <p>Plain-language map from “negative shit” → community defense:</p>
+ <table>
+ <thead>
+ <tr><th>Problem</th><th>What goes wrong</th><th>Community defense</th></tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>Everyone piles on old rails</td>
+ <td>Dilution, shutdown, wasted fees</td>
+ <td>Do not normalize side rails; official only; wait if official is down</td>
+ </tr>
+ <tr>
+ <td>Bots / multi-wallet farms</td>
+ <td>Humans lose; spam culture wins</td>
+ <td>Ban farm-recruit posts; no bot guides as content</td>
+ </tr>
+ <tr>
+ <td>Wash / dust loops</td>
+ <td>Fake volume, fee bleed, bad optics</td>
+ <td>Discourage and mute farm-spam meta</td>
+ </tr>
+ <tr>
+ <td>Phishing mirrors</td>
+ <td>Drained wallets</td>
+ <td>Instant ban; delete links; safety alerts</td>
+ </tr>
+ <tr>
+ <td>FOMO pressure</td>
+ <td>People connect bad UIs</td>
+ <td>Safety &gt; FOMO replies; pin rules</td>
+ </tr>
+ <tr>
+ <td>Reward collapse</td>
+ <td>Only extractors remain</td>
+ <td>Celebrate real swaps; starve spam culture</td>
+ </tr>
+ </tbody>
+ </table>
+ </section>
+
+ <!-- ========== S10 ========== -->
+ <section id="s10">
+ <h2>10. Pin text (Discord / TG / X)</h2>
+ <p><span class="tag">COPY</span> Use these as channel pins or social posts.</p>
+
+ <h3>Discord / Telegram pin</h3>
+ <pre class="copy">🪷 DOSWAPZ / POND — SWAP RULES (PIN)
+
+LIVE ACCESS
+✅ Regular Jupiter = ANY Solana wallet
+   → doswapz.com/classic/pages/doswapz/swap.html
+✅ Old rewards-pool rails = ACTIVATED POND0X RIG ONLY
+   → doswapz.com/classic/pages/pond-scum.html
+   (Dune activated-rigs list in our DB · no continuous auto · max 5/session)
+
+✅ Swap like a human — real trades welcome
+❌ No bots / multi-wallet farm fleets
+❌ No wash/dust loop spam for counts
+❌ No random mirrors / “secret rails”
+❌ No seeds, “support” DMs, or wallet-sync links
+
+Safety &gt; FOMO. If old rails LOCKED, use open Jupiter (or activate a rig + wait for sync).
+Full rules → doswapz.com/docs/community-swap-rules.html</pre>
+
+ <h3>X / short social</h3>
+ <pre class="copy">DOSWAPZ swap access:
+
+Jupiter = any Solana wallet (open)
+Old rails = activated Pond0x rig only (Dune → our DB)
+No continuous auto. Max 5/session.
+
+No bots. No wash spam. No seed scams. Safety &gt; FOMO.
+Docs: doswapz.com/docs/community-swap-rules.html</pre>
+ </section>
+
+ <!-- ========== S11 ========== -->
+ <section id="s11">
+ <h2>11. Full community rules (copy block)</h2>
+ <p><span class="tag">COPY</span> For a <code>#rules</code> channel or forum post.</p>
+ <pre class="copy"># Pond Protocol — Community Swap Rules
+Community norms only · Pond protocol wallets only
+
+## Why this exists
+We want people to swap on Pond. We do not want bots, wash farms, phishing mirrors, or “old rails” chaos diluting and endangering everyone.
+
+## Scope
+• Applies to Pond protocol wallets and Pond-related swap activity
+• Off-protocol / random mirror farming is not “how we do it here”
+• Trade freely. Farm carefully. Don’t wreck the pond.
+
+## Principles
+1. Swaps are for using the protocol — not spamming a counter
+2. One human, fair share — bot fleets are against community spirit
+3. Safety over FOMO — non-official links are hostile until proven otherwise
+4. Don’t externalize costs — your farm shouldn’t dilute or endanger others
+5. Rules &gt; loopholes — don’t normalize back doors that hurt the pond
+
+## Wallet rules
+DO
+• Use a dedicated Pond/degen wallet for protocol activity when possible
+• Connect only to official Pond surfaces the community recognizes
+• Make normal, intentional swaps (size you’d actually trade)
+• Reject weird approvals, surprise routes, wrong domains
+• Revoke junk approvals you no longer need (trusted tools only)
+
+DON’T
+• Connect Pond wallets to random old rails, mirrors, or “secret boost” sites
+• Sign unlimited/blind approvals just to farm
+• Run bots or multi-wallet script farms for scores/boosts
+• Share seeds, “support” DMs, or “sync wallet” flows — ever
+
+## Good swapping vs bad swapping
+ENCOURAGED
+• Swapping because you want the asset / normal protocol use
+• Human-scale activity
+• Helping others with official links only
+• Calling out drains, fakes, and farm spam (without brigading)
+
+AGAINST COMMUNITY RULES
+• Dust loops / pure wash cycles only for count or boost
+• Coordinated multi-wallet rings to game rewards
+• Teaching “spam old rails before they die” as the main meta
+• Pushing people into sketchy UIs with FOMO pressure
+
+Standard: if it only makes sense as an exploit, don’t socialize it as culture.
+
+## Safety (non-negotiable)
+1. Official Pond only for anything needing your Pond wallet
+2. No seeds in chat — ever
+3. No support that needs your wallet, seed, or screen share of seed
+4. If official swaps are down — wait; don’t “fix” with unknown rails
+5. Loss limit = gas + what you meant to trade — not your whole bag on a farm
+6. Assume side/old rails can die or stop counting — don’t build identity on them
+
+## Fair-share (honor system)
+• Human-scale activity on wallets you actually use
+• Don’t treat 10k wash swaps as an achievement
+• Leave room if rewards are share-based
+• Teach new people: safe swap first, farm second (or never)
+
+## One-liner
+Jupiter open (any Solana). Old rails = activated Pond0x rig only (Dune → DB). Don’t bot. Don’t wash-spam. Don’t share seeds.
+
+## Live DOSWAPZ access
+• Regular Jupiter = any Solana wallet
+• Old rails (Pond Scum) = wallet must be on activated-rigs DB (synced from Dune)
+• No continuous auto · max 5/session · gate always on
+• Details: https://doswapz.com/docs/community-swap-rules.html
+
+## We optimize for
+YES: safe real swaps · open Jupiter · Dune-rig gated old rails · calling out bots/phish
+NO: bot arms races · phishing as “alpha” · infinite spam counts · drain culture</pre>
+ </section>
+
+ <!-- ========== S12 ========== -->
+ <section id="s12">
+ <h2>12. Moderator enforcement ladder</h2>
+ <p>
+ <span class="tag">STAFF</span>
+ Community spaces only (Discord / TG / similar). Goal: keep swapping safe and usable; remove bots, drains, and farm-spam culture.
+ </p>
+
+ <h3>Severity levels</h3>
+ <table>
+ <thead>
+ <tr><th>Level</th><th>When</th><th>Action</th></tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td><strong>L0 Nudge</strong></td>
+ <td>Mild FOMO, accidental mirror link, first “how do I farm old rails?”</td>
+ <td>Reply with pin + official-only reminder; ask to edit/delete risky link</td>
+ </tr>
+ <tr>
+ <td><strong>L1 Warn</strong></td>
+ <td>Repeat L0; promotes wash meta; pushes unofficial UIs after correction</td>
+ <td>Formal warn; require delete; log user / rule / link / date</td>
+ </tr>
+ <tr>
+ <td><strong>L2 Mute</strong></td>
+ <td>Second offense; FOMO to connect wallets; bot-farm guides; refuses removal</td>
+ <td>24h first mute; 7d second; log it</td>
+ </tr>
+ <tr>
+ <td><strong>L3 Kick</strong></td>
+ <td>Bad faith after mute; multi-wallet farm recruiting; persistent mirrors</td>
+ <td>Kick; log + evidence; one chance on rejoin</td>
+ </tr>
+ <tr>
+ <td><strong>L4 Ban</strong></td>
+ <td>Phishing; seed scams; drain links; malware; doxx threats; repeat L3</td>
+ <td>Immediate ban; delete; safety alert if others may have clicked</td>
+ </tr>
+ </tbody>
+ </table>
+
+ <h3>Fast-track (skip ladder)</h3>
+ <ul>
+ <li><strong>Instant L4:</strong> seed/key requests, fake support, known phishing, drainers, impersonation of Pond / official / mods.</li>
+ <li><strong>Instant L2:</strong> mass spam of unofficial farm links; bot-recruit (“run 50 wallets, hit this UI”).</li>
+ </ul>
+
+ <h3>What is NOT a ban by itself</h3>
+ <ul>
+ <li>Asking how mining / swaps work</li>
+ <li>Being confused about boost</li>
+ <li>Single accidental bad link they delete when asked</li>
+ <li>Civil disagreement with rules</li>
+ </ul>
+
+ <h3>Evidence &amp; tone</h3>
+ <ul>
+ <li>Before L2+: save message link / screenshot; note rule broken.</li>
+ <li>Prefer delete-violating-content over public shaming.</li>
+ <li>Calm, short, consistent. Same rules for friends and whales.</li>
+ <li>When unsure: L0/L1; second mod if possible.</li>
+ </ul>
+
+ <h3>Optional public strikes</h3>
+ <p>Strike 1 = Warn · Strike 2 = Mute 24h–7d · Strike 3 = Kick or ban · Scam/phish = ban, no strikes.</p>
+
+ <h3>Mod cheat sheet</h3>
+ <pre class="copy">Nudge → Warn → Mute → Kick → Ban
+Scams/drains = Ban now
+Official Pond only
+No bots · no wash · no mirrors · no seeds
+Protect swappers, don’t police price</pre>
+ </section>
+
+ <!-- ========== S13 ========== -->
+ <section id="s13">
+ <h2>13. Mod reply pack</h2>
+ <h3>Unofficial rails</h3>
+ <pre class="copy">Use official DOSWAPZ paths only. Old rails = activated Pond0x rig (Dune list). Open trading = regular Jupiter (any Solana). No random mirrors / “secret rails.”</pre>
+
+ <h3>Wash / bot farm</h3>
+ <pre class="copy">Wash loops and multi-wallet bot farms are against Pond community rules. Real human-scale swaps are welcome; spam farming isn’t.</pre>
+
+ <h3>Possible phish</h3>
+ <pre class="copy">⚠️ Do not click or connect. Looks unofficial/phishing-adjacent. Official Pond only. Never share seeds or “sync” your wallet. Mods will remove this.</pre>
+
+ <h3>FOMO pressure</h3>
+ <pre class="copy">Safety &gt; FOMO. We want people swapping safely on Pond — not racing into mirrors and drains. Official only.</pre>
+
+ <h3>L1 warn template</h3>
+ <pre class="copy">Warning (1/2): [bots | wash-spam | unofficial rails | phishing-adjacent]. Against Pond community rules. Delete the message. Next step is mute. Official Pond only; human-scale swaps only.</pre>
+
+ <h3>L2 mute template</h3>
+ <pre class="copy">Muted [24h/7d] for [reason]. Rules: Pond wallets · official only · no bots/wash · no seeds. Appeal in ticket after timeout if needed.</pre>
+
+ <h3>L4 scam template</h3>
+ <pre class="copy">⚠️ Ban + cleanup: phishing/drain behavior. Never share seeds. Official Pond only. If you connected a bad link, disconnect + move funds from a safe device if needed.</pre>
+ </section>
+
+ <!-- ========== S14 ========== -->
+ <section id="s14">
+ <h2>14. How to ship this in community</h2>
+ <ol>
+ <li>Post the <a href="#s11">full rules copy block</a> in <code>#rules</code> (or equivalent).</li>
+ <li><strong>Pin</strong> the Discord/TG pin from <a href="#s10">section 10</a>.</li>
+ <li>Put the <a href="#s12">mod ladder</a> in a staff-only channel.</li>
+ <li>Mods save the <a href="#s13">reply pack</a>.</li>
+ <li>Optionally post the short X version once for public awareness.</li>
+ <li>Link this page: <span class="mono">https://doswapz.com/docs/community-swap-rules.html</span></li>
+ </ol>
+ </section>
+
+ <!-- ========== S15 ========== -->
+ <section id="s15">
+ <h2>15. Relationship to DOSWAPZ / legal</h2>
+ <ul>
+ <li>This page is <strong>community norms + live access documentation</strong> for Pond-related culture and DOSWAPZ swap paths.</li>
+ <li>It does <strong>not</strong> replace <a href="/docs/legal.html" style="color:#ffff00">Terms of Use, risk disclosures, and liability terms</a>.</li>
+ <li>Using DOSWAPZ (including Jupiter swap, Pond Scum, stats, or APIs) remains subject to Legal, including the photosensitivity / seizure warning and limitation of liability.</li>
+ <li>Access gates may change; the site UI and this doc should stay aligned. If they ever differ, <strong>live site behavior + Legal win</strong>.</li>
+ <li>Nothing here promises that Pond0x will count swaps, pay rewards, or keep any rail open.</li>
+ <li>Nothing here is investment advice. You can lose money swapping. Self-custody is your responsibility.</li>
+ </ul>
+ <div class="box warn">
+ <strong>Remember:</strong> community rules protect culture; technical gates protect the site surface.
+ Neither guarantees on-chain outcomes. When official Pond tooling is down, wait — do not push strangers into unknown frontends.
+ </div>
+ </section>
+
+ <section id="s16">
+ <h2>16. Technical access gate (old rails vs Jupiter) — CURRENT</h2>
+ <p>
+ This section matches <strong>live DOSWAPZ behavior</strong> (not just chat norms).
+ </p>
+ <table>
+ <thead>
+ <tr><th>Path</th><th>Who can swap</th><th>Where</th><th>Notes</th></tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td><strong>Regular DOSWAPZ Jupiter</strong></td>
+ <td><strong>Any Solana wallet</strong></td>
+ <td>
+ <span class="mono">/classic/pages/doswapz/swap.html</span><br>
+ <span class="mono">/orbit/pages/doswapz/swap.html</span>
+ </td>
+ <td>0% DOSWAPZ platform fee path · open trading · default for most users</td>
+ </tr>
+ <tr>
+ <td><strong>Old rewards-pool rails</strong></td>
+ <td><strong>Activated Pond0x rig only</strong> (Dune DB)</td>
+ <td>
+ <span class="mono">/classic/pages/pond-scum.html</span><br>
+ <span class="mono">/orbit/pages/pond-scum.html</span>
+ (dossier swap panel)
+ </td>
+ <td>Jupiter Metis v1 + Pond fee vaults · backend list from Dune activated rigs · gated</td>
+ </tr>
+ </tbody>
+ </table>
+
+ <h3>How access is checked (locked down)</h3>
+ <p>
+ On connect (and again before swap / auto), the client calls:
+ </p>
+ <p class="mono">GET /api/pond-community?wallet={SOLANA_PUBKEY}</p>
+ <p>
+ <strong>Default mode <span class="mono">rigs_only</span>:</strong> the backend looks up the wallet in the
+ <strong>activated Pond0x rig database</strong> (populated from Dune “activated rigs” via
+ <span class="mono">POST /api/pond-rigs-sync</span>). No dossier loophole.
+ </p>
+ <p><strong>Allowed if:</strong></p>
+ <ul>
+ <li>Wallet is on the activated-rigs list (Dune → store), <strong>or</strong></li>
+ <li>Wallet is on operator <span class="mono">POND_COMMUNITY_ALLOWLIST</span></li>
+ </ul>
+ <p><strong>Denied if:</strong> not on the list, on blocklist, or the rig DB is empty (fail closed until sync).</p>
+ <p class="muted">Optional modes: <span class="mono">POND_COMMUNITY_MODE=hybrid</span> (rig OR legacy signals) or <span class="mono">signals</span> (legacy only).</p>
+
+ <h3>Safety defaults (users + site)</h3>
+ <table>
+ <thead>
+ <tr><th>Control</th><th>Current setting</th></tr>
+ </thead>
+ <tbody>
+ <tr><td>Old-rails eligibility source</td><td><strong>Activated-rigs DB</strong> (Dune query → KV/Blobs via <span class="mono">/api/pond-rigs-sync</span>)</td></tr>
+ <tr><td>Default mode</td><td><span class="mono">rigs_only</span> (no soft dossier loophole)</td></tr>
+ <tr><td>Community gate on old rails</td><td><strong>Always on</strong> (not a casual client opt-out)</td></tr>
+ <tr><td>Continuous auto-swap</td><td><strong>Disabled</strong></td></tr>
+ <tr><td>Auto session cap</td><td><strong>Max 5</strong> (default UI count 3)</td></tr>
+ <tr><td>Min wait between auto rounds</td><td><strong>12 seconds</strong></td></tr>
+ <tr><td>Wallet session after old-rails tx</td><td><strong>Auto-disconnect</strong> every attempt</td></tr>
+ <tr><td>Community API rate limit</td><td>~20/min · ~400/day per client (instance-local)</td></tr>
+ <tr><td>Regular Jupiter</td><td>Open to any Solana wallet (no rig check)</td></tr>
+ <tr><td>Empty rig DB</td><td><strong>Fail closed</strong> — all old-rails locked until sync</td></tr>
+ </tbody>
+ </table>
+
+ <h3>What users see when locked</h3>
+ <ul>
+ <li>Banner: <strong>OLD RAILS LOCKED — ACTIVATED POND0X RIG REQUIRED</strong></li>
+ <li>API reason may be <span class="mono">not_activated_rig</span> or <span class="mono">rig_db_empty</span></li>
+ <li>Quote/swap/auto controls disabled until wallet is on the list</li>
+ <li>Clear link to regular Jupiter for open trading</li>
+ </ul>
+
+ <div class="box warn">
+ <strong>Limits of this gate (honest):</strong>
+ It locks the <em>DOSWAPZ old-rails UI</em> (connect → check → quote/swap/auto).
+ It cannot stop someone from using Jupiter or pond0x.com elsewhere.
+ That is intentional: open trading stays free; our old-rails surface stays community-gated and farm-limited.
+ Nothing here guarantees Pond will index a swap or pay rewards.
+ </div>
+ </section>
+
+ <section id="s17">
+ <h2>17. API, env vars, and operator notes</h2>
+ <h3>Public API</h3>
+ <ul>
+ <li><span class="mono">GET /api/pond-community?wallet=…</span> — gate decision (checks activated-rig DB)</li>
+ <li><span class="mono">GET /api/pond-rigs-sync</span> — DB status (count, updatedAt, source)</li>
+ <li><span class="mono">POST /api/pond-rigs-sync</span> — pull Dune (auth required) or POST <span class="mono">{ "wallets": [] }</span></li>
+ <li><span class="mono">GET /api/pond-dossier?wallet=…</span> — dossier proxy</li>
+ <li><span class="mono">GET /api/pond-mining?wallet=…</span> — mining/rig proxy</li>
+ </ul>
+ <h3>Netlify env (operators — required for live Dune lock)</h3>
+ <ul>
+ <li><span class="mono">DUNE_API_KEY</span> — Dune API key</li>
+ <li><span class="mono">DUNE_POND_RIG_QUERY_ID</span> — Dune query id for activated rigs (e.g. dashboard rig activation query)</li>
+ <li><span class="mono">POND_RIGS_SYNC_SECRET</span> — secret for POST sync</li>
+ <li><span class="mono">KV_REST_API_URL</span> + <span class="mono">KV_REST_API_TOKEN</span> — recommended durable store (else Netlify Blobs)</li>
+ <li><span class="mono">POND_COMMUNITY_MODE</span> — default <span class="mono">rigs_only</span></li>
+ <li><span class="mono">POND_COMMUNITY_ALLOWLIST</span> / <span class="mono">BLOCKLIST</span> — overrides</li>
+ </ul>
+ <p>
+ Sync: <span class="mono">POST /api/pond-rigs-sync</span> with
+ <span class="mono">Authorization: Bearer $POND_RIGS_SYNC_SECRET</span>.
+ Also scheduled every 6 hours on Netlify when env is set.
+ </p>
+ <h3>Client config (reference)</h3>
+ <p>
+ <span class="mono">assets/js/config/pond-config.js</span> —
+ <span class="mono">communityProxy</span>,
+ <span class="mono">oldRailsAutoMax</span>,
+ <span class="mono">oldRailsAutoMinWaitSec</span>,
+ <span class="mono">jupiterSwapPath</span>.
+ Gate enforcement in <span class="mono">assets/js/pond/dossier-swap.js</span> stays always-on for old rails.
+ </p>
+ <div class="box">
+ <strong>Product intent:</strong> safest for everyone + the site —
+ open Jupiter for normal users; old rails only for wallets with an activated Pond0x rig (Dune list in our DB);
+ no continuous farm loops; never require seeds; auto-disconnect after old-rails txs.
+ </div>
+ <h3>Operator first-run checklist</h3>
+ <ol>
+ <li>Set Netlify env: <span class="mono">DUNE_API_KEY</span>, <span class="mono">DUNE_POND_RIG_QUERY_ID</span>, <span class="mono">POND_RIGS_SYNC_SECRET</span>, and ideally KV credentials.</li>
+ <li><span class="mono">POST /api/pond-rigs-sync</span> with Bearer secret (or wait for 6h schedule).</li>
+ <li>Confirm <span class="mono">GET /api/pond-rigs-sync</span> shows <span class="mono">count &gt; 0</span>.</li>
+ <li>Test: blank wallet → locked; known activated-rig wallet → unlocked on Pond Scum.</li>
+ <li>Confirm regular Jupiter still works for any Solana wallet.</li>
+ </ol>
+ </section>
+
+ <div class="footer-note">
+ <p>DOSWAPZ Docs // Pond Community Swap Rules · Last updated October 21, 2026 · Live: Jupiter open · old rails = activated rig (Dune DB) · Quantum is a separate desk (Legal §8A) · E.K. is a separate shop (Legal §15B): zero DOSWAPZ fee, crypto escrow, PayPal pays the seller · ETHSCRIPTIONS is a separate market (Legal §15C): a mint keeps 0.5%, a resale price includes 2.5% for the creator and DOSWAPZ takes 0, the seller receives 97.5%, and if the creator chose 5% DOSWAPZ takes 0.5% and the seller receives the ask</p>
+ <p>
+ <a href="/docs/" style="color:#ffff00">Docs home</a> ·
+ <a href="/docs/legal.html" style="color:#ffff00">Legal</a> ·
+ <a href="/classic/pages/doswapz/swap.html" style="color:#ffff00">Open Jupiter</a> ·
+ <a href="/classic/pages/pond-scum.html" style="color:#ffff00">Pond Scum</a> ·
+ <a href="/classic/hub.html" style="color:#ffff00">Hub</a>
+ </p>
+ <p class="muted">Jupiter open. Old rails = activated rig only. Trade real. Stay safe.</p>
+ </div>
+ </div>
+ <script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+</body>
+</html>

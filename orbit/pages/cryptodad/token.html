@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+ <title>DOSWAPZ // $DOSWAPZ // PRESENT</title>
+ <meta name="robots" content="noindex">
+ <style>
+ html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+ .bar {
+ position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+ height: 42px;
+ display: flex; align-items: center; justify-content: center; gap: 16px;
+ background: rgba(8, 0, 14, 0.92);
+ border-bottom: 1px solid rgba(255, 0, 200, 0.28);
+ font-family: 'Inter', system-ui, sans-serif;
+ font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+ }
+ .bar span { color: #ff3dce; text-shadow: 0 0 12px rgba(255, 61, 206, 0.35); }
+ .bar a {
+ color: rgba(200, 180, 255, 0.7); text-decoration: none;
+ border: 1px solid rgba(255, 0, 200, 0.28); padding: 6px 12px; border-radius: 999px;
+ background: rgba(16, 0, 24, 0.7);
+ }
+ .bar a:hover { color: #00f0ff; border-color: rgba(0, 240, 255, 0.45); }
+ /* Full-height playfield — leave only a bottom strip for the timeline rail.
+    Explicit height (not auto) so fixed ticker/controls stay at the real bottom. */
+ iframe {
+ position: fixed;
+ top: 42px;
+ left: 0;
+ right: 0;
+ width: 100%;
+ height: calc(100vh - 42px - 56px - env(safe-area-inset-bottom, 0px));
+ max-height: calc(100vh - 42px - 56px - env(safe-area-inset-bottom, 0px));
+ border: 0;
+ background: #000;
+ }
+ .chrome-safe {
+ position: fixed; left: 0; right: 0; bottom: 0;
+ height: calc(56px + env(safe-area-inset-bottom, 0px));
+ background: rgba(4, 0, 10, 0.98);
+ pointer-events: none; z-index: 40;
+ }
+ </style>
+ <link rel="stylesheet" href="/assets/css/era-present-soft.css?v=neonvoid7">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260809chrome3">
+</head>
+<body>
+ <nav class="bar" aria-label="Present">
+ <span>Present</span>
+ <a href="/orbit/hub.html">Hub</a>
+ <a href="/portal.html">Time machine</a>
+ </nav>
+ <iframe title="$DOSWAPZ" src="/classic/pages/cryptodad/token.html?embed=1&amp;era=present" allow="fullscreen"></iframe>
+ <div class="chrome-safe" aria-hidden="true"></div>
+ <script src="/assets/js/core/era-portal.js?v=20260809chrome3"></script>
+ <script src="/orbit/pages/cryptodad/_present-shell.js"></script>
+</body>
+</html>

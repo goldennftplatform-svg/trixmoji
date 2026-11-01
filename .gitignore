@@ -1,0 +1,26 @@
+node_modules/
+.vercel/
+*.log
+install_output.txt
+install_stdout.txt
+install_stderr.txt
+bake_output.txt
+bake_out.txt
+bake_err.txt
+_ansem_run_*.txt
+# Local Netlify folder
+.netlify
+
+.env
+.env.*
+!.env.example
+
+# Archived old site copies + noise
+previous-versions/
+extras/
+
+# Local account/order state, browser captures, and tooling caches
+.data/
+.playwright-mcp/
+.cache/
+

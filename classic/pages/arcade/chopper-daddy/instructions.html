@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chopper Daddy — Instructions</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070d1b;--blue:#168bff;--gold:#ffdf22;--white:#f3f5ff;--muted:#a8c7df;--green:#67ff56}
+*{box-sizing:border-box}
+html,body{margin:0;background:#030713;color:var(--white);font-family:"Press Start 2P","Courier New",monospace}
+body{background:radial-gradient(ellipse at 50% 0%,#172c5b 0,#080e20 55%,#02040a 100%);padding:16px 12px 40px}
+main{max-width:860px;margin:0 auto;border:3px solid var(--blue);background:linear-gradient(180deg,#061b33f5,#020b18f5);box-shadow:0 0 0 2px #02040a,inset 0 0 0 1px #50b9ff}
+h1{margin:0;padding:14px 16px;background:#09284b;border-bottom:2px solid var(--blue);color:#ffb51d;font-size:clamp(16px,3vw,28px);line-height:1.3;text-shadow:3px 3px #8b1d11}
+h1 span{display:block;color:#fff0a5;font-size:.62em}
+h2{margin:18px 0 8px;color:var(--gold);font-size:12px}
+.pad{padding:14px 16px 22px}
+p,li{font-size:10px;line-height:1.75;color:var(--muted)}
+ul{margin:0;padding-left:18px}
+b{color:var(--white)}
+a{color:var(--gold)}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}
+button,a.btn{font-family:inherit;font-size:9px;color:var(--gold);background:#09274a;border:2px solid var(--gold);padding:8px 10px;cursor:pointer;text-decoration:none;display:inline-block}
+button:hover,a.btn:hover{color:#07101a;background:var(--gold)}
+.pipe{border:2px solid #147ed8;background:#061426;padding:8px;margin:8px 0}
+.pipe b{color:var(--gold)}
+.note{color:var(--green)}
+</style>
+</head>
+<body>
+<main>
+ <h1>CHOPPER DADDY<span>INSTRUCTIONS</span></h1>
+ <div class="pad">
+  <p>You run a 16-bit chopper shop. Buy parts, bolt them on, take a customer job, and get paid. Then take the bike out on the desert highway.</p>
+  <div class="row">
+   <a class="btn" href="/classic/pages/arcade/chopper-daddy/">BACK TO THE GARAGE</a>
+   <a class="btn" href="/arcade/chopper-daddy/past">PLAY ON DOSWAPZ</a>
+   <button type="button" id="soundBtn">SOUND</button>
+  </div>
+
+  <h2>CONTROLS</h2>
+  <ul>
+   <li><b>W</b> or <b>Up</b> — accelerate on a test ride.</li>
+   <li><b>S</b> or <b>Down</b> — slow down.</li>
+   <li><b>A</b> or <b>Left</b>, <b>D</b> or <b>Right</b> — steer.</li>
+   <li><b>Space</b> — brake.</li>
+   <li><b>R</b> — leave the highway and return to the garage.</li>
+   <li>The bottom bar has <b>RIDE</b> and <b>GARAGE</b>. <b>HOW TO</b> opens these instructions inside the shop. <b>SOUND</b> turns the shop audio on or off.</li>
+  </ul>
+
+  <h2>CASH AND PARTS</h2>
+  <ul>
+   <li>A new game starts with <b>$4,850</b> and a starter bike.</li>
+   <li>The catalog has Frames, Engines, Front End, Wheels, Tanks, Exhaust, and Misc.</li>
+   <li>Click a part to put it on the bike. You pay the difference from the part already fitted. A cheaper part pays the difference back. A short shop refuses the sale.</li>
+   <li>The four garage bikes (Basic Bobber, Custom Chopper, Rat Rod, Long Fork) charge the same way.</li>
+   <li>Fitting a part plays a wrench. Frames, engines, and wheels use a slower ratchet. The paint chip on Build Complete changes the bike color.</li>
+  </ul>
+
+  <h2>EXHAUST</h2>
+  <p>Each pipe has its own sound. Click a pipe in the catalog, or play it here. On a test ride the engine keeps that voice and rises with RPM.</p>
+  <div class="pipe"><b>DRAG PIPES</b> — deep open lope.<br><span class="note">Low, raspy, long.</span><div class="row"><button type="button" data-pipe="drag">HEAR DRAG PIPES</button></div></div>
+  <div class="pipe"><b>UPSWEPT PIPES</b> — bright crack.<br><span class="note">Higher, snappy, less bass.</span><div class="row"><button type="button" data-pipe="up">HEAR UPSWEPT PIPES</button></div></div>
+  <div class="pipe"><b>SHOTGUN PIPES</b> — loud wide bark.<br><span class="note">The noisiest pipe in the shop.</span><div class="row"><button type="button" data-pipe="shotgun">HEAR SHOTGUN PIPES</button></div></div>
+  <div class="pipe"><b>WRAPPED PIPES</b> — muffled rumble.<br><span class="note">Quiet, dull, less rasp.</span><div class="row"><button type="button" data-pipe="wrapped">HEAR WRAPPED PIPES</button></div></div>
+
+  <h2>ASSEMBLY</h2>
+  <ul>
+   <li>Ten steps: Frame, Engine, Transmission, Primary Drive, Rear Wheel, Front End, Tank, Seat, Exhaust, Controls.</li>
+   <li>Pick a step, then <b>INSTALL STEP</b>. The wrench turns.</li>
+   <li>Submit a customer order only after the <b>frame</b> and <b>engine</b> steps are installed.</li>
+   <li><b>INSPECT</b> reads the checklist. A long fork asks for a handling review. These are game checks, not a real shop manual.</li>
+  </ul>
+
+  <h2>JOBS</h2>
+  <ul>
+   <li>Pick a job on the map and press <b>ACCEPT JOB</b>. The customer order updates.</li>
+   <li><b>ACCEPT / SUBMIT</b> pays that job into your cash and adds reputation.</li>
+   <li>Pays: Local Run $1,200, Hell’s Angel $2,800, Desert Tour $3,500, Show Special $5,200, Outlaw Build $7,500.</li>
+   <li><b>NEXT CUSTOMER</b> moves to the next order.</li>
+   <li>The goal counter fills at five submitted jobs.</li>
+  </ul>
+
+  <h2>SOUND</h2>
+  <ul>
+   <li>Sound starts on. The browser stays quiet until the first click or key.</li>
+   <li>You should hear a ratchet when a part or assembly step goes on, a different bark for each exhaust, a cash chime when a job pays, a buzz when a sale is refused, and the bike on the highway, including a shift click and a brake hiss.</li>
+   <li><b>SETTINGS</b> on the title, and <b>SOUND</b> on the bottom bar, toggle it. The choice is remembered in this browser.</li>
+  </ul>
+  <p>This is a game. It does not replace a real mechanic, a torque spec, or a road-legal inspection.</p>
+ </div>
+</main>
+<script src="/classic/pages/arcade/chopper-daddy/sound.js?v=20261025chop"></script>
+<script>
+var soundBtn = document.getElementById('soundBtn');
+function paintSound() {
+  soundBtn.textContent = window.ChopperSound && ChopperSound.enabled() ? 'SOUND ON' : 'SOUND OFF';
+}
+paintSound();
+soundBtn.onclick = function () { ChopperSound.toggle(); paintSound(); };
+document.querySelectorAll('[data-pipe]').forEach(function (btn) {
+  btn.onclick = function () { ChopperSound.unlock(); ChopperSound.bark(btn.getAttribute('data-pipe')); };
+});
+</script>
+</body>
+</html>

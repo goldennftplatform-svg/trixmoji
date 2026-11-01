@@ -1,0 +1,10 @@
+{
+  "wallets": [
+    "5tJbQX5vRxDyHNEXdAmLEWtKR8EyrDTRdYtBFqujmpAc"
+  ],
+  "count": 1,
+  "updatedAt": "2026-08-09T19:16:00.000Z",
+  "source": "bootstrap_seed_bundled",
+  "queryId": null,
+  "note": "Bootstrap seed. Prefer live store via POST /api/pond-rigs-sync (Dune or wallets[]). Allowlist also unlocks old rails. Replace via sync when DUNE_API_KEY + query id are set."
+}

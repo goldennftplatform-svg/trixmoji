@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // LIVE STREAM SIM</title>
+ <meta name="description" content="DOSWAPZ live stream simulation - looping feed with LIVE chrome.">
+ <meta property="og:title" content="DOSWAPZ // LIVE STREAM SIM">
+ <meta property="og:description" content="Simulated always-on live feed. Loop playback. Local channel.">
+ <meta property="og:url" content="https://doswapz.com/classic/pages/live-stream-sim.html">
+ <meta name="twitter:card" content="summary_large_image">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='12' fill='%2366ff99' text-anchor='middle' font-weight='bold'%3ELIVE%3C/text%3E%3C/svg%3E">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ :root {
+ --live: #66ff99;
+ --live-dim: #2a6644;
+ --accent: #88ccff;
+ --hot: #cc99ff;
+ --bg: #020408;
+ }
+ * { box-sizing: border-box; }
+ html, body {
+ margin: 0; padding: 0; width: 100%; min-height: 100%;
+ background: #000; color: var(--accent);
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ }
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: radial-gradient(ellipse at 50% 18%, #0a1410 0%, #000 72%);
+ padding: 22px 16px 72px;
+ }
+ .dos-screen::before {
+ content: '';
+ position: fixed; inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px, transparent 3px,
+ rgba(102, 255, 153, 0.03) 3px, rgba(102, 255, 153, 0.03) 5px
+ );
+ pointer-events: none; z-index: 30;
+ }
+ .vignette {
+ position: fixed; inset: 0;
+ background: radial-gradient(circle at center, transparent 46%, rgba(0,0,0,0.75) 90%);
+ pointer-events: none; z-index: 5;
+ }
+ .wrap {
+ position: relative; z-index: 10;
+ max-width: 1100px; margin: 0 auto; text-align: center;
+ }
+ .header h1 {
+ margin: 0;
+ font-size: clamp(26px, 5.5vw, 40px);
+ letter-spacing: 6px;
+ color: #e8fff4;
+ text-shadow: 0 0 10px var(--live), 0 0 28px rgba(80, 220, 140, 0.3);
+ }
+ .header .sub {
+ margin-top: 8px;
+ font-size: 18px;
+ letter-spacing: 4px;
+ color: var(--live-dim);
+ }
+ .header .tag {
+ display: inline-block;
+ margin-top: 12px;
+ border: 1px solid #335544;
+ color: var(--live);
+ padding: 2px 14px;
+ font-size: 14px;
+ letter-spacing: 3px;
+ box-shadow: 0 0 12px rgba(102,255,153,0.18);
+ }
+ .note {
+ margin: 14px auto 18px;
+ max-width: 720px;
+ font-size: 16px;
+ line-height: 1.45;
+ color: #779988;
+ letter-spacing: 1px;
+ }
+
+ .stage {
+ position: relative;
+ border: 2px solid #224433;
+ background: var(--bg);
+ box-shadow:
+ 0 0 0 1px #112211,
+ 0 0 40px rgba(60, 200, 120, 0.12),
+ inset 0 0 60px rgba(0, 40, 20, 0.35);
+ padding: 10px;
+ text-align: left;
+ }
+ .stage::before {
+ content: 'NOW PLAYING';
+ position: absolute;
+ top: -11px; left: 16px;
+ background: #000;
+ color: var(--live);
+ font-size: 13px;
+ letter-spacing: 3px;
+ padding: 0 8px;
+ z-index: 4;
+ }
+
+ .player-shell {
+ position: relative;
+ width: 100%;
+ background: #000;
+ aspect-ratio: 16 / 9;
+ overflow: hidden;
+ }
+ #liveVideo {
+ display: block;
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ background: #000;
+ }
+
+ .overlay-top {
+ position: absolute;
+ top: 12px; left: 12px; right: 12px;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ gap: 10px;
+ pointer-events: none;
+ z-index: 3;
+ }
+ .live-pill {
+ display: inline-flex;
+ align-items: center;
+ gap: 8px;
+ border: 1px solid var(--live);
+ color: var(--live);
+ background: rgba(0,0,0,0.72);
+ padding: 4px 12px;
+ font-size: 16px;
+ letter-spacing: 3px;
+ box-shadow: 0 0 14px rgba(102,255,153,0.22);
+ }
+ .live-dot {
+ width: 8px; height: 8px;
+ border-radius: 50%;
+ background: var(--live);
+ box-shadow: 0 0 8px var(--live);
+ animation: pulse 1.2s ease-in-out infinite;
+ }
+ @keyframes pulse {
+ 0%, 100% { opacity: 1; transform: scale(1); }
+ 50% { opacity: 0.35; transform: scale(0.85); }
+ }
+ .viewer-count {
+ border: 1px solid #334455;
+ color: #cce8dd;
+ background: rgba(0,0,0,0.72);
+ padding: 4px 12px;
+ font-size: 15px;
+ letter-spacing: 2px;
+ }
+
+ .overlay-bottom {
+ position: absolute;
+ left: 0; right: 0; bottom: 0;
+ padding: 28px 14px 12px;
+ background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+ pointer-events: none;
+ z-index: 3;
+ }
+ .channel-title {
+ font-size: 22px;
+ letter-spacing: 2px;
+ color: #e8fff4;
+ }
+ .channel-sub {
+ margin-top: 4px;
+ font-size: 15px;
+ color: #88aa99;
+ letter-spacing: 1px;
+ }
+
+ .meta {
+ margin-top: 12px;
+ padding: 12px 14px;
+ border: 1px solid #223344;
+ background: #050810;
+ text-align: left;
+ display: grid;
+ grid-template-columns: 1fr auto;
+ gap: 10px 16px;
+ align-items: center;
+ }
+ .meta .label {
+ font-size: 13px;
+ letter-spacing: 2px;
+ color: #556677;
+ }
+ .meta .value {
+ font-size: 18px;
+ letter-spacing: 2px;
+ color: #e8f4ff;
+ }
+ .meta .uptime {
+ text-align: right;
+ }
+ .meta .uptime .value { color: var(--live); }
+
+ .ticker {
+ margin-top: 12px;
+ overflow: hidden;
+ border: 1px solid #1a3328;
+ background: #030806;
+ white-space: nowrap;
+ }
+ .ticker-inner {
+ display: inline-block;
+ padding: 8px 0;
+ font-size: 16px;
+ letter-spacing: 2px;
+ color: #88bb99;
+ animation: scroll 28s linear infinite;
+ }
+ @keyframes scroll {
+ from { transform: translateX(8%); }
+ to { transform: translateX(-100%); }
+ }
+
+ .controls {
+ margin-top: 14px;
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ justify-content: center;
+ align-items: center;
+ }
+ .btn {
+ display: inline-block;
+ color: var(--accent);
+ border: 2px solid #335577;
+ padding: 7px 16px;
+ text-decoration: none;
+ cursor: pointer;
+ background: transparent;
+ font-family: inherit;
+ font-size: 16px;
+ letter-spacing: 2px;
+ }
+ .btn:hover {
+ border-color: var(--accent);
+ color: #fff;
+ box-shadow: 0 0 12px rgba(100,160,255,0.25);
+ }
+ .btn-hot {
+ border-color: #336655;
+ color: var(--live);
+ }
+ .btn-hot:hover {
+ border-color: var(--live);
+ color: #fff;
+ box-shadow: 0 0 12px rgba(102,255,153,0.25);
+ }
+ .btn:disabled {
+ opacity: 0.4;
+ cursor: not-allowed;
+ box-shadow: none;
+ }
+
+ .status {
+ margin-top: 14px;
+ min-height: 20px;
+ font-size: 15px;
+ color: #556677;
+ letter-spacing: 2px;
+ }
+ .status.ok { color: var(--live-dim); }
+ .status.err { color: #ff6688; }
+
+ .fallback {
+ display: none;
+ position: absolute;
+ inset: 0;
+ z-index: 4;
+ align-items: center;
+ justify-content: center;
+ flex-direction: column;
+ gap: 12px;
+ background: rgba(0,0,0,0.92);
+ color: #88aacc;
+ font-size: 18px;
+ letter-spacing: 2px;
+ text-align: center;
+ padding: 24px;
+ }
+ .fallback.show { display: flex; }
+ .fallback strong { color: #e8fff4; }
+
+ .actions {
+ margin-top: 22px;
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ justify-content: center;
+ }
+ </style>
+</head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+ <div class="wrap">
+ <div class="header">
+ <h1>LIVE STREAM SIM</h1>
+ <div class="sub">DOSWAPZ * ALWAYS-ON CHANNEL</div>
+ <div class="tag">SIMULATED FEED * LOOP PLAYBACK</div>
+ </div>
+
+ <p class="note">
+ Local perpetual channel. Video loops like a 24/7 stream - not an X broadcast embed.
+ Audio starts muted (autoplay). Tap UNMUTE or the player controls when you want sound.
+ </p>
+
+ <div class="stage">
+ <div class="player-shell" id="playerShell">
+ <video
+ id="liveVideo"
+ playsinline
+ autoplay
+ muted
+ loop
+ preload="auto"
+ controlslist="nodownload"
+ >
+ <source src="/assets/media/live-sim-lofi.mp4" type="video/mp4">
+ </video>
+
+ <div class="overlay-top">
+ <div class="live-pill" aria-label="Live indicator">
+ <span class="live-dot" aria-hidden="true"></span>
+ LIVE
+ </div>
+ <div class="viewer-count" id="viewerCount">VIEWERS 1,024</div>
+ </div>
+
+ <div class="overlay-bottom">
+ <div class="channel-title">LOFI PERPETUAL</div>
+ <div class="channel-sub">CHANNEL 07 // DOSWAPZ INTERNAL LOOP</div>
+ </div>
+
+ <div class="fallback" id="fallback" role="alert">
+ <strong>SIGNAL LOST</strong>
+ <div>Could not load <code>/assets/media/live-sim-lofi.mp4</code></div>
+ <div style="font-size:15px;color:#667788">Copy or compress LOFI.mp4 into assets/media, then refresh.</div>
+ </div>
+ </div>
+ </div>
+
+ <div class="meta">
+ <div>
+ <div class="label">CHANNEL</div>
+ <div class="value">LOFI PERPETUAL // SIM-07</div>
+ </div>
+ <div class="uptime">
+ <div class="label">UPTIME</div>
+ <div class="value" id="uptime">00:00:00</div>
+ </div>
+ </div>
+
+ <div class="ticker" aria-hidden="true">
+ <div class="ticker-inner">
+ LIVE SIM ONLINE * LOOP ENGAGED * NO EXTERNAL API * MUTED BY DEFAULT * TAP UNMUTE FOR AUDIO * DOSWAPZ CHANNEL 07 * PERPETUAL SIGNAL *
+ LIVE SIM ONLINE * LOOP ENGAGED * NO EXTERNAL API * MUTED BY DEFAULT * TAP UNMUTE FOR AUDIO * DOSWAPZ CHANNEL 07 * PERPETUAL SIGNAL *
+ </div>
+ </div>
+
+ <div class="controls">
+ <button type="button" class="btn btn-hot" id="btnPlay">PLAY / PAUSE</button>
+ <button type="button" class="btn" id="btnMute">UNMUTE</button>
+ <button type="button" class="btn" id="btnRestart">RESTART LOOP</button>
+ </div>
+
+ <div class="status" id="status">Initializing signal...</div>
+
+ <div class="actions">
+ <a class="btn btn-hot" href="/classic/pages/perpetual-vision-center.html">VISION CENTER</a>
+ <a class="btn" href="/classic/hub.html"><- HUB</a>
+ <a class="btn" href="/classic/pages/lily-pad.html">LILY PAD</a>
+ </div>
+ </div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+ <script>
+ (function () {
+ var video = document.getElementById('liveVideo');
+ var statusEl = document.getElementById('status');
+ var fallback = document.getElementById('fallback');
+ var btnPlay = document.getElementById('btnPlay');
+ var btnMute = document.getElementById('btnMute');
+ var btnRestart = document.getElementById('btnRestart');
+ var uptimeEl = document.getElementById('uptime');
+ var viewerEl = document.getElementById('viewerCount');
+ var startedAt = Date.now();
+ var baseViewers = 980 + Math.floor(Math.random() * 80);
+
+ function setStatus(msg, kind) {
+ statusEl.textContent = msg;
+ statusEl.className = 'status' + (kind ? ' ' + kind : '');
+ }
+
+ function pad(n) {
+ return String(n).padStart(2, '0');
+ }
+
+ function tickUptime() {
+ var s = Math.floor((Date.now() - startedAt) / 1000);
+ var h = Math.floor(s / 3600);
+ var m = Math.floor((s % 3600) / 60);
+ var sec = s % 60;
+ uptimeEl.textContent = pad(h) + ':' + pad(m) + ':' + pad(sec);
+ }
+
+ function tickViewers() {
+ var drift = Math.floor(Math.sin(Date.now() / 9000) * 40) + Math.floor(Math.random() * 9) - 4;
+ var n = Math.max(412, baseViewers + drift);
+ viewerEl.textContent = 'VIEWERS ' + n.toLocaleString('en-US');
+ }
+
+ function syncMuteLabel() {
+ btnMute.textContent = video.muted ? 'UNMUTE' : 'MUTE';
+ }
+
+ function tryPlay() {
+ var p = video.play();
+ if (p && typeof p.then === 'function') {
+ p.then(function () {
+ setStatus('ON AIR * LOOP LOCKED', 'ok');
+ }).catch(function () {
+ setStatus('Tap PLAY to start stream (browser blocked autoplay)', 'err');
+ });
+ } else {
+ setStatus('ON AIR * LOOP LOCKED', 'ok');
+ }
+ }
+
+ btnPlay.addEventListener('click', function () {
+ if (video.paused) {
+ tryPlay();
+ } else {
+ video.pause();
+ setStatus('PAUSED * SIGNAL HELD', 'ok');
+ }
+ });
+
+ btnMute.addEventListener('click', function () {
+ video.muted = !video.muted;
+ if (!video.muted && video.paused) tryPlay();
+ syncMuteLabel();
+ setStatus(video.muted ? 'AUDIO MUTED' : 'AUDIO LIVE', 'ok');
+ });
+
+ btnRestart.addEventListener('click', function () {
+ video.currentTime = 0;
+ tryPlay();
+ setStatus('LOOP RESTARTED', 'ok');
+ });
+
+ video.addEventListener('playing', function () {
+ setStatus('ON AIR * LOOP LOCKED', 'ok');
+ fallback.classList.remove('show');
+ });
+
+ video.addEventListener('waiting', function () {
+ setStatus('BUFFERING SIGNAL...', '');
+ });
+
+ video.addEventListener('error', function () {
+ fallback.classList.add('show');
+ setStatus('SIGNAL LOST * VIDEO FAILED TO LOAD', 'err');
+ });
+
+ video.addEventListener('loadeddata', function () {
+ setStatus('SIGNAL LOCKED * READY', 'ok');
+ tryPlay();
+ });
+
+ // Keep loop solid even if browser quirks fire 'ended'
+ video.addEventListener('ended', function () {
+ video.currentTime = 0;
+ tryPlay();
+ });
+
+ // Click video toggles mute for quick UX
+ video.addEventListener('click', function () {
+ video.muted = !video.muted;
+ syncMuteLabel();
+ if (video.paused) tryPlay();
+ });
+
+ syncMuteLabel();
+ tickUptime();
+ tickViewers();
+ setInterval(tickUptime, 1000);
+ setInterval(tickViewers, 3500);
+
+ // Kick autoplay after paint
+ tryPlay();
+ })();
+ </script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>
+</html>

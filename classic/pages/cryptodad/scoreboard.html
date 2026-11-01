@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // SCOREBOARD</title>
+ <meta name="description" content="Live DOSWAPZ Scoreboard - signature-only verification. Post Crypto Dad scores. No funds moved.">
+ <meta property="og:title" content="DOSWAPZ // SCOREBOARD">
+ <meta property="og:description" content="Signature-only leaderboard. Prove your run without moving money. Realistic + Arcade modes.">
+ <meta property="og:image" content="https://doswapz.com/assets/images/cryptodad/good_ending.jpg">
+ <meta property="og:url" content="https://doswapz.com/classic/pages/cryptodad/scoreboard.html">
+ <meta name="twitter:card" content="summary_large_image">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='32' fill='%2300ff00' text-anchor='middle' font-weight='bold'%3EDZ%3C/text%3E%3C/svg%3E">
+ <link rel="manifest" href="/site.webmanifest">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ }
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0; padding: 0;
+ width: 100%; min-height: 100%;
+ background: #000000;
+ color: #00ff00;
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: #000000;
+ padding: 24px 28px 60px;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px,
+ rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .header {
+ font-size: 32px;
+ letter-spacing: 6px;
+ text-shadow: 0 0 5px #00ff00;
+ text-align: center;
+ margin-bottom: 6px;
+ }
+
+ .content {
+ max-width: 960px;
+ margin: 18px auto 0;
+ padding: 0 8px;
+ }
+
+ .subhead {
+ font-size: 15px;
+ color: #00aa00;
+ text-align: center;
+ margin-bottom: 18px;
+ letter-spacing: 1px;
+ }
+
+ .section {
+ margin-bottom: 24px;
+ }
+
+ .section-title {
+ font-size: 22px;
+ color: #ffff00;
+ margin-bottom: 6px;
+ border-bottom: 1px solid #003300;
+ padding-bottom: 3px;
+ }
+
+ .leaderboard {
+ border: 3px solid #00ff41;
+ background: #001100;
+ padding: 12px;
+ }
+
+ .leaderboard table {
+ width: 100%;
+ border-collapse: collapse;
+ font-size: 17px;
+ }
+
+ .leaderboard th, .leaderboard td {
+ padding: 6px 8px;
+ text-align: left;
+ border-bottom: 1px solid #003300;
+ }
+
+ .leaderboard th {
+ color: #ffff00;
+ border-bottom: 2px solid #00ff00;
+ }
+
+ .leaderboard .rank { color: #ffff00; width: 40px; }
+ .leaderboard .wallet { font-family: monospace; color: #aaffaa; }
+ .leaderboard .score { color: #ffff00; text-align: right; }
+ .leaderboard .ts { color: #00aa00; font-size: 14px; }
+
+ .leaderboard .empty-row td {
+ text-align: center;
+ color: #006600;
+ font-style: italic;
+ padding: 18px 8px;
+ border-bottom: none;
+ }
+
+ .my-score {
+ border: 2px solid #00ff41;
+ background: #000a00;
+ padding: 12px;
+ margin-bottom: 16px;
+ }
+
+ .status-line {
+ font-size: 13px;
+ min-height: 16px;
+ text-align: center;
+ margin: 6px 0;
+ color: #00cc00;
+ }
+
+ .btn {
+ font-size: 17px;
+ color: #00ff00;
+ background: transparent;
+ border: 2px solid #00ff00;
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px;
+ display: inline-block;
+ cursor: pointer;
+ }
+
+ .btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .small-btn {
+ padding: 3px 8px;
+ font-size: 13px;
+ }
+
+ .disclaimer {
+ margin: 14px auto;
+ padding: 10px 12px;
+ border: 2px solid #ffff00;
+ background: rgba(40, 30, 0, 0.35);
+ font-size: 12px;
+ line-height: 1.28;
+ max-width: 960px;
+ text-align: left;
+ }
+
+ .disclaimer-title {
+ color: #ffff00;
+ margin-bottom: 4px;
+ letter-spacing: 1px;
+ text-align: center;
+ font-size: 13px;
+ }
+
+ .buttons {
+ text-align: center;
+ margin-top: 20px;
+ }
+
+ .footer {
+ margin-top: 18px;
+ font-size: 13px;
+ color: #00aa00;
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ .vignette {
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.58) 84%);
+ pointer-events: none;
+ z-index: 5;
+ }
+
+ .glitch-layer {
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 20;
+ mix-blend-mode: screen;
+ }
+
+ .mosh-band {
+ position: fixed;
+ left: 0;
+ width: 100%;
+ background: rgba(0, 255, 0, 0.16);
+ mix-blend-mode: difference;
+ pointer-events: none;
+ z-index: 25;
+ opacity: 0;
+ }
+ </style>
+ <link rel="stylesheet" href="/assets/css/era-present-cryptodad.css?v=neonvoid8" data-era-present-cryptodad>
+ <script src="/assets/js/core/era-present-cryptodad.js?v=neonvoid8"></script>
+</head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+
+ <div class="header">DOSWAPZ // CRYPTO DAD SCOREBOARD</div>
+
+ <div class="content">
+ <div class="subhead">LAST RUN ONLY * POSTING IS OPTIONAL * X LOGIN OR SOFT WALLET SIGN * NO FUNDS</div>
+
+ <div id="xAuthMount" style="max-width:960px;margin:0 auto 16px;"></div>
+
+ <div class="section">
+ <div class="section-title">LEADERBOARD - AWAITING ENTRIES</div>
+
+ <div class="leaderboard">
+ <table id="leaderboard-table">
+ <thead>
+ <tr>
+ <th class="rank">#</th>
+ <th>WALLET</th>
+ <th class="score">SCORE</th>
+ <th class="ts">ACHIEVED</th>
+ </tr>
+ </thead>
+ <tbody id="leaderboard-body">
+ <!-- Populated by JS -->
+ </tbody>
+ </table>
+ </div>
+ </div>
+
+ <div class="section">
+ <div class="section-title">LOG YOUR LAST RUN (SOFT VERIFY)</div>
+
+ <div id="pendingScoreBox" style="display:none; border:2px solid #ffff00; background:rgba(20,30,0,0.4); padding:12px; margin-bottom:16px;">
+ <div style="color:#ffff00; font-size:15px;">YOUR LATEST RUN ENDED WITH THIS SCORE</div>
+ <div id="pendingScoreValue" style="font-size:42px; color:#ffff00; line-height:1; margin:6px 0 4px;"></div>
+ <div id="pendingScoreMeta" style="font-size:13px; color:#00aa00; margin-bottom:8px;"></div>
+
+ <div style="margin:8px 0 4px;">
+ <button id="logPendingBtn" class="btn small-btn" style="border-color:#ffff00; color:#ffff00;">SIGN &amp; LOG THIS SCORE (SOFT, NO FUNDS)</button>
+ <button id="logXBtn" class="btn small-btn" style="border-color:#33ff66; color:#33ff66; margin-left:8px;">LOG WITH X</button>
+ <button id="skipPendingBtn" class="btn small-btn" style="margin-left:8px;">SKIP / DON'T LOG</button>
+ </div>
+ <div style="font-size:11px; color:#00aa00;">Only your most recent completed run can be logged. Soft signature only - no funds, no transaction permission.</div>
+ <div id="pendingResult" style="margin-top:6px; font-size:13px; color:#ffff00;"></div>
+ </div>
+
+ <div id="noPendingBox" class="my-score" style="display:none;">
+ <div style="margin-bottom:8px; color:#00aa00;">No recent run found.</div>
+ <div style="font-size:14px; line-height:1.4;">
+ Finish a Crypto Dad game first - when your run ends you will be sent here with that score locked in.<br>
+ Manual score entry is not allowed.
+ </div>
+ <div style="margin-top:12px;">
+ <a href="/classic/pages/cryptodad/play.html" class="btn small-btn"> PLAY CRYPTO DAD</a>
+ </div>
+ </div>
+ </div>
+
+ <!-- Safety disclaimers -->
+ <div class="disclaimer">
+ <div class="disclaimer-title">SOFT VERIFY - SIGNATURE ONLY (MAXIMUM SAFETY)</div>
+ * We never ask for a private key, seed phrase, or permission to move funds.<br>
+ * You only sign a simple message to prove your score.<br>
+ * Connection is page-scoped for this leaderboard only.<br>
+ * Scores are stored locally in your browser.
+ </div>
+
+ <div class="disclaimer" style="max-width:960px; margin:14px auto;">
+ <div class="disclaimer-title">VERIFICATION DIRECTIVE - READ AND COMPLY</div>
+ Live scoreboard. Signature-only verification for scores. No funds at risk from this feature.<br>
+ Always verify any real-world contracts, tokens, or transactions on official explorers before signing anything.<br>
+ DOSWAPZ accepts NO responsibility for loss of funds or decisions made after interacting here. Do your own research. Do not trust links, DMs, or anyone.
+ </div>
+
+ <div class="buttons">
+ <a href="/classic/hub.html" class="btn"><- BACK TO MENU</a>
+ <a href="/classic/pages/cryptodad/play.html" class="btn">PLAY CRYPTO DAD</a>
+ <a href="/classic/pages/cryptodad/how-to-play.html" class="btn">HOW TO PLAY</a>
+ </div>
+
+ <div class="footer">
+ DOSWAPZ - CRYPTO DAD LEADERBOARD * SIGNATURE ONLY
+ </div>
+ </div>
+
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+<script src="/assets/js/core/x-auth.js?v=20260816x"></script>
+<script src="/assets/js/core/soft-score.js"></script>
+<script>
+ const SCORES_KEY = 'doswapz_scores';
+ const Soft = window.DOSWAPZ_SOFT_SCORE;
+
+ function formatTs(ts) {
+ if (!ts) return ' - ';
+ const d = new Date(ts);
+ if (Number.isNaN(d.getTime())) return ' - ';
+ return d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+ }
+
+ function getLeaderboard() {
+ return Soft ? Soft.loadBoard(SCORES_KEY) : [];
+ }
+
+ function renderLeaderboard() {
+ const board = getLeaderboard();
+ const tbody = document.getElementById('leaderboard-body');
+
+ if (!board.length) {
+ tbody.innerHTML =
+ '<tr class="empty-row"><td colspan="4">NO SCORES YET - TABLE AWAITS YOUR ENTRY (OPTIONAL SOFT SIGN)</td></tr>';
+ return;
+ }
+
+ tbody.innerHTML = board.map((entry, i) =>
+ `<tr>
+ <td class="rank">${i + 1}</td>
+ <td class="wallet">${entry.wallet || '????'}</td>
+ <td class="score">${entry.score}</td>
+ <td class="ts">${formatTs(entry.ts)}${entry.mode ? ' * ' + entry.mode.toUpperCase() : ''}</td>
+ </tr>`
+ ).join('');
+ }
+
+ async function softSignAndPost(score, mode, resultEl) {
+ if (!score || score < 1) {
+ resultEl.innerHTML = '<span style="color:#ff5555;">No valid score from your last run. Play a game first.</span>';
+ return false;
+ }
+ if (!Soft) {
+ resultEl.innerHTML = '<span style="color:#ff5555;">Soft-score module missing. Refresh.</span>';
+ return false;
+ }
+
+ resultEl.innerHTML = 'Connecting wallet and requesting signature (no funds)...';
+ const result = await Soft.signScore({
+ game: 'CRYPTO DAD',
+ score: score,
+ fields: { mode: (mode || 'realistic').toUpperCase() },
+ onStatus: function (msg) { resultEl.innerHTML = msg; }
+ });
+
+ if (!result.ok) {
+ resultEl.innerHTML = '<span style="color:#ff5555;">' + (result.error || 'Sign failed') + '</span>';
+ return false;
+ }
+
+ Soft.saveBoardEntry(SCORES_KEY, {
+ wallet: result.wallet,
+ walletShort: result.short,
+ score: score,
+ mode: mode || 'realistic',
+ chain: result.chain,
+ soft: true,
+ ts: Date.now()
+ }, { max: 20, keepBestPerWallet: true });
+
+ renderLeaderboard();
+ resultEl.innerHTML =
+ 'SOFT SIGN SUCCESS - no funds involved.<br>Logged as <span style="color:#ffff00;">' +
+ result.short + '</span> (score ' + score + ').';
+ return true;
+ }
+
+ function clearPendingScore() {
+ localStorage.removeItem('pending_score');
+ document.getElementById('pendingScoreBox').style.display = 'none';
+ document.getElementById('noPendingBox').style.display = 'block';
+ }
+
+ function showPendingScore() {
+ var pendingBox = document.getElementById('pendingScoreBox');
+ var noPendingBox = document.getElementById('noPendingBox');
+ try {
+ const raw = localStorage.getItem('pending_score');
+ if (!raw) {
+ pendingBox.style.display = 'none';
+ noPendingBox.style.display = 'block';
+ return;
+ }
+
+ const p = JSON.parse(raw);
+ if (!p || !p.score) {
+ pendingBox.style.display = 'none';
+ noPendingBox.style.display = 'block';
+ return;
+ }
+
+ document.getElementById('pendingScoreValue').textContent = p.score;
+ document.getElementById('pendingScoreMeta').textContent =
+ `Mode: ${(p.mode || 'realistic').toUpperCase()} * Ending: ${p.ending || 'run_end'} * ${p.ts || ''}`;
+ pendingBox.style.display = 'block';
+ noPendingBox.style.display = 'none';
+ } catch (e) {
+ pendingBox.style.display = 'none';
+ noPendingBox.style.display = 'block';
+ }
+ }
+
+ document.getElementById('logXBtn').addEventListener('click', async () => {
+ const resultEl = document.getElementById('pendingResult');
+ const X = window.DOSWAPZ_X;
+ if (!X || !X.user) {
+ resultEl.innerHTML = '<span style="color:#ff5555;">Connect with X first.</span>';
+ if (X) X.login();
+ return;
+ }
+ try {
+ const raw = localStorage.getItem('pending_score');
+ const p = raw ? JSON.parse(raw) : null;
+ const score = p && p.score ? p.score : 0;
+ if (!score) {
+ resultEl.innerHTML = '<span style="color:#ff5555;">No valid score from your last run.</span>';
+ return;
+ }
+ resultEl.innerHTML = 'Posting to X board as @' + X.user.username + '...';
+ const r = await X.postScore({ game: 'dad', score: score, extra: { mode: (p.mode || 'realistic') } });
+ if (!r.ok) {
+ resultEl.innerHTML = '<span style="color:#ff5555;">' + (r.error || 'X post failed') + '</span>';
+ return;
+ }
+ resultEl.innerHTML = r.keptOld
+ ? 'X board kept your best (' + r.best + ') as @' + X.user.username
+ : 'Logged ' + score + ' on the X board as @' + X.user.username;
+ } catch (e) {
+ resultEl.innerHTML = '<span style="color:#ff5555;">Could not post X score.</span>';
+ }
+ });
+
+ document.getElementById('logPendingBtn').addEventListener('click', async () => {
+ const resultEl = document.getElementById('pendingResult');
+ try {
+ const raw = localStorage.getItem('pending_score');
+ const p = raw ? JSON.parse(raw) : null;
+ const score = p && p.score ? p.score : 0;
+ const mode = p && p.mode ? p.mode : 'realistic';
+ const ok = await softSignAndPost(score, mode, resultEl);
+ if (ok) clearPendingScore();
+ } catch (e) {
+ resultEl.innerHTML = '<span style="color:#ff5555;">Could not read pending score.</span>';
+ }
+ });
+
+ document.getElementById('skipPendingBtn').addEventListener('click', () => {
+ clearPendingScore();
+ document.getElementById('pendingResult').innerHTML =
+ '<span style="color:#00aa00;">Score not logged. Table remains open for future entries.</span>';
+ });
+
+ renderLeaderboard();
+ showPendingScore();
+ </script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.content, #content' });
+ </script>
+<div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+<script src="/assets/js/core/price-ticker.js"></script>
+ 
+<!-- Present soft skin: assets/js/core/era-present-cryptodad.js -->
+</body>
+</html>

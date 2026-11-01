@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blockchain Email Security Gateway</title>
+<style>
+:root{--bg:#03070b;--blue:#19d8ff;--dim:#69a6b3;--line:#12313a;--warn:#ffd447;--ok:#48ff9b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--blue);font:14px/1.45 "Courier New",monospace}
+main{max-width:900px;margin:auto;padding:28px 18px}.logo{font-size:22px;font-weight:bold;letter-spacing:2px;text-shadow:0 0 12px #19d8ff}
+.panel{border:1px solid var(--line);padding:18px;margin-top:16px;box-shadow:0 0 18px #05242b inset}
+h2{font-size:15px;margin:0 0 12px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+input,textarea,button{width:100%;background:#020407;border:1px solid #16505d;color:var(--blue);padding:10px;font:inherit}
+textarea{min-height:100px;resize:vertical}button{cursor:pointer;margin-top:10px}button:hover{border-color:var(--blue);box-shadow:0 0 12px #0a7385}
+pre{white-space:pre-wrap;word-break:break-word;color:var(--dim)}.status{margin-top:10px}.ok{color:var(--ok)}.warn{color:var(--warn)}
+@media(max-width:650px){.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+<div class="logo">[ BLOCKCHAIN EMAIL SECURITY GATEWAY ]</div>
+<div class="panel">
+<h2>01 / DOMAIN OWNERSHIP</h2>
+<div class="row"><input id="domain" placeholder="yourdomain.com"><button onclick="challenge()">GENERATE DNS CHALLENGE</button></div>
+<pre id="dns"></pre>
+<button onclick="verify()">VERIFY DNS</button>
+<div id="domainStatus" class="status"></div>
+</div>
+
+<div class="panel">
+<h2>02 / MESSAGE AUTHORIZATION</h2>
+<div class="row">
+<input id="from" placeholder="from@yourdomain.com">
+<input id="to" placeholder="recipient@example.com">
+</div>
+<input id="subject" placeholder="subject" style="margin-top:10px">
+<textarea id="body" placeholder="message"></textarea>
+<button onclick="prepare()">PREPARE SIGNED MESSAGE</button>
+<pre id="payload"></pre>
+<div class="status warn">Wallet adapters are intentionally not auto-injected. Connect your Solana/Ethereum wallet in your existing site and POST its signature to /api/message/authorize.</div>
+</div>
+
+<div class="panel">
+<h2>03 / POLICY</h2>
+<pre>DOMAIN OWNERSHIP   [ REQUIRED ]
+SPF                [ REQUIRED ]
+DKIM               [ REQUIRED ]
+DMARC              [ REJECT ]
+WALLET SIGNATURE   [ REQUIRED ]
+REPLAY PROTECTION  [ ENABLED ]
+RATE LIMITING      [ ENABLED ]
+PRIVATE KEYS       [ NEVER STORED ]</pre>
+</div>
+</main>
+<script>
+let last=null;
+async function api(url,data){const r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});return r.json()}
+async function challenge(){const d=document.querySelector("#domain").value;const x=await api("/api/domain/challenge",{domain:d});document.querySelector("#dns").textContent=JSON.stringify(x,null,2)}
+async function verify(){const d=document.querySelector("#domain").value;const x=await api("/api/domain/verify",{domain:d});document.querySelector("#domainStatus").textContent=x.message;document.querySelector("#domainStatus").className="status "+(x.verified?"ok":"warn")}
+async function prepare(){const x=await api("/api/message/prepare",{domain:document.querySelector("#domain").value,from:document.querySelector("#from").value,to:document.querySelector("#to").value,subject:document.querySelector("#subject").value,body:document.querySelector("#body").value});last=x;document.querySelector("#payload").textContent=JSON.stringify(x,null,2)}
+</script>
+</body>
+</html>

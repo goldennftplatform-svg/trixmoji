@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong> Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong> Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>DOSWAPZ // THE LILY PAD // ORBIT</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+  <link rel="stylesheet" href="/assets/css/era-present-soft.css?v=neonvoid2">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style class="page-classic-styles">
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ /* orbit: :root stripped */
+
+ * { box-sizing: border-box; }
+
+ /* orbit: global html,body stripped */
+
+ .dos-screen { position:relative; min-height:0; background:transparent; padding:0; }
+
+ /* orbit: scanlines stripped */
+
+ .vignette {
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 48%, rgba(0,0,0,0.6) 82%);
+ pointer-events: none;
+ z-index: 5;
+ }
+
+ /* orbit: .header stripped */
+
+ /* orbit: .sub stripped */
+
+ .gate-center {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ width: 100%;
+ text-align: center;
+ margin: 0 auto;
+ }
+
+ .video-container {
+ position: relative;
+ width: 100%;
+ max-width: 720px;
+ margin: 0 auto;
+ background: transparent800;
+ border: 2px solid rgba(255,255,255,0.14);
+ padding: 8px;
+ display: block;
+ box-sizing: border-box;
+ }
+
+ #lilyVideo {
+ display: block;
+ width: 100%;
+ max-width: 100%;
+ min-height: 280px;
+ height: auto;
+ margin: 0 auto;
+ aspect-ratio: 16 / 9;
+ border: 1px solid #002200;
+ background: transparent;
+ object-fit: contain;
+ object-position: center center;
+ }
+
+ .video-fallback {
+ display: none;
+ position: absolute;
+ inset: 8px;
+ border: 1px solid #002200;
+ background: transparent800;
+ color: var(--panel-accent);
+ font-size: 16px;
+ letter-spacing: 1px;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+ padding: 20px;
+ z-index: 5;
+ }
+
+ .video-fallback.show {
+ display: flex;
+ }
+
+ .enter-btn {
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ /* Keep translate in ALL states - global dos-smooth :active transform was
+ overwriting this and jumping the button (often cancelling the click). */
+ transform: translate(-50%, -50%);
+ font-family: 'VT323', 'Courier New', monospace;
+ font-size: 22px;
+ letter-spacing: 3px;
+ color: var(--panel-accent);
+ background: transparent;
+ border: 3px solid var(--panel-accent);
+ padding: 8px 26px;
+ cursor: pointer;
+ text-shadow: 0 0 4px var(--panel-accent);
+ box-shadow: 0 0 10px rgba(255,255,0,0.5);
+ z-index: 40;
+ pointer-events: auto;
+ -webkit-tap-highlight-color: rgba(255, 255, 0, 0.25);
+ }
+
+ .enter-btn:hover,
+ .enter-btn:focus-visible {
+ background: #112200;
+ color: #ffffff;
+ border-color: #ffffff;
+ transform: translate(-50%, -50%);
+ outline: none;
+ }
+
+ .enter-btn:active,
+ body.dos-smooth .enter-btn:active,
+ body.dos-smooth button.enter-btn:active {
+ /* Must keep centering transform or the click never completes */
+ transform: translate(-50%, -50%) scale(0.98) !important;
+ background: #1a2200;
+ }
+
+ .status {
+ text-align: center;
+ color: rgba(255,255,255,0.35);
+ font-size: 15px;
+ margin: 8px 0 4px;
+ letter-spacing: 1px;
+ }
+
+ .footer {
+ text-align: center;
+ margin-top: 18px;
+ font-size: 12px;
+ color: rgba(255,255,255,0.35);
+ letter-spacing: 1px;
+ }
+
+ .glitch-layer {
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 20;
+ mix-blend-mode: screen;
+ }
+ </style>
+</head>
+<body id="screen" class="orbit-void-inner">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+ <span class="crumb-zone">THE LILY PAD</span>
+ <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+ <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+ <div class="core-glow"></div>
+ <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+ <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ <div class="orbit-line" style="width:min(34vmin,34vw);height:min(34vmin,34vh)"></div>
+ </div>
+
+ <main class="stage" id="content">
+ <h1 class="hollow-title" id="orbitTitle">THE LILY PAD</h1>
+ <p class="hollow-sub" id="stageSub">video gate<span class="cursor-blink">|</span></p>
+</main>
+
+ <div class="orbit-panel accent-lily" id="orbitPanel">
+<div class="header">THE LILY PAD</div>
+ <div class="sub"></div>
+
+ <div class="gate-center">
+ <div class="video-container" id="vidWrap">
+ <video id="lilyVideo" autoplay muted playsinline loop preload="auto">
+ <source src="/assets/media/lily-pad.mp4" type="video/mp4">
+ Your browser does not support the video tag.
+ </video>
+ <div class="video-fallback" id="videoFallback">
+ VIDEO NOT LOADED - ensure <strong>/assets/media/lily-pad.mp4</strong> is deployed.<br>
+ <span style="color:rgba(255,255,255,0.35); font-size:14px;">Click ENTER LILY PAD to continue anyway.</span>
+ </div>
+
+ <!-- Button overlaid in the middle of the video area -->
+ <button type="button" class="enter-btn" id="enterLilyBtn">ENTER LILY PAD</button>
+ </div>
+ </div>
+
+ <div class="status" id="lilyStatus"></div>
+
+ <div class="footer">
+ DOSWAPZ - THE LILY PAD * NO FUNDS
+ </div>
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/core/price-ticker.js"></script>
+ <script>
+(function () {
+ 'use strict';
+
+ var DEST = (location.pathname.indexOf('/orbit/') >= 0)
+ ? '/orbit/pages/nodes.html'
+ : '/classic/pages/nodes.html';
+
+ try {
+ if (localStorage.getItem('doswapz_skip_lily') === '1') {
+ window.location.replace(DEST);
+ return;
+ }
+ } catch (e) {}
+
+ var glitchLayer = document.getElementById('glitchLayer');
+ var video = document.getElementById('lilyVideo');
+ var videoFallback = document.getElementById('videoFallback');
+ var enterBtn = document.getElementById('enterLilyBtn');
+ var statusEl = document.getElementById('lilyStatus');
+ var navigating = false;
+
+ function setStatus(msg) {
+ if (statusEl) statusEl.textContent = msg || '';
+ }
+
+ function showVideoFallback() {
+ if (videoFallback) videoFallback.classList.add('show');
+ }
+
+ function tryPlayVideo() {
+ if (!video) return;
+ var p = video.play();
+ if (p && typeof p.catch === 'function') {
+ p.catch(function () {
+ document.body.addEventListener('click', function retry() {
+ video.play().catch(function () {});
+ document.body.removeEventListener('click', retry);
+ }, { once: true });
+ });
+ }
+ }
+
+ if (video) {
+ video.addEventListener('error', showVideoFallback);
+ video.addEventListener('stalled', function () {
+ if (video.readyState < 2) showVideoFallback();
+ });
+ video.addEventListener('loadeddata', function () {
+ if (videoFallback) videoFallback.classList.remove('show');
+ });
+ tryPlayVideo();
+ }
+
+ function addGlitchBurst() {
+ if (!glitchLayer) return;
+ for (var i = 0; i < 3; i++) {
+ (function (n) {
+ setTimeout(function () {
+ var b = document.createElement('div');
+ b.style.position = 'absolute';
+ b.style.left = Math.random() * 100 + '%';
+ b.style.top = Math.random() * 100 + '%';
+ b.style.width = (1 + Math.random() * 5) + '%';
+ b.style.height = (1 + Math.random() * 3) + '%';
+ b.style.background = Math.random() < 0.6 ? '#00ff00' : '#000';
+ b.style.opacity = (0.22 + Math.random() * 0.32).toString();
+ b.style.mixBlendMode = 'difference';
+ b.style.zIndex = '22';
+ b.style.pointerEvents = 'none';
+ glitchLayer.appendChild(b);
+ setTimeout(function () {
+ b.style.transition = 'opacity 65ms linear';
+ b.style.opacity = '0';
+ setTimeout(function () { b.remove(); }, 55);
+ }, 55);
+ }, n * 16);
+ })(i);
+ }
+ }
+
+ /** Hard navigation - do not depend on CRT transition busy state */
+ function enterLilyPad() {
+ if (navigating) return;
+ navigating = true;
+ setStatus('ENTERING...');
+ if (enterBtn) {
+ enterBtn.disabled = true;
+ enterBtn.textContent = 'ENTERING...';
+ }
+
+ // Prefer immediate assign; transition is optional polish only
+ try {
+ if (
+ window.DOSWAPZ_TRANSITION &&
+ typeof window.DOSWAPZ_TRANSITION.navigate === 'function'
+ ) {
+ window.DOSWAPZ_TRANSITION.navigate(DEST, { skipFade: true, delay: 0, preDelay: 0 });
+ // Belt-and-suspenders if transition is stuck busy
+ setTimeout(function () {
+ if (location.pathname.indexOf('nodes') < 0) {
+ window.location.assign(DEST);
+ }
+ }, 700);
+ return;
+ }
+ } catch (err) {}
+
+ window.location.assign(DEST);
+ }
+
+ // Expose for any leftover inline handlers
+ window.enterLilyPad = enterLilyPad;
+
+ if (enterBtn) {
+ enterBtn.addEventListener('click', function (e) {
+ e.preventDefault();
+ e.stopPropagation();
+ enterLilyPad();
+ });
+ // Pointer up also fires if :active transform ever fights click again
+ enterBtn.addEventListener('pointerup', function (e) {
+ if (e.button != null && e.button !== 0) return;
+ // Only if click might have been lost - navigating guard prevents double
+ });
+ }
+
+ setInterval(function () {
+ if (Math.random() < 0.26) addGlitchBurst();
+ }, 880);
+ setTimeout(function () { addGlitchBurst(); }, 280);
+ })();
+ </script>
+
+ <script>hollowPageBoot('THE LILY PAD');</script>
+</body>
+</html>

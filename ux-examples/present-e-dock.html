@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Present E · Soft dock</title>
+ <meta name="robots" content="noindex">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500&display=swap');
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ html, body { height: 100%; background: #06060c; color: #eef; font-family: Inter, system-ui, sans-serif; overflow: hidden; }
+ body {
+ background:
+ radial-gradient(ellipse 70% 50% at 50% 30%, rgba(90,110,255,0.18), transparent 55%),
+ #06060c;
+ display: flex; flex-direction: column; align-items: center; justify-content: center;
+ padding: 24px 16px 120px;
+ }
+ .badge {
+ font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+ color: rgba(200,210,255,0.4); margin-bottom: 16px;
+ }
+ h1 {
+ font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+ font-size: clamp(40px, 11vw, 68px); letter-spacing: 0.1em; text-align: center;
+ }
+ .sub {
+ margin-top: 14px; text-align: center; max-width: 28rem;
+ color: rgba(200,210,255,0.45); font-size: 14px; line-height: 1.5; letter-spacing: 0.04em;
+ }
+ .status {
+ margin-top: 22px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+ color: #66e0c8; border: 1px solid rgba(100,255,210,0.25);
+ padding: 6px 14px; border-radius: 999px; background: rgba(100,255,210,0.06);
+ }
+ .dock {
+ position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%);
+ display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
+ max-width: min(640px, 94vw);
+ padding: 10px;
+ border-radius: 22px;
+ background: rgba(12,14,28,0.82);
+ border: 1px solid rgba(140,160,255,0.18);
+ backdrop-filter: blur(16px);
+ box-shadow: 0 16px 48px rgba(0,0,0,0.45);
+ }
+ .dock a {
+ width: 64px; text-decoration: none; color: #aab4d8;
+ display: flex; flex-direction: column; align-items: center; gap: 6px;
+ padding: 8px 4px; border-radius: 14px; transition: background .15s, color .15s;
+ }
+ .dock a:hover { background: rgba(255,255,255,0.06); color: #fff; }
+ .dock .ic {
+ width: 36px; height: 36px; border-radius: 12px;
+ display: grid; place-items: center;
+ background: rgba(255,255,255,0.05);
+ border: 1px solid rgba(255,255,255,0.08);
+ font-size: 15px;
+ }
+ .dock .lab { font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; }
+ .corner {
+ position: fixed; top: 14px; right: 16px;
+ display: flex; gap: 10px;
+ }
+ .corner a {
+ font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+ color: rgba(200,210,255,0.45); text-decoration: none;
+ }
+ .corner a:hover { color: #fff; }
+ </style>
+</head>
+<body>
+ <nav class="corner">
+ <a href="/portal.html">Time</a>
+ <a href="/classic/hub.html">Past</a>
+ <a href="/future/hub.html">Future</a>
+ </nav>
+ <div class="badge">Present</div>
+ <h1>DOSWAPZ</h1>
+ <p class="sub">Degen optimized sovereign warfare against pumpz. Self-custody. Live rails.</p>
+ <div class="status">Connected · stable</div>
+ <nav class="dock" aria-label="Destinations">
+ <a href="/orbit/pages/doswapz/swap.html"><span class="ic">⇄</span><span class="lab">Swap</span></a>
+ <a href="/orbit/pages/arcade/intro.html"><span class="ic">■</span><span class="lab">Arcade</span></a>
+ <a href="/orbit/pages/harbinger.html"><span class="ic">◎</span><span class="lab">Oracle</span></a>
+ <a href="/orbit/pages/basement.html"><span class="ic">↓</span><span class="lab">Base</span></a>
+ <a href="/orbit/pages/attic.html"><span class="ic">▲</span><span class="lab">Attic</span></a>
+ <a href="/orbit/pages/pond-scum.html"><span class="ic">≋</span><span class="lab">Pond</span></a>
+ <a href="/future/hub.html"><span class="ic">◇</span><span class="lab">Future</span></a>
+ </nav>
+</body>
+</html>

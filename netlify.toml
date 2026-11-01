@@ -1,0 +1,1186 @@
+# DOSWAPZ v2 â€” Netlify static site + serverless API
+# Publish root = project folder (index.html at top level)
+
+[build]
+  publish = "."
+  command = "npm ci --omit=dev"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Do NOT rewrite HTML hrefs (was stripping .html from bubble links and breaking the Present hub)
+[build.processing]
+  skip_processing = true
+
+[build.processing.html]
+  pretty_urls = false
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  external_node_modules = ["@vercel/kv", "@netlify/blobs"]
+  included_files = ["api/**", "assets/data/**", "assets/data/pond-activated-rigs.json"]
+
+# Pond dossier fans out to several upstreams — need headroom past default 10s
+[functions."pond-dossier"]
+  timeout = 26
+
+[functions."pond-mining"]
+  timeout = 20
+
+[functions."pond-community"]
+  timeout = 15
+
+[functions."awardz-settle"]
+  timeout = 26
+
+[functions."awardz"]
+  timeout = 20
+
+[functions."dswpz-track"]
+  timeout = 26
+
+[functions."geoff-watch"]
+  timeout = 26
+
+[functions."trix-memes"]
+  timeout = 26
+
+[functions."trix-boxes"]
+  timeout = 26
+
+[functions."geoff-watch-cron"]
+  timeout = 26
+  schedule = "*/2 * * * *"
+
+[functions."daily-watch"]
+  timeout = 26
+
+[functions."daily-watch-cron"]
+  timeout = 26
+  schedule = "12 * * * *"
+
+[functions."hourly-watch-cron"]
+  timeout = 26
+  schedule = "7 * * * *"
+
+[functions."deploy-watch"]
+  timeout = 26
+
+[functions."deploy-watch-cron"]
+  timeout = 26
+  schedule = "*/15 * * * *"
+
+[functions."mail-gate"]
+  timeout = 20
+
+[functions."account"]
+  timeout = 20
+
+[functions."chain-scan"]
+  timeout = 26
+
+[functions."token-safety"]
+  timeout = 26
+
+[functions."quantum"]
+  timeout = 26
+
+[functions."ek"]
+  timeout = 26
+
+[functions."ethscriptions"]
+  timeout = 26
+
+# â”€â”€ Security headers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+[[headers]]
+  for = "/access-notice.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    # SAMEORIGIN so Present-era game shells can iframe classic engines on this domain.
+    # (DENY made orbit FTWR / other present wrappers show a blank frame.)
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Media can stay long-lived. JS/CSS must revalidate or browsers keep
+# stale shell/arcade scripts forever (badge, wheel, intro fixes never land).
+[[headers]]
+  for = "/classic/hub.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/classic/pages/quantum.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/quantum/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/docs/legal.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/classic/pages/geoffwatch.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/classic/pages/geoffwatch-box.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/classic/pages/pond-scum.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/orbit/pages/pond-scum.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/data/geoffwatch-sitrep.json"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/classic/pages/cryptodad/token.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/classic/pages/doswapz/x-gate.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/classic/pages/doswapz/trade-gate.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/classic/pages/doswapz/swap.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/orbit/hub.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/classic/pages/arcade/hair-force-one/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/classic/pages/arcade/the-trenches/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/classic/pages/arcade/airborne/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/classic/pages/arcade/degen-regen/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/arcade/degen-regen/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/videos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/video/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=300, must-revalidate"
+
+# â”€â”€ API â†’ Netlify Functions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+[[redirects]]
+  from = "/api/swap-stats"
+  to = "/.netlify/functions/swap-stats"
+  status = 200
+
+[[redirects]]
+  from = "/api/pond-dossier"
+  to = "/.netlify/functions/pond-dossier"
+  status = 200
+
+[[redirects]]
+  from = "/api/pond-mining"
+  to = "/.netlify/functions/pond-mining"
+  status = 200
+
+[[redirects]]
+  from = "/api/pond-stats"
+  to = "/.netlify/functions/pond-stats"
+  status = 200
+
+[[redirects]]
+  from = "/api/pond-manifest"
+  to = "/.netlify/functions/pond-manifest"
+  status = 200
+
+[[redirects]]
+  from = "/api/pond-community"
+  to = "/.netlify/functions/pond-community"
+  status = 200
+
+[[redirects]]
+  from = "/api/pond-rigs-sync"
+  to = "/.netlify/functions/pond-rigs-sync"
+  status = 200
+
+[[redirects]]
+  from = "/api/trix-ticker"
+  to = "/.netlify/functions/trix-ticker"
+  status = 200
+
+[[redirects]]
+  from = "/api/trix-boxes"
+  to = "/.netlify/functions/trix-boxes"
+  status = 200
+
+[[redirects]]
+  from = "/api/trix-memes"
+  to = "/.netlify/functions/trix-memes"
+  status = 200
+
+[[redirects]]
+  from = "/api/attic-posts"
+  to = "/.netlify/functions/attic-posts"
+  status = 200
+
+[[redirects]]
+  from = "/api/attic-image"
+  to = "/.netlify/functions/attic-image"
+  status = 200
+
+[[redirects]]
+  from = "/api/attic-share"
+  to = "/.netlify/functions/attic-share"
+  status = 200
+
+[[redirects]]
+  from = "/api/attic-drops"
+  to = "/.netlify/functions/attic-drops"
+  status = 200
+
+[[redirects]]
+  from = "/api/attic-drops-check"
+  to = "/.netlify/functions/attic-drops-check"
+  status = 200
+
+[[redirects]]
+  from = "/api/vantablack-coins"
+  to = "/.netlify/functions/vantablack-coins"
+  status = 200
+
+[[redirects]]
+  from = "/api/wallet-trades"
+  to = "/.netlify/functions/wallet-trades"
+  status = 200
+
+[[redirects]]
+  from = "/api/solana-rpc"
+  to = "/.netlify/functions/solana-rpc"
+  status = 200
+
+[[redirects]]
+  from = "/api/dswpz-track"
+  to = "/.netlify/functions/dswpz-track"
+  status = 200
+
+[[redirects]]
+  from = "/api/geoff-watch"
+  to = "/.netlify/functions/geoff-watch"
+  status = 200
+
+[[redirects]]
+  from = "/api/daily-watch"
+  to = "/.netlify/functions/daily-watch"
+  status = 200
+
+[[redirects]]
+  from = "/api/deploy-watch"
+  to = "/.netlify/functions/deploy-watch"
+  status = 200
+
+[[redirects]]
+  from = "/api/mail-gate"
+  to = "/.netlify/functions/mail-gate"
+  status = 200
+
+[[redirects]]
+  from = "/api/x-gate"
+  to = "/.netlify/functions/x-gate"
+  status = 200
+
+[[redirects]]
+  from = "/api/chain-scan"
+  to = "/.netlify/functions/chain-scan"
+  status = 200
+
+[[redirects]]
+  from = "/api/token-safety"
+  to = "/.netlify/functions/token-safety"
+  status = 200
+
+[[redirects]]
+  from = "/api/quantum"
+  to = "/.netlify/functions/quantum"
+  status = 200
+
+[[redirects]]
+  from = "/api/vantablack-token-stats"
+  to = "/.netlify/functions/vantablack-token-stats"
+  status = 200
+
+[[redirects]]
+  from = "/api/pork-pasture"
+  to = "/.netlify/functions/pork-pasture"
+  status = 200
+
+[[redirects]]
+  from = "/api/harbinger-chat"
+  to = "/.netlify/functions/harbinger-chat"
+  status = 200
+
+[[redirects]]
+  from = "/api/auth/x"
+  to = "/.netlify/functions/auth-x"
+  status = 200
+
+[[redirects]]
+  from = "/api/auth/me"
+  to = "/.netlify/functions/auth-me"
+  status = 200
+
+[[redirects]]
+  from = "/api/auth/logout"
+  to = "/.netlify/functions/auth-logout"
+  status = 200
+
+[[redirects]]
+  from = "/api/auth-x"
+  to = "/.netlify/functions/auth-x"
+  status = 200
+
+[[redirects]]
+  from = "/api/auth-me"
+  to = "/.netlify/functions/auth-me"
+  status = 200
+
+[[redirects]]
+  from = "/api/auth-logout"
+  to = "/.netlify/functions/auth-logout"
+  status = 200
+
+[[redirects]]
+  from = "/api/account"
+  to = "/.netlify/functions/account"
+  status = 200
+
+[[redirects]]
+  from = "/api/ek"
+  to = "/.netlify/functions/ek"
+  status = 200
+
+[[redirects]]
+  from = "/api/ethscriptions"
+  to = "/.netlify/functions/ethscriptions"
+  status = 200
+
+[[redirects]]
+  from = "/api/scores"
+  to = "/.netlify/functions/scores"
+  status = 200
+
+[[redirects]]
+  from = "/api/awardz-settle"
+  to = "/.netlify/functions/awardz-settle"
+  status = 200
+
+[[redirects]]
+  from = "/api/awardz"
+  to = "/.netlify/functions/awardz"
+  status = 200
+
+[[redirects]]
+  from = "/attic/pull"
+  to = "/.netlify/functions/attic-share"
+  status = 200
+
+# â”€â”€ Docs / legal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+[[redirects]]
+  from = "/docs"
+  to = "/docs/"
+  status = 301
+
+[[redirects]]
+  from = "/layer"
+  to = "/the-missing-layer/past"
+  status = 302
+
+[[redirects]]
+  from = "/missing-layer"
+  to = "/the-missing-layer/past"
+  status = 302
+
+[[redirects]]
+  from = "/the-missing-layer"
+  to = "/the-missing-layer/past"
+  status = 302
+
+[[redirects]]
+  from = "/docs/layer"
+  to = "/docs/the-missing-layer.html"
+  status = 302
+
+[[redirects]]
+  from = "/legal"
+  to = "/docs/legal.html"
+  status = 301
+
+[[redirects]]
+  from = "/legal.html"
+  to = "/docs/legal.html"
+  status = 301
+
+[[redirects]]
+  from = "/terms"
+  to = "/docs/legal.html"
+  status = 301
+
+[[redirects]]
+  from = "/disclaimer"
+  to = "/docs/legal.html"
+  status = 301
+
+# â”€â”€ Era routing (classic + orbit) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+[[redirects]]
+  from = "/hub.html"
+  to = "/classic/hub.html"
+  status = 301
+
+[[redirects]]
+  from = "/hub"
+  to = "/classic/hub.html"
+  status = 301
+
+[[redirects]]
+  from = "/hub-orbit.html"
+  to = "/orbit/hub.html"
+  status = 301
+
+[[redirects]]
+  from = "/pages/*"
+  to = "/classic/pages/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/pages-orbit/*"
+  to = "/orbit/pages/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/pork-pasture"
+  to = "/orbit/pages/pork-pasture.html"
+  status = 200
+
+[[redirects]]
+  from = "/pork-pasture.html"
+  to = "/orbit/pages/pork-pasture.html"
+  status = 200
+
+# â”€â”€ Asset path aliases â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+[[redirects]]
+  from = "/images/*"
+  to = "/assets/images/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/data/*"
+  to = "/assets/data/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/css/*"
+  to = "/assets/css/:splat"
+  status = 301
+
+# â”€â”€ Legacy flat URLs â†’ classic/pages â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+[[redirects]]
+  from = "/cryptodad-mobile/*"
+  to = "/classic/pages/cryptodad/mobile.html"
+  status = 302
+
+[[redirects]]
+  from = "/GrokBuild_cryptoDad_v1.html"
+  to = "/classic/pages/cryptodad/play.html"
+  status = 301
+
+[[redirects]]
+  from = "/how-to-play.html"
+  to = "/classic/pages/cryptodad/how-to-play.html"
+  status = 301
+
+[[redirects]]
+  from = "/doswapz-scoreboard.html"
+  to = "/classic/pages/cryptodad/scoreboard.html"
+  status = 301
+
+[[redirects]]
+  from = "/cryptodad-mobile-app.html"
+  to = "/classic/pages/cryptodad/mobile.html"
+  status = 301
+
+[[redirects]]
+  from = "/cryptodad-donate.html"
+  to = "/classic/pages/cryptodad/donate.html"
+  status = 301
+
+[[redirects]]
+  from = "/ftwr-token.html"
+  to = "/classic/pages/cryptodad/token.html"
+  status = 301
+
+[[redirects]]
+  from = "/ftwr-rabbit.html"
+  to = "/classic/pages/cryptodad/rabbit.html"
+  status = 301
+
+[[redirects]]
+  from = "/ftwr"
+  to = "/classic/pages/cryptodad/ftwr-maze.html"
+  status = 301
+
+[[redirects]]
+  from = "/ftwr.html"
+  to = "/classic/pages/cryptodad/ftwr-maze.html"
+  status = 301
+
+[[redirects]]
+  from = "/ftwr-maze.html"
+  to = "/classic/pages/cryptodad/ftwr-maze.html"
+  status = 301
+
+[[redirects]]
+  from = "/ftwr-maze"
+  to = "/classic/pages/cryptodad/ftwr-maze.html"
+  status = 301
+
+[[redirects]]
+  from = "/xelon"
+  to = "/classic/pages/arcade/xelon/"
+  status = 302
+
+[[redirects]]
+  from = "/ftwr-present"
+  to = "/classic/pages/cryptodad/ftwr-maze.html?era=present"
+  status = 302
+
+[[redirects]]
+  from = "/present/ftwr"
+  to = "/classic/pages/cryptodad/ftwr-maze.html?era=present"
+  status = 302
+
+[[redirects]]
+  from = "/tbb-present"
+  to = "/classic/pages/tbb/play.html?era=present"
+  status = 302
+
+[[redirects]]
+  from = "/lily-present"
+  to = "/classic/pages/arcade/lily-leap/index.html?era=present"
+  status = 302
+
+[[redirects]]
+  from = "/snowman-present"
+  to = "/classic/pages/arcade/snowman/index.html?era=present"
+  status = 302
+
+[[redirects]]
+  from = "/pipe-present"
+  to = "/classic/pages/arcade/plumber/index.html?era=present"
+  status = 302
+
+[[redirects]]
+  from = "/seller-present"
+  to = "/classic/pages/arcade/sell-sell-sell/index.html?era=present"
+  status = 302
+
+[[redirects]]
+  from = "/regen-present"
+  to = "/classic/pages/arcade/degen-regen/index.html?era=present"
+  status = 302
+
+[[redirects]]
+  from = "/xelon-present"
+  to = "/classic/pages/arcade/xelon/index.html?era=present"
+  status = 302
+
+[[redirects]]
+  from = "/xelon-game"
+  to = "/classic/pages/arcade/xelon/"
+  status = 302
+
+[[redirects]]
+  from = "/arcade/xelon"
+  to = "/classic/pages/arcade/xelon/"
+  status = 302
+
+[[redirects]]
+  from = "/hair-force-one"
+  to = "/classic/pages/arcade/hair-force-one/"
+  status = 302
+
+[[redirects]]
+  from = "/hair-force-one/"
+  to = "/classic/pages/arcade/hair-force-one/"
+  status = 302
+
+[[redirects]]
+  from = "/hfo"
+  to = "/classic/pages/arcade/hair-force-one/"
+  status = 302
+
+[[redirects]]
+  from = "/arcade/hair-force-one"
+  to = "/classic/pages/arcade/hair-force-one/"
+  status = 302
+
+[[redirects]]
+  from = "/hair-force-one-present"
+  to = "/classic/pages/arcade/hair-force-one/"
+  status = 302
+
+[[redirects]]
+  from = "/the-trenches"
+  to = "/classic/pages/arcade/the-trenches/"
+  status = 302
+
+[[redirects]]
+  from = "/the-trenches/"
+  to = "/classic/pages/arcade/the-trenches/"
+  status = 302
+
+[[redirects]]
+  from = "/trenches"
+  to = "/classic/pages/arcade/the-trenches/"
+  status = 302
+
+[[redirects]]
+  from = "/arcade/the-trenches"
+  to = "/classic/pages/arcade/the-trenches/"
+  status = 302
+
+[[redirects]]
+  from = "/save-the-trenches"
+  to = "/classic/pages/arcade/the-trenches/"
+  status = 302
+
+[[redirects]]
+  from = "/save-the-trenchez"
+  to = "/classic/pages/arcade/the-trenches/"
+  status = 302
+
+[[redirects]]
+  from = "/airborne"
+  to = "/classic/pages/arcade/airborne/"
+  status = 302
+
+[[redirects]]
+  from = "/airborne/"
+  to = "/classic/pages/arcade/airborne/"
+  status = 302
+
+[[redirects]]
+  from = "/arcade/airborne"
+  to = "/classic/pages/arcade/airborne/"
+  status = 302
+
+[[redirects]]
+  from = "/buy-xelon"
+  to = "/classic/pages/doswapz/swap.html?toMint=76Cf2zrKqwQEMGj7TaZ6hJ1Ja6hNsXXrK2UVBRjKTRiX"
+  status = 302
+
+[[redirects]]
+  from = "/buy-hfo"
+  to = "/classic/pages/doswapz/swap.html?toMint=9JvvWgzgBe5MZsbRWn25FbnoZijTdSWGLN5vK9ytTRiX"
+  status = 302
+
+[[redirects]]
+  from = "/buy-hair-force-one"
+  to = "/classic/pages/doswapz/swap.html?toMint=9JvvWgzgBe5MZsbRWn25FbnoZijTdSWGLN5vK9ytTRiX"
+  status = 302
+
+[[redirects]]
+  from = "/swap-hfo"
+  to = "/classic/pages/doswapz/swap.html?toMint=9JvvWgzgBe5MZsbRWn25FbnoZijTdSWGLN5vK9ytTRiX"
+  status = 302
+
+[[redirects]]
+  from = "/ftwr-scoreboard.html"
+  to = "/classic/pages/cryptodad/ftwr-scoreboard.html"
+  status = 301
+
+[[redirects]]
+  from = "/ftwr-scoreboard"
+  to = "/classic/pages/cryptodad/ftwr-scoreboard.html"
+  status = 301
+
+[[redirects]]
+  from = "/ftwr-scores"
+  to = "/classic/pages/cryptodad/ftwr-scoreboard.html"
+  status = 301
+
+[[redirects]]
+  from = "/cryptodad-launch.html"
+  to = "/classic/pages/cryptodad/launch.html"
+  status = 301
+
+[[redirects]]
+  from = "/token-launch.html"
+  to = "/classic/pages/basement/token-launcher.html"
+  status = 301
+
+[[redirects]]
+  from = "/cryptodad-images-gallery.html"
+  to = "/classic/pages/cryptodad/images.html"
+  status = 301
+
+[[redirects]]
+  from = "/doswapz-swap.html"
+  to = "/classic/pages/doswapz/swap.html"
+  status = 301
+
+[[redirects]]
+  from = "/doswapz-mint.html"
+  to = "/classic/pages/doswapz/mint.html"
+  status = 301
+
+[[redirects]]
+  from = "/doswapz-gallery.html"
+  to = "/classic/pages/doswapz/gallery.html"
+  status = 301
+
+[[redirects]]
+  from = "/doswapz-meat.html"
+  to = "/classic/pages/doswapz/meat.html"
+  status = 301
+
+[[redirects]]
+  from = "/pond-scum.html"
+  to = "/classic/pages/pond-scum.html"
+  status = 301
+
+[[redirects]]
+  from = "/i-see-you"
+  to = "/i-see-you.html"
+  status = 301
+
+[[redirects]]
+  from = "/geoffwatch"
+  to = "/geoffwatch/past"
+  status = 302
+
+[[redirects]]
+  from = "/geoff-watch"
+  to = "/geoffwatch/past"
+  status = 302
+
+[[redirects]]
+  from = "/geoffwatch-box"
+  to = "/classic/pages/geoffwatch-box.html"
+  status = 301
+
+[[redirects]]
+  from = "/black-box"
+  to = "/classic/pages/geoffwatch-box.html"
+  status = 301
+
+[[redirects]]
+  from = "/i-see-you-orbit.html"
+  to = "/orbit/pages/i-see-you.html"
+  status = 301
+
+[[redirects]]
+  from = "/classic/pages/doswapz/pond-scum.html"
+  to = "/classic/pages/pond-scum.html"
+  status = 301
+
+[[redirects]]
+  from = "/degen-trailer.html"
+  to = "/classic/pages/degen/trailer.html"
+  status = 301
+
+[[redirects]]
+  from = "/degen-synopsis.html"
+  to = "/classic/pages/degen/synopsis.html"
+  status = 301
+
+[[redirects]]
+  from = "/degen-donate.html"
+  to = "/classic/pages/degen/donate.html"
+  status = 301
+
+[[redirects]]
+  from = "/diy-hardware-wallet.html"
+  to = "/classic/pages/hardwear/wallet.html"
+  status = 301
+
+[[redirects]]
+  from = "/copeman-merch.html"
+  to = "/classic/pages/hardwear/merch.html"
+  status = 301
+
+[[redirects]]
+  from = "/demplar-character.html"
+  to = "/classic/pages/demplar/character.html"
+  status = 301
+
+[[redirects]]
+  from = "/13th-step.html"
+  to = "/classic/pages/13th-step.html"
+  status = 301
+
+[[redirects]]
+  from = "/area-69-420.html"
+  to = "/classic/pages/area-69-420.html"
+  status = 301
+
+[[redirects]]
+  from = "/area-69-420"
+  to = "/classic/pages/area-69-420.html"
+  status = 301
+
+[[redirects]]
+  from = "/area69"
+  to = "/classic/pages/area-69-420.html"
+  status = 301
+
+[[redirects]]
+  from = "/area69420"
+  to = "/classic/pages/area-69-420.html"
+  status = 301
+
+[[redirects]]
+  from = "/lily-pad.html"
+  to = "/classic/pages/lily-pad.html"
+  status = 301
+
+[[redirects]]
+  from = "/perpetual-vision-center.html"
+  to = "/classic/pages/perpetual-vision-center.html"
+  status = 301
+
+[[redirects]]
+  from = "/perpetual-vision-center"
+  to = "/classic/pages/perpetual-vision-center.html"
+  status = 301
+
+[[redirects]]
+  from = "/vision-center"
+  to = "/classic/pages/perpetual-vision-center.html"
+  status = 301
+
+[[redirects]]
+  from = "/perpetual-vision-vault.html"
+  to = "/classic/pages/perpetual-vision-center.html"
+  status = 301
+
+[[redirects]]
+  from = "/perpetual-vision-vault"
+  to = "/classic/pages/perpetual-vision-center.html"
+  status = 301
+
+[[redirects]]
+  from = "/vision-vault"
+  to = "/classic/pages/perpetual-vision-center.html"
+  status = 301
+
+[[redirects]]
+  from = "/future"
+  to = "/future/hub.html"
+  status = 200
+
+[[redirects]]
+  from = "/past"
+  to = "/classic/hub.html"
+  status = 200
+
+[[redirects]]
+  from = "/present"
+  to = "/orbit/hub.html"
+  status = 200
+
+[[redirects]]
+  from = "/present-test"
+  to = "/orbit/test-hub.html"
+  status = 301
+
+[[redirects]]
+  from = "/attic.html"
+  to = "/classic/pages/attic.html"
+  status = 301
+
+[[redirects]]
+  from = "/the-attic.html"
+  to = "/classic/pages/attic.html"
+  status = 301
+
+[[redirects]]
+  from = "/basement.html"
+  to = "/classic/pages/basement.html"
+  status = 301
+
+[[redirects]]
+  from = "/the-basement.html"
+  to = "/classic/pages/basement.html"
+  status = 301
+
+[[redirects]]
+  from = "/cryptomom.html"
+  to = "/classic/pages/basement/cryptomom/play.html"
+  status = 301
+
+[[redirects]]
+  from = "/crypto-mom.html"
+  to = "/classic/pages/basement/cryptomom/play.html"
+  status = 301
+
+[[redirects]]
+  from = "/phunk-maker.html"
+  to = "/classic/pages/basement/phunk-maker.html"
+  status = 301
+
+[[redirects]]
+  from = "/phunk-lab.html"
+  to = "/classic/pages/basement/phunk-maker.html"
+  status = 301
+
+[[redirects]]
+  from = "/media-lab.html"
+  to = "/classic/pages/basement/media-lab.html"
+  status = 301
+
+[[redirects]]
+  from = "/basement-media-lab.html"
+  to = "/classic/pages/basement/media-lab.html"
+  status = 301
+
+[[redirects]]
+  from = "/boombox"
+  to = "/classic/pages/basement/boombox.html"
+  status = 301
+
+[[redirects]]
+  from = "/boombox.html"
+  to = "/classic/pages/basement/boombox.html"
+  status = 301
+
+[[redirects]]
+  from = "/radio"
+  to = "/classic/pages/basement/boombox.html"
+  status = 301
+
+[[redirects]]
+  from = "/radio.html"
+  to = "/classic/pages/basement/boombox.html"
+  status = 301
+
+[[redirects]]
+  from = "/basement-token-launcher.html"
+  to = "/classic/pages/basement/token-launcher.html"
+  status = 301
+
+[[redirects]]
+  from = "/fantasy"
+  to = "/basement/fantasy/past"
+  status = 302
+
+[[redirects]]
+  from = "/fantasy.html"
+  to = "/classic/pages/basement/fantasy.html"
+  status = 301
+
+[[redirects]]
+  from = "/basement/fantasy"
+  to = "/basement/fantasy/past"
+  status = 302
+
+[[redirects]]
+  from = "/eat-shit.html"
+  to = "/classic/pages/eat-shit.html"
+  status = 301
+
+[[redirects]]
+  from = "/donate.html"
+  to = "/classic/pages/donate.html"
+  status = 301
+
+[[redirects]]
+  from = "/nodes.html"
+  to = "/classic/pages/nodes.html"
+  status = 301
+
+[[redirects]]
+  from = "/math-mint-examples.html"
+  to = "/classic/pages/doswapz/mint.html"
+  status = 301
+
+[[redirects]]
+  from = "/hub-home.html"
+  to = "/classic/hub.html"
+  status = 301
+
+[[redirects]]
+  from = "/hub-deck.html"
+  to = "/classic/hub.html"
+  status = 301
+
+[[redirects]]
+  from = "/hub-test.html"
+  to = "/classic/hub.html"
+  status = 301
+
+[[redirects]]
+  from = "/doswapz-merch-test.html"
+  to = "/classic/pages/hardwear/merch.html"
+  status = 301
+
+[[redirects]]
+  from = "/vantablack"
+  to = "/classic/pages/basement/vantablack/market.html"
+  status = 200
+
+[[redirects]]
+  from = "/vantablack/coin/:mint"
+  to = "/classic/pages/basement/vantablack/coin.html?mint=:mint"
+  status = 200
+
+# â”€â”€ KOL Fighter (shelved â€” redirect to DEGEN$ trailer) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+[[redirects]]
+  from = "/classic/pages/degen/kol-fighter.html"
+  to = "/classic/pages/degen/trailer.html"
+  status = 302
+
+[[redirects]]
+  from = "/classic/pages/degen/kol-fighter-*"
+  to = "/classic/pages/degen/trailer.html"
+  status = 302
+
+[[redirects]]
+  from = "/classic/pages/degen/characters-preview.html"
+  to = "/classic/pages/degen/trailer.html"
+  status = 302
+
+[[redirects]]
+  from = "/classic/pages/degen/degen-*-preview.html"
+  to = "/classic/pages/degen/trailer.html"
+  status = 302
+
+[[redirects]]
+  from = "/classic/pages/degen/degen-looks-like-reference.html"
+  to = "/classic/pages/degen/trailer.html"
+  status = 302
+
+# â”€â”€ Harbinger â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+[[redirects]]
+  from = "/harbinger-orbit.html"
+  to = "/orbit/pages/harbinger.html"
+  status = 301
+
+[[redirects]]
+  from = "/meme"
+  to = "/classic/pages/basement/meme-lab.html"
+  status = 302
+
+[[redirects]]
+  from = "/meme-lab"
+  to = "/classic/pages/basement/meme-lab.html"
+  status = 302
+
+[[redirects]]
+  from = "/meme-maker"
+  to = "/classic/pages/basement/meme-lab.html"
+  status = 302
+
+[[redirects]]
+  from = "/harbinger"
+  to = "/harbinger/past"
+  status = 302
+
+[[redirects]]
+  from = "/classic/harbinger.html"
+  to = "/classic/pages/harbinger.html"
+  status = 301
+
+[[redirects]]
+  from = "/orbit/harbinger.html"
+  to = "/orbit/pages/harbinger.html"
+  status = 301

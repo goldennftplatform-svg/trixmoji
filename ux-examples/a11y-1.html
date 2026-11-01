@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A11y 1</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #111; color: #00ff00; font-family: 'VT323', monospace; }
+    .screen { min-height: 100vh; padding: 20px; position: relative; }
+    .badge { position: absolute; top: 8px; right: 10px; font-size: 11px; color: #ffff00; border: 1px solid #554400; padding: 2px 6px; }
+    .hint { color: #00aa00; font-size: 14px; max-width: 280px; margin-top: 40px; line-height: 1.4; }
+    .dial {
+      position: absolute; left: 10px; bottom: 40px;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+      background: rgba(0,0,0,.9); border: 1px solid #004400; padding: 6px 8px; font-size: 13px;
+    }
+    .dial span { color: #ffff00; letter-spacing: 1px; }
+    .dial button {
+      font-family: inherit; font-size: 12px; color: #00aa00; background: transparent;
+      border: 1px solid #003300; padding: 6px 8px; cursor: pointer; min-height: 32px;
+    }
+    .dial button.on { background: #00ff41; color: #000; border-color: #00ff41; }
+    .dial .sep { width: 1px; height: 22px; background: #003300; margin: 0 2px; }
+    .ticker {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 28px;
+      border-top: 1px solid #00ff41; background: #000; font-size: 12px;
+      display: flex; align-items: center; padding: 0 8px; color: #00aa00;
+    }
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <div class="badge">A11Y 1 ★</div>
+    <p class="hint">GLITCH dial stays. Add one MOTION chip. Tap toggles reduced effects + remembers.</p>
+    <div class="dial" aria-label="Display controls">
+      <span>GLITCH</span>
+      <button type="button">CALM</button>
+      <button type="button" class="on">NORMAL</button>
+      <button type="button">CHAOS</button>
+      <div class="sep"></div>
+      <span>MOTION</span>
+      <button type="button" class="on" id="mot">ON</button>
+    </div>
+    <div class="ticker">LIVE TICKER …</div>
+  </div>
+  <script>
+    var b = document.getElementById('mot');
+    b.addEventListener('click', function () {
+      var on = b.textContent === 'ON';
+      b.textContent = on ? 'OFF' : 'ON';
+      b.classList.toggle('on', !on);
+    });
+  </script>
+</body>
+</html>

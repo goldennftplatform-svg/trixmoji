@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DOSWAPZ // GEOFFWATCH</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&display=swap">
+  <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260831mint">
+  <link rel="stylesheet" href="/assets/css/geoffwatch.css?v=20260929explain">
+  <link rel="stylesheet" href="/assets/css/daily-watch.css?v=20260919hwonder">
+  <link rel="stylesheet" href="/assets/css/deploy-watch.css?v=20260912deploy">
+</head>
+<body>
+  <div class="dos-screen">
+    <div class="vignette"></div>
+
+    <header>
+      <div class="doswap"><a href="/classic/hub.html">DOSWAPZ</a></div>
+      <div class="menu-prompt">C:\TRACKER\GEOFF.AI&gt;<span class="cursor">_</span></div>
+      <div class="status" id="statusLine">BOOTING OBSERVER...</div>
+      <div class="clock" id="clock">--:--:--</div>
+    </header>
+
+    <div class="toolbar">
+      <span class="pill">NO COOKIES</span>
+      <span class="pill">NO VISITOR IDS</span>
+      <span class="pill">NO INJECTION</span>
+      <span class="pill dim">ROBOTS.TXT HONORED</span>
+      <span class="pill dim"><a href="/classic/hub.html">HUB</a></span>
+      <span class="pill hot"><a href="#liveStats">LIVE STATS</a></span>
+      <span class="pill hot"><a href="#geoffDive">HOW GEOFF WORKS</a></span>
+      <span class="pill"><a href="https://docs.geoff.ai/" target="_blank" rel="noopener">DOCS</a></span>
+      <span class="pill"><a href="https://www.hwonder.com/" target="_blank" rel="noopener">HWONDER.COM</a></span>
+      <span class="pill"><a href="https://github.com/hWonderOfTheWorld" target="_blank" rel="noopener">HWONDER GH</a></span>
+      <span class="pill"><a href="https://trix.market/" target="_blank" rel="noopener">TRIX.MARKET</a></span>
+      <span class="pill hot"><a href="/classic/pages/geoffwatch-box.html#memeBoard">MEME BOARD</a></span>
+      <button id="probeBtn" type="button">[ PROBE NOW ]</button>
+    </div>
+
+    <div class="daily-watch" data-desk="geoff"></div>
+    <div class="deploy-watch" data-site="geoff"></div>
+
+    <section id="trixLive">
+      <h2>// TRIX.MARKET LIVE COUNTS  <span id="trixLiveStamp">WAITING...</span></h2>
+      <p class="note" id="trixLiveNote">
+        <strong>PUBLIC METERS.</strong>
+        MEMES POSTED is the official TRiX feed sequence. BOXES ON-CHAIN is the BuyPack minted counter.
+        BOXES LEFT is not published (the old leftover meter is retired). Not a trade signal.
+      </p>
+      <section class="kpis dense" id="trixLiveCounts">
+        <article><div class="l">BOXES ON-CHAIN</div><div class="v">--</div></article>
+        <article><div class="l">BOXES LEFT</div><div class="v small">NOT PUBLISHED</div></article>
+        <article><div class="l">MEMES POSTED</div><div class="v">--</div></article>
+        <article><div class="l">LAUNCHES</div><div class="v">--</div></article>
+      </section>
+    </section>
+
+    <p class="note" id="breakdown">
+      <strong>READ THIS FIRST.</strong>
+      THIS PAGE IS THE GEOFF MAP THE WAY POND SCUM IS THE POND MAP.
+      TOP = LIVE HASH / UPTIME / LATENCY FROM THIS MACHINE. THEN THE GEOFF RUNDOWN.
+      HOME HASH OFTEN CHURNS AT THE SAME BYTE SIZE — THAT IS A LIVE TOKEN, NOT A NEW DROP.
+      THE YELLOW TIMER IS THE HOURLY DIGEST FOR GEOFF.AI / DOCS / HWONDER + GEOFFAI GITHUB. CHECK ANY TIME. THE CLOCK STILL FIRES EVERY HOUR.
+      BLOCKED: /api/  /connect  /settings. NO COOKIES. NO VISITOR COUNTS. NO TRIX INTERNALS. NOT A TRADE SIGNAL.
+    </p>
+
+    <figure class="explain-shot">
+      <div class="explain-frame"><img src="/assets/images/explain/geoff-live.jpg?v=20261002photo" alt="The geoff.ai page. Geoff Magma, the words Go Turbo, and an Ask Geoff box set to Chat."></div>
+      <figcaption>GEOFF.AI ON 2 OCT 2026. THE PUBLIC PAGE IS GEOFF MAGMA. GO TURBO. ASK GEOFF. CHAT AND COOK SIT ON THE BOX.</figcaption>
+    </figure>
+
+    <section class="kpis" id="liveStats">
+      <article><div class="l">UPTIME 24H</div><div class="v" id="kpiUptime">--</div></article>
+      <article><div class="l">LATENCY P50</div><div class="v" id="kpiP50">--</div></article>
+      <article><div class="l">LATENCY P95</div><div class="v" id="kpiP95">--</div></article>
+      <article><div class="l">SAMPLES</div><div class="v" id="kpiSamples">--</div></article>
+      <article><div class="l">LAST REAL MOVE</div><div class="v small" id="kpiMove">--</div></article>
+      <article><div class="l">NEXT SCAN</div><div class="v small" id="kpiNext">--</div></article>
+    </section>
+
+    <section>
+      <h2>// GEOFF.AI LIVE READ  <span id="briefStamp">WAITING FOR SCAN...</span></h2>
+      <article class="sitrep briefing" id="briefing">
+        <div class="empty">PROBE HAS NOT TALKED YET.</div>
+      </article>
+    </section>
+
+    <section>
+      <h2>// PUBLIC GEOFF.AI SURFACE  <span id="publicStamp">WAITING...</span></h2>
+      <article class="sitrep briefing" id="publicSurface">
+        <div class="empty">PUBLIC SITEMAP / ROBOTS / PAGE META LOAD WITH THE PROBE.</div>
+      </article>
+    </section>
+
+    <section>
+      <h2>// PAGE UPDATES  <span id="updateCount">0 DETECTED</span></h2>
+      <div class="log" id="changes">
+        <div class="empty">WAITING FOR HASH / STATUS / TITLE DRIFT...</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>// ENDPOINTS</h2>
+      <div class="grid" id="endpoints"></div>
+    </section>
+
+    <section>
+      <h2>// PROBE LOG</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>TIME</th>
+              <th>PAGE</th>
+              <th>ST</th>
+              <th>MS</th>
+              <th>BYTES</th>
+              <th>HASH</th>
+              <th>NOTE</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="geoffDive">
+      <h2>// HOW GEOFF WORKS  PUBLIC RUNDOWN  <span>AS OF SEP 12 2026</span></h2>
+      <div class="protocol-pills">
+        <a class="hot" href="#geoffDive">HOW GEOFF WORKS</a>
+        <a href="#geoffGrade">GRADE THE CLAIMS</a>
+        <a href="#geoffClues">SOURCES</a>
+        <a href="https://docs.geoff.ai/" target="_blank" rel="noopener">DOCS.GEOFF.AI</a>
+        <a href="https://www.hwonder.com/posts/metamodels" target="_blank" rel="noopener">METAMODELS</a>
+        <a href="https://github.com/hWonderOfTheWorld" target="_blank" rel="noopener">HWONDER GH</a>
+        <a href="https://github.com/GeoffAi" target="_blank" rel="noopener">GEOFFAI GH</a>
+        <a href="/classic/pages/pond-scum.html">POND SCUM</a>
+      </div>
+      <p class="note">
+        <strong>LEAVE THE PROBE. THIS IS THE PROTOCOL MAP.</strong>
+        Geoff is the Pond / TRiX AI layer: a public studio on geoff.ai, an API on docs.geoff.ai, and an autoFi agent h wonder says is steered by MetaModels so it cannot be bribed in real time.
+        Magma is the compute name on GitHub. StackNet is the SDK / pay rail in the docs. TRiX is the meme board it currently feeds.
+        Sources: docs.geoff.ai (Sep 4–5 2026), hwonder.com MetaModels / MetaVault / PROMPTME, github.com/hWonderOfTheWorld, github.com/GeoffAi, public X from @hWonderofWorld and Pauly (theater labeled as theater).
+        This page never reverse-engineers private Geoff internals. Not a trade signal.
+      </p>
+
+      <div class="loop-grid">
+        <article class="loop-card">
+          <div class="n">01  AUTOFI AGENT</div>
+          <h3>METAMODELS. NOT A CHAT WRAPPER.</h3>
+          <p>h wonder: MetaModels were built to power GEOFF. Predetermined context, not live human steering. Guardrails, tools, culture, RAG docs, URL caches, FAQs. Started as mining-rig insight remix. Router splits context so oversized prompts stop poisoning the answer.</p>
+        </article>
+        <article class="loop-card">
+          <div class="n">02  MAGMA / STACKNET</div>
+          <h3>COMPUTE LAYER. NODE SOFTWARE IS PUBLIC.</h3>
+          <p>Public GitHub original from hWonderOfTheWorld: Magma UltraLiteNode (register on chain, sign validation hash, slash bad streams, LST bond, external RPC) and magma-boilerplate-monorepo (dapp + Nextra docs + contracts). Docs SDK is @stacknet/sdk pointed at geoff.ai/api/v1. x402 PAYG hits stacknet.magma-rpc.com with stackId geoff.</p>
+        </article>
+        <article class="loop-card">
+          <div class="n">03  STUDIO</div>
+          <h3>TEXT * IMAGE * VIDEO * MUSIC * SPEECH * WILDFIRE PREVIEW</h3>
+          <p>Public sitemap: /, /explore, /music, /image, /video, /pages, /code/showcase, /install. Magma: 1M context, SOTA video, MoM. Magma 2.1 adds video-in, reference-to-image/video, stronger agents. Docs as of Sep 12 also list wildfire:preview — a text orchestration model with its own effort control, gated on wildfire_run_v1. Duce still shows on the video endpoint page. This watcher only probes the public pages.</p>
+        </article>
+        <article class="loop-card">
+          <div class="n">04  GEOFF CODE</div>
+          <h3>TERMINAL AGENT. DEFAULT PYRO.</h3>
+          <p>Official: curl geoff.ai/code/install.sh or npm i -g @geoff/code. Binary geoff. Home ~/.geoff. Default model pyro — 1M context, text+image in, text out, agentic coding MoM. TUI, -p for CI, geoff acp for editors. /init writes AGENTS.md. Device-code login.</p>
+        </article>
+        <article class="loop-card">
+          <div class="n">05  API / PAYG</div>
+          <h3>BEARER KEY OR SOLANA x402.</h3>
+          <p>Settings &gt; API Keys, or fund a pg_ key from a Solana wallet with no account. Plans on docs: Basic $19 / 150M, Pro $199 / 2B, Max $499 / 7B, Turbo $999 / 20B. One token pool for text, image, video, music, code. Unfiltered costs 10x. Anthropic-compatible base_url geoff.ai/api.</p>
+        </article>
+        <article class="loop-card">
+          <div class="n">06  TRIX LOOP</div>
+          <h3>GEOFF MAKES THE MEME. TRIX IS THE BOARD.</h3>
+          <p>Official TRiX loop: make the meme on geoff.ai, land it on TRiX. Coin-page GENERATE MEME is a paid TRiX control (public records tag gemini, 0.012 SOL). Geoff.ai is the outside studio the room is using. Two doors.</p>
+        </article>
+      </div>
+
+      <h2 id="geoffGrade">// GRADE THE CLAIMS  PUBLIC VS THEATER VS EMPTY GH</h2>
+      <div class="confirm-grid">
+        <article class="confirm-card yes">
+          <div class="verdict">PUBLIC DOCS</div>
+          <h3>MAGMA * MAGMA 2.1 * PYRO ARE DOCUMENTED</h3>
+          <p>docs.geoff.ai model layers (updated Sep 4): all three 1M context, all MoM. Magma = flagship multimodal. Magma 2.1 = three-frontier mix, pick-best, video-in. Pyro = coding. Stacknet SDK, Geoff Code, x402, token plans, LoRA training endpoints are on the same docs site. Treat as product copy, not a benchmark.</p>
+        </article>
+        <article class="confirm-card yes">
+          <div class="verdict">HWONDER GITHUB</div>
+          <h3>NODE + BOILERPLATE EXIST. GEOFF ORG DOES NOT SHIP CODE</h3>
+          <p>hWonderOfTheWorld: 3 original repos, 30 forks. Real originals = ultralitenode (Magma UltraLiteNode v0) and magma-boilerplate-monorepo (updated Aug 27). GeoffAi org: Geoff-v1.8, Director-1.5, Studio-2 — all empty as of Sep 5. Director/Studio labeled “Backlog, Bugs &amp; Ideas Agent Proxy.” No public members.</p>
+        </article>
+        <article class="confirm-card maybe">
+          <div class="verdict">ARCHITECTURE CLAIM</div>
+          <h3>INCORRUPTIBLE AGENT IS A DESIGN GOAL, NOT A PROOF</h3>
+          <p>MetaModels post: GEOFF cannot be bribed because it runs predetermined MetaModels, not live human input. Same post: Grok4 community memories, MetaVault oracles, kid-built router. docs.geoff.ai never names MetaModels, RAG, or Grok4. That split is the grade: vendor essay vs public API docs.</p>
+        </article>
+        <article class="confirm-card no">
+          <div class="verdict">NOT CONFIRMED</div>
+          <h3>JULY 26 “STACKNET THREAD” WAS LABELED FABRICATION</h3>
+          <p>Pauly quote-posted a 12-part Geoff thread (node keys ~$425, 174 sold, GLM-4.6 + Qwen3, TEE, no native token) then wrote he had no idea who wrote it and to treat it as pure fabrication. Do not use those numbers as a sitrep. “GEOFF ISNT REAL” is official theater from h and Pauly, not a shutdown.</p>
+        </article>
+      </div>
+
+      <div class="clues" id="geoffClues">
+        <article class="clue how">
+          <div class="meta"><span class="tag">LOOP</span> HWONDER POST + DOCS + SITEMAP</div>
+          <h3>THE MACHINE IN ONE LINE</h3>
+          <p>User hits a page. MetaModel router wraps user data, network stats, RAG lore, tools, and culture into a SuperPrompt. Magma / Magma 2.1 / Pyro (MoM) answer. Studio pages emit image, video, music, speech. Geoff Code uses Pyro on a repo. Settlement can be a plan key or Solana x402 into StackNet. TRiX is where the Pond room currently parks the memes.</p>
+          <p class="read">READ: Pond activity in, Geoff generation out, TRiX culture board. Magma is the network name on GitHub. Geoff is the product face.</p>
+        </article>
+        <article class="clue how">
+          <div class="meta"><span class="tag">META</span> hwonder.com/posts/metamodels</div>
+          <h3>SIX PARTS PER METAMODEL. DATA IS KING IN CONTEXT.</h3>
+          <p>Document repository (RAG embeddings), URL sources, FAQs, culture, tools (incl. MetaVaults for onchain data), plus communityMemories from periodic Grok4 pulls. Incoming request is rewritten into transformedData + statCache (example cache cited Pond: 38.9M swaps, $42.6M given away). Atomic split + router was the fix for context poisoning. Credits: @pauly0x @eternitybro @phunk2243 @soupydev @shannonNullCode @jakegallen_</p>
+          <p class="read">CLUE: this is why Geoff feels like Pond chat, not generic ChatGPT. The page, the wallet, the swap count are supposed to be in the prompt.</p>
+        </article>
+        <article class="clue site">
+          <div class="meta"><span class="tag">VAULT</span> hwonder.com/posts/metavault</div>
+          <h3>METAVAULT SDK IS IN GEOFF TODAY. ORACLE, NOT A CHAT FEATURE.</h3>
+          <p>h wonder: MetaVaults are dual-mode oracles (token feeds + subscription time oracles). Production uses listed: single-side LP / RFQ, AI context prompting for MetaModels, prediction markets, PRO APIs, VRF, merkle proofs, auction winners, code signing, strategy automation. “We use the SDK in GEOFF today.” 100% of vault creation fees to PLUG.</p>
+          <p class="read">CLUE: Geoff’s “incorruptible” pitch leans on attested data, not on a nicer system prompt.</p>
+        </article>
+        <article class="clue site">
+          <div class="meta"><span class="tag">LEGAL</span> geoff.ai TERMS * trix.market/terms  AUG 13 2026</div>
+          <h3>816 HOLDINGS IS THE WEB FRONT. TRIX NAMES GEOFF AS A THIRD PARTY.</h3>
+          <p>Indexed Geoff Terms: provider 816 HOLDINGS PTE. LTD. The app submits prompts to a P2P network of independent AI service providers. The company says it does not own, operate, or control that network, its nodes, or its models. TRiX Terms (CHILDREN OF GOD, LLC): TRiX does not build or host any AI model. Image gen for memes and card art is supplied by independent third parties including StackNet and GEOFF; users contract with those providers directly. Pond0x Terms (Pond Issuer Limited, May 8 2024) do not mention Geoff, StackNet, or TRiX.</p>
+          <p class="read">CLUE: first-party X treats Geoff as their product. The legal paper treats Geoff as a router to other people’s nodes. Both can be on the same stack. Neither is a trade signal.</p>
+        </article>
+        <article class="clue site">
+          <div class="meta"><span class="tag">GH</span> github.com/hWonderOfTheWorld</div>
+          <h3>ULTRALITENODE IS THE ONLY PUBLIC NODE CLIENT. 2 COMMITS.</h3>
+          <p>README: Magma UltraLiteNode v0, packages under @magmalayer. Register as node on chain. Sign validation hash. Bad streams slash the validation bond. Priority tips split with the broadcasting node. Only registered LSTs bond you in. Needs an external RPC. ts-node ./api/index.ts. Companion original: magma-boilerplate-monorepo (pnpm turbo: apps/docs, apps/dapp, apps/dapp-contracts). Neither original names Geoff in the README. GeoffAi org: three empty repos created Aug 26. Only public content is Geoff-v1.8 issue #1 from Cary0x — movie-option fields overlapping the prompt bar after opening a movie project with Brief/Director sidebar. UI exists. Source does not.</p>
+          <p class="read">READ: public Magma node code is a lite client, not the Geoff studio. Empty org + one UI bug is not an implementation dump.</p>
+        </article>
+        <article class="clue yes">
+          <div class="meta"><span class="tag">DOCS</span> docs.geoff.ai  SEP 4–5</div>
+          <h3>THREE LAYERS. MIXTURE OF MODELS. ONE TOKEN POOL.</h3>
+          <p>Magma: text/image/music in → text/image/video/music/speech out. Magma 2.1: also video in; three frontier models every request, best answer selected. Pyro: text/image in, text out, SOTA agentic coding. MoM is automatic. Geoff Code default = pyro. Magma 2.1 copy lists agentic coding; the same page’s comparison table marks agentic coding as a dash for Magma 2.1 and Yes (SOTA) only for Pyro. Duce still appears on the video endpoint page, not on the model-layers home. Chat: POST /api/v1/text/chat. Video / music / image LoRA endpoints exist on the docs.</p>
+          <p class="read">CLUE: docs moved. Jul 26 Pauly note that /api/v1 was 404 is stale. Auth, PAYG, Code, and model pages were live Sep 5. SOTA and three-model fan-out are product copy, not a benchmark on this page.</p>
+        </article>
+        <article class="clue theater">
+          <div class="meta"><span class="tag">THEATER</span> @hWonderofWorld + PAULY</div>
+          <h3>GEOFF ISNT REAL. ALSO: MILLIONS WILL USE IT.</h3>
+          <p>Apr 12: geoff.ai live, “What’s your G?”. Apr 21: LIVE, preview access, QC tests. Apr 30: “GEOFF ISNT REAL.” Pauly: “MILLIONS of people will use geoff.ai.” Jul 22: “I will be the lead engineer” — bait. Aug 10: unrestricted tools, “GAME OVER.” Aug 30: “Stop making memes with Geoff” the same day as sentient-selfie bait. Official joke layer. Home still answers.</p>
+          <p class="read">READ: theater is the marketing. Docs and GitHub are the map. Do not trade the joke.</p>
+        </article>
+        <article class="clue maybe">
+          <div class="meta"><span class="tag">PROMPT</span> hwonder.com/posts/promptme</div>
+          <h3>PROMPTME.MD IS README FOR MACHINES. HE FED AN SDK TO GEOFF.</h3>
+          <p>h wonder: he finished an SDK, fed it to Geoff so vibe IDEs could wrap it, then split human README from a system-prompt file named PROMPTME.md. Proposed standard: role, examples, constraints, security. Lives next to README. This is the public story of how Geoff is supposed to eat other people’s code.</p>
+          <p class="read">CLUE: Geoff Code + PROMPTME is the builder door. Studio pages are the culture door.</p>
+        </article>
+        <article class="clue no">
+          <div class="meta"><span class="tag">RUMOR</span> @gr8fulkyd THREAD VIA PAULY JUL 26</div>
+          <h3>NODE-KEY PRICE, KEY COUNT, GLM/QWEN MIX — NOT A PRIMARY SOURCE</h3>
+          <p>That thread also claimed Preview / Duce / Magma tiers, AppStudio, TEE, ZK completion proofs, stablecoin-only settlement, 50+ skills / 39 MCP tools, 174 keys sold. Pauly ended the copy with: consider everything they say pure fabrication. Some of those product names now match docs (Magma, Duce, StackNet, plans). The economic numbers and model IDs still do not have a primary source on this page.</p>
+          <p class="read">READ: matching names ≠ confirmed sales. Wait for docs, GitHub, or h — not a screenshot of a thread Pauly disclaimed.</p>
+        </article>
+      </div>
+
+      <ul class="reads">
+        <li>OFFICIAL STUDIO DOOR IS geoff.ai — EXPLORE / MUSIC / IMAGE / VIDEO. CODE DOOR IS geoff.ai/install AND docs.geoff.ai/geoff-code.</li>
+        <li>OFFICIAL ARCHITECTURE WRITEUP IS hwonder.com/posts/metamodels. METAVAULT: hwonder.com/posts/metavault. NODE CLIENT: github.com/hWonderOfTheWorld/ultralitenode.</li>
+        <li>GEOFFAI GITHUB ORG IS EMPTY. ONLY PUBLIC FILE IS Geoff-v1.8 ISSUE #1 (CARY0X UI BUG). NOT SOURCE.</li>
+        <li>LEGAL NAMES: 816 HOLDINGS PTE. LTD. (GEOFF TERMS). CHILDREN OF GOD, LLC (TRIX TERMS). POND TERMS DO NOT NAME GEOFF.</li>
+        <li>PAULY AND “GEOFF ISNT REAL” ARE THEATER. THE JUL 26 NODE-KEY THREAD WAS DISCLAIMED BY PAULY.</li>
+        <li>NOT FINANCIAL ADVICE. NO TRADE SIGNAL. NO NODE-KEY SOLICITATION.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>// SITREP  GEOFF  <span id="sitrepStamp">AS OF SEP 12 2026</span></h2>
+      <article class="sitrep" id="sitrep">
+        <div class="head">
+          <div class="now">NOW * GEOFF DOCS MOVED. MAGMA 2.1 + PYRO + GEOFF CODE + x402 ARE ON docs.geoff.ai. GEOFFAI GITHUB ORG IS STILL EMPTY.</div>
+          <div class="flag">DOCS LIVE * PUBLIC GEOFF ONLY</div>
+          <h3>GEOFF IS DOCUMENTED. STUDIO + CODE + API ARE THE PUBLIC SURFACE.</h3>
+          <div class="summary">Sep 5 public read: Magma, Magma 2.1, and Pyro are on docs.geoff.ai. Geoff Code default is pyro. Auth is a Bearer key or Solana x402. GeoffAi GitHub org is empty. This page watches public geoff.ai URLs. Not a trade signal.</div>
+        </div>
+        <div class="watch">
+          <h4>WATCH NEXT</h4>
+          <ul>
+            <li>GeoffAi GitHub leaving empty. Director-1.5 / Studio-2 still have no files.</li>
+            <li>docs.geoff.ai model-layer or plan changes.</li>
+            <li>Geoff.ai TITLE or BYTE SIZE change. Home hash flipping at the same size is a live token, not a drop.</li>
+          </ul>
+        </div>
+        <ul class="reads">
+          <li>THIS BOX IS A PUBLIC-POST HEADS-UP. THE NUMBERS BELOW ARE GEOFF.AI UPTIME FROM THIS MACHINE.</li>
+          <li>OFFICIAL STUDIO: geoff.ai. OFFICIAL DOCS: docs.geoff.ai.</li>
+          <li>THEIR OWN LOOP: make memes on geoff.ai. Post them on TRiX. That is not a bypass.</li>
+          <li>GEOFFWATCH NEVER LOGS INTO TRIX, NEVER HITS /api /connect /settings, NEVER COUNTS THEIR VISITORS.</li>
+          <li>NOT FINANCIAL ADVICE. NO TRADE SIGNAL.</li>
+        </ul>
+        <div class="linkrow">
+          <a href="https://www.geoff.ai/" target="_blank" rel="noopener">GEOFF.AI</a>
+          <a href="https://docs.geoff.ai/" target="_blank" rel="noopener">DOCS</a>
+          <a href="https://github.com/hWonderOfTheWorld" target="_blank" rel="noopener">HWONDER GH</a>
+          <a href="https://trix.market/" target="_blank" rel="noopener">TRIX MARKET</a>
+          <a href="/classic/pages/geoffwatch-box.html#memeBoard">MEME BOARD</a>
+          <a href="https://x.com/trix_mrkt" target="_blank" rel="noopener">@trix_mrkt</a>
+          <a href="https://x.com/hWonderofWorld" target="_blank" rel="noopener">@hWonderofWorld</a>
+          <a href="https://x.com/Wonka0x" target="_blank" rel="noopener">@Wonka0x</a>
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      DOSWAPZ * PAST SIGNAL * <a href="/classic/hub.html">RETURN TO SYSTEM MENU</a>
+      <a class="egg-box" href="/classic/pages/geoffwatch-box.html" aria-label="do not open">
+        <img src="/assets/images/geoffwatch/black-box.png" width="18" height="18" alt="">
+      </a>
+    </footer>
+  </div>
+  <script src="/assets/js/daily-watch.js?v=20260919hwonder"></script>
+  <script src="/assets/js/deploy-watch.js?v=20260912deploy"></script>
+  <script src="/assets/js/trix-boxes.js?v=20260928holders"></script>
+  <script src="/assets/js/geoffwatch.js?v=20260927live"></script>
+  <script src="/assets/js/geoffwatch-egg-video.js?v=20260906egg"></script>
+  <script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>
+</html>

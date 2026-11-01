@@ -1,0 +1,194 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background: #05060a;
+  color: #c8d0e0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+/* Arcade hub chrome */
+.arcade-bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 14px;
+  background: #020806;
+  border-bottom: 2px solid #00ff66;
+  font-family: monospace;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+.arcade-bar a {
+  color: #00ff66;
+  text-decoration: none;
+}
+
+.arcade-bar a:hover {
+  color: #fff;
+  text-shadow: 0 0 8px #0f6;
+}
+
+.arcade-bar-title {
+  color: #8cf;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.arcade-bar-right a {
+  color: #ffcc00;
+}
+
+#wrap {
+  min-height: calc(100% - 42px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+}
+
+#stage {
+  position: relative;
+  width: min(96vw, 960px);
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 2px solid #2a3348;
+  border-radius: 4px;
+  box-shadow: 0 0 40px rgba(40, 120, 255, 0.15);
+  overflow: hidden;
+}
+
+#intro {
+  position: absolute;
+  inset: 0;
+  display: none;
+  background: #000;
+  z-index: 2;
+}
+
+#intro.active {
+  display: block;
+}
+
+#intro-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
+}
+
+#intro-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 12%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.25) 40%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+#intro-prompt {
+  font-family: monospace;
+  font-weight: 700;
+  font-size: clamp(18px, 3.2vw, 32px);
+  letter-spacing: 0.18em;
+  color: #ffffff;
+  text-shadow:
+    0 0 8px #4af,
+    0 0 18px rgba(68, 170, 255, 0.7),
+    2px 2px 0 #000;
+  text-align: center;
+}
+
+#intro-sub {
+  margin-top: 12px;
+  font-family: monospace;
+  font-size: clamp(10px, 1.4vw, 13px);
+  letter-spacing: 0.08em;
+  color: rgba(200, 220, 255, 0.75);
+  text-shadow: 1px 1px 0 #000;
+  text-align: center;
+}
+
+.buy-xelon {
+  margin-top: 16px;
+  display: inline-block;
+  font-family: monospace;
+  font-weight: 700;
+  font-size: clamp(11px, 1.6vw, 14px);
+  letter-spacing: 0.12em;
+  color: #0a0;
+  background: rgba(0, 255, 65, 0.12);
+  border: 1px solid #00ff41;
+  padding: 8px 14px;
+  text-decoration: none;
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.5);
+  pointer-events: auto;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.buy-xelon:hover {
+  background: rgba(0, 255, 65, 0.28);
+  color: #fff;
+}
+
+.blink {
+  animation: blink 1.1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+
+#game {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  background: #000;
+}
+
+#game[hidden] {
+  display: none;
+}
+
+#hint {
+  font-size: 13px;
+  opacity: 0.75;
+  text-align: center;
+  max-width: 960px;
+  line-height: 1.5;
+}
+
+kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  border: 1px solid #445;
+  border-radius: 3px;
+  background: #151a24;
+  font-size: 12px;
+  color: #9cf;
+}

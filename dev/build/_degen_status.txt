@@ -1,0 +1,5 @@
+checked_at=2026-07-05 12:43:18.564994
+high_punch_exists=True
+high_punch_mtime=2026-07-05 12:42:01.995821
+high_punch_size=350112
+pose_count=62

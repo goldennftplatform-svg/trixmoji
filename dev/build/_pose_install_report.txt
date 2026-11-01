@@ -1,0 +1,95 @@
+=== setup_character_folders.py === 
+OK C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\degen
+OK C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\ansem
+OK C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\jason-williams
+OK C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\dogedesigner
+OK C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\roger-ver
+OK C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\bitboy
+OK C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\jimmy-edgar
+OK C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\michael-saylor
+OK C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\crypto-bitlord
+OK C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\donalt
+OK C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\vitalik-buterin
+OK C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\pauly0x
+EXIT_SETUP=0 
+ 
+=== install_all_character_poses.py === 
+
+=== DEGEN ===
+Reference -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\degen\reference.jpg
+Primary  block-high-r <- CtUhC (1).jpg (626x1171)
+Primary  block-low-r <- image-c146bb9d-040a-4bc5-82de-60af61f80722.jpg (514x962)
+Primary  crouch-r <- image-bb99b224-bec8-46cd-a1da-84f918b00b25.jpg (619x863)
+Primary  high-kick-r <- image-b7463fb3-590c-4415-be8a-9fc9217bb5c6.jpg (660x884)
+Primary  high-punch-r <- image-3a1d91c0-2283-4612-805d-0b7baee176d7.jpg (633x954)
+Primary  idle-breath-r <- image-a456ed22-0552-4596-9008-8c61b07a07a0.jpg (379x969)
+Primary  idle-r <- image-175568d4-90f0-4b78-970a-8c2521dadb55.jpg (492x976)
+Primary  jump-peak-r <- image-6fb64efc-7ed3-480e-b220-82ece820a586.jpg (520x898)
+Primary  jump-r <- 9ZNvl.jpg (753x1043)
+Primary  low-punch-r <- image-bb99b224-bec8-46cd-a1da-84f918b00b25.jpg (619x863)
+Primary  med-kick-r <- image-c224b37b-7506-4b44-8d06-efc26cc47a56.jpg (661x919)
+Primary  special-1-r <- image-069f145d-1b86-4bd9-9621-ac3d2d22e550.jpg (626x941)
+Primary  special-2-r <- image-c224b37b-7506-4b44-8d06-efc26cc47a56.jpg (661x919)
+Primary  victory-r <- image-6fb64efc-7ed3-480e-b220-82ece820a586.jpg (520x898)
+Primary  walk-forward-1-r <- image-22d33eaf-1000-4967-861b-2fa6e8363877.jpg (563x969)
+Primary  walk-forward-2-r <- image-a456ed22-0552-4596-9008-8c61b07a07a0.jpg (379x969)
+Done degen: 62 poses
+
+=== ANSEM ===
+Reference -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\ansem\reference.jpg
+Primary  idle-r <- ANSEM.jpg (568x1112)
+Done ansem: 61 poses
+
+=== JASON-WILLIAMS ===
+Reference -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\jason-williams\reference.jpg
+Primary  idle-r <- JASON WILLIAMS.jpg (664x1088)
+Done jason-williams: 61 poses
+
+=== DOGEDESIGNER ===
+Reference -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\dogedesigner\reference.jpg
+Primary  idle-r <- DOGEDESIGNER.jpg (690x1136)
+Done dogedesigner: 61 poses
+
+=== ROGER-VER ===
+Reference -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\roger-ver\reference.jpg
+Primary  idle-r <- ROGER VER.jpg (609x1063)
+Done roger-ver: 61 poses
+
+=== BITBOY ===
+Reference -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\bitboy\reference.jpg
+Primary  idle-r <- BITBOY.jpg (715x1167)
+Done bitboy: 61 poses
+
+=== JIMMY-EDGAR ===
+Reference -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\jimmy-edgar\reference.jpg
+Primary  idle-r <- JIMMY EDGAR.jpg (673x1099)
+Done jimmy-edgar: 61 poses
+
+=== MICHAEL-SAYLOR ===
+Reference -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\michael-saylor\reference.jpg
+Primary  idle-r <- MICHAELSAYLOR.jpg (743x1039)
+Done michael-saylor: 61 poses
+
+=== CRYPTO-BITLORD ===
+Reference -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\crypto-bitlord\reference.jpg
+Primary  idle-r <- CRYPTO BITLORD.jpg (648x1129)
+Done crypto-bitlord: 61 poses
+
+=== DONALT ===
+Reference -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\donalt\reference.jpg
+Primary  idle-r <- DON ALT.jpg (689x1056)
+Done donalt: 61 poses
+
+=== VITALIK-BUTERIN ===
+Reference -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\vitalik-buterin\reference.jpg
+Primary  idle-r <- VITALIK BUTERIN.jpg (459x1001)
+Done vitalik-buterin: 61 poses
+
+=== PAULY0X ===
+Reference -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\pauly0x\reference.jpg
+Primary  idle-r <- PAULY0X.jpg (769x1168)
+Done pauly0x: 66 poses
+
+Master index -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\view-all-poses.html
+
+Installed 738 total pose PNGs across 12 character(s)

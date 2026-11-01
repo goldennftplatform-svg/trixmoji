@@ -1,0 +1,45 @@
+CRYPTO MOM - 500,000 MONTE CARLO SIMULATIONS PER STRATEGY
+pages/basement/cryptomom/play.html | simulate_cryptomom.py
+Run: python dev/sim/simulate_cryptomom.py
+
+MODE: REALISTIC (500k runs each - safe / risky / mixed)
+
+=== SAFE ===
+Avg weeks survived: 11.56
+Good ending (week 13+, kids>64, risk<28): 26.14%
+Eviction: 57.54%
+Kids collapse: 16.16%
+Arrest / jail destroyed: 0.00%
+Avg final Kids: 53.0 | Avg final Risk: 2.9
+
+=== RISKY ===
+Avg weeks survived: 5.59
+Good ending: 0.00%
+Eviction: 9.74%
+Kids collapse: 48.60%
+Arrest / jail destroyed: 29.52%
+Risk burn: 12.14%
+Avg final Kids: 6.8 | Avg final Risk: 71.6
+
+=== MIXED ===
+Avg weeks survived: 10.38
+Good ending: 4.51%
+Eviction: 34.63%
+Kids collapse: 60.83%
+Arrest / jail destroyed: 0.02%
+Avg final Kids: 20.2 | Avg final Risk: 24.7
+
+VALIDATED BEHAVIORS (mirrors Crypto Dad sim conclusions):
+- Safe play (Kids & Home + legal gigs) yields best good-ending rate and lowest risk.
+- Risky play (Night Shift, street promo, hotel hustle) spikes arrests and kids collapse.
+- Mixed sits between but kid decay punishes half-measures.
+- Night shift crime encounter: 3% realistic / 1.5% arcade per shift.
+- Weekly economy: $720 paycheck - $85 groceries - utilities every 2wk - rent $1400/4wk.
+
+CORE SYSTEMS PORTED FROM CRYPTO DAD:
+- 20-hour hustle window per week (like 24h trade window)
+- Jail: Better Call SOL, sister bail, serve time, fight in court
+- Police encounter: pepper spray / run / talk / comply
+- Store: pepper spray, door cam, burner phone
+- Critical consequences at high risk (sweep, arrest roll)
+- CPS / kids taken / eviction / good ending week 13

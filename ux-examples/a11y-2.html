@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>A11y 2</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ * { box-sizing: border-box; }
+ html, body { margin: 0; min-height: 100%; background: #111; color: #00ff00; font-family: 'VT323', monospace; }
+ .screen { min-height: 100vh; padding: 20px; position: relative; }
+ .badge { position: absolute; top: 8px; right: 10px; font-size: 11px; color: #ffff00; border: 1px solid #554400; padding: 2px 6px; }
+ .hint { color: #00aa00; font-size: 14px; max-width: 300px; margin-top: 40px; line-height: 1.4; }
+ .panel {
+ position: absolute; left: 8px; right: 8px; bottom: 36px;
+ background: rgba(0,0,0,.92); border: 1px solid #004400; padding: 8px;
+ display: grid; gap: 8px; max-width: 420px;
+ }
+ .row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12px; }
+ .row span { color: #ffff00; min-width: 64px; letter-spacing: 1px; }
+ .row button {
+ font-family: inherit; font-size: 12px; color: #00aa00; background: transparent;
+ border: 1px solid #003300; padding: 6px 8px; cursor: pointer; min-height: 32px;
+ }
+ .row button.on { background: #00ff41; color: #000; border-color: #00ff41; }
+ .ticker {
+ position: absolute; left: 0; right: 0; bottom: 0; height: 28px;
+ border-top: 1px solid #00ff41; background: #000; font-size: 12px;
+ display: flex; align-items: center; padding: 0 8px; color: #00aa00;
+ }
+ </style>
+</head>
+<body>
+ <div class="screen">
+ <div class="badge">A11Y 2</div>
+ <p class="hint">Three mini dials: GLITCH * MOTION * CONTRAST. More power, more chrome.</p>
+ <div class="panel">
+ <div class="row">
+ <span>GLITCH</span>
+ <button type="button">CALM</button>
+ <button type="button" class="on">NORMAL</button>
+ <button type="button">CHAOS</button>
+ </div>
+ <div class="row">
+ <span>MOTION</span>
+ <button type="button" class="on">FULL</button>
+ <button type="button">LOW</button>
+ <button type="button">OFF</button>
+ </div>
+ <div class="row">
+ <span>CONTRAST</span>
+ <button type="button">CRT</button>
+ <button type="button" class="on">STD</button>
+ <button type="button">HI</button>
+ </div>
+ </div>
+ <div class="ticker">LIVE TICKER ...</div>
+ </div>
+</body>
+</html>

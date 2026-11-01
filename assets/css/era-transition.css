@@ -1,0 +1,81 @@
+/* Time Machine travel sequence */
+#eraTravelOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+  display: none;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+#eraTravelOverlay.era-travel-active {
+  display: block !important;
+  pointer-events: all;
+}
+
+#eraTravelGlitch {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.era-travel-block {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.era-travel-band {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  mix-blend-mode: difference;
+  z-index: 3;
+  pointer-events: none;
+}
+
+#eraTravelWhite {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#eraTravelBlack {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  z-index: 11;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#eraTravelTube {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 0;
+  background: #00ff00;
+  box-shadow: 0 0 24px #00ff00, 0 0 48px #00aa00;
+  z-index: 12;
+  pointer-events: none;
+}
+
+#eraTravelCursor {
+  display: none;
+  position: absolute;
+  left: 28px;
+  bottom: 38px;
+  font-family: 'VT323', monospace;
+  font-size: 28px;
+  color: #00ff00;
+  text-shadow: 0 0 4px #00ff00;
+  z-index: 13;
+}

@@ -1,0 +1,19 @@
+{
+  "name": "blockchain-email-security-gateway",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "cors": "^2.8.5",
+    "express-rate-limit": "^8.1.0",
+    "ethers": "^6.15.0",
+    "tweetnacl": "^1.0.3",
+    "dotenv": "^17.2.2",
+    "nodemailer": "^7.0.6"
+  }
+}

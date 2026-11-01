@@ -1,0 +1,858 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="dos-smooth dos-text-md" style="--ftwr-rabbit-icon-url: url(&quot;data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%208%208%22%20shape-rendering%3D%22crispEdges%22%3E%3Crect%20x%3D%222%22%20y%3D%220%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%220%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%221%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%221%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%221%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%222%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%222%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23000000%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%222%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23000000%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%222%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%223%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%223%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%223%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%223%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%224%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%224%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%224%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%224%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%224%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%225%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%225%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%225%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%225%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%226%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%226%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%227%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%227%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3C%2Fsvg%3E&quot;); --ftwr-rabbit-icon-url-alt: url(&quot;data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%208%208%22%20shape-rendering%3D%22crispEdges%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%220%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%220%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%220%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%221%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%221%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%221%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%222%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%222%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23000000%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%222%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23000000%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%222%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%223%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%223%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%223%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%223%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%224%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%224%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%224%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%224%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%224%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%225%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%225%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%225%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%225%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%226%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%226%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%227%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%227%22%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23ffffff%22%2F%3E%3C%2Fsvg%3E&quot;); overflow: hidden auto !important; max-height: none !important; height: auto !important;" data-text-scale="md" data-glitch-level="NORMAL" data-transition-bound="1"><head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // $DOSWAPZ TOKEN TEST</title>
+ <meta name="description" content="LOCAL TEST of the $DOSWAPZ token page with live Trix mint pinned. Not production.">
+ <meta name="robots" content="noindex,nofollow">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='38' font-family='monospace' font-size='18' fill='%23fff' text-anchor='middle' font-weight='bold'%3EZ%3C/text%3E%3C/svg%3E">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ min-height: 100%;
+ background: #000000;
+ color: #00ff00;
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: #000000;
+ padding: 24px 28px 60px;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px,
+ rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .header {
+ font-size: 32px;
+ letter-spacing: 6px;
+ text-shadow: 0 0 5px #00ff00;
+ text-align: center;
+ margin-bottom: 4px;
+ }
+
+ .sub {
+ text-align: center;
+ color: #00aa00;
+ font-size: 16px;
+ letter-spacing: 2px;
+ margin-bottom: 18px;
+ }
+
+ .content {
+ max-width: 920px;
+ margin: 0 auto;
+ font-size: 19px;
+ line-height: 1.38;
+ padding: 0 8px;
+ position: relative;
+ z-index: 20;
+ }
+
+ .section {
+ margin-bottom: 24px;
+ }
+
+ .section-title {
+ font-size: 22px;
+ color: #ffff00;
+ margin-bottom: 6px;
+ border-bottom: 1px solid #003300;
+ padding-bottom: 3px;
+ }
+
+ .launch-note {
+ color: #ffcc00;
+ background: rgba(40, 30, 0, 0.45);
+ padding: 12px 14px;
+ border: 2px solid #ffff00;
+ margin: 14px 0;
+ font-size: 17px;
+ line-height: 1.35;
+ }
+
+ .pledge {
+ color: #aaffaa;
+ background: rgba(0, 40, 0, 0.35);
+ padding: 12px 14px;
+ border-left: 3px solid #00ff00;
+ margin: 14px 0;
+ }
+
+ .address-box {
+ margin: 14px 0;
+ padding: 12px 14px;
+ border: 2px solid #00aa00;
+ background: rgba(0, 30, 0, 0.45);
+ font-size: 17px;
+ letter-spacing: 1px;
+ word-break: break-all;
+ }
+
+ .address-label {
+ color: #ffff00;
+ font-size: 15px;
+ margin-bottom: 6px;
+ }
+
+ .stat-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+ gap: 12px;
+ margin: 16px 0;
+ }
+
+ .stat-card {
+ border: 2px solid #003300;
+ background: #001100;
+ padding: 12px;
+ text-align: center;
+ }
+
+ .stat-value {
+ font-size: 28px;
+ color: #ffff00;
+ text-shadow: 0 0 4px #ffff00;
+ }
+
+ .stat-label {
+ font-size: 14px;
+ color: #00aa00;
+ margin-top: 4px;
+ letter-spacing: 1px;
+ }
+
+ .ledger {
+ border: 2px solid #00ff00;
+ background: #000800;
+ margin: 14px 0;
+ overflow-x: auto;
+ }
+
+ .ledger table {
+ width: 100%;
+ border-collapse: collapse;
+ font-size: 15px;
+ }
+
+ .ledger th {
+ color: #ffff00;
+ text-align: left;
+ padding: 8px 10px;
+ border-bottom: 1px solid #003300;
+ letter-spacing: 1px;
+ }
+
+ .ledger td {
+ padding: 7px 10px;
+ border-bottom: 1px solid #001a00;
+ color: #00cc00;
+ }
+
+ .ledger tr:hover td {
+ background: rgba(0, 255, 0, 0.06);
+ }
+
+ .ledger .amount {
+ color: #ffff00;
+ }
+
+ .ledger a {
+ color: #88ff88;
+ text-decoration: none;
+ }
+
+ .ledger a:hover {
+ color: #ffffff;
+ text-decoration: underline;
+ }
+
+ .status-line {
+ font-size: 15px;
+ color: #00aa00;
+ margin: 10px 0;
+ min-height: 20px;
+ }
+
+ .btn {
+ font-size: 17px;
+ color: #00ff00;
+ background: transparent;
+ border: 2px solid #00ff00;
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px 8px 0;
+ display: inline-block;
+ cursor: pointer;
+ font-family: inherit;
+ }
+
+ .btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .disclaimer {
+ margin: 14px auto;
+ padding: 10px 12px;
+ border: 2px solid #ffff00;
+ background: rgba(40, 30, 0, 0.35);
+ font-size: 13px;
+ line-height: 1.28;
+ max-width: 920px;
+ text-align: left;
+ }
+
+ .disclaimer-title {
+ color: #ffff00;
+ margin-bottom: 4px;
+ letter-spacing: 1px;
+ text-align: center;
+ font-size: 13px;
+ }
+
+ .buttons {
+ text-align: center;
+ margin-top: 20px;
+ }
+
+ .footer {
+ margin-top: 18px;
+ font-size: 13px;
+ color: #00aa00;
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ .vignette {
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.58) 84%);
+ pointer-events: none;
+ z-index: 5;
+ }
+
+ .glitch-layer {
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 20;
+ mix-blend-mode: screen;
+ }
+
+ .mosh-band {
+ position: fixed;
+ left: 0;
+ width: 100%;
+ background: rgba(0, 255, 0, 0.16);
+ mix-blend-mode: difference;
+ pointer-events: none;
+ z-index: 25;
+ opacity: 0;
+ }
+
+ .empty-ledger {
+ padding: 20px;
+ text-align: center;
+ color: #00aa00;
+ font-size: 16px;
+ }
+
+ .neon-sign {
+ position: relative;
+ margin: 8px auto 22px;
+ max-width: 760px;
+ padding: 6px;
+ border: 3px solid #00ff66;
+ background: #000;
+ box-shadow:
+ 0 0 8px #00ff66,
+ 0 0 22px rgba(0, 255, 80, 0.45),
+ inset 0 0 18px rgba(0, 255, 80, 0.12);
+ animation: neon-frame 1.8s ease-in-out infinite;
+ }
+ .neon-sign::before {
+ content: '';
+ position: absolute;
+ inset: 8px;
+ border: 2px solid rgba(255, 255, 0, 0.55);
+ pointer-events: none;
+ box-shadow: 0 0 10px rgba(255, 255, 0, 0.35);
+ }
+ .neon-sign-inner {
+ position: relative;
+ z-index: 1;
+ padding: 16px 14px 18px;
+ text-align: center;
+ }
+ .neon-marquee {
+ font-size: 15px;
+ letter-spacing: 0.42em;
+ color: #ffff66;
+ text-shadow: 0 0 6px #ffff00, 0 0 16px #ffaa00;
+ margin-bottom: 6px;
+ animation: neon-flash 0.9s step-end infinite;
+ }
+ .neon-title {
+ font-size: clamp(36px, 8vw, 64px);
+ letter-spacing: 0.16em;
+ color: #7cff9a;
+ line-height: 1;
+ text-shadow:
+ 0 0 6px #00ff66,
+ 0 0 18px #00ff41,
+ 0 0 36px rgba(0, 255, 80, 0.7);
+ animation: neon-buzz 3.4s linear infinite;
+ }
+ .neon-release {
+ margin-top: 8px;
+ font-size: clamp(15px, 2.6vw, 20px);
+ letter-spacing: 0.16em;
+ color: #ffff88;
+ text-shadow: 0 0 8px #ffff00, 0 0 18px rgba(255, 200, 0, 0.55);
+ animation: neon-flash 1.4s step-end infinite;
+ }
+ .neon-clock {
+ display: flex;
+ justify-content: center;
+ align-items: flex-end;
+ gap: 8px;
+ margin-top: 16px;
+ flex-wrap: wrap;
+ }
+ .neon-unit {
+ min-width: 72px;
+ padding: 8px 6px 6px;
+ border: 2px solid #00aa44;
+ background: rgba(0, 20, 0, 0.7);
+ box-shadow: 0 0 10px rgba(0, 255, 80, 0.2), inset 0 0 8px rgba(0, 255, 80, 0.08);
+ }
+ .neon-unit span {
+ display: block;
+ font-size: clamp(28px, 6vw, 42px);
+ line-height: 1;
+ color: #7cff9a;
+ text-shadow: 0 0 8px #00ff66, 0 0 16px #00ff41;
+ }
+ .neon-unit label {
+ display: block;
+ margin-top: 4px;
+ font-size: 12px;
+ letter-spacing: 0.22em;
+ color: #88ff88;
+ }
+ .neon-colon {
+ font-size: 32px;
+ color: #ffff66;
+ line-height: 1.1;
+ padding-bottom: 18px;
+ text-shadow: 0 0 8px #ffff00;
+ animation: neon-flash 1s step-end infinite;
+ }
+ .neon-live {
+ display: none;
+ margin-top: 14px;
+ font-size: clamp(22px, 5vw, 34px);
+ letter-spacing: 0.28em;
+ color: #ffff66;
+ text-shadow: 0 0 8px #ffff00, 0 0 22px #ff6600;
+ animation: neon-flash 0.55s step-end infinite;
+ }
+ .neon-sign.is-live .neon-clock { display: none; }
+ .neon-sign.is-live .neon-live { display: block; }
+ .neon-sign.is-live .neon-marquee { color: #ff6666; text-shadow: 0 0 8px #ff0033, 0 0 18px #ff2200; }
+
+ @keyframes neon-flash {
+ 0%, 18%, 22%, 26%, 78%, 100% { opacity: 1; }
+ 20%, 24%, 80% { opacity: 0.18; }
+ }
+ @keyframes neon-buzz {
+ 0%, 92%, 100% { opacity: 1; filter: brightness(1); }
+ 93% { opacity: 0.55; filter: brightness(1.4); }
+ 95% { opacity: 1; }
+ 97% { opacity: 0.7; }
+ }
+ @keyframes neon-frame {
+ 0%, 100% { box-shadow: 0 0 8px #00ff66, 0 0 22px rgba(0, 255, 80, 0.45), inset 0 0 18px rgba(0, 255, 80, 0.12); }
+ 50% { box-shadow: 0 0 14px #ffff66, 0 0 32px rgba(255, 255, 0, 0.35), inset 0 0 22px rgba(0, 255, 80, 0.2); }
+ }
+ @media (max-width: 560px) {
+ .neon-unit { min-width: 58px; }
+ .neon-colon { display: none; }
+ }
+ @media (prefers-reduced-motion: reduce) {
+ .neon-sign, .neon-marquee, .neon-title, .neon-release, .neon-colon, .neon-live {
+ animation: none !important;
+ }
+ }
+ </style>
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <link rel="stylesheet" href="/assets/css/era-present-cryptodad.css?v=neonvoid9" data-era-present-cryptodad="">
+ <script src="/assets/js/core/era-present-cryptodad.js?v=neonvoid9"></script>
+ <script src="/assets/js/core/era-portal.js?v=20260809era" data-era-portal="1"></script><style id="aquaDropStyles">#aquaDrop{position:fixed;z-index:99990;width:88px;height:118px;pointer-events:none !important;visibility:hidden;opacity:0;will-change:transform,opacity;filter:drop-shadow(0 10px 14px rgba(20,90,160,.5));cursor:pointer;border:0;padding:0;background:transparent !important;overflow:visible;left:-9999px;top:-9999px;}#aquaDrop.aqua-drop-show{pointer-events:auto !important;visibility:visible;opacity:1;transition:opacity .2s linear,transform 4.8s cubic-bezier(.35,.05,.55,1);}#aquaDrop.aqua-drop-fall{pointer-events:none !important;opacity:0;transition:opacity .35s linear,transform .9s cubic-bezier(.45,0,.7,.3);}#aquaDrop canvas{width:100%;height:100%;display:block;pointer-events:none;background:transparent !important;}#aquaDrop video{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;left:-9999px;top:0;}#aquaDrop:focus-visible{outline:2px solid #6cf;outline-offset:3px;}</style></head>
+<body class="dos-smooth has-doswapz-ticker has-dos-docs-chip has-dos-era-rail dos-text-md" style="max-height: none !important; position: relative !important; overflow: hidden auto !important; height: auto !important;" data-text-scale="md">
+ <div class="dos-screen" id="screen" style="overflow: visible;">
+ <div class="vignette" style="pointer-events: none;"></div>
+
+ <div class="content">
+ <div class="header" id="tokenHeader">$DOSWAPZ</div>
+ <div class="sub" id="tokenSub"><span class="ftwr-word"><span class="ftwr-rabbit-icon" aria-hidden="true"></span>TRIX</span> MARKET * 26 AUG 2026 * DEV HOLD 0 * 50% TO MAPS</div>
+ <div class="launch-note" style="text-align:center; letter-spacing:3px; margin-bottom:18px;">
+ LOCAL TEST ONLY * MINT + <span class="ftwr-word"><span class="ftwr-rabbit-icon" aria-hidden="true"></span>TRIX</span> URL PINNED * NOT LIVE ON DOSWAPZ.COM
+ </div>
+
+ <div class="neon-sign is-live" id="neonSign">
+ <div class="neon-sign-inner">
+ <div class="neon-marquee" id="neonMarquee">NOW LIVE</div>
+ <div class="neon-title" id="neonTitle">$DOSWAPZ</div>
+ <div class="neon-release" id="neonRelease">RELEASE * <span class="ftwr-word"><span class="ftwr-rabbit-icon" aria-hidden="true"></span>TRIX</span> MARKET * 26 AUG 2026</div>
+ <div class="neon-clock" id="neonClock">
+ <div class="neon-unit"><span id="cdDays">00</span><label>DAYS</label></div>
+ <div class="neon-colon" aria-hidden="true">:</div>
+ <div class="neon-unit"><span id="cdHours">00</span><label>HRS</label></div>
+ <div class="neon-colon" aria-hidden="true">:</div>
+ <div class="neon-unit"><span id="cdMins">00</span><label>MIN</label></div>
+ <div class="neon-colon" aria-hidden="true">:</div>
+ <div class="neon-unit"><span id="cdSecs">00</span><label>SEC</label></div>
+ </div>
+ <div class="neon-live" id="neonLive">LIVE ON TRIX</div>
+ </div>
+ </div>
+
+ <div class="section">
+ <div class="section-title">$DOSWAPZ TOKEN</div>
+ <div class="stat-grid">
+ <div class="stat-card">
+ <div class="stat-value" id="launchDateValue">26 AUG 2026</div>
+ <div class="stat-label"><span class="ftwr-word"><span class="ftwr-rabbit-icon" aria-hidden="true"></span>TRIX</span> MARKET LAUNCH</div>
+ </div>
+ <div class="stat-card">
+ <div class="stat-value" id="devHoldValue">0%</div>
+ <div class="stat-label">DEV HOLD</div>
+ </div>
+ <div class="stat-card">
+ <div class="stat-value" id="mapsPctValue">50%</div>
+ <div class="stat-label">DEV CLAIMS -&gt; MAPS</div>
+ </div>
+ <div class="stat-card">
+ <div class="stat-value">SITE</div>
+ <div class="stat-label">TRACKED ON THIS PAGE</div>
+ </div>
+ </div>
+ <div class="launch-note" id="launchNote">$DOSWAPZ is LIVE on <span class="ftwr-word"><span class="ftwr-rabbit-icon" aria-hidden="true"></span>Trix</span> Market. Dev hold is zero. <span class="ftwr-word"><span class="ftwr-rabbit-icon" aria-hidden="true"></span>Trix</span> ticker DSWPZ. Mint HM1iMLK3w2vNvMBqduP23Lucsocgt32BonNifhSJTRiX. 50% of developer fee claims go to MAPS.ORG. Every donation is tracked on this page.</div>
+ <p>
+ <span id="trixLinkWrap"><a href="https://trix.market/coin/HM1iMLK3w2vNvMBqduP23Lucsocgt32BonNifhSJTRiX" target="_blank" style="color:#ffff00;">Trade $DOSWAPZ on <span class="ftwr-word"><span class="ftwr-rabbit-icon" aria-hidden="true"></span>Trix</span> Market -&gt; </a><br></span>
+ <span id="tokenIntro">$DOSWAPZ launches on <span class="ftwr-word"><span class="ftwr-rabbit-icon" aria-hidden="true"></span>Trix</span> Market 26 AUG 2026. Dev holds zero of the supply. 50% of developer fee claims go to MAPS. Every donation is tracked on this website with on-chain TX links.</span>
+ </p>
+ </div>
+
+ <div class="section">
+ <div class="section-title">50% TO MAPS</div>
+ <div class="pledge">
+ <strong id="pledgeText">50% of all $DOSWAPZ developer fee claims on <span class="ftwr-word"><span class="ftwr-rabbit-icon" aria-hidden="true"></span>Trix</span> Market are donated to MAPS.ORG.</strong><br>
+ The Multidisciplinary Association for Psychedelic Studies (MAPS) researches safe,
+ legal frameworks for psychedelic-assisted therapy. Confirm the current donation address on
+ <a href="https://maps.org" target="_blank" style="color:#ffff00;">maps.org</a> before sending anything.
+ </div>
+
+ <div class="address-label">MAPS SOLANA DONATION ADDRESS:</div>
+ <div class="address-box" id="mapsAddress"><span style="color:#ffcc00;">MAPS.ORG rotates their official Solana donation address with every donation. Always confirm the current address on maps.org before sending anything.</span></div>
+ <p style="font-size:16px; color:#aaffaa; margin-top:10px;">
+ <strong>Transparency on DOSWAPZ:</strong> Every outgoing donation transfer from the $DOSWAPZ fee wallet is posted in the ledger below.
+ Use it to verify the <span id="donationPctInline">50%</span> pledge - each row links to the on-chain transaction and recipient address.
+ Dev hold 0% is supply - the ledger tracks fee claims and MAPS donations, not a team allocation.
+ </p>
+
+ <div class="address-label" style="margin-top:18px;">$DOSWAPZ FEE WALLET (<span class="ftwr-word"><span class="ftwr-rabbit-icon" aria-hidden="true"></span>TRIX</span> CLAIMS):</div>
+ <div class="address-box" id="devWalletDisplay">4LeAALeZGDWASD1PqNceSYWm64iM5is9w2J9YizWmyEE</div>
+ </div>
+
+ <div class="section" id="ledger">
+ <div class="section-title">DEV FEES &amp; DONATIONS - DAILY LEDGER</div>
+ <p>Accumulated developer claims from <span class="ftwr-word"><span class="ftwr-rabbit-icon" aria-hidden="true"></span>Trix</span> Market, with <span id="donationPctLabel">50%</span> donated to MAPS. All donation transactions are published here on DOSWAPZ and refreshed from Solana on-chain transfers.</p>
+
+ <div class="stat-grid">
+ <div class="stat-card">
+ <div class="stat-value" id="totalClaimed"> - </div>
+ <div class="stat-label">DEV FEES CLAIMED (SOL)</div>
+ </div>
+ <div class="stat-card">
+ <div class="stat-value" id="totalDonated"> - </div>
+ <div class="stat-label">DONATED TO MAPS (SOL)</div>
+ </div>
+ <div class="stat-card">
+ <div class="stat-value" id="pledgeRemainder"> - </div>
+ <div class="stat-label">FEE REMAINDER (SOL)</div>
+ </div>
+ </div>
+
+ <div class="status-line" id="ledgerStatus">Ledger sync failed: Access forbidden</div>
+ <button class="btn" onclick="loadLedger()">REFRESH LEDGER</button>
+
+ <div class="ledger">
+ <table>
+ <thead>
+ <tr>
+ <th>DATE (UTC)</th>
+ <th>DEV FEES IN</th>
+ <th>DONATED TO MAPS</th>
+ <th>RECIPIENT</th>
+ <th>TX</th>
+ </tr>
+ </thead>
+ <tbody id="ledgerBody"><tr><td colspan="5" class="empty-ledger">RPC error. Try REFRESH LEDGER.</td></tr></tbody>
+ </table>
+ </div>
+ </div>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">ON-CHAIN LEDGER - VERIFY EVERYTHING</div>
+ This page reads public Solana RPC data. Dev wallet must be published at launch for live totals.
+ Donation amounts are outgoing SOL transfers from the dev wallet to MAPS donation addresses (which rotate per donation on maps.org).
+ Every donation transaction is posted on DOSWAPZ in the ledger above. Always verify on Solscan before trusting any display.
+ DOSWAPZ is not MAPS and does not custody funds.
+ </div>
+
+ <div class="buttons">
+ <a href="/classic/hub.html" class="btn">&lt;- BACK TO MENU</a>
+ <a href="/classic/pages/cryptodad/launch.html" class="btn">WATCH LAUNCH</a>
+ <a href="/classic/pages/cryptodad/rabbit.html" class="btn"><span class="ftwr-word"><span class="ftwr-rabbit-icon" aria-hidden="true"></span>FTWR</span></a>
+ <a href="/classic/pages/cryptodad/play.html" class="btn">PLAY CRYPTO DAD</a>
+ <a href="/classic/pages/cryptodad/donate.html" class="btn">CRYPTO DAD DONATE</a>
+ </div>
+
+ <div class="footer">
+ DOSWAPZ - $DOSWAPZ * <span class="ftwr-word"><span class="ftwr-rabbit-icon" aria-hidden="true"></span>TRIX</span> 26 AUG 2026 * DEV HOLD 0 * 50% DEV CLAIMS -&gt; MAPS
+ </div>
+ </div>
+
+ <div class="glitch-layer" id="glitchLayer" style="pointer-events: none;"></div>
+ </div>
+
+ <script src="/assets/js/config/ftwr-config.test.js?v=20260827test"></script>
+ <script src="/assets/js/core/rabbit-icon.js"></script>
+ <script>
+ const cfg = window.FTWR_CONFIG;
+
+ function decorateFtwrCopy() {
+ if (window.FTWR_RABBIT && typeof window.FTWR_RABBIT.decorate === 'function') {
+ window.FTWR_RABBIT.decorate(document.querySelector('.content'));
+ }
+ }
+ const LAMPORTS = 1_000_000_000;
+
+ const ticker = cfg.ticker || ('$' + (cfg.symbol || 'DOSWAPZ'));
+ const launchDate = cfg.launchDate || '26 AUG 2026';
+ const venue = cfg.launchVenue || 'Trix Market';
+ const holdPct = (typeof cfg.devHoldPercent === 'number' ? cfg.devHoldPercent : 0) + '%';
+ const mapsPct = (cfg.donationPercent || 50) + '%';
+
+ const headerEl = document.getElementById('tokenHeader');
+ if (headerEl) headerEl.textContent = ticker;
+ const subEl = document.getElementById('tokenSub');
+ if (subEl) subEl.textContent = venue.toUpperCase() + ' * ' + launchDate + ' * DEV HOLD 0 * ' + mapsPct + ' TO MAPS';
+ const dateEl = document.getElementById('launchDateValue');
+ if (dateEl) dateEl.textContent = launchDate;
+ const holdEl = document.getElementById('devHoldValue');
+ if (holdEl) holdEl.textContent = holdPct;
+ const mapsPctEl = document.getElementById('mapsPctValue');
+ if (mapsPctEl) mapsPctEl.textContent = mapsPct;
+ const introEl = document.getElementById('tokenIntro');
+ if (introEl) {
+ introEl.textContent = ticker + ' launches on ' + venue + ' ' + launchDate +
+ '. Dev holds zero of the supply. ' + mapsPct +
+ ' of developer fee claims go to MAPS. Every donation is tracked on this website with on-chain TX links.';
+ }
+
+ const neonTitle = document.getElementById('neonTitle');
+ if (neonTitle) neonTitle.textContent = ticker;
+ const neonRelease = document.getElementById('neonRelease');
+ if (neonRelease) neonRelease.textContent = 'RELEASE * ' + venue.toUpperCase() + ' * ' + launchDate;
+
+ function pad2(n) {
+ return (n < 10 ? '0' : '') + n;
+ }
+ function parseLaunchMs(c) {
+ if (c && c.launchAt) {
+ var iso = Date.parse(c.launchAt);
+ if (!isNaN(iso)) return iso;
+ }
+ return Date.parse('2026-08-26T00:00:00.000Z');
+ }
+ function setDigit(id, value) {
+ var el = document.getElementById(id);
+ if (el) el.textContent = pad2(value);
+ }
+ function tickNeonCountdown() {
+ var sign = document.getElementById('neonSign');
+ var marquee = document.getElementById('neonMarquee');
+ var liveEl = document.getElementById('neonLive');
+ var target = parseLaunchMs(cfg);
+ var left = target - Date.now();
+ if (left <= 0) {
+ if (sign) sign.classList.add('is-live');
+ if (marquee) marquee.textContent = 'NOW LIVE';
+ if (liveEl) liveEl.textContent = 'LIVE ON TRIX';
+ setDigit('cdDays', 0);
+ setDigit('cdHours', 0);
+ setDigit('cdMins', 0);
+ setDigit('cdSecs', 0);
+ return;
+ }
+ if (sign) sign.classList.remove('is-live');
+ if (marquee) marquee.textContent = 'NOW OPENING';
+ var totalSec = Math.floor(left / 1000);
+ var days = Math.floor(totalSec / 86400);
+ var hours = Math.floor((totalSec % 86400) / 3600);
+ var mins = Math.floor((totalSec % 3600) / 60);
+ var secs = totalSec % 60;
+ setDigit('cdDays', days);
+ setDigit('cdHours', hours);
+ setDigit('cdMins', mins);
+ setDigit('cdSecs', secs);
+ }
+ tickNeonCountdown();
+ setInterval(tickNeonCountdown, 1000);
+
+ document.getElementById('launchNote').textContent = cfg.launchNote;
+ const mapsEl = document.getElementById('mapsAddress');
+ const mapsNote = cfg.mapsAddressNote ||
+ 'MAPS.ORG rotates their official Solana donation address with every donation. Confirm the current address on maps.org - do not reuse an old address.';
+ if (cfg.mapsWallet) {
+ mapsEl.textContent = cfg.mapsWallet;
+ } else {
+ mapsEl.innerHTML = '<span style="color:#ffcc00;">' + mapsNote + '</span>';
+ }
+ document.getElementById('donationPctLabel').textContent = mapsPct;
+ document.getElementById('donationPctInline').textContent = mapsPct;
+ document.getElementById('pledgeText').textContent =
+ mapsPct + ' of all ' + ticker + ' developer fee claims on Trix Market are donated to ' + cfg.mapsOrg + '.';
+
+ const trixWrap = document.getElementById('trixLinkWrap');
+ if (cfg.trixTokenUrl) {
+ trixWrap.innerHTML = '<a href="' + cfg.trixTokenUrl + '" target="_blank" style="color:#ffff00;">Trade ' + ticker + ' on Trix Market -> </a><br>';
+ } else {
+ trixWrap.innerHTML = '<a href="' + cfg.trixMarketHome + '" target="_blank" style="color:#ffff00;">Trix Market - launch ' + launchDate + ' -> </a><br>';
+ }
+
+ const devEl = document.getElementById('devWalletDisplay');
+ if (cfg.devWallet) {
+ devEl.textContent = cfg.devWallet;
+ } else {
+ devEl.innerHTML = '<span style="color:#ffaa00;">PENDING LAUNCH - fee wallet will be published here when ' + ticker + ' goes live on Trix Market ' + launchDate + '.</span>';
+ }
+ decorateFtwrCopy();
+
+ async function rpc(method, params) {
+ const res = await fetch(cfg.rpcUrl, {
+ method: 'POST',
+ headers: { 'Content-Type': 'application/json' },
+ body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params })
+ });
+ const data = await res.json();
+ if (data.error) throw new Error(data.error.message || 'RPC error');
+ return data.result;
+ }
+
+ function lamportsToSol(lamports) {
+ return (lamports / LAMPORTS).toFixed(4);
+ }
+
+ function utcDate(unixSec) {
+ return new Date(unixSec * 1000).toISOString().slice(0, 10);
+ }
+
+ function accountKeys(tx) {
+ const msg = tx && tx.transaction && tx.transaction.message;
+ if (!msg) return [];
+ const raw = msg.accountKeys || msg.staticAccountKeys || [];
+ return raw.map(k => (typeof k === 'string' ? k : String(k.pubkey || k)));
+ }
+
+ function extractOutgoingDonation(tx, sourceWallet) {
+ const out = { outgoing: 0, recipient: null };
+ if (!tx || !tx.meta || tx.meta.err) return out;
+
+ const keys = accountKeys(tx);
+ const srcIdx = keys.indexOf(sourceWallet);
+ if (srcIdx < 0) return out;
+
+ const pre = tx.meta.preBalances;
+ const post = tx.meta.postBalances;
+ const fee = tx.meta.fee || 0;
+ const srcLoss = pre[srcIdx] - post[srcIdx];
+ const netOut = srcLoss - fee;
+ if (netOut <= 5000) return out;
+
+ let bestGain = 0;
+ let bestIdx = -1;
+ for (let i = 0; i < keys.length; i++) {
+ if (i === srcIdx) continue;
+ const gain = post[i] - pre[i];
+ if (gain > bestGain) {
+ bestGain = gain;
+ bestIdx = i;
+ }
+ }
+
+ if (bestGain > 0) {
+ out.outgoing = Math.min(bestGain, netOut);
+ out.recipient = bestIdx >= 0 ? keys[bestIdx] : null;
+ }
+
+ return out;
+ }
+
+ function shortAddress(addr) {
+ if (!addr || addr.length < 12) return addr || ' - ';
+ return addr.slice(0, 4) + '...' + addr.slice(-4);
+ }
+
+ function extractIncoming(tx, wallet) {
+ if (!tx || !tx.meta || tx.meta.err) return 0;
+ const keys = accountKeys(tx);
+ const idx = keys.indexOf(wallet);
+ if (idx < 0) return 0;
+ const gain = tx.meta.postBalances[idx] - tx.meta.preBalances[idx];
+ return gain > 5000 ? gain : 0;
+ }
+
+ async function fetchTransactions(wallet, limit) {
+ const sigs = await rpc('getSignaturesForAddress', [wallet, { limit }]);
+ const txs = [];
+ for (const sig of sigs) {
+ try {
+ const tx = await rpc('getTransaction', [
+ sig.signature,
+ { encoding: 'json', maxSupportedTransactionVersion: 0 }
+ ]);
+ if (tx) txs.push({ signature: sig.signature, blockTime: sig.blockTime || tx.blockTime, tx });
+ } catch (e) { /* skip failed parse */ }
+ await new Promise(r => setTimeout(r, 80));
+ }
+ return txs;
+ }
+
+ async function loadLedger() {
+ const status = document.getElementById('ledgerStatus');
+ const body = document.getElementById('ledgerBody');
+
+ if (!cfg.devWallet) {
+ status.textContent = 'Awaiting dev wallet publication at Trix launch. Ledger will populate automatically once configured in ftwr-config.js.';
+ body.innerHTML = '<tr><td colspan="5" class="empty-ledger">No dev wallet yet. Update ftwr-config.js after launch.</td></tr>';
+ document.getElementById('totalClaimed').textContent = '0.0000';
+ document.getElementById('totalDonated').textContent = '0.0000';
+ document.getElementById('pledgeRemainder').textContent = '0.0000';
+ return;
+ }
+
+ status.textContent = 'Syncing on-chain transfers from Trix dev wallet...';
+ body.innerHTML = '<tr><td colspan="5" class="empty-ledger">Fetching...</td></tr>';
+
+ try {
+ const entries = await fetchTransactions(cfg.devWallet, 60);
+ const daily = {};
+
+ let totalIn = 0;
+ let totalOut = 0;
+
+ for (const entry of entries) {
+ const day = entry.blockTime ? utcDate(entry.blockTime) : 'unknown';
+ if (!daily[day]) daily[day] = { in: 0, out: 0, txs: [] };
+
+ const inc = extractIncoming(entry.tx, cfg.devWallet);
+ const xfer = extractOutgoingDonation(entry.tx, cfg.devWallet);
+
+ if (inc > 0) {
+ daily[day].in += inc;
+ totalIn += inc;
+ }
+ if (xfer.outgoing > 0) {
+ daily[day].out += xfer.outgoing;
+ totalOut += xfer.outgoing;
+ daily[day].txs.push({
+ sig: entry.signature,
+ amount: xfer.outgoing,
+ recipient: xfer.recipient
+ });
+ }
+ }
+
+ document.getElementById('totalClaimed').textContent = lamportsToSol(totalIn);
+ document.getElementById('totalDonated').textContent = lamportsToSol(totalOut);
+ document.getElementById('pledgeRemainder').textContent = lamportsToSol(Math.max(0, totalIn - totalOut));
+
+ const days = Object.keys(daily).filter(d => d !== 'unknown').sort().reverse();
+
+ if (days.length === 0) {
+ body.innerHTML = '<tr><td colspan="5" class="empty-ledger">No dev fee or donation transactions found yet.</td></tr>';
+ status.textContent = 'Ledger synced - no activity yet.';
+ return;
+ }
+
+ body.innerHTML = days.map(day => {
+ const d = daily[day];
+ const txLinks = d.txs.map(t =>
+ '<a href="https://solscan.io/tx/' + t.sig + '" target="_blank">' +
+ lamportsToSol(t.amount) + ' SOL</a>'
+ ).join('<br>') || ' - ';
+ const recipients = d.txs.map(t => {
+ if (!t.recipient) return ' - ';
+ return '<a href="https://solscan.io/account/' + t.recipient + '" target="_blank" title="' + t.recipient + '">' +
+ shortAddress(t.recipient) + '</a>';
+ }).join('<br>') || ' - ';
+ return '<tr>' +
+ '<td>' + day + '</td>' +
+ '<td class="amount">' + (d.in ? lamportsToSol(d.in) : ' - ') + '</td>' +
+ '<td class="amount">' + (d.out ? lamportsToSol(d.out) : ' - ') + '</td>' +
+ '<td>' + recipients + '</td>' +
+ '<td>' + txLinks + '</td>' +
+ '</tr>';
+ }).join('');
+
+ status.textContent = 'Ledger synced - ' + days.length + ' day(s) of on-chain activity.';
+ } catch (err) {
+ status.textContent = 'Ledger sync failed: ' + (err.message || err);
+ body.innerHTML = '<tr><td colspan="5" class="empty-ledger">RPC error. Try REFRESH LEDGER.</td></tr>';
+ }
+ decorateFtwrCopy();
+ }
+
+ window.onload = function() {
+ loadLedger();
+ };
+ </script>
+ 
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.content, #content' });
+ </script><script src="/assets/js/core/docs-footer.js" data-docs-footer="1"></script><script src="/assets/js/core/shell-boot.js" data-shell-boot="1"></script>
+<div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+<script src="/assets/js/core/price-ticker.js"></script>
+ 
+<!-- Present soft skin: assets/js/core/era-present-cryptodad.js -->
+
+<div class="price-ticker-bar" id="priceTickerBar" aria-label="Live price ticker" role="region"><div class="price-ticker-inner"><div class="price-ticker-label">LIVE TICKER</div><div class="price-ticker-status" id="priceTickerStatus">LIVE * 32 TKN * 5:23:59 PM * SWAPS 2</div><div class="price-ticker-viewport"><div class="price-ticker-track" id="priceTickerTrack" style="animation-duration: 79s;"><span class="ticker-item ticker-world"><span class="ticker-tag">SYS</span><span class="ticker-symbol">DOSWAPZ NODE</span> <span class="ticker-price">ONLINE</span></span><span class="ticker-sep">///</span><span class="ticker-item ticker-world"><span class="ticker-tag">FX</span><span class="ticker-symbol">GLITCH</span> <span class="ticker-price">NORMAL</span></span><span class="ticker-sep">///</span><span class="ticker-item ticker-world"><span class="ticker-tag">ROUTE</span><span class="ticker-symbol">SWAP RAIL</span> <span class="ticker-price">JUPITER</span></span><span class="ticker-sep">///</span><span class="ticker-item"><span class="ticker-tag">STABLE</span><span class="ticker-symbol">$USDC</span> <span class="ticker-price">$0.999954</span><span class="ticker-change up">+0.00%</span></span><span class="ticker-sep">///</span><span class="ticker-item"><span class="ticker-tag">STABLE</span><span class="ticker-symbol">$USDT</span> <span class="ticker-price">$0.999977</span><span class="ticker-change up">+0.01%</span></span><span class="ticker-sep">///</span><span class="ticker-item"><span class="ticker-tag">SOLANA</span><span class="ticker-symbol">$SOL</span> <span class="ticker-price">$101.52</span><span class="ticker-change up">+5.43%</span></span><span class="ticker-sep">///</span><span class="ticker-item"><span class="ticker-tag">BASE</span><span class="ticker-symbol">$BONK</span> <span class="ticker-price">$3.06e-6</span><span class="ticker-change up">+1.92%</span></span><span class="ticker-sep">///</span><span class="ticker-item"><span class="ticker-tag">MAJOR</span><span class="ticker-symbol">$BTC</span> <span class="ticker-price">$78,927</span><span class="ticker-change up">+0.54%</span></span><span class="ticker-sep">///</span><span class="ticker-item"><span class="ticker-tag">MAJOR</span><span class="ticker-symbol">$ETH</span> <span class="ticker-price">$2,505</span><span class="ticker-change up">+2.63%</span></span><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=0xb9f599ce614feb2e1bbe58f180f370d05b39344e" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">POND</span><span class="ticker-symbol">$PORK</span> <span class="ticker-price">$2.50e-8</span><span class="ticker-change up">+13.74%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=0x423f4e6138e475d85cf7ea071ac92097ed631eea" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">POND</span><span class="ticker-symbol">$PNDC</span> <span class="ticker-price">1.27e-7 USDC</span><span class="ticker-change up">+31.70%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=3JgFwoYV74f6LwWjQWnr3YDPFnmBdwQfNyubv99jqUoq" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$WPOND</span> <span class="ticker-price">1.82e-7 USDC</span><span class="ticker-change up">+56.84%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=74nSAMYRsm3MZLqVXcoZoUFsjiqKZhAJCqttHVycTRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$VOID</span> <span class="ticker-price">0.01581682 USDC</span><span class="ticker-change up">+49.92%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=EBzhiAxfEPnPpHtrQtsCd8qTb63ifnxwDAu4K8pKTRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$TRIX</span> <span class="ticker-price"> - </span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=FbsPm1ko7ASAW73puJMHdiJ1edse5W8fMis1dQhFTRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$PAULY</span> <span class="ticker-price"> - </span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=76Cf2zrKqwQEMGj7TaZ6hJ1Ja6hNsXXrK2UVBRjKTRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$XELON</span> <span class="ticker-price"> - </span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=9x9MKbh5pq8fsTAH6fpSi17UuBgGNAVJPwMYTyXLTRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$CRACK</span> <span class="ticker-price">4.14e-8 USDC</span><span class="ticker-change up">+5.06%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=9mBEqBs2xMBkeTpUUeYFqRtnHGSkEmHz73zR5m74TRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$SELLER</span> <span class="ticker-price">0.00010223 USDC</span><span class="ticker-change down">-10.94%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=HDYP5e1dUM3zjqw3tQvDHDxtt6CKxkgyEN3NdNcXTRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$MOMS</span> <span class="ticker-price">1.05e-7 USDC</span><span class="ticker-change up">+4.18%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=4kU3B6hvnMEWNZadKWkQatky8fBgDLt7R9HwoysVpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$DEMPLAR</span> <span class="ticker-price">9.39e-5 USDC</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=6BMQaSmUco7Gj7fRe5KJWGSKvVFkHX5yYjfWov8dTRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$RABBIT</span> <span class="ticker-price"> - </span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=LnGbUSf4JeKmWhjvuXQaAzsXb44mu8p2xEgCppsTRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$BIT</span> <span class="ticker-price">1.30e-5 USDC</span><span class="ticker-change down">-0.54%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=42cXQvAAr7hcPBPWAS4ocVtDyeJ4Fa6gRR2uG4gppump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$TBB</span> <span class="ticker-price">0.0114 USDC</span><span class="ticker-change up">+24.26%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=DUgEVBVJukYsw5BDnM81T2c6PZ1aCnk9zQJ5guJdpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$GPC</span> <span class="ticker-price">0.00028852 USDC</span><span class="ticker-change up">+8.48%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=VJdpSDDLof7HuZiNmsRUSL4YCncsk1FGiVoHyAJpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$BREAKING</span> <span class="ticker-price">$0.02458</span><span class="ticker-change up">+635.00%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=CTPoyCwkjMvoJwU4xvZZqoD8tiYk6yDchySiN5gGpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$FONE</span> <span class="ticker-price">$0.001214</span><span class="ticker-change up">+2845.00%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=FR3fLGui4CNGWX6f544aFuDnAykAhi65K5GD11YMpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$QUAKE</span> <span class="ticker-price">$0.000315</span><span class="ticker-change up">+690.00%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=3K394uLwbFsnbx8VLjCnSioa3u4MW2edQ7YZwXMDpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$CLAUDETOPIA</span> <span class="ticker-price">$8.80e-5</span><span class="ticker-change up">+109.00%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=HJZkVeU65SSkJ1sR2y1BNfp7hu7syHaknFweiHi3pump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$NIGACHU</span> <span class="ticker-price">$8.53e-5</span><span class="ticker-change up">+108.00%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=2TvUVvuQeVcUwVFp6WVy61wwpnSMG6kNzYpdvEkMpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$MEAT</span> <span class="ticker-price">$5.45e-5</span><span class="ticker-change up">+35.64%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=AHYyt3ZNdFm8ruZeZDgdKL2QaTxGjdH3zZDdhr2Xpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$TWERKDOG</span> <span class="ticker-price">$2.35e-5</span><span class="ticker-change up">+621.00%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=3Sgq2Ldb9Esf3oev5nijvqViYP8vWX7QDGdtcTVgpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$FOMOCAT</span> <span class="ticker-price">$1.80e-5</span><span class="ticker-change up">+534.00%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=2NHq3jiR7fyWcRhDcJ1SiHXKZrA8TrQNNjVPbrbfpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$STUBBS</span> <span class="ticker-price">$1.43e-5</span><span class="ticker-change up">+357.00%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=2WbTSrJHr1hNCtmYBjuSetZNdsZWZ2eZTuK9GjNPpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$PISTACIA</span> <span class="ticker-price">$3.45e-6</span><span class="ticker-change down">-96.42%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=AxtSxp4JGX6ygePzqivvzLqX7TZi6PPbbdoRy58ppump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$VORP</span> <span class="ticker-price">$3.18e-6</span><span class="ticker-change up">+7.56%</span></a><span class="ticker-sep">///</span><span class="ticker-item"><span class="ticker-tag">DOSWAPZ</span><span class="ticker-symbol">SWAPS</span> <span class="ticker-price">2</span></span><span class="ticker-sep">///</span><span class="ticker-item ticker-world"><span class="ticker-tag">SYS</span><span class="ticker-symbol">DOSWAPZ NODE</span> <span class="ticker-price">ONLINE</span></span><span class="ticker-sep">///</span><span class="ticker-item ticker-world"><span class="ticker-tag">FX</span><span class="ticker-symbol">GLITCH</span> <span class="ticker-price">NORMAL</span></span><span class="ticker-sep">///</span><span class="ticker-item ticker-world"><span class="ticker-tag">ROUTE</span><span class="ticker-symbol">SWAP RAIL</span> <span class="ticker-price">JUPITER</span></span><span class="ticker-sep">///</span><span class="ticker-item"><span class="ticker-tag">STABLE</span><span class="ticker-symbol">$USDC</span> <span class="ticker-price">$0.999954</span><span class="ticker-change up">+0.00%</span></span><span class="ticker-sep">///</span><span class="ticker-item"><span class="ticker-tag">STABLE</span><span class="ticker-symbol">$USDT</span> <span class="ticker-price">$0.999977</span><span class="ticker-change up">+0.01%</span></span><span class="ticker-sep">///</span><span class="ticker-item"><span class="ticker-tag">SOLANA</span><span class="ticker-symbol">$SOL</span> <span class="ticker-price">$101.52</span><span class="ticker-change up">+5.43%</span></span><span class="ticker-sep">///</span><span class="ticker-item"><span class="ticker-tag">BASE</span><span class="ticker-symbol">$BONK</span> <span class="ticker-price">$3.06e-6</span><span class="ticker-change up">+1.92%</span></span><span class="ticker-sep">///</span><span class="ticker-item"><span class="ticker-tag">MAJOR</span><span class="ticker-symbol">$BTC</span> <span class="ticker-price">$78,927</span><span class="ticker-change up">+0.54%</span></span><span class="ticker-sep">///</span><span class="ticker-item"><span class="ticker-tag">MAJOR</span><span class="ticker-symbol">$ETH</span> <span class="ticker-price">$2,505</span><span class="ticker-change up">+2.63%</span></span><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=0xb9f599ce614feb2e1bbe58f180f370d05b39344e" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">POND</span><span class="ticker-symbol">$PORK</span> <span class="ticker-price">$2.50e-8</span><span class="ticker-change up">+13.74%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=0x423f4e6138e475d85cf7ea071ac92097ed631eea" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">POND</span><span class="ticker-symbol">$PNDC</span> <span class="ticker-price">1.27e-7 USDC</span><span class="ticker-change up">+31.70%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=3JgFwoYV74f6LwWjQWnr3YDPFnmBdwQfNyubv99jqUoq" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$WPOND</span> <span class="ticker-price">1.82e-7 USDC</span><span class="ticker-change up">+56.84%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=74nSAMYRsm3MZLqVXcoZoUFsjiqKZhAJCqttHVycTRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$VOID</span> <span class="ticker-price">0.01581682 USDC</span><span class="ticker-change up">+49.92%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=EBzhiAxfEPnPpHtrQtsCd8qTb63ifnxwDAu4K8pKTRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$TRIX</span> <span class="ticker-price"> - </span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=FbsPm1ko7ASAW73puJMHdiJ1edse5W8fMis1dQhFTRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$PAULY</span> <span class="ticker-price"> - </span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=76Cf2zrKqwQEMGj7TaZ6hJ1Ja6hNsXXrK2UVBRjKTRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$XELON</span> <span class="ticker-price"> - </span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=9x9MKbh5pq8fsTAH6fpSi17UuBgGNAVJPwMYTyXLTRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$CRACK</span> <span class="ticker-price">4.14e-8 USDC</span><span class="ticker-change up">+5.06%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=9mBEqBs2xMBkeTpUUeYFqRtnHGSkEmHz73zR5m74TRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$SELLER</span> <span class="ticker-price">0.00010223 USDC</span><span class="ticker-change down">-10.94%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=HDYP5e1dUM3zjqw3tQvDHDxtt6CKxkgyEN3NdNcXTRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$MOMS</span> <span class="ticker-price">1.05e-7 USDC</span><span class="ticker-change up">+4.18%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=4kU3B6hvnMEWNZadKWkQatky8fBgDLt7R9HwoysVpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$DEMPLAR</span> <span class="ticker-price">9.39e-5 USDC</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=6BMQaSmUco7Gj7fRe5KJWGSKvVFkHX5yYjfWov8dTRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$RABBIT</span> <span class="ticker-price"> - </span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=LnGbUSf4JeKmWhjvuXQaAzsXb44mu8p2xEgCppsTRiX" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$BIT</span> <span class="ticker-price">1.30e-5 USDC</span><span class="ticker-change down">-0.54%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=42cXQvAAr7hcPBPWAS4ocVtDyeJ4Fa6gRR2uG4gppump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$TBB</span> <span class="ticker-price">0.0114 USDC</span><span class="ticker-change up">+24.26%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=DUgEVBVJukYsw5BDnM81T2c6PZ1aCnk9zQJ5guJdpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">VB MAIN</span><span class="ticker-symbol">$GPC</span> <span class="ticker-price">0.00028852 USDC</span><span class="ticker-change up">+8.48%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=VJdpSDDLof7HuZiNmsRUSL4YCncsk1FGiVoHyAJpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$BREAKING</span> <span class="ticker-price">$0.02458</span><span class="ticker-change up">+635.00%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=CTPoyCwkjMvoJwU4xvZZqoD8tiYk6yDchySiN5gGpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$FONE</span> <span class="ticker-price">$0.001214</span><span class="ticker-change up">+2845.00%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=FR3fLGui4CNGWX6f544aFuDnAykAhi65K5GD11YMpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$QUAKE</span> <span class="ticker-price">$0.000315</span><span class="ticker-change up">+690.00%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=3K394uLwbFsnbx8VLjCnSioa3u4MW2edQ7YZwXMDpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$CLAUDETOPIA</span> <span class="ticker-price">$8.80e-5</span><span class="ticker-change up">+109.00%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=HJZkVeU65SSkJ1sR2y1BNfp7hu7syHaknFweiHi3pump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$NIGACHU</span> <span class="ticker-price">$8.53e-5</span><span class="ticker-change up">+108.00%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=2TvUVvuQeVcUwVFp6WVy61wwpnSMG6kNzYpdvEkMpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$MEAT</span> <span class="ticker-price">$5.45e-5</span><span class="ticker-change up">+35.64%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=AHYyt3ZNdFm8ruZeZDgdKL2QaTxGjdH3zZDdhr2Xpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$TWERKDOG</span> <span class="ticker-price">$2.35e-5</span><span class="ticker-change up">+621.00%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=3Sgq2Ldb9Esf3oev5nijvqViYP8vWX7QDGdtcTVgpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$FOMOCAT</span> <span class="ticker-price">$1.80e-5</span><span class="ticker-change up">+534.00%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=2NHq3jiR7fyWcRhDcJ1SiHXKZrA8TrQNNjVPbrbfpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$STUBBS</span> <span class="ticker-price">$1.43e-5</span><span class="ticker-change up">+357.00%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=2WbTSrJHr1hNCtmYBjuSetZNdsZWZ2eZTuK9GjNPpump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$PISTACIA</span> <span class="ticker-price">$3.45e-6</span><span class="ticker-change down">-96.42%</span></a><span class="ticker-sep">///</span><a class="ticker-item" href="https://dexscreener.com/search?q=AxtSxp4JGX6ygePzqivvzLqX7TZi6PPbbdoRy58ppump" target="_blank" rel="noopener noreferrer"><span class="ticker-tag">TRIX</span><span class="ticker-symbol">$VORP</span> <span class="ticker-price">$3.18e-6</span><span class="ticker-change up">+7.56%</span></a><span class="ticker-sep">///</span><span class="ticker-item"><span class="ticker-tag">DOSWAPZ</span><span class="ticker-symbol">SWAPS</span> <span class="ticker-price">2</span></span></div></div></div></div><script src="/assets/js/core/page-transition.js" data-page-transition="1"></script><script src="/assets/js/core/system-brownout.js" data-system-brownout="1"></script><script src="/assets/js/core/hub-menu.js" data-hub-menu="1"></script><nav id="dosDocsChip" class="dos-docs-chip" aria-label="Legal docs"><a class="dos-docs-chip-btn" href="/docs/legal.html" title="Full terms, risk disclosures, liability"><span class="dos-docs-chip-lab">DOCS</span><span class="dos-docs-chip-sub">LEGAL</span></a><a class="dos-docs-chip-mini" href="/docs/" title="Docs index">+</a></nav><script src="/assets/js/core/aqua-drop.js?v=drip3" data-aqua-drop="1"></script><script src="/assets/js/core/site-shell.js?v=20260809era" data-site-shell="1"></script><nav id="dosEraRail" class="dos-era-rail" aria-label="Timeline eras"><a href="/classic/hub.html" id="dosEraPast" class="era-switch here" data-era="past" data-no-era="" data-plain="" data-no-transition="true">PAST</a><a href="/orbit/hub.html" id="dosEraPresent" class="era-switch" data-era="orbit" data-no-era="" data-plain="" data-no-transition="true">PRESENT</a><a href="/future/hub.html" id="dosEraFuture" class="era-switch" data-era="future" data-no-era="" data-plain="" data-no-transition="true">FUTURE</a><a href="/portal.html" class="tm" data-no-era="" data-plain="" data-no-transition="true" title="Time Machine">TIME</a></nav><div class="glitch-dial crt-controls" id="glitchDial" aria-label="CRT display controls" aria-expanded="true"><button type="button" id="crtShowBtn" class="crt-show-tab" title="Show CRT controls" aria-label="Show CRT controls">CTRL</button><div class="crt-controls-panel" id="crtControlsPanel"><div class="crt-controls-row"><span class="glitch-dial-label">GLITCH</span><button type="button" data-level="CALM" title="Calm FX">CALM</button><button type="button" data-level="NORMAL" title="Normal FX" class="active">NORM</button><button type="button" data-level="CHAOS" title="Chaos FX">CHAOS</button><span class="glitch-dial-sep" aria-hidden="true"></span><span class="glitch-dial-label">MOTION</span><button type="button" id="motionToggleBtn" class="motion-toggle chip-toggle active" aria-pressed="true" title="FX motion on - tap to calm">ON</button><span class="glitch-dial-sep" aria-hidden="true"></span><button type="button" id="crtHideBtn" class="crt-hide-btn" title="Hide CRT controls" aria-label="Hide CRT controls" aria-pressed="false">HIDE</button></div><div class="crt-controls-row crt-controls-help"><span class="glitch-dial-label">TEXT</span><button type="button" data-text-nudge="-1" title="Smaller text" aria-label="Smaller text">A-</button><button type="button" id="textScaleLabel" class="chip-readout" title="Text size: md" disabled="">MD</button><button type="button" data-text-nudge="1" title="Bigger text" aria-label="Bigger text">A+</button><span class="glitch-dial-sep" aria-hidden="true"></span><span class="glitch-dial-label">SCAN</span><button type="button" id="scanToggleBtn" class="chip-toggle active" aria-pressed="true" title="Scanlines on">ON</button><span class="glitch-dial-sep" aria-hidden="true"></span><span class="glitch-dial-label">HI-CON</span><button type="button" id="hiconToggleBtn" class="chip-toggle" aria-pressed="false" title="High contrast off">OFF</button></div></div></div><script src="/assets/js/core/swap-stats.js"></script><a id="aquaDrop" target="_blank" rel="noopener noreferrer" title="Aqua Vaults" aria-label="Aqua Vaults drop - open aquavaults.com" data-no-transition="true" tabindex="-1" style="opacity: 0; visibility: hidden; pointer-events: none; inset: -9999px auto auto -9999px; transform: none;" data-start-y="-148" data-left="983" class="" aria-hidden="true"><video src="/assets/media/aqua-drop.mp4" muted="" playsinline="" loop="" preload="metadata" crossorigin="anonymous" aria-hidden="true"></video><canvas width="88" height="118" aria-hidden="true"></canvas></a></body></html>

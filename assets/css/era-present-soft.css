@@ -1,0 +1,552 @@
+/**
+ * DOSWAPZ Present — soft curves + NEON VOID palette
+ * Magenta + electric cyan on true black. Soft corners, no CRT squares.
+ * Load on orbit pages AFTER orbit-void-content.css
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --present-r-xs: 10px;
+  --present-r-sm: 14px;
+  --present-r-md: 20px;
+  --present-r-lg: 28px;
+  --present-r-xl: 36px;
+  --present-r-pill: 999px;
+
+  /* Neon Void */
+  --present-void: #000000;
+  --present-void-2: #050508;
+  --present-glass: rgba(12, 0, 18, 0.82);
+  --present-glass-2: rgba(40, 0, 50, 0.45);
+  --present-line: rgba(255, 0, 200, 0.28);
+  --present-line-hot: rgba(0, 255, 255, 0.55);
+  --present-magenta: #ff3dce;
+  --present-cyan: #00f0ff;
+  --present-violet: #b14dff;
+  --present-lime: #39ff14;
+  --present-orchid: #ff3dce;
+  --present-amber: #00f0ff;
+  --present-blue: #00f0ff;
+  --present-text: rgba(245, 245, 255, 0.94);
+  --present-dim: rgba(170, 170, 200, 0.65);
+  --present-glow:
+    0 12px 40px rgba(255, 0, 180, 0.12),
+    0 0 32px rgba(0, 240, 255, 0.06),
+    0 0 0 1px rgba(255, 0, 200, 0.08) inset;
+}
+
+/* Soften orbit Present pages */
+body#screen.orbit-void-inner {
+  font-family: 'Inter', system-ui, sans-serif !important;
+  background:
+    radial-gradient(ellipse at 30% 8%, rgba(255, 0, 180, 0.12), transparent 42%),
+    radial-gradient(ellipse at 90% 75%, rgba(0, 240, 255, 0.09), transparent 40%),
+    radial-gradient(ellipse at 50% 100%, rgba(120, 0, 255, 0.06), transparent 45%),
+    #000 !important;
+  color: var(--present-text) !important;
+}
+
+body#screen.orbit-void-inner .orbit-panel {
+  font-family: 'Inter', system-ui, sans-serif !important;
+  letter-spacing: 0.02em !important;
+  border-radius: var(--present-r-lg) !important;
+  border: 1px solid var(--present-line) !important;
+  background:
+    linear-gradient(
+      160deg,
+      rgba(50, 0, 50, 0.55) 0%,
+      rgba(0, 0, 0, 0.92) 55%,
+      rgba(0, 24, 36, 0.88) 100%
+    ) !important;
+  box-shadow: var(--present-glow) !important;
+  padding: 22px 22px 28px !important;
+  backdrop-filter: blur(16px) saturate(1.25);
+  -webkit-backdrop-filter: blur(16px) saturate(1.25);
+}
+
+body#screen.orbit-void-inner .orbit-panel .btn,
+body#screen.orbit-void-inner .orbit-panel button,
+body#screen.orbit-void-inner .orbit-panel a.btn,
+body#screen.orbit-void-inner .orbit-panel input,
+body#screen.orbit-void-inner .orbit-panel select,
+body#screen.orbit-void-inner .orbit-panel textarea,
+body#screen.orbit-void-inner .orbit-panel .swap-box,
+body#screen.orbit-void-inner .orbit-panel .swap-container,
+body#screen.orbit-void-inner .orbit-panel .wallet-row button,
+body#screen.orbit-void-inner .orbit-panel .status-tag,
+body#screen.orbit-void-inner .orbit-panel .warnings-box,
+body#screen.orbit-void-inner .orbit-panel .disclaimer,
+body#screen.orbit-void-inner .orbit-panel .card,
+body#screen.orbit-void-inner .orbit-panel .panel,
+body#screen.orbit-void-inner .orbit-panel .box {
+  border-radius: var(--present-r-sm) !important;
+}
+
+body#screen.orbit-void-inner .orbit-panel .btn,
+body#screen.orbit-void-inner .orbit-panel button:not(.raw):not(.swap-dir):not(#flipChains):not(.beat-step):not(.beat-btn):not(.mt-btn):not(.mt-arm):not(.mt-mute-btn):not(.mt-solo-btn):not(.mt-dl):not(.mt-clr),
+body#screen.orbit-void-inner .orbit-panel a.btn {
+  border-radius: var(--present-r-pill) !important;
+  border: 1px solid var(--present-line) !important;
+  background: rgba(20, 0, 28, 0.9) !important;
+  color: var(--present-text) !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35) !important;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease !important;
+}
+
+body#screen.orbit-void-inner .orbit-panel .btn:hover,
+body#screen.orbit-void-inner .orbit-panel button:not(.raw):not(.swap-dir):not(#flipChains):not(.beat-step):not(.beat-btn):not(.mt-btn):not(.mt-arm):not(.mt-mute-btn):not(.mt-solo-btn):not(.mt-dl):not(.mt-clr):hover,
+body#screen.orbit-void-inner .orbit-panel a.btn:hover {
+  border-color: var(--present-line-hot) !important;
+  box-shadow: 0 6px 28px rgba(255, 0, 180, 0.22), 0 0 20px rgba(0, 240, 255, 0.12) !important;
+  transform: translateY(-1px);
+  color: #fff !important;
+}
+
+/* Bridge flip control — square mid-column button, not a pill */
+body#screen.orbit-void-inner .orbit-panel button.swap-dir,
+body#screen.orbit-void-inner .orbit-panel #flipChains {
+  width: 44px !important;
+  min-width: 44px !important;
+  max-width: 44px !important;
+  height: 44px !important;
+  min-height: 44px !important;
+  padding: 0 !important;
+  margin: 0 0 0 !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(0, 240, 255, 0.45) !important;
+  background: rgba(12, 0, 18, 0.95) !important;
+  color: #00f0ff !important;
+  font-size: 22px !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  align-self: end !important;
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.12) !important;
+  transform: none !important;
+  flex-shrink: 0 !important;
+}
+body#screen.orbit-void-inner .orbit-panel button.swap-dir:hover,
+body#screen.orbit-void-inner .orbit-panel #flipChains:hover {
+  border-color: #ff3dce !important;
+  color: #fff !important;
+  background: rgba(40, 0, 50, 0.95) !important;
+  box-shadow: 0 0 18px rgba(255, 0, 180, 0.22) !important;
+  transform: none !important;
+}
+body#screen.orbit-void-inner .orbit-panel .chain-row {
+  display: grid !important;
+  grid-template-columns: 1fr auto 1fr !important;
+  gap: 10px !important;
+  align-items: end !important;
+}
+@media (max-width: 700px) {
+  body#screen.orbit-void-inner .orbit-panel .chain-row {
+    grid-template-columns: 1fr !important;
+  }
+  body#screen.orbit-void-inner .orbit-panel button.swap-dir,
+  body#screen.orbit-void-inner .orbit-panel #flipChains {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    height: 40px !important;
+    justify-self: stretch !important;
+  }
+}
+
+body#screen.orbit-void-inner .orbit-panel input,
+body#screen.orbit-void-inner .orbit-panel select,
+body#screen.orbit-void-inner .orbit-panel textarea {
+  border-radius: var(--present-r-md) !important;
+  border: 1px solid var(--present-line) !important;
+  background: rgba(0, 0, 0, 0.55) !important;
+  color: var(--present-text) !important;
+  padding: 10px 14px !important;
+}
+
+body#screen.orbit-void-inner .orbit-panel input:focus,
+body#screen.orbit-void-inner .orbit-panel select:focus,
+body#screen.orbit-void-inner .orbit-panel textarea:focus {
+  border-color: var(--present-cyan) !important;
+  box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.12) !important;
+  outline: none !important;
+}
+
+body#screen.orbit-void-inner .ref-crumbs a,
+body#screen.orbit-void-inner .tm-static,
+body#screen.orbit-void-inner .hub-static {
+  border-radius: var(--present-r-pill) !important;
+  border: 1px solid rgba(255, 0, 200, 0.22) !important;
+  padding: 6px 12px !important;
+  background: rgba(12, 0, 18, 0.7) !important;
+  color: rgba(230, 200, 255, 0.75) !important;
+}
+
+body#screen.orbit-void-inner .tm-static {
+  color: rgba(255, 200, 100, 0.85) !important;
+  border-color: rgba(255, 180, 60, 0.3) !important;
+}
+
+body#screen.orbit-void-inner .hollow-title {
+  letter-spacing: 0.12em !important;
+  color: rgba(255, 240, 255, 0.92) !important;
+  text-shadow:
+    0 0 24px rgba(255, 0, 200, 0.35),
+    0 0 40px rgba(0, 240, 255, 0.12) !important;
+}
+
+body#screen.orbit-void-inner .hollow-sub {
+  color: rgba(0, 240, 255, 0.55) !important;
+}
+
+body#screen.orbit-void-inner .swap-box,
+body#screen.orbit-void-inner .swap-live-ticker,
+body#screen.orbit-void-inner .swap-note {
+  border-radius: var(--present-r-md) !important;
+  border-color: rgba(255, 0, 200, 0.2) !important;
+}
+
+body#screen.orbit-void-inner .swap-live-ticker {
+  border-radius: var(--present-r-pill) !important;
+  overflow: hidden;
+}
+
+/* Accent text inside panels */
+body#screen.orbit-void-inner .orbit-panel strong,
+body#screen.orbit-void-inner .orbit-panel .highlight,
+body#screen.orbit-void-inner .orbit-panel .section-title,
+body#screen.orbit-void-inner .orbit-panel .section-label {
+  color: var(--present-magenta) !important;
+}
+
+/* Soften PVC / vision / generic content chrome */
+body#screen.orbit-void-inner .pvv-frame,
+body#screen.orbit-void-inner .broadcast-card,
+body#screen.orbit-void-inner .soft-card,
+body#screen.orbit-void-inner .pl-item,
+body#screen.orbit-void-inner .playlist,
+body#screen.orbit-void-inner .credits-board,
+body#screen.orbit-void-inner .now-meta,
+body#screen.orbit-void-inner .actions .btn,
+body#screen.orbit-void-inner a.btn,
+body#screen.orbit-void-inner .menu-section,
+body#screen.orbit-void-inner .option,
+body#screen.orbit-void-inner .cab,
+body#screen.orbit-void-inner .board {
+  border-radius: var(--present-r-md) !important;
+}
+
+body#screen.orbit-void-inner .broadcast-card,
+body#screen.orbit-void-inner .pvv-frame {
+  border: 1px solid var(--present-line) !important;
+  background:
+    linear-gradient(165deg, rgba(40, 0, 45, 0.5), rgba(0, 0, 0, 0.85)) !important;
+  box-shadow: var(--present-glow) !important;
+}
+
+body#screen.orbit-void-inner .broadcast-card a.card-open,
+body#screen.orbit-void-inner .broadcast-card a.card-profile,
+body#screen.orbit-void-inner .actions a.btn,
+body#screen.orbit-void-inner .actions .btn {
+  border-radius: var(--present-r-pill) !important;
+}
+
+body#screen.orbit-void-inner .pl-item {
+  border: 1px solid rgba(255, 0, 200, 0.14) !important;
+  background: rgba(8, 0, 12, 0.55) !important;
+}
+body#screen.orbit-void-inner .pl-item.active {
+  border-color: rgba(0, 240, 255, 0.4) !important;
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.12) !important;
+}
+body#screen.orbit-void-inner .pl-thumb {
+  border-radius: 50% !important;
+}
+
+body#screen.orbit-void-inner .x-note {
+  border-radius: var(--present-r-sm) !important;
+  border-color: rgba(255, 0, 200, 0.22) !important;
+  background: rgba(20, 0, 28, 0.75) !important;
+}
+
+/* Soften tables / lists / footers */
+body#screen.orbit-void-inner .orbit-panel table,
+body#screen.orbit-void-inner .orbit-panel .list,
+body#screen.orbit-void-inner .orbit-panel .footer {
+  border-radius: var(--present-r-sm);
+}
+
+/* Kill remaining hard square buttons where style sets border-radius:0 */
+body#screen.orbit-void-inner .orbit-panel [style*="border-radius:0"],
+body#screen.orbit-void-inner .orbit-panel [style*="border-radius: 0"] {
+  border-radius: var(--present-r-sm) !important;
+}
+
+/* HUB LOCK — orbit/hub.html owns Neon Void hue, icons, bubble layout, and pop.
+   Do not restyle body.hub-bubbles, a.bubble, .br, .bg, .bl, or popBurst here. */
+
+/* Global floating era rail on present content pages */
+body.orbit-void-inner #dosEraRail,
+body.orbit-void-inner .dos-era-rail {
+  border-color: rgba(255, 0, 200, 0.35) !important;
+  background: rgba(8, 0, 12, 0.92) !important;
+  border-radius: 12px !important;
+}
+
+/* Keep Present panels / actions clear of bottom timeline rail */
+body.orbit-void-inner.has-dos-era-rail .orbit-panel,
+body.orbit-void-inner.has-dos-era-rail .stage {
+  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+}
+body.orbit-void-inner.has-dos-era-rail .orbit-panel.accent-swap {
+  margin-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
+}
+body.orbit-void-inner #dosEraRail a[data-era="orbit"],
+body.orbit-void-inner .dos-era-rail a[data-era="orbit"] {
+  color: #00f0ff !important;
+}
+body.orbit-void-inner #dosEraRail a[data-era="future"],
+body.orbit-void-inner .dos-era-rail a[data-era="future"] {
+  color: #b14dff !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NEON VOID hue for specific Present apps
+   (swap / i-see-you / PVC) — soft corners + hub hue
+   ═══════════════════════════════════════════════════════════ */
+
+/* —— SWAP (override green CRT swap-orbit) —— */
+body#screen.orbit-void-inner.swap-orbit {
+  --g: #00f0ff !important;
+  --g2: #ff3dce !important;
+  --gd: #b14dff !important;
+  --y: #ffb87a !important;
+  --panel: #050008 !important;
+  --field: #000000 !important;
+  --line: #ff3dce !important;
+  --muted: #c8a0d8 !important;
+  background:
+    radial-gradient(ellipse at 30% 0%, rgba(255, 0, 180, 0.1), transparent 42%),
+    radial-gradient(ellipse at 90% 80%, rgba(0, 240, 255, 0.08), transparent 40%),
+    #000 !important;
+}
+
+body#screen.orbit-void-inner.swap-orbit .stage .hollow-title {
+  -webkit-text-stroke-color: rgba(255, 61, 206, 0.45) !important;
+  filter: drop-shadow(0 0 18px rgba(255, 0, 180, 0.3)) drop-shadow(0 0 28px rgba(0, 240, 255, 0.15)) !important;
+  color: #fff !important;
+}
+
+body#screen.orbit-void-inner.swap-orbit .stage .hollow-sub {
+  color: rgba(0, 240, 255, 0.7) !important;
+  letter-spacing: 0.12em !important;
+}
+
+body#screen.orbit-void-inner.swap-orbit .orbit-panel.accent-swap {
+  width: min(560px, 94vw) !important;
+  max-width: 560px !important;
+  margin: 0 auto 96px !important;
+  padding: 20px 16px 24px !important;
+  background:
+    linear-gradient(160deg, rgba(50, 0, 50, 0.55), rgba(0, 0, 0, 0.94) 55%, rgba(0, 24, 36, 0.9)) !important;
+  border: 1px solid rgba(255, 0, 200, 0.32) !important;
+  border-style: solid !important;
+  border-radius: 28px !important;
+  box-shadow:
+    0 12px 40px rgba(255, 0, 180, 0.12),
+    0 0 28px rgba(0, 240, 255, 0.06) !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  letter-spacing: 0.02em !important;
+}
+
+body#screen.orbit-void-inner.swap-orbit .orbit-panel.accent-swap .btn,
+body#screen.orbit-void-inner.swap-orbit .orbit-panel.accent-swap button,
+body#screen.orbit-void-inner.swap-orbit .orbit-panel.accent-swap a.btn {
+  border-radius: 999px !important;
+  border: 1px solid rgba(255, 0, 200, 0.3) !important;
+  background: rgba(20, 0, 28, 0.9) !important;
+  color: rgba(245, 240, 255, 0.9) !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  letter-spacing: 0.1em !important;
+}
+
+body#screen.orbit-void-inner.swap-orbit .orbit-panel.accent-swap input,
+body#screen.orbit-void-inner.swap-orbit .orbit-panel.accent-swap select,
+body#screen.orbit-void-inner.swap-orbit .orbit-panel.accent-swap textarea {
+  border-radius: 18px !important;
+  border: 1px solid rgba(255, 0, 200, 0.25) !important;
+  background: rgba(0, 0, 0, 0.55) !important;
+  color: #f5f0ff !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+
+body#screen.orbit-void-inner.swap-orbit .orbit-panel.accent-swap .swap-box,
+body#screen.orbit-void-inner.swap-orbit .orbit-panel.accent-swap .swap-note,
+body#screen.orbit-void-inner.swap-orbit .orbit-panel.accent-swap .swap-live-ticker {
+  border-radius: 18px !important;
+  border-color: rgba(255, 0, 200, 0.22) !important;
+  background: rgba(8, 0, 12, 0.65) !important;
+}
+
+body#screen.orbit-void-inner.swap-orbit .orbit-panel.accent-swap .swap-live-ticker {
+  border-radius: 999px !important;
+}
+
+body#screen.orbit-void-inner.swap-orbit .orbit-panel.accent-swap .swap-sub,
+body#screen.orbit-void-inner.swap-orbit .orbit-panel.accent-swap strong {
+  color: #ff3dce !important;
+}
+
+/* —— I SEE YOU (soft neon, keep surveillance vibe) —— */
+body#screen.orbit-void-inner.isy-orbit {
+  --isy: #ff3dce !important;
+  --isy-dim: #ff7ae0 !important;
+  --isy-text: #ffd0f2 !important;
+  --isy-muted: #c090b8 !important;
+  --isy-amber: #00f0ff !important;
+  --isy-line: rgba(255, 61, 206, 0.4) !important;
+  --isy-bg: #050008 !important;
+  --isy-field: #000000 !important;
+  background:
+    radial-gradient(ellipse at 40% 0%, rgba(255, 0, 180, 0.12), transparent 44%),
+    radial-gradient(ellipse at 100% 80%, rgba(0, 240, 255, 0.07), transparent 40%),
+    #000 !important;
+}
+
+body#screen.orbit-void-inner.isy-orbit .stage .hollow-title {
+  -webkit-text-stroke-color: rgba(255, 61, 206, 0.5) !important;
+  filter: drop-shadow(0 0 18px rgba(255, 0, 180, 0.3)) !important;
+}
+
+body#screen.orbit-void-inner.isy-orbit .stage .hollow-sub {
+  color: rgba(0, 240, 255, 0.65) !important;
+}
+
+body#screen.orbit-void-inner.isy-orbit .orbit-panel,
+body#screen.orbit-void-inner.isy-orbit .isy-panel {
+  border-radius: 24px !important;
+  border: 1px solid rgba(255, 0, 200, 0.32) !important;
+  background:
+    linear-gradient(160deg, rgba(40, 0, 40, 0.55), rgba(0, 0, 0, 0.9)) !important;
+  box-shadow: 0 12px 36px rgba(255, 0, 180, 0.12) !important;
+}
+
+body#screen.orbit-void-inner.isy-orbit .isy-panel {
+  padding: 16px !important;
+  margin-bottom: 16px !important;
+}
+
+body#screen.orbit-void-inner.isy-orbit .isy-panel .section-label {
+  color: #ff3dce !important;
+}
+
+body#screen.orbit-void-inner.isy-orbit button,
+body#screen.orbit-void-inner.isy-orbit .btn,
+body#screen.orbit-void-inner.isy-orbit input,
+body#screen.orbit-void-inner.isy-orbit select {
+  border-radius: 999px !important;
+  border-color: rgba(255, 0, 200, 0.3) !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+
+body#screen.orbit-void-inner.isy-orbit input,
+body#screen.orbit-void-inner.isy-orbit select,
+body#screen.orbit-void-inner.isy-orbit textarea {
+  border-radius: 16px !important;
+  background: rgba(0, 0, 0, 0.55) !important;
+  color: #ffe8f8 !important;
+}
+
+/* —— PERPETUAL VISION CENTER —— */
+body#screen.orbit-void-inner.pvv-orbit {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(255, 0, 180, 0.1), transparent 42%),
+    radial-gradient(ellipse at 80% 90%, rgba(0, 240, 255, 0.08), transparent 40%),
+    #000 !important;
+}
+
+body#screen.orbit-void-inner.pvv-orbit .stage .hollow-title {
+  -webkit-text-stroke-color: rgba(255, 61, 206, 0.4) !important;
+  filter: drop-shadow(0 0 16px rgba(255, 0, 180, 0.28)) !important;
+  color: #fff !important;
+}
+
+body#screen.orbit-void-inner.pvv-orbit .stage .hollow-sub {
+  color: rgba(0, 240, 255, 0.65) !important;
+}
+
+body#screen.orbit-void-inner.pvv-orbit .orbit-panel.accent-pvv {
+  border-radius: 28px !important;
+  border: 1px solid rgba(255, 0, 200, 0.3) !important;
+  background:
+    linear-gradient(160deg, rgba(45, 0, 50, 0.5), rgba(0, 0, 0, 0.92) 55%, rgba(0, 20, 30, 0.88)) !important;
+  box-shadow:
+    0 14px 40px rgba(255, 0, 180, 0.12),
+    0 0 28px rgba(0, 240, 255, 0.06) !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+
+body#screen.orbit-void-inner.pvv-orbit .pvv-frame,
+body#screen.orbit-void-inner.pvv-orbit .playlist-col,
+body#screen.orbit-void-inner.pvv-orbit .now-meta,
+body#screen.orbit-void-inner.pvv-orbit .credits-board,
+body#screen.orbit-void-inner.pvv-orbit .broadcast-card,
+body#screen.orbit-void-inner.pvv-orbit .sim-player {
+  border-radius: 20px !important;
+  border-color: rgba(255, 0, 200, 0.25) !important;
+}
+
+body#screen.orbit-void-inner.pvv-orbit .pl-item {
+  border-radius: 16px !important;
+  border: 1px solid rgba(255, 0, 200, 0.16) !important;
+  background: rgba(8, 0, 14, 0.6) !important;
+}
+body#screen.orbit-void-inner.pvv-orbit .pl-item.active {
+  border-color: rgba(0, 240, 255, 0.4) !important;
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.12) !important;
+}
+body#screen.orbit-void-inner.pvv-orbit .pl-thumb {
+  border-radius: 50% !important;
+}
+
+body#screen.orbit-void-inner.pvv-orbit .btn,
+body#screen.orbit-void-inner.pvv-orbit a.btn,
+body#screen.orbit-void-inner.pvv-orbit .actions a {
+  border-radius: 999px !important;
+  border-color: rgba(255, 0, 200, 0.3) !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+
+body#screen.orbit-void-inner.pvv-orbit .broadcast-card .card-open,
+body#screen.orbit-void-inner.pvv-orbit .broadcast-card .x-note {
+  border-radius: 999px !important;
+}
+body#screen.orbit-void-inner.pvv-orbit .broadcast-card .x-note {
+  border-radius: 14px !important;
+  border-color: rgba(255, 0, 200, 0.25) !important;
+  background: rgba(20, 0, 28, 0.75) !important;
+}
+
+/* —— CRYPTO DAD present shell bar (iframe host pages) —— */
+body > nav.bar {
+  background: rgba(8, 0, 14, 0.92) !important;
+  border-bottom: 1px solid rgba(255, 0, 200, 0.28) !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+body > nav.bar span {
+  color: #ff3dce !important;
+  text-shadow: 0 0 12px rgba(255, 61, 206, 0.35);
+}
+body > nav.bar a {
+  color: rgba(200, 180, 255, 0.7) !important;
+  border: 1px solid rgba(255, 0, 200, 0.28) !important;
+  border-radius: 999px !important;
+  padding: 6px 12px !important;
+  background: rgba(16, 0, 24, 0.7) !important;
+}
+body > nav.bar a:hover {
+  color: #00f0ff !important;
+  border-color: rgba(0, 240, 255, 0.45) !important;
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>DOSWAPZ // PAST HUB — 5 DIRECTIONS (ref Aug 6)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#020402;color:#00ff41;font-family:'VT323',monospace}
+.page{max-width:1200px;margin:0 auto;padding:18px 14px 72px}
+h1{color:#ffff00;letter-spacing:3px;font-size:clamp(24px,5vw,36px);margin:0 0 6px}
+.lead{color:#00aa00;font-size:17px;line-height:1.45;max-width:52rem;margin:0 0 14px}
+.lead strong{color:#b8ffb8}
+.note{border:1px solid #335500;background:#0a120a;padding:12px 14px;font-size:15px;color:#88cc88;line-height:1.4;margin-bottom:18px}
+.note em{color:#ffff00;font-style:normal}
+.refs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.refs a{color:#00ffcc;border:1px solid #004444;padding:6px 10px;text-decoration:none;font-size:14px}
+.refs a:hover{border-color:#00ffcc;color:#fff}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.toc a{color:#ffff00;text-decoration:none;border:1px solid #445500;padding:8px 12px;font-size:15px}
+.toc a:hover,.toc a.live{border-color:#00ff41;color:#fff}
+.grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:980px){.grid{grid-template-columns:1fr 1fr}.card.full{grid-column:1/-1}}
+.card{border:1px solid #004400;background:#010501;overflow:hidden}
+.card-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;padding:10px 12px;background:#001600;border-bottom:1px solid #003300;font-size:15px}
+.card-head .tag{color:#ffff00;letter-spacing:1px}
+.card-head .meta{color:#00aa00}
+iframe{display:block;width:100%;height:560px;border:0;background:#000}
+.pick{padding:12px;border-top:1px solid #002200;font-size:15px;color:#88cc88;line-height:1.4}
+.pick em{color:#ffff00;font-style:normal}
+.why{color:#00aa00;font-size:14px;margin-top:6px}
+a.open{color:#00ffcc;text-decoration:none;margin-left:8px}
+a.open:hover{color:#fff}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>// PAST HUB — 5 UPDATE DIRECTIONS</h1>
+  <p class="lead">
+    Built from your <strong>Aug 6 concept boards</strong> (Main Hub · Terminal · BBS · Drive · Mission Control)
+    plus the live War Briefing CRT language. Each mock uses real Past destinations.
+    <strong>Pick one</strong> (or mix pieces) and I’ll wire it into <code>classic/hub.html</code>.
+  </p>
+  <div class="note" style="border-color:#00ff66;background:#001800">
+    <em style="color:#00ff66">MAIN TEST LOCKED:</em>
+    <strong style="color:#ffff00"> E · Mission Control</strong> — single screen, no scroll, radar center,
+    A–D folded in, all live destinations via panels.
+    <br><br>
+    <a href="/ux-examples/past-hub-mission-control-test.html" style="color:#00ffcc;font-size:18px">→ OPEN MAIN TEST FULL SCREEN</a>
+  </div>
+  <div class="note">
+    <em>HOW TO PICK:</em> reply <em>“Ship Mission Control”</em> to wire into classic/hub.html, or request tweaks first.
+  </div>
+  <div class="refs">
+    <a href="/ux-examples/past-hub-mission-control-test.html">★ MAIN TEST (E+A+B+C+D)</a>
+    <a href="/classic/hub.html">← live Past hub</a>
+    <a href="/orbit/hub.html">Present hub</a>
+    <a href="/ux-examples/hub-gallery.html">older hub experiments</a>
+  </div>
+  <nav class="toc">
+    <a class="live" href="/ux-examples/past-hub-mission-control-test.html">★ MAIN TEST</a>
+    <a href="#a">A · Main Modules</a>
+    <a href="#b">B · Minimal Terminal</a>
+    <a href="#c">C · BBS List</a>
+    <a href="#d">D · Drive Browser</a>
+    <a href="#e">E · Mission Control</a>
+  </nav>
+
+  <div class="grid">
+    <div class="card full" id="a">
+      <div class="card-head">
+        <span class="tag">A · MAIN HUB MODULES</span>
+        <span class="meta">ref: top-left concept · big brand + 6 tiles + welcome panel
+          <a class="open" href="/ux-examples/past-hub-a-main.html" target="_blank">open full ↗</a>
+        </span>
+      </div>
+      <iframe src="/ux-examples/past-hub-a-main.html" title="Past Hub A"></iframe>
+      <div class="pick">
+        <em>Best if:</em> you want a clear “home” with icon modules (Play · Trade · Explore · Labs · Archives · Secret)
+        and a white-rabbit welcome strip. Closest to your main concept board.
+        <div class="why">War Briefing can open on first visit as a modal over this shell.</div>
+      </div>
+    </div>
+
+    <div class="card" id="b">
+      <div class="card-head">
+        <span class="tag">B · MINIMAL TERMINAL</span>
+        <span class="meta">ref: top-right
+          <a class="open" href="/ux-examples/past-hub-b-terminal.html" target="_blank">open ↗</a>
+        </span>
+      </div>
+      <iframe src="/ux-examples/past-hub-b-terminal.html" title="Past Hub B"></iframe>
+      <div class="pick">
+        <em>Best if:</em> less chrome, type-to-nav feel, fast phone load. Quick Access box + blinking cursor.
+      </div>
+    </div>
+
+    <div class="card" id="c">
+      <div class="card-head">
+        <span class="tag">C · BBS STYLE</span>
+        <span class="meta">ref: bottom-left
+          <a class="open" href="/ux-examples/past-hub-c-bbs.html" target="_blank">open ↗</a>
+        </span>
+      </div>
+      <iframe src="/ux-examples/past-hub-c-bbs.html" title="Past Hub C"></iframe>
+      <div class="pick">
+        <em>Best if:</em> you want numbered keys (1–9) + TODAY’S FEED sidebar. Classic 90s board energy.
+      </div>
+    </div>
+
+    <div class="card" id="d">
+      <div class="card-head">
+        <span class="tag">D · DRIVE BROWSER</span>
+        <span class="meta">ref: bottom-center
+          <a class="open" href="/ux-examples/past-hub-d-drive.html" target="_blank">open ↗</a>
+        </span>
+      </div>
+      <iframe src="/ux-examples/past-hub-d-drive.html" title="Past Hub D"></iframe>
+      <div class="pick">
+        <em>Best if:</em> folders as destinations — DIR of GAMES / TRADE / BASEMENT / etc. Super DOS-native.
+      </div>
+    </div>
+
+    <div class="card full" id="e">
+      <div class="card-head">
+        <span class="tag">E · MISSION CONTROL</span>
+        <span class="meta">ref: full Mission Control board + rabbit radar
+          <a class="open" href="/ux-examples/past-hub-e-mission.html" target="_blank">open ↗</a>
+        </span>
+      </div>
+      <iframe src="/ux-examples/past-hub-e-mission.html" title="Past Hub E" style="height:640px"></iframe>
+      <div class="pick">
+        <em>Best if:</em> richest dashboard — stats, radar, live transmission, network feed, hotkeys.
+        Heaviest option; best as optional “advanced” Past shell or Future-leaning Past.
+        <div class="why">Can still route every module to current classic pages.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

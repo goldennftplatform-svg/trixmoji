@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // $TBB BULL RUN SCOREBOARD</title>
+ <meta name="description" content="$TBB Bull Run scoreboard - soft connect scores only. No funds moved.">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ :root {
+ --green: #33ff66;
+ --gold: #ffd700;
+ --red: #ff3355;
+ --dim: #1a9944;
+ }
+
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+
+ html, body {
+ min-height: 100%;
+ background: #020805;
+ color: var(--green);
+ font-family: 'VT323', monospace;
+ }
+
+ body {
+ background:
+ radial-gradient(ellipse at 50% 0%, rgba(51, 255, 102, 0.06), transparent 50%),
+ #020805;
+ }
+
+ .scan {
+ pointer-events: none;
+ position: fixed;
+ inset: 0;
+ z-index: 50;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0 2px,
+ rgba(0, 0, 0, 0.12) 2px 4px
+ );
+ }
+
+ .wrap {
+ position: relative;
+ z-index: 1;
+ max-width: 720px;
+ margin: 0 auto;
+ padding: 28px 18px 60px;
+ }
+
+ h1 {
+ font-family: 'Press Start 2P', monospace;
+ font-size: clamp(12px, 2.8vw, 18px);
+ letter-spacing: 2px;
+ color: var(--gold);
+ text-align: center;
+ text-shadow: 0 0 16px rgba(255, 215, 0, 0.35);
+ margin-bottom: 8px;
+ line-height: 1.5;
+ }
+
+ .sub {
+ text-align: center;
+ color: var(--green);
+ letter-spacing: 3px;
+ font-size: 18px;
+ margin-bottom: 6px;
+ }
+
+ .note {
+ text-align: center;
+ color: #2a5535;
+ font-size: 15px;
+ letter-spacing: 1px;
+ margin-bottom: 22px;
+ }
+
+ .stats {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 10px;
+ margin-bottom: 18px;
+ }
+
+ .stat {
+ border: 1px solid #0a3018;
+ background: #041008;
+ padding: 12px 10px;
+ text-align: center;
+ }
+
+ .stat .l {
+ color: var(--dim);
+ font-size: 13px;
+ letter-spacing: 2px;
+ margin-bottom: 4px;
+ }
+
+ .stat .v {
+ color: var(--gold);
+ font-size: 24px;
+ letter-spacing: 1px;
+ }
+
+ .board {
+ border: 1px solid #0a3018;
+ background: #041008;
+ padding: 8px 12px 14px;
+ margin-bottom: 20px;
+ box-shadow: 0 0 30px rgba(51, 255, 102, 0.06);
+ }
+
+ table {
+ width: 100%;
+ border-collapse: collapse;
+ font-size: 18px;
+ }
+
+ th {
+ color: var(--gold);
+ text-align: left;
+ font-weight: normal;
+ letter-spacing: 2px;
+ font-size: 14px;
+ padding: 10px 6px;
+ border-bottom: 1px solid #0a3018;
+ }
+
+ td {
+ padding: 10px 6px;
+ border-bottom: 1px solid #06140a;
+ color: #7ab88a;
+ }
+
+ tr:last-child td { border-bottom: none; }
+ .rank { width: 42px; color: #2a5535; }
+ .score { text-align: right; color: #fff; }
+ .sats { text-align: right; color: var(--gold); }
+ .when { text-align: right; color: #2a5535; font-size: 14px; width: 110px; }
+ .empty {
+ text-align: center;
+ color: #2a5535;
+ padding: 36px 12px !important;
+ font-style: italic;
+ }
+
+ .actions {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ justify-content: center;
+ margin-bottom: 16px;
+ }
+
+ .btn {
+ font-family: 'Press Start 2P', monospace;
+ font-size: 10px;
+ letter-spacing: 1px;
+ color: #000;
+ background: var(--gold);
+ border: none;
+ padding: 14px 16px;
+ text-decoration: none;
+ cursor: pointer;
+ box-shadow: 0 0 0 2px #000, 0 0 0 4px var(--gold);
+ }
+
+ .btn:hover {
+ background: var(--green);
+ box-shadow: 0 0 0 2px #000, 0 0 0 4px var(--green);
+ }
+
+ .btn.ghost {
+ color: var(--green);
+ background: transparent;
+ box-shadow: 0 0 0 2px #0a2010, 0 0 0 4px var(--dim);
+ }
+
+ .btn.ghost:hover {
+ color: var(--gold);
+ box-shadow: 0 0 0 2px #000, 0 0 0 4px var(--gold);
+ }
+
+ .disclaimer {
+ border: 1px solid #2a2a00;
+ background: rgba(40, 30, 0, 0.25);
+ color: #668866;
+ font-size: 14px;
+ line-height: 1.4;
+ padding: 12px;
+ letter-spacing: 0.5px;
+ }
+
+ .disclaimer strong {
+ color: var(--gold);
+ font-weight: normal;
+ display: block;
+ margin-bottom: 6px;
+ }
+
+ @media (max-width: 560px) {
+ .stats { grid-template-columns: 1fr; }
+ .when { display: none; }
+ }
+ </style>
+</head>
+<body>
+ <div class="scan"></div>
+ <div class="wrap">
+ <h1>$TBB BULL RUN<br>SCOREBOARD</h1>
+ <div class="sub">SOFT CONNECT * RULES OK</div>
+ <div class="note">LOCAL BOARD FROM COMPLETED RUNS * NO WALLET * NO SEEDS</div>
+
+ <div class="stats">
+ <div class="stat">
+ <div class="l">BEST SCORE</div>
+ <div class="v" id="bestScore"> - </div>
+ </div>
+ <div class="stat">
+ <div class="l">ENTRIES</div>
+ <div class="v" id="entryCount">0</div>
+ </div>
+ <div class="stat">
+ <div class="l">LAST RUN</div>
+ <div class="v" id="lastRun"> - </div>
+ </div>
+ </div>
+
+ <div class="board">
+ <table>
+ <thead>
+ <tr>
+ <th class="rank">#</th>
+ <th>RUNNER</th>
+ <th class="sats">SATS</th>
+ <th class="score">PTS</th>
+ <th class="when">WHEN</th>
+ </tr>
+ </thead>
+ <tbody id="boardBody">
+ <tr><td colspan="5" class="empty">NO SCORES YET - PLAY A RUN &amp; POST AFTER REKT</td></tr>
+ </tbody>
+ </table>
+ </div>
+
+ <div class="actions">
+ <a class="btn" href="/classic/pages/tbb/play.html">PLAY BULL RUN</a>
+ <a class="btn ghost" href="/classic/hub.html"><- HUB</a>
+ <a class="btn ghost" href="/classic/pages/cryptodad/scoreboard.html">ALL BOARDS</a>
+ </div>
+
+ <div class="disclaimer">
+ <strong>SOFT CONNECT ONLY</strong>
+ Scores stay while rules are held: no wallet seed, soft social connect only, completed run.
+ This page reads local scores from this browser. Not financial advice. Stack sats.
+ </div>
+ </div>
+
+ <script>
+ (function () {
+ function loadBoard() {
+ try {
+ var list = JSON.parse(localStorage.getItem('tbbBoard') || '[]');
+ return (Array.isArray(list) ? list : [])
+ .filter(function (e) { return e && e.rulesOk !== false; })
+ .sort(function (a, b) { return (b.score || 0) - (a.score || 0); });
+ } catch (e) {
+ return [];
+ }
+ }
+
+ function fmtWhen(ts) {
+ if (!ts) return ' - ';
+ try {
+ var d = new Date(ts);
+ return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) +
+ ' ' + d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+ } catch (e) {
+ return ' - ';
+ }
+ }
+
+ var list = loadBoard();
+ var high = Number(localStorage.getItem('tbbHighScore') || 0);
+ var last = null;
+ try { last = JSON.parse(localStorage.getItem('tbbLastRun') || 'null'); } catch (e) {}
+
+ if (!high && list.length) high = list[0].score || 0;
+
+ document.getElementById('bestScore').textContent = high ? high.toLocaleString() : ' - ';
+ document.getElementById('entryCount').textContent = String(list.length);
+ document.getElementById('lastRun').textContent = last && last.score != null
+ ? Number(last.score).toLocaleString()
+ : ' - ';
+
+ var body = document.getElementById('boardBody');
+ if (!list.length) return;
+
+ body.innerHTML = list.map(function (e, i) {
+ var who = e.handle ? ('◇ @' + e.handle) : (e.name || 'DEGEN');
+ return '<tr>' +
+ '<td class="rank">#' + (i + 1) + '</td>' +
+ '<td>' + who + '</td>' +
+ '<td class="sats">' + Number(e.sats || 0).toLocaleString() + '</td>' +
+ '<td class="score">' + Number(e.score || 0).toLocaleString() + '</td>' +
+ '<td class="when">' + fmtWhen(e.at) + '</td>' +
+ '</tr>';
+ }).join('');
+ })();
+ </script>
+ <script src="/assets/js/core/price-ticker.js"></script>
+
+<script>
+/* Era embed: when Present hosts this classic game, hide Past hub exits so you stay in Present */
+(function(){
+  try {
+    if (!/[?&]embed=1(?:&|$)/.test(location.search)) return;
+    document.documentElement.classList.add('era-embed');
+    var style = document.createElement('style');
+    style.textContent = '.era-embed a[href*="classic/hub"], .era-embed a[href="/classic/hub.html"]{display:none!important}';
+    document.head.appendChild(style);
+    // force parent era remains orbit when possible
+    try { if (window.parent && window.parent !== window && window.parent.DOSWAPZ_ERA) window.parent.DOSWAPZ_ERA.set("orbit"); } catch(e){}
+  } catch(e){}
+})();
+</script>
+</body>
+</html>

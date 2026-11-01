@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DOSWAPZ // POLYGONAL FIGHTER — POSE VIEWER</title>
+  <meta name="description" content="VF '93 polygonal base fighter — Tier A pose playback." />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: #000;
+      color: #00ffcc;
+      font-family: 'VT323', 'Courier New', monospace;
+      overflow: hidden;
+    }
+    #hud {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 2;
+      padding: 12px 14px 8px;
+      background: linear-gradient(#000e, transparent);
+      pointer-events: none;
+      font-size: 15px;
+      line-height: 1.35;
+      letter-spacing: 1px;
+    }
+    #hud strong { color: #ff6b5a; }
+    #hud .dim { color: #007766; }
+    #poseName {
+      color: #ffff00;
+      font-size: 22px;
+      letter-spacing: 3px;
+      margin-top: 4px;
+      pointer-events: none;
+    }
+    #poseMeta { color: #66aa99; font-size: 14px; }
+
+    #panel {
+      position: fixed;
+      right: 12px;
+      top: 12px;
+      bottom: 70px;
+      width: min(240px, 42vw);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+    #panel * { pointer-events: auto; }
+
+    #poseList {
+      flex: 1;
+      overflow: auto;
+      border: 1px solid #004433;
+      background: rgba(0, 12, 10, 0.88);
+      padding: 6px;
+      font-size: 15px;
+    }
+    #poseList button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      color: #00ccaa;
+      font-family: inherit;
+      font-size: 16px;
+      letter-spacing: 1px;
+      padding: 5px 6px;
+      cursor: pointer;
+    }
+    #poseList button:hover { color: #ffff00; background: #001a14; }
+    #poseList button.active {
+      color: #fff;
+      background: #003328;
+      box-shadow: inset 3px 0 0 #ff6b5a;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .row button, #nav a, .chip {
+      color: #00ffcc;
+      text-decoration: none;
+      border: 1px solid #004433;
+      padding: 6px 10px;
+      letter-spacing: 2px;
+      font-size: 15px;
+      background: rgba(0, 18, 14, 0.9);
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .row button:hover, #nav a:hover {
+      border-color: #00ffcc;
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.25);
+    }
+    .row button:disabled { opacity: 0.4; cursor: default; }
+
+    #nav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px 12px 14px;
+      background: linear-gradient(transparent, #000e);
+      align-items: center;
+    }
+    #hint {
+      flex: 1 1 180px;
+      color: #007766;
+      font-size: 13px;
+      letter-spacing: 1px;
+      min-width: 140px;
+    }
+
+    #canvas-wrap { position: fixed; inset: 0; }
+    canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+
+    #fallback {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: #0a0c10;
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+      color: #66aa99;
+    }
+    #fallback.show { display: flex; }
+    #fallback img {
+      max-width: min(420px, 90vw);
+      max-height: 60vh;
+      border: 2px solid #004433;
+    }
+
+    @media (max-width: 640px) {
+      #panel {
+        position: fixed;
+        left: 0; right: 0; top: auto;
+        bottom: 58px;
+        width: 100%;
+        height: 28vh;
+        padding: 0 8px;
+      }
+      #poseList { max-height: 18vh; }
+      #hud { font-size: 13px; padding-right: 8px; }
+      #poseName { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="hud">
+    <div><strong>POLYGONAL FIGHTER</strong> // CABINET 05 — POSE VIEWER</div>
+    <div class="dim">Tier A stubs from Blender · flat VF '93 look · refine later in .blend</div>
+    <div id="poseName">LOADING…</div>
+    <div id="poseMeta" class="dim"></div>
+  </div>
+
+  <div id="panel">
+    <div class="row">
+      <button type="button" id="btnPrev" title="Previous pose">← PREV</button>
+      <button type="button" id="btnNext" title="Next pose">NEXT →</button>
+      <button type="button" id="btnAuto" title="Auto cycle">AUTO</button>
+    </div>
+    <div id="poseList" aria-label="Pose list"></div>
+  </div>
+
+  <div id="canvas-wrap"></div>
+  <div id="fallback">
+    <img src="models/base_fighter_preview.svg" alt="BaseFighter preview" />
+    <div>Could not load 3D poses. Serve over HTTP + allow unpkg CDN.<br />Static preview above.</div>
+  </div>
+
+  <div id="nav">
+    <a href="/classic/pages/arcade/hub.html">&lt;- ARCADE</a>
+    <a href="poses/">POSE LIST</a>
+    <a href="models/base_fighter.blend">BLEND</a>
+    <a href="models/base_fighter_poses.glb">POSES GLB</a>
+    <span id="hint">[ ] poses · A auto · drag orbit · scroll zoom · arrows = attacks (preview)</span>
+  </div>
+
+  <script src="poses/pose-registry.js"></script>
+  <script src="controls/controls.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+    const REG = window.POLY_FIGHTER_POSES;
+    const CTRL = window.POLY_FIGHTER_CONTROLS;
+
+    const elName = document.getElementById('poseName');
+    const elMeta = document.getElementById('poseMeta');
+    const elList = document.getElementById('poseList');
+    const fallback = document.getElementById('fallback');
+    const wrap = document.getElementById('canvas-wrap');
+
+    // Preferred order = Tier A registry; clips may be PF_<id>
+    const POSE_ORDER = REG ? REG.TIER_A.slice() : [
+      'idle', 'jab', 'medPunch', 'lowKick', 'medKick', 'special1',
+      'blockHigh', 'blockLow', 'crouch', 'victory'
+    ];
+
+    let mixer = null;
+    let clipsByPose = new Map(); // poseId -> AnimationClip
+    let clipList = []; // ordered { id, clip, label }
+    let index = 0;
+    let auto = false;
+    let autoAcc = 0;
+    let currentAction = null;
+    const clock = new THREE.Clock();
+
+    function showFallback(msg) {
+      fallback.classList.add('show');
+      if (msg) console.warn(msg);
+    }
+
+    function forceFlat(root) {
+      root.traverse((child) => {
+        if (child.isMesh) {
+          const mats = Array.isArray(child.material) ? child.material : [child.material];
+          mats.forEach((m) => {
+            if (!m) return;
+            m.flatShading = true;
+            if ('metalness' in m) m.metalness = 0;
+            if ('roughness' in m) m.roughness = 1;
+            m.needsUpdate = true;
+          });
+          if (child.geometry) {
+            child.geometry.computeVertexNormals();
+          }
+        }
+      });
+    }
+
+    function normalizeClipName(name) {
+      // PF_idle, PF_idleBreath, Armature|PF_jab, etc.
+      let n = String(name || '');
+      const pipe = n.lastIndexOf('|');
+      if (pipe >= 0) n = n.slice(pipe + 1);
+      if (n.startsWith('PF_')) n = n.slice(3);
+      return n;
+    }
+
+    function labelFor(id) {
+      if (REG && REG.LABELS && REG.LABELS[id]) return REG.LABELS[id];
+      return id;
+    }
+
+    function buildClipIndex(animations) {
+      clipsByPose.clear();
+      const found = new Map();
+      animations.forEach((clip) => {
+        const id = normalizeClipName(clip.name);
+        found.set(id, clip);
+        found.set(clip.name, clip);
+      });
+
+      clipList = [];
+      // Prefer Tier A order
+      POSE_ORDER.forEach((id) => {
+        const clip = found.get(id) || found.get('PF_' + id);
+        if (clip) clipList.push({ id, clip, label: labelFor(id) });
+      });
+      // Any extra clips not in Tier A
+      animations.forEach((clip) => {
+        const id = normalizeClipName(clip.name);
+        if (!clipList.some((c) => c.id === id)) {
+          clipList.push({ id, clip, label: labelFor(id) });
+        }
+      });
+
+      // Fallback single rest if empty
+      if (!clipList.length && animations[0]) {
+        clipList.push({ id: 'rest', clip: animations[0], label: 'Rest' });
+      }
+    }
+
+    function renderList() {
+      elList.innerHTML = '';
+      clipList.forEach((item, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = (i + 1) + '. ' + item.label;
+        b.dataset.i = String(i);
+        if (i === index) b.classList.add('active');
+        b.addEventListener('click', () => playIndex(i));
+        elList.appendChild(b);
+      });
+    }
+
+    function playIndex(i, opts) {
+      if (!mixer || !clipList.length) return;
+      index = (i + clipList.length) % clipList.length;
+      const item = clipList[index];
+      const clip = item.clip;
+
+      if (currentAction) {
+        currentAction.fadeOut(0.12);
+      }
+      const action = mixer.clipAction(clip);
+      action.reset();
+      action.setLoop(THREE.LoopRepeat, Infinity);
+      // hold-style stubs are short; clamp when nearly static
+      if (clip.duration < 0.05) {
+        action.setLoop(THREE.LoopOnce, 1);
+        action.clampWhenFinished = true;
+      }
+      action.fadeIn(0.12);
+      action.play();
+      currentAction = action;
+
+      elName.textContent = item.label.toUpperCase();
+      elMeta.textContent =
+        'clip ' + (index + 1) + '/' + clipList.length +
+        ' · id ' + item.id +
+        ' · ' + clip.duration.toFixed(2) + 's' +
+        (auto ? ' · AUTO' : '');
+
+      elList.querySelectorAll('button').forEach((b, bi) => {
+        b.classList.toggle('active', bi === index);
+      });
+      const activeBtn = elList.querySelector('button.active');
+      if (activeBtn && !(opts && opts.skipScroll)) {
+        activeBtn.scrollIntoView({ block: 'nearest' });
+      }
+    }
+
+    function playPoseId(poseId) {
+      const i = clipList.findIndex((c) => c.id === poseId);
+      if (i >= 0) playIndex(i);
+    }
+
+    // ── scene ─────────────────────────────────────────────
+    try {
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x0a0c10);
+
+      const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.05, 50);
+      camera.position.set(2.4, 1.35, 2.9);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: false });
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+      renderer.setSize(innerWidth, innerHeight);
+      wrap.appendChild(renderer.domElement);
+
+      const orbit = new OrbitControls(camera, renderer.domElement);
+      orbit.target.set(0, 0.95, 0);
+      orbit.update();
+
+      scene.add(new THREE.AmbientLight(0xffffff, 0.45));
+      const key = new THREE.DirectionalLight(0xffffff, 1.15);
+      key.position.set(3, 6, 4);
+      scene.add(key);
+      const fill = new THREE.DirectionalLight(0x8899aa, 0.35);
+      fill.position.set(-4, 2, -2);
+      scene.add(fill);
+
+      const ring = new THREE.Mesh(
+        new THREE.CylinderGeometry(1.4, 1.4, 0.06, 16),
+        new THREE.MeshLambertMaterial({ color: 0x1a3028, flatShading: true })
+      );
+      ring.position.y = -0.03;
+      scene.add(ring);
+      const edge = new THREE.Mesh(
+        new THREE.TorusGeometry(1.4, 0.04, 4, 16),
+        new THREE.MeshLambertMaterial({ color: 0x8a3040, flatShading: true })
+      );
+      edge.rotation.x = Math.PI / 2;
+      edge.position.y = 0.01;
+      scene.add(edge);
+      const grid = new THREE.GridHelper(4, 8, 0x004433, 0x001a14);
+      grid.position.y = 0.001;
+      scene.add(grid);
+
+      const loader = new GLTFLoader();
+      const tryUrls = [
+        './models/base_fighter_poses.glb',
+        './models/base_fighter.glb'
+      ];
+
+      function onGltf(gltf) {
+        forceFlat(gltf.scene);
+        // Blender Z-up → glTF loader already converts to Y-up
+        scene.add(gltf.scene);
+
+        mixer = new THREE.AnimationMixer(gltf.scene);
+        buildClipIndex(gltf.animations || []);
+        renderList();
+
+        if (!clipList.length) {
+          elName.textContent = 'NO CLIPS IN GLB';
+          elMeta.textContent = 'Re-run create_tier_a_pose_stubs.py';
+          return;
+        }
+        playIndex(0);
+      }
+
+      function loadNext(i) {
+        if (i >= tryUrls.length) {
+          showFallback('No GLB loaded');
+          elName.textContent = 'LOAD FAILED';
+          return;
+        }
+        loader.load(
+          tryUrls[i],
+          onGltf,
+          undefined,
+          () => loadNext(i + 1)
+        );
+      }
+      loadNext(0);
+
+      // UI
+      document.getElementById('btnPrev').onclick = () => {
+        auto = false;
+        document.getElementById('btnAuto').textContent = 'AUTO';
+        playIndex(index - 1);
+      };
+      document.getElementById('btnNext').onclick = () => {
+        auto = false;
+        document.getElementById('btnAuto').textContent = 'AUTO';
+        playIndex(index + 1);
+      };
+      document.getElementById('btnAuto').onclick = () => {
+        auto = !auto;
+        document.getElementById('btnAuto').textContent = auto ? 'AUTO ON' : 'AUTO';
+        autoAcc = 0;
+        if (clipList[index]) {
+          elMeta.textContent = elMeta.textContent.replace(' · AUTO', '') + (auto ? ' · AUTO' : '');
+        }
+      };
+
+      // Keyboard: [ ] pose step, A auto, arrow keys = attack pose preview
+      const inputState = CTRL ? CTRL.createState() : { keys: {} };
+      if (CTRL) CTRL.bindKeyboard(inputState);
+
+      addEventListener('keydown', (e) => {
+        if (e.code === 'BracketLeft' || e.key === '[') {
+          e.preventDefault();
+          playIndex(index - 1);
+        }
+        if (e.code === 'BracketRight' || e.key === ']') {
+          e.preventDefault();
+          playIndex(index + 1);
+        }
+        if (e.code === 'KeyA' && !e.repeat && !(e.target && e.target.tagName === 'INPUT')) {
+          // don't steal A if typing — only when not in form
+          if (document.activeElement === document.body) {
+            auto = !auto;
+            document.getElementById('btnAuto').textContent = auto ? 'AUTO ON' : 'AUTO';
+          }
+        }
+      });
+
+      // Map attack arrows → poses while held (preview combat)
+      let lastAttackPose = null;
+      function tickCombatPreview() {
+        if (!CTRL || !clipList.length) return;
+        const intent = CTRL.resolveIntent(inputState, {
+          now: performance.now(),
+          inThrowRange: true
+        });
+        let want = null;
+        if (intent.throw) want = 'throw';
+        else if (intent.block) want = intent.blockPose || 'blockHigh';
+        else if (intent.attack) want = intent.attack;
+        else if (intent.crouch) want = 'crouch';
+        else if (intent.jump) want = 'jump';
+        else if (intent.move && intent.move.len > 0.2) {
+          want = intent.move.forward ? 'walkForward1' : 'walkBackward1';
+        }
+
+        if (want && want !== lastAttackPose) {
+          const i = clipList.findIndex((c) => c.id === want);
+          if (i >= 0) {
+            lastAttackPose = want;
+            auto = false;
+            playIndex(i, { skipScroll: false });
+          }
+        }
+        if (!want && lastAttackPose && !intent.attack && !intent.block && !intent.throw) {
+          // return to idle when released
+          lastAttackPose = null;
+          playPoseId('idle');
+        }
+      }
+
+      addEventListener('resize', () => {
+        camera.aspect = innerWidth / innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(innerWidth, innerHeight);
+      });
+
+      (function tick() {
+        requestAnimationFrame(tick);
+        const dt = clock.getDelta();
+        if (mixer) mixer.update(dt);
+        if (auto) {
+          autoAcc += dt;
+          if (autoAcc >= 1.25) {
+            autoAcc = 0;
+            playIndex(index + 1, { skipScroll: false });
+          }
+        }
+        tickCombatPreview();
+        orbit.update();
+        renderer.render(scene, camera);
+      })();
+    } catch (e) {
+      showFallback(e);
+      elName.textContent = 'ERROR';
+    }
+  </script>
+</body>
+</html>

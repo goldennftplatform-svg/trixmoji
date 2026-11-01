@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+ <title>DOSWAPZ // PRESENT · RADAR (all icons)</title>
+ <meta name="robots" content="noindex">
+ <meta name="description" content="Present hub radar - full destination set on a neon radar field.">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ html, body {
+ width: 100%; height: 100%;
+ overflow: hidden;
+ background: #000;
+ color: #d0e0ff;
+ font-family: 'Inter', system-ui, sans-serif;
+ -webkit-font-smoothing: antialiased;
+ }
+ body {
+ background:
+ radial-gradient(ellipse 65% 55% at 50% 50%, #061018 0%, #020508 42%, #000 72%);
+ }
+
+ .noise {
+ position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.04;
+ background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+ }
+
+ .top {
+ position: fixed; top: 12px; left: 50%; transform: translateX(-50%);
+ z-index: 50; display: flex; flex-wrap: wrap; gap: 8px 12px;
+ align-items: center; justify-content: center;
+ font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+ color: rgba(140,200,180,0.45);
+ }
+ .top a {
+ color: rgba(160,220,200,0.55); text-decoration: none;
+ border: 1px solid rgba(80,180,140,0.25); padding: 6px 12px; border-radius: 999px;
+ background: rgba(0,12,10,0.55);
+ }
+ .top a:hover { color: #b8ffe8; border-color: rgba(100,255,200,0.4); }
+ .top a.hot { color: #fff; border-color: rgba(255,255,255,0.35); }
+ .top .tag { color: #66e0b0; letter-spacing: 0.22em; }
+
+ /* RADAR dish */
+ .field {
+ position: fixed; inset: 0;
+ display: grid; place-items: center;
+ z-index: 5;
+ pointer-events: none;
+ }
+ .radar {
+ position: relative;
+ width: min(94vmin, 760px);
+ height: min(94vmin, 760px);
+ pointer-events: none;
+ }
+
+ /* green/cyan radar rings */
+ .ring {
+ position: absolute; left: 50%; top: 50%;
+ transform: translate(-50%, -50%);
+ border-radius: 50%;
+ border: 1px solid rgba(60,220,160,0.18);
+ pointer-events: none;
+ box-shadow: inset 0 0 20px rgba(40,180,120,0.04);
+ }
+ .ring.r1 { width: 100%; height: 100%; border-color: rgba(60,220,160,0.28); box-shadow: 0 0 40px rgba(40,200,140,0.08), inset 0 0 30px rgba(40,180,120,0.05); }
+ .ring.r2 { width: 78%; height: 78%; }
+ .ring.r3 { width: 56%; height: 56%; }
+ .ring.r4 { width: 34%; height: 34%; }
+ .ring.r5 { width: 14%; height: 14%; border-color: rgba(100,255,200,0.25); }
+
+ /* crosshairs */
+ .cross-h, .cross-v {
+ position: absolute; left: 50%; top: 50%;
+ background: rgba(60,200,150,0.12);
+ pointer-events: none;
+ }
+ .cross-h { width: 100%; height: 1px; transform: translate(-50%, -50%); }
+ .cross-v { width: 1px; height: 100%; transform: translate(-50%, -50%); }
+
+ /* rotating sweep */
+ .sweep {
+ position: absolute; inset: 0; border-radius: 50%;
+ background: conic-gradient(
+ from 0deg,
+ transparent 0deg,
+ transparent 300deg,
+ rgba(40,255,180,0.03) 320deg,
+ rgba(80,255,200,0.16) 345deg,
+ rgba(140,255,220,0.28) 358deg,
+ transparent 360deg
+ );
+ animation: radar-spin 7s linear infinite;
+ pointer-events: none;
+ mix-blend-mode: screen;
+ }
+ .beam {
+ position: absolute; left: 50%; top: 50%;
+ width: 0; height: 0;
+ animation: radar-spin 7s linear infinite;
+ pointer-events: none; z-index: 2;
+ }
+ .beam::before {
+ content: '';
+ position: absolute;
+ left: 0; top: 0;
+ width: 2px;
+ height: min(47vmin, 375px);
+ margin-top: calc(-1 * min(47vmin, 375px));
+ margin-left: -1px;
+ background: linear-gradient(to top, transparent 0%, rgba(100,255,200,0.15) 40%, rgba(160,255,220,0.85) 100%);
+ box-shadow: 0 0 14px rgba(80,255,180,0.55);
+ transform-origin: bottom center;
+ }
+ @keyframes radar-spin { to { transform: rotate(360deg); } }
+
+ /* center label (no digital clock) */
+ .hub {
+ position: absolute; left: 50%; top: 50%;
+ transform: translate(-50%, -50%);
+ z-index: 8; text-align: center;
+ pointer-events: none;
+ width: min(36vmin, 200px);
+ }
+ .hub h1 {
+ font-family: 'Space Grotesk', sans-serif;
+ font-weight: 600;
+ font-size: clamp(20px, 4.8vmin, 34px);
+ letter-spacing: 0.16em;
+ color: transparent;
+ -webkit-text-stroke: 1px rgba(120,255,200,0.5);
+ text-shadow: 0 0 28px rgba(60,220,160,0.25);
+ }
+ .hub p {
+ margin-top: 8px;
+ font-size: 10px;
+ letter-spacing: 0.22em;
+ text-transform: uppercase;
+ color: rgba(100,200,160,0.4);
+ }
+ .hub .ping {
+ margin-top: 10px;
+ font-size: 10px;
+ letter-spacing: 0.14em;
+ text-transform: uppercase;
+ color: rgba(100,255,200,0.55);
+ }
+ .hub .ping b {
+ color: #88ffd0;
+ font-weight: 500;
+ }
+
+ /* blip nodes */
+ .blip {
+ position: absolute;
+ width: 56px; height: 56px;
+ border-radius: 50%;
+ display: flex; flex-direction: column;
+ align-items: center; justify-content: center;
+ text-decoration: none;
+ color: inherit;
+ border: 1px solid rgba(80,200,160,0.35);
+ background: rgba(0,10,8,0.88);
+ box-shadow: 0 0 0 1px rgba(0,0,0,0.5), 0 0 16px rgba(40,160,120,0.15);
+ pointer-events: auto;
+ z-index: 20;
+ cursor: pointer;
+ transition: transform 0.15s ease, border-color 0.15s, box-shadow 0.15s, background 0.15s;
+ }
+ .blip.small { width: 42px; height: 42px; }
+ .blip.large { width: 62px; height: 62px; }
+ .blip .g {
+ font-family: 'Space Grotesk', sans-serif;
+ font-weight: 600;
+ font-size: 13px;
+ line-height: 1;
+ color: currentColor;
+ text-shadow: 0 0 12px currentColor;
+ pointer-events: none;
+ }
+ .blip.small .g { font-size: 11px; }
+ .blip .lab {
+ position: absolute;
+ top: calc(100% + 3px);
+ left: 50%;
+ transform: translateX(-50%);
+ font-size: 8px;
+ letter-spacing: 0.06em;
+ text-transform: uppercase;
+ white-space: nowrap;
+ color: rgba(160,220,190,0.55);
+ opacity: 0;
+ transition: opacity 0.12s;
+ pointer-events: none;
+ font-weight: 500;
+ }
+ .blip:hover, .blip:focus-visible {
+ transform: translate(-50%, -50%) scale(1.14) !important;
+ border-color: currentColor;
+ box-shadow: 0 0 28px color-mix(in srgb, currentColor 50%, transparent);
+ background: rgba(0,16,12,0.95);
+ outline: none;
+ z-index: 30;
+ }
+ .blip:hover .lab, .blip:focus-visible .lab {
+ opacity: 1;
+ color: currentColor;
+ }
+
+ /* ping flash when sweep hits */
+ .blip.pinged {
+ border-color: currentColor;
+ box-shadow:
+ 0 0 0 1px color-mix(in srgb, currentColor 40%, transparent),
+ 0 0 26px color-mix(in srgb, currentColor 55%, transparent);
+ }
+ .blip.pinged::after {
+ content: '';
+ position: absolute; inset: -6px;
+ border-radius: 50%;
+ border: 1px solid currentColor;
+ opacity: 0.45;
+ animation: blip-ring 0.7s ease-out;
+ pointer-events: none;
+ }
+ @keyframes blip-ring {
+ from { transform: scale(0.85); opacity: 0.6; }
+ to { transform: scale(1.35); opacity: 0; }
+ }
+
+ .era {
+ position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%);
+ z-index: 50; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+ max-width: 94vw;
+ }
+ .era a {
+ font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+ text-decoration: none; color: rgba(140,200,170,0.5);
+ border: 1px solid rgba(60,160,120,0.25); padding: 8px 14px; border-radius: 999px;
+ background: rgba(0,10,8,0.88); font-weight: 500;
+ }
+ .era a:hover { color: #c8ffe8; border-color: rgba(100,255,200,0.4); }
+ .era a.here { color: #88ffe0; border-color: rgba(100,255,210,0.4); }
+ .era a.future { color: #fff; border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); }
+
+ .hint {
+ position: fixed; bottom: 56px; left: 50%; transform: translateX(-50%);
+ z-index: 40; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+ color: rgba(100,180,140,0.3); pointer-events: none;
+ }
+
+ @media (max-width: 520px) {
+ .blip { width: 46px; height: 46px; }
+ .blip.small { width: 36px; height: 36px; }
+ .blip .lab { display: none; }
+ .hub h1 { font-size: 18px; }
+ }
+ </style>
+</head>
+<body>
+ <div class="noise" aria-hidden="true"></div>
+
+ <nav class="top">
+ <span class="tag">Present · radar</span>
+ <a href="/portal.html">Time machine</a>
+ <a class="hot" href="/future/hub.html">Future →</a>
+ <a href="/orbit/hub.html">Bubbles hub</a>
+ <a href="/ux-examples/present-hub-variants.html">All variants</a>
+ </nav>
+
+ <div class="field">
+ <div class="radar" id="radar">
+ <div class="ring r1"></div>
+ <div class="ring r2"></div>
+ <div class="ring r3"></div>
+ <div class="ring r4"></div>
+ <div class="ring r5"></div>
+ <div class="cross-h"></div>
+ <div class="cross-v"></div>
+ <div class="sweep" aria-hidden="true"></div>
+ <div class="beam" aria-hidden="true"></div>
+
+ <div class="hub">
+ <h1>DOSWAPZ</h1>
+ <p>radar lock · all contacts</p>
+ <div class="ping"><b id="contactCount">0</b> contacts</div>
+ </div>
+ </div>
+ </div>
+
+ <p class="hint">every blip is live · hover for name</p>
+
+ <nav class="era" aria-label="Timeline">
+ <a href="/classic/hub.html">Past</a>
+ <a class="here" href="/ux-examples/present-radar.html">Present radar</a>
+ <a class="future" href="/future/hub.html">Future</a>
+ <a href="/orbit/hub.html">Bubbles</a>
+ </nav>
+
+ <script>
+ (function () {
+ /*
+ ALL present destinations as radar contacts.
+ ring: 0..1 (distance from center), angle: degrees (0 = 12 o'clock, clockwise)
+ */
+ var CONTACTS = [
+ // OUTER — primary
+ { ring: 0.90, angle: 0, label: 'FUTURE', glyph: '◇', href: '/future/hub.html', color: '#f0eef8', size: 'large' },
+ { ring: 0.90, angle: 18, label: 'HARBINGER', glyph: '◎', href: '/orbit/pages/harbinger.html', color: '#66ccff' },
+ { ring: 0.90, angle: 36, label: 'BRIDGE', glyph: '⧉', href: '/orbit/pages/doswapz/bridge.html', color: '#8aa0ff' },
+ { ring: 0.90, angle: 54, label: 'SCORES', glyph: '#', href: '/classic/pages/cryptodad/scoreboard.html', color: '#f39c12' },
+ { ring: 0.90, angle: 72, label: 'ATTIC', glyph: '▲', href: '/orbit/pages/attic.html', color: '#ccaa66' },
+ { ring: 0.90, angle: 90, label: 'SWAP', glyph: '⇄', href: '/orbit/pages/doswapz/swap.html', color: '#00ff41', size: 'large' },
+ { ring: 0.90, angle: 108, label: 'DEGEN$', glyph: '▶', href: '/orbit/pages/degen/trailer.html', color: '#ff00ff' },
+ { ring: 0.90, angle: 126, label: 'LILY PAD', glyph: '❀', href: '/orbit/pages/lily-pad.html', color: '#1abc9c' },
+ { ring: 0.90, angle: 144, label: 'POND', glyph: '≋', href: '/orbit/pages/pond-scum.html', color: '#88cc88' },
+ { ring: 0.90, angle: 162, label: 'BASEMENT', glyph: '↓', href: '/orbit/pages/basement.html', color: '#ff66cc' },
+ { ring: 0.90, angle: 180, label: 'GALLERY', glyph: '▦', href: '/orbit/pages/doswapz/gallery.html', color: '#66ccff' },
+ { ring: 0.90, angle: 198, label: 'MINT', glyph: '◈', href: '/orbit/pages/doswapz/mint.html', color: '#3498db' },
+ { ring: 0.90, angle: 216, label: 'HARDWEAR', glyph: '⛓', href: '/orbit/pages/hardwear/wallet.html', color: '#aaa' },
+ { ring: 0.90, angle: 234, label: 'ARCADE', glyph: '■', href: '/orbit/pages/arcade/intro.html', color: '#00ffcc', size: 'large' },
+ { ring: 0.90, angle: 252, label: '13TH', glyph: '?', href: '/orbit/pages/13th-step.html', color: '#ffff00' },
+ { ring: 0.90, angle: 270, label: 'VISION', glyph: '◉', href: '/orbit/pages/perpetual-vision-center.html', color: '#88ccff' },
+ { ring: 0.90, angle: 288, label: 'I SEE YOU', glyph: '◎', href: '/orbit/pages/i-see-you.html', color: '#ff3366' },
+ { ring: 0.90, angle: 306, label: '$CRYPTODAD', glyph: '◎', href: '/classic/pages/cryptodad/token.html', color: '#00ffff' },
+ { ring: 0.90, angle: 324, label: 'ARCADE #', glyph: '#', href: '/orbit/pages/arcade/scores.html', color: '#ffd700' },
+ { ring: 0.90, angle: 342, label: 'NODES', glyph: '⬡', href: '/orbit/pages/nodes.html', color: '#7dffc8' },
+
+ // MID — secondary rooms
+ { ring: 0.66, angle: 10, label: 'MEAT', glyph: 'M', href: '/orbit/pages/doswapz/meat.html', color: '#ff8866' },
+ { ring: 0.66, angle: 46, label: 'MERCH', glyph: '◆', href: '/orbit/pages/hardwear/merch.html', color: '#ccaa88' },
+ { ring: 0.66, angle: 82, label: 'DEMPLAR', glyph: '†', href: '/orbit/pages/demplar/character.html', color: '#c0c8ff' },
+ { ring: 0.66, angle: 118, label: 'DONATE', glyph: '+', href: '/orbit/pages/donate.html', color: '#88ffaa' },
+ { ring: 0.66, angle: 154, label: 'EAT SHIT', glyph: '×', href: '/orbit/pages/eat-shit.html', color: '#ff5555' },
+ { ring: 0.66, angle: 190, label: 'MEDIA LAB', glyph: '▣', href: '/orbit/pages/basement/media-lab.html', color: '#66aaff' },
+ { ring: 0.66, angle: 226, label: 'PHUNK', glyph: 'P', href: '/orbit/pages/basement/phunk-maker.html', color: '#ff88cc' },
+ { ring: 0.66, angle: 262, label: 'LAUNCHER', glyph: '↑', href: '/orbit/pages/basement/token-launcher.html', color: '#88ff66' },
+ { ring: 0.66, angle: 298, label: 'VANTABLACK', glyph: '●', href: '/orbit/pages/basement/vantablack/market.html', color: '#777' },
+ { ring: 0.66, angle: 334, label: 'SYNOPSIS', glyph: '§', href: '/orbit/pages/degen/synopsis.html', color: '#ee66ff' },
+
+ // INNER — games
+ { ring: 0.40, angle: 0, label: 'DAD', glyph: 'D', href: '/classic/pages/cryptodad/play.html', color: '#00ff66', size: 'small' },
+ { ring: 0.40, angle: 45, label: 'TBB', glyph: 'B', href: '/classic/pages/tbb/play.html', color: '#ff4466', size: 'small' },
+ { ring: 0.40, angle: 90, label: 'FTWR', glyph: 'R', href: '/classic/pages/cryptodad/ftwr-maze.html', color: '#ffffff', size: 'small' },
+ { ring: 0.40, angle: 135, label: 'MOM', glyph: 'M', href: '/classic/pages/basement/cryptomom/play.html', color: '#ff66cc', size: 'small' },
+ { ring: 0.40, angle: 180, label: 'MOBILE', glyph: '☎', href: '/classic/pages/cryptodad/mobile.html', color: '#66ffcc', size: 'small' },
+ { ring: 0.40, angle: 225, label: 'HOW', glyph: '?', href: '/classic/pages/cryptodad/how-to-play.html', color: '#aaddff', size: 'small' },
+ { ring: 0.40, angle: 270, label: 'KOL', glyph: 'K', href: '/orbit/pages/degen/kol-fighter.html', color: '#ffaa00', size: 'small' },
+ { ring: 0.40, angle: 315, label: 'TRAILER', glyph: '▶', href: '/orbit/pages/degen/trailer.html', color: '#ff00aa', size: 'small' }
+ ];
+
+ var radar = document.getElementById('radar');
+ document.getElementById('contactCount').textContent = String(CONTACTS.length);
+
+ CONTACTS.forEach(function (c) {
+ var a = document.createElement('a');
+ a.className = 'blip' + (c.size === 'small' ? ' small' : c.size === 'large' ? ' large' : '');
+ a.href = c.href;
+ a.style.color = c.color;
+ a.dataset.ring = c.ring;
+ a.dataset.angle = c.angle;
+ a.setAttribute('aria-label', c.label);
+ a.innerHTML = '<span class="g">' + c.glyph + '</span><span class="lab">' + c.label + '</span>';
+ if (c.href.indexOf('/future/') === 0) {
+ a.addEventListener('click', function () {
+ try { localStorage.setItem('doswapz_era', 'future'); } catch (e) {}
+ });
+ }
+ radar.appendChild(a);
+ });
+
+ function layout() {
+ var box = radar.getBoundingClientRect();
+ var cx = box.width / 2;
+ var cy = box.height / 2;
+ var R = Math.min(box.width, box.height) / 2;
+ radar.querySelectorAll('.blip').forEach(function (node) {
+ var ring = parseFloat(node.dataset.ring);
+ var angle = parseFloat(node.dataset.angle);
+ var rad = (angle - 90) * Math.PI / 180;
+ var r = ring * R;
+ node.style.left = (cx + Math.cos(rad) * r) + 'px';
+ node.style.top = (cy + Math.sin(rad) * r) + 'px';
+ node.style.transform = 'translate(-50%, -50%)';
+ });
+ }
+ layout();
+ window.addEventListener('resize', layout);
+
+ // ping blips as sweep passes (7s full rotation, 0° = 12 o'clock)
+ var period = 7000;
+ var t0 = performance.now();
+ function frame(now) {
+ var handAngle = (((now - t0) % period) / period) * 360;
+ radar.querySelectorAll('.blip').forEach(function (node) {
+ var ang = parseFloat(node.dataset.angle);
+ var delta = Math.abs(((ang - handAngle + 180 + 360) % 360) - 180);
+ if (delta < 8) node.classList.add('pinged');
+ else node.classList.remove('pinged');
+ });
+ requestAnimationFrame(frame);
+ }
+ requestAnimationFrame(frame);
+ })();
+ </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: Twitterbot/1.0
+Allow: /
+
+Sitemap: https://doswapz.com/sitemap.xml
+
+# DOSWAPZ - live platform.
+# Real transactions can occur when wallets are connected and actions executed.
+# All users must do their own research and never risk more than they can afford to lose.

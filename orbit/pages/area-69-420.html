@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP.</p><p style="margin-top:20px"><a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>DOSWAPZ // AREA 69...420 // PRESENT</title>
+ <meta name="description" content="DOSWAPZ Area 69...420 — Present-era restricted sector scaffold.">
+ <meta name="robots" content="noindex, nofollow">
+ <link rel="stylesheet" href="/assets/css/hollow-base.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style>
+  .panel-a69 {
+   border: 1px solid rgba(255, 61, 206, 0.28);
+   background: linear-gradient(160deg, rgba(50,0,50,0.4), rgba(0,0,0,0.88));
+   border-radius: 20px;
+   padding: 16px 16px;
+   margin-bottom: 14px;
+  }
+  .panel-a69 h2 {
+   margin: 0 0 8px;
+   color: #ff3dce;
+   font-size: 15px;
+   letter-spacing: 0.14em;
+   font-weight: 600;
+   font-family: 'Inter', system-ui, sans-serif;
+  }
+  .panel-a69 p, .panel-a69 li {
+   color: rgba(230, 220, 255, 0.88);
+   font-size: 14px;
+   line-height: 1.45;
+   font-family: 'Inter', system-ui, sans-serif;
+  }
+  .panel-a69 ul { margin: 0; padding-left: 18px; }
+  .seal-a69 {
+   text-align: center;
+   padding: 18px 14px;
+   margin-bottom: 14px;
+   border-radius: 24px;
+   border: 1px solid rgba(0, 240, 255, 0.35);
+   background: rgba(8, 0, 14, 0.75);
+   box-shadow: 0 0 28px rgba(255, 0, 180, 0.12);
+  }
+  .seal-a69 .big {
+   font-family: 'Space Grotesk', system-ui, sans-serif;
+   font-size: clamp(34px, 8vw, 48px);
+   letter-spacing: 0.08em;
+   color: #fff;
+   text-shadow: 0 0 20px rgba(255, 61, 206, 0.45), 0 0 32px rgba(0, 240, 255, 0.2);
+   margin-bottom: 6px;
+  }
+  .seal-a69 p {
+   margin: 0;
+   color: rgba(0, 240, 255, 0.7);
+   font-size: 13px;
+   letter-spacing: 0.12em;
+   text-transform: uppercase;
+   font-family: 'Inter', system-ui, sans-serif;
+  }
+  .status-a69 {
+   text-align: center;
+   color: #ffb87a;
+   border: 1px dashed rgba(255, 184, 122, 0.45);
+   border-radius: 999px;
+   padding: 10px 14px;
+   margin-bottom: 14px;
+   font-size: 13px;
+   letter-spacing: 0.1em;
+   font-family: 'Inter', system-ui, sans-serif;
+  }
+  .bays {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 8px;
+  }
+  @media (max-width: 560px) { .bays { grid-template-columns: 1fr; } }
+  .bay {
+   border-radius: 16px;
+   border: 1px solid rgba(255, 0, 200, 0.2);
+   background: rgba(0, 0, 0, 0.45);
+   min-height: 70px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   gap: 2px;
+   color: rgba(180, 160, 210, 0.75);
+   font-family: 'Inter', system-ui, sans-serif;
+   font-size: 12px;
+  }
+  .bay strong { color: #00f0ff; letter-spacing: 0.14em; font-size: 13px; font-weight: 600; }
+  .actions-a69 {
+   display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px;
+  }
+ </style>
+ <link rel="stylesheet" href="/assets/css/era-present-soft.css?v=neonvoid9">
+</head>
+<body id="screen" class="orbit-void-inner">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+  <span class="crumb-zone">AREA 69...420</span>
+  <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+  <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+  <div class="core-glow"></div>
+  <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+  <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ </div>
+
+ <main class="stage" id="content">
+  <h1 class="hollow-title" id="orbitTitle">AREA 69...420</h1>
+  <p class="hollow-sub" id="stageSub">restricted sector<span class="cursor-blink">|</span></p>
+ </main>
+
+ <div class="orbit-panel" id="orbitPanel">
+  <div class="seal-a69">
+   <div class="big">69...420</div>
+   <p>Present · restricted node scaffold</p>
+  </div>
+
+  <div class="status-a69">STATUS: FOUNDATION ONLY · CONTENT COMING SOON</div>
+
+  <div class="panel-a69">
+   <h2>// BRIEFING</h2>
+   <p>
+    Area <strong style="color:#ff3dce">69...420</strong> is reserved on Present.
+    Soft Neon Void shell is live so we can wire destinations while the real payload is built.
+   </p>
+   <ul>
+    <li>Past twin: classic CRT page</li>
+    <li>Present twin: this page</li>
+    <li>Hub links + short aliases</li>
+   </ul>
+  </div>
+
+  <div class="panel-a69">
+   <h2>// OPEN BAYS</h2>
+   <div class="bays">
+    <div class="bay"><strong>BAY A</strong>TBD</div>
+    <div class="bay"><strong>BAY B</strong>TBD</div>
+    <div class="bay"><strong>BAY C</strong>TBD</div>
+    <div class="bay"><strong>BAY D</strong>TBD</div>
+   </div>
+  </div>
+
+  <div class="actions-a69">
+   <a class="btn" href="/orbit/hub.html">&lt;- HUB</a>
+   <a class="btn" href="/portal.html">TIME MACHINE</a>
+   <a class="btn" href="/classic/pages/area-69-420.html">PAST VERSION</a>
+   <a class="btn" href="/orbit/pages/basement.html">BASEMENT</a>
+  </div>
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/core/price-ticker.js"></script>
+ <script>hollowPageBoot('AREA 69...420');</script>
+</body>
+</html>

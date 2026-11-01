@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JIMPTHY — Few-Block Open City</title>
+  <style>
+    * { margin: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; background: #000; overflow: hidden; font-family: system-ui, sans-serif; }
+    #c { display: block; width: 100%; height: 100%; }
+    .bar {
+      position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+      display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 12px;
+      background: rgba(0,0,0,0.65); color: #e8d8b0; font-size: 13px;
+      align-items: center;
+    }
+    .bar button {
+      font: inherit; padding: 8px 14px; cursor: pointer;
+      background: #c89040; color: #1a1008; border: none; font-weight: 700;
+    }
+    .bar button:hover { filter: brightness(1.1); }
+    .bar span { opacity: 0.85; margin-left: 8px; }
+    .note {
+      position: absolute; bottom: 12px; left: 12px; z-index: 10;
+      color: rgba(255,255,255,0.55); font-size: 12px;
+      background: rgba(0,0,0,0.4); padding: 6px 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <strong>OPEN CITY · 3×3 BLOCKS</strong>
+    <button type="button" data-view="center">1 · Center</button>
+    <button type="button" data-view="street">2 · Street</button>
+    <button type="button" data-view="corner">3 · Corner</button>
+    <button type="button" data-view="high">4 · Overview</button>
+    <button type="button" id="btn-tod" style="background:#4060a0;color:#e8f0ff">DAY / NIGHT</button>
+    <span>Few blocks · sky + lighting · N or button for night · drag orbit</span>
+  </div>
+  <div class="note">Playable few-block map · day/night · drag orbit · scroll zoom</div>
+  <canvas id="c"></canvas>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/sky.js"></script>
+  <script src="js/city.js"></script>
+  <script>
+    (function () {
+      const canvas = document.getElementById("c");
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
+      renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+      renderer.setSize(innerWidth, innerHeight);
+      if (window.JIMPTHY_RENDER) JIMPTHY_RENDER.configureRenderer(renderer);
+      else {
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.2;
+      }
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(48, innerWidth / innerHeight, 0.12, 340);
+
+      if (window.JIMPTHY_RENDER && JIMPTHY_RENDER.createEnvMap) {
+        try {
+          const env = JIMPTHY_RENDER.createEnvMap(renderer);
+          JIMPTHY_CITY.setEnvMap(env);
+          scene.environment = env;
+        } catch (e) {}
+      }
+      const lights = JIMPTHY_CITY.setupCityLights(scene);
+      const skyCtrl = lights.skyCtrl || null;
+      const city = JIMPTHY_CITY.buildCity(scene);
+      if (skyCtrl) {
+        if (skyCtrl.bindLamps) skyCtrl.bindLamps(city.nightLamps || []);
+        if (skyCtrl.bindWindows) skyCtrl.bindWindows(city.nightWindows || []);
+      }
+      const post = window.JIMPTHY_RENDER
+        ? JIMPTHY_RENDER.createPostFX(renderer, scene, camera)
+        : null;
+      if (post) post.setSize(innerWidth, innerHeight);
+      if (skyCtrl && skyCtrl.setPost) skyCtrl.setPost(post);
+
+      const todBtn = document.getElementById("btn-tod");
+      if (todBtn && skyCtrl) {
+        todBtn.addEventListener("click", () => {
+          skyCtrl.toggle();
+          todBtn.textContent = skyCtrl.isNight() ? "NIGHT" : "DAY";
+        });
+      }
+      window.addEventListener("keydown", (e) => {
+        if (e.code === "KeyN" && skyCtrl) {
+          skyCtrl.toggle();
+          if (todBtn) todBtn.textContent = skyCtrl.isNight() ? "NIGHT" : "DAY";
+        }
+      });
+
+      // Camera presets — stand on roads, not inside lots
+      // Intersections near ±20; lots at 0, ±40
+      const views = {
+        center: { pos: [-18, 2.0, -18], look: [10, 1.5, 10] },
+        street: { pos: [-20, 1.9, 8], look: [-20, 2.0, -35] },
+        corner: { pos: [28, 3.2, 28], look: [5, 2.5, 5] },
+        high: { pos: [0, 70, 8], look: [0, 0, 0] },
+      };
+
+      let target = new THREE.Vector3(0, 1.2, 0);
+      let drag = false, lx = 0, ly = 0;
+
+      function applyView(name) {
+        const v = views[name] || views.center;
+        camera.position.set(v.pos[0], v.pos[1], v.pos[2]);
+        target.set(v.look[0], v.look[1], v.look[2]);
+        camera.lookAt(target);
+      }
+      applyView("center");
+
+      document.querySelectorAll("[data-view]").forEach((btn) => {
+        btn.addEventListener("click", () => applyView(btn.getAttribute("data-view")));
+      });
+
+      canvas.addEventListener("pointerdown", (e) => {
+        drag = true;
+        lx = e.clientX;
+        ly = e.clientY;
+      });
+      canvas.addEventListener("pointermove", (e) => {
+        if (!drag) return;
+        const dx = e.clientX - lx;
+        const dy = e.clientY - ly;
+        lx = e.clientX;
+        ly = e.clientY;
+        const offset = camera.position.clone().sub(target);
+        const sph = new THREE.Spherical().setFromVector3(offset);
+        sph.theta -= dx * 0.005;
+        sph.phi = Math.max(0.12, Math.min(1.45, sph.phi + dy * 0.005));
+        offset.setFromSpherical(sph);
+        camera.position.copy(target).add(offset);
+        camera.lookAt(target);
+      });
+      canvas.addEventListener("pointerup", () => { drag = false; });
+      canvas.addEventListener("wheel", (e) => {
+        e.preventDefault();
+        const offset = camera.position.clone().sub(target);
+        const len = offset.length();
+        offset.setLength(Math.max(3, Math.min(90, len + e.deltaY * 0.03)));
+        camera.position.copy(target).add(offset);
+        camera.lookAt(target);
+      }, { passive: false });
+
+      window.addEventListener("resize", () => {
+        camera.aspect = innerWidth / innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(innerWidth, innerHeight);
+        if (post) post.setSize(innerWidth, innerHeight);
+      });
+
+      let last = performance.now();
+      function loop(now) {
+        const dt = Math.min(0.05, (now - last) / 1000);
+        last = now;
+        if (skyCtrl && skyCtrl.update) {
+          skyCtrl.update(dt, target.x, target.z);
+        }
+        if (post) post.render(dt);
+        else renderer.render(scene, camera);
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+    })();
+  </script>
+</body>
+</html>

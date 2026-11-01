@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // DONATE</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ }
+
+ * {
+ box-sizing: border-box;
+ }
+
+ html, body {
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ min-height: 100%;
+ background: #000000;
+ color: #00ff00;
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: #000000;
+ padding: 24px 28px 60px;
+ }
+
+ /* Strong phosphor scanlines to match homepage feel */
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px,
+ rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .header {
+ font-size: 32px;
+ letter-spacing: 6px;
+ text-shadow: 0 0 5px #00ff00;
+ text-align: center;
+ margin-bottom: 6px;
+ }
+
+ .content {
+ max-width: 860px;
+ margin: 18px auto 0;
+ font-size: 19px;
+ line-height: 1.38;
+ padding: 0 8px;
+ text-align: center;
+ }
+
+ .address-box {
+ margin: 10px auto 18px;
+ padding: 14px 18px;
+ border: 2px solid #00aa00;
+ background: rgba(0, 30, 0, 0.45);
+ font-size: 18px;
+ letter-spacing: 1px;
+ word-break: break-all;
+ max-width: 620px;
+ }
+ .board {
+ margin: 28px auto 0;
+ max-width: 720px;
+ text-align: left;
+ border: 2px solid #00aa00;
+ background: rgba(0, 20, 0, 0.4);
+ padding: 14px 16px 18px;
+ }
+ .board h2 {
+ margin: 0 0 10px;
+ text-align: center;
+ letter-spacing: 2px;
+ color: #ffff00;
+ font-size: 20px;
+ font-weight: 400;
+ }
+ .board-grid {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 8px;
+ margin-bottom: 12px;
+ }
+ .board-stat {
+ border: 1px solid #005500;
+ padding: 8px;
+ text-align: center;
+ }
+ .board-stat b { display: block; color: #ffff00; font-size: 18px; font-weight: 400; }
+ .board-stat span { color: #00aa00; font-size: 13px; }
+ .board table { width: 100%; border-collapse: collapse; font-size: 15px; }
+ .board th, .board td { text-align: left; padding: 4px 6px; border-bottom: 1px solid #003300; vertical-align: top; }
+ .board a { color: #ffff00; }
+ .board-status { color: #88ff88; font-size: 14px; margin: 8px 0; }
+ @media (max-width: 640px) { .board-grid { grid-template-columns: 1fr 1fr; } }
+
+ .disclaimer {
+ margin: 22px auto;
+ padding: 16px 18px;
+ border: 2px solid #ffff00;
+ background: rgba(40, 30, 0, 0.35);
+ font-size: 18px;
+ line-height: 1.35;
+ max-width: 680px;
+ text-align: left;
+ }
+
+ .disclaimer-title {
+ color: #ffff00;
+ margin-bottom: 8px;
+ letter-spacing: 1px;
+ text-align: center;
+ }
+
+ .buttons {
+ text-align: center;
+ margin-top: 28px;
+ }
+
+ .btn {
+ font-size: 17px;
+ color: #00ff00;
+ border: 2px solid #00ff00;
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px;
+ display: inline-block;
+ }
+
+ .btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .footer {
+ margin-top: 28px;
+ font-size: 13px;
+ color: #00aa00;
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ /* Vignette like the homepage */
+ .vignette {
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.58) 84%);
+ pointer-events: none;
+ z-index: 5;
+ }
+
+ /* Glitch layer (reduced-volume engine for content pages) */
+ .glitch-layer {
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 20;
+ mix-blend-mode: screen;
+ }
+
+ .mosh-band {
+ position: fixed;
+ left: 0;
+ width: 100%;
+ background: rgba(0, 255, 0, 0.16);
+ mix-blend-mode: difference;
+ pointer-events: none;
+ z-index: 25;
+ opacity: 0;
+ }
+ </style>
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ </head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+
+ <div class="header">DOSWAPZ // DONATE</div>
+
+ <div class="content">
+ <p>You don't have to.</p>
+ <p style="color:#ffff00;">This project was made out of love.</p>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">A NOTE FROM THE BUILDER</div>
+ Only if you feel like supporting.<br>
+ Only if you believe in decentralization and sovereignty.<br>
+ No pressure. No expectations. Just gratitude if you do.
+ </div>
+
+ <div style="margin-top: 18px;">SOLANA:</div>
+ <div class="address-box" id="donateSolAddr">5tJbQX5vRxDyHNEXdAmLEWtKR8EyrDTRdYtBFqujmpAc</div>
+ <div style="margin-top: 18px;">ETHEREUM:</div>
+ <div class="address-box" id="donateEthAddr">0x5be58476DF379BAdc88b552F603db227C0D95bac</div>
+ <div style="margin-top: 18px;">BITCOIN:</div>
+ <div class="address-box" id="donateBtcAddr">bc1qtwqxrsj8ur8zyp9ku47dx6ljhc9dxmjc8j4t2g</div>
+
+ <div class="board" id="donateBoard">
+ <h2>DONATION BOARD * LIVE CHAIN</h2>
+ <p class="board-status" id="donateBoardStatus">Loading /api/dswpz-track ...</p>
+ <div class="board-grid">
+  <div class="board-stat"><b id="donateClaimed">-</b><span>DEV FEES IN (SOL)</span></div>
+  <div class="board-stat"><b id="donateMaps">-</b><span>TO MAPS (SOL)</span></div>
+  <div class="board-stat"><b id="donateWu">-</b><span>TO WU TANG (SOL)</span></div>
+  <div class="board-stat"><b id="donateRemain">-</b><span>FEE REMAINDER</span></div>
+  <div class="board-stat"><b id="donateFeeBal">-</b><span>FEE WALLET</span></div>
+  <div class="board-stat"><b id="donateCurve">-</b><span>TRIX CURVE</span></div>
+ </div>
+ <p style="font-size:14px;color:#00aa00;margin:0 0 8px">Outgoing SOL from the published fee wallet. MAPS addresses rotate. Wu Tang SOL is counted separately. Verify every TX on Solscan.</p>
+ <button class="btn" type="button" id="donateBoardRefresh">REFRESH BOARD</button>
+ <table>
+  <thead><tr><th>UTC</th><th>IN</th><th>MAPS</th><th>WU</th><th>TX</th></tr></thead>
+  <tbody id="donateBoardBody"><tr><td colspan="5">Fetching...</td></tr></tbody>
+ </table>
+ </div>
+
+ <div class="buttons">
+ <a href="/classic/hub.html" class="btn"><- BACK TO HUB</a>
+ <a href="/cryptodad/token/past" class="btn">$DOSWAPZ LEDGER</a>
+ </div>
+ </div>
+
+ <div class="footer">
+ DOSWAPZ - MADE OUT OF LOVE
+ </div>
+
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.content, #content' });
+ </script>
+ <div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+<script src="/assets/js/core/price-ticker.js"></script>
+ <script src="/assets/js/donate-board.js?v=20260913board"></script>
+ <script>if (window.DOSWAPZ_DONATE_BOARD) DOSWAPZ_DONATE_BOARD.mount();</script>
+ </body>
+</html>

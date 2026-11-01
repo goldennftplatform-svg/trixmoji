@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <title>SNOWMAN BUILDZ GEOFF</title>
+  <meta name="description" content="Build GEOFF. Shoot carrots. Soft scores." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Nunito:wght@600;800&family=VT323&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/era-present-game.css?v=20260809era" />
+</head>
+<body data-present-label="SNOWMAN">
+  <nav class="arcade-bar">
+    <a href="/classic/pages/arcade/hub.html">←</a>
+    <span class="arcade-bar-title">SNOWMAN / GEOFF</span>
+    <div class="arcade-bar-right">
+      <button type="button" id="btn-howto-bar" class="arcade-bar-btn">?</button>
+      <a href="/classic/pages/arcade/snowman/scoreboard.html">SCORES</a>
+    </div>
+  </nav>
+
+  <div id="app">
+    <div class="daily-strip">
+      <span id="daily-mode">—</span>
+      <span class="daily-seed" id="daily-seed">SEED —</span>
+    </div>
+
+    <header class="top-bar">
+      <div class="hud">
+        <div class="hud-item"><span class="label">Lv</span><span id="hud-level">1</span></div>
+        <div class="hud-item"><span class="label">Diff</span><span id="hud-diff">EASY</span></div>
+        <div class="hud-item"><span class="label">HP</span><span id="hud-lives">❤❤❤</span></div>
+        <div class="hud-item"><span class="label">🥕</span><span id="hud-carrots">5</span></div>
+      </div>
+    </header>
+
+    <main class="stage-wrap">
+      <canvas id="game" width="960" height="540"></canvas>
+
+      <div id="overlay" class="overlay">
+        <div class="panel title-panel" id="title-panel">
+          <canvas id="hero-sprite" class="snowman-hero" width="72" height="112"></canvas>
+          <h2>SNOWMAN / GEOFF</h2>
+          <p>6 levels · carrots · build GEOFF</p>
+          <div class="btn-row">
+            <button id="btn-start" class="btn primary">START</button>
+            <button id="btn-howto-title" class="btn ghost" type="button">?</button>
+          </div>
+        </div>
+
+        <div class="panel howto-panel hidden" id="howto-panel">
+          <h2>HOW TO</h2>
+          <div class="howto-block">
+            <p>Move · jump · shoot · grab GEOFF parts. Avoid heat/spikes. Boot all 6 parts.</p>
+          </div>
+          <button id="btn-howto-close" class="btn primary" type="button">OK</button>
+        </div>
+
+        <div class="panel hidden" id="pause-panel">
+          <h2>PAUSED</h2>
+          <div class="btn-row">
+            <button id="btn-resume" class="btn primary">RESUME</button>
+            <button id="btn-howto-pause" class="btn ghost" type="button">?</button>
+            <button id="btn-quit" class="btn ghost">TITLE</button>
+          </div>
+        </div>
+
+        <div class="panel hidden" id="level-clear-panel">
+          <h2>PART SECURED</h2>
+          <p id="clear-message"></p>
+          <div id="clear-component" class="component-big"></div>
+          <button id="btn-next" class="btn primary">NEXT</button>
+        </div>
+
+        <div class="panel hidden" id="game-over-panel">
+          <h2>MELTED</h2>
+          <p>Score <span id="over-score">0</span> · Kills <span id="over-kills">0</span> · Parts <span id="over-parts">0</span>/6</p>
+          <p class="soft-status" id="over-post-status"></p>
+          <div class="btn-row">
+            <button type="button" id="btn-post-over" class="btn primary">POST</button>
+            <button type="button" id="btn-share-over" class="btn ghost">SHARE</button>
+            <button id="btn-retry" class="btn primary">RETRY</button>
+          </div>
+        </div>
+
+        <div class="panel win-panel hidden" id="win-panel">
+          <h2>GEOFF ONLINE</h2>
+          <canvas id="chase-cutscene" class="chase-canvas" width="480" height="220" aria-label="GEOFF chase cutscene"></canvas>
+          <div class="geoff-boot"><pre id="boot-log"></pre></div>
+          <p class="win-sub" id="chase-status">Build GEOFF → boots → chase.</p>
+          <p>🥕 <span id="final-carrots">0</span> · Kills <span id="final-kills">0</span> · Score <span id="final-score">0</span></p>
+          <p class="soft-status" id="win-post-status"></p>
+          <div class="btn-row">
+            <button type="button" id="btn-replay-chase" class="btn ghost">REPLAY CHASE</button>
+            <button type="button" id="btn-post-win" class="btn primary">POST</button>
+            <button type="button" id="btn-share-win" class="btn ghost">SHARE</button>
+            <button id="btn-replay" class="btn primary">AGAIN</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="touch" id="touch" aria-hidden="false">
+      <div class="touch-left">
+        <button type="button" data-k="left">◀</button>
+        <button type="button" data-k="right">▶</button>
+      </div>
+      <div class="touch-right">
+        <button type="button" data-k="jump">JUMP</button>
+        <button type="button" data-k="shoot">🔥</button>
+      </div>
+    </div>
+
+    <aside class="geoff-panel">
+      <div class="geoff-head">
+        <h3>GEOFF</h3>
+        <p class="geoff-status" id="geoff-status">OFFLINE</p>
+      </div>
+      <ul id="component-list" class="component-list"></ul>
+      <div class="geoff-machine" id="geoff-machine">
+        <div class="rack">
+          <div class="slot" data-slot="psu"></div>
+          <div class="slot" data-slot="mobo"></div>
+          <div class="slot" data-slot="cpu"></div>
+          <div class="slot" data-slot="ram"></div>
+          <div class="slot" data-slot="gpu"></div>
+          <div class="slot" data-slot="cooler"></div>
+        </div>
+        <div class="screen" id="geoff-screen">—</div>
+      </div>
+      <div class="soft-box">
+        <input id="sc-handle" maxlength="16" placeholder="@handle" autocomplete="off" />
+        <input id="sc-alias" maxlength="12" placeholder="alias" autocomplete="off" />
+        <button type="button" id="sc-save" class="btn ghost howto-side-btn">SAVE</button>
+        <p class="soft-status" id="sc-status"></p>
+        <a class="soft-link" href="/classic/pages/arcade/snowman/scoreboard.html">BOARD →</a>
+      </div>
+    </aside>
+  </div>
+
+  <script src="/assets/js/core/soft-score.js"></script>
+  <script src="/assets/js/arcade/arcade-core.js?v=20260719c"></script>
+  <script src="js/chase-cutscene.js"></script>
+  <script src="game.js"></script>
+  <script src="/assets/js/core/era-present-game.js?v=20260809era"></script>
+</body>
+</html>

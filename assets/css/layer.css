@@ -1,0 +1,144 @@
+@font-face {
+  font-family: "DOS";
+  src: local("PxPlus IBM VGA8"), local("Perfect DOS VGA 437"), local("IBM VGA"), local("Courier New"), local("Courier"), monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  min-height: 100%;
+  background: #000;
+  color: #33ff33;
+  font-family: "DOS", "Courier New", Courier, "VT323", monospace;
+  font-size: 15px;
+  line-height: 1.35;
+  cursor: default;
+}
+
+body {
+  padding: 12px 16px 52px;
+}
+
+.scan {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,0,0,0) 0px,
+    rgba(0,0,0,0) 2px,
+    rgba(0,0,0,0.18) 3px
+  );
+  z-index: 9;
+}
+
+.dim { color: #1f8f1f; }
+.hi { color: #9aff9a; background: #003300; }
+.warn { color: #ffb000; }
+.dead { color: #ff5555; }
+
+pre, .mono { white-space: pre-wrap; word-break: break-word; }
+
+button, input {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+button:hover { background: #0a3d0a; color: #fff; }
+button.on, .nav-btn.active { background: #33ff33; color: #000; }
+
+a { color: #33ff33; }
+a:hover { color: #fff; }
+
+.topnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+.topnav a { color: #ffff00; text-decoration: none; }
+.topnav a:hover { color: #fff; text-decoration: underline; }
+
+.hdr { margin-bottom: 8px; }
+
+.guide-strip {
+  border: 1px solid #33ff33;
+  background: #031003;
+  padding: 8px 10px;
+  margin: 8px 0 12px;
+  line-height: 1.45;
+}
+.guide-strip strong { color: #9aff9a; }
+.guide-strip a { color: #ffff00; }
+
+.cmd { margin: 10px 0 14px; }
+
+.cmd-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  align-items: center;
+}
+
+.kpis { margin: 8px 0 12px; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th, td {
+  text-align: left;
+  padding: 1px 8px 1px 0;
+  white-space: nowrap;
+  font-weight: 400;
+}
+
+th {
+  border-bottom: 1px solid #33ff33;
+  color: #9aff9a;
+}
+
+tr:hover td { background: #032003; }
+
+.hidden { display: none !important; }
+
+.foot {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  background: #33ff33;
+  color: #000;
+  padding: 3px 130px 3px 10px;
+  font-size: 13px;
+  z-index: 10;
+}
+
+body.has-dos-docs-chip .dos-docs-chip,
+body.has-dos-docs-chip #dosDocsChip {
+  bottom: 32px !important;
+}
+
+.bar { letter-spacing: 0; }
+.person-panel { margin-top: 8px; }
+.card { margin-bottom: 12px; }
+.fit-list { list-style: none; }
+.fit-list li { display: flex; gap: 16px; }
+
+.addr {
+  color: #ffff66;
+  word-break: break-all;
+  white-space: normal;
+}
+
+#helpText {
+  border: 1px solid #1f8f1f;
+  background: #010801;
+  padding: 12px 12px 16px;
+  max-width: 720px;
+  overflow-x: auto;
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAST HUB E · Mission Control</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#000;color:#00ff41;font-family:'VT323',monospace}
+body{padding:10px 12px 70px;background:radial-gradient(ellipse at 50% 30%,rgba(0,40,0,.35),#000 70%)}
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border:1px solid #00aa44;padding:8px 12px;margin-bottom:10px;background:rgba(0,12,0,.7)}
+.top h1{margin:0;font-size:20px;letter-spacing:4px;font-weight:400;color:#00ff88}
+.top .meta{font-size:13px;color:#00aa55}
+.grid{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:10px;max-width:1100px;margin:0 auto}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.panel{border:1px solid #00aa44;background:rgba(0,14,0,.65);padding:10px 12px;min-height:140px}
+.panel h2{margin:0 0 8px;font-size:13px;letter-spacing:2px;color:#ffff00;font-weight:400;border-bottom:1px solid #003300;padding-bottom:4px}
+.stat{font-size:15px;line-height:1.45;color:#00dd66}
+.stat b{color:#00ff88}
+.bar{height:10px;border:1px solid #00aa44;margin:6px 0 10px;background:#001a00}
+.bar>i{display:block;height:100%;width:69%;background:linear-gradient(90deg,#00aa44,#00ff66);box-shadow:0 0 8px #00ff66}
+.radar{aspect-ratio:1;max-width:220px;margin:8px auto;border-radius:50%;border:1px solid #00aa44;position:relative;background:
+  radial-gradient(circle,transparent 28%,rgba(0,255,65,.06) 29%,transparent 30%),
+  repeating-radial-gradient(circle,transparent 0,transparent 18px,rgba(0,255,65,.12) 19px,transparent 20px),
+  #001000}
+.radar::after{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 70%,rgba(0,255,80,.25) 85%,transparent 100%);animation:spin 4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.rabbit{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:28px;z-index:2;filter:drop-shadow(0 0 8px #00ff66)}
+.mod a{display:flex;justify-content:space-between;color:#00ff66;text-decoration:none;font-size:14px;padding:3px 0;border-bottom:1px solid #002200}
+.mod a:hover{color:#ffff00}
+.mod .lock{color:#aa8800}
+.alert{font-size:13px;color:#00cc55;line-height:1.4;margin:0 0 6px}
+.alert.warn{color:#ffcc00}
+.feed{font-size:13px;color:#00aa55;line-height:1.35;margin:0 0 5px}
+.feed b{color:#00ff88}
+.btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.btns a,.btns button{font-family:inherit;font-size:13px;color:#00ff66;background:transparent;border:1px solid #00aa44;padding:6px 10px;cursor:pointer;text-decoration:none}
+.btns a:hover,.btns button:hover{background:#00ff41;color:#000}
+.foot{max-width:1100px;margin:10px auto 0;display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.foot a{font-size:13px;color:#00aa55;border:1px solid #004422;padding:6px 10px;text-decoration:none}
+.foot a:hover{color:#00ff88;border-color:#00aa44}
+.era{position:fixed;left:10px;bottom:10px;display:flex;gap:4px;padding:4px;border:1px solid #00aa44;background:#000;z-index:20}
+.era a{color:#88cc88;text-decoration:none;padding:4px 8px;font-size:13px}
+.era a.here{color:#00ff66;border:1px solid #00aa44}
+.tx{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
+.tx .art{font-size:48px;line-height:1;filter:drop-shadow(0 0 6px #00ff66)}
+.tx p{margin:0 0 6px;font-size:13px;color:#00cc55;line-height:1.35}
+</style>
+</head>
+<body>
+<div class="top">
+  <span class="meta">DOSWAPZ OS v3.11</span>
+  <h1>MISSION CONTROL</h1>
+  <span class="meta">USER: OPERATOR · <span id="clk"></span></span>
+</div>
+
+<div class="grid">
+  <div class="panel">
+    <h2>USER STATS</h2>
+    <div class="stat">LEVEL: <b>7</b><br>XP: <b>3,450 / 5,000</b></div>
+    <div class="bar"><i></i></div>
+    <div class="stat">RANK: <b>HACKER</b><br>POINTS: <b>12,450</b><br>BADGES: <b>14</b><br>LOGIN STREAK: <b>12 DAYS</b></div>
+  </div>
+
+  <div class="panel" style="text-align:center">
+    <h2>SYSTEM RADAR</h2>
+    <div class="radar"><div class="rabbit">🐇</div></div>
+    <div class="stat">SYSTEM STATUS: <b>ONLINE</b><br>EXPLORATION: <b>87%</b><br>NODES: <b>247 ONLINE</b></div>
+  </div>
+
+  <div class="panel mod">
+    <h2>ACTIVE MODULES</h2>
+    <a href="/classic/pages/cryptodad/play.html"><span>&gt; PLAY</span><span>[OPEN]</span></a>
+    <a href="/classic/pages/doswapz/swap.html"><span>&gt; TRADE</span><span>[OPEN]</span></a>
+    <a href="/classic/pages/arcade/intro.html"><span>&gt; ARCADE</span><span>[OPEN]</span></a>
+    <a href="/classic/pages/basement.html"><span>&gt; BASEMENT</span><span>[OPEN]</span></a>
+    <a href="/classic/pages/attic.html"><span>&gt; ARCHIVES</span><span>[OPEN]</span></a>
+    <a href="/classic/pages/i-see-you.html"><span>&gt; SECRET</span><span class="lock">[LOCKED?]</span></a>
+  </div>
+
+  <div class="panel">
+    <h2>DAILY QUEST</h2>
+    <div class="stat">Find the hidden command in the archives.</div>
+    <div class="stat" style="margin-top:8px">REWARD: <b>250 XP</b></div>
+    <div class="bar"><i style="width:12%"></i></div>
+    <div class="btns"><a href="/classic/pages/attic.html">VIEW QUEST</a></div>
+  </div>
+
+  <div class="panel">
+    <h2>LIVE TRANSMISSION <span style="color:#ff4444;float:right;font-size:12px">● REC</span></h2>
+    <div class="tx">
+      <div class="art">🐇</div>
+      <div>
+        <p><b>From:</b> WHITE RABBIT<br>
+        <b>Subject:</b> Follow the signal…<br>
+        The path isn’t always straight. Look deeper. The truth is in the code.</p>
+        <div class="btns"><a href="/classic/pages/cryptodad/rabbit.html">VIEW MESSAGE</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>SYSTEM ALERTS</h2>
+    <div class="alert">&gt; NEW TRANSMISSION RECEIVED</div>
+    <div class="alert">&gt; WHITE RABBIT SIGNAL ACTIVE</div>
+    <div class="alert warn">&gt; MARKET VOLATILITY: HIGH</div>
+    <div class="alert">&gt; DAILY QUEST AVAILABLE</div>
+    <h2 style="margin-top:12px">NETWORK FEED</h2>
+    <div class="feed"><b>CRYPTODAD</b> unlocked a badge · 2m</div>
+    <div class="feed"><b>User1337</b> found a secret file · 5m</div>
+    <div class="feed"><b>0xBEEF</b> completed daily quest · 12m</div>
+  </div>
+</div>
+
+<div class="foot">
+  <a href="/classic/pages/cryptodad/play.html">[R] RANDOM MODULE</a>
+  <a href="/classic/pages/doswapz/swap.html">[Q] QUICK LAUNCH SWAP</a>
+  <a href="/docs/">[H] HELP / DOCS</a>
+  <a href="/portal.html">[T] TIME MACHINE</a>
+</div>
+
+<nav class="era"><a class="here" href="/classic/hub.html">PAST</a><a href="/orbit/hub.html">PRESENT</a><a href="/future/hub.html">FUTURE</a><a href="/portal.html">TIME</a></nav>
+<script>document.getElementById('clk').textContent=new Date().toLocaleString(undefined,{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})</script>
+</body>
+</html>

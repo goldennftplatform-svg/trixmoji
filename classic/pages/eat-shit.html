@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // EAT SHIT</title>
+ <meta name="description" content="DOSWAPZ easter egg - Ethereum Phunks portal.">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='32' fill='%2300ff00' text-anchor='middle' font-weight='bold'%3EDZ%3C/text%3E%3C/svg%3E">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ }
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ min-height: 100%;
+ background: #000000;
+ color: var(--green);
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: #000000;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ padding: 24px;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px,
+ rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .center-link-wrap {
+ position: relative;
+ z-index: 10;
+ text-align: center;
+ }
+
+ .center-link {
+ display: inline-block;
+ font-size: clamp(28px, 6vw, 42px);
+ color: #ffff00;
+ letter-spacing: 4px;
+ text-decoration: none;
+ border: 3px solid #00ff41;
+ padding: 14px 28px;
+ background: rgba(0, 17, 0, 0.55);
+ text-shadow: 0 0 6px #ffff00;
+ transition: color 120ms, background 120ms, border-color 120ms, text-shadow 120ms;
+ }
+
+ .center-link:hover {
+ color: #ffffff;
+ background: #003300;
+ border-color: #ffff00;
+ text-shadow: 0 0 10px #ffff00;
+ }
+
+ /* Never show path bar on this page (live + cached shell) */
+ #dosPathBar,
+ .dos-path-bar {
+ display: none !important;
+ }
+
+ /* DOS dialog easter egg - pops bottom-right after 17s */
+ #phunkDosOverlay {
+ position: fixed;
+ right: 20px;
+ bottom: 20px;
+ z-index: 1000;
+ pointer-events: none;
+ padding: 0;
+ }
+
+ .phunk-dos-dialog {
+ width: min(340px, calc(100vw - 40px));
+ border: 3px solid #9944ff;
+ background: rgba(20, 0, 40, 0.97);
+ box-shadow: 0 0 20px rgba(153, 68, 255, 0.5), 4px 4px 0 #000;
+ font-family: 'VT323', monospace;
+ font-size: 18px;
+ color: #ddbbff;
+ pointer-events: auto;
+ animation: phunkDosSlideIn 0.35s ease-out;
+ }
+
+ @keyframes phunkDosSlideIn {
+ from {
+ opacity: 0;
+ transform: translate(24px, 24px);
+ }
+ to {
+ opacity: 1;
+ transform: translate(0, 0);
+ }
+ }
+
+ .phunk-dos-title {
+ background: rgba(0, 0, 0, 0.5);
+ color: #ff66cc;
+ padding: 6px 10px;
+ letter-spacing: 2px;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ border-bottom: 2px solid #5522aa;
+ }
+
+ .phunk-dos-close {
+ background: transparent;
+ border: 1px solid #9944ff;
+ width: 22px;
+ height: 22px;
+ font-size: 14px;
+ cursor: pointer;
+ color: #cc88ff;
+ padding: 0;
+ }
+
+ .phunk-dos-body {
+ padding: 18px 16px 16px;
+ }
+
+ .phunk-dos-body p {
+ margin: 0 0 18px;
+ line-height: 1.4;
+ color: #cc88ff;
+ letter-spacing: 1px;
+ }
+
+ .phunk-dos-buttons {
+ display: flex;
+ gap: 12px;
+ justify-content: center;
+ }
+
+ .phunk-dos-btn {
+ min-width: 90px;
+ padding: 8px 16px;
+ border: 2px solid #ff66cc;
+ background: rgba(0, 0, 0, 0.5);
+ cursor: pointer;
+ font-family: 'VT323', monospace;
+ font-size: 18px;
+ color: #ff66cc;
+ letter-spacing: 2px;
+ }
+
+ .phunk-dos-btn:hover {
+ background: #1a0033;
+ color: #ffddff;
+ }
+ </style>
+</head>
+<body data-no-breadcrumb="1">
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+
+ <div class="center-link-wrap">
+ <a
+ href="https://etherphunks.eth.limo/ethereum-phunks"
+ class="center-link"
+ target="_blank"
+ rel="noopener noreferrer"
+ >ETHEREUM PHUNKS -> </a>
+ </div>
+
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '#screen', content: '.center-link-wrap' });
+ </script>
+ <script src="/assets/js/basement/eat-shit-easter.js"></script>
+ <script>
+ (function () {
+ function stripPathBar() {
+ var bar = document.getElementById('dosPathBar');
+ if (bar) bar.remove();
+ }
+ stripPathBar();
+ document.addEventListener('DOMContentLoaded', stripPathBar);
+ window.addEventListener('load', stripPathBar);
+ })();
+ </script>
+ <script src="/assets/js/core/price-ticker.js"></script>
+ </body>
+</html>

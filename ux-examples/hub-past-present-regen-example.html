@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>DOSWAPZ // HUB EXAMPLE — PAST · PRESENT · REGEN/DEGEN</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+    :root {
+      --green: #00ff00;
+      --green-dim: #00aa00;
+      --cyan: #00ffcc;
+      --void: #88aaff;
+      --neon-pink: #ff2bd6;
+      --neon-cyan: #00f0ff;
+      --attic: #ccaa66;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: #000;
+      color: var(--green);
+      font-family: 'VT323', 'Courier New', monospace;
+    }
+
+    .dos-screen {
+      position: relative;
+      min-height: 100vh;
+      padding: 0 20px 72px;
+    }
+
+    .dos-screen::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 30;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0 3px,
+        rgba(0, 255, 0, 0.035) 3px 5px
+      );
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      max-width: 720px;
+      margin: 0 auto;
+      padding-top: 5vh;
+      text-align: center;
+    }
+
+    .example-banner {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 6px 12px;
+      border: 1px solid #445500;
+      color: #ffff00;
+      letter-spacing: 2px;
+      font-size: 15px;
+    }
+
+    .doswap {
+      font-size: clamp(48px, 11vw, 72px);
+      letter-spacing: 10px;
+      text-shadow: 0 0 4px var(--green), 0 0 12px var(--green-dim);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .menu-prompt {
+      font-size: clamp(20px, 4.5vw, 28px);
+      letter-spacing: 3px;
+      color: #00dd00;
+      margin-bottom: 10px;
+    }
+
+    .menu-prompt .cursor {
+      display: inline-block;
+      width: 14px;
+      animation: blink 820ms steps(1) infinite;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .status {
+      font-size: 16px;
+      color: #888800;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+      line-height: 1.35;
+    }
+
+    /* ── ERA: PAST / PRESENT ─────────────────────────────── */
+    .era-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      max-width: 520px;
+      margin: 0 auto 22px;
+    }
+
+    .era {
+      display: block;
+      text-decoration: none;
+      border: 2px solid #003322;
+      background: rgba(0, 16, 12, 0.85);
+      padding: 14px 12px 12px;
+      transition: border-color 100ms, box-shadow 100ms, transform 100ms;
+    }
+
+    .era:hover {
+      transform: translateY(-1px);
+    }
+
+    .era .tag {
+      font-size: 12px;
+      letter-spacing: 3px;
+      color: #006655;
+      margin-bottom: 4px;
+    }
+
+    .era .name {
+      font-size: clamp(26px, 6vw, 34px);
+      letter-spacing: 4px;
+      line-height: 1.1;
+    }
+
+    .era .blurb {
+      margin-top: 6px;
+      font-size: 15px;
+      color: #66aa99;
+      letter-spacing: 1px;
+    }
+
+    .era.past {
+      border-color: #004422;
+    }
+
+    .era.past .name {
+      color: var(--green);
+      text-shadow: 0 0 8px var(--green-dim);
+    }
+
+    .era.past:hover {
+      border-color: var(--green);
+      box-shadow: 0 0 16px rgba(0, 255, 0, 0.2);
+    }
+
+    .era.present {
+      border-color: #223355;
+    }
+
+    .era.present .name {
+      color: var(--void);
+      text-shadow: 0 0 10px rgba(100, 140, 255, 0.45);
+    }
+
+    .era.present .tag { color: #445588; }
+
+    .era.present:hover {
+      border-color: var(--void);
+      box-shadow: 0 0 16px rgba(120, 150, 255, 0.25);
+    }
+
+    .era.present .blurb { color: #8899bb; }
+
+    /* ── MENU ────────────────────────────────────────────── */
+    .menu {
+      text-align: left;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 14px;
+      letter-spacing: 3px;
+      color: #007766;
+      margin: 14px 0 6px;
+    }
+
+    .options {
+      margin: 0 0 8px 4px;
+      font-size: 22px;
+      line-height: 1.5;
+    }
+
+    .option {
+      display: block;
+      color: var(--green);
+      text-decoration: none;
+      padding: 3px 0;
+    }
+
+    .option::before {
+      content: '> ';
+      color: var(--green-dim);
+    }
+
+    .option:hover { color: #ffff00; }
+
+    .option.arcade {
+      color: var(--cyan);
+    }
+
+    .option.arcade:hover {
+      color: #fff;
+      text-shadow: 0 0 8px var(--cyan);
+    }
+
+    .option.arcade::before { color: #008866; }
+
+    .option.attic {
+      color: var(--attic);
+    }
+
+    .option.attic:hover {
+      color: #ffdd88;
+      text-shadow: 0 0 8px #aa8844;
+    }
+
+    .option.attic::before { color: #886633; }
+
+    /* ── REGEN / DEGEN neon glitch ───────────────────────── */
+    .option.regen-farm {
+      color: #b8ffd8;
+      letter-spacing: 2px;
+    }
+
+    .option.regen-farm:hover {
+      color: #fff;
+      text-shadow:
+        0 0 6px var(--neon-cyan),
+        0 0 14px rgba(255, 43, 214, 0.55);
+    }
+
+    .option.regen-farm::before {
+      color: #ff2bd6;
+      text-shadow: 0 0 8px #ff2bd6;
+    }
+
+    /*
+      First letter in normal text flow (same baseline as EGEN).
+      Invisible spacer holds width; R/D overlay that box.
+    */
+    .neon-flip {
+      display: inline-block;
+      position: relative;
+      vertical-align: baseline;
+      line-height: inherit;
+      font: inherit;
+      letter-spacing: inherit;
+    }
+
+    .neon-flip .spacer {
+      visibility: hidden;
+    }
+
+    .neon-flip .r,
+    .neon-flip .d {
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin: 0;
+      padding: 0;
+      line-height: inherit;
+      font: inherit;
+      letter-spacing: 0;
+    }
+
+    .neon-flip .r {
+      color: #ff4de8;
+      text-shadow:
+        0 0 4px #ff2bd6,
+        0 0 12px #ff2bd6,
+        0 0 22px rgba(0, 240, 255, 0.45);
+      animation:
+        show-r 2.6s steps(1, end) infinite,
+        neon-flicker 0.18s steps(1, end) infinite;
+    }
+
+    .neon-flip .d {
+      color: #00f0ff;
+      text-shadow:
+        0 0 4px #00f0ff,
+        0 0 14px #ff2bd6,
+        1px 0 0 rgba(255, 0, 80, 0.65),
+        -1px 0 0 rgba(0, 255, 255, 0.5);
+      animation:
+        show-d 2.6s steps(1, end) infinite,
+        neon-flicker 0.18s steps(1, end) infinite;
+    }
+
+    @keyframes show-r {
+      0%, 11% { opacity: 1; visibility: visible; }
+      12%, 19% { opacity: 0; visibility: hidden; }
+      20%, 54% { opacity: 1; visibility: visible; }
+      55%, 64% { opacity: 0; visibility: hidden; }
+      65%, 78% { opacity: 1; visibility: visible; }
+      79%, 84% { opacity: 0; visibility: hidden; }
+      85%, 100% { opacity: 1; visibility: visible; }
+    }
+
+    @keyframes show-d {
+      0%, 11% { opacity: 0; visibility: hidden; }
+      12%, 19% { opacity: 1; visibility: visible; }
+      20%, 54% { opacity: 0; visibility: hidden; }
+      55%, 64% { opacity: 1; visibility: visible; }
+      65%, 78% { opacity: 0; visibility: hidden; }
+      79%, 84% { opacity: 1; visibility: visible; }
+      85%, 100% { opacity: 0; visibility: hidden; }
+    }
+
+    @keyframes neon-flicker {
+      0%, 100% { filter: brightness(1); }
+      40% { filter: brightness(1.35); }
+      42% { filter: brightness(0.45); }
+      44% { filter: brightness(1.2); }
+      70% { filter: brightness(0.95); }
+      71% { filter: brightness(0.25); }
+      73% { filter: brightness(1); }
+    }
+
+    .rest {
+      color: #9dffc8;
+      text-shadow: 0 0 6px rgba(0, 255, 180, 0.25);
+    }
+
+    .footer {
+      margin-top: 32px;
+      font-size: 14px;
+      color: #005500;
+      letter-spacing: 1px;
+      line-height: 1.5;
+    }
+
+    .footer a { color: #88aa00; }
+
+    @media (max-width: 420px) {
+      .era-row { grid-template-columns: 1fr; }
+      .era .name { letter-spacing: 3px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="dos-screen">
+    <div class="content">
+      <div class="example-banner">SAMPLE · REGEN/DEGEN NOW ON LIVE HUB (classic/hub.html)</div>
+
+      <div class="doswap">DOSWAPZ</div>
+      <div class="menu-prompt">SYSTEM MENU<span class="cursor">_</span></div>
+      <div class="status">
+        pick an era · or stay in the menu<br />
+        REGEN/DEGEN first letter glitches like bad neon
+      </div>
+
+      <!-- PAST / PRESENT -->
+      <div class="era-row">
+        <a class="era past" href="/classic/hub.html" title="Past era CRT hub">
+          <div class="tag">ERA 01</div>
+          <div class="name">PAST</div>
+          <div class="blurb">CRT DOS · classic green shell</div>
+        </a>
+        <a class="era present" href="/orbit/hub.html" title="Present era void hub">
+          <div class="tag">ERA 02</div>
+          <div class="name">PRESENT</div>
+          <div class="blurb">void shell · orbit hub</div>
+        </a>
+      </div>
+
+      <div class="menu">
+        <div class="section-label">// LIVE</div>
+        <div class="options">
+          <a class="option arcade" href="/classic/pages/arcade/intro.html">ARCADE</a>
+          <a class="option" href="/classic/pages/cryptodad/play.html">CRYPTO DAD</a>
+          <a class="option" href="/classic/pages/doswapz/swap.html">SWAP</a>
+          <a class="option attic" href="/classic/pages/attic.html">THE ATTIC</a>
+
+          <!-- REGEN ↔ DEGEN neon glitch → uniphihq (example link) -->
+          <a
+            class="option regen-farm"
+            href="https://www.uniphihq.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="REGEN / DEGEN FARMING"
+          ><span class="neon-flip" aria-hidden="true"><span class="spacer">R</span><span class="r">R</span><span class="d">D</span></span><span class="rest">EGEN FARMING</span></a>
+        </div>
+
+        <div class="section-label">// NODES</div>
+        <div class="options">
+          <a class="option" href="/classic/pages/doswapz/mint.html">MINT</a>
+          <a class="option" href="/classic/pages/basement.html">BASEMENT</a>
+          <a class="option" href="/portal.html">TIME MACHINE</a>
+        </div>
+      </div>
+
+      <div class="footer">
+        EXAMPLE HUB · not wired into production<br />
+        PAST → classic hub · PRESENT → orbit hub · REGEN/DEGEN → uniphihq.com<br />
+        <a href="/ux-examples/hub-regen-farming-example.html">older regen-only example</a>
+        ·
+        <a href="/classic/hub.html">live hub (unchanged)</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

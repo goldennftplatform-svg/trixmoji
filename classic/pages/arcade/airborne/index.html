@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DOSWAPZ // AIRBORNE</title>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+  :root {
+    --amber: #f0c040;
+    --olive: #3d4a28;
+    --scan: rgba(0, 0, 0, 0.18);
+  }
+  html, body {
+    margin: 0; height: 100%; background: #0a0a0c; color: #f0e6c8;
+    font-family: "Press Start 2P", ui-monospace, Consolas, monospace;
+    overflow: hidden; user-select: none;
+  }
+  #wrap {
+    height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 10px;
+  }
+  #stage {
+    position: relative;
+    box-shadow: 0 0 0 8px #1a140c, 0 0 0 12px #c9a227, 0 24px 80px #000;
+    image-rendering: pixelated;
+  }
+  canvas {
+    display: block; background: #40c4dc;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    cursor: crosshair;
+  }
+  #hud {
+    position: absolute; inset: 0; pointer-events: none;
+    text-shadow: 2px 2px 0 #000;
+  }
+  #top {
+    display: flex; justify-content: space-between; padding: 10px 14px; font-size: 11px;
+    color: var(--amber);
+  }
+  #hint {
+    position: absolute; left: 0; right: 0; bottom: 10px; text-align: center;
+    font-size: 9px; color: #efe7c4; letter-spacing: 1px;
+  }
+  #overlay {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center; gap: 14px;
+    background: rgba(8, 6, 4, 0.55);
+  }
+  #overlay h1 {
+    margin: 0; font-size: 34px; color: #f0c040; letter-spacing: 4px;
+    text-shadow: 4px 4px 0 #5a1c10, 0 0 18px #f0c040;
+  }
+  #overlay p { margin: 0; font-size: 10px; line-height: 1.8; color: #efe7c4; }
+  #overlay.hidden { display: none; }
+  #scan {
+    position: absolute; inset: 0; pointer-events: none;
+    background: repeating-linear-gradient(to bottom, transparent 0 2px, var(--scan) 2px 3px);
+    mix-blend-mode: multiply;
+  }
+  #bar { font-size: 9px; color: #9a8b5a; }
+  a { color: #f0c040; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="stage">
+    <canvas id="c" width="960" height="540"></canvas>
+    <div id="hud">
+      <div id="top">
+        <div>SCORE <span id="score">0</span></div>
+        <div>WAVE <span id="wave">1</span></div>
+        <div>HI <span id="hi">0</span></div>
+      </div>
+      <div id="hint">CLICK / SPACE TO DROP&nbsp;&nbsp;← → STEER CANOPY</div>
+    </div>
+    <div id="overlay">
+      <h1>AIRBORNE</h1>
+      <p>DROP PARATROOPERS ON THE BULLSEYE<br>WIND DRIFTS THE CANOPY&nbsp;&nbsp;WIRES AND WATER KILL<br>CLOSER TO CENTER = MORE POINTS</p>
+      <p style="color:#f0c040">PRESS SPACE OR CLICK TO START</p>
+    </div>
+    <div id="scan"></div>
+  </div>
+  <div id="bar"><a href="/classic/pages/arcade/hub.html">ARCADE</a>&nbsp;·&nbsp;1985 DROP-ZONE&nbsp;·&nbsp;C-130 HERCULES</div>
+</div>
+<script>
+(() => {
+  const W = 960, H = 540;
+  const canvas = document.getElementById("c");
+  const ctx = canvas.getContext("2d");
+  const overlay = document.getElementById("overlay");
+  const scoreEl = document.getElementById("score");
+  const waveEl = document.getElementById("wave");
+  const hiEl = document.getElementById("hi");
+
+  const GROUND_Y = 400;
+  const WATER_X = 640;
+  const DZ = { x: 330, y: 418, w: 210, h: 92 };
+  const PYLON = { x: 700, y: 250, w: 210, h: 170 };
+  const SOCK = { x: 28, y: 292 };
+
+  let hi = Number(localStorage.getItem("airborne_hi") || 0);
+  hiEl.textContent = hi;
+
+  const src = {
+    c130R: ["sprites/c130_right_01.png", "sprites/c130_right_02.png"],
+    c130L: ["sprites/c130_left_01.png", "sprites/c130_left_02.png"],
+    heloR: ["sprites/helo_right_01.png", "sprites/helo_right_02.png"],
+    heloL: ["sprites/helo_left_01.png", "sprites/helo_left_02.png"],
+    fall: ["sprites/jumper_fall_01.png", "sprites/jumper_fall_02.png"],
+    canopy: ["sprites/jumper_canopy_01.png", "sprites/jumper_canopy_02.png"],
+    landed: ["sprites/jumper_landed.png"],
+    dz: ["sprites/dz_bullseye.png"],
+    pylon: ["sprites/pylon.png"],
+    sockR: ["sprites/windsock_01.png", "sprites/windsock_02.png"],
+    sockL: ["sprites/windsock_left_01.png", "sprites/windsock_left_02.png"],
+    grass: ["tiles/grass.png"],
+    water: ["tiles/water.png"],
+    sky: ["tiles/sky.png"],
+    gstrip: ["sprites/ground_strip.png"],
+    wstrip: ["sprites/water_strip.png"],
+  };
+
+  const img = {};
+  function loadImg(path) {
+    return new Promise((resolve, reject) => {
+      const i = new Image();
+      i.onload = () => resolve(i);
+      i.onerror = () => reject(new Error(path));
+      i.src = path;
+    });
+  }
+
+  let audioCtx;
+  function ensureAudio() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === "suspended") audioCtx.resume();
+  }
+  function beep(freq, dur, type = "square", vol = 0.07) {
+    if (!audioCtx) return;
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = type;
+    o.frequency.value = freq;
+    g.gain.setValueAtTime(vol, audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(); o.stop(audioCtx.currentTime + dur);
+  }
+  function chord(notes) {
+    notes.forEach((n, i) => setTimeout(() => beep(n, 0.12, "square", 0.06), i * 70));
+  }
+
+  const keys = { left: false, right: false };
+  let state = "title";
+  let score = 0, wave = 1, tick = 0;
+  let wind = 0; // px / frame at 60fps, + is to the right
+  let planes = [];
+  let jumpers = [];
+  let helos = [];
+  let fx = [];
+  let landed = [];
+  let dropsLeft = 0;
+  let waveTimer = 0;
+  let shake = 0;
+  let banner = "";
+  let bannerT = 0;
+
+  function windKnots() {
+    return Math.round(Math.abs(wind) * 18);
+  }
+  function windDir() {
+    if (Math.abs(wind) < 0.12) return "CALM";
+    return wind > 0 ? "E " + windKnots() + " KTS" : "W " + windKnots() + " KTS";
+  }
+
+  function spawnWave() {
+    planes = [];
+    helos = [];
+    dropsLeft = 0;
+    const n = wave === 1 ? 1 : wave < 4 ? 2 : 3;
+    const both = wave >= 2;
+    const mag = 0.35 + Math.min(1.4, wave * 0.18);
+    wind = (Math.random() * 2 - 1) * mag;
+    if (Math.abs(wind) < 0.15) wind = mag * (Math.random() < 0.5 ? 1 : -1);
+
+    for (let i = 0; i < n; i++) {
+      const right = both ? (i % 2 === 0) : true;
+      const speed = (1.55 + wave * 0.12 + i * 0.08) * (right ? 1 : -1);
+      const y = 46 + i * 28;
+      planes.push({
+        x: right ? -220 - i * 380 : W + 40 + i * 380,
+        y,
+        dir: right ? 1 : -1,
+        speed,
+        w: 210,
+        h: 104,
+        ammo: 4,
+        gone: false,
+      });
+      dropsLeft += 4;
+    }
+    if (wave >= 3) {
+      const right = Math.random() < 0.5;
+      helos.push({
+        x: right ? -180 : W + 40,
+        y: 250 + Math.random() * 40,
+        dir: right ? 1 : -1,
+        speed: (1.8 + wave * 0.08) * (right ? 1 : -1),
+        w: 150,
+        h: 52,
+      });
+    }
+    banner = "WAVE " + wave + "  ·  WIND " + windDir();
+    bannerT = 2.2;
+    waveEl.textContent = wave;
+  }
+
+  function dropFrom(p) {
+    if (p.ammo <= 0 || p.gone) return;
+    p.ammo--;
+    const ramp = p.dir > 0 ? 0.30 : 0.70;
+    jumpers.push({
+      x: p.x + p.w * ramp,
+      y: p.y + p.h * 0.58,
+      vx: p.speed * 0.25 + wind * 0.2,
+      vy: 1.4,
+      mode: "fall",
+      t: 0,
+      openAt: 0.42,
+      dead: false,
+      scored: false,
+    });
+    beep(180, 0.08, "square", 0.08);
+    beep(90, 0.12, "sawtooth", 0.04);
+  }
+
+  function tryDrop() {
+    const live = planes.filter((p) => !p.gone && p.ammo > 0 && p.x < W - 40 && p.x + p.w > 40);
+    if (!live.length) return;
+    live.sort((a, b) => a.y - b.y);
+    dropFrom(live[0]);
+  }
+
+  function ringAt(x, y) {
+    const dx = (x - DZ.x) / (DZ.w * 0.5);
+    const dy = (y - DZ.y) / (DZ.h * 0.5);
+    const r = Math.sqrt(dx * dx + dy * dy);
+    if (r <= 0.42) return { name: "BULLSEYE", pts: 300, col: "#ffe14a" };
+    if (r <= 0.70) return { name: "INNER", pts: 200, col: "#f4f0e4" };
+    if (r <= 1.02) return { name: "OUTER", pts: 100, col: "#e04030" };
+    return null;
+  }
+
+  function inPylon(x, y) {
+    const tower = x > PYLON.x - 28 && x < PYLON.x + 28 && y > PYLON.y && y < GROUND_Y;
+    const wires = x > PYLON.x - 110 && x < PYLON.x + 120 && y > PYLON.y + 8 && y < PYLON.y + 70;
+    return tower || wires;
+  }
+
+  function addFx(x, y, text, col) {
+    fx.push({ x, y, text, col, t: 0 });
+  }
+
+  function kill(j, why) {
+    j.dead = true;
+    j.scored = true;
+    j.mode = why;
+    shake = 8;
+    if (why === "water") {
+      addFx(j.x, GROUND_Y - 8, "SPLASH", "#7ad7ff");
+      beep(70, 0.25, "sine", 0.08);
+    } else if (why === "zap") {
+      addFx(j.x, j.y, "ZAP", "#ffe14a");
+      beep(40, 0.2, "sawtooth", 0.1);
+      beep(320, 0.08, "square", 0.06);
+    } else if (why === "helo") {
+      addFx(j.x, j.y, "ROTOR", "#e04030");
+      beep(50, 0.3, "sawtooth", 0.1);
+    }
+  }
+
+  function scoreJumper(j) {
+    j.scored = true;
+    const feetY = GROUND_Y - 2;
+    if (j.x > WATER_X + 4) { kill(j, "water"); return; }
+    if (inPylon(j.x, j.y + 10)) { kill(j, "zap"); return; }
+    const ring = ringAt(j.x, feetY);
+    j.y = GROUND_Y - 18;
+    j.vy = 0; j.vx = 0;
+    if (ring) {
+      j.mode = "landed";
+      score += ring.pts;
+      addFx(j.x, j.y - 20, "+" + ring.pts + " " + ring.name, ring.col);
+      if (ring.pts === 300) chord([523, 659, 784, 1046]);
+      else if (ring.pts === 200) chord([392, 523, 659]);
+      else chord([330, 392]);
+      landed.push({ x: j.x, t: 0 });
+    } else {
+      j.mode = "landed";
+      score += 25;
+      addFx(j.x, j.y - 16, "+25 MISS", "#c8c0a0");
+      beep(200, 0.08, "triangle", 0.05);
+      landed.push({ x: j.x, t: 0 });
+    }
+    if (score > hi) {
+      hi = score;
+      localStorage.setItem("airborne_hi", String(hi));
+      hiEl.textContent = hi;
+    }
+    scoreEl.textContent = score;
+  }
+
+  function startGame() {
+    score = 0; wave = 1; tick = 0;
+    jumpers = []; landed = []; fx = [];
+    scoreEl.textContent = "0";
+    overlay.classList.add("hidden");
+    state = "play";
+    spawnWave();
+  }
+
+  function nextWaveOrIdle() {
+    const planesDone = planes.every((p) => p.gone);
+    const jumpersDone = jumpers.every((j) => j.scored);
+    if (planesDone && jumpersDone) {
+      wave += 1;
+      jumpers = jumpers.filter((j) => j.mode === "landed").slice(-8);
+      spawnWave();
+    }
+  }
+
+  function update(dt) {
+    tick += dt;
+    if (bannerT > 0) bannerT -= dt;
+    if (shake > 0) shake *= 0.85;
+
+    if (state !== "play") return;
+
+    for (const p of planes) {
+      p.x += p.speed * dt * 60;
+      if (p.dir > 0 && p.x > W + 40) p.gone = true;
+      if (p.dir < 0 && p.x + p.w < -40) p.gone = true;
+    }
+    for (const h of helos) {
+      h.x += h.speed * dt * 60;
+    }
+
+    for (const j of jumpers) {
+      if (j.scored) continue;
+      j.t += dt;
+      if (j.mode === "fall" && j.t > j.openAt) {
+        j.mode = "canopy";
+        j.vy = 0.85;
+        beep(260, 0.06, "triangle", 0.04);
+      }
+      const windMul = j.mode === "canopy" ? 1 : 0.28;
+      let steer = 0;
+      if (j.mode === "canopy") {
+        if (keys.left) steer -= 1.15;
+        if (keys.right) steer += 1.15;
+      }
+      j.vx += (wind * windMul + steer - j.vx) * Math.min(1, dt * 3);
+      j.vy += (j.mode === "fall" ? 7 : 1.6) * dt;
+      if (j.mode === "canopy") j.vy = Math.min(j.vy, 1.15);
+      j.x += j.vx * dt * 60;
+      j.y += j.vy * dt * 60;
+
+      if (inPylon(j.x, j.y + 8) && j.y > PYLON.y) { kill(j, "zap"); continue; }
+      for (const h of helos) {
+        if (j.x > h.x + 16 && j.x < h.x + h.w - 16 && j.y > h.y && j.y < h.y + h.h) {
+          kill(j, "helo");
+        }
+      }
+      if (j.y >= GROUND_Y - 16) scoreJumper(j);
+    }
+
+    for (const f of fx) f.t += dt;
+    fx = fx.filter((f) => f.t < 1.1);
+    nextWaveOrIdle();
+  }
+
+  function drawImg(image, x, y, w, h, flip) {
+    if (!image) return;
+    ctx.save();
+    if (flip) {
+      ctx.translate(x + w, y);
+      ctx.scale(-1, 1);
+      ctx.drawImage(image, 0, 0, w, h);
+    } else {
+      ctx.drawImage(image, x, y, w, h);
+    }
+    ctx.restore();
+  }
+
+  function frame(set, fps) {
+    const arr = img[set];
+    if (!arr) return null;
+    if (arr.length === 1) return arr[0];
+    const i = Math.floor(tick * fps) % arr.length;
+    return arr[i];
+  }
+
+  function draw() {
+    const sx = shake ? (Math.random() - 0.5) * shake : 0;
+    const sy = shake ? (Math.random() - 0.5) * shake : 0;
+    ctx.save();
+    ctx.translate(sx, sy);
+    ctx.imageSmoothingEnabled = false;
+
+    const sky = img.sky[0];
+    for (let x = 0; x < W; x += 96) ctx.drawImage(sky, x, 0, 96, GROUND_Y);
+    ctx.fillStyle = "#3aa8c8";
+    ctx.fillRect(0, 0, W, GROUND_Y);
+
+    // dithered sky bands
+    ctx.fillStyle = "#4ec0d8";
+    ctx.fillRect(0, 0, W, 90);
+    ctx.fillStyle = "#58c8de";
+    ctx.fillRect(0, 90, W, 90);
+    ctx.fillStyle = "#64d0e4";
+    ctx.fillRect(0, 180, W, GROUND_Y - 180);
+
+    const grass = img.grass[0];
+    for (let x = 0; x < WATER_X; x += 64)
+      for (let y = GROUND_Y; y < H; y += 64)
+        ctx.drawImage(grass, x, y, 64, 64);
+    const water = img.water[0];
+    for (let x = WATER_X; x < W; x += 64)
+      for (let y = GROUND_Y; y < H; y += 64)
+        ctx.drawImage(water, x, y, 64, 64);
+
+    ctx.drawImage(img.gstrip[0], 0, GROUND_Y - 18, WATER_X, 36);
+    ctx.drawImage(img.wstrip[0], WATER_X, GROUND_Y - 14, W - WATER_X, 40);
+
+    drawImg(img.dz[0], DZ.x - DZ.w / 2, DZ.y - DZ.h / 2, DZ.w, DZ.h);
+
+    const sockSet = wind >= 0 ? "sockR" : "sockL";
+    const sockFr = Math.abs(wind) < 0.55 ? 1 : 0;
+    const sock = img[sockSet][Math.min(sockFr, img[sockSet].length - 1)];
+    drawImg(sock, SOCK.x, SOCK.y, 46, 110);
+
+    drawImg(img.pylon[0], PYLON.x - PYLON.w / 2, PYLON.y, PYLON.w, PYLON.h);
+
+    for (const L of landed) {
+      drawImg(img.landed[0], L.x - 10, GROUND_Y - 34, 20, 34);
+    }
+    for (const j of jumpers) {
+      if (j.mode === "landed") {
+        drawImg(img.landed[0], j.x - 10, GROUND_Y - 34, 20, 34);
+      } else if (j.mode === "fall") {
+        const fr = frame("fall", 8);
+        drawImg(fr, j.x - 14, j.y - 16, 28, 28);
+      } else if (j.mode === "canopy") {
+        const fr = frame("canopy", 4);
+        drawImg(fr, j.x - 22, j.y - 52, 44, 70);
+      } else if (j.mode === "water") {
+        ctx.fillStyle = "rgba(180,230,255,0.7)";
+        ctx.beginPath();
+        ctx.ellipse(j.x, GROUND_Y + 6, 16 + j.t * 8, 5, 0, 0, 6.28);
+        ctx.fill();
+      } else if (j.mode === "zap") {
+        ctx.strokeStyle = "#ffe14a";
+        ctx.lineWidth = 2;
+        for (let i = 0; i < 4; i++) {
+          ctx.beginPath();
+          ctx.moveTo(j.x, j.y - 20);
+          ctx.lineTo(j.x + (Math.random() - 0.5) * 30, j.y + 20);
+          ctx.stroke();
+        }
+      }
+    }
+
+    for (const h of helos) {
+      const set = h.dir > 0 ? "heloR" : "heloL";
+      drawImg(frame(set, 12), h.x, h.y, h.w, h.h);
+    }
+    for (const p of planes) {
+      const set = p.dir > 0 ? "c130R" : "c130L";
+      drawImg(frame(set, 10), p.x, p.y, p.w, p.h);
+    }
+
+    if (state === "play") {
+      ctx.fillStyle = "#f0c040";
+      ctx.font = "10px 'Press Start 2P', monospace";
+      ctx.fillText("WIND " + windDir(), 14, 48);
+      const ammo = planes.reduce((s, p) => s + (p.gone ? 0 : p.ammo), 0);
+      ctx.fillText("JUMP " + ammo, 14, 66);
+    }
+
+    if (bannerT > 0) {
+      ctx.fillStyle = "rgba(0,0,0,0.45)";
+      ctx.fillRect(W / 2 - 250, 200, 500, 36);
+      ctx.fillStyle = "#f0c040";
+      ctx.textAlign = "center";
+      ctx.font = "12px 'Press Start 2P', monospace";
+      ctx.fillText(banner, W / 2, 224);
+      ctx.textAlign = "left";
+    }
+
+    for (const f of fx) {
+      ctx.globalAlpha = Math.max(0, 1 - f.t);
+      ctx.fillStyle = f.col;
+      ctx.font = "10px 'Press Start 2P', monospace";
+      ctx.textAlign = "center";
+      ctx.fillText(f.text, f.x, f.y - f.t * 28);
+      ctx.textAlign = "left";
+      ctx.globalAlpha = 1;
+    }
+
+    if (state === "title") {
+      // planes drift on title
+    }
+    ctx.restore();
+  }
+
+  let last = 0;
+  function loop(ts) {
+    const dt = Math.min(0.033, (ts - last) / 1000 || 0.016);
+    last = ts;
+    update(dt);
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  function onStartLike(e) {
+    ensureAudio();
+    if (state === "title") startGame();
+    else tryDrop();
+    e && e.preventDefault();
+  }
+
+  window.addEventListener("keydown", (e) => {
+    if (e.code === "ArrowLeft" || e.code === "KeyA") keys.left = true;
+    if (e.code === "ArrowRight" || e.code === "KeyD") keys.right = true;
+    if (e.code === "Space") onStartLike(e);
+  });
+  window.addEventListener("keyup", (e) => {
+    if (e.code === "ArrowLeft" || e.code === "KeyA") keys.left = false;
+    if (e.code === "ArrowRight" || e.code === "KeyD") keys.right = false;
+  });
+  canvas.addEventListener("mousedown", onStartLike);
+  overlay.addEventListener("mousedown", onStartLike);
+
+  function fit() {
+    const s = Math.max(1, Math.floor(Math.min((window.innerWidth - 40) / W, (window.innerHeight - 70) / H)));
+    canvas.style.width = W * s + "px";
+    canvas.style.height = H * s + "px";
+  }
+  window.addEventListener("resize", fit);
+  fit();
+
+  Promise.all(
+    Object.entries(src).map(async ([k, paths]) => {
+      img[k] = await Promise.all(paths.map(loadImg));
+    })
+  ).then(() => {
+    requestAnimationFrame(loop);
+    const q = new URLSearchParams(location.search);
+    if (q.has("play") || q.has("demo")) {
+      startGame();
+      if (q.has("demo")) {
+        if (planes[0]) planes[0].x = 120;
+        setTimeout(() => { tryDrop(); tryDrop(); }, 500);
+      }
+    }
+  }).catch((err) => {
+    overlay.innerHTML = "<h1>LOAD FAIL</h1><p>" + err.message + "</p>";
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Present C · Minimal constellation</title>
+ <meta name="robots" content="noindex">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Inter:wght@300;400;500&display=swap');
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ html, body { height: 100%; background: #000; color: #ddd; font-family: Inter, system-ui, sans-serif; overflow: hidden; }
+ body {
+ background: radial-gradient(ellipse at 50% 40%, #0a0a14 0%, #000 65%);
+ }
+ .field { position: fixed; inset: 0; }
+ .node {
+ position: absolute; transform: translate(-50%, -50%);
+ width: 72px; height: 72px; border-radius: 50%;
+ border: 1px solid rgba(255,255,255,0.22);
+ display: grid; place-items: center;
+ text-decoration: none; color: #c8d4ff;
+ background: rgba(255,255,255,0.03);
+ backdrop-filter: blur(6px);
+ transition: transform .2s, border-color .2s, box-shadow .2s;
+ font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 11px;
+ letter-spacing: 0.12em; text-transform: uppercase;
+ }
+ .node:hover {
+ transform: translate(-50%, -50%) scale(1.08);
+ border-color: rgba(180,200,255,0.6);
+ box-shadow: 0 0 28px rgba(140,160,255,0.25);
+ color: #fff;
+ }
+ .center {
+ position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+ text-align: center; pointer-events: none; z-index: 2;
+ }
+ .center h1 {
+ font-family: 'Space Grotesk', sans-serif; font-weight: 500;
+ font-size: clamp(42px, 10vw, 72px); letter-spacing: 0.16em;
+ color: transparent; -webkit-text-stroke: 1px rgba(200,210,255,0.45);
+ }
+ .center p {
+ margin-top: 12px; font-size: 12px; letter-spacing: 0.22em;
+ text-transform: uppercase; color: rgba(200,210,255,0.35); font-weight: 300;
+ }
+ .crumbs {
+ position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+ font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+ color: rgba(255,255,255,0.25);
+ }
+ .crumbs a { color: rgba(255,255,255,0.4); text-decoration: none; margin: 0 8px; }
+ .crumbs a:hover { color: #fff; }
+ .era {
+ position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+ display: flex; gap: 10px;
+ }
+ .era a {
+ font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+ text-decoration: none; color: rgba(255,255,255,0.4);
+ border: 1px solid rgba(255,255,255,0.12); padding: 8px 14px; border-radius: 999px;
+ }
+ .era a.here { color: #88ffe0; border-color: rgba(100,255,210,0.3); }
+ .era a.future { color: #fff; border-color: rgba(255,255,255,0.35); }
+ </style>
+</head>
+<body>
+ <div class="crumbs">
+ <span>Present</span>
+ <a href="/portal.html">Time machine</a>
+ <a href="/future/hub.html">Future →</a>
+ </div>
+ <div class="field">
+ <div class="center">
+ <h1>DOSWAPZ</h1>
+ <p>select a node</p>
+ </div>
+ <a class="node" style="left:50%;top:18%" href="/orbit/pages/harbinger.html">Oracle</a>
+ <a class="node" style="left:18%;top:38%" href="/orbit/pages/arcade/intro.html">Arcade</a>
+ <a class="node" style="left:82%;top:38%" href="/orbit/pages/doswapz/swap.html">Swap</a>
+ <a class="node" style="left:22%;top:68%" href="/orbit/pages/basement.html">Base</a>
+ <a class="node" style="left:78%;top:68%" href="/orbit/pages/attic.html">Attic</a>
+ <a class="node" style="left:50%;top:82%" href="/future/hub.html">Future</a>
+ </div>
+ <nav class="era">
+ <a href="/classic/hub.html">Past</a>
+ <a class="here" href="#">Present</a>
+ <a class="future" href="/future/hub.html">Future</a>
+ </nav>
+</body>
+</html>

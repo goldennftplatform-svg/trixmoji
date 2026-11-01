@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <title>LILY LEAP // DOSWAPZ ARCADE</title>
+  <meta name="description" content="Leap pads. Eat flies. Make the far shore." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Orbitron:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/era-present-game.css?v=20260809era" />
+</head>
+<body data-present-label="LILY LEAP">
+  <nav class="arcade-bar">
+    <a href="/classic/pages/arcade/hub.html">←</a>
+    <span class="arcade-bar-title">LILY LEAP</span>
+    <div class="arcade-bar-right">
+      <button type="button" id="btn-howto-bar" class="arcade-bar-btn">?</button>
+      <a href="/classic/pages/arcade/lily-leap/scoreboard.html">SCORES</a>
+    </div>
+  </nav>
+
+  <div id="app">
+    <div class="daily-strip" id="daily-strip" aria-label="Daily challenge">
+      <span id="daily-mode">—</span>
+      <span class="daily-seed" id="daily-seed">SEED —</span>
+    </div>
+
+    <header class="hud">
+      <div class="hud-item"><span class="label">Score</span><span id="hud-score">0</span></div>
+      <div class="hud-item"><span class="label">Pond</span><span id="hud-pond">1</span></div>
+      <div class="hud-item"><span class="label">Lives</span><span id="hud-lives">♥♥♥</span></div>
+      <div class="hud-item"><span class="label">Flies</span><span id="hud-glow">0</span></div>
+    </header>
+
+    <main class="stage">
+      <canvas id="game" width="480" height="640" aria-label="LILY LEAP pond"></canvas>
+
+      <div id="overlay" class="overlay">
+        <div class="panel" id="title-panel">
+          <div class="frog-hero" aria-hidden="true">🐸</div>
+          <h1>LILY LEAP</h1>
+          <p>Leap pads · eat flies · reach far shore</p>
+          <div class="btn-row">
+            <button type="button" id="btn-start" class="btn primary">START</button>
+            <button type="button" id="btn-howto-title" class="btn ghost">HOW TO</button>
+          </div>
+        </div>
+
+        <div class="panel howto hidden" id="howto-panel">
+          <h2>HOW TO</h2>
+          <div class="block">
+            <p>Pads, bank, or far shore only. Water = splash.</p>
+            <p>↑ leap · ↓ back · ← → side / shore walk · tap pad · F eat fly</p>
+            <p>Heron shadow → stay still. Clear 4 ponds. 3 lives.</p>
+          </div>
+          <button type="button" id="btn-howto-close" class="btn primary">OK</button>
+        </div>
+
+        <div class="panel hidden" id="pause-panel">
+          <h2>PAUSED</h2>
+          <div class="btn-row">
+            <button type="button" id="btn-resume" class="btn primary">RESUME</button>
+            <button type="button" id="btn-howto-pause" class="btn ghost">?</button>
+            <button type="button" id="btn-quit" class="btn ghost">TITLE</button>
+          </div>
+        </div>
+
+        <div class="panel hidden" id="over-panel">
+          <h2>SPLASH</h2>
+          <p>Score <strong id="over-score">0</strong> · Flies <strong id="over-glow">0</strong></p>
+          <p class="soft-line" id="over-post-status"></p>
+          <div class="btn-row">
+            <button type="button" id="btn-post-over" class="btn primary">POST</button>
+            <button type="button" id="btn-share-over" class="btn ghost">SHARE</button>
+            <button type="button" id="btn-retry" class="btn primary">RETRY</button>
+            <button type="button" id="btn-title" class="btn ghost">TITLE</button>
+          </div>
+        </div>
+
+        <div class="panel hidden" id="level-panel">
+          <h2>SHORE!</h2>
+          <p id="level-msg">Next pond…</p>
+          <button type="button" id="btn-next" class="btn primary">NEXT</button>
+        </div>
+
+        <div class="panel hidden" id="win-panel">
+          <h2>CLEAR</h2>
+          <p>Score <strong id="win-score">0</strong></p>
+          <p class="soft-line" id="win-post-status"></p>
+          <div class="btn-row">
+            <button type="button" id="btn-post-win" class="btn primary">POST</button>
+            <button type="button" id="btn-share-win" class="btn ghost">SHARE</button>
+            <button type="button" id="btn-replay" class="btn primary">AGAIN</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="touch" id="touch" aria-hidden="false">
+      <div class="touch-pad">
+        <button type="button" data-k="up">▲</button>
+        <div class="touch-mid">
+          <button type="button" data-k="left">◀</button>
+          <button type="button" data-k="down">▼</button>
+          <button type="button" data-k="right">▶</button>
+        </div>
+      </div>
+      <div class="touch-act">
+        <button type="button" data-k="eat">👅</button>
+      </div>
+    </div>
+
+    <aside class="soft-panel" aria-label="Soft connect">
+      <div class="soft-fields">
+        <input id="sc-handle" maxlength="16" placeholder="@handle" autocomplete="off" />
+        <input id="sc-alias" maxlength="12" placeholder="alias" autocomplete="off" />
+        <button type="button" id="sc-save" class="btn ghost soft-save">SAVE</button>
+      </div>
+      <p class="soft-status" id="sc-status"></p>
+      <a class="soft-link" href="/classic/pages/arcade/lily-leap/scoreboard.html">BOARD →</a>
+    </aside>
+  </div>
+
+  <script src="/assets/js/core/soft-score.js"></script>
+  <script src="/assets/js/arcade/arcade-core.js?v=20260719a"></script>
+  <script src="game.js"></script>
+  <script src="/assets/js/core/era-present-game.js?v=20260809era"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>ARCADE VIDEO PREVIEW</title>
+ <style>
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ html, body {
+ width: 100%;
+ height: 100%;
+ background: #000;
+ color: #00ffcc;
+ font-family: Consolas, "Courier New", monospace;
+ }
+ .wrap {
+ min-height: 100%;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ padding: 20px;
+ gap: 14px;
+ }
+ h1 {
+ font-size: 18px;
+ letter-spacing: 4px;
+ color: #00ffcc;
+ text-shadow: 0 0 8px #00aa88;
+ }
+ .frame {
+ width: min(960px, 100%);
+ border: 2px solid #00ffcc;
+ box-shadow: 0 0 24px rgba(0, 255, 204, 0.25);
+ background: #000;
+ }
+ video {
+ display: block;
+ width: 100%;
+ height: auto;
+ max-height: 75vh;
+ background: #000;
+ object-fit: contain;
+ }
+ .row {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ justify-content: center;
+ }
+ a, button {
+ font: inherit;
+ letter-spacing: 2px;
+ color: #000;
+ background: #00ffcc;
+ border: none;
+ padding: 10px 16px;
+ text-decoration: none;
+ cursor: pointer;
+ }
+ a.ghost, button.ghost {
+ color: #00ffcc;
+ background: transparent;
+ border: 1px solid #00aa88;
+ }
+ .meta {
+ color: #006655;
+ font-size: 12px;
+ letter-spacing: 1px;
+ text-align: center;
+ line-height: 1.4;
+ }
+ .status {
+ min-height: 20px;
+ color: #ffaa00;
+ font-size: 14px;
+ letter-spacing: 1px;
+ }
+ </style>
+</head>
+<body>
+ <div class="wrap">
+ <h1>ARCADE INTRO - HTML PREVIEW</h1>
+ <div class="frame">
+ <video id="v" controls playsinline muted preload="auto"></video>
+ </div>
+ <div class="status" id="status">loading...</div>
+ <div class="row">
+ <button type="button" id="play">PLAY</button>
+ <button type="button" id="unmute">UNMUTE</button>
+ <button type="button" class="ghost" id="replay">REPLAY</button>
+ <a href="/classic/pages/arcade/intro.html">INTRO FLOW</a>
+ <a class="ghost" href="/classic/pages/arcade/hub.html">ARCADE HUB</a>
+ <a class="ghost" href="/classic/hub.html"><- HUB</a>
+ </div>
+ <div class="meta">
+ /assets/videos/arcade/intro.mp4?v=20260714d<br>
+ HTML5 video with Range-friendly local server
+ </div>
+ </div>
+ <script src="/assets/js/arcade/arcade-core.js?v=20260715b"></script>
+ <script>
+ (function () {
+ var A = window.DOSWAPZ_ARCADE;
+var SRC = A ? A.VIDEO_SRC : '/assets/videos/arcade/intro.mp4?v=20260714d';
+ var v = document.getElementById('v');
+ var status = document.getElementById('status');
+ function setStatus(t) { if (status) status.textContent = t; }
+ var meta = document.querySelector('.meta');
+ if (meta && A) meta.innerHTML = A.VIDEO_SRC + '<br>HTML5 preview * INTRO v' + A.VIDEO_VERSION;
+
+ v.src = SRC;
+ v.load();
+
+ v.addEventListener('loadedmetadata', function () {
+ setStatus('ready * ' + Math.round(v.duration || 0) + 's * ' + (v.videoWidth || '?') + 'x' + (v.videoHeight || '?'));
+ });
+ v.addEventListener('playing', function () { setStatus('playing'); });
+ v.addEventListener('error', function () {
+ var c = v.error ? v.error.code : '?';
+ setStatus('ERROR code ' + c + ' - check server / file');
+ });
+
+ document.getElementById('play').onclick = function () {
+ v.play().then(function () { setStatus('playing'); }).catch(function (e) {
+ setStatus('play blocked: ' + (e && e.message ? e.message : e));
+ });
+ };
+ document.getElementById('unmute').onclick = function () {
+ v.muted = !v.muted;
+ this.textContent = v.muted ? 'UNMUTE' : 'MUTE';
+ v.play().catch(function () {});
+ };
+ document.getElementById('replay').onclick = function () {
+ v.currentTime = 0;
+ v.play().catch(function () {});
+ };
+
+ v.play().catch(function () {
+ setStatus('autoplay blocked - press PLAY');
+ });
+ })();
+ </script>
+<script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+<script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>
+</html>

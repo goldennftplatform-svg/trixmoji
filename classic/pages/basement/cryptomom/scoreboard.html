@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // CRYPTO MOM SCOREBOARD [18+]</title>
+ <meta name="description" content="Crypto Mom leaderboard - last run only, signature-only verification. Basement. No funds moved.">
+ <meta name="rating" content="adult">
+ <meta property="og:title" content="DOSWAPZ // CRYPTO MOM SCOREBOARD">
+ <meta property="og:description" content="Signature-only Crypto Mom leaderboard. Last completed run only.">
+ <meta property="og:image" content="https://doswapz.com/assets/images/cryptomom/kitchen.svg">
+ <meta property="og:url" content="https://doswapz.com/classic/pages/basement/cryptomom/scoreboard.html">
+ <meta name="twitter:card" content="summary_large_image">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='22' fill='%23ff66cc' text-anchor='middle' font-weight='bold'%3ECM%3C/text%3E%3C/svg%3E">
+ <link rel="manifest" href="/site.webmanifest">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --pink: #ff66cc;
+ --purple: #9944ff;
+ --purple-dim: #cc88ff;
+ }
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0; padding: 0;
+ width: 100%; min-height: 100%;
+ background: #000000;
+ color: #ddbbff;
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: #000000;
+ padding: 24px 28px 60px;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(153, 68, 255, 0.05) 3px,
+ rgba(153, 68, 255, 0.05) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .header {
+ font-size: 32px;
+ letter-spacing: 6px;
+ color: var(--pink);
+ text-shadow: 0 0 8px rgba(255, 102, 204, 0.45);
+ text-align: center;
+ margin-bottom: 6px;
+ }
+
+ .content {
+ max-width: 960px;
+ margin: 18px auto 0;
+ padding: 0 8px;
+ }
+
+ .subhead {
+ font-size: 15px;
+ color: var(--purple-dim);
+ text-align: center;
+ margin-bottom: 18px;
+ letter-spacing: 1px;
+ }
+
+ .section { margin-bottom: 24px; }
+
+ .section-title {
+ font-size: 22px;
+ color: var(--pink);
+ margin-bottom: 6px;
+ border-bottom: 1px solid #331155;
+ padding-bottom: 3px;
+ }
+
+ .leaderboard {
+ border: 3px solid var(--purple);
+ background: #0a0014;
+ padding: 12px;
+ }
+
+ .leaderboard table {
+ width: 100%;
+ border-collapse: collapse;
+ font-size: 17px;
+ }
+
+ .leaderboard th, .leaderboard td {
+ padding: 6px 8px;
+ text-align: left;
+ border-bottom: 1px solid #331155;
+ }
+
+ .leaderboard th {
+ color: var(--pink);
+ border-bottom: 2px solid var(--purple);
+ }
+
+ .leaderboard .rank { color: var(--pink); width: 40px; }
+ .leaderboard .wallet { font-family: monospace; color: #ddbbff; }
+ .leaderboard .score { color: var(--pink); text-align: right; }
+ .leaderboard .ts { color: var(--purple-dim); font-size: 14px; }
+
+ .leaderboard .empty-row td {
+ text-align: center;
+ color: #664488;
+ font-style: italic;
+ padding: 18px 8px;
+ border-bottom: none;
+ }
+
+ .my-score {
+ border: 2px solid var(--purple);
+ background: #12001f;
+ padding: 12px;
+ margin-bottom: 16px;
+ }
+
+ .btn {
+ font-size: 17px;
+ color: var(--purple-dim);
+ background: transparent;
+ border: 2px solid var(--purple);
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px;
+ display: inline-block;
+ cursor: pointer;
+ font-family: inherit;
+ }
+
+ .btn:hover {
+ background: #1a0033;
+ color: var(--pink);
+ border-color: var(--pink);
+ }
+
+ .small-btn { padding: 3px 8px; font-size: 13px; }
+
+ .disclaimer {
+ margin: 14px auto;
+ padding: 10px 12px;
+ border: 2px solid var(--pink);
+ background: rgba(40, 0, 30, 0.35);
+ font-size: 12px;
+ line-height: 1.28;
+ max-width: 960px;
+ text-align: left;
+ }
+
+ .disclaimer-title {
+ color: var(--pink);
+ margin-bottom: 4px;
+ letter-spacing: 1px;
+ text-align: center;
+ font-size: 13px;
+ }
+
+ .buttons { text-align: center; margin-top: 20px; }
+
+ .footer {
+ margin-top: 18px;
+ font-size: 13px;
+ color: var(--purple-dim);
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ .vignette {
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.58) 84%);
+ pointer-events: none;
+ z-index: 5;
+ }
+
+ .glitch-layer {
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 20;
+ mix-blend-mode: screen;
+ }
+ </style>
+</head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+
+ <div class="header">DOSWAPZ // CRYPTO MOM SCOREBOARD [18+]</div>
+
+ <div class="content">
+ <div class="subhead">LAST RUN ONLY * BASEMENT * POSTING IS OPTIONAL * SOFT WALLET SIGN ONLY * NO FUNDS</div>
+
+ <div class="section">
+ <div class="section-title">LEADERBOARD - AWAITING ENTRIES</div>
+ <div class="leaderboard">
+ <table id="leaderboard-table">
+ <thead>
+ <tr>
+ <th class="rank">#</th>
+ <th>WALLET</th>
+ <th class="score">SCORE</th>
+ <th class="ts">ACHIEVED</th>
+ </tr>
+ </thead>
+ <tbody id="leaderboard-body"></tbody>
+ </table>
+ </div>
+ </div>
+
+ <div class="section">
+ <div class="section-title">LOG YOUR LAST RUN (SOFT VERIFY)</div>
+
+ <div id="pendingScoreBox" style="display:none; border:2px solid var(--pink); background:rgba(30,0,24,0.45); padding:12px; margin-bottom:16px;">
+ <div style="color:var(--pink); font-size:15px;">YOUR LATEST RUN ENDED WITH THIS SCORE</div>
+ <div id="pendingScoreValue" style="font-size:42px; color:var(--pink); line-height:1; margin:6px 0 4px;"></div>
+ <div id="pendingScoreMeta" style="font-size:13px; color:var(--purple-dim); margin-bottom:8px;"></div>
+ <div style="margin:8px 0 4px;">
+ <button id="logPendingBtn" class="btn small-btn" style="border-color:var(--pink); color:var(--pink);">SIGN &amp; LOG THIS SCORE (SOFT, NO FUNDS)</button>
+ <button id="skipPendingBtn" class="btn small-btn" style="margin-left:8px;">SKIP / DON'T LOG</button>
+ </div>
+ <div style="font-size:11px; color:var(--purple-dim);">Only your most recent completed run can be logged. Soft signature only - no funds, no transaction permission.</div>
+ <div id="pendingResult" style="margin-top:6px; font-size:13px; color:var(--pink);"></div>
+ </div>
+
+ <div id="noPendingBox" class="my-score" style="display:none;">
+ <div style="margin-bottom:8px; color:var(--purple-dim);">No recent run found.</div>
+ <div style="font-size:14px; line-height:1.4;">
+ Finish a Crypto Mom game first - when your run ends you will be sent here with that score locked in.<br>
+ Manual score entry is not allowed.
+ </div>
+ <div style="margin-top:12px;">
+ <a href="/classic/pages/basement/cryptomom/play.html" class="btn small-btn" style="border-color:var(--pink); color:var(--pink);"> PLAY CRYPTO MOM</a>
+ </div>
+ </div>
+ </div>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">SOFT VERIFY - SIGNATURE ONLY (MAXIMUM SAFETY)</div>
+ * We never ask for a private key, seed phrase, or permission to move funds.<br>
+ * You only sign a simple message to prove your score from your last run.<br>
+ * Connection is page-scoped for this leaderboard only.<br>
+ * Scores are stored locally in your browser.
+ </div>
+
+ <div class="buttons">
+ <a href="/classic/pages/basement.html" class="btn"><- BACK TO BASEMENT</a>
+ <a href="/classic/pages/basement/cryptomom/play.html" class="btn" style="border-color:var(--pink); color:var(--pink);">PLAY CRYPTO MOM</a>
+ <a href="/classic/pages/cryptodad/scoreboard.html" class="btn">CRYPTO DAD SCORES</a>
+ </div>
+
+ <div class="footer">DOSWAPZ - CRYPTO MOM LEADERBOARD * SIGNATURE ONLY * 18+</div>
+ </div>
+
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+<script src="/assets/js/core/soft-score.js"></script>
+<script>
+ const SCORES_KEY = 'doswapz_cryptomom_scores';
+ const PENDING_KEY = 'pending_cryptomom_score';
+ const Soft = window.DOSWAPZ_SOFT_SCORE;
+
+ function formatTs(ts) {
+ if (!ts) return ' - ';
+ const d = new Date(ts);
+ if (Number.isNaN(d.getTime())) return ts;
+ return d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+ }
+
+ function getLeaderboard() {
+ return Soft ? Soft.loadBoard(SCORES_KEY) : [];
+ }
+
+ function renderLeaderboard() {
+ const board = getLeaderboard();
+ const tbody = document.getElementById('leaderboard-body');
+
+ if (!board.length) {
+ tbody.innerHTML =
+ '<tr class="empty-row"><td colspan="4">NO SCORES YET - TABLE AWAITS YOUR ENTRY (OPTIONAL SOFT SIGN)</td></tr>';
+ return;
+ }
+
+ tbody.innerHTML = board.map((entry, i) =>
+ `<tr>
+ <td class="rank">${i + 1}</td>
+ <td class="wallet">${entry.wallet || '????'}</td>
+ <td class="score">${entry.score}</td>
+ <td class="ts">${formatTs(entry.ts)}${entry.mode ? ' * ' + entry.mode.toUpperCase() : ''}</td>
+ </tr>`
+ ).join('');
+ }
+
+ async function softSignAndPost(score, mode, resultEl) {
+ if (!score || score < 1) {
+ resultEl.innerHTML = '<span style="color:#ff5555;">No valid score from your last run. Play a game first.</span>';
+ return false;
+ }
+ if (!Soft) {
+ resultEl.innerHTML = '<span style="color:#ff5555;">Soft-score module missing. Refresh.</span>';
+ return false;
+ }
+
+ resultEl.innerHTML = 'Connecting wallet and requesting signature (no funds)...';
+ const result = await Soft.signScore({
+ game: 'CRYPTO MOM',
+ score: score,
+ fields: { mode: (mode || 'realistic').toUpperCase() },
+ onStatus: function (msg) { resultEl.innerHTML = msg; }
+ });
+
+ if (!result.ok) {
+ resultEl.innerHTML = '<span style="color:#ff5555;">' + (result.error || 'Sign failed') + '</span>';
+ return false;
+ }
+
+ Soft.saveBoardEntry(SCORES_KEY, {
+ wallet: result.wallet,
+ walletShort: result.short,
+ score: score,
+ mode: mode || 'realistic',
+ chain: result.chain,
+ soft: true,
+ ts: Date.now()
+ }, { max: 20, keepBestPerWallet: true });
+
+ renderLeaderboard();
+ resultEl.innerHTML =
+ 'SOFT SIGN SUCCESS - no funds involved.<br>Logged as <span style="color:#ff66cc;">' +
+ result.short + '</span> (score ' + score + ').';
+ return true;
+ }
+
+ function clearPendingScore() {
+ localStorage.removeItem(PENDING_KEY);
+ document.getElementById('pendingScoreBox').style.display = 'none';
+ document.getElementById('noPendingBox').style.display = 'block';
+ }
+
+ function showPendingScore() {
+ var pendingBox = document.getElementById('pendingScoreBox');
+ var noPendingBox = document.getElementById('noPendingBox');
+ try {
+ const raw = localStorage.getItem(PENDING_KEY);
+ if (!raw) {
+ pendingBox.style.display = 'none';
+ noPendingBox.style.display = 'block';
+ return;
+ }
+
+ const p = JSON.parse(raw);
+ if (!p || !p.score) {
+ pendingBox.style.display = 'none';
+ noPendingBox.style.display = 'block';
+ return;
+ }
+
+ document.getElementById('pendingScoreValue').textContent = p.score;
+ document.getElementById('pendingScoreMeta').textContent =
+ `Mode: ${(p.mode || 'realistic').toUpperCase()} * Ending: ${p.ending || 'run_end'} * ${p.ts || ''}`;
+ pendingBox.style.display = 'block';
+ noPendingBox.style.display = 'none';
+ } catch (e) {
+ pendingBox.style.display = 'none';
+ noPendingBox.style.display = 'block';
+ }
+ }
+
+ document.getElementById('logPendingBtn').addEventListener('click', async () => {
+ const resultEl = document.getElementById('pendingResult');
+ try {
+ const raw = localStorage.getItem(PENDING_KEY);
+ const p = raw ? JSON.parse(raw) : null;
+ const score = p && p.score ? p.score : 0;
+ const mode = p && p.mode ? p.mode : 'realistic';
+ const ok = await softSignAndPost(score, mode, resultEl);
+ if (ok) clearPendingScore();
+ } catch (e) {
+ resultEl.innerHTML = '<span style="color:#ff5555;">Could not read pending score.</span>';
+ }
+ });
+
+ document.getElementById('skipPendingBtn').addEventListener('click', () => {
+ clearPendingScore();
+ document.getElementById('pendingResult').innerHTML =
+ '<span style="color:#cc88ff;">Score not logged. Table remains open for future entries.</span>';
+ });
+
+ renderLeaderboard();
+ showPendingScore();
+ </script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.content, #content' });
+ </script>
+ <div style="text-align:center; font-size:9px; color:#9944ff; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+ <script src="/assets/js/core/price-ticker.js"></script>
+</body>
+</html>

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // BASEMENT MEDIA LAB</title>
+ <meta name="robots" content="noindex">
+ <meta name="description" content="Basement test preview - CRT static TV, pirate radio, Dad voicemails.">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='18' fill='%2300ff41' text-anchor='middle'%3ETV%3C/text%3E%3C/svg%3E">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --basement: #9944ff;
+ --basement-dim: #5522aa;
+ --pink: #ff66cc;
+ --green: #00ff41;
+ --green-dim: #00aa00;
+ --amber: #ffaa00;
+ }
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0;
+ min-height: 100%;
+ background: #000;
+ color: #ddbbff;
+ font-family: 'VT323', monospace;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ min-height: 100vh;
+ padding: 18px 14px 48px;
+ position: relative;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0, transparent 3px,
+ rgba(153, 68, 255, 0.045) 3px, rgba(153, 68, 255, 0.045) 5px
+ );
+ pointer-events: none;
+ z-index: 2;
+ }
+
+ .wrap {
+ max-width: 960px;
+ margin: 0 auto;
+ position: relative;
+ z-index: 5;
+ }
+
+ .header {
+ text-align: center;
+ margin-bottom: 8px;
+ }
+
+ .header h1 {
+ margin: 0;
+ font-size: 30px;
+ letter-spacing: 6px;
+ color: #ddbbff;
+ text-shadow: 0 0 10px var(--basement);
+ }
+
+ .header .sub {
+ font-size: 17px;
+ color: var(--pink);
+ letter-spacing: 3px;
+ }
+
+ .test-badge {
+ display: inline-block;
+ margin-top: 8px;
+ border: 2px solid var(--amber);
+ color: var(--amber);
+ padding: 2px 12px;
+ font-size: 15px;
+ letter-spacing: 4px;
+ animation: blink 1.2s step-end infinite;
+ }
+
+ @keyframes blink {
+ 50% { opacity: 0.35; }
+ }
+
+ .grid {
+ display: grid;
+ grid-template-columns: 1fr;
+ gap: 20px;
+ margin-top: 18px;
+ }
+
+ @media (min-width: 780px) {
+ .grid { grid-template-columns: 1fr 1fr; }
+ .panel-crt { grid-column: 1 / -1; }
+ }
+
+ .panel {
+ border: 3px solid var(--basement);
+ background: rgba(12, 0, 28, 0.75);
+ box-shadow: 0 0 16px rgba(153, 68, 255, 0.25);
+ padding: 14px;
+ }
+
+ .panel-title {
+ font-size: 20px;
+ letter-spacing: 3px;
+ color: var(--green);
+ text-shadow: 0 0 6px var(--green);
+ margin-bottom: 10px;
+ border-bottom: 1px solid var(--basement-dim);
+ padding-bottom: 6px;
+ }
+
+ .panel-note {
+ font-size: 14px;
+ color: #8866aa;
+ margin-bottom: 10px;
+ line-height: 1.35;
+ }
+
+ /* CRT TV */
+ .crt-unit {
+ max-width: 520px;
+ margin: 0 auto;
+ }
+
+ .crt-bezel {
+ background: linear-gradient(180deg, #2a2a2a 0%, #111 40%, #1a1a1a 100%);
+ border: 4px solid #444;
+ border-radius: 14px;
+ padding: 18px 18px 14px;
+ box-shadow: inset 0 0 30px #000, 0 8px 0 #0a0a0a;
+ }
+
+ .crt-brand {
+ text-align: center;
+ font-size: 13px;
+ color: #666;
+ letter-spacing: 6px;
+ margin-bottom: 8px;
+ }
+
+ .crt-screen-wrap {
+ position: relative;
+ aspect-ratio: 4 / 3;
+ background: #111;
+ border: 6px solid #222;
+ border-radius: 20px;
+ overflow: hidden;
+ box-shadow: inset 0 0 40px rgba(0, 255, 65, 0.08);
+ }
+
+ .crt-screen {
+ position: absolute;
+ inset: 0;
+ overflow: hidden;
+ }
+
+ .crt-screen.roll {
+ animation: vroll 0.35s linear;
+ }
+
+ @keyframes vroll {
+ 0% { transform: translateY(0); }
+ 100% { transform: translateY(-12%); }
+ }
+
+ .crt-video {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ filter: contrast(1.15) saturate(0.85) brightness(0.9) sepia(0.15);
+ }
+
+ .crt-static {
+ position: absolute;
+ inset: 0;
+ width: 100%;
+ height: 100%;
+ opacity: 0.55;
+ mix-blend-mode: screen;
+ pointer-events: none;
+ }
+
+ .crt-scanlines {
+ position: absolute;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0, transparent 2px,
+ rgba(0, 0, 0, 0.35) 2px, rgba(0, 0, 0, 0.35) 4px
+ );
+ pointer-events: none;
+ }
+
+ .crt-vignette {
+ position: absolute;
+ inset: 0;
+ background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.65) 100%);
+ pointer-events: none;
+ }
+
+ .crt-ch {
+ position: absolute;
+ top: 8px;
+ right: 10px;
+ font-size: 16px;
+ color: var(--green);
+ text-shadow: 0 0 6px var(--green);
+ background: rgba(0,0,0,0.5);
+ padding: 2px 6px;
+ border: 1px solid var(--green-dim);
+ }
+
+ .crt-knobs {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-top: 10px;
+ padding: 0 8px;
+ font-size: 13px;
+ color: #555;
+ }
+
+ .crt-knob {
+ width: 22px;
+ height: 22px;
+ border-radius: 50%;
+ background: radial-gradient(circle at 35% 35%, #555, #222);
+ border: 2px solid #333;
+ }
+
+ /* Pirate Radio */
+ .radio-unit {
+ background: #1a1208;
+ border: 3px solid #3a2a10;
+ padding: 12px;
+ box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+ }
+
+ .radio-display {
+ background: #0a1a0a;
+ border: 2px inset #2a4a2a;
+ color: var(--green);
+ font-size: 18px;
+ letter-spacing: 2px;
+ padding: 8px 10px;
+ text-shadow: 0 0 8px var(--green);
+ margin-bottom: 12px;
+ min-height: 36px;
+ }
+
+ .radio-tuners {
+ display: grid;
+ grid-template-columns: repeat(5, 1fr);
+ gap: 6px;
+ margin-bottom: 10px;
+ }
+
+ .radio-btn {
+ font-family: inherit;
+ background: #2a1810;
+ border: 2px solid #5a3a20;
+ color: #cc9966;
+ padding: 8px 4px;
+ cursor: pointer;
+ font-size: 13px;
+ line-height: 1.2;
+ transition: none;
+ }
+
+ .radio-btn:hover {
+ border-color: var(--amber);
+ color: var(--amber);
+ }
+
+ .radio-btn.tuned {
+ background: #3a2010;
+ border-color: var(--green);
+ color: var(--green);
+ box-shadow: 0 0 10px rgba(0, 255, 65, 0.35);
+ }
+
+ .radio-btn .rb-ch {
+ display: block;
+ font-size: 15px;
+ letter-spacing: 1px;
+ }
+
+ .radio-btn .rb-name {
+ display: block;
+ font-size: 11px;
+ opacity: 0.75;
+ margin-top: 2px;
+ }
+
+ .radio-off {
+ font-family: inherit;
+ width: 100%;
+ background: #1a0a0a;
+ border: 2px solid #662222;
+ color: #ff6666;
+ padding: 6px;
+ cursor: pointer;
+ font-size: 15px;
+ letter-spacing: 2px;
+ }
+
+ .radio-off:hover {
+ background: #330a0a;
+ }
+
+ .radio-skull {
+ text-align: center;
+ font-size: 12px;
+ color: #665533;
+ margin-top: 8px;
+ letter-spacing: 2px;
+ }
+
+ /* Voicemail */
+ .vm-machine {
+ background: #1a1a22;
+ border: 2px solid #444;
+ padding: 10px;
+ }
+
+ .vm-tape {
+ display: flex;
+ gap: 8px;
+ align-items: center;
+ margin-bottom: 10px;
+ font-size: 14px;
+ color: #888;
+ }
+
+ .vm-reel {
+ width: 28px;
+ height: 28px;
+ border: 3px solid #666;
+ border-radius: 50%;
+ animation: spin 3s linear infinite;
+ }
+
+ @keyframes spin {
+ to { transform: rotate(360deg); }
+ }
+
+ .vm-list {
+ display: flex;
+ flex-direction: column;
+ gap: 8px;
+ max-height: 280px;
+ overflow-y: auto;
+ }
+
+ .vm-row {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ gap: 8px;
+ border: 1px solid #333;
+ padding: 6px 8px;
+ background: rgba(0,0,0,0.4);
+ }
+
+ .vm-meta {
+ display: flex;
+ flex-direction: column;
+ min-width: 0;
+ }
+
+ .vm-label {
+ font-size: 15px;
+ color: var(--pink);
+ }
+
+ .vm-date {
+ font-size: 12px;
+ color: #666;
+ }
+
+ .vm-btn {
+ font-family: inherit;
+ flex-shrink: 0;
+ background: #0a2a0a;
+ border: 2px solid var(--green-dim);
+ color: var(--green);
+ padding: 4px 10px;
+ cursor: pointer;
+ font-size: 14px;
+ letter-spacing: 1px;
+ }
+
+ .vm-btn:hover:not(:disabled) {
+ border-color: var(--green);
+ box-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
+ }
+
+ .vm-btn:disabled {
+ opacity: 0.4;
+ cursor: wait;
+ }
+
+ .nav {
+ text-align: center;
+ margin-top: 22px;
+ }
+
+ .btn {
+ font-family: inherit;
+ font-size: 17px;
+ color: #00ff00;
+ border: 2px solid #00ff00;
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px;
+ display: inline-block;
+ background: transparent;
+ }
+
+ .btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .btn-basement {
+ border-color: var(--basement);
+ color: #cc88ff;
+ }
+
+ .btn-basement:hover {
+ background: #1a0033;
+ color: #ffddff;
+ border-color: var(--pink);
+ }
+
+ .panel-studio { grid-column: 1 / -1; }
+ /* One-screen studio: beat maker + track board */
+ .studio-shell {
+ display: grid;
+ grid-template-columns: 1fr;
+ gap: 12px;
+ align-items: stretch;
+ }
+ .studio-col {
+ border: 1px solid #442266;
+ background: rgba(8, 0, 14, 0.65);
+ padding: 10px;
+ min-width: 0;
+ display: flex;
+ flex-direction: column;
+ }
+ .studio-col-title {
+ font-size: 15px;
+ letter-spacing: 3px;
+ color: #ffaa00;
+ margin: 0 0 8px;
+ padding-bottom: 4px;
+ border-bottom: 1px solid #5522aa;
+ }
+ .studio-beat .studio-col-title { color: #ff66cc; }
+ .studio-tracks .studio-col-title { color: #66ccff; }
+ .studio-hint {
+ font-size: 12px;
+ color: #776688;
+ letter-spacing: 1px;
+ margin: 0 0 8px;
+ line-height: 1.3;
+ }
+ .studio-tracks { order: 2; }
+ .studio-midi { order: 3; grid-column: 1 / -1; }
+ .beat-toolbar {
+ display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+ margin-bottom: 10px;
+ }
+ .beat-btn {
+ font-family: inherit; font-size: 14px; letter-spacing: 1px;
+ border: 2px solid var(--pink); background: #12001a; color: var(--pink);
+ padding: 4px 10px; cursor: pointer;
+ }
+ .beat-btn:hover { background: #1a0033; color: #fff; }
+ .beat-btn:disabled { opacity: 0.45; cursor: wait; }
+ .beat-btn-save { border-color: #00ff41; color: #00ff41; }
+ .beat-btn-save:hover { background: #001a0a; }
+ .beat-btn-sample { border-color: #ffaa00; color: #ffaa00; }
+ .beat-btn-sample:hover { background: #1a1200; color: #ffcc44; }
+ .beat-btn-send { border-color: #66ccff; color: #66ccff; }
+ .beat-btn-send:hover { background: #001a2a; color: #aaddff; }
+ .beat-send-wrap {
+ display: inline-flex; align-items: center; gap: 4px;
+ border: 2px solid #66ccff; background: #0a1020; padding: 2px 4px 2px 8px;
+ }
+ .beat-send-label { font-size: 13px; letter-spacing: 1px; color: #66ccff; }
+ .beat-send-select {
+ font-family: inherit; font-size: 14px; letter-spacing: 1px;
+ background: #12001a; color: #aaddff; border: 1px solid #446688;
+ padding: 3px 6px; cursor: pointer; min-width: 64px;
+ }
+ .beat-send-wrap .beat-btn-send { border-width: 1px; padding: 3px 8px; }
+ .beat-btn-load { display: inline-block; cursor: pointer; margin: 0; }
+ .studio-howto {
+ margin-top: 12px;
+ padding: 10px 12px;
+ border: 1px dashed #6633aa;
+ background: rgba(0,0,0,0.35);
+ font-size: 14px;
+ color: #bb99cc;
+ line-height: 1.45;
+ letter-spacing: 0.5px;
+ }
+ .studio-howto strong { color: #ffaa00; }
+ .studio-howto em { color: #66ccff; font-style: normal; }
+ .studio-howto ol { margin: 6px 0 0 18px; padding: 0; }
+ .studio-howto li { margin: 4px 0; }
+ .studio-howto .tip { color: #888; font-size: 12px; margin-top: 8px; }
+ .beat-save-status { font-size: 12px; color: #888; letter-spacing: 1px; flex: 1 1 120px; min-width: 100px; }
+ .beat-bpm { font-size: 13px; color: #aaa; display: flex; align-items: center; gap: 6px; }
+ .beat-bpm input { width: 90px; }
+ .beat-grid {
+ display: flex; flex-direction: column; gap: 4px;
+ width: 100%; max-width: 100%;
+ overflow: hidden;
+ }
+ .beat-row {
+ display: flex; align-items: center; gap: 4px;
+ width: 100%; min-width: 0; max-width: 100%;
+ }
+ .beat-swatch {
+ width: 8px; height: 8px; flex: 0 0 8px;
+ background: var(--track-color, var(--pink));
+ box-shadow: 0 0 6px var(--track-color, var(--pink));
+ }
+ .beat-label {
+ width: 58px; flex: 0 0 58px; font-size: 10px; letter-spacing: 0.5px;
+ color: var(--track-color, var(--pink));
+ overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+ }
+ .beat-steps {
+ display: grid;
+ grid-template-columns: repeat(16, minmax(0, 1fr));
+ gap: 2px;
+ flex: 1 1 auto;
+ min-width: 0;
+ }
+ .beat-step {
+ width: 100%; min-width: 0; height: 24px; border: 1px solid #333;
+ background: #0a0a0a; cursor: pointer; padding: 0;
+ box-sizing: border-box;
+ }
+ .beat-step-on { background: var(--track-color, var(--pink)); box-shadow: 0 0 8px color-mix(in srgb, var(--track-color) 50%, transparent); }
+ .beat-step-active { outline: 2px solid #fff; outline-offset: 1px; }
+ .beat-step:nth-child(4n+1) { border-color: #555; }
+ </style>
+</head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+
+ <div class="wrap">
+ <div class="header">
+ <h1>BASEMENT MEDIA LAB</h1>
+ <div class="sub">8-TRACK * 808 * MIDI LIBRARY * OFF-RECORD</div>
+ <div class="test-badge">◆ NOW LIVE ◆</div>
+ </div>
+
+ <div class="grid">
+ <section class="panel panel-studio">
+ <div class="panel-title"> STUDIO · BEAT MAKER + 8-TRACK BOARD</div>
+ <div class="panel-note">One screen: program the beat on the left, record/layer takes on the right.</div>
+ <div class="studio-shell">
+  <div class="studio-col studio-beat">
+   <div class="studio-col-title">BEAT MAKER</div>
+   <p class="studio-hint">16-step · ★ SAMPLE · SEND → pick TR1–TR8</p>
+   <div id="beatSequencer">
+    <noscript style="color:#ffaa00;">Enable JavaScript for the beat maker.</noscript>
+    <p style="color:#8866aa;font-size:15px;margin:0;" id="beatBootHint">Loading beat maker…</p>
+   </div>
+  </div>
+  <div class="studio-col studio-tracks">
+   <div class="studio-col-title">TRACK BOARD</div>
+   <p class="studio-hint">8 tracks · ○ arm · ● rec · ▶ mix</p>
+   <div id="multiTrackDeck" class="mt-compact"></div>
+  </div>
+  <div id="midiLibrary" class="studio-col studio-midi"></div>
+ </div>
+ <div class="studio-howto">
+  <strong>HOW TO RECORD (multi-track)</strong>
+  <ol>
+   <li>Use the full 16-step board to program a beat — or hit <em>★ SAMPLE</em> for 1 of 10 random styles. <em>▶ PLAY</em> to audition.</li>
+   <li>On the beat maker, open the <em>SEND →</em> dropdown, pick <strong>TR 1–TR 8</strong>, then hit <em>⬇ SEND</em> (puts a full 4-bar clip on that track).</li>
+   <li>On the track board, click <em>○</em> on another track (row turns red = armed for record).</li>
+   <li>Hit <em>●</em> <strong>RECORD</strong> — allow the mic when the browser asks. Other tracks play while you record (overdub).</li>
+   <li>Hit <em>●</em> again (or STOP) to finish. Clip appears on that track with a waveform.</li>
+   <li>Repeat: arm <strong>track 3</strong>, record, etc. up to <strong>8 tracks</strong>. Each track is a separate layer.</li>
+   <li>Hit <em>▶</em> <strong>PLAY ALL</strong> to hear the full mix. <em>M</em> = mute, <em>S</em> = solo, <em>⬇</em> = download, <em>✕</em> = clear one track.</li>
+   <li>MIDI LIBRARY: 30 sounds (keys, bass, leads, pads, drums). Pick a patch, play Z–M / Q–I or a MIDI keyboard, <em>● REC TAKE</em>, then <em>⬇ SEND</em> onto a track.</li>
+  </ol>
+  <div class="tip">TIP: Only one track can be armed at a time. Recording replaces that track’s clip. Use headphones to avoid mic feedback. First click the page if audio is blocked.</div>
+ </div>
+ </section>
+
+ <!-- CRT TV -->
+ <section class="panel panel-crt">
+ <div class="panel-title">CRT STATIC TV - CH 03</div>
+ <div class="panel-note">Crypto Dad CRT loop. DOS-era scanlines + rolling static bursts over the tape. The channel badge isn't just a label.</div>
+ <div class="crt-unit">
+ <div class="crt-bezel">
+ <div class="crt-brand">DOSWAPZ /// MODEL 8087</div>
+ <div class="crt-screen-wrap">
+ <div class="crt-screen" id="crtScreen">
+ <video class="crt-video" id="crtVideo" src="/assets/videos/basement/crt-cryptodad-loop.mp4" loop muted playsinline autoplay preload="auto" volume="0"></video>
+ <canvas class="crt-static" id="crtStatic" width="640" height="480"></canvas>
+ <div class="crt-scanlines"></div>
+ <div class="crt-vignette"></div>
+ <div class="crt-ch">CH 03</div>
+ </div>
+ </div>
+ <div class="crt-knobs">
+ <span class="crt-knob"></span>
+ <span>VOL ◆ BRIGHT ◆ TINT</span>
+ <span class="crt-knob"></span>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- Pirate Radio -->
+ <section class="panel">
+ <div class="panel-title">☠ PIRATE RADIO - 5 CH STATIC</div>
+ <div class="panel-note">Button tuners only. Every station is dead air at a different tone. Click again to mute.</div>
+ <div class="radio-unit">
+ <div class="radio-display" id="radioDisplay">--- STATIC ---</div>
+ <div class="radio-tuners" id="radioTuners"></div>
+ <button type="button" class="radio-off" id="radioOff"> POWER OFF</button>
+ <div class="radio-skull">UNLICENSED * BASEMENT FM * NO SIGNAL DETECTED</div>
+ </div>
+ </section>
+
+ <!-- Dad Voicemails -->
+ <section class="panel">
+ <div class="panel-title">☎ DAD VOICEMAILS - 1987 TAPES</div>
+ <div class="panel-note">80s payphone quality - band-limited static, crackle, gravel voice. Click anywhere first if audio is blocked.</div>
+ <div class="vm-machine">
+ <div class="vm-tape">
+ <span class="vm-reel"></span>
+ <span>ANSWERING MACHINE - CASSETTE A - SIDE 1</span>
+ <span class="vm-reel"></span>
+ </div>
+ <div class="vm-list" id="vmList"></div>
+ </div>
+ </section>
+ </div>
+
+ <div class="nav">
+ <a href="/classic/pages/basement.html" class="btn btn-basement"><- BACK TO BASEMENT</a>
+ <a href="/classic/pages/basement/media-player.html" class="btn btn-basement" style="border-color:#66ffaa;color:#66ffaa">MEDIA PLAYER</a>
+ <a href="/classic/pages/basement/boombox.html" class="btn btn-basement" style="border-color:#8866aa;color:#8866aa">BOOM BOX [SOON]</a>
+ <a href="/classic/pages/basement/meme-lab.html" class="btn btn-basement" style="border-color:#ff66cc;color:#ff66cc">MEME LAB</a>
+ <a href="/classic/hub.html" class="btn">MENU</a>
+ </div>
+ </div>
+
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+ <script src="/assets/js/core/page-transition.js" data-page-transition="1"></script>
+ <script src="/assets/js/core/site-shell.js?v=20260715d" data-site-shell="1"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.wrap' });
+ </script>
+ <script src="/assets/js/basement/media-lab.js?v=20260912mpc"></script>
+ <script src="/assets/js/basement/media-lab-multitrack.js?v=mt4"></script>
+ <script src="/assets/js/basement/media-lab-beat.js?v=sample12"></script>
+ <script src="/assets/js/basement/media-lab-midi.js?v=midi2"></script>
+ <div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+ <script src="/assets/js/core/price-ticker.js"></script>
+ </body>
+</html>

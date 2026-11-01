@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#1a0000"/>
+  <polygon points="200,50 230,120 310,120 245,165 270,240 200,195 130,240 155,165 90,120 170,120" fill="#ff5555" opacity="0.8"/>
+  <text x="200" y="280" fill="#ff5555" font-family="monospace" font-size="16" text-anchor="middle">HIGH RISK</text>
+</svg>

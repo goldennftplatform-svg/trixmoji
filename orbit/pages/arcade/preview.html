@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong> Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong> Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>ARCADE VIDEO PREVIEW // ORBIT</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+  <link rel="stylesheet" href="/assets/css/era-present-soft.css?v=neonvoid2">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style class="page-classic-styles"> * { box-sizing: border-box; margin: 0; padding: 0; }
+ /* orbit: global html,body stripped */
+ .wrap {
+ min-height: 100%;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ padding: 20px;
+ gap: 14px;
+ }
+ h1 {
+ font-size: 18px;
+ letter-spacing: 4px;
+ color: #00ffcc;
+ text-shadow: 0 0 8px #00aa88;
+ }
+ .frame {
+ width: min(960px, 100%);
+ border: 2px solid #00ffcc;
+ box-shadow: 0 0 24px rgba(0, 255, 204, 0.25);
+ background: transparent;
+ }
+ video {
+ display: block;
+ width: 100%;
+ height: auto;
+ max-height: 75vh;
+ background: transparent;
+ object-fit: contain;
+ }
+ .row {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ justify-content: center;
+ }
+ a, button {
+ font: inherit;
+ letter-spacing: 2px;
+ color: transparent;
+ background: #00ffcc;
+ border: none;
+ padding: 10px 16px;
+ text-decoration: none;
+ cursor: pointer;
+ }
+ a.ghost, button.ghost {
+ color: #00ffcc;
+ background: transparent;
+ border: 1px solid #00aa88;
+ }
+ .meta {
+ color: #006655;
+ font-size: 12px;
+ letter-spacing: 1px;
+ text-align: center;
+ line-height: 1.4;
+ }
+ .status {
+ min-height: 20px;
+ color: var(--panel-accent);
+ font-size: 14px;
+ letter-spacing: 1px;
+ }
+ </style>
+</head>
+<body id="screen" class="orbit-void-inner">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+ <span class="crumb-zone">ARCADE VIDEO PREVIEW</span>
+ <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+ <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+ <div class="core-glow"></div>
+ <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+ <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ <div class="orbit-line" style="width:min(34vmin,34vw);height:min(34vmin,34vh)"></div>
+ </div>
+
+ <main class="stage" id="content">
+ <h1 class="hollow-title" id="orbitTitle">ARCADE VIDEO PREVIEW</h1>
+ <p class="hollow-sub" id="stageSub">arcade video preview<span class="cursor-blink">|</span></p>
+</main>
+
+ <div class="orbit-panel accent-hub" id="orbitPanel">
+<h1>ARCADE INTRO - HTML PREVIEW</h1>
+ <div class="frame">
+ <video id="v" controls playsinline muted preload="auto"></video>
+ </div>
+ <div class="status" id="status">loading...</div>
+ <div class="row">
+ <button type="button" id="play">PLAY</button>
+ <button type="button" id="unmute">UNMUTE</button>
+ <button type="button" class="ghost" id="replay">REPLAY</button>
+ <a href="/orbit/pages/arcade/intro.html">INTRO FLOW</a>
+ <a class="ghost" href="/orbit/pages/arcade/hub.html">ARCADE HUB</a>
+ <a class="ghost" href="/orbit/hub.html"><- HUB</a>
+ </div>
+ <div class="meta">
+ /assets/videos/arcade/intro.mp4?v=20260714d<br>
+ HTML5 video with Range-friendly local server
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/arcade/arcade-core.js?v=20260715b"></script>
+ <script src="/assets/js/core/docs-footer.js?v=20260715e"></script>
+ <script>
+(function () {
+ var A = window.DOSWAPZ_ARCADE;
+var SRC = A ? A.VIDEO_SRC : '/assets/videos/arcade/intro.mp4?v=20260714d';
+ var v = document.getElementById('v');
+ var status = document.getElementById('status');
+ function setStatus(t) { if (status) status.textContent = t; }
+ var meta = document.querySelector('.meta');
+ if (meta && A) meta.innerHTML = A.VIDEO_SRC + '<br>HTML5 preview * INTRO v' + A.VIDEO_VERSION;
+
+ v.src = SRC;
+ v.load();
+
+ v.addEventListener('loadedmetadata', function () {
+ setStatus('ready * ' + Math.round(v.duration || 0) + 's * ' + (v.videoWidth || '?') + 'x' + (v.videoHeight || '?'));
+ });
+ v.addEventListener('playing', function () { setStatus('playing'); });
+ v.addEventListener('error', function () {
+ var c = v.error ? v.error.code : '?';
+ setStatus('ERROR code ' + c + ' - check server / file');
+ });
+
+ document.getElementById('play').onclick = function () {
+ v.play().then(function () { setStatus('playing'); }).catch(function (e) {
+ setStatus('play blocked: ' + (e && e.message ? e.message : e));
+ });
+ };
+ document.getElementById('unmute').onclick = function () {
+ v.muted = !v.muted;
+ this.textContent = v.muted ? 'UNMUTE' : 'MUTE';
+ v.play().catch(function () {});
+ };
+ document.getElementById('replay').onclick = function () {
+ v.currentTime = 0;
+ v.play().catch(function () {});
+ };
+
+ v.play().catch(function () {
+ setStatus('autoplay blocked - press PLAY');
+ });
+ })();
+ </script>
+
+ <script>hollowPageBoot('ARCADE VIDEO PREVIEW');</script>
+</body>
+</html>

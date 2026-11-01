@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>DOSWAPZ // SELL! SELL! SELL! · $SELLER TAPPER</title>
+<meta name="description" content="SELL! SELL! SELL! — Tapper-style. 4 rows. Move Michael Seller. Pour sells to match each customer request.">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+  --bg: #050308;
+  --gold: #ffcc44;
+  --pink: #ff66cc;
+  --green: #00ff88;
+  --red: #ff3355;
+  --cyan: #66ddff;
+  --wood: #4a2c18;
+  --wood-dark: #2a160c;
+  --bar: #6b3f22;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: #f2e8ff;
+  font-family: 'VT323', monospace;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.shell {
+  max-width: 900px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 6px 8px 8px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.top a {
+  color: var(--cyan);
+  text-decoration: none;
+  letter-spacing: 2px;
+  font-size: 13px;
+  border: 1px solid #345;
+  padding: 2px 8px;
+}
+.badge {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  border: 1px solid #664;
+  padding: 2px 8px;
+}
+
+h1 {
+  text-align: center;
+  font-size: clamp(22px, 5vw, 34px);
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-shadow: 0 0 14px rgba(255,180,0,.45);
+  flex-shrink: 0;
+}
+.sub {
+  text-align: center;
+  color: var(--pink);
+  letter-spacing: 2px;
+  font-size: 13px;
+  margin-bottom: 4px;
+  flex-shrink: 0;
+}
+
+.hud {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  margin-bottom: 4px;
+  flex-shrink: 0;
+}
+.hud b {
+  display: block;
+  background: #120a18;
+  border: 1px solid #443;
+  text-align: center;
+  padding: 2px 4px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #aaa;
+}
+.hud b span { color: #fff; font-size: 16px; display: block; }
+.hud b span.g { color: var(--green); }
+.hud b span.y { color: var(--gold); }
+.hud b span.r { color: var(--red); }
+
+/* ===== TAPPER STAGE ===== */
+.stage-wrap {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  border: 3px solid #5a3820;
+  background: #0a0610;
+  box-shadow: inset 0 0 40px rgba(0,0,0,.6);
+}
+
+#game {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #0c0812;
+  cursor: crosshair;
+  image-rendering: pixelated;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr 1fr;
+  gap: 6px;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+.btn {
+  font-family: inherit;
+  font-size: 16px;
+  letter-spacing: 2px;
+  border: 2px solid var(--pink);
+  background: #1a0022;
+  color: var(--pink);
+  padding: 10px 6px;
+  cursor: pointer;
+}
+.btn:disabled { opacity: .35; cursor: not-allowed; }
+.btn-pour {
+  border-color: var(--green);
+  color: var(--green);
+  background: #001a10;
+  font-size: 18px;
+}
+.btn-pour:not(:disabled):active,
+.btn-pour.held {
+  background: #004020;
+  color: #fff;
+  box-shadow: 0 0 16px rgba(0,255,136,.35);
+}
+.btn-move { border-color: var(--cyan); color: var(--cyan); background: #001018; }
+
+.hint {
+  text-align: center;
+  font-size: 11px;
+  color: #665;
+  letter-spacing: 1px;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* overlays */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: rgba(0,0,0,.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+.overlay.hidden { display: none; }
+.card {
+  max-width: 440px;
+  width: 100%;
+  border: 2px solid var(--gold);
+  background: #12081a;
+  padding: 16px 14px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(255,180,0,.22);
+}
+.card h2 {
+  color: var(--gold);
+  font-size: 24px;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+.card p {
+  color: #bbaacc;
+  font-size: 14px;
+  line-height: 1.35;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.card .big { font-size: 18px; color: #fff; margin: 8px 0; }
+.card .win { color: var(--green); }
+.card .fail { color: var(--red); }
+.how {
+  text-align: left;
+  border: 1px dashed #553;
+  padding: 8px 10px;
+  margin: 8px 0;
+  font-size: 13px;
+  color: #a99;
+  line-height: 1.4;
+}
+.how strong { color: var(--gold); }
+.how em { color: var(--cyan); font-style: normal; }
+.face-sm {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  margin: 0 auto 8px;
+  background: #000 center/cover no-repeat;
+}
+.card .btn { width: 100%; margin-top: 6px; }
+.mint { font-size: 10px; color: #554; word-break: break-all; margin-top: 8px; }
+</style>
+  <link rel="stylesheet" href="/assets/css/era-present-game.css?v=20260809era" />
+</head>
+<body data-present-label="SELL SELL SELL">
+<div class="shell">
+  <div class="top">
+    <a href="/classic/pages/arcade/hub.html">← ARCADE</a>
+    <span class="badge">$SELLER · LIVE</span>
+    <a href="/classic/pages/doswapz/swap.html?toMint=9mBEqBs2xMBkeTpUUeYFqRtnHGSkEmHz73zR5m74TRiX">TRADE $SELLER</a>
+  </div>
+  <h1>SELL! SELL! SELL!</h1>
+  <div class="sub">4 ROWS · MOVE MICHAEL · POUR TO MATCH THE REQUEST</div>
+
+  <div class="hud">
+    <b>ROUND<br><span class="y" id="hRound">1/5</span></b>
+    <b>LIVES<br><span class="g" id="hLives">3</span></b>
+    <b>SCORE<br><span id="hScore">0</span></b>
+    <b>SERVED<br><span class="g" id="hServed">0</span></b>
+    <b>QUOTA<br><span id="hQuota">0/0</span></b>
+  </div>
+
+  <div class="stage-wrap" id="stageWrap">
+    <canvas id="game" width="840" height="480"></canvas>
+
+    <div class="overlay" id="ovStart">
+      <div class="card">
+        <div class="face-sm" id="faceStart"></div>
+        <h2>SELL! SELL! SELL!</h2>
+        <p>Classic <strong style="color:#ffcc44">TAPPER</strong> rules. You are a little <strong style="color:#ff66cc">Michael Seller</strong> on <strong>4 rows</strong>.</p>
+        <div class="how">
+          <strong>HOW TO PLAY</strong><br>
+          • Customers walk in on each bar with a number (how many sells they want).<br>
+          • Move Michael <em>UP / DOWN</em> between the 4 rows.<br>
+          • <em>HOLD / TAP POUR</em> to send a $SELLER bag sliding down that row.<br>
+          • Match their request — fill the number before they reach you.<br>
+          • Empty bags slide back — catch them or lose a life.<br>
+          • Hit the quota before time runs out. Miss customers = lose lives.
+        </div>
+        <p class="big">↑↓ MOVE · SPACE / POUR · 5 SHIFTS</p>
+        <button type="button" class="btn btn-pour" id="startBtn">OPEN MARKET</button>
+        <div class="mint">$SELLER · 9mBEqBs2xMBkeTpUUeYFqRtnHGSkEmHz73zR5m74TRiX</div>
+      </div>
+    </div>
+
+    <div class="overlay hidden" id="ovRound">
+      <div class="card">
+        <h2 class="win" id="roundTitle">SHIFT CLEAR</h2>
+        <p class="big" id="roundMsg">Quota sold.</p>
+        <button type="button" class="btn btn-pour" id="nextBtn">NEXT SHIFT</button>
+      </div>
+    </div>
+
+    <div class="overlay hidden" id="ovEnd">
+      <div class="card">
+        <div class="face-sm" id="faceEnd"></div>
+        <h2 id="endTitle" class="fail">REKT</h2>
+        <p class="big" id="endMsg">You weren’t the Seller.</p>
+        <p id="endStats"></p>
+        <button type="button" class="btn btn-pour" id="retryBtn">SELL AGAIN</button>
+        <a class="btn" href="/classic/pages/doswapz/swap.html?toMint=9mBEqBs2xMBkeTpUUeYFqRtnHGSkEmHz73zR5m74TRiX" style="display:block;text-decoration:none;text-align:center;">TRADE $SELLER</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button type="button" class="btn btn-move" id="upBtn">▲ ROW</button>
+    <button type="button" class="btn btn-pour" id="pourBtn">POUR / SELL</button>
+    <button type="button" class="btn btn-move" id="downBtn">▼ ROW</button>
+    <button type="button" class="btn" id="pauseInfo" disabled style="opacity:.7;font-size:12px;">SPACE=POUR</button>
+  </div>
+  <div class="hint">TAPPER STYLE · 4 BARS · FILL EACH CUSTOMER’S NUMBER · CATCH EMPTIES COMING BACK</div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var HERO_URL = '/assets/images/seller/michael-seller.jpg';
+  var ROWS = 4;
+  var ROUNDS = [
+    { quota: 12, time: 50, spawn: 2.4, custSpeed: 28, label: 'HAPPY HOUR' },
+    { quota: 18, time: 48, spawn: 2.0, custSpeed: 34, label: 'FOMO RUSH' },
+    { quota: 24, time: 46, spawn: 1.7, custSpeed: 40, label: 'WHALE BAR' },
+    { quota: 30, time: 44, spawn: 1.45, custSpeed: 46, label: 'DOUBLE TAP' },
+    { quota: 36, time: 42, spawn: 1.2, custSpeed: 52, label: 'LAST CALL' }
+  ];
+
+  var canvas = document.getElementById('game');
+  var ctx = canvas.getContext('2d');
+  var heroImg = new Image();
+  heroImg.src = HERO_URL;
+
+  // layout (logical canvas space)
+  var W = 840, H = 480;
+  var PAD_L = 78;      // player end (left) — room for small Seller figure
+  var PAD_R = 40;      // customer spawn (right)
+  var BAR_TOP = 36;
+  var BAR_H = 96;
+  var BAR_GAP = 8;
+
+  function barY(row) {
+    return BAR_TOP + row * (BAR_H + BAR_GAP);
+  }
+
+  var state = {
+    running: false,
+    round: 0,
+    lives: 3,
+    score: 0,
+    served: 0,
+    sold: 0,
+    quota: 0,
+    timeLeft: 0,
+    timeMax: 0,
+    row: 1,
+    customers: [], // {row, x, need, got, speed, name, kind, angry}
+    drinks: [],    // {row, x, vx, empty}
+    spawnT: 0,
+    pourCd: 0,
+    pourHeld: false,
+    pourAcc: 0,
+    flash: 0,
+    lastTs: 0,
+    msg: '',
+    msgT: 0
+  };
+
+  var NAMES = {
+    degen: ['AnonApe', 'CT Kid', 'MoonBoy', 'LevLarry'],
+    whale: ['Smart$', 'OTC Desk', 'FundSer'],
+    normie: ['Retail', 'NewsGuy', 'Normie'],
+    bot: ['sniper', 'arb-0x', 'mm-bot']
+  };
+
+  function pick(a) { return a[(Math.random() * a.length) | 0]; }
+  function rand(a, b) { return a + Math.random() * (b - a); }
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+  function setFaces() {
+    ['faceStart', 'faceEnd'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.style.backgroundImage = 'url("' + HERO_URL + '")';
+    });
+  }
+
+  function hud() {
+    document.getElementById('hRound').textContent = (state.round + 1) + '/' + ROUNDS.length;
+    document.getElementById('hLives').textContent = String(state.lives);
+    document.getElementById('hScore').textContent = String(state.score);
+    document.getElementById('hServed').textContent = String(state.served);
+    document.getElementById('hQuota').textContent = state.sold + '/' + state.quota;
+  }
+
+  function say(m, t) {
+    state.msg = m;
+    state.msgT = t || 1.6;
+  }
+
+  function spawnCustomer() {
+    // pick a row with fewer customers
+    var counts = [0, 0, 0, 0];
+    state.customers.forEach(function (c) { counts[c.row]++; });
+    var best = 0, bestN = 99;
+    for (var r = 0; r < ROWS; r++) {
+      if (counts[r] < bestN) { bestN = counts[r]; best = r; }
+    }
+    // sometimes random row
+    if (Math.random() < 0.35) best = (Math.random() * ROWS) | 0;
+    if (counts[best] >= 3) return;
+
+    var kinds = ['degen', 'degen', 'normie', 'bot', 'whale'];
+    var kind = pick(kinds);
+    if (state.round >= 3 && Math.random() < 0.25) kind = 'whale';
+
+    var need = 1;
+    if (kind === 'degen') need = Math.random() < 0.5 ? 1 : 2;
+    if (kind === 'normie') need = 1;
+    if (kind === 'bot') need = Math.random() < 0.4 ? 2 : 1;
+    if (kind === 'whale') need = 2 + ((Math.random() * 2) | 0); // 2-3
+    if (state.round >= 2 && Math.random() < 0.2) need = Math.min(3, need + 1);
+
+    var base = ROUNDS[state.round].custSpeed;
+    state.customers.push({
+      row: best,
+      x: W - PAD_R - 20,
+      need: need,
+      got: 0,
+      speed: base * rand(0.85, 1.15) * (kind === 'whale' ? 0.75 : kind === 'bot' ? 1.2 : 1),
+      name: pick(NAMES[kind] || NAMES.degen),
+      kind: kind,
+      w: 34,
+      h: 52,
+      phase: Math.random() * Math.PI * 2,
+      skin: pick(['#f0c8a0', '#e8b898', '#d4a574', '#c68642', '#8d5524']),
+      face: (Math.random() * 3) | 0
+    });
+  }
+
+  /** Small buyer figure (walks left toward tender) */
+  function drawBuyer(c, bob) {
+    var x = c.x;
+    var y = barY(c.row) + 18 + bob;
+    var kind = c.kind;
+    var accent =
+      kind === 'whale' ? '#66ccff' :
+      kind === 'bot' ? '#66ff99' :
+      kind === 'normie' ? '#b0b0b0' : '#ff66cc';
+    var jacket =
+      kind === 'whale' ? '#1a3a5c' :
+      kind === 'bot' ? '#1a2a1a' :
+      kind === 'normie' ? '#4a4a55' : '#4a1840';
+    var pants =
+      kind === 'whale' ? '#0d1a28' :
+      kind === 'bot' ? '#111' : '#222';
+
+    // shadow
+    ctx.fillStyle = 'rgba(0,0,0,0.35)';
+    ctx.beginPath();
+    ctx.ellipse(x, y + 56, 16, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // legs (walk cycle)
+    var leg = Math.sin(c.phase) * 4;
+    ctx.fillStyle = pants;
+    ctx.fillRect(x - 10, y + 38, 7, 16 + leg);
+    ctx.fillRect(x + 3, y + 38, 7, 16 - leg);
+    // shoes
+    ctx.fillStyle = '#111';
+    ctx.fillRect(x - 11, y + 52 + leg, 9, 4);
+    ctx.fillRect(x + 2, y + 52 - leg, 9, 4);
+
+    // body / jacket
+    ctx.fillStyle = jacket;
+    ctx.fillRect(x - 13, y + 14, 26, 26);
+    // shirt peek
+    ctx.fillStyle = kind === 'whale' ? '#c8d8e8' : kind === 'degen' ? '#221018' : '#333';
+    ctx.fillRect(x - 5, y + 16, 10, 14);
+    // accent stripe
+    ctx.fillStyle = accent;
+    ctx.fillRect(x - 13, y + 14, 26, 3);
+
+    // arms
+    ctx.fillStyle = c.skin;
+    ctx.fillRect(x - 18, y + 18, 6, 14);
+    ctx.fillRect(x + 12, y + 18, 6, 14);
+    // hands reaching for bag
+    ctx.fillStyle = c.skin;
+    ctx.beginPath();
+    ctx.arc(x - 15, y + 34, 4, 0, Math.PI * 2);
+    ctx.arc(x + 15, y + 34, 4, 0, Math.PI * 2);
+    ctx.fill();
+
+    // head
+    ctx.fillStyle = c.skin;
+    ctx.beginPath();
+    ctx.arc(x, y + 4, 12, 0, Math.PI * 2);
+    ctx.fill();
+    // hair
+    ctx.fillStyle = kind === 'whale' ? '#e8e0d0' : kind === 'bot' ? '#445' : kind === 'normie' ? '#5a4030' : '#222';
+    ctx.beginPath();
+    ctx.arc(x, y - 2, 11, Math.PI, 0);
+    ctx.fill();
+    if (kind === 'degen') {
+      // messy spikes
+      ctx.fillRect(x - 10, y - 12, 4, 8);
+      ctx.fillRect(x - 2, y - 14, 4, 8);
+      ctx.fillRect(x + 6, y - 12, 4, 8);
+    }
+    if (kind === 'whale') {
+      // slick side part
+      ctx.fillStyle = '#ddd5c0';
+      ctx.fillRect(x - 11, y - 6, 22, 5);
+    }
+    if (kind === 'bot') {
+      // visor
+      ctx.fillStyle = '#00ffaa';
+      ctx.globalAlpha = 0.85;
+      ctx.fillRect(x - 10, y + 1, 20, 6);
+      ctx.globalAlpha = 1;
+    } else {
+      // eyes
+      ctx.fillStyle = '#111';
+      ctx.fillRect(x - 6, y + 2, 3, 3);
+      ctx.fillRect(x + 3, y + 2, 3, 3);
+      // mouth
+      ctx.fillRect(x - 3, y + 9, 6, 2);
+    }
+
+    // request bubble above head
+    var bx = x;
+    var by = y - 28;
+    ctx.fillStyle = 'rgba(0,0,0,0.8)';
+    roundRect(ctx, bx - 18, by - 14, 36, 22, 4);
+    ctx.fill();
+    ctx.strokeStyle = accent;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    // little tail
+    ctx.fillStyle = 'rgba(0,0,0,0.8)';
+    ctx.beginPath();
+    ctx.moveTo(bx - 4, by + 8);
+    ctx.lineTo(bx, by + 14);
+    ctx.lineTo(bx + 4, by + 8);
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 15px VT323, monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(String(c.need - c.got), bx, by + 2);
+
+    // name tag
+    ctx.fillStyle = accent;
+    ctx.font = '11px VT323, monospace';
+    ctx.fillText(c.name, x, y + 64);
+
+    // progress pips under feet
+    for (var p = 0; p < c.need; p++) {
+      ctx.fillStyle = p < c.got ? '#00ff88' : '#333';
+      ctx.fillRect(x - c.need * 5 + p * 10, y + 68, 8, 4);
+    }
+  }
+
+  function roundRect(c, x, y, w, h, r) {
+    c.beginPath();
+    c.moveTo(x + r, y);
+    c.arcTo(x + w, y, x + w, y + h, r);
+    c.arcTo(x + w, y + h, x, y + h, r);
+    c.arcTo(x, y + h, x, y, r);
+    c.arcTo(x, y, x + w, y, r);
+    c.closePath();
+  }
+
+  /** Small Michael Seller tender figure (left side of active row) */
+  function drawSeller(px, py, pouring) {
+    // shadow
+    ctx.fillStyle = 'rgba(0,0,0,0.4)';
+    ctx.beginPath();
+    ctx.ellipse(px, py + 58, 18, 5, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // legs
+    ctx.fillStyle = '#2a2218';
+    ctx.fillRect(px - 11, yLeg(py), 9, 18);
+    ctx.fillRect(px + 2, yLeg(py), 9, 18);
+    function yLeg(base) { return base + 40; }
+    // shoes
+    ctx.fillStyle = '#111';
+    ctx.fillRect(px - 12, py + 56, 11, 4);
+    ctx.fillRect(px + 1, py + 56, 11, 4);
+
+    // coat body (baggy suit - matches art)
+    ctx.fillStyle = '#3d3428';
+    ctx.fillRect(px - 16, py + 16, 32, 28);
+    // lapels
+    ctx.fillStyle = '#2a241c';
+    ctx.beginPath();
+    ctx.moveTo(px - 4, py + 16);
+    ctx.lineTo(px - 14, py + 30);
+    ctx.lineTo(px - 4, py + 30);
+    ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(px + 4, py + 16);
+    ctx.lineTo(px + 14, py + 30);
+    ctx.lineTo(px + 4, py + 30);
+    ctx.closePath();
+    ctx.fill();
+    // turtleneck
+    ctx.fillStyle = '#6a5a40';
+    ctx.fillRect(px - 7, py + 14, 14, 12);
+
+    // arms
+    ctx.fillStyle = '#3d3428';
+    if (pouring) {
+      // pouring arm extended to tap
+      ctx.fillRect(px + 12, py + 18, 18, 8);
+      ctx.fillStyle = '#f0c8a0';
+      ctx.beginPath();
+      ctx.arc(px + 32, py + 22, 5, 0, Math.PI * 2);
+      ctx.fill();
+      // pink sell stream
+      ctx.fillStyle = '#ff66cc';
+      ctx.globalAlpha = 0.9;
+      ctx.fillRect(px + 34, py + 24, 16, 5);
+      ctx.globalAlpha = 1;
+    } else {
+      ctx.fillRect(px - 20, py + 18, 8, 16);
+      ctx.fillRect(px + 12, py + 18, 8, 16);
+      ctx.fillStyle = '#f0c8a0';
+      ctx.beginPath();
+      ctx.arc(px - 16, py + 36, 4, 0, Math.PI * 2);
+      ctx.arc(px + 16, py + 36, 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // head — use Michael Seller art clipped in circle
+    var hr = 16;
+    var hx = px;
+    var hy = py + 2;
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(hx, hy, hr, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.clip();
+    if (heroImg.complete && heroImg.naturalWidth) {
+      // zoom on face portion of portrait
+      ctx.drawImage(heroImg, hx - hr - 2, hy - hr - 4, hr * 2 + 4, hr * 2 + 8);
+    } else {
+      ctx.fillStyle = '#f0c8a0';
+      ctx.fillRect(hx - hr, hy - hr, hr * 2, hr * 2);
+    }
+    ctx.restore();
+
+    // gold ring + eye glow
+    ctx.strokeStyle = pouring || state.flash > 0 ? '#ffffff' : '#ffcc44';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.arc(hx, hy, hr, 0, Math.PI * 2);
+    ctx.stroke();
+    if (pouring || state.flash > 0) {
+      ctx.strokeStyle = 'rgba(255,255,200,0.7)';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.arc(hx, hy, hr + 3, 0, Math.PI * 2);
+      ctx.stroke();
+      // laser eye beams
+      ctx.strokeStyle = 'rgba(255,255,255,0.85)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(hx + 6, hy);
+      ctx.lineTo(hx + 40, hy - 2);
+      ctx.moveTo(hx + 6, hy + 4);
+      ctx.lineTo(hx + 38, hy + 6);
+      ctx.stroke();
+    }
+
+    // tap stand next to him
+    ctx.fillStyle = '#777';
+    ctx.fillRect(px + 22, py + 28, 10, 30);
+    ctx.fillStyle = '#aaa';
+    ctx.fillRect(px + 20, py + 20, 14, 10);
+    // lever
+    ctx.save();
+    ctx.translate(px + 27, py + 24);
+    ctx.rotate(pouring ? 0.5 : -0.4);
+    ctx.fillStyle = '#ccc';
+    ctx.fillRect(-3, -18, 6, 20);
+    ctx.restore();
+
+    // label
+    ctx.fillStyle = '#ffcc44';
+    ctx.font = '11px VT323, monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('SELLER', px, py + 70);
+  }
+
+  function pour() {
+    if (!state.running || state.pourCd > 0) return;
+    // only one outgoing drink per row at a time near player (avoid spam clog)
+    var outgoing = 0;
+    state.drinks.forEach(function (d) {
+      if (d.row === state.row && !d.empty && d.x < PAD_L + 80) outgoing++;
+    });
+    if (outgoing >= 1) return;
+
+    state.drinks.push({
+      row: state.row,
+      x: PAD_L + 28,
+      vx: 220 + state.round * 12,
+      empty: false,
+      w: 22,
+      h: 16
+    });
+    state.pourCd = 0.18;
+    state.flash = 0.12;
+    say('SOLD →', 0.4);
+  }
+
+  function loseLife(why) {
+    state.lives -= 1;
+    say(why, 2);
+    hud();
+    if (state.lives <= 0) {
+      endGame(false);
+    }
+  }
+
+  function startRound(r) {
+    state.round = r;
+    state.running = true;
+    state.sold = 0;
+    state.quota = ROUNDS[r].quota;
+    state.timeMax = ROUNDS[r].time;
+    state.timeLeft = ROUNDS[r].time;
+    state.customers = [];
+    state.drinks = [];
+    state.spawnT = 0.5;
+    state.pourCd = 0;
+    state.row = 1;
+    state.lastTs = performance.now();
+    state.msg = ROUNDS[r].label;
+    state.msgT = 2;
+
+    document.getElementById('ovStart').classList.add('hidden');
+    document.getElementById('ovRound').classList.add('hidden');
+    document.getElementById('ovEnd').classList.add('hidden');
+    document.getElementById('pourBtn').disabled = false;
+    document.getElementById('upBtn').disabled = false;
+    document.getElementById('downBtn').disabled = false;
+
+    spawnCustomer();
+    spawnCustomer();
+    hud();
+    requestAnimationFrame(loop);
+  }
+
+  function clearRound() {
+    state.running = false;
+    if (state.round >= ROUNDS.length - 1) {
+      endGame(true);
+      return;
+    }
+    document.getElementById('roundTitle').textContent = 'SHIFT ' + (state.round + 1) + ' CLEAR';
+    document.getElementById('roundMsg').textContent =
+      ROUNDS[state.round].label + ' · next quota ' + ROUNDS[state.round + 1].quota + ' serves';
+    document.getElementById('ovRound').classList.remove('hidden');
+  }
+
+  function endGame(won) {
+    state.running = false;
+    var title = document.getElementById('endTitle');
+    var msg = document.getElementById('endMsg');
+    if (won) {
+      title.textContent = 'SOLD. SOLD. SOLD.';
+      title.className = 'win';
+      msg.textContent = 'You are the Seller.';
+      msg.className = 'big win';
+    } else {
+      title.textContent = 'REKT';
+      title.className = 'fail';
+      msg.textContent = 'You weren’t the Seller.';
+      msg.className = 'big fail';
+    }
+    document.getElementById('endStats').textContent =
+      'Score ' + state.score + ' · Served ' + state.served +
+      ' · Quota progress ' + state.sold + '/' + state.quota +
+      ' · Shift ' + (state.round + 1);
+    document.getElementById('ovEnd').classList.remove('hidden');
+    try {
+      var best = parseInt(localStorage.getItem('doswapz_sss_tapper_best') || '0', 10);
+      if (state.score > best) localStorage.setItem('doswapz_sss_tapper_best', String(state.score));
+    } catch (e) {}
+  }
+
+  function update(dt) {
+    if (!state.running) return;
+
+    state.timeLeft -= dt;
+    if (state.pourCd > 0) state.pourCd -= dt;
+    if (state.flash > 0) state.flash -= dt;
+    if (state.msgT > 0) state.msgT -= dt;
+
+    // hold-to-pour: auto pour while held with cadence
+    if (state.pourHeld) {
+      state.pourAcc += dt;
+      if (state.pourAcc >= 0.22) {
+        state.pourAcc = 0;
+        pour();
+      }
+    }
+
+    // spawn
+    state.spawnT -= dt;
+    if (state.spawnT <= 0) {
+      state.spawnT = ROUNDS[state.round].spawn * rand(0.85, 1.15);
+      spawnCustomer();
+    }
+
+    // customers walk left toward player
+    for (var i = state.customers.length - 1; i >= 0; i--) {
+      var c = state.customers[i];
+      c.x -= c.speed * dt;
+      // reached player end without full order
+      if (c.x - c.w / 2 <= PAD_L + 18) {
+        state.customers.splice(i, 1);
+        loseLife(c.name + ' unserved!');
+        if (!state.running) return;
+      }
+    }
+
+    // drinks move
+    for (var d = state.drinks.length - 1; d >= 0; d--) {
+      var drink = state.drinks[d];
+      drink.x += drink.vx * dt;
+
+      if (!drink.empty) {
+        // hit first customer on same row who still needs
+        var hit = false;
+        for (var ci = 0; ci < state.customers.length; ci++) {
+          var cust = state.customers[ci];
+          if (cust.row !== drink.row) continue;
+          if (cust.got >= cust.need) continue;
+          var dx = Math.abs(drink.x - cust.x);
+          if (dx < 28) {
+            cust.got += 1;
+            hit = true;
+            // convert to empty sliding back
+            drink.empty = true;
+            drink.vx = -190 - state.round * 8;
+            drink.x = cust.x - 10;
+
+            if (cust.got >= cust.need) {
+              // served fully
+              state.customers.splice(ci, 1);
+              state.served += 1;
+              state.sold += 1;
+              state.score += 100 * cust.need + state.round * 25;
+              say('SERVED ' + cust.name + ' x' + cust.need + '!', 1.2);
+              hud();
+              if (state.sold >= state.quota) {
+                clearRound();
+                return;
+              }
+            } else {
+              say(cust.name + ' ' + cust.got + '/' + cust.need, 0.8);
+            }
+            break;
+          }
+        }
+        // flew off right with no customer
+        if (!hit && drink.x > W - 10) {
+          state.drinks.splice(d, 1);
+          // wasted pour small penalty
+          state.score = Math.max(0, state.score - 5);
+        }
+      } else {
+        // empty returning left — player must catch on same row
+        if (drink.x <= PAD_L + 24) {
+          if (state.row === drink.row) {
+            // caught
+            state.drinks.splice(d, 1);
+            state.score += 15;
+            say('CAUGHT EMPTY', 0.5);
+          } else {
+            state.drinks.splice(d, 1);
+            loseLife('Missed empty mug!');
+            if (!state.running) return;
+          }
+        }
+      }
+    }
+
+    if (state.timeLeft <= 0) {
+      state.timeLeft = 0;
+      if (state.sold >= state.quota) clearRound();
+      else endGame(false);
+      return;
+    }
+
+    hud();
+  }
+
+  function draw() {
+    // scale canvas to CSS size
+    var rect = canvas.getBoundingClientRect();
+    var sx = canvas.width / Math.max(1, rect.width);
+    var sy = canvas.height / Math.max(1, rect.height);
+
+    ctx.fillStyle = '#0c0812';
+    ctx.fillRect(0, 0, W, H);
+
+    // back wall
+    ctx.fillStyle = '#16101c';
+    ctx.fillRect(0, 0, W, H);
+
+    // neon sign
+    ctx.fillStyle = '#ffcc44';
+    ctx.font = '20px VT323, monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('SELL! SELL! SELL!  ·  $SELLER TAPPER', W / 2, 22);
+
+    // 4 bars
+    for (var r = 0; r < ROWS; r++) {
+      var y = barY(r);
+
+      // bar wood
+      var grd = ctx.createLinearGradient(0, y, 0, y + BAR_H);
+      grd.addColorStop(0, '#3a2414');
+      grd.addColorStop(0.45, '#6b3f22');
+      grd.addColorStop(1, '#2a160c');
+      ctx.fillStyle = grd;
+      ctx.fillRect(PAD_L - 8, y + 8, W - PAD_L - PAD_R + 16, BAR_H - 16);
+
+      // bar top rail
+      ctx.fillStyle = '#8a5a30';
+      ctx.fillRect(PAD_L - 8, y + 12, W - PAD_L - PAD_R + 16, 10);
+
+      // groove line
+      ctx.strokeStyle = 'rgba(0,0,0,0.35)';
+      ctx.beginPath();
+      ctx.moveTo(PAD_L, y + BAR_H * 0.55);
+      ctx.lineTo(W - PAD_R, y + BAR_H * 0.55);
+      ctx.stroke();
+
+      // row number
+      ctx.fillStyle = state.row === r ? '#00ff88' : '#665';
+      ctx.font = '14px VT323, monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText('R' + (r + 1), 8, y + BAR_H * 0.55);
+    }
+
+    // walk bob for buyers
+    var tBob = performance.now() / 180;
+
+    // customers as buyer figures
+    state.customers.forEach(function (c) {
+      c.phase += 0.15;
+      var bob = Math.sin(c.phase) * 1.5;
+      drawBuyer(c, bob);
+    });
+
+    // drinks / empties (bags sliding on bar)
+    state.drinks.forEach(function (d) {
+      var y = barY(d.row) + BAR_H * 0.52;
+      if (d.empty) {
+        // empty bag returning
+        ctx.fillStyle = '#3a2a18';
+        ctx.fillRect(d.x - 11, y - 10, 22, 16);
+        ctx.strokeStyle = '#ffaa00';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(d.x - 11, y - 10, 22, 16);
+        ctx.fillStyle = '#ffaa00';
+        ctx.font = '10px VT323, monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('∅', d.x, y + 2);
+      } else {
+        // full $SELLER bag
+        ctx.fillStyle = '#ff66cc';
+        ctx.beginPath();
+        roundRect(ctx, d.x - 12, y - 11, 24, 18, 3);
+        ctx.fill();
+        ctx.fillStyle = '#ffcc44';
+        ctx.font = 'bold 12px VT323, monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('$', d.x, y + 3);
+        // shine
+        ctx.fillStyle = 'rgba(255,255,255,0.35)';
+        ctx.fillRect(d.x - 8, y - 8, 4, 10);
+      }
+    });
+
+    // glow on active row
+    ctx.fillStyle = 'rgba(0,255,136,0.07)';
+    ctx.fillRect(0, barY(state.row), W, BAR_H);
+
+    // Michael Seller tender (small figure)
+    var px = PAD_L - 4;
+    var py = barY(state.row) + 8;
+    drawSeller(px, py, state.pourHeld || state.flash > 0);
+
+    // timer bar
+    var tPct = state.timeMax > 0 ? state.timeLeft / state.timeMax : 0;
+    ctx.fillStyle = '#222';
+    ctx.fillRect(PAD_L, H - 18, W - PAD_L - PAD_R, 8);
+    ctx.fillStyle = tPct < 0.2 ? '#ff3355' : tPct < 0.45 ? '#ffcc44' : '#00ff88';
+    ctx.fillRect(PAD_L, H - 18, (W - PAD_L - PAD_R) * clamp(tPct, 0, 1), 8);
+
+    // msg
+    if (state.msgT > 0 && state.msg) {
+      ctx.fillStyle = 'rgba(0,0,0,0.55)';
+      ctx.fillRect(W / 2 - 140, H - 48, 280, 22);
+      ctx.fillStyle = '#ffcc44';
+      ctx.font = '16px VT323, monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(state.msg, W / 2, H - 32);
+    }
+
+    // time text
+    ctx.fillStyle = '#888';
+    ctx.font = '12px VT323, monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText(Math.max(0, state.timeLeft).toFixed(1) + 's', W - PAD_R, H - 22);
+  }
+
+  function loop(ts) {
+    if (!state.running) {
+      draw();
+      return;
+    }
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    update(dt);
+    draw();
+    if (state.running) requestAnimationFrame(loop);
+    else draw();
+  }
+
+  function move(dir) {
+    if (!state.running) return;
+    state.row = clamp(state.row + dir, 0, ROWS - 1);
+  }
+
+  // resize canvas backing store to CSS size for sharpness
+  function fit() {
+    var wrap = document.getElementById('stageWrap');
+    var rw = wrap.clientWidth;
+    var rh = wrap.clientHeight;
+    // keep internal res fixed for game logic; CSS scales
+    canvas.style.width = rw + 'px';
+    canvas.style.height = rh + 'px';
+  }
+  window.addEventListener('resize', fit);
+  fit();
+
+  // controls
+  document.getElementById('upBtn').addEventListener('click', function () { move(-1); });
+  document.getElementById('downBtn').addEventListener('click', function () { move(1); });
+
+  var pourBtn = document.getElementById('pourBtn');
+  function holdStart(e) {
+    if (e) e.preventDefault();
+    state.pourHeld = true;
+    state.pourAcc = 0.2; // first pour quick
+    pourBtn.classList.add('held');
+    pour();
+  }
+  function holdEnd(e) {
+    if (e) e.preventDefault();
+    state.pourHeld = false;
+    pourBtn.classList.remove('held');
+  }
+  pourBtn.addEventListener('pointerdown', holdStart);
+  pourBtn.addEventListener('pointerup', holdEnd);
+  pourBtn.addEventListener('pointerleave', holdEnd);
+  pourBtn.addEventListener('pointercancel', holdEnd);
+  pourBtn.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+
+  // click rows on canvas to move
+  canvas.addEventListener('pointerdown', function (e) {
+    if (!state.running) return;
+    var rect = canvas.getBoundingClientRect();
+    var y = (e.clientY - rect.top) * (H / rect.height);
+    for (var r = 0; r < ROWS; r++) {
+      var by = barY(r);
+      if (y >= by && y <= by + BAR_H) {
+        state.row = r;
+        // tap on left side also pours
+        var x = (e.clientX - rect.left) * (W / rect.width);
+        if (x < PAD_L + 60) pour();
+        break;
+      }
+    }
+  });
+
+  window.addEventListener('keydown', function (e) {
+    if (!state.running) return;
+    if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') { e.preventDefault(); move(-1); }
+    if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') { e.preventDefault(); move(1); }
+    if (e.code === 'Space' || e.key === 'Enter') {
+      e.preventDefault();
+      if (!state.pourHeld) holdStart();
+    }
+  });
+  window.addEventListener('keyup', function (e) {
+    if (e.code === 'Space' || e.key === 'Enter') holdEnd();
+  });
+
+  document.getElementById('startBtn').addEventListener('click', function () {
+    state.lives = 3;
+    state.score = 0;
+    state.served = 0;
+    startRound(0);
+  });
+  document.getElementById('nextBtn').addEventListener('click', function () {
+    startRound(state.round + 1);
+  });
+  document.getElementById('retryBtn').addEventListener('click', function () {
+    state.lives = 3;
+    state.score = 0;
+    state.served = 0;
+    startRound(0);
+  });
+
+  setFaces();
+  hud();
+  draw();
+})();
+</script>
+  <script src="/assets/js/core/era-present-game.js?v=20260809era"></script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DOSWAPZ // POLYGONAL FIGHTER — POSE LIST</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+    :root {
+      --cyan: #00ffcc;
+      --dim: #007766;
+      --text: #9eefdd;
+      --a: #00ff41;
+      --b: #ffd700;
+      --c: #ff6b5a;
+      --bg: #000;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #000;
+      color: var(--cyan);
+      font-family: 'VT323', monospace;
+      padding: 24px 16px 48px;
+    }
+    .wrap { max-width: 820px; margin: 0 auto; }
+    h1 {
+      font-size: clamp(28px, 7vw, 48px);
+      letter-spacing: 6px;
+      margin: 0 0 4px;
+      text-shadow: 0 0 10px var(--dim);
+    }
+    .sub { color: var(--dim); letter-spacing: 2px; margin-bottom: 18px; font-size: 18px; }
+    .nav { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
+    .nav a {
+      color: var(--cyan);
+      text-decoration: none;
+      border: 1px solid #004433;
+      padding: 8px 12px;
+      letter-spacing: 2px;
+    }
+    .nav a:hover { border-color: var(--cyan); }
+    .panel {
+      border: 2px solid #004433;
+      background: rgba(0, 18, 14, 0.75);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+    }
+    .panel h2 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      letter-spacing: 3px;
+      color: #ffd700;
+    }
+    .panel p, .panel li { color: var(--text); font-size: 18px; line-height: 1.35; }
+    .panel ul { margin: 6px 0 0 18px; padding: 0; }
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .btn {
+      border: 1px solid #335;
+      padding: 10px;
+      text-align: center;
+      background: #0a1210;
+    }
+    .btn strong { display: block; font-size: 28px; color: #fff; }
+    .btn span { color: var(--dim); font-size: 15px; letter-spacing: 1px; }
+    .tier-legend { display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0 14px; font-size: 16px; }
+    .chip { padding: 4px 10px; border: 1px solid; letter-spacing: 2px; }
+    .chip.a { color: var(--a); border-color: var(--a); }
+    .chip.b { color: var(--b); border-color: var(--b); }
+    .chip.c { color: var(--c); border-color: var(--c); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 17px;
+    }
+    th, td {
+      text-align: left;
+      padding: 8px 6px;
+      border-bottom: 1px solid #003328;
+      vertical-align: top;
+    }
+    th { color: var(--dim); letter-spacing: 2px; font-weight: normal; }
+    td.id { color: #fff; letter-spacing: 1px; }
+    .tag {
+      display: inline-block;
+      min-width: 18px;
+      text-align: center;
+      padding: 0 6px;
+      border: 1px solid;
+      margin-right: 4px;
+    }
+    .tag.a { color: var(--a); border-color: var(--a); }
+    .tag.b { color: var(--b); border-color: var(--b); }
+    .tag.c { color: var(--c); border-color: var(--c); }
+    .group-title {
+      margin: 20px 0 8px;
+      color: var(--dim);
+      letter-spacing: 3px;
+      font-size: 15px;
+    }
+    .count { color: #66aa99; font-size: 16px; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>POSE LIST</h1>
+    <div class="sub">POLYGONAL FIGHTER · MOBILE-FIRST · KOL-COMPATIBLE</div>
+
+    <div class="nav">
+      <a href="/classic/pages/arcade/hub.html">&lt;- ARCADE</a>
+      <a href="/classic/pages/arcade/polygonal-fighter/">POSE VIEWER (3D)</a>
+      <a href="pose-list.json">JSON</a>
+    </div>
+
+    <div class="panel">
+      <h2>// PLAN</h2>
+      <ol style="color:#9eefdd;font-size:18px;line-height:1.4;margin:0;padding-left:20px">
+        <li><strong style="color:#fff">Poses on BaseFighter rig</strong> (shared skeleton — this list)</li>
+        <li><strong style="color:#fff">KOL skins overlay</strong> same bones (Ansem, Saylor, Vitalik…)</li>
+        <li>Per-KOL only if needed: victory / specials / taunt</li>
+      </ol>
+    </div>
+
+    <div class="panel">
+      <h2>// PC CONTROLS (LOCKED)</h2>
+      <p><strong style="color:#fff">WASD</strong> = move in <strong style="color:#fff">all 8 directions</strong> (W A S D + diagonals WA · WD · SA · SD). Diagonals are normalized so you are not faster corner-running.</p>
+      <p style="margin-top:8px"><strong style="color:#fff">Arrow keys</strong> = attacks (right hand). <strong style="color:#fff">Space</strong> = jump.</p>
+      <div class="controls" style="margin-top:12px;max-width:320px;margin-left:auto;margin-right:auto">
+        <div class="btn" style="grid-column:2"><strong>↑</strong><span>SPECIAL</span></div>
+        <div class="btn"><strong>←</strong><span>PUNCH</span></div>
+        <div class="btn"><strong>↓</strong><span>BLOCK</span></div>
+        <div class="btn"><strong>→</strong><span>KICK</span></div>
+      </div>
+      <p style="margin-top:12px">Throw = <strong style="color:#fff">← + →</strong> (punch+kick) when close.</p>
+      <p style="margin-top:6px;color:#66aa99">Strength: tap = light · hold ~200ms = medium · W/forward + button = heavy · S + punch = low.</p>
+    </div>
+
+    <div class="panel">
+      <h2>// MOBILE (SAME LOGIC)</h2>
+      <p><strong style="color:#fff">Left stick</strong> = WASD (full 8-way + diagonals). <strong style="color:#fff">Right diamond</strong> = arrow keys.</p>
+      <div class="controls">
+        <div class="btn"><strong>← P</strong><span>PUNCH = ArrowLeft</span></div>
+        <div class="btn"><strong>→ K</strong><span>KICK = ArrowRight</span></div>
+        <div class="btn"><strong>↑ S</strong><span>SPECIAL = ArrowUp</span></div>
+        <div class="btn"><strong>↓ B</strong><span>BLOCK = ArrowDown</span></div>
+      </div>
+      <p style="margin-top:12px">Yes — this works well on PC and mobile. One input system, two skins.</p>
+    </div>
+
+    <div class="tier-legend">
+      <span class="chip a">A = MVP (build first)</span>
+      <span class="chip b">B = full standard</span>
+      <span class="chip c">C = 3D extras later</span>
+    </div>
+
+    <div id="tables"></div>
+    <p class="count" id="counts"></p>
+  </div>
+
+  <script src="pose-registry.js"></script>
+  <script>
+    (function () {
+      const R = window.POLY_FIGHTER_POSES;
+      const order = ['stance', 'locomotion', 'air', 'defense', 'hurt', 'attack', 'throw', 'result', 'flavor'];
+      const root = document.getElementById('tables');
+
+      order.forEach(function (group) {
+        const ids = R.GROUPS[group];
+        if (!ids || !ids.length) return;
+        const h = document.createElement('div');
+        h.className = 'group-title';
+        h.textContent = '// ' + group.toUpperCase();
+        root.appendChild(h);
+
+        const table = document.createElement('table');
+        table.innerHTML = '<thead><tr><th>T</th><th>ID</th><th>LABEL</th><th>KOL MAP</th><th>FILE</th></tr></thead>';
+        const tb = document.createElement('tbody');
+        ids.forEach(function (id) {
+          const t = R.tierOf(id);
+          if (!t) return;
+          const tr = document.createElement('tr');
+          tr.innerHTML =
+            '<td><span class="tag ' + t.toLowerCase() + '">' + t + '</span></td>' +
+            '<td class="id">' + id + '</td>' +
+            '<td>' + (R.LABELS[id] || id) + '</td>' +
+            '<td>' + (R.toKol(id) || '—') + '</td>' +
+            '<td>' + R.filename(id) + '</td>';
+          tb.appendChild(tr);
+        });
+        table.appendChild(tb);
+        root.appendChild(table);
+      });
+
+      document.getElementById('counts').textContent =
+        'Tier A MVP: ' + R.TIER_A.length +
+        ' · +Tier B: ' + R.TIER_B.length +
+        ' · +Tier C: ' + R.TIER_C.length +
+        ' · Full: ' + R.allIds('C').length +
+        ' · Attack MVP: author ACTIVE key pose first, blend startup/recovery from idle';
+    })();
+  </script>
+</body>
+</html>

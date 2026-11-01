@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Hub D - Command tiles</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ * { box-sizing: border-box; }
+ html, body { margin: 0; min-height: 100%; background: #000; color: #00ff00; font-family: 'VT323', monospace; }
+ .screen {
+ padding: 16px 14px 80px; max-width: 520px; margin: 0 auto;
+ background: repeating-linear-gradient(to bottom, transparent 0 3px, rgba(0,255,0,.025) 3px 5px);
+ }
+ .badge { float: right; font-size: 11px; color: #ffff00; border: 1px solid #554400; padding: 2px 6px; }
+ .title { font-size: 36px; letter-spacing: 6px; color: #ffff00; text-shadow: 0 0 8px #00ff00; clear: both; }
+ .sub { color: #00aa00; font-size: 14px; margin: 4px 0 14px; letter-spacing: 1px; }
+ .tiles {
+ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px;
+ }
+ .tile {
+ border: 2px solid #00ff41; background: rgba(0,20,0,.45); padding: 14px 12px;
+ text-decoration: none; color: #00ff41; min-height: 88px;
+ display: flex; flex-direction: column; justify-content: center; gap: 4px;
+ }
+ .tile:hover { background: #003300; color: #ffff00; border-color: #ffff00; }
+ .tile .k { font-size: 12px; color: #00aa00; letter-spacing: 1px; }
+ .tile .n { font-size: 22px; letter-spacing: 2px; }
+ .tile.hot { border-color: #ffff00; box-shadow: 0 0 12px rgba(255,255,0,.15); }
+ .tile.hot .n { color: #ffff00; }
+ .sec-label {
+ font-size: 12px; color: #00aa00; letter-spacing: 2px; margin: 0 0 8px;
+ border-bottom: 1px solid #003300; padding-bottom: 4px;
+ }
+ .row {
+ display: flex; justify-content: space-between; align-items: center;
+ padding: 10px 8px; border: 1px solid #002200; margin-bottom: 6px;
+ text-decoration: none; color: #00ff00; font-size: 16px; min-height: 44px;
+ }
+ .row:hover { border-color: #00ff41; color: #ffff00; }
+ .row span { color: #007700; font-size: 12px; }
+ </style>
+</head>
+<body>
+ <div class="screen">
+ <div class="badge">D</div>
+ <div class="title">DOSWAPZ</div>
+ <div class="sub">[SOVEREIGN] * pick a strike</div>
+
+ <div class="tiles">
+ <a class="tile hot" href="#"><span class="k">01 * RAIL</span><span class="n">0% SWAP</span></a>
+ <a class="tile" href="#"><span class="k">02 * PLAY</span><span class="n">ARCADE</span></a>
+ <a class="tile" href="#"><span class="k">03 * LIFE</span><span class="n">GAMES</span></a>
+ <a class="tile" href="#"><span class="k">04 * DARK</span><span class="n">BASEMENT</span></a>
+ </div>
+
+ <div class="sec-label">// MORE NODES</div>
+ <a class="row" href="#">POND SCUM <span>dossier</span></a>
+ <a class="row" href="#">I SEE YOU <span>watch</span></a>
+ <a class="row" href="#">TIME MACHINE <span>eras</span></a>
+ <a class="row" href="#">HARDWEAR <span>merch</span></a>
+ <a class="row" href="#">DOCS / LEGAL <span>cover</span></a>
+ </div>
+</body>
+</html>

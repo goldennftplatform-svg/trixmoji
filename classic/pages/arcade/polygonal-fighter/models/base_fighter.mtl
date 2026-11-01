@@ -1,0 +1,169 @@
+# Base fighter materials — flat shaded VF-era palette
+newmtl belt
+Kd 0.7000 0.1800 0.1600
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl chest
+Kd 0.5500 0.5800 0.6500
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl foot_l
+Kd 0.2200 0.2400 0.3000
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl foot_r
+Kd 0.2200 0.2400 0.3000
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl hair
+Kd 0.1200 0.1000 0.1000
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl hand_l
+Kd 0.7800 0.6200 0.4800
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl hand_r
+Kd 0.7800 0.6200 0.4800
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl head
+Kd 0.7800 0.6200 0.4800
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl jaw
+Kd 0.7800 0.6200 0.4800
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl knee_l
+Kd 0.3500 0.3800 0.4500
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl knee_r
+Kd 0.3500 0.3800 0.4500
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl lower_arm_l
+Kd 0.7800 0.6200 0.4800
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl lower_arm_r
+Kd 0.7800 0.6200 0.4800
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl lower_leg_l
+Kd 0.3500 0.3800 0.4500
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl lower_leg_r
+Kd 0.3500 0.3800 0.4500
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl neck
+Kd 0.7800 0.6200 0.4800
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl pelvis
+Kd 0.2200 0.2400 0.3000
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl shoulder_l
+Kd 0.7800 0.6200 0.4800
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl shoulder_r
+Kd 0.7800 0.6200 0.4800
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl torso
+Kd 0.3500 0.3800 0.4500
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl upper_arm_l
+Kd 0.7800 0.6200 0.4800
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl upper_arm_r
+Kd 0.7800 0.6200 0.4800
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl upper_leg_l
+Kd 0.2200 0.2400 0.3000
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+
+newmtl upper_leg_r
+Kd 0.2200 0.2400 0.3000
+Ka 0.05 0.05 0.05
+Ks 0.0 0.0 0.0
+Ns 1.0
+illum 1
+

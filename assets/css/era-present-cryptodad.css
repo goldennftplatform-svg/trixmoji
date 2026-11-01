@@ -1,0 +1,447 @@
+/**
+ * DOSWAPZ Present — Neon Void soft skin for classic Crypto Dad pages
+ * Applied when html/body have .era-present (embed=1 or era=present).
+ * Soft corners + hub magenta/cyan hue. No layout rewrites.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500;600&display=swap');
+
+html.era-present {
+  --cd-magenta: #ff3dce;
+  --cd-cyan: #00f0ff;
+  --cd-violet: #b14dff;
+  --cd-text: rgba(245, 240, 255, 0.94);
+  --cd-dim: rgba(180, 160, 210, 0.72);
+  --cd-line: rgba(255, 0, 200, 0.32);
+  --cd-glass: linear-gradient(
+    160deg,
+    rgba(50, 0, 50, 0.55) 0%,
+    rgba(0, 0, 0, 0.92) 55%,
+    rgba(0, 24, 36, 0.88) 100%
+  );
+  font-family: 'Inter', system-ui, sans-serif !important;
+  color: var(--cd-text) !important;
+  image-rendering: auto !important;
+  background:
+    radial-gradient(ellipse at 30% 8%, rgba(255, 0, 180, 0.12), transparent 42%),
+    radial-gradient(ellipse at 90% 75%, rgba(0, 240, 255, 0.09), transparent 40%),
+    radial-gradient(ellipse at 50% 100%, rgba(120, 0, 255, 0.06), transparent 45%),
+    #000 !important;
+}
+
+/* Kill CRT scanline overlays on Present */
+html.era-present .scanlines,
+html.era-present .dos-screen::before,
+html.era-present .scanlines {
+  display: none !important;
+}
+
+html.era-present .vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 48%,
+    rgba(0, 0, 0, 0.45) 100%
+  ) !important;
+  opacity: 0.7;
+}
+
+/* —— Token / scoreboard shell —— */
+html.era-present .dos-screen {
+  background: transparent !important;
+  padding: 20px 22px 72px !important;
+  text-align: center !important;
+}
+
+html.era-present .content {
+  max-width: 920px;
+  margin: 0 auto;
+  text-align: center !important;
+}
+
+html.era-present .header,
+html.era-present .hollow-title {
+  font-family: 'Space Grotesk', system-ui, sans-serif !important;
+  color: #fff !important;
+  text-shadow:
+    0 0 24px rgba(255, 0, 200, 0.35),
+    0 0 40px rgba(0, 240, 255, 0.12) !important;
+  letter-spacing: 0.12em !important;
+  text-align: center !important;
+}
+
+html.era-present .sub,
+html.era-present .subhead {
+  color: rgba(0, 240, 255, 0.65) !important;
+  letter-spacing: 0.14em !important;
+  text-align: center !important;
+}
+
+html.era-present .section {
+  text-align: center !important;
+}
+
+html.era-present .section-title {
+  color: var(--cd-magenta) !important;
+  border-bottom: 1px solid rgba(255, 0, 200, 0.22) !important;
+  border-radius: 0 !important;
+  text-align: center !important;
+  display: inline-block !important;
+  width: auto !important;
+  max-width: 100%;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-bottom: 6px !important;
+  margin-bottom: 12px !important;
+}
+
+html.era-present .section > p,
+html.era-present .content > p,
+html.era-present .launch-note,
+html.era-present .pledge,
+html.era-present .disclaimer,
+html.era-present .address-label,
+html.era-present .status-line,
+html.era-present .footer {
+  text-align: center !important;
+}
+
+html.era-present .address-box {
+  text-align: center !important;
+  word-break: break-all !important;
+}
+
+html.era-present .buttons {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 10px !important;
+  text-align: center !important;
+  margin: 22px auto 10px !important;
+}
+
+html.era-present .buttons .btn,
+html.era-present .buttons a.btn {
+  margin: 0 !important;
+  min-width: 140px;
+  text-align: center !important;
+  justify-content: center !important;
+}
+
+html.era-present .section > .btn,
+html.era-present .section > button.btn {
+  display: inline-flex !important;
+  margin: 10px auto !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+html.era-present .stat-grid {
+  justify-items: center !important;
+  text-align: center !important;
+}
+
+html.era-present .my-score {
+  text-align: center !important;
+}
+
+html.era-present #pendingScoreBox,
+html.era-present #noPendingBox {
+  text-align: center !important;
+  border-radius: 20px !important;
+}
+
+html.era-present #pendingScoreBox > div,
+html.era-present #noPendingBox > div {
+  text-align: center !important;
+}
+
+html.era-present #logPendingBtn,
+html.era-present #skipPendingBtn {
+  margin: 6px !important;
+}
+
+html.era-present .launch-note,
+html.era-present .pledge,
+html.era-present .address-box,
+html.era-present .stat-card,
+html.era-present .ledger,
+html.era-present .leaderboard,
+html.era-present .my-score,
+html.era-present .disclaimer,
+html.era-present .section {
+  border-radius: 20px !important;
+}
+
+html.era-present .launch-note,
+html.era-present .pledge,
+html.era-present .address-box,
+html.era-present .stat-card,
+html.era-present .ledger,
+html.era-present .leaderboard,
+html.era-present .my-score,
+html.era-present .disclaimer {
+  border: 1px solid var(--cd-line) !important;
+  background: var(--cd-glass) !important;
+  box-shadow:
+    0 12px 36px rgba(255, 0, 180, 0.1),
+    0 0 24px rgba(0, 240, 255, 0.05) !important;
+  color: var(--cd-text) !important;
+}
+
+html.era-present .launch-note,
+html.era-present .disclaimer {
+  border-color: rgba(0, 240, 255, 0.28) !important;
+}
+
+html.era-present .pledge {
+  border-left: 3px solid var(--cd-cyan) !important;
+  color: rgba(200, 255, 240, 0.88) !important;
+}
+
+html.era-present .address-label,
+html.era-present .stat-label,
+html.era-present .footer,
+html.era-present .status-line {
+  color: var(--cd-dim) !important;
+}
+
+html.era-present .stat-value,
+html.era-present .amount,
+html.era-present .leaderboard .score,
+html.era-present .leaderboard .rank,
+html.era-present .disclaimer-title {
+  color: var(--cd-cyan) !important;
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.25) !important;
+}
+
+html.era-present .ledger th,
+html.era-present .leaderboard th {
+  color: var(--cd-magenta) !important;
+  border-bottom-color: rgba(255, 0, 200, 0.28) !important;
+}
+
+html.era-present .ledger td,
+html.era-present .leaderboard td {
+  color: var(--cd-text) !important;
+  border-bottom-color: rgba(255, 0, 200, 0.1) !important;
+}
+
+html.era-present .ledger a,
+html.era-present a:not(.btn) {
+  color: #9eefff !important;
+}
+
+html.era-present .ledger a:hover,
+html.era-present a:not(.btn):hover {
+  color: #fff !important;
+}
+
+html.era-present .btn,
+html.era-present a.btn,
+html.era-present button.btn {
+  border-radius: 999px !important;
+  border: 1px solid var(--cd-line) !important;
+  background: rgba(20, 0, 28, 0.9) !important;
+  color: var(--cd-text) !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  letter-spacing: 0.1em !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35) !important;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+}
+
+html.era-present .btn:hover,
+html.era-present a.btn:hover,
+html.era-present button.btn:hover {
+  border-color: rgba(0, 240, 255, 0.5) !important;
+  color: #fff !important;
+  background: rgba(40, 0, 50, 0.95) !important;
+  box-shadow:
+    0 6px 28px rgba(255, 0, 180, 0.2),
+    0 0 18px rgba(0, 240, 255, 0.12) !important;
+  transform: translateY(-1px);
+}
+
+/* —— Play terminal CRT frame —— */
+html.era-present .crt {
+  border: 1px solid var(--cd-line) !important;
+  border-radius: 28px !important;
+  box-shadow:
+    0 14px 48px rgba(255, 0, 180, 0.14),
+    0 0 32px rgba(0, 240, 255, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04) !important;
+  background:
+    linear-gradient(165deg, rgba(40, 0, 45, 0.45), rgba(0, 0, 0, 0.95)) !important;
+  overflow: hidden !important;
+  margin: 8px !important;
+  width: calc(100% - 16px) !important;
+  height: calc(100% - 16px) !important;
+  box-sizing: border-box !important;
+}
+
+html.era-present {
+  color: var(--cd-text) !important;
+}
+
+html.era-present #game-visual {
+  border-bottom: 1px solid rgba(255, 0, 200, 0.28) !important;
+  background: rgba(8, 0, 14, 0.85) !important;
+  border-radius: 0 0 0 0;
+}
+
+html.era-present #game-visual img {
+  border: 2px solid rgba(255, 0, 200, 0.35) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 0 20px rgba(255, 0, 180, 0.15) !important;
+}
+
+html.era-present #terminal {
+  color: rgba(230, 220, 255, 0.92) !important;
+  font-family: 'Inter', ui-monospace, monospace !important;
+  font-size: 1.05rem !important;
+  line-height: 1.45 !important;
+}
+
+html.era-present .input-line {
+  border-top: 1px solid rgba(255, 0, 200, 0.28) !important;
+  background: rgba(12, 0, 18, 0.92) !important;
+}
+
+html.era-present #commandInput {
+  color: var(--cd-cyan) !important;
+  font-family: 'Inter', ui-monospace, monospace !important;
+  font-size: 1.1rem !important;
+}
+
+html.era-present .green { color: var(--cd-cyan) !important; }
+html.era-present .cyan { color: var(--cd-cyan) !important; }
+html.era-present .yellow { color: #ffb87a !important; }
+html.era-present .red { color: #ff6b9a !important; }
+html.era-present .white { color: #fff !important; }
+html.era-present .gray { color: var(--cd-dim) !important; }
+
+/* Floating BACK / SCOREBOARD chips in play */
+html.era-present a[href*="hub.html"],
+html.era-present a[href*="scoreboard"] {
+  border-radius: 999px !important;
+  border-width: 1px !important;
+  padding: 6px 12px !important;
+  background: rgba(16, 0, 24, 0.85) !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  letter-spacing: 0.08em !important;
+}
+
+html.era-present a[href*="hub.html"] {
+  color: var(--cd-magenta) !important;
+  border-color: rgba(255, 0, 200, 0.4) !important;
+}
+
+html.era-present a[href*="scoreboard"] {
+  color: var(--cd-cyan) !important;
+  border-color: rgba(0, 240, 255, 0.4) !important;
+}
+
+html.era-present .toasty {
+  border-radius: 14px !important;
+  border-color: rgba(255, 0, 200, 0.5) !important;
+  box-shadow: 0 0 16px rgba(255, 0, 180, 0.35) !important;
+}
+
+html.era-present .toasty-label {
+  color: var(--cd-magenta) !important;
+  text-shadow: 0 0 8px rgba(255, 61, 206, 0.5) !important;
+}
+
+/* Soften hard square borders left by inline green CRT styles */
+html.era-present [style*="border:1px solid #00ff"],
+html.era-present [style*="border: 1px solid #00ff"],
+html.era-present [style*="border:2px solid #00ff"],
+html.era-present [style*="border: 2px solid #00ff"],
+html.era-present [style*="border:3px solid #00ff"] {
+  border-radius: 12px !important;
+}
+
+/* Powered-by line */
+html.era-present + div,
+html.era-present ~ div[style*="Glitch"] {
+  color: rgba(180, 140, 200, 0.45) !important;
+}
+
+/* $DOSWAPZ Trix release neon sign */
+html.era-present .neon-sign {
+  border-color: #ff3dce !important;
+  border-radius: 18px !important;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255, 0, 180, 0.18), transparent 55%), #050008 !important;
+  box-shadow:
+    0 0 10px #ff3dce,
+    0 0 28px rgba(255, 61, 206, 0.45),
+    0 0 48px rgba(0, 240, 255, 0.18),
+    inset 0 0 22px rgba(255, 0, 180, 0.12) !important;
+  animation: neon-frame-present 1.8s ease-in-out infinite !important;
+}
+html.era-present .neon-sign::before {
+  border-color: rgba(0, 240, 255, 0.55) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.4) !important;
+}
+html.era-present .neon-marquee {
+  color: #00f0ff !important;
+  text-shadow: 0 0 8px #00f0ff, 0 0 20px #00a0ff !important;
+}
+html.era-present .neon-title {
+  color: #ff7ae8 !important;
+  text-shadow:
+    0 0 8px #ff3dce,
+    0 0 22px #ff00aa,
+    0 0 40px rgba(255, 0, 180, 0.7) !important;
+}
+html.era-present .neon-release {
+  color: #e8f8ff !important;
+  text-shadow: 0 0 8px #00f0ff, 0 0 18px rgba(0, 240, 255, 0.5) !important;
+}
+html.era-present .neon-unit {
+  border-color: rgba(255, 61, 206, 0.55) !important;
+  background: rgba(16, 0, 24, 0.78) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 0 12px rgba(255, 0, 180, 0.25), inset 0 0 10px rgba(0, 240, 255, 0.08) !important;
+}
+html.era-present .neon-unit span {
+  color: #00f0ff !important;
+  text-shadow: 0 0 8px #00f0ff, 0 0 18px #00a0ff !important;
+}
+html.era-present .neon-unit label {
+  color: rgba(255, 160, 230, 0.85) !important;
+}
+html.era-present .neon-colon {
+  color: #ff3dce !important;
+  text-shadow: 0 0 8px #ff3dce !important;
+}
+html.era-present .neon-live {
+  color: #00f0ff !important;
+  text-shadow: 0 0 10px #00f0ff, 0 0 24px #ff3dce !important;
+}
+html.era-present .neon-sign.is-live .neon-marquee {
+  color: #ff7ae8 !important;
+  text-shadow: 0 0 8px #ff3dce, 0 0 18px #ff0066 !important;
+}
+@keyframes neon-frame-present {
+  0%, 100% {
+    box-shadow:
+      0 0 10px #ff3dce,
+      0 0 28px rgba(255, 61, 206, 0.45),
+      0 0 48px rgba(0, 240, 255, 0.18),
+      inset 0 0 22px rgba(255, 0, 180, 0.12);
+  }
+  50% {
+    box-shadow:
+      0 0 16px #00f0ff,
+      0 0 36px rgba(0, 240, 255, 0.4),
+      0 0 52px rgba(255, 61, 206, 0.3),
+      inset 0 0 26px rgba(0, 240, 255, 0.12);
+  }
+}

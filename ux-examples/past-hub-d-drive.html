@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAST HUB D · Drive Browser</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#000;color:#00ff41;font-family:'VT323',monospace}
+body{padding:14px 16px 72px}
+.top{display:flex;justify-content:space-between;font-size:14px;color:#00aa00;margin-bottom:12px}
+.panel{max-width:720px;margin:0 auto;border:1px solid #00aa44;padding:14px 16px;background:rgba(0,12,0,.55)}
+.panel h1{margin:0 0 4px;font-size:18px;font-weight:400;color:#ffff00;letter-spacing:2px}
+.panel .path{color:#00aa55;font-size:15px;margin-bottom:12px}
+table{width:100%;border-collapse:collapse;font-size:16px}
+th{text-align:left;color:#00aa44;border-bottom:1px solid #003300;padding:4px 6px;font-weight:400;font-size:13px;letter-spacing:1px}
+td{padding:5px 6px;border-bottom:1px solid #001a00}
+tr:hover td{background:rgba(0,40,0,.35)}
+a{color:#00ff66;text-decoration:none}
+a:hover{color:#ffff00}
+.dir{color:#00ffaa}
+.meta{color:#007744}
+.stats{margin-top:12px;font-size:14px;color:#00aa55}
+.prompt{margin-top:14px;font-size:16px}
+.cur{animation:b .8s steps(1) infinite}
+@keyframes b{50%{opacity:0}}
+.era{position:fixed;left:10px;bottom:10px;display:flex;gap:4px;padding:4px;border:1px solid #00aa44;background:#000}
+.era a{color:#88cc88;text-decoration:none;padding:4px 8px;font-size:13px}
+.era a.here{color:#00ff66;border:1px solid #00aa44}
+</style>
+</head>
+<body>
+<div class="top"><span>DOSWAPZ DRIVE BROWSER</span><span id="clk"></span></div>
+<div class="panel">
+  <h1>C:\&gt; DIR</h1>
+  <div class="path">Directory of C:\DOSWAPZ\</div>
+  <table>
+    <thead><tr><th>NAME</th><th>TYPE</th><th>MODIFIED</th><th></th></tr></thead>
+    <tbody>
+      <tr><td><a class="dir" href="/classic/pages/cryptodad/play.html">GAMES</a></td><td class="meta">[DIR]</td><td class="meta">08-09-26</td><td><a href="/classic/pages/cryptodad/play.html">OPEN</a></td></tr>
+      <tr><td><a class="dir" href="/classic/pages/doswapz/swap.html">TRADE</a></td><td class="meta">[DIR]</td><td class="meta">08-09-26</td><td><a href="/classic/pages/doswapz/swap.html">OPEN</a></td></tr>
+      <tr><td><a class="dir" href="/classic/pages/arcade/intro.html">ARCADE</a></td><td class="meta">[DIR]</td><td class="meta">08-09-26</td><td><a href="/classic/pages/arcade/intro.html">OPEN</a></td></tr>
+      <tr><td><a class="dir" href="/classic/pages/basement.html">BASEMENT</a></td><td class="meta">[DIR]</td><td class="meta">08-09-26</td><td><a href="/classic/pages/basement.html">OPEN</a></td></tr>
+      <tr><td><a class="dir" href="/classic/pages/attic.html">ARCHIVES</a></td><td class="meta">[DIR]</td><td class="meta">08-09-26</td><td><a href="/classic/pages/attic.html">OPEN</a></td></tr>
+      <tr><td><a class="dir" href="/classic/pages/cryptodad/token.html">CRYPTO_DAD</a></td><td class="meta">[DIR]</td><td class="meta">08-09-26</td><td><a href="/classic/pages/cryptodad/token.html">OPEN</a></td></tr>
+      <tr><td><a class="dir" href="/classic/pages/hardwear/merch.html">HARDWEAR</a></td><td class="meta">[DIR]</td><td class="meta">08-09-26</td><td><a href="/classic/pages/hardwear/merch.html">OPEN</a></td></tr>
+      <tr><td><a class="dir" href="/classic/pages/i-see-you.html">SECRET</a></td><td class="meta">[DIR]</td><td class="meta">??-??-??</td><td><a href="/classic/pages/i-see-you.html">OPEN</a></td></tr>
+      <tr><td><a href="/docs/">README.TXT</a></td><td class="meta">1.2K</td><td class="meta">08-09-26</td><td><a href="/docs/">READ</a></td></tr>
+      <tr><td><a href="/classic/hub.html">SYSTEM.INI</a></td><td class="meta">0.8K</td><td class="meta">08-09-26</td><td>—</td></tr>
+    </tbody>
+  </table>
+  <div class="stats">8 DIR(S) · 2 FILE(S) · 4,608 BYTES FREE (mythical)</div>
+  <div class="prompt">C:\&gt;<span class="cur">█</span></div>
+</div>
+<nav class="era"><a class="here" href="/classic/hub.html">PAST</a><a href="/orbit/hub.html">PRESENT</a><a href="/future/hub.html">FUTURE</a><a href="/portal.html">TIME</a></nav>
+<script>document.getElementById('clk').textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'})</script>
+</body>
+</html>

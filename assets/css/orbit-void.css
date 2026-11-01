@@ -1,0 +1,415 @@
+/* Orbit Void shell - merge-a-orbit-void + site-orbit-void-preview */
+
+/* Hide any leftover build/prompt fallback copy if a page still injects it */
+.orbit-fallback,
+p.orbit-fallback {
+ display: none !important;
+ visibility: hidden !important;
+ height: 0 !important;
+ margin: 0 !important;
+ padding: 0 !important;
+ overflow: hidden !important;
+}
+
+:root {
+ --title-color: rgba(200, 200, 220, 0.35);
+ --title-glow: rgba(255, 255, 255, 0.1);
+ --sub-color: rgba(255, 255, 255, 0.25);
+ --panel-accent: rgba(255, 255, 255, 0.22);
+ --tm-color: rgba(255, 200, 100, 0.75);
+ /* Present-era type: modern geometric, not CRT/pixel */
+ --present-display: 'Space Grotesk', system-ui, sans-serif;
+ --present-ui: 'Inter', system-ui, sans-serif;
+}
+
+/* PRESENT typography — leave Past (VT323) alone */
+body#screen {
+ background: #000;
+ cursor: none;
+ color: rgba(230, 230, 230, 0.72);
+ font-family: var(--present-ui);
+ letter-spacing: 0.02em;
+ -webkit-font-smoothing: antialiased;
+ text-rendering: optimizeLegibility;
+}
+
+body#screen .hollow-title {
+ font-family: var(--present-display);
+ font-weight: 600;
+ letter-spacing: 0.14em;
+ text-transform: uppercase;
+ -webkit-text-stroke-width: 1.5px;
+}
+
+body#screen .hollow-sub {
+ font-family: var(--present-ui);
+ font-weight: 400;
+ letter-spacing: 0.12em;
+ text-transform: uppercase;
+ font-size: clamp(13px, 2.4vw, 16px);
+}
+
+body#screen .ref-crumbs,
+body#screen .ref-crumbs a,
+body#screen .tm-static,
+body#screen .hub-static,
+body#screen .glitch-credit {
+ font-family: var(--present-ui);
+ font-weight: 500;
+ letter-spacing: 0.16em;
+ text-transform: uppercase;
+}
+
+body#screen .hollow-label {
+ font-family: var(--present-ui) !important;
+ font-weight: 500 !important;
+ font-size: clamp(9px, 1.5vw, 11px) !important;
+ letter-spacing: 0.1em !important;
+ text-transform: uppercase;
+}
+
+body#screen .hollow-ring .glyph {
+ font-family: var(--present-display);
+ font-weight: 600;
+}
+
+body#screen .era-rail a,
+body#screen .present-bar a {
+ font-family: var(--present-ui) !important;
+ font-weight: 500;
+ letter-spacing: 0.14em;
+ text-transform: uppercase;
+ font-size: 12px !important;
+}
+
+body#screen.orbit-void-inner {
+ cursor: default;
+ overflow-x: hidden !important;
+ overflow-y: auto !important;
+ height: auto !important;
+ max-height: none !important;
+}
+
+body#screen.orbit-void-inner .cursor-ghost {
+ display: none;
+}
+
+body#screen .vignette {
+ background: radial-gradient(ellipse at center, transparent 12%, #000 82%);
+}
+
+body#screen .bg-canvas {
+ opacity: 0.12 !important;
+}
+
+body#screen .hollow-btn {
+ opacity: 0.035;
+ transition: filter 300ms, opacity 280ms;
+}
+
+/* Present hub: ALWAYS show floating icons (override shy void default) */
+body#screen.hub-bubbles {
+ cursor: default;
+ overflow: hidden !important;
+ height: 100% !important;
+ max-height: 100% !important;
+ touch-action: none;
+}
+
+body#screen.hub-bubbles .cursor-ghost {
+ display: none !important;
+ pointer-events: none !important;
+}
+
+/*
+ HIT TARGET FIX:
+ Decorative layers stay below clickable bubbles.
+ Bubble layer must be ABOVE stage/float-field and BELOW era rail/crumbs.
+*/
+body#screen.hub-bubbles .bg-canvas,
+body#screen.hub-bubbles #stars,
+body#screen.hub-bubbles .grain,
+body#screen.hub-bubbles .vignette,
+body#screen.hub-bubbles .glitch-layer {
+ pointer-events: none !important;
+}
+
+body#screen.hub-bubbles .stage {
+ z-index: 10 !important;
+ pointer-events: none !important;
+ min-height: 0 !important;
+ height: 100% !important;
+ overflow: hidden !important;
+}
+
+body#screen.hub-bubbles .float-field,
+body#screen.hub-bubbles .orbit-fullscreen,
+body#screen.hub-bubbles .orbit-line,
+body#screen.hub-bubbles .core-glow {
+ z-index: 20 !important;
+ pointer-events: none !important;
+}
+
+/* New bubble anchors (a.bubble) */
+body#screen.hub-bubbles #bubbleLayer {
+ position: fixed !important;
+ inset: 0 !important;
+ z-index: 200 !important;
+ pointer-events: none !important;
+}
+
+body#screen.hub-bubbles a.bubble {
+ pointer-events: auto !important;
+ cursor: pointer !important;
+ z-index: 210 !important;
+ position: fixed !important;
+}
+
+body#screen.hub-bubbles a.bubble .br,
+body#screen.hub-bubbles a.bubble .bg,
+body#screen.hub-bubbles a.bubble .bl {
+ pointer-events: none !important;
+}
+
+/* Legacy hollow-btn bubbles (if any page still uses them) */
+body#screen.hub-bubbles .hollow-btn,
+body#screen.hub-bubbles .hollow-btn.stationary-bubble {
+ opacity: 0.88 !important;
+ filter: drop-shadow(0 0 10px currentColor);
+ pointer-events: auto !important;
+ cursor: pointer !important;
+ z-index: 210 !important;
+ position: fixed !important;
+ min-width: 64px;
+ min-height: 64px;
+}
+
+body#screen.hub-bubbles .hollow-btn .hollow-ring,
+body#screen.hub-bubbles .hollow-btn .glyph,
+body#screen.hub-bubbles .hollow-btn .hollow-label {
+ pointer-events: none !important;
+}
+
+body#screen.hub-bubbles .hollow-btn.stationary-bubble:hover,
+body#screen.hub-bubbles .hollow-btn.stationary-bubble.is-hovered,
+body#screen.hub-bubbles .hollow-btn:hover,
+body#screen.hub-bubbles .hollow-btn:focus-visible {
+ opacity: 1 !important;
+ filter: drop-shadow(0 0 18px currentColor) brightness(1.25);
+}
+
+/* rail/crumbs above bubbles for timeline nav */
+body#screen.hub-bubbles .era-rail,
+body#screen.hub-bubbles .ref-crumbs {
+ z-index: 300 !important;
+ pointer-events: auto !important;
+}
+body#screen.hub-bubbles .glitch-credit {
+ z-index: 150 !important;
+ pointer-events: none !important;
+}
+
+body#screen.orbit-void-inner .hollow-btn.stationary-bubble {
+ opacity: 0.7;
+}
+
+body#screen.orbit-void-inner .hollow-btn.stationary-bubble:hover,
+body#screen.orbit-void-inner .hollow-btn.stationary-bubble.is-hovered {
+ opacity: 1;
+}
+
+body#screen .hollow-ring {
+ border-width: 1px;
+}
+
+body#screen .orbit-line {
+ border-color: rgba(255, 255, 255, 0.04);
+ animation: orbit-void-spin 100s linear infinite;
+}
+
+body#screen .orbit-line:nth-child(2) {
+ animation-duration: 140s;
+ animation-direction: reverse;
+}
+
+body#screen .orbit-line:nth-child(3) {
+ animation-duration: 75s;
+ border-color: rgba(255, 255, 255, 0.03);
+}
+
+@keyframes orbit-void-spin {
+ to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+body#screen .core-glow {
+ position: absolute;
+ left: 50%;
+ top: 50%;
+ width: 100px;
+ height: 100px;
+ transform: translate(-50%, -50%);
+ border-radius: 50%;
+ border: 1px solid rgba(255, 255, 255, 0.08);
+ animation: orbit-void-breathe 5s ease-in-out infinite;
+ pointer-events: none;
+}
+
+@keyframes orbit-void-breathe {
+ 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.35; }
+ 50% { transform: translate(-50%, -50%) scale(1.12); opacity: 0.7; }
+}
+
+body#screen .star {
+ position: fixed;
+ background: #fff;
+ border-radius: 50%;
+ pointer-events: none;
+ z-index: 1;
+}
+
+body#screen .cursor-ghost {
+ position: fixed;
+ width: 56px;
+ height: 56px;
+ border: 1px solid rgba(255, 255, 255, 0.12);
+ border-radius: 50%;
+ pointer-events: none;
+ z-index: 300;
+ transform: translate(-50%, -50%);
+ box-shadow: 0 0 30px rgba(255, 255, 255, 0.04);
+}
+
+body#screen .hollow-title {
+ -webkit-text-stroke-color: rgba(180, 180, 200, 0.3);
+}
+
+body#screen .stage {
+ pointer-events: none;
+ z-index: 35;
+}
+
+body#screen .stage .hollow-title,
+body#screen .stage .hollow-sub,
+body#screen .stage .page-path {
+ pointer-events: none;
+}
+
+body#screen.orbit-void-inner .stage {
+ min-height: auto;
+ padding: 48px 16px 0;
+ justify-content: flex-start;
+}
+
+body#screen.orbit-void-inner .stage .hollow-title {
+ font-size: clamp(28px, 6vw, 48px);
+ margin-bottom: 4px;
+}
+
+body#screen.orbit-void-inner .stage .hollow-sub {
+ font-size: clamp(14px, 2.5vw, 18px);
+ margin-bottom: 12px;
+}
+
+/* inner pages: orbit rings are backdrop only - don't push title/panel down */
+body#screen.orbit-void-inner .float-field {
+ position: fixed;
+ inset: 0;
+ width: 100%;
+ height: 100%;
+ max-width: none;
+ margin: 0;
+ z-index: 2;
+ pointer-events: none;
+}
+
+body#screen .page-path {
+ display: none !important; /* never show raw /orbit/pages/... under titles */
+ font-size: 13px;
+ letter-spacing: 2px;
+ color: rgba(255, 255, 255, 0.2);
+ margin-bottom: 8px;
+ text-align: center;
+}
+
+/* static nav - TIME MACHINE always visible */
+body#screen .ref-crumbs {
+ color: rgba(255, 255, 255, 0.15);
+ pointer-events: none;
+}
+
+body#screen .ref-crumbs a {
+ pointer-events: auto;
+}
+
+body#screen .ref-crumbs a.tm-static {
+ color: var(--tm-color);
+ letter-spacing: 3px;
+}
+
+body#screen .ref-crumbs a.tm-static:hover {
+ color: rgba(255, 220, 150, 1);
+ text-shadow: 0 0 12px rgba(255, 200, 100, 0.35);
+}
+
+body#screen .ref-crumbs a.hub-static {
+ color: rgba(255, 255, 255, 0.35);
+}
+
+body#screen .ref-crumbs a.hub-static:hover {
+ color: rgba(255, 255, 255, 0.8);
+}
+
+/* inner page panel - site-orbit-void-preview mock-panel */
+body#screen .orbit-panel {
+ position: relative;
+ z-index: 36;
+ width: min(720px, 94vw);
+ margin-left: auto;
+ margin-right: auto;
+ margin-bottom: 120px;
+ padding: 28px 24px 32px;
+ box-sizing: border-box;
+ pointer-events: auto;
+ border: 1px dashed var(--panel-accent, rgba(255, 255, 255, 0.18));
+ border-radius: 2px;
+ background: transparent;
+ box-shadow: 0 0 60px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(255, 255, 255, 0.02);
+}
+
+body#screen .orbit-panel::before {
+ content: '';
+ position: absolute;
+ inset: 12px;
+ border: 1px dashed rgba(255, 255, 255, 0.06);
+ border-radius: 50%;
+ pointer-events: none;
+}
+
+body#screen .accent-swap { --panel-accent: rgba(0, 255, 65, 0.45); }
+body#screen .accent-mint { --panel-accent: rgba(52, 152, 219, 0.5); }
+body#screen .accent-pond { --panel-accent: rgba(136, 204, 136, 0.45); }
+body#screen .accent-degen { --panel-accent: rgba(255, 0, 255, 0.45); }
+body#screen .accent-hard { --panel-accent: rgba(170, 170, 170, 0.45); }
+body#screen .accent-attic { --panel-accent: rgba(204, 170, 102, 0.5); }
+body#screen .accent-basement { --panel-accent: rgba(255, 102, 204, 0.5); }
+body#screen .accent-lily { --panel-accent: rgba(26, 188, 156, 0.45); }
+body#screen .accent-13th { --panel-accent: rgba(255, 255, 0, 0.4); }
+body#screen .accent-demplar { --panel-accent: rgba(120, 120, 252, 0.45); }
+body#screen .accent-hub { --panel-accent: rgba(200, 200, 220, 0.4); }
+body#screen .accent-arcade { --panel-accent: rgba(0, 255, 204, 0.5); }
+body#screen .accent-iseeyou { --panel-accent: rgba(255, 80, 130, 0.55); }
+body#screen .accent-pvv { --panel-accent: rgba(136, 204, 255, 0.5); }
+
+/* I SEE YOU - solid terminal shell (no void dashed ring) */
+body#screen .orbit-panel.accent-iseeyou {
+ width: min(720px, 94vw);
+ border: 1px solid rgba(255, 80, 130, 0.35);
+ border-style: solid;
+ border-radius: 4px;
+ background: rgba(6, 2, 6, 0.92);
+ box-shadow: 0 0 40px rgba(255, 40, 90, 0.08), inset 0 0 30px rgba(0, 0, 0, 0.5);
+ padding: 22px 18px 28px;
+}
+body#screen .orbit-panel.accent-iseeyou::before {
+ display: none;
+}

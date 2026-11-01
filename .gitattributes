@@ -1,0 +1,20 @@
+# Keep media byte-for-byte intact on Windows, including text-like PDF files.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.mp4 binary
+*.webm binary
+*.mp3 binary
+*.wav binary
+*.ogg binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.bin binary
+*.exe binary
+*.zip binary
+*.blend binary

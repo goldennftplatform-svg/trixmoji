@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Example 5 — Daily Cabinet Challenge</title>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: #000;
+      color: #00ffcc;
+      font-family: VT323, monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background-image:
+        radial-gradient(ellipse at 50% 0%, rgba(0, 255, 204, 0.08), transparent 55%);
+    }
+    .badge { color: #ffd700; letter-spacing: 3px; font-size: 14px; margin-bottom: 14px; }
+    .cab {
+      width: min(420px, 100%);
+      border: 2px solid #004433;
+      background: rgba(0, 18, 14, 0.9);
+      padding: 16px 18px;
+      text-align: left;
+    }
+    .cab:hover { border-color: #00ffcc; box-shadow: 0 0 18px rgba(0, 255, 204, 0.2); }
+    .tag { font-size: 13px; letter-spacing: 3px; color: #00aa88; margin-bottom: 4px; }
+    .name { font-size: 28px; letter-spacing: 3px; color: #ffd700; }
+    .blurb { margin-top: 8px; font-size: 17px; color: #66aa99; line-height: 1.35; }
+    .seed {
+      margin-top: 14px;
+      padding: 10px 12px;
+      border: 1px solid #2a2a00;
+      background: rgba(40, 30, 0, 0.35);
+      font-size: 18px;
+      color: #00ffcc;
+      letter-spacing: 2px;
+    }
+    .seed strong { color: #ffd700; }
+    .cabs {
+      width: min(420px, 100%);
+      margin-top: 12px;
+      display: grid;
+      gap: 8px;
+    }
+    .mini {
+      border: 1px solid #003322;
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+    }
+    .mini span:last-child { color: #ff7ac8; }
+    .mini.snow span:last-child { color: #a8e0ff; }
+    p.note { margin-top: 14px; color: #007766; font-size: 16px; text-align: center; max-width: 420px; }
+    nav { margin-top: 14px; font-size: 16px; }
+    nav a { color: #00ffcc; margin: 0 8px; }
+  </style>
+</head>
+<body>
+  <div class="badge">EXAMPLE 05 / 05 · DAILY ARCADE SEED</div>
+  <div class="cab">
+    <div class="tag">DAILY CHALLENGE · SAME FOR EVERYONE</div>
+    <div class="name">STACK MODE</div>
+    <div class="blurb">Today’s seed drives the same traffic pattern / enemy layout for all players. Tag posts +DAILY.</div>
+    <div class="seed">SEED <strong>a3f91c02</strong> · 2026-07-19 · +DAILY</div>
+  </div>
+  <div class="cabs">
+    <div class="mini"><span>PINK FROG</span><span>TODAY’S BEST 18,200</span></div>
+    <div class="mini snow"><span>SNOWMAN BUILDZ GEOFF</span><span>L3 · 4,800</span></div>
+    <div class="mini"><span>CRYPTO DAD</span><span>SURVIVED 5 DAYS</span></div>
+  </div>
+  <p class="note">Idea: one shared daily seed across cabinets so the arcade feels “live” every day.</p>
+  <nav>
+    <a href="04-geoff-boot.html">← Prev</a>
+    <a href="index.html">All</a>
+    <a href="../pink-frog/">Play PINK FROG</a>
+  </nav>
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOSWAPZ // ACCESS NOTICE</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='32' fill='%2300ff00' text-anchor='middle' font-weight='bold'%3EDZ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00ff00;
+    --dim: #00aa00;
+    --yellow: #ffff00;
+    --paper: #c8ffc8;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    min-height: 100%;
+    background: #000;
+    color: var(--green);
+    font-family: "VT323", "Courier New", Consolas, monospace;
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .scan {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 8;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 3px,
+      rgba(0, 255, 0, 0.045) 3px,
+      rgba(0, 255, 0, 0.045) 5px
+    );
+  }
+
+  .vignette {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 7;
+    background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.55) 100%);
+  }
+
+  .stage {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 18px 64px;
+  }
+
+  .sheet {
+    width: min(720px, 100%);
+    border: 2px solid var(--green);
+    box-shadow: 0 0 0 1px #003300, 0 0 24px rgba(0, 255, 0, 0.18);
+    background: #000;
+    padding: 22px 22px 18px;
+  }
+
+  .mast {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: baseline;
+    border-bottom: 1px solid var(--dim);
+    padding-bottom: 8px;
+  }
+
+  .brand {
+    margin: 0;
+    font-size: clamp(40px, 8vw, 64px);
+    letter-spacing: 0.14em;
+    line-height: 0.9;
+    font-weight: 400;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.65);
+  }
+
+  .file-id {
+    margin: 0;
+    color: var(--yellow);
+    letter-spacing: 0.12em;
+    font-size: 22px;
+  }
+
+  .kicker {
+    margin: 12px 0 0;
+    font-size: clamp(26px, 4vw, 34px);
+    letter-spacing: 0.18em;
+  }
+
+  .meta {
+    margin: 4px 0 0;
+    color: var(--dim);
+    font-size: 20px;
+    letter-spacing: 0.08em;
+  }
+
+  .status {
+    margin: 16px 0 0;
+    padding: 6px 10px;
+    background: var(--yellow);
+    color: #000;
+    font-size: clamp(20px, 3vw, 26px);
+    letter-spacing: 0.08em;
+  }
+
+  .log {
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 22px;
+    line-height: 1.35;
+  }
+
+  .log li {
+    display: grid;
+    grid-template-columns: 72px 1fr auto;
+    gap: 10px;
+  }
+
+  .log .t { color: var(--dim); }
+  .log .v { color: var(--yellow); }
+
+  .reason {
+    margin: 16px 0 0;
+    font-size: clamp(22px, 3vw, 28px);
+    line-height: 1.25;
+    max-width: 38ch;
+  }
+
+  .due {
+    margin-top: 18px;
+    border: 1px solid var(--dim);
+    padding: 12px 14px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  .due p { margin: 0; }
+
+  .due .label {
+    color: var(--dim);
+    letter-spacing: 0.14em;
+    font-size: 18px;
+  }
+
+  .due .amt {
+    font-size: clamp(56px, 10vw, 84px);
+    line-height: 0.85;
+    letter-spacing: 0.04em;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.45);
+  }
+
+  .due .unit {
+    font-size: 28px;
+    letter-spacing: 0.16em;
+    color: var(--yellow);
+  }
+
+  .fine {
+    margin: 12px 0 0;
+    color: var(--dim);
+    font-size: 18px;
+    line-height: 1.35;
+    max-width: 62ch;
+  }
+
+  .choices {
+    margin-top: 16px;
+    display: grid;
+    gap: 6px;
+  }
+
+  button.choice {
+    appearance: none;
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    font-size: clamp(26px, 4vw, 34px);
+    letter-spacing: 0.06em;
+    color: var(--green);
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 4px 8px;
+    cursor: pointer;
+  }
+
+  button.choice::before {
+    content: "> ";
+    color: var(--dim);
+  }
+
+  button.choice:hover,
+  button.choice:focus-visible {
+    color: #000;
+    background: var(--yellow);
+    border-color: var(--yellow);
+    outline: none;
+  }
+
+  button.choice:hover::before,
+  button.choice:focus-visible::before {
+    color: #000;
+  }
+
+  .foot {
+    margin: 14px 0 0;
+    color: var(--dim);
+    font-size: 16px;
+    letter-spacing: 0.12em;
+  }
+
+  .takeover {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    background: #000;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .insult {
+    margin: 0;
+    max-width: 16ch;
+    color: #f4f4f4;
+    font-size: clamp(40px, 7vw, 78px);
+    line-height: 0.92;
+    letter-spacing: 0.04em;
+    font-weight: 400;
+  }
+
+  .punch {
+    margin: 0;
+    color: var(--green);
+    font-size: clamp(52px, 11vw, 128px);
+    line-height: 0.9;
+    letter-spacing: 0.06em;
+    text-shadow:
+      0 0 8px rgba(0, 255, 0, 0.8),
+      0 0 28px rgba(0, 255, 0, 0.35);
+  }
+
+  .caret {
+    display: none;
+    position: fixed;
+    z-index: 30;
+    left: 36px;
+    top: 32px;
+    width: 16px;
+    height: 28px;
+    background: var(--green);
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.8);
+    animation: blink 1s steps(1) infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .review {
+    position: fixed;
+    z-index: 40;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+    background: #000;
+    color: #665500;
+    font-size: 16px;
+    letter-spacing: 0.08em;
+    text-align: center;
+  }
+
+  .review button {
+    font: inherit;
+    letter-spacing: inherit;
+    color: #aa8800;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 0 6px;
+  }
+
+  .review button:hover { color: var(--yellow); }
+
+  body[data-state="yes"] .scan,
+  body[data-state="yes"] .vignette,
+  body[data-state="yes"] .stage,
+  body[data-state="black"] .scan,
+  body[data-state="black"] .vignette,
+  body[data-state="black"] .stage,
+  body[data-state="black"] .review,
+  body[data-state="play"] .scan,
+  body[data-state="play"] .vignette,
+  body[data-state="play"] .stage {
+    display: none;
+  }
+
+  body.shot .review { display: none; }
+
+  body[data-state="yes"] .takeover.yes,
+  body[data-state="play"] .takeover.play {
+    display: flex;
+  }
+
+  body[data-state="black"] {
+    background: #000;
+    cursor: default;
+  }
+
+  body[data-state="black"] .caret { display: block; }
+
+  body[data-state="play"] .takeover.play { cursor: default; }
+
+  @media (max-width: 560px) {
+    .log li { grid-template-columns: 58px 1fr auto; gap: 6px; font-size: 18px; }
+    .sheet { padding: 16px 12px 14px; }
+    .caret { left: 16px; top: 16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .caret { animation: none; }
+  }
+</style>
+</head>
+<body data-state="notice">
+  <div class="scan" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <main class="stage">
+    <section class="sheet" aria-labelledby="notice-title">
+      <header class="mast">
+        <h1 class="brand">DOSWAPZ</h1>
+        <p class="file-id">GATE-016</p>
+      </header>
+      <p class="kicker" id="notice-title">ACCESS NOTICE</p>
+      <p class="meta">16 OCT 2026 · 00:01 UTC · ALL DESKS</p>
+      <p class="status">PARTICIPATION BELOW THE FLOOR</p>
+      <ul class="log">
+        <li><span class="t">00:01</span><span>ARCADE</span><span class="v">OPEN / EMPTY</span></li>
+        <li><span class="t">00:01</span><span>INFO</span><span class="v">OPEN / EMPTY</span></li>
+        <li><span class="t">00:01</span><span>DESKS</span><span class="v">OPEN / EMPTY</span></li>
+        <li><span class="t">00:01</span><span>TOLL SET</span><span class="v">0.01 SOL</span></li>
+      </ul>
+      <p class="reason">The room has been open with nobody in it. Any game, any info page, and any desk now costs 0.01 SOL to open.</p>
+      <div class="due">
+        <div>
+          <p class="label">AMOUNT DUE</p>
+          <p class="amt">0.01</p>
+        </div>
+        <p class="unit">SOL</p>
+      </div>
+      <p class="fine">YES means you would pay the toll. NO means you will not. This screen does not connect a wallet and cannot move SOL.</p>
+      <div class="choices">
+        <button class="choice" type="button" id="yes" data-choice="yes">YES — I WILL PAY 0.01 SOL</button>
+        <button class="choice" type="button" id="no" data-choice="no">NO — I WILL NOT</button>
+      </div>
+      <p class="foot">DESK POSTED THIS. NOT A MINT. NOT A POOL. NOT A PRESALE.</p>
+    </section>
+  </main>
+
+  <div class="takeover yes" role="dialog" aria-modal="true" aria-label="Reply">
+    <h2 class="insult">DO YOU THINK I WOULD ACCEPT ANYTHING FROM YOU?</h2>
+  </div>
+
+  <div class="caret" aria-hidden="true"></div>
+
+  <div class="takeover play" role="dialog" aria-modal="true" aria-label="Punchline">
+    <h2 class="punch">JUST PLAYING!!</h2>
+  </div>
+
+  <div class="review">
+    LOCAL PREVIEW · NOT ON THE SITE · NOT DEPLOYED
+    <button type="button" id="back">NOTICE</button>
+    <button type="button" id="jump-play">SKIP TO PUNCHLINE</button>
+  </div>
+
+  <script>
+    (function () {
+      var body = document.body;
+      var timer = 0;
+
+      var HOLD = 5000;
+
+      function goHome() {
+        window.location.href = "/classic/hub.html";
+      }
+
+      function paint(state) {
+        window.clearTimeout(timer);
+        body.dataset.state = state;
+        if (state === "black") {
+          timer = window.setTimeout(function () {
+            paint("play");
+          }, 10000);
+        }
+        if (state === "play" || state === "yes") {
+          timer = window.setTimeout(goHome, HOLD);
+        }
+      }
+
+      document.getElementById("yes").addEventListener("click", function () {
+        paint("yes");
+      });
+
+      document.getElementById("no").addEventListener("click", function () {
+        paint("black");
+      });
+
+      document.getElementById("back").addEventListener("click", function () {
+        paint("notice");
+      });
+
+      document.getElementById("jump-play").addEventListener("click", function () {
+        paint("play");
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (body.dataset.state !== "notice") return;
+        var key = event.key.toLowerCase();
+        if (key === "y") paint("yes");
+        if (key === "n") paint("black");
+      });
+
+      var params = new URLSearchParams(location.search);
+      if (params.get("shot") === "1") body.classList.add("shot");
+
+      var open = params.get("state") || (location.hash || "").replace("#", "");
+      if (open === "yes" || open === "play") paint(open);
+      if (open === "black") {
+        window.clearTimeout(timer);
+        body.dataset.state = "black";
+      }
+    })();
+  </script>
+</body>
+</html>

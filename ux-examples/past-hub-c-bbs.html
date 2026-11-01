@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAST HUB C · BBS Style</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#000;color:#00ff41;font-family:'VT323',monospace}
+body{padding:12px 14px 72px}
+.top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;font-size:13px;color:#00aa00;margin-bottom:8px}
+.frame{max-width:920px;margin:0 auto;border:1px solid #00aa44;padding:14px 16px 16px;background:rgba(0,10,0,.6)}
+.logo{text-align:center;margin-bottom:12px}
+.logo h1{margin:0;font-size:clamp(36px,9vw,56px);letter-spacing:.14em;font-weight:400;color:#00ff66;text-shadow:0 0 10px rgba(0,255,80,.4)}
+.logo .sub{color:#00aa55;letter-spacing:.18em;font-size:14px}
+.cols{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:12px}
+@media(max-width:700px){.cols{grid-template-columns:1fr}}
+.menu a{display:block;color:#00ff66;text-decoration:none;font-size:18px;padding:4px 0;border-bottom:1px solid #002200}
+.menu a:hover{color:#ffff00;background:rgba(0,40,0,.35)}
+.menu a .n{color:#00aa44;margin-right:8px}
+.feed{border:1px solid #006633;padding:10px 12px;background:rgba(0,20,0,.4)}
+.feed h2{margin:0 0 8px;font-size:14px;color:#ffff00;letter-spacing:2px;font-weight:400}
+.feed .item{font-size:14px;color:#00cc55;margin:0 0 8px;line-height:1.35;border-bottom:1px dotted #003300;padding-bottom:6px}
+.feed .item b{color:#00ff88}
+.prompt{margin-top:14px;font-size:16px;color:#00cc55}
+.cur{animation:b .8s steps(1) infinite}
+@keyframes b{50%{opacity:0}}
+.era{position:fixed;left:10px;bottom:10px;display:flex;gap:4px;padding:4px;border:1px solid #00aa44;background:#000}
+.era a{color:#88cc88;text-decoration:none;padding:4px 8px;font-size:13px}
+.era a.here{color:#00ff66;border:1px solid #00aa44}
+</style>
+</head>
+<body>
+<div class="top">
+  <span>DOSWAPZ BBS v3.11 · NODE 1 · WELCOME, OPERATOR</span>
+  <span id="clk"></span>
+</div>
+<div class="frame">
+  <div class="logo">
+    <h1>DOSWAPZ</h1>
+    <div class="sub">A DIGITAL PLAYGROUND</div>
+  </div>
+  <div class="cols">
+    <nav class="menu">
+      <a href="/classic/pages/cryptodad/play.html"><span class="n">1)</span> GAMES &amp; ENTERTAINMENT</a>
+      <a href="/classic/pages/doswapz/swap.html"><span class="n">2)</span> TRADING TERMINAL</a>
+      <a href="/classic/pages/arcade/intro.html"><span class="n">3)</span> ARCADE CABINETS</a>
+      <a href="/classic/pages/basement.html"><span class="n">4)</span> BASEMENT MARKETS</a>
+      <a href="/classic/pages/attic.html"><span class="n">5)</span> ATTIC ARCHIVES</a>
+      <a href="/classic/pages/hardwear/merch.html"><span class="n">6)</span> HARDWEAR &amp; MERCH</a>
+      <a href="/classic/pages/degen/trailer.html"><span class="n">7)</span> DEGEN$ FILES</a>
+      <a href="/classic/pages/i-see-you.html"><span class="n">8)</span> SECRET FILES</a>
+      <a href="/docs/"><span class="n">9)</span> DOCS / LOGOUT</a>
+    </nav>
+    <aside class="feed">
+      <h2>TODAY'S FEED</h2>
+      <div class="item"><b>&gt; NEW GAME:</b><br>CRYPTO DAD live · FTWR maze path</div>
+      <div class="item"><b>&gt; TRADE:</b><br>0% Jupiter swap · page-scoped wallet</div>
+      <div class="item"><b>&gt; COMMUNITY:</b><br>Check the BBS! Node traffic up</div>
+      <div class="item"><b>&gt; SECRET FILE:</b><br>UNLOCK? try the white rabbit path</div>
+    </aside>
+  </div>
+  <div class="prompt">ENTER CHOICE (1-9) OR L FOR LISTING: <span class="cur">█</span></div>
+</div>
+<nav class="era"><a class="here" href="/classic/hub.html">PAST</a><a href="/orbit/hub.html">PRESENT</a><a href="/future/hub.html">FUTURE</a><a href="/portal.html">TIME</a></nav>
+<script>document.getElementById('clk').textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'})</script>
+</body>
+</html>

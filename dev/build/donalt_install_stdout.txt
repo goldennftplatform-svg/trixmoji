@@ -1,0 +1,38 @@
+Inbox    pauly0x/idle-r <- grok-image-03c62547-9f9b-4522-ae89-b4031d38a6ce.jpg
+Inbox    donalt/idle-r <- grok-image-0b801d9e-5084-418c-96a8-895ee82b7512.jpg
+Inbox    crypto-bitlord/idle-r <- grok-image-21e4f7d6-d398-4968-92bf-af21e052d3ab.jpg
+Inbox    ansem/idle-r <- grok-image-2ee6a0e3-b21d-440a-bcf7-8c090eece61c.jpg
+Inbox    jimmy-edgar/idle-r <- grok-image-9cbe4540-b8b3-470c-97fd-dcd6d0870083.jpg
+Inbox    vitalik-buterin/idle-r <- grok-image-b28a7d77-47a5-4c0b-b8dc-a25a18b5ca00.jpg
+Inbox    roger-ver/idle-r <- grok-image-bfd73d13-013e-4078-a885-1e00afc8c4ea.jpg
+Inbox    roger-ver/high-punch-r <- grok-image-ccfc1fef-7371-46fb-af5f-932f739d3815.jpg
+Inbox    dogedesigner/idle-r <- grok-image-d440f1a8-7a21-4ba6-b2a2-06f4893e556c.jpg
+Inbox    michael-saylor/idle-r <- grok-image-e8a08ca4-fbf6-4e13-bf15-c896e29633d7.jpg
+
+=== DONALT ===
+Reference -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\donalt\reference.jpg
+Primary  block-high-r <- block-high-r.jpg (753x1063)
+Primary  block-low-r <- block-low-r.jpg (701x977)
+Primary  crouch-r <- crouch-r.jpg (596x1015)
+Primary  high-kick-r <- high-kick-r.jpg (838x944)
+Primary  high-punch-r <- high-punch-r.jpg (864x1152)
+Primary  hit-stun-r <- hit-stun-r.jpg (743x1067)
+Primary  idle-breath-r <- idle-breath-r.jpg (629x1034)
+Primary  idle-r <- idle-r.jpg (735x1128)
+Primary  jump-peak-r <- jump-peak-r.jpg (837x907)
+Primary  jump-r <- jump-r.jpg (611x1022)
+Primary  knockdown-r <- knockdown-r.jpg (850x638)
+Primary  low-kick-r <- low-kick-r.jpg (814x999)
+Primary  low-punch-r <- low-punch-r.jpg (745x856)
+Primary  med-kick-r <- med-kick-r.jpg (777x953)
+Primary  med-punch-r <- med-punch-r.jpg (814x1082)
+Primary  special-1-r <- special-1-r.jpg (864x1042)
+Primary  special-2-r <- special-2-r.jpg (601x1056)
+Primary  victory-r <- victory-r.jpg (716x1115)
+Primary  walk-forward-1-r <- walk-forward-1-r.jpg (757x1053)
+Primary  walk-forward-2-r <- walk-forward-2-r.jpg (603x930)
+Done donalt: 61 poses
+
+Master index -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\view-all-poses.html
+
+Installed 61 total pose PNGs across 1 character(s)

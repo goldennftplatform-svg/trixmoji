@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ }
+
+ * {
+ box-sizing: border-box;
+ }
+
+ html, body {
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ min-height: 100%;
+ background: #000000;
+ color: #00ff00;
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: #000000;
+ padding: 24px 28px 60px;
+ }
+
+ /* Strong phosphor scanlines to match homepage feel */
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px,
+ rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .header {
+ font-size: 32px;
+ letter-spacing: 6px;
+ text-shadow: 0 0 5px #00ff00;
+ text-align: center;
+ margin-bottom: 6px;
+ }
+
+ .content {
+ max-width: 860px;
+ margin: 18px auto 0;
+ font-size: 19px;
+ line-height: 1.38;
+ padding: 0 8px;
+ }
+
+ .raw-text {
+ margin-bottom: 16px;
+ line-height: 1.4;
+ }
+
+ .highlight {
+ color: #ffff00;
+ }
+
+ .address-box {
+ margin: 22px 0;
+ padding: 14px 18px;
+ border: 2px solid #00aa00;
+ background: rgba(0, 30, 0, 0.45);
+ font-size: 18px;
+ letter-spacing: 1px;
+ word-break: break-all;
+ }
+
+ .disclaimer {
+ margin: 22px 0;
+ padding: 14px 16px;
+ border: 2px solid #ffff00;
+ background: rgba(40, 30, 0, 0.35);
+ font-size: 17px;
+ line-height: 1.35;
+ }
+
+ .disclaimer-title {
+ color: #ffff00;
+ margin-bottom: 6px;
+ letter-spacing: 1px;
+ }
+
+ .buttons {
+ text-align: center;
+ margin-top: 28px;
+ }
+
+ .btn {
+ font-size: 17px;
+ color: #00ff00;
+ border: 2px solid #00ff00;
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px;
+ display: inline-block;
+ }
+
+ .btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .footer {
+ margin-top: 28px;
+ font-size: 13px;
+ color: #00aa00;
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ /* Vignette like the homepage */
+ .vignette {
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.58) 84%);
+ pointer-events: none;
+ z-index: 5;
+ }
+
+ /* Glitch layer (reduced-volume engine for content pages) */
+ .glitch-layer {
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 20;
+ mix-blend-mode: screen;
+ }
+
+ .mosh-band {
+ position: fixed;
+ left: 0;
+ width: 100%;
+ background: rgba(0, 255, 0, 0.16);
+ mix-blend-mode: difference;
+ pointer-events: none;
+ z-index: 25;
+ opacity: 0;
+ }
+ </style>
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ </head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+
+ <div class="header">DOSWAPZ // CRYPTO DAD - DONATE</div>
+
+ <div class="content">
+
+ <div class="raw-text">
+ All proceeds go to <span class="highlight">MAPS.ORG</span>.
+ </div>
+
+ <div class="raw-text">
+ The Multidisciplinary Association for Psychedelic Studies (MAPS) is a non-profit research organization 
+ developing medical, legal, and cultural frameworks for the safe and responsible use of psychedelics 
+ and marijuana. They conduct clinical trials on MDMA-assisted therapy for PTSD, psilocybin for 
+ depression, and other treatments for trauma and mental health conditions.
+ </div>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">VERIFICATION DIRECTIVE - READ AND COMPLY</div>
+ BEFORE TRANSMITTING ANY FUNDS:<br>
+ * Independently research and confirm the current official MAPS donation address on maps.org and other trusted channels.<br>
+ * DO NOT trust links, emails, DMs, social posts, or any third party claiming to represent MAPS.<br>
+ * Double-check the address character-by-character against the official source before sending.<br>
+ * This public address is provided for reference only. Sender bears full responsibility for verification.
+ </div>
+
+ <div class="raw-text" style="margin-top: 18px;">MAPS SOLANA DONATION ADDRESS:</div>
+
+ <div class="address-box" style="color:#ffcc00;">
+ MAPS.ORG rotates their official Solana donation address with every donation.
+ There is no fixed public address to copy from this page - confirm the current address on
+ <a href="https://maps.org" target="_blank" style="color:#ffff00;">maps.org</a> before sending anything.
+ </div>
+
+ <div class="raw-text" style="margin-top: 14px;">
+ <strong>50% transparency on DOSWAPZ:</strong> Every outgoing dev-fee donation transfer is posted on-site with on-chain TX links and recipient addresses (MAPS rotates Solana addresses per donation - each row shows the address used for that transfer).
+ Verify the <span style="color:#ffff00;">50%</span> pledge on the live ledger:
+ <a href="/classic/pages/cryptodad/token.html" style="color:#ffff00;">$DOSWAPZ TOKEN -&gt; DONATION LEDGER</a>
+ </div>
+
+ <div class="buttons">
+ <a href="/classic/hub.html" class="btn"><- BACK TO MENU</a>
+ </div>
+
+ </div>
+
+ <div class="footer">
+ DOSWAPZ - ALL PROCEEDS TO MAPS
+ </div>
+
+ <!-- Glitch layer (driven by reduced-volume engine for content pages) -->
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+<script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.content, #content' });
+ </script>
+<div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+<script src="/assets/js/core/price-ticker.js"></script>
+ </body>
+</html>

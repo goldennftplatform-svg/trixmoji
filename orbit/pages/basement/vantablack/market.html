@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong>Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong>Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>VANTABLACK MARKET // DOSWAPZ BASEMENT // ORBIT</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+  <link rel="stylesheet" href="/assets/css/era-present-soft.css?v=neonvoid2">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style class="page-classic-styles">
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ /* orbit: :root stripped */ * { box-sizing:border-box; }
+ /* orbit: global html,body stripped */
+ .dos-screen { position:relative; min-height:0; background:transparent; padding:0; }
+ /* orbit: scanlines stripped */
+ .wrap { max-width:920px; margin:0 auto; position:relative; z-index:5; }
+ /* orbit: .header stripped */
+ .header h1 { margin:0; font-size:34px; letter-spacing:8px; color:#e8e8f0; text-shadow:0 0 12px var(--vb); }
+ .header /* orbit: .sub stripped */
+ .header .tag { margin-top:10px; font-size:14px; color:var(--pink); border:1px solid #442266; padding:2px 12px; display:inline-block; letter-spacing:3px; }
+ .actions { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:18px 0 22px; }
+ .btn {
+ font-family:inherit; font-size:17px; cursor:pointer; border:2px solid var(--vb-dim);
+ background:#050508; color:var(--vb-text); padding:7px 18px; text-decoration:none; letter-spacing:2px;
+ }
+ .btn:hover { border-color:var(--vb); color:#fff; }
+ .btn-launch { border-color:var(--pink); color:var(--pink); font-size:19px; }
+ .btn-launch:hover { background:#12001a; }
+ .btn-track { border-color:#4466aa; color:#88aaff; }
+ .search {
+ width:100%; background:#050508; border:2px solid var(--vb-dim); color:var(--vb-text);
+ font-family:inherit; font-size:20px; padding:8px 12px; margin-bottom:12px; outline:none;
+ }
+ .search:focus { border-color:var(--vb); }
+ .track-row {
+ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; align-items:stretch;
+ }
+ .track-row .search { flex:1 1 220px; margin-bottom:0; }
+ .track-row .btn { flex:0 0 auto; }
+ .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; }
+ .coin-card {
+ border:2px solid #1a1a22; background:#040406; padding:14px 12px; color:inherit;
+ display:flex; flex-direction:column; gap:10px; transition:border-color .12s;
+ }
+ .coin-card:hover { border-color:var(--vb); }
+ .coin-actions { display:flex; gap:8px; flex-wrap:wrap; }
+ .coin-swap {
+ font-family:inherit; font-size:15px; cursor:pointer; border:2px solid var(--pink);
+ background:#12001a; color:var(--pink); padding:5px 12px; text-decoration:none; letter-spacing:2px;
+ }
+ .coin-swap:hover { background:#1a0033; color:#fff; }
+ .coin-chart {
+ font-family:inherit; font-size:14px; cursor:pointer; border:2px solid #335566;
+ background:#050810; color:#88ccee; padding:5px 10px; text-decoration:none; letter-spacing:1px;
+ }
+ .coin-chart:hover { border-color:#66ccff; color:#fff; }
+ .market-note {
+ text-align:center; font-size:15px; color:var(--vb-muted); margin:0 0 14px; letter-spacing:1px; line-height:1.4;
+ }
+ .coin-card.featured { border-color:#442266; box-shadow:0 0 10px rgba(102,51,204,0.15); }
+ .coin-symbol { font-size:22px; color:#fff; letter-spacing:2px; }
+ .coin-name { font-size:15px; color:var(--vb-muted); margin-top:4px; }
+ .coin-mint { font-size:13px; color:#444455; margin-top:4px; word-break:break-all; cursor:pointer; }
+ .coin-mint:hover { color:#8888aa; }
+ .coin-tag { font-size:11px; color:var(--vb); letter-spacing:2px; margin-top:2px; }
+ .coin-tag.curve { color:var(--pink); }
+ .vb-stats { margin-top:4px; display:flex; flex-direction:column; gap:6px; }
+ .vb-progress-wrap { width:100%; }
+ .vb-progress-meta { display:flex; justify-content:space-between; font-size:11px; color:var(--vb-muted); letter-spacing:1px; margin-bottom:3px; }
+ .vb-progress-track { height:8px; background:transparent; border:1px solid #2a2a33; }
+ .vb-progress-fill { height:100%; background:linear-gradient(90deg,var(--vb),var(--pink)); transition:width .3s; }
+ .vb-spark { width:100%; height:40px; display:block; background:#08080c; border:1px solid #1a1a22; }
+ .vb-mcap { font-size:13px; color:#8888aa; letter-spacing:1px; }
+ .vb-mcap .up { color:var(--panel-accent); }
+ .vb-mcap .down { color:#ff4466; }
+ .vb-metrics {
+ display:flex; justify-content:space-between; gap:6px; flex-wrap:wrap;
+ font-size:12px; color:#666688; letter-spacing:0.5px;
+ }
+ .empty { text-align:center; color:var(--vb-muted); padding:30px 10px; letter-spacing:2px; }
+ .section-head {
+ margin:22px 0 10px; font-size:18px; letter-spacing:4px; color:#e0d0ff;
+ border-bottom:1px solid #2a1a44; padding-bottom:6px;
+ }
+ .section-head span { color:var(--vb-muted); font-size:14px; letter-spacing:2px; margin-left:8px; }
+ .nav { text-align:center; margin-top:28px; }
+ .nav .btn { border-color:#334433; color:#88aa88; margin:4px; }
+ .status { text-align:center; font-size:15px; color:var(--vb-muted); margin-bottom:12px; min-height:20px; }
+ .status.ok { color:#88aa88; }
+ .status.err { color:#ff6688; }
+ .coin-tag.eth { color:#88aaff; }
+ .coin-tag.main { color:#cc99ff; }
+ .coin-tag.hood { color:var(--panel-accent); }
+ .coin-tag.base { color:#66aaff; }
+ .coin-tag.arbitrum { color:#88ccff; }
+ .coin-tag.polygon { color:#cc88ff; }
+ .chain-filters {
+ display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin:0 0 14px;
+ }
+ .chain-filter {
+ font-family:inherit; font-size:13px; letter-spacing:1px; cursor:pointer;
+ border:1px solid #2a1a44; background:transparent; color:var(--vb-muted); padding:4px 10px;
+ }
+ .chain-filter.active { border-color:var(--pink); color:var(--pink); }
+ .chain-filter.hood.active { border-color:var(--panel-accent); color:var(--panel-accent); }
+ </style>
+</head>
+<body id="screen" class="orbit-void-inner">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+ <span class="crumb-zone">VANTABLACK MARKET // DOSWAPZ BASEMENT</span>
+ <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+ <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+ <div class="core-glow"></div>
+ <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+ <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ <div class="orbit-line" style="width:min(34vmin,34vw);height:min(34vmin,34vh)"></div>
+ </div>
+
+ <main class="stage" id="content">
+ <h1 class="hollow-title" id="orbitTitle">VANTABLACK MARKET // DOSWAPZ BASEMENT</h1>
+ <p class="hollow-sub" id="stageSub">vantablack market<span class="cursor-blink">|</span></p>
+</main>
+
+ <div class="orbit-panel accent-basement" id="orbitPanel">
+<div class="header">
+ <h1>VANTABLACK MARKET</h1>
+ <div class="sub">DOSWAPZ BASEMENT * MAIN + CREATED</div>
+ <div class="tag">MAIN COINS * CREATED COINS</div>
+ </div>
+
+ <div class="actions">
+ <a href="/orbit/pages/basement/token-launcher.html" class="btn btn-launch">LAUNCH TOKEN</a>
+ <a href="/orbit/pages/doswapz/swap.html" class="btn">DOSWAPZ SWAP (SOL)</a>
+ <a href="/orbit/pages/doswapz/bridge.html" class="btn">BRIDGE * ROBINHOOD</a>
+ </div>
+
+ <p class="market-note">Trix-style create: creator keeps 100% supply. Site launch fee 0.02 SOL / 0.0008 ETH to DOSWAPZ. Main coins are downstairs staples. Created coins launch or track on Solana + EVM (incl. Robinhood Chain).
+ Filter by chain * paste a Solana mint or 0x contract under Created.
+ </p>
+
+ <div class="chain-filters" id="chainFilters" aria-label="Chain filters"></div>
+
+ <input type="text" class="search" id="coinSearch" placeholder="Filter by symbol, name, mint, or chain..." autocomplete="off" spellcheck="false">
+ <div class="track-row">
+ <input type="text" class="search" id="trackMint" placeholder="Track mint / contract (Solana or 0x...)..." autocomplete="off" spellcheck="false">
+ <select id="trackChain" class="search" style="flex:0 0 140px;margin:0;" aria-label="Track chain">
+ <option value="solana">Solana</option>
+ <option value="ethereum">Ethereum</option>
+ <option value="base">Base</option>
+ <option value="arbitrum">Arbitrum</option>
+ <option value="polygon">Polygon</option>
+ <option value="robinhood">Robinhood</option>
+ </select>
+ <button type="button" class="btn btn-track" id="trackBtn">TRACK FOR ALL</button>
+ </div>
+ <div class="status" id="marketStatus">Loading shared catalog...</div>
+
+ <div class="section-head" id="mainHead">MAIN COINS <span id="mainCount"></span></div>
+ <div class="grid" id="mainGrid"></div>
+ <div class="empty" id="mainEmpty" style="display:none;">No main coins match.</div>
+
+ <div class="section-head" id="createdHead">CREATED COINS <span id="createdCount"></span></div>
+ <div class="grid" id="createdGrid"></div>
+ <div class="empty" id="createdEmpty" style="display:none;">No created coins yet - launch one or track a mint.</div>
+
+ <div class="nav">
+ <a href="/orbit/pages/basement.html" class="btn"><- BASEMENT</a>
+ <a href="/orbit/hub.html" class="btn">HUB</a>
+ </div>
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/config/chains-config.js"></script>
+ <script src="/assets/js/config/vantablack-config.js"></script>
+ <script src="/assets/js/basement/vantablack-market.js"></script>
+ <script src="/assets/js/basement/vantablack-curve.js"></script>
+ <script>
+(function () {
+ var mainGrid = document.getElementById('mainGrid');
+ var createdGrid = document.getElementById('createdGrid');
+ var mainEmpty = document.getElementById('mainEmpty');
+ var createdEmpty = document.getElementById('createdEmpty');
+ var mainCount = document.getElementById('mainCount');
+ var createdCount = document.getElementById('createdCount');
+ var status = document.getElementById('marketStatus');
+ var search = document.getElementById('coinSearch');
+ var trackInput = document.getElementById('trackMint');
+ var trackBtn = document.getElementById('trackBtn');
+ var trackChain = document.getElementById('trackChain');
+ var chainFilters = document.getElementById('chainFilters');
+ var all = [];
+ var statsMap = {};
+ var chainFilter = 'all';
+
+ var FILTER_OPTS = [
+ { id: 'all', label: 'ALL' },
+ { id: 'solana', label: 'SOLANA' },
+ { id: 'ethereum', label: 'ETH' },
+ { id: 'base', label: 'BASE' },
+ { id: 'arbitrum', label: 'ARB' },
+ { id: 'polygon', label: 'POLYGON' },
+ { id: 'robinhood', label: 'ROBINHOOD', hood: true }
+ ];
+
+ function shortMint(m) {
+ if (!m) return '';
+ if (m.indexOf('0x') === 0 && m.length > 12) return m.slice(0, 6) + '...' + m.slice(-4);
+ return m.slice(0, 4) + '...' + m.slice(-4);
+ }
+
+ function setStatus(msg, kind) {
+ status.textContent = msg;
+ status.className = 'status' + (kind ? ' ' + kind : '');
+ }
+
+ function isOrbit() {
+ return location.pathname.indexOf('/orbit/') >= 0;
+ }
+
+ function swapBase() {
+ return isOrbit()
+ ? window.DOSWAPZ_VANTABLACK.orbitSwapUrl
+ : window.DOSWAPZ_VANTABLACK.swapUrl;
+ }
+
+ function bridgeHref() {
+ return isOrbit()
+ ? '/orbit/pages/doswapz/bridge.html'
+ : '/classic/pages/doswapz/bridge.html';
+ }
+
+ function chartUrl(c, pairUrl) {
+ if (pairUrl) return pairUrl;
+ if (window.DOSWAPZ_CHAINS) {
+ var ch = window.DOSWAPZ_CHAINS.byId(c.chain);
+ if (ch && ch.dexscreener) return ch.dexscreener(c.mint);
+ }
+ var chain = c.chain === 'solana' ? 'solana' : (c.chain || 'ethereum');
+ return 'https://dexscreener.com/' + chain + '/' + encodeURIComponent(c.mint);
+ }
+
+ function chainLabel(id) {
+ if (window.DOSWAPZ_CHAINS) {
+ var ch = window.DOSWAPZ_CHAINS.byId(id);
+ if (ch) return ch.label;
+ }
+ return String(id || 'solana').toUpperCase();
+ }
+
+ function tagLabel(c) {
+ var chainBit = chainLabel(c.chain);
+ if (c.section === 'main') return 'MAIN * ' + chainBit;
+ if (c.launchType === 'curve') return 'CREATED * CURVE * ' + chainBit;
+ if (c.launchType === 'erc20') return 'CREATED * ERC-20. ' + chainBit;
+ return 'CREATED * ' + chainBit;
+ }
+
+ function tagClass(c) {
+ var extra = '';
+ if (c.section === 'main') extra += ' main';
+ if (c.launchType === 'curve') extra += ' curve';
+ if (c.chain === 'ethereum') extra += ' eth';
+ if (c.chain === 'robinhood') extra += ' hood';
+ if (c.chain === 'base') extra += ' base';
+ if (c.chain === 'arbitrum') extra += ' arbitrum';
+ if (c.chain === 'polygon') extra += ' polygon';
+ return extra;
+ }
+
+ function renderChainFilters() {
+ if (!chainFilters) return;
+ chainFilters.innerHTML = '';
+ FILTER_OPTS.forEach(function (o) {
+ var b = document.createElement('button');
+ b.type = 'button';
+ b.className = 'chain-filter' +
+ (o.hood ? ' hood' : '') +
+ (chainFilter === o.id ? ' active' : '');
+ b.textContent = o.label;
+ b.addEventListener('click', function () {
+ chainFilter = o.id;
+ renderChainFilters();
+ filter();
+ });
+ chainFilters.appendChild(b);
+ });
+ }
+
+ function fillGrid(grid, emptyEl, list, href) {
+ grid.innerHTML = '';
+ if (!list.length) {
+ emptyEl.style.display = 'block';
+ return;
+ }
+ emptyEl.style.display = 'none';
+ list.forEach(function (c) {
+ var row = statsMap[c.mint] || statsMap[String(c.mint).toLowerCase()] || {};
+ var symbol = c.symbol;
+ var name = c.name;
+ if (row.symbol && (c.symbol === 'TOKEN' || !c.symbol)) symbol = row.symbol;
+ if (row.name && (c.name === 'Token' || !c.name)) name = row.name;
+
+ var statsHtml = (c.chain === 'solana' && window.DOSWAPZ_VB_CURVE)
+ ? window.DOSWAPZ_VB_CURVE.cardStatsBlock(c, statsMap)
+ : '';
+ var actions = '';
+ if (c.chain === 'solana') {
+ actions =
+ '<a class="coin-swap" href="' + href(c.mint) + '">BUY / SWAP</a>' +
+ '<a class="coin-chart" href="' + chartUrl(c, row.pairUrl) + '" target="_blank" rel="noopener noreferrer">FULL CHART</a>';
+ } else {
+ actions =
+ '<a class="coin-chart" href="' + chartUrl(c, row.pairUrl) + '" target="_blank" rel="noopener noreferrer">CHART</a>' +
+ '<a class="coin-swap" href="' + bridgeHref() + '">BRIDGE</a>';
+ }
+
+ var card = document.createElement('div');
+ card.className = 'coin-card' + (c.section === 'main' ? ' featured' : '');
+ card.innerHTML =
+ '<div class="coin-symbol">$' + symbol + '</div>' +
+ '<div class="coin-name">' + name + '</div>' +
+ statsHtml +
+ '<div class="coin-mint" title="Click to copy address" data-mint="' + c.mint + '">' + shortMint(c.mint) + '</div>' +
+ '<div class="coin-tag' + tagClass(c) + '">' + tagLabel(c) + '</div>' +
+ '<div class="coin-actions">' + actions + '</div>';
+ grid.appendChild(card);
+ });
+
+ grid.querySelectorAll('.coin-mint').forEach(function (el) {
+ el.addEventListener('click', function () {
+ var m = el.getAttribute('data-mint');
+ try {
+ navigator.clipboard.writeText(m);
+ setStatus('Address copied: ' + shortMint(m), 'ok');
+ } catch (e) {}
+ });
+ });
+ }
+
+ async function render(list) {
+ var parts = window.DOSWAPZ_VANTABLACK.partition(list);
+ if (window.DOSWAPZ_VB_CURVE) {
+ var solOnly = list.filter(function (c) { return c.chain === 'solana'; });
+ statsMap = await window.DOSWAPZ_VB_CURVE.fetchStats(solOnly);
+ }
+ var href = swapBase();
+ mainCount.textContent = '(' + parts.main.length + ')';
+ createdCount.textContent = '(' + parts.created.length + ')';
+ fillGrid(mainGrid, mainEmpty, parts.main, href);
+ fillGrid(createdGrid, createdEmpty, parts.created, href);
+ if (!parts.created.length) {
+ createdEmpty.textContent = all.filter(function (c) { return c.section === 'created'; }).length
+ ? 'No created coins match.'
+ : 'No created coins yet - launch one or track a mint.';
+ }
+ }
+
+ function applyFilters(list) {
+ var q = (search.value || '').trim().toLowerCase();
+ return list.filter(function (c) {
+ if (chainFilter !== 'all' && c.chain !== chainFilter) return false;
+ if (!q) return true;
+ return c.symbol.toLowerCase().indexOf(q) >= 0 ||
+ c.name.toLowerCase().indexOf(q) >= 0 ||
+ c.mint.toLowerCase().indexOf(q) >= 0 ||
+ String(c.chain || '').toLowerCase().indexOf(q) >= 0;
+ });
+ }
+
+ function filter() {
+ return render(applyFilters(all));
+ }
+
+ async function reload(msg) {
+ all = await window.DOSWAPZ_VANTABLACK.fetchCatalog(true);
+ var parts = window.DOSWAPZ_VANTABLACK.partition(all);
+ setStatus(
+ (msg ? msg + ' * ' : '') +
+ parts.main.length + ' main * ' + parts.created.length + ' created',
+ 'ok'
+ );
+ return filter();
+ }
+
+ function isEthAddr(s) {
+ return /^0x[a-fA-F0-9]{40}$/.test(String(s || '').trim());
+ }
+
+ async function track() {
+ var mint = (trackInput.value || '').trim();
+ var chain = (trackChain && trackChain.value) || 'solana';
+ if (isEthAddr(mint)) {
+ if (chain === 'solana') chain = 'ethereum';
+ } else if (!window.DOSWAPZ_VANTABLACK.isMint(mint)) {
+ setStatus('Paste a valid Solana mint or 0x contract.', 'err');
+ return;
+ } else {
+ chain = 'solana';
+ }
+ trackBtn.disabled = true;
+ setStatus('Listing on Vantablack...');
+ try {
+ var entry;
+ if (chain === 'solana') {
+ entry = await window.DOSWAPZ_VANTABLACK.trackMint(mint);
+ } else {
+ entry = await window.DOSWAPZ_VANTABLACK.register({
+ mint: mint,
+ symbol: 'TOKEN',
+ name: 'Token',
+ chain: chain,
+ launchType: 'erc20',
+ section: 'created',
+ source: 'track'
+ });
+ }
+ trackInput.value = '';
+ await reload(entry
+ ? ('Tracked $' + (entry.symbol || 'TOKEN') + ' on ' + (entry.chain || chain))
+ : 'Tracked');
+ } catch (e) {
+ setStatus(e.message || 'Track failed', 'err');
+ }
+ trackBtn.disabled = false;
+ }
+
+ if (trackInput) {
+ trackInput.addEventListener('input', function () {
+ if (isEthAddr(trackInput.value) && trackChain) {
+ if (trackChain.value === 'solana') trackChain.value = 'ethereum';
+ }
+ });
+ }
+
+ renderChainFilters();
+ search.addEventListener('input', filter);
+ trackBtn.addEventListener('click', track);
+ trackInput.addEventListener('keydown', function (e) {
+ if (e.key === 'Enter') track();
+ });
+
+ reload().catch(function () {
+ setStatus('Catalog offline - refresh.', 'err');
+ });
+
+ setInterval(function () {
+ if (!all.length || document.hidden) return;
+ if (window.DOSWAPZ_VB_CURVE) {
+ var solOnly = all.filter(function (c) { return c.chain === 'solana'; });
+ window.DOSWAPZ_VB_CURVE.fetchStats(solOnly, true).then(function () {
+ filter();
+ });
+ }
+ }, 60000);
+ })();
+ </script>
+
+ <script>hollowPageBoot('VANTABLACK MARKET // DOSWAPZ BASEMENT');</script>
+</body>
+</html>

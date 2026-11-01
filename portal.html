@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+ <title>DOSWAPZ // TIME MACHINE</title>
+ <meta name="description" content="DOSWAPZ Time Machine - choose PAST, PRESENT, or FUTURE.">
+ <meta property="og:title" content="DOSWAPZ // TIME MACHINE">
+ <meta property="og:description" content="DOSWAPZ Time Machine - choose PAST, PRESENT, or FUTURE.">
+ <meta property="og:image" content="https://doswapz.com/assets/images/og-x-20260913.jpg">
+ <meta property="og:image:secure_url" content="https://doswapz.com/assets/images/og-x-20260913.jpg">
+ <meta property="og:image:type" content="image/jpeg">
+ <meta property="og:image:width" content="1200">
+ <meta property="og:image:height" content="630">
+ <meta property="og:image:alt" content="GLITCH PROTOCOL">
+ <meta property="og:url" content="https://doswapz.com/portal.html">
+ <meta property="og:type" content="website">
+ <meta name="twitter:card" content="summary_large_image">
+ <meta name="twitter:image" content="https://doswapz.com/assets/images/og-x-20260913.jpg">
+ <meta name="twitter:image:alt" content="GLITCH PROTOCOL">
+ <meta name="robots" content="noindex">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <link rel="stylesheet" href="/assets/css/era-transition.css?v=20260815glitch">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ html, body {
+ height: 100%;
+ overflow: hidden;
+ background: #000;
+ font-family: 'VT323', monospace;
+ }
+ .tm-head {
+ position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+ z-index: 20; text-align: center; color: rgba(255,255,255,0.4);
+ letter-spacing: 8px; font-size: 15px; pointer-events: none;
+ }
+ .tm-you-are {
+ position: absolute; top: 42px; left: 50%; transform: translateX(-50%);
+ z-index: 20; font-size: 12px; letter-spacing: 3px;
+ color: rgba(255,255,255,0.55); background: rgba(0,0,0,0.65);
+ border: 1px dashed rgba(255,255,255,0.2); padding: 4px 12px;
+ pointer-events: none; white-space: nowrap;
+ }
+ .tm-split {
+ display: flex; width: 100vw; height: 100vh; position: relative;
+ }
+ .tm-third {
+ flex: 1; position: relative;
+ display: flex; flex-direction: column;
+ align-items: center; justify-content: center;
+ cursor: pointer; border: 0; background: #000;
+ color: inherit; font-family: inherit;
+ transition: filter 200ms, flex 400ms ease;
+ overflow: hidden; min-width: 0;
+ -webkit-tap-highlight-color: transparent;
+ }
+ .tm-third:hover { filter: brightness(1.18); flex: 1.12; }
+ .tm-third:focus-visible { outline: 2px dashed rgba(255,255,255,0.4); outline-offset: -8px; }
+ .tm-third.is-current::after {
+ content: 'YOU ARE HERE';
+ position: absolute; bottom: 18%;
+ font-size: 11px; letter-spacing: 3px;
+ color: rgba(255,255,255,0.45);
+ }
+
+ .tm-past { color: #00ff00; border-right: 1px solid rgba(255,255,255,0.06); }
+ .tm-past::before {
+ content: ''; position: absolute; inset: 0;
+ background: repeating-linear-gradient(to bottom, transparent 0 3px, rgba(0,255,0,0.04) 3px 5px);
+ pointer-events: none;
+ }
+
+ .tm-present { color: rgba(200,210,255,0.9); border-right: 1px solid rgba(255,255,255,0.06); }
+ .tm-present::before {
+ content: ''; position: absolute; inset: 0;
+ background:
+ radial-gradient(ellipse at 50% 30%, rgba(100,120,255,0.12), transparent 55%),
+ linear-gradient(180deg, #050510 0%, #000 100%);
+ pointer-events: none;
+ }
+
+ .tm-future { color: rgba(255,255,255,0.92); }
+ .tm-future::before {
+ content: ''; position: absolute; inset: 0;
+ background:
+ radial-gradient(ellipse at 50% 40%, rgba(255,255,255,0.22), transparent 50%),
+ linear-gradient(180deg, #f4f0ea 0%, #d8d4e8 45%, #b8c0d8 100%);
+ opacity: 0.95;
+ pointer-events: none;
+ }
+ .tm-future .tm-label { color: #5a6080; text-shadow: 0 0 20px rgba(255,255,255,0.8); }
+ .tm-future .tm-ring {
+ border-color: rgba(120,130,170,0.55);
+ background: rgba(255,255,255,0.35);
+ box-shadow: 0 0 40px rgba(255,255,255,0.45);
+ }
+ .tm-future .tm-icon { stroke: #5a6080; fill: none; }
+
+ .tm-label {
+ font-size: clamp(22px, 4vw, 40px);
+ letter-spacing: clamp(4px, 1.5vw, 12px);
+ z-index: 2;
+ text-shadow: 0 0 12px currentColor;
+ }
+ .tm-ring {
+ width: clamp(88px, 15vw, 140px);
+ height: clamp(88px, 15vw, 140px);
+ border-radius: 50%;
+ border: 2px solid currentColor;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ margin-bottom: 16px;
+ z-index: 2;
+ box-shadow: 0 0 36px rgba(0, 255, 0, 0.18);
+ position: relative;
+ background: rgba(0,0,0,0.25);
+ }
+ .tm-present .tm-ring {
+ box-shadow: 0 0 36px rgba(140, 160, 255, 0.28);
+ }
+
+ /* SVG icons only - no unicode, no letters inside the rings */
+ .tm-icon {
+ width: 48%;
+ height: 48%;
+ display: block;
+ overflow: visible;
+ pointer-events: none;
+ }
+ .tm-past .tm-icon {
+ fill: #00ff00;
+ stroke: none;
+ filter: drop-shadow(0 0 8px #00ff00);
+ }
+ .tm-present .tm-icon {
+ fill: none;
+ stroke: rgba(200,210,255,0.95);
+ stroke-width: 3;
+ filter: drop-shadow(0 0 8px rgba(160,180,255,0.7));
+ }
+ .tm-present .tm-icon .dot {
+ fill: rgba(200,210,255,0.95);
+ stroke: none;
+ }
+ .tm-future .tm-icon {
+ stroke-width: 3;
+ filter: drop-shadow(0 0 10px rgba(255,255,255,0.55));
+ }
+
+ .tm-rift {
+ position: absolute; top: 0; bottom: 0; width: 1px;
+ background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.28), transparent);
+ z-index: 10; pointer-events: none;
+ animation: rift 3s ease-in-out infinite;
+ }
+ .tm-rift-1 { left: 33.333%; }
+ .tm-rift-2 { left: 66.666%; }
+ @keyframes rift { 0%,100%{opacity:0.35} 50%{opacity:0.9} }
+
+ .tm-back {
+ position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+ z-index: 20; color: rgba(255,255,255,0.3); letter-spacing: 3px;
+ font-size: 15px; text-decoration: none;
+ }
+ .tm-back:hover { color: #aaccff; }
+
+ @media (max-width: 640px) {
+ .tm-split { flex-direction: column; }
+ .tm-third { border-right: 0 !important; border-bottom: 1px solid rgba(255,255,255,0.06); }
+ .tm-rift { display: none; }
+ .tm-third:hover { flex: 1; }
+ .tm-third.is-current::after { bottom: 10%; font-size: 10px; }
+ }
+ </style>
+</head>
+<body class="portal-page" data-no-scroll="1">
+ <p class="tm-head">TIME MACHINE</p>
+ <p class="tm-you-are" id="youAre">TIMELINE --</p>
+
+ <div class="tm-split">
+ <button type="button" class="tm-third tm-past" id="pickPast" data-era="past" aria-label="Enter the past">
+ <div class="tm-ring" aria-hidden="true">
+ <!-- solid diamond -->
+ <svg class="tm-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <polygon points="32,6 58,32 32,58 6,32"/>
+ </svg>
+ </div>
+ <span class="tm-label">PAST</span>
+ </button>
+ <div class="tm-rift tm-rift-1" aria-hidden="true"></div>
+ <button type="button" class="tm-third tm-present" id="pickPresent" data-era="orbit" aria-label="Enter the present">
+ <div class="tm-ring" aria-hidden="true">
+ <!-- bullseye -->
+ <svg class="tm-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <circle cx="32" cy="32" r="22"/>
+ <circle class="dot" cx="32" cy="32" r="7"/>
+ </svg>
+ </div>
+ <span class="tm-label">PRESENT</span>
+ </button>
+ <div class="tm-rift tm-rift-2" aria-hidden="true"></div>
+ <button type="button" class="tm-third tm-future" id="pickFuture" data-era="future" aria-label="Enter the future">
+ <div class="tm-ring" aria-hidden="true">
+ <!-- hollow diamond -->
+ <svg class="tm-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <polygon points="32,8 56,32 32,56 8,32" fill="none"/>
+ </svg>
+ </div>
+ <span class="tm-label">FUTURE</span>
+ </button>
+ </div>
+
+ <a href="/past" class="tm-back" id="tmBack"><- BACK TO HUB</a>
+
+ <script src="/assets/js/core/era-portal.js?v=20260912pretty"></script>
+ <script src="/assets/js/core/era-transition.js?v=20260815glitch"></script>
+ <script src="/assets/js/core/aqua-drop.js?v=drip3" data-aqua-drop="1"></script>
+ <script>
+ (function () {
+ var cur = DOSWAPZ_ERA.get();
+ var label = document.getElementById('youAre');
+ var back = document.getElementById('tmBack');
+ label.textContent = 'YOU ARE IN -- ' + DOSWAPZ_ERA.labelFor(cur);
+ back.href = DOSWAPZ_ERA.hubPath();
+
+ var map = { past: 'pickPast', orbit: 'pickPresent', future: 'pickFuture' };
+ var btn = document.getElementById(map[cur]);
+ if (btn) btn.classList.add('is-current');
+ /* Clicks are owned by era-portal.js (capture). Do not bind a second
+    selectFromPortal here — the double-fire skipped the glitch overlay. */
+ })();
+ </script>
+ <script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+ <script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#0a1a14"/>
+  <rect x="80" y="100" width="240" height="80" fill="#1a3328" stroke="#00ff41" stroke-width="3"/>
+  <text x="200" y="145" fill="#00ff41" font-family="monospace" font-size="20" text-anchor="middle">RENT PAID</text>
+  <text x="200" y="250" fill="#ff66cc" font-family="monospace" font-size="14" text-anchor="middle">YOU MADE IT</text>
+</svg>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong> Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong> Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>DOSWAPZ // THE LILY PAD // ORBIT</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style class="page-classic-styles">
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ /* orbit: :root stripped */
+
+ * { box-sizing: border-box; }
+
+ /* orbit: global html,body stripped */
+
+ .dos-screen { position:relative; min-height:0; background:transparent; padding:0; }
+
+ /* orbit: scanlines stripped */
+
+ .vignette {
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 48%, rgba(0,0,0,0.6) 82%);
+ pointer-events: none;
+ z-index: 5;
+ }
+
+ /* orbit: .header stripped */
+
+ /* orbit: .sub stripped */
+
+ .video-container {
+ position: relative;
+ max-width: 720px;
+ margin: 0 auto;
+ background: transparent800;
+ border: 2px solid rgba(255,255,255,0.14);
+ padding: 8px;
+ display: inline-block;
+ }
+
+ #lilyVideo {
+ display: block;
+ width: 100%;
+ max-width: 720px;
+ min-height: 280px;
+ height: auto;
+ aspect-ratio: 16 / 9;
+ border: 1px solid #002200;
+ background: transparent;
+ object-fit: cover;
+ }
+
+ .video-fallback {
+ display: none;
+ position: absolute;
+ inset: 8px;
+ border: 1px solid #002200;
+ background: transparent800;
+ color: var(--panel-accent);
+ font-size: 16px;
+ letter-spacing: 1px;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+ padding: 20px;
+ z-index: 5;
+ }
+
+ .video-fallback.show {
+ display: flex;
+ }
+
+ .enter-btn {
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ font-family: 'VT323', 'Courier New', monospace;
+ font-size: 22px;
+ letter-spacing: 3px;
+ color: var(--panel-accent);
+ background: transparent;
+ border: 3px solid var(--panel-accent);
+ padding: 8px 26px;
+ cursor: pointer;
+ text-shadow: 0 0 4px var(--panel-accent);
+ box-shadow: 0 0 10px rgba(255,255,0,0.5);
+ z-index: 10;
+ }
+
+ .enter-btn:hover {
+ background: #112200;
+ color: #ffffff;
+ border-color: #ffffff;
+ }
+
+ .status {
+ text-align: center;
+ color: rgba(255,255,255,0.35);
+ font-size: 15px;
+ margin: 8px 0 4px;
+ letter-spacing: 1px;
+ }
+
+ .footer {
+ text-align: center;
+ margin-top: 18px;
+ font-size: 12px;
+ color: rgba(255,255,255,0.35);
+ letter-spacing: 1px;
+ }
+
+ .glitch-layer {
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 20;
+ mix-blend-mode: screen;
+ }
+ </style>
+</head>
+<body id="screen" class="orbit-void-inner">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+ <span class="crumb-zone">THE LILY PAD</span>
+ <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+ <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+ <div class="core-glow"></div>
+ <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+ <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ <div class="orbit-line" style="width:min(34vmin,34vw);height:min(34vmin,34vh)"></div>
+ </div>
+
+ <main class="stage" id="content">
+ <h1 class="hollow-title" id="orbitTitle">THE LILY PAD</h1>
+ <p class="hollow-sub" id="stageSub">video gate<span class="cursor-blink">|</span></p>
+ <p class="page-path">/orbit/pages/lily-pad.html</p>
+ </main>
+
+ <div class="orbit-panel accent-lily" id="orbitPanel">
+<div class="header">THE LILY PAD</div>
+ <div class="sub"></div>
+
+ <div class="gate-center">
+ <div class="video-container" id="vidWrap">
+ <video id="lilyVideo" autoplay muted playsinline loop preload="auto">
+ <source src="/assets/media/lily-pad.mp4" type="video/mp4">
+ Your browser does not support the video tag.
+ </video>
+ <div class="video-fallback" id="videoFallback">
+ VIDEO NOT LOADED - ensure <strong>/assets/media/lily-pad.mp4</strong> is deployed.<br>
+ <span style="color:rgba(255,255,255,0.35); font-size:14px;">Click ENTER LILY PAD to continue anyway.</span>
+ </div>
+
+ <!-- Button overlaid in the middle of the video area -->
+ <button class="enter-btn" onclick="enterLilyPad()">ENTER LILY PAD</button>
+ </div>
+ </div>
+
+ <div class="status"></div>
+
+ <div class="footer">
+ DOSWAPZ - THE LILY PAD * NO FUNDS
+ </div>
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/core/price-ticker.js"></script>
+ <script>
+try {
+ if (localStorage.getItem('doswapz_skip_lily') === '1') {
+ window.location.replace('/classic/pages/nodes.html');
+ }
+ } catch (e) {}
+
+ const glitchLayer = document.getElementById('glitchLayer');
+ const video = document.getElementById('lilyVideo');
+ const videoFallback = document.getElementById('videoFallback');
+
+ function showVideoFallback() {
+ if (videoFallback) videoFallback.classList.add('show');
+ }
+
+ function tryPlayVideo() {
+ if (!video) return;
+ const p = video.play();
+ if (p && typeof p.catch === 'function') {
+ p.catch(() => {
+ // Autoplay blocked - first click anywhere retries playback
+ document.body.addEventListener('click', function retry() {
+ video.play().catch(() => {});
+ document.body.removeEventListener('click', retry);
+ }, { once: true });
+ });
+ }
+ }
+
+ if (video) {
+ video.addEventListener('error', showVideoFallback);
+ video.addEventListener('stalled', () => {
+ if (video.readyState < 2) showVideoFallback();
+ });
+ video.addEventListener('loadeddata', () => {
+ if (videoFallback) videoFallback.classList.remove('show');
+ });
+ tryPlayVideo();
+ }
+
+ function addGlitchBurst() {
+ for (let i = 0; i < 3; i++) {
+ setTimeout(() => {
+ const b = document.createElement('div');
+ b.style.position = 'absolute';
+ b.style.left = Math.random() * 100 + '%';
+ b.style.top = Math.random() * 100 + '%';
+ b.style.width = (1 + Math.random() * 5) + '%';
+ b.style.height = (1 + Math.random() * 3) + '%';
+ b.style.background = Math.random() < 0.6 ? '#00ff00' : '#000';
+ b.style.opacity = (0.22 + Math.random() * 0.32).toString();
+ b.style.mixBlendMode = 'difference';
+ b.style.zIndex = '22';
+ glitchLayer.appendChild(b);
+ setTimeout(() => {
+ b.style.transition = 'opacity 65ms linear';
+ b.style.opacity = '0';
+ setTimeout(() => b.remove(), 55);
+ }, 55);
+ }, i * 16);
+ }
+ }
+
+ function enterLilyPad() {
+ var dest = (location.pathname.indexOf('/orbit/') >= 0)
+ ? '/orbit/pages/nodes.html'
+ : '/classic/pages/nodes.html';
+ if (window.DOSWAPZ_TRANSITION) {
+ window.DOSWAPZ_TRANSITION.navigate(dest);
+ } else {
+ window.location.href = dest;
+ }
+ }
+
+ // Light glitch (consistent with site)
+ setInterval(() => {
+ if (Math.random() < 0.26) addGlitchBurst();
+ }, 880);
+
+ // Small initial glitch burst
+ setTimeout(() => addGlitchBurst(), 280);
+
+ // Optional: subtle hint if user wants to skip video
+ // Button is always visible and centered over the video
+ </script>
+
+ <script>hollowPageBoot('THE LILY PAD');</script>
+</body>
+</html>

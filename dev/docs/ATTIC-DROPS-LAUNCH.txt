@@ -1,0 +1,107 @@
+DOSWAPZ — THE ATTIC DROP TRACKER
+LAUNCH PREP (NOT LIVE YET)
+==========================
+Updated: 2026-07-16
+
+WHAT THIS IS
+------------
+Scaffold to track Pokémon / sports / TCG product status across:
+  Walmart, Target, Best Buy, Dick's, Pokémon Center, Amazon (stubs).
+
+Current site behavior UNCHANGED:
+  - Attic UI still loads /assets/data/attic-drops.json by default
+  - No retailer is polled
+  - Browser alerts remain a client demo until launch wiring
+
+WHAT WAS PREPARED
+-----------------
+Data:
+  assets/data/attic-watchlist.json     multi-retailer watchlist (live:false)
+  assets/data/attic-drops.json         existing manual board (still used)
+
+API (dormant for tracking):
+  GET  /api/attic-drops                public board JSON (safe)
+  GET  /api/attic-drops?meta=1         flags + recent events
+  POST /api/attic-drops                admin actions (secret required)
+  POST /api/attic-drops-check          dry-run unless ATTIC_DROPS_LIVE=1
+
+Lib:
+  api/lib/attic-drops-store.js
+  api/lib/attic-retailers/index.js     all adapters stubbed
+
+Frontend:
+  assets/js/attic/drops.js
+    - default: static JSON
+    - optional: ?dropsApi=1 or window.DOSWAPZ_ATTIC_DROPS_USE_API = true
+
+Netlify:
+  netlify/functions/attic-drops.js
+  netlify/functions/attic-drops-check.js
+
+Vercel routes:
+  /api/attic-drops
+  /api/attic-drops-check
+
+
+ENV (DO NOT SET LIVE UNTIL LAUNCH DAY)
+--------------------------------------
+# leave unset or 0 for prep
+ATTIC_DROPS_LIVE=0
+
+# required before any admin POST or check
+ATTIC_DROPS_ADMIN_SECRET=<long-random>
+
+# optional notify
+ATTIC_DROPS_WEBHOOK_URL=https://discord.com/api/webhooks/...
+
+# already used elsewhere
+KV_REST_API_URL=
+KV_REST_API_TOKEN=
+
+
+PRE-LAUNCH CHECKLIST
+--------------------
+[ ] Fill real product URLs + SKUs in attic-watchlist.json (no REPLACE_ME)
+[ ] Decide first retailer adapter to implement (recommend: pokemoncenter)
+[ ] Implement adapter.check() returning live|preorder|upcoming|soldout
+[ ] Set ATTIC_DROPS_ADMIN_SECRET in host env
+[ ] Deploy API routes; verify GET /api/attic-drops?meta=1 → prepOnly true
+[ ] POST check with secret → armed:false dry-run, plan looks right
+[ ] Test webhook with a fake status change in staging
+[ ] Flip UI: DOSWAPZ_ATTIC_DROPS_USE_API = true on attic page (or always API)
+[ ] Publish board: POST action publish-from-watchlist
+[ ] ONLY THEN: ATTIC_DROPS_LIVE=1
+[ ] Schedule cron: POST /api/attic-drops-check every 2–15 min (secret header)
+[ ] Monitor blocks / errors; start with 1–3 hot SKUs only
+
+
+ADMIN EXAMPLES (when secret is set — still dry-run if LIVE off)
+---------------------------------------------------------------
+# Public board
+curl -s https://YOUR-SITE/api/attic-drops?meta=1
+
+# Dry-run check (LIVE must be off → armed:false)
+curl -s -X POST https://YOUR-SITE/api/attic-drops-check \
+  -H "x-attic-admin: YOUR_SECRET"
+
+# Reload bundled watchlist into KV
+curl -s -X POST https://YOUR-SITE/api/attic-drops \
+  -H "x-attic-admin: YOUR_SECRET" \
+  -H "Content-Type: application/json" \
+  -d "{\"action\":\"reload-watchlist-bundled\"}"
+
+
+SAFETY
+------
+- POST set-watchlist forces live:false on stored watchlist
+- Checkers no-op network when ATTIC_DROPS_LIVE !== 1
+- Stubs never claim stock
+- Watchlist rows with sku REPLACE_ME are always skipped
+
+
+AFTER LAUNCH (NOT NOW)
+----------------------
+1. Implement real adapters (one store at a time)
+2. Wire Discord webhook
+3. Upgrade browser alerts to poll /api/attic-drops for status deltas
+4. Optional: moderated "submit a drop" form for community SKUs

@@ -1,0 +1,76 @@
+Inbox    pauly0x/idle-r <- grok-image-03c62547-9f9b-4522-ae89-b4031d38a6ce.jpg
+Inbox    donalt/idle-r <- grok-image-0b801d9e-5084-418c-96a8-895ee82b7512.jpg
+Inbox    crypto-bitlord/idle-r <- grok-image-21e4f7d6-d398-4968-92bf-af21e052d3ab.jpg
+Inbox    ansem/idle-r <- grok-image-2ee6a0e3-b21d-440a-bcf7-8c090eece61c.jpg
+Inbox    jimmy-edgar/idle-r <- grok-image-9cbe4540-b8b3-470c-97fd-dcd6d0870083.jpg
+Inbox    vitalik-buterin/idle-r <- grok-image-b28a7d77-47a5-4c0b-b8dc-a25a18b5ca00.jpg
+Inbox    roger-ver/idle-r <- grok-image-bfd73d13-013e-4078-a885-1e00afc8c4ea.jpg
+Inbox    roger-ver/high-punch-r <- grok-image-ccfc1fef-7371-46fb-af5f-932f739d3815.jpg
+Inbox    dogedesigner/idle-r <- grok-image-d440f1a8-7a21-4ba6-b2a2-06f4893e556c.jpg
+Inbox    michael-saylor/idle-r <- grok-image-e8a08ca4-fbf6-4e13-bf15-c896e29633d7.jpg
+
+=== JIMMY-EDGAR ===
+Reference -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\jimmy-edgar\reference.jpg
+Primary  block-high-r <- block-high-r.jpg (544x1056)
+Primary  block-low-r <- block-low-r.jpg (766x1070)
+Primary  crouch-r <- crouch-r.jpg (688x1028)
+Primary  high-kick-r <- high-kick-r.jpg (802x1005)
+Primary  high-punch-r <- high-punch-r.jpg (749x1000)
+Primary  hit-stun-r <- hit-stun-r.jpg (753x1084)
+Primary  idle-breath-r <- idle-breath-r.jpg (412x1045)
+Primary  idle-r <- idle-r.jpg (717x1171)
+Primary  jump-peak-r <- jump-peak-r.jpg (679x981)
+Primary  jump-r <- jump-r.jpg (669x995)
+Primary  knockdown-r <- knockdown-r.jpg (674x923)
+Primary  low-kick-r <- low-kick-r.jpg (755x995)
+Primary  low-punch-r <- low-punch-r.jpg (803x994)
+Primary  med-kick-r <- med-kick-r.jpg (717x911)
+Primary  med-punch-r <- med-punch-r.jpg (841x1083)
+Primary  special-1-r <- special-1-r.jpg (767x1067)
+Primary  special-2-r <- special-2-r.jpg (757x895)
+Primary  victory-r <- victory-r.jpg (787x1058)
+Primary  walk-forward-1-r <- walk-forward-1-r.jpg (709x1002)
+Primary  walk-forward-2-r <- walk-forward-2-r.jpg (716x1108)
+Done jimmy-edgar: 61 poses
+
+Master index -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\view-all-poses.html
+
+Installed 61 total pose PNGs across 1 character(s)
+Inbox    pauly0x/idle-r <- grok-image-03c62547-9f9b-4522-ae89-b4031d38a6ce.jpg
+Inbox    donalt/idle-r <- grok-image-0b801d9e-5084-418c-96a8-895ee82b7512.jpg
+Inbox    crypto-bitlord/idle-r <- grok-image-21e4f7d6-d398-4968-92bf-af21e052d3ab.jpg
+Inbox    ansem/idle-r <- grok-image-2ee6a0e3-b21d-440a-bcf7-8c090eece61c.jpg
+Inbox    jimmy-edgar/idle-r <- grok-image-9cbe4540-b8b3-470c-97fd-dcd6d0870083.jpg
+Inbox    vitalik-buterin/idle-r <- grok-image-b28a7d77-47a5-4c0b-b8dc-a25a18b5ca00.jpg
+Inbox    roger-ver/idle-r <- grok-image-bfd73d13-013e-4078-a885-1e00afc8c4ea.jpg
+Inbox    roger-ver/high-punch-r <- grok-image-ccfc1fef-7371-46fb-af5f-932f739d3815.jpg
+Inbox    dogedesigner/idle-r <- grok-image-d440f1a8-7a21-4ba6-b2a2-06f4893e556c.jpg
+Inbox    michael-saylor/idle-r <- grok-image-e8a08ca4-fbf6-4e13-bf15-c896e29633d7.jpg
+
+=== PAULY0X ===
+Reference -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\pauly0x\reference.jpg
+Primary  block-high-r <- block-high-r.jpg (563x1027)
+Primary  block-low-r <- block-low-r.jpg (637x889)
+Primary  crouch-r <- crouch-r.jpg (646x855)
+Primary  high-kick-r <- high-kick-r.jpg (801x1074)
+Primary  high-punch-r <- high-punch-r.jpg (723x1059)
+Primary  hit-stun-r <- hit-stun-r.jpg (740x918)
+Primary  idle-breath-r <- idle-breath-r.jpg (644x969)
+Primary  idle-r <- idle-r.jpg (820x1248)
+Primary  jump-peak-r <- jump-peak-r.jpg (476x824)
+Primary  jump-r <- jump-r.jpg (554x932)
+Primary  knockdown-r <- knockdown-r.jpg (761x767)
+Primary  low-kick-r <- low-kick-r.jpg (787x943)
+Primary  low-punch-r <- low-punch-r.jpg (693x956)
+Primary  med-kick-r <- med-kick-r.jpg (750x1019)
+Primary  med-punch-r <- med-punch-r.jpg (684x798)
+Primary  special-1-r <- special-1-r.jpg (846x769)
+Primary  special-2-r <- special-2-r.jpg (763x894)
+Primary  victory-r <- victory-r.jpg (742x944)
+Primary  walk-forward-1-r <- walk-forward-1-r.jpg (648x948)
+Primary  walk-forward-2-r <- walk-forward-2-r.jpg (608x930)
+Done pauly0x: 66 poses
+
+Master index -> C:\Users\franc\Desktop\DOSWAPZ\assets\images\kol-fighter\characters\view-all-poses.html
+
+Installed 66 total pose PNGs across 1 character(s)

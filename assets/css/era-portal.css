@@ -1,0 +1,200 @@
+/* Time Machine Portal + era switcher */
+
+.portal-page {
+ min-height: 100vh;
+ background: #000;
+ overflow: hidden;
+}
+
+.portal-page .portal-stage {
+ position: relative;
+ z-index: 40;
+ min-height: 100vh;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ padding: 48px 20px 80px;
+ pointer-events: none;
+}
+
+.portal-page .portal-title {
+ font-family: 'VT323', monospace;
+ font-size: clamp(32px, 8vw, 56px);
+ letter-spacing: clamp(6px, 2vw, 14px);
+ color: transparent;
+ -webkit-text-stroke: 1.5px rgba(200,200,220,0.45);
+ filter: drop-shadow(0 0 24px rgba(255,255,255,0.12));
+ margin-bottom: 8px;
+ text-align: center;
+}
+
+.portal-page .portal-sub {
+ font-family: 'VT323', monospace;
+ font-size: clamp(16px, 3vw, 22px);
+ letter-spacing: 4px;
+ color: rgba(255,255,255,0.35);
+ margin-bottom: 48px;
+ text-align: center;
+}
+
+.portal-gates {
+ display: flex;
+ flex-wrap: wrap;
+ gap: clamp(24px, 6vw, 64px);
+ justify-content: center;
+ align-items: center;
+ pointer-events: auto;
+}
+
+.portal-gate {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 16px;
+ text-decoration: none;
+ color: inherit;
+ background: transparent;
+ border: 0;
+ cursor: pointer;
+ font-family: 'VT323', monospace;
+ padding: 0;
+ transition: transform 320ms ease, filter 320ms ease;
+}
+
+.portal-gate:hover,
+.portal-gate:focus-visible {
+ transform: scale(1.05);
+ filter: brightness(1.25);
+ outline: none;
+}
+
+.portal-ring {
+ width: clamp(140px, 28vw, 200px);
+ height: clamp(140px, 28vw, 200px);
+ border-radius: 50%;
+ border: 2px solid currentColor;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ position: relative;
+ animation: portal-drift 7s ease-in-out infinite;
+ box-shadow:
+ 0 0 0 1px rgba(255,255,255,0.06),
+ 0 0 40px color-mix(in srgb, currentColor 30%, transparent),
+ inset 0 0 32px rgba(255,255,255,0.04);
+}
+
+.portal-ring::after {
+ content: '';
+ position: absolute;
+ inset: 14px;
+ border-radius: 50%;
+ border: 1px dashed rgba(255,255,255,0.12);
+}
+
+.portal-ring .glyph {
+ font-size: clamp(36px, 8vw, 52px);
+ line-height: 1;
+}
+
+.portal-gate.past-gate { color: #00ff41; }
+.portal-gate.past-gate .portal-ring {
+ box-shadow:
+ 0 0 0 1px rgba(0,255,65,0.1),
+ 0 0 48px rgba(0,255,65,0.25),
+ inset 0 0 28px rgba(0,255,65,0.06);
+}
+
+.portal-gate.present-gate { color: rgba(200,200,255,0.75); }
+.portal-gate.present-gate .portal-ring {
+ animation-duration: 9s;
+ animation-direction: reverse;
+}
+
+.portal-label {
+ font-size: clamp(18px, 3.5vw, 26px);
+ letter-spacing: 6px;
+ text-align: center;
+}
+
+.portal-era {
+ font-size: 14px;
+ letter-spacing: 3px;
+ opacity: 0.55;
+}
+
+.portal-rift {
+ position: fixed;
+ left: 50%;
+ top: 50%;
+ width: 2px;
+ height: 60vh;
+ transform: translate(-50%, -50%);
+ background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.15), transparent);
+ z-index: 25;
+ pointer-events: none;
+ animation: rift-pulse 4s ease-in-out infinite;
+}
+
+@keyframes portal-drift {
+ 0%, 100% { transform: translateY(0); }
+ 50% { transform: translateY(-10px); }
+}
+
+@keyframes rift-pulse {
+ 0%, 100% { opacity: 0.35; }
+ 50% { opacity: 0.85; }
+}
+
+/* era switcher - all pages */
+.era-switcher {
+ position: fixed;
+ top: 10px;
+ left: 12px;
+ z-index: 500;
+ display: flex;
+ gap: 4px;
+ align-items: center;
+ pointer-events: auto;
+ font-family: 'VT323', monospace;
+}
+
+.era-btn {
+ background: transparent;
+ border: 1px dashed rgba(255,255,255,0.2);
+ color: rgba(255,255,255,0.4);
+ font-family: inherit;
+ font-size: 11px;
+ letter-spacing: 2px;
+ padding: 5px 10px;
+ cursor: pointer;
+ transition: color 180ms, border-color 180ms, box-shadow 180ms;
+}
+
+.era-btn:hover {
+ color: rgba(255,255,255,0.9);
+ border-color: rgba(255,255,255,0.45);
+}
+
+.era-btn.active {
+ color: #fff;
+ border-color: rgba(255,255,255,0.5);
+}
+
+.era-btn.era-portal {
+ padding: 5px 8px;
+ font-size: 13px;
+}
+
+.era-past .era-btn[data-era="past"] {
+ border-color: rgba(0,255,65,0.55);
+ color: #00ff41;
+ box-shadow: 0 0 16px rgba(0,255,65,0.15);
+}
+
+.era-present .era-btn[data-era="present"] {
+ border-color: rgba(200,200,255,0.45);
+ color: rgba(220,220,255,0.9);
+}
+

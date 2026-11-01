@@ -1,0 +1,190 @@
+{
+  "pagesCrawled": 160,
+  "pagesOk": 160,
+  "pagesFail": [],
+  "linkBroken": [],
+  "assetsBroken": [
+    {
+      "path": "/assets/images/cryptodad_colorful/${n}.jpg",
+      "from": "/classic/pages/cryptodad/images.html"
+    },
+    {
+      "path": "/assets/images/cryptodad/${name}.jpg",
+      "from": "/classic/pages/cryptodad/images.html"
+    },
+    {
+      "path": "/assets/images/kol-fighter/original-sprites-preview.png",
+      "from": "/classic/pages/degen/characters-preview.html"
+    },
+    {
+      "path": "/assets/images/kol-fighter/characters/sprites/degen.png",
+      "from": "/classic/pages/degen/characters-preview.html"
+    },
+    {
+      "path": "/assets/images/kol-fighter/characters/sprites/ansem.png",
+      "from": "/classic/pages/degen/characters-preview.html"
+    },
+    {
+      "path": "/assets/images/kol-fighter/characters/sprites/jason-williams.png",
+      "from": "/classic/pages/degen/characters-preview.html"
+    },
+    {
+      "path": "/assets/images/kol-fighter/characters/sprites/dogedesigner.png",
+      "from": "/classic/pages/degen/characters-preview.html"
+    },
+    {
+      "path": "/assets/images/kol-fighter/characters/sprites/roger-ver.png",
+      "from": "/classic/pages/degen/characters-preview.html"
+    },
+    {
+      "path": "/assets/images/kol-fighter/characters/sprites/bitboy.png",
+      "from": "/classic/pages/degen/characters-preview.html"
+    },
+    {
+      "path": "/assets/images/kol-fighter/characters/sprites/jimmy-edgar.png",
+      "from": "/classic/pages/degen/characters-preview.html"
+    },
+    {
+      "path": "/assets/images/kol-fighter/characters/sprites/michael-saylor.png",
+      "from": "/classic/pages/degen/characters-preview.html"
+    },
+    {
+      "path": "/assets/images/kol-fighter/characters/sprites/crypto-bitlord.png",
+      "from": "/classic/pages/degen/characters-preview.html"
+    },
+    {
+      "path": "/assets/images/kol-fighter/characters/sprites/donalt.png",
+      "from": "/classic/pages/degen/characters-preview.html"
+    },
+    {
+      "path": "/assets/images/kol-fighter/characters/sprites/vitalik-buterin.png",
+      "from": "/classic/pages/degen/characters-preview.html"
+    },
+    {
+      "path": "/assets/images/kol-fighter/characters/sprites/pauly0x.png",
+      "from": "/classic/pages/degen/characters-preview.html"
+    },
+    {
+      "path": "/assets/images/kol-fighter/degen-32bit-compare.png",
+      "from": "/classic/pages/degen/degen-32bit-preview.html"
+    }
+  ],
+  "missingEraOnHubs": [],
+  "gameSkinReport": [
+    {
+      "game": "/classic/pages/arcade/xelon/index.html",
+      "http": 200,
+      "presentSkinWired": true,
+      "skipExpected": false,
+      "ftwr": false
+    },
+    {
+      "game": "/classic/pages/arcade/lily-leap/index.html",
+      "http": 200,
+      "presentSkinWired": true,
+      "skipExpected": false,
+      "ftwr": false
+    },
+    {
+      "game": "/classic/pages/arcade/snowman/index.html",
+      "http": 200,
+      "presentSkinWired": true,
+      "skipExpected": false,
+      "ftwr": false
+    },
+    {
+      "game": "/classic/pages/arcade/plumber/index.html",
+      "http": 200,
+      "presentSkinWired": true,
+      "skipExpected": false,
+      "ftwr": false
+    },
+    {
+      "game": "/classic/pages/arcade/sell-sell-sell/index.html",
+      "http": 200,
+      "presentSkinWired": true,
+      "skipExpected": false,
+      "ftwr": false
+    },
+    {
+      "game": "/classic/pages/arcade/degen-regen/index.html",
+      "http": 200,
+      "presentSkinWired": true,
+      "skipExpected": false,
+      "ftwr": false
+    },
+    {
+      "game": "/classic/pages/arcade/hub.html",
+      "http": 200,
+      "presentSkinWired": true,
+      "skipExpected": false,
+      "ftwr": false
+    },
+    {
+      "game": "/classic/pages/tbb/play.html",
+      "http": 200,
+      "presentSkinWired": true,
+      "skipExpected": false,
+      "ftwr": false
+    },
+    {
+      "game": "/classic/pages/cryptodad/ftwr-maze.html",
+      "http": 200,
+      "presentSkinWired": false,
+      "skipExpected": false,
+      "ftwr": true
+    },
+    {
+      "game": "/classic/pages/cryptodad/play.html",
+      "http": 200,
+      "presentSkinWired": false,
+      "skipExpected": true,
+      "ftwr": false
+    },
+    {
+      "game": "/classic/pages/basement/cryptomom/play.html",
+      "http": 200,
+      "presentSkinWired": false,
+      "skipExpected": true,
+      "ftwr": false
+    },
+    {
+      "game": "/classic/pages/arcade/jimothy/index.html",
+      "http": 200,
+      "presentSkinWired": false,
+      "skipExpected": false,
+      "ftwr": false
+    },
+    {
+      "game": "/classic/pages/arcade/pink-frog/index.html",
+      "http": 200,
+      "presentSkinWired": false,
+      "skipExpected": false,
+      "ftwr": false
+    },
+    {
+      "game": "/classic/pages/arcade/open-city/index.html",
+      "http": 200,
+      "presentSkinWired": false,
+      "skipExpected": false,
+      "ftwr": false
+    },
+    {
+      "game": "/classic/pages/ape-chamber/index.html",
+      "http": 200,
+      "presentSkinWired": false,
+      "skipExpected": false,
+      "ftwr": false
+    }
+  ],
+  "hubBroken": [],
+  "orbitBroken": [],
+  "core": {
+    "eraPortal": 200,
+    "eraPortalHasSwitchFix": true,
+    "shellCss": 200,
+    "presentCss": 200,
+    "presentJs": 200
+  },
+  "sampleFailPages": []
+}

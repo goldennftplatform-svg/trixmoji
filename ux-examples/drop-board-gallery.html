@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // DROP BOARD EXAMPLES</title>
+ <meta name="robots" content="noindex">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff41;
+ --attic: #ccaa66;
+ }
+
+ * { box-sizing: border-box; }
+
+ body {
+ margin: 0;
+ min-height: 100vh;
+ background: #050508;
+ color: var(--green);
+ font-family: 'VT323', monospace;
+ padding: 28px 20px 48px;
+ }
+
+ h1 {
+ text-align: center;
+ font-size: 32px;
+ letter-spacing: 6px;
+ text-shadow: 0 0 8px var(--green);
+ font-weight: normal;
+ margin: 0 0 6px;
+ }
+
+ .sub {
+ text-align: center;
+ color: var(--attic);
+ font-size: 17px;
+ margin-bottom: 28px;
+ }
+
+ .grid {
+ max-width: 980px;
+ margin: 0 auto;
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+ gap: 16px;
+ }
+
+ a.card {
+ display: block;
+ text-decoration: none;
+ color: inherit;
+ border: 3px solid #00ff41;
+ background: #0a1008;
+ padding: 16px;
+ transition: border-color 0.15s, background 0.15s;
+ }
+
+ a.card:hover {
+ border-color: #ffff00;
+ background: #001800;
+ }
+
+ a.card h2 {
+ font-size: 22px;
+ color: #ffff00;
+ font-weight: normal;
+ letter-spacing: 2px;
+ margin: 0 0 8px;
+ }
+
+ a.card p {
+ margin: 0;
+ font-size: 16px;
+ line-height: 1.35;
+ color: #aaffaa;
+ }
+
+ a.card .fit {
+ margin-top: 12px;
+ font-size: 14px;
+ color: var(--attic);
+ border-top: 1px solid #003300;
+ padding-top: 8px;
+ }
+
+ .foot {
+ max-width: 980px;
+ margin: 28px auto 0;
+ text-align: center;
+ font-size: 15px;
+ color: #00aa44;
+ }
+
+ .foot a { color: var(--attic); }
+ </style>
+</head>
+<body>
+ <h1>DROP BOARD * UX</h1>
+ <p class="sub">Three layouts that speak DOSWAPZ / The Attic</p>
+
+ <div class="grid">
+ <a class="card" href="drop-board-a.html">
+ <h2>A * CARD GRID</h2>
+ <p>Same bones as the pack-pull feed: attic gold filters, green cards, sports / pokemon / other badges, watch buttons, browser alert demo.</p>
+ <p class="fit">Best default for /pages/attic drops tab</p>
+ </a>
+ <a class="card" href="drop-board-b.html">
+ <h2>B * BBS FILE LIST</h2>
+ <p>Night dial-up / hybrid-OS list. Numbered rows, LINK columns, F-keys. Feels like a file area under ATTIC.</p>
+ <p class="fit">Best if you lean OS64 / BBS hard</p>
+ </a>
+ <a class="card" href="drop-board-c.html">
+ <h2>C * TICKER + TABLE</h2>
+ <p>Hot live pills + schedule table + bottom DROPS marquee in the same chrome as the site price ticker.</p>
+ <p class="fit">Best if drops should feel site-wide</p>
+ </a>
+ </div>
+
+ <p class="foot">
+ Mock data only * open from local server so shell CSS loads * 
+ <a href="/classic/pages/attic.html">live The Attic</a>
+ </p>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+ <title>DOSWAPZ // HUB UI EXAMPLES - pick a direction</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ * { box-sizing: border-box; }
+ html, body {
+ margin: 0; min-height: 100%; background: #040804; color: #00ff41;
+ font-family: 'VT323', 'Courier New', monospace;
+ }
+ .page { max-width: 1180px; margin: 0 auto; padding: 18px 12px 64px; }
+ h1 { color: #ffff00; letter-spacing: 3px; font-size: clamp(24px, 5vw, 36px); margin: 0 0 8px; }
+ .lead { color: #00aa00; font-size: 17px; line-height: 1.45; max-width: 48rem; margin: 0 0 18px; }
+ .lead strong { color: #b8ffb8; }
+ .note {
+ border: 1px solid #334400; background: #0a100a; padding: 12px 14px;
+ font-size: 15px; color: #88cc88; line-height: 1.4; margin-bottom: 20px;
+ }
+ .toc { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+ .toc a {
+ color: #ffff00; text-decoration: none; border: 1px solid #445500;
+ padding: 8px 11px; font-size: 15px;
+ }
+ .toc a:hover { border-color: #00ff41; color: #fff; }
+ .grid {
+ display: grid; grid-template-columns: 1fr; gap: 20px;
+ }
+ @media (min-width: 960px) {
+ .grid { grid-template-columns: 1fr 1fr; }
+ }
+ .card {
+ border: 1px solid #004400; background: #020602; overflow: hidden;
+ }
+ .card.full { grid-column: 1 / -1; }
+ .card-head {
+ display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px;
+ padding: 10px 12px; background: #001800; border-bottom: 1px solid #003300;
+ font-size: 15px;
+ }
+ .card-head .tag { color: #ffff00; letter-spacing: 1px; }
+ .card-head .meta { color: #00aa00; }
+ iframe {
+ display: block; width: 100%; height: 520px; border: 0; background: #000;
+ }
+ .pick {
+ padding: 12px; border-top: 1px solid #002200; font-size: 15px;
+ color: #88cc88; line-height: 1.4;
+ }
+ .pick em { color: #ffff00; font-style: normal; }
+ .why { color: #00aa00; font-size: 14px; margin-top: 6px; }
+ a.back { color: #ffff00; font-size: 17px; }
+ </style>
+</head>
+<body>
+ <div class="page">
+ <h1>// HUB UI EXAMPLES v2</h1>
+ <p class="lead">
+ New set - not the old chip-row / rail / dock. Built against the <strong>current live hub</strong>
+ (title + war path + map chips + NEW banner + 2-col accordion + long footer).
+ Goal: easier scan, clearer primary actions, less stack noise, still CRT / degen.
+ </p>
+ <div class="note">
+ <strong style="color:#ffff00">PROBLEM WITH CURRENT HUB</strong><br>
+ Too many layers fighting: status * war path * map chips * NEW banner * accordion * war briefing modal * footer wall.
+ Same destinations appear twice. Accordions hide the map. Phone becomes a long scroll of tiny headers.<br><br>
+ <strong style="color:#ffff00">PICK ONE</strong> reply like: <em>“Hub D”</em> or <em>“Hub F but keep accordion for DEGEN$”</em>
+ </div>
+
+ <nav class="toc">
+ <a href="#d">D * Command tiles</a>
+ <a href="#e">E * Clean BBS list</a>
+ <a href="#f">F * Zone cards</a>
+ <a href="#g">G * Phone stack</a>
+ <a href="#h">H * Hybrid (rec)</a>
+ <a href="/classic/hub.html"><- live hub</a>
+ <a href="/ux-examples/">old gallery</a>
+ </nav>
+
+ <div class="grid">
+ <div class="card" id="d">
+ <div class="card-head">
+ <span class="tag">D - COMMAND TILES</span>
+ <span class="meta">primary actions first</span>
+ </div>
+ <iframe src="hub-d.html" title="Hub D" loading="lazy"></iframe>
+ <div class="pick">
+ Big strike tiles for <em>SWAP / ARCADE / GAMES / BASEMENT</em>, then a quiet secondary list.
+ <div class="why">Why: cold users hit the money paths in 1 tap. No hunting accordion.</div>
+ </div>
+ </div>
+
+ <div class="card" id="e">
+ <div class="card-head">
+ <span class="tag">E - CLEAN BBS LIST</span>
+ <span class="meta">numbered * one column</span>
+ </div>
+ <iframe src="hub-e.html" title="Hub E" loading="lazy"></iframe>
+ <div class="pick">
+ Single-column numbered directory. No chips, no dual grid. Fat rows. Keyboard 1 - 9 friendly.
+ <div class="why">Why: maximum clarity, pure terminal. Least “UI kit,” most DOS.</div>
+ </div>
+ </div>
+
+ <div class="card" id="f">
+ <div class="card-head">
+ <span class="tag">F - ZONE CARDS</span>
+ <span class="meta">STRIKE * PLAY * BUILD * INTEL</span>
+ </div>
+ <iframe src="hub-f.html" title="Hub F" loading="lazy"></iframe>
+ <div class="pick">
+ Four zones with short blurbs + 2 - 3 links each. Grouped by intent, not random accordion.
+ <div class="why">Why: teaches the bunker map without a separate // MAP strip.</div>
+ </div>
+ </div>
+
+ <div class="card" id="g">
+ <div class="card-head">
+ <span class="tag">G - PHONE STACK</span>
+ <span class="meta">mobile-first</span>
+ </div>
+ <iframe src="hub-g.html" title="Hub G" loading="lazy"></iframe>
+ <div class="pick">
+ One hero CTA (SWAP), then full-width section cards. No 2-col desktop grid fighting thumbs.
+ <div class="why">Why: phones are the real battlefield. Desktop still looks fine stacked.</div>
+ </div>
+ </div>
+
+ <div class="card full" id="h">
+ <div class="card-head">
+ <span class="tag">H - HYBRID ★ recommended</span>
+ <span class="meta">tiles + clean list * less noise</span>
+ </div>
+ <iframe src="hub-h.html" title="Hub H" loading="lazy" style="height:580px"></iframe>
+ <div class="pick">
+ Best of both: 3 primary command tiles, one status line (no war essay), compact secondary menu,
+ short OPSEC footer. Keeps degen energy, kills the clutter pile-up.
+ <div class="why">Why: UI-friendly without becoming Uniswap. This is the one I’d ship if you want friendlier + still warlike.</div>
+ </div>
+ </div>
+ </div>
+
+ <p class="lead" style="margin-top:28px">
+ Live hub for comparison: <a class="back" href="/classic/hub.html">/classic/hub.html</a>
+ </p>
+ </div>
+</body>
+</html>

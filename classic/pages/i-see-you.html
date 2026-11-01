@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // I SEE YOU</title>
+ <meta name="description" content="I SEE YOU - multi-chain wallet surveillance terminal on DOSWAPZ. Track swaps and activity across Solana, EVM, and Bitcoin.">
+ <meta property="og:title" content="DOSWAPZ // I SEE YOU">
+ <meta property="og:description" content="Paste any wallet - watch the chain reveal its trades.">
+ <meta property="og:url" content="https://doswapz.com/classic/pages/i-see-you.html">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='32' fill='%23ff3366' text-anchor='middle' font-weight='bold'%3EISY%3C/text%3E%3C/svg%3E">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <link rel="stylesheet" href="/assets/css/i-see-you.css">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ :root { --green: #00ff00; }
+ * { box-sizing: border-box; }
+ html, body {
+ margin: 0; padding: 0; width: 100%; min-height: 100%;
+ background: #000; color: #ff99bb;
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ }
+ .dos-screen { position: relative; min-height: 100vh; background: #000; padding: 24px 28px 60px; }
+ .dos-screen::before {
+ content: ''; position: fixed; inset: 0;
+ background: repeating-linear-gradient(to bottom, transparent 0px, transparent 3px, rgba(255, 51, 102, 0.028) 3px, rgba(255, 51, 102, 0.028) 5px);
+ pointer-events: none; z-index: 30;
+ }
+ .header {
+ width: 100%;
+ text-align: center;
+ font-size: 32px;
+ letter-spacing: 6px;
+ margin-bottom: 6px;
+ }
+ .content { max-width: 960px; margin: 18px auto 0; padding: 0 8px; position: relative; z-index: 40; }
+ .section-label { text-align: center; font-size: 14px; color: #ffff00; margin-bottom: 8px; letter-spacing: 2px; }
+ .buttons { text-align: center; margin-top: 20px; }
+ .btn {
+ font-size: 16px; color: #ff6699; background: transparent; border: 2px solid #ff3366;
+ padding: 5px 14px; text-decoration: none; margin: 0 4px; display: inline-block;
+ }
+ .btn:hover { background: rgba(60, 0, 20, 0.55); color: #ffff66; border-color: #ffff66; }
+ .footer { margin-top: 18px; font-size: 13px; color: #886677; text-align: center; letter-spacing: 1px; }
+ .vignette {
+ position: fixed; inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.58) 84%);
+ pointer-events: none; z-index: 5;
+ }
+ .glitch-layer { position: fixed; inset: 0; pointer-events: none; z-index: 20; mix-blend-mode: screen; }
+ .isy-raw {
+ margin-top: 12px; border: 1px solid rgba(255,51,102,0.3); background: #000;
+ padding: 8px; font-size: 11px; color: #aa7788; white-space: pre-wrap;
+ word-break: break-all; max-height: 180px; overflow: auto;
+ }
+ </style>
+</head>
+<body>
+ <div class="dos-screen isy-screen" id="screen">
+ <div class="vignette"></div>
+
+ <div class="header">I SEE YOU</div>
+ <div class="content">
+ <div class="isy-subhead">
+ WALLET SURVEILLANCE TERMINAL * SOL PnL * ETH * EVM * BTC<br>
+ PASTE ANY ADDRESS - TRACK SWAPS, MOVEMENTS &amp; PROFIT / LOSS
+ </div>
+
+ <div class="isy-panel">
+ <div class="section-label">TARGET ACQUISITION</div>
+
+ <div class="isy-field">
+ <label for="isyChain">BLOCKCHAIN</label>
+ <div id="isyChainPick" class="isy-chain-pick" role="listbox" aria-label="Blockchain"></div>
+ <select id="isyChain" aria-label="Blockchain" class="isy-chain-native">
+ <option value="sol">Solana (SOL)</option>
+ <option value="eth">Ethereum (ETH)</option>
+ <option value="base">Base</option>
+ <option value="polygon">Polygon</option>
+ <option value="arb">Arbitrum</option>
+ <option value="hood">Robinhood Chain</option>
+ <option value="btc">Bitcoin (BTC)</option>
+ </select>
+ </div>
+
+ <div class="isy-field" style="margin-top:10px;">
+ <label for="isyAddress">WALLET ADDRESS</label>
+ <input id="isyAddress" type="text" placeholder="Paste wallet address - any supported chain" autocomplete="off" spellcheck="false">
+ </div>
+
+ <div class="isy-row">
+ <button id="isyTrackBtn" class="isy-btn" type="button">TRACK WALLET</button>
+ <button id="isyConnectSol" class="isy-btn isy-btn-small" type="button">CONNECT SOLANA</button>
+ <button id="isyConnectEvm" class="isy-btn isy-btn-small" type="button">CONNECT ETH</button>
+ </div>
+
+ <div id="isyStatus" class="isy-status">AWAITING TARGET</div>
+ <div id="isyTarget" class="isy-target"></div>
+ <div id="isyStats" class="isy-stats"></div>
+ </div>
+
+ <div class="isy-panel" id="isyPnlPanel">
+ <div class="section-label">PnL RADAR (SOLANA FIFO)</div>
+ <div id="isyPnlSummary" class="isy-pnl-summary">
+ <div class="isy-pnl-banner">TRACK A SOLANA WALLET TO COMPUTE REALIZED + UNREALIZED PnL</div>
+ </div>
+ <div class="isy-table-wrap" style="margin-top:12px;">
+ <table class="isy-table isy-pnl-table" aria-label="Per-token PnL">
+ <thead>
+ <tr>
+ <th>TOKEN</th>
+ <th>BAG</th>
+ <th>BUY / SELL</th>
+ <th>AVG COST</th>
+ <th>PRICE</th>
+ <th>VALUE</th>
+ <th>REALIZED</th>
+ <th>UNREAL</th>
+ <th>TOTAL</th>
+ </tr>
+ </thead>
+ <tbody id="isyPnlTokenBody"></tbody>
+ </table>
+ </div>
+ <div id="isyPnlTokenEmpty" class="isy-empty" style="display:none;">NO TOKEN POSITIONS</div>
+ <div id="isyPnlNote" class="isy-pnl-note"></div>
+ </div>
+
+ <div class="isy-panel">
+ <div class="section-label">TRADE &amp; ACTIVITY LOG</div>
+ <div class="isy-table-wrap">
+ <table class="isy-table" aria-label="Wallet activity">
+ <thead>
+ <tr>
+ <th>TIME</th>
+ <th>TYPE</th>
+ <th>DETAIL</th>
+ <th>TX PnL</th>
+ <th>TX</th>
+ </tr>
+ </thead>
+ <tbody id="isyTradeBody"></tbody>
+ </table>
+ </div>
+ <div id="isyEmpty" class="isy-empty">NO SURVEILLANCE DATA - ENTER A WALLET</div>
+
+ <details style="margin-top:10px;">
+ <summary style="cursor:pointer; color:#aa7788; font-size:13px;">RAW JSON</summary>
+ <pre id="isyRaw" class="isy-raw"></pre>
+ </details>
+ </div>
+
+ <div class="isy-disclaimer">
+ <div class="isy-disclaimer-title">READ-ONLY SURVEILLANCE + ESTIMATED PnL</div>
+ Tracking uses public chain data via DOSWAPZ proxy (Solana RPC / Helius / Etherscan / Blockscout / Blockstream). Solana PnL uses FIFO cost basis in SOL/USDC from the recent trade window, converted to USD with current prices. Incomplete history = incomplete numbers. No keys leave your machine except wallet connect. Not financial or tax advice.
+ </div>
+
+ <div class="buttons">
+ <a href="/classic/hub.html" class="btn"><- BACK TO MENU</a>
+ <a href="/portal.html" class="btn">TIME MACHINE</a>
+ <a href="/classic/pages/pond-scum.html" class="btn">POND SCUM</a>
+ </div>
+
+ <div class="footer">DOSWAPZ - I SEE YOU * WALLET TRACKER * ON-SITE</div>
+ </div>
+
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+ <script src="/assets/js/config/i-see-you-config.js"></script>
+ <script src="/assets/js/i-see-you/tracker.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>DOSWAPZ_GLITCH.init({ screen: '#screen', content: '.content' });</script>
+ <script src="/assets/js/core/price-ticker.js"></script>
+</body>
+</html>

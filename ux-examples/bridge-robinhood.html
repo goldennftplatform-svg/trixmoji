@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+ <title>DOSWAPZ // BRIDGE EXAMPLE - Robinhood Chain</title>
+ <meta name="description" content="UX example: multi-chain bridge panel with Robinhood Chain. Preview only - not live site pages.">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ --green-hot: #00ff41;
+ --yellow: #ffff00;
+ --amber: #ffaa00;
+ --red: #ff5555;
+ --panel: #0a0f0a;
+ --border: #003300;
+ }
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ min-height: 100%;
+ background: #000;
+ color: var(--green);
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ padding: 24px 28px 60px;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px,
+ rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .vignette {
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.58) 84%);
+ pointer-events: none;
+ z-index: 5;
+ }
+
+ .example-banner {
+ max-width: 620px;
+ margin: 0 auto 14px;
+ border: 2px dashed var(--yellow);
+ background: rgba(40, 40, 0, 0.45);
+ color: var(--yellow);
+ text-align: center;
+ padding: 8px 12px;
+ font-size: 14px;
+ letter-spacing: 1px;
+ line-height: 1.35;
+ }
+
+ .example-banner a {
+ color: #fff;
+ text-decoration: underline;
+ }
+
+ .header {
+ font-size: 32px;
+ letter-spacing: 6px;
+ text-shadow: 0 0 5px #00ff00;
+ text-align: center;
+ margin-bottom: 6px;
+ }
+
+ .subhead {
+ font-size: 15px;
+ color: var(--green-dim);
+ text-align: center;
+ margin-bottom: 16px;
+ letter-spacing: 1px;
+ line-height: 1.35;
+ }
+
+ .content {
+ max-width: 620px;
+ margin: 0 auto;
+ font-size: 19px;
+ line-height: 1.38;
+ position: relative;
+ z-index: 10;
+ }
+
+ .mode-tabs {
+ display: flex;
+ gap: 8px;
+ justify-content: center;
+ flex-wrap: wrap;
+ margin-bottom: 14px;
+ }
+
+ .mode-tab {
+ font-family: inherit;
+ font-size: 14px;
+ letter-spacing: 1px;
+ padding: 6px 14px;
+ border: 2px solid #00aa00;
+ background: transparent;
+ color: #00aa00;
+ cursor: pointer;
+ }
+
+ .mode-tab.active {
+ border-color: var(--yellow);
+ color: var(--yellow);
+ background: rgba(40, 40, 0, 0.35);
+ text-shadow: 0 0 6px #ffff00;
+ }
+
+ .bridge-box {
+ background: #111;
+ border: 3px solid var(--green-hot);
+ padding: 16px 14px;
+ }
+
+ .field-label {
+ font-size: 13px;
+ color: var(--green-dim);
+ letter-spacing: 1px;
+ margin: 0 0 4px;
+ }
+
+ .chain-row {
+ display: grid;
+ grid-template-columns: 1fr auto 1fr;
+ gap: 8px;
+ align-items: end;
+ margin-bottom: 12px;
+ }
+
+ .chain-col select,
+ .amount-row input,
+ .amount-row select,
+ .token-row select {
+ width: 100%;
+ background: #000;
+ color: var(--green);
+ border: 2px solid var(--green-hot);
+ padding: 8px 10px;
+ font-family: inherit;
+ font-size: 17px;
+ min-height: 44px;
+ }
+
+ select option {
+ background: #fff;
+ color: #0a0a0a;
+ font-weight: 600;
+ }
+
+ .swap-dir {
+ font-family: inherit;
+ font-size: 22px;
+ width: 44px;
+ height: 44px;
+ border: 2px solid var(--green);
+ background: #000;
+ color: var(--green);
+ cursor: pointer;
+ margin-bottom: 2px;
+ }
+
+ .swap-dir:hover {
+ color: var(--yellow);
+ border-color: var(--yellow);
+ }
+
+ .amount-row,
+ .token-row {
+ display: flex;
+ gap: 10px;
+ margin-bottom: 12px;
+ }
+
+ .amount-row input { flex: 1.2; }
+ .amount-row select,
+ .token-row select { flex: 1; }
+
+ .route-panel {
+ border: 1px solid var(--border);
+ background: rgba(0, 20, 0, 0.35);
+ padding: 10px;
+ margin-bottom: 12px;
+ }
+
+ .route-title {
+ color: var(--yellow);
+ font-size: 14px;
+ letter-spacing: 1px;
+ margin-bottom: 8px;
+ text-align: center;
+ }
+
+ .route-list {
+ display: flex;
+ flex-direction: column;
+ gap: 6px;
+ }
+
+ .route-item {
+ display: grid;
+ grid-template-columns: 1fr auto auto;
+ gap: 8px;
+ align-items: center;
+ border: 1px solid #004400;
+ padding: 8px 10px;
+ cursor: pointer;
+ background: transparent;
+ color: inherit;
+ font-family: inherit;
+ font-size: 15px;
+ text-align: left;
+ width: 100%;
+ }
+
+ .route-item:hover,
+ .route-item.selected {
+ border-color: var(--yellow);
+ background: rgba(40, 40, 0, 0.25);
+ }
+
+ .route-item .name { color: var(--green); }
+ .route-item .eta { color: var(--green-dim); font-size: 13px; }
+ .route-item .fee { color: var(--amber); font-size: 13px; }
+
+ .quote-line {
+ text-align: center;
+ font-size: 16px;
+ color: var(--yellow);
+ min-height: 1.4em;
+ margin: 8px 0 10px;
+ letter-spacing: 0.5px;
+ }
+
+ .status-line {
+ text-align: center;
+ font-size: 13px;
+ color: #00cc00;
+ min-height: 1.3em;
+ margin: 6px 0 10px;
+ }
+
+ .wallet-row {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ gap: 8px;
+ margin-bottom: 10px;
+ }
+
+ .btn {
+ font-family: inherit;
+ font-size: 16px;
+ color: var(--green);
+ background: transparent;
+ border: 2px solid var(--green);
+ padding: 8px 14px;
+ cursor: pointer;
+ text-decoration: none;
+ display: inline-block;
+ }
+
+ .btn:hover {
+ background: #003300;
+ color: var(--yellow);
+ border-color: var(--yellow);
+ }
+
+ .btn.primary {
+ border-color: var(--yellow);
+ color: var(--yellow);
+ width: 100%;
+ font-size: 18px;
+ letter-spacing: 2px;
+ padding: 12px;
+ }
+
+ .btn.primary:disabled {
+ opacity: 0.45;
+ cursor: not-allowed;
+ }
+
+ .chain-chip-row {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 6px;
+ justify-content: center;
+ margin: 12px 0 4px;
+ }
+
+ .chip {
+ border: 1px solid #004400;
+ color: var(--green-dim);
+ font-size: 12px;
+ padding: 3px 8px;
+ letter-spacing: 0.5px;
+ }
+
+ .chip.hood {
+ border-color: var(--yellow);
+ color: var(--yellow);
+ }
+
+ .partners {
+ margin-top: 16px;
+ border: 1px solid var(--border);
+ padding: 12px;
+ font-size: 14px;
+ line-height: 1.4;
+ }
+
+ .partners h3 {
+ margin: 0 0 8px;
+ color: var(--yellow);
+ font-size: 16px;
+ font-weight: normal;
+ letter-spacing: 1px;
+ text-align: center;
+ }
+
+ .partner-links {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 8px;
+ justify-content: center;
+ }
+
+ .partner-links a {
+ color: var(--green);
+ border: 1px solid #005500;
+ padding: 6px 10px;
+ text-decoration: none;
+ font-size: 13px;
+ }
+
+ .partner-links a:hover {
+ border-color: var(--yellow);
+ color: var(--yellow);
+ }
+
+ .disclaimer {
+ margin-top: 14px;
+ padding: 10px 12px;
+ border: 2px solid var(--yellow);
+ background: rgba(40, 30, 0, 0.35);
+ font-size: 12px;
+ line-height: 1.3;
+ }
+
+ .disclaimer-title {
+ color: var(--yellow);
+ text-align: center;
+ margin-bottom: 4px;
+ letter-spacing: 1px;
+ }
+
+ .footer {
+ margin-top: 20px;
+ text-align: center;
+ font-size: 13px;
+ color: var(--green-dim);
+ letter-spacing: 1px;
+ }
+
+ .footer a { color: var(--yellow); }
+
+ .spec {
+ margin-top: 18px;
+ border: 1px solid #003300;
+ padding: 12px;
+ font-size: 14px;
+ color: var(--green-dim);
+ line-height: 1.45;
+ }
+
+ .spec strong { color: var(--green); }
+ .spec code {
+ color: var(--yellow);
+ font-family: inherit;
+ }
+
+ @media (max-width: 700px) {
+ .dos-screen { padding: 14px 12px 80px; }
+ .header { font-size: 26px; letter-spacing: 3px; }
+ .chain-row {
+ grid-template-columns: 1fr;
+ }
+ .swap-dir { width: 100%; }
+ .amount-row, .token-row { flex-direction: column; }
+ }
+ </style>
+</head>
+<body>
+ <div class="vignette"></div>
+ <div class="dos-screen">
+ <div class="content">
+ <div class="example-banner">
+ UX EXAMPLE ONLY - not wired into PAST / PRESENT yet<br>
+ <a href="/ux-examples/"><- back to examples</a>
+ * after approval we ship classic + orbit pages
+ </div>
+
+ <div class="header">DOSWAPZ // BRIDGE</div>
+ <div class="subhead">
+ MULTI-CHAIN ↔ ROBINHOOD CHAIN * DEMO QUOTES<br>
+ chain id 4663 * eth gas * arbitrum orbit L2
+ </div>
+
+ <div class="mode-tabs" role="tablist">
+ <button type="button" class="mode-tab active" data-mode="bridge" id="tabBridge">BRIDGE</button>
+ <button type="button" class="mode-tab" data-mode="hood" id="tabHood"> -> ROBINHOOD</button>
+ <button type="button" class="mode-tab" data-mode="exit" id="tabExit">EXIT HOOD</button>
+ </div>
+
+ <div class="bridge-box">
+ <div class="chain-row">
+ <div>
+ <div class="field-label">FROM CHAIN</div>
+ <select id="fromChain" aria-label="From chain"></select>
+ </div>
+ <button type="button" class="swap-dir" id="flipChains" title="Flip chains">⇅</button>
+ <div>
+ <div class="field-label">TO CHAIN</div>
+ <select id="toChain" aria-label="To chain"></select>
+ </div>
+ </div>
+
+ <div class="field-label">ASSET</div>
+ <div class="token-row">
+ <select id="asset" aria-label="Asset">
+ <option value="ETH">ETH</option>
+ <option value="USDC" selected>USDC</option>
+ <option value="USDG">USDG</option>
+ <option value="WBTC">WBTC</option>
+ <option value="SOL">SOL (via LI.FI / multi-hop)</option>
+ </select>
+ </div>
+
+ <div class="field-label">AMOUNT</div>
+ <div class="amount-row">
+ <input id="amount" type="text" inputmode="decimal" value="100" aria-label="Amount">
+ </div>
+
+ <div class="wallet-row">
+ <button type="button" class="btn" id="connectBtn">CONNECT WALLET</button>
+ <button type="button" class="btn" id="disconnectBtn" style="display:none">DISCONNECT</button>
+ </div>
+ <div class="status-line" id="walletStatus">No wallet connected * demo mode still works</div>
+
+ <div class="route-panel">
+ <div class="route-title">// ROUTE PICKER (SIMULATED QUOTES)</div>
+ <div class="route-list" id="routeList"></div>
+ </div>
+
+ <div class="quote-line" id="quoteLine">Enter amount * pick a route</div>
+ <div class="status-line" id="statusLine">Ready.</div>
+
+ <button type="button" class="btn primary" id="executeBtn">GET DEMO QUOTE</button>
+ </div>
+
+ <div class="chain-chip-row" id="chipRow"></div>
+
+ <div class="partners">
+ <h3>// LIVE PARTNER RAILS (external - real bridges)</h3>
+ <div class="partner-links">
+ <a href="https://portal.arbitrum.io/bridge?destinationChain=robinhood-chain&sourceChain=ethereum" target="_blank" rel="noopener">Arbitrum Canonical</a>
+ <a href="https://across.to/?to=robinhood" target="_blank" rel="noopener">Across</a>
+ <a href="https://relay.link/bridge/robinhood" target="_blank" rel="noopener">Relay</a>
+ <a href="https://stargate.finance" target="_blank" rel="noopener">Stargate / LayerZero</a>
+ <a href="https://app.transporter.io/?from=robinhood&tab=token" target="_blank" rel="noopener">CCIP Transporter</a>
+ <a href="https://jumper.exchange" target="_blank" rel="noopener">Jumper (LI.FI)</a>
+ </div>
+ </div>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">// READ THIS</div>
+ This is a <strong>layout + flow example</strong> for DOSWAPZ PAST/PRESENT pages.
+ Quotes are simulated. Partner links open third-party bridges. Bridging can lose funds if you pick the wrong chain, token, or address.
+ Stock Tokens / Robinhood products have jurisdictional restrictions - not available to US persons in many cases. Not financial advice. DYOR.
+ </div>
+
+ <div class="spec">
+ <strong>WHAT THIS MOCKS FOR PRODUCTION</strong><br>
+ * Chain registry including <code>Robinhood Chain (4663)</code><br>
+ * From / to chain flip * asset * amount * route ranking<br>
+ * Soft wallet connect (MetaMask / EVM injectors when present)<br>
+ * Partner deep-links for real liquidity until LI.FI/Relay SDK is wired<br>
+ * Same shell language as swap.html so classic + orbit stay on-brand<br><br>
+ <strong>NEXT (after you approve):</strong> ship
+ <code>classic/pages/doswapz/bridge.html</code> (PAST) +
+ <code>orbit/pages/doswapz/bridge.html</code> (PRESENT) + shared
+ <code>assets/js/swap/bridge.js</code> + chain config.
+ </div>
+
+ <div class="footer">
+ <a href="/classic/pages/doswapz/swap.html">0% SWAP</a>
+ * <a href="/classic/hub.html">PAST HUB</a>
+ * <a href="/orbit/hub.html">PRESENT HUB</a>
+ * <a href="/portal.html">TIME MACHINE</a>
+ </div>
+ </div>
+ </div>
+
+ <script>
+(function () {
+ 'use strict';
+
+ var CHAINS = [
+ { id: 'ethereum', label: 'Ethereum', kind: 'evm', chainId: 1 },
+ { id: 'arbitrum', label: 'Arbitrum One', kind: 'evm', chainId: 42161 },
+ { id: 'base', label: 'Base', kind: 'evm', chainId: 8453 },
+ { id: 'polygon', label: 'Polygon', kind: 'evm', chainId: 137 },
+ { id: 'optimism', label: 'Optimism', kind: 'evm', chainId: 10 },
+ { id: 'bsc', label: 'BNB Chain', kind: 'evm', chainId: 56 },
+ { id: 'solana', label: 'Solana', kind: 'sol', chainId: null },
+ { id: 'robinhood', label: 'Robinhood Chain', kind: 'evm', chainId: 4663, hood: true },
+ { id: 'robinhood-testnet', label: 'Robinhood Testnet', kind: 'evm', chainId: 46630, hood: true }
+ ];
+
+ var ROUTES = [
+ { id: 'lifi', name: 'LI.FI / Jumper', eta: 'secs - mins', feeBps: 8, score: 95, note: 'best all-chains coverage' },
+ { id: 'across', name: 'Across', eta: '~2s', feeBps: 6, score: 92, note: 'fast intents -> HOOD' },
+ { id: 'relay', name: 'Relay', eta: 'secs', feeBps: 7, score: 90, note: 'bridge + execute' },
+ { id: 'stargate', name: 'Stargate (LayerZero)', eta: 'mins', feeBps: 10, score: 88, note: 'OFT / USDG rails' },
+ { id: 'ccip', name: 'Chainlink CCIP', eta: 'mins', feeBps: 12, score: 84, note: 'secure messaging' },
+ { id: 'canonical', name: 'Arbitrum Canonical', eta: 'dep ~10m / exit ~7d', feeBps: 3, score: 70, note: 'trustless ETH↔HOOD' }
+ ];
+
+ var selectedRoute = 'lifi';
+ var connected = null;
+ var mode = 'bridge';
+
+ function $(id) { return document.getElementById(id); }
+
+ function fillSelect(el, preferId) {
+ el.innerHTML = '';
+ CHAINS.forEach(function (c) {
+ var opt = document.createElement('option');
+ opt.value = c.id;
+ opt.textContent = c.hood ? ('★ ' + c.label) : c.label;
+ el.appendChild(opt);
+ });
+ if (preferId) el.value = preferId;
+ }
+
+ function chainById(id) {
+ for (var i = 0; i < CHAINS.length; i++) {
+ if (CHAINS[i].id === id) return CHAINS[i];
+ }
+ return CHAINS[0];
+ }
+
+ function shortAddr(a) {
+ if (!a || a.length < 10) return a || '';
+ return a.slice(0, 6) + '...' + a.slice(-4);
+ }
+
+ function renderChips() {
+ var row = $('chipRow');
+ row.innerHTML = '';
+ CHAINS.filter(function (c) { return c.id.indexOf('testnet') === -1; }).forEach(function (c) {
+ var span = document.createElement('span');
+ span.className = 'chip' + (c.hood ? ' hood' : '');
+ span.textContent = c.hood ? (c.label + ' * ' + c.chainId) : c.label;
+ row.appendChild(span);
+ });
+ }
+
+ function renderRoutes() {
+ var list = $('routeList');
+ list.innerHTML = '';
+ var from = chainById($('fromChain').value);
+ var to = chainById($('toChain').value);
+
+ ROUTES.forEach(function (r) {
+ // Canonical only makes sense for ETH <-> Robinhood-ish flows
+ if (r.id === 'canonical') {
+ var ok =
+ (from.id === 'ethereum' && to.id.indexOf('robinhood') === 0) ||
+ (to.id === 'ethereum' && from.id.indexOf('robinhood') === 0);
+ if (!ok) return;
+ }
+ // SOL routes only via aggregator-style
+ if ((from.kind === 'sol' || to.kind === 'sol') && (r.id === 'canonical' || r.id === 'across')) return;
+
+ var btn = document.createElement('button');
+ btn.type = 'button';
+ btn.className = 'route-item' + (selectedRoute === r.id ? ' selected' : '');
+ btn.innerHTML =
+ '<span class="name">' + r.name + '</span>' +
+ '<span class="eta">' + r.eta + '</span>' +
+ '<span class="fee">~' + (r.feeBps / 100).toFixed(2) + '%</span>';
+ btn.title = r.note;
+ btn.addEventListener('click', function () {
+ selectedRoute = r.id;
+ renderRoutes();
+ updateQuote();
+ });
+ list.appendChild(btn);
+ });
+
+ if (!list.children.length) {
+ selectedRoute = 'lifi';
+ var fallback = document.createElement('button');
+ fallback.type = 'button';
+ fallback.className = 'route-item selected';
+ fallback.innerHTML = '<span class="name">LI.FI / Jumper</span><span class="eta">multi-hop</span><span class="fee">varies</span>';
+ list.appendChild(fallback);
+ }
+ }
+
+ function parseAmount() {
+ var n = parseFloat(String($('amount').value).replace(/,/g, ''));
+ return isFinite(n) && n > 0 ? n : 0;
+ }
+
+ function updateQuote() {
+ var amt = parseAmount();
+ var asset = $('asset').value;
+ var from = chainById($('fromChain').value);
+ var to = chainById($('toChain').value);
+ var route = ROUTES.filter(function (r) { return r.id === selectedRoute; })[0] || ROUTES[0];
+
+ if (!amt) {
+ $('quoteLine').textContent = 'Enter amount * pick a route';
+ return;
+ }
+
+ if (from.id === to.id) {
+ $('quoteLine').textContent = 'FROM and TO are the same chain';
+ $('quoteLine').style.color = '#ff5555';
+ return;
+ }
+
+ $('quoteLine').style.color = '#ffff00';
+ var fee = amt * (route.feeBps / 10000);
+ var out = Math.max(0, amt - fee);
+ // toy slip for demo
+ var slip = out * 0.0015;
+ out = out - slip;
+
+ var outStr = asset === 'WBTC' || asset === 'ETH' || asset === 'SOL'
+ ? out.toFixed(6)
+ : out.toFixed(2);
+
+ $('quoteLine').textContent =
+ amt + ' ' + asset + ' on ' + from.label +
+ ' -> ~' + outStr + ' ' + asset + ' on ' + to.label +
+ ' * via ' + route.name;
+ }
+
+ function setMode(next) {
+ mode = next;
+ document.querySelectorAll('.mode-tab').forEach(function (t) {
+ t.classList.toggle('active', t.getAttribute('data-mode') === next);
+ });
+
+ if (next === 'hood') {
+ if ($('fromChain').value.indexOf('robinhood') === 0) $('fromChain').value = 'ethereum';
+ $('toChain').value = 'robinhood';
+ } else if (next === 'exit') {
+ $('fromChain').value = 'robinhood';
+ if ($('toChain').value.indexOf('robinhood') === 0) $('toChain').value = 'ethereum';
+ }
+ renderRoutes();
+ updateQuote();
+ $('statusLine').textContent = next === 'hood'
+ ? 'Preset: bridge INTO Robinhood Chain mainnet.'
+ : next === 'exit'
+ ? 'Preset: exit OUT of Robinhood Chain.'
+ : 'Free form multi-chain bridge.';
+ }
+
+ async function connectWallet() {
+ // Prefer EVM for Robinhood; Solana soft detect second
+ if (window.ethereum && window.ethereum.request) {
+ try {
+ var accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+ if (accounts && accounts[0]) {
+ connected = { kind: 'evm', address: accounts[0] };
+ $('walletStatus').textContent = 'EVM * ' + shortAddr(accounts[0]);
+ $('connectBtn').style.display = 'none';
+ $('disconnectBtn').style.display = '';
+ $('statusLine').textContent = 'Wallet connected (view / sign ready in production).';
+ return;
+ }
+ } catch (e) {
+ $('statusLine').textContent = 'Wallet request cancelled or failed.';
+ $('statusLine').style.color = '#ff5555';
+ setTimeout(function () { $('statusLine').style.color = '#00cc00'; }, 2000);
+ return;
+ }
+ }
+ if (window.solana && window.solana.isPhantom) {
+ try {
+ var res = await window.solana.connect();
+ var pk = res && res.publicKey ? res.publicKey.toString() : null;
+ if (pk) {
+ connected = { kind: 'sol', address: pk };
+ $('walletStatus').textContent = 'SOL * ' + shortAddr(pk);
+ $('connectBtn').style.display = 'none';
+ $('disconnectBtn').style.display = '';
+ $('statusLine').textContent = 'Phantom connected - Sol legs need LI.FI multi-hop in prod.';
+ return;
+ }
+ } catch (e2) {}
+ }
+ $('statusLine').textContent = 'No wallet found. Demo quotes still work without connect.';
+ }
+
+ function disconnectWallet() {
+ connected = null;
+ $('walletStatus').textContent = 'No wallet connected * demo mode still works';
+ $('connectBtn').style.display = '';
+ $('disconnectBtn').style.display = 'none';
+ $('statusLine').textContent = 'Disconnected.';
+ }
+
+ function executeDemo() {
+ var amt = parseAmount();
+ if (!amt) {
+ $('statusLine').textContent = 'Enter a valid amount first.';
+ return;
+ }
+ if ($('fromChain').value === $('toChain').value) {
+ $('statusLine').textContent = 'Pick two different chains.';
+ return;
+ }
+ updateQuote();
+ var route = ROUTES.filter(function (r) { return r.id === selectedRoute; })[0];
+ $('statusLine').textContent =
+ 'DEMO ONLY - would open ' + (route ? route.name : 'aggregator') +
+ ' quote flow. Production wires LI.FI / Relay SDK here.';
+ $('statusLine').style.color = '#ffff00';
+ }
+
+ // init
+ fillSelect($('fromChain'), 'ethereum');
+ fillSelect($('toChain'), 'robinhood');
+ renderChips();
+ renderRoutes();
+ updateQuote();
+
+ $('fromChain').addEventListener('change', function () {
+ mode = 'bridge';
+ document.querySelectorAll('.mode-tab').forEach(function (t) {
+ t.classList.toggle('active', t.getAttribute('data-mode') === 'bridge');
+ });
+ renderRoutes();
+ updateQuote();
+ });
+ $('toChain').addEventListener('change', function () {
+ mode = 'bridge';
+ document.querySelectorAll('.mode-tab').forEach(function (t) {
+ t.classList.toggle('active', t.getAttribute('data-mode') === 'bridge');
+ });
+ renderRoutes();
+ updateQuote();
+ });
+ $('asset').addEventListener('change', updateQuote);
+ $('amount').addEventListener('input', updateQuote);
+ $('flipChains').addEventListener('click', function () {
+ var a = $('fromChain').value;
+ $('fromChain').value = $('toChain').value;
+ $('toChain').value = a;
+ renderRoutes();
+ updateQuote();
+ });
+ $('tabBridge').addEventListener('click', function () { setMode('bridge'); });
+ $('tabHood').addEventListener('click', function () { setMode('hood'); });
+ $('tabExit').addEventListener('click', function () { setMode('exit'); });
+ $('connectBtn').addEventListener('click', connectWallet);
+ $('disconnectBtn').addEventListener('click', disconnectWallet);
+ $('executeBtn').addEventListener('click', executeDemo);
+})();
+ </script>
+</body>
+</html>

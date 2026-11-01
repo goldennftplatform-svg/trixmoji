@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function () {
+ if (location.protocol === 'file:') {
+ location.replace('http://localhost:8890/classic/pages/i-see-you.html');
+ return;
+ }
+ var era = 'past';
+ try { era = localStorage.getItem('doswapz_era') || 'past'; } catch (e) {}
+ if (era === 'orbit' || era === 'present' || era === 'future') {
+ location.replace('/orbit/pages/i-see-you.html');
+ } else {
+ location.replace('/classic/pages/i-see-you.html');
+ }
+ })();
+ </script>
+ <title>DOSWAPZ // I SEE YOU</title>
+ <meta name="description" content="I SEE YOU - wallet surveillance terminal.">
+</head>
+<body style="margin:0;background:#000;color:#ff6699;font-family:Consolas,monospace;text-align:center;padding:48px 20px;">
+ <p>Loading I SEE YOU...</p>
+<script src="/assets/js/core/docs-footer.js?v=20260715e" data-docs-footer="1"></script>
+<script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>
+</html>

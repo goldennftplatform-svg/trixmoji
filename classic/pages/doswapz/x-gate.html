@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // SHARE $DSWPZ</title>
+ <meta name="description" content="Share a $DSWPZ draft from YOUR X account. Not from @BATTLE__BUDIEZ.">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ html, body { margin:0; min-height:100%; background:#000; color:#00ff00; font-family:'VT323', monospace; }
+ .wrap { max-width:760px; margin:0 auto; padding:24px 16px 96px; }
+ h1 { letter-spacing:6px; text-align:center; font-size:clamp(26px,6vw,42px); color:#ffff00; text-shadow:0 0 8px #ffff00; }
+ .sub { text-align:center; color:#00aa00; letter-spacing:2px; margin-bottom:16px; }
+ .box { border:2px solid #00aa00; background:#001100; padding:14px; margin-bottom:14px; }
+ .warn { border-color:#ffff00; color:#ffcc00; background:rgba(40,30,0,.4); }
+ .post { border:2px solid #003300; padding:12px; margin-bottom:12px; white-space:pre-wrap; word-break:break-word; }
+ .post.due { border-color:#ffff00; box-shadow:0 0 16px rgba(255,255,0,.25); }
+ .cadence button.on { background:#ffff00; color:#000; border-color:#ffff00; }
+ select.cadence-sel { font:inherit; background:#000; color:#00ff00; border:2px solid #00ff00; padding:8px 12px; letter-spacing:2px; }
+ .post .id { color:#ffff00; letter-spacing:2px; font-size:14px; margin-bottom:8px; }
+ .row { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+ button, .btn {
+  font:inherit; letter-spacing:2px; cursor:pointer; border:2px solid #00ff00;
+  background:transparent; color:#00ff00; padding:8px 14px; text-decoration:none; display:inline-block;
+ }
+ button:hover, .btn:hover { background:#003300; color:#ffff00; border-color:#ffff00; }
+ button.yes { border-color:#ffff00; color:#ffff00; }
+ button.no { border-color:#ff4466; color:#ff6688; }
+ .status { min-height:20px; color:#00aa00; margin-top:8px; }
+ .modal {
+  display:none; position:fixed; inset:0; z-index:80; background:rgba(0,0,0,.86);
+  align-items:center; justify-content:center; padding:16px;
+ }
+ .modal.show { display:flex; }
+ .modal-card {
+  width:min(100%, 520px); border:3px solid #ffff00; background:#020800;
+  padding:18px 16px; box-shadow:0 0 28px rgba(255,255,0,.25);
+ }
+ .modal-card h2 { color:#ffff00; letter-spacing:3px; margin:0 0 10px; text-align:center; }
+ .modal-text { white-space:pre-wrap; border:1px solid #003300; padding:10px; max-height:40vh; overflow:auto; }
+ .empty { text-align:center; color:#00aa00; padding:20px; }
+ </style>
+</head>
+<body>
+ <div class="wrap">
+  <h1>SHARE $DSWPZ</h1>
+  <div class="sub">FROM YOUR X ACCOUNT * NEVER FROM @BATTLE__BUDIEZ</div>
+
+  <div class="box warn">
+   THESE ARE READY-TO-SHARE DRAFTS. NOT HIS ACCOUNT.<br><br>
+   TAP <strong>SHARE TO X</strong> AND IT OPENS A NEW POST AS <strong>YOU</strong> — THE X ACCOUNT LOGGED INTO THIS BROWSER.<br>
+   TAP <strong>COPY SHARE LINK</strong> TO SEND ONE DRAFT TO A FRIEND SO THEY CAN POST IT FROM THEIR ACCOUNT.<br><br>
+   IF X BLOCKS THE POPUP, COPY POST AND PASTE IT YOURSELF.
+  </div>
+
+  <div class="box">
+   <strong style="color:#ffff00;letter-spacing:2px">AUTO CADENCE</strong>
+   <p style="margin:8px 0;color:#88ff88">THIS CADENCE IS YOURS ONLY. DUE NOW LIGHTS UP IN THIS BROWSER. YOU STILL TAP YES. NOTHING AUTO-POSTS TO X.</p>
+   <div class="row cadence" id="cadenceRow">
+    <button type="button" data-cadence="off">OFF</button>
+    <button type="button" data-cadence="hourly">HOURLY</button>
+    <button type="button" data-cadence="every2h">EVERY 2H</button>
+    <button type="button" data-cadence="daily">DAILY</button>
+    <button type="button" data-cadence="weekly">WEEKLY</button>
+   </div>
+   <div class="status" id="autoStatus">AUTO OFF</div>
+  </div>
+
+  <div class="box">
+   <strong style="color:#ffff00;letter-spacing:2px">SHARE PACK * 20 DRAFTS</strong>
+   <div class="status" id="status">Loading queue...</div>
+   <div id="queue"></div>
+  </div>
+
+  <div class="row">
+   <a class="btn" href="/classic/hub.html">&lt;- HUB</a>
+   <a class="btn" href="/classic/pages/cryptodad/token.html">$DSWPZ TOKEN</a>
+   <button type="button" id="resetMine">RESET MY LIST</button>
+   <button type="button" id="copyGateLink">COPY GATE LINK</button>
+  </div>
+ </div>
+
+ <div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="modal-card">
+   <h2>SHARE THIS POST</h2>
+   <p style="text-align:center;color:#ffcc00;letter-spacing:1px">FROM YOUR X ACCOUNT * NOT @BATTLE__BUDIEZ</p>
+   <div class="modal-text" id="modalText"></div>
+   <div class="row" style="justify-content:center;margin-top:16px">
+    <button type="button" class="yes" id="modalYes">SHARE TO X</button>
+    <button type="button" id="modalCopyLink">COPY SHARE LINK</button>
+    <button type="button" class="no" id="modalNo">CANCEL</button>
+   </div>
+  </div>
+ </div>
+
+ <script>
+ (function () {
+  var status = document.getElementById('status');
+  var autoStatus = document.getElementById('autoStatus');
+  var queue = document.getElementById('queue');
+  var modal = document.getElementById('modal');
+  var modalText = document.getElementById('modalText');
+  var pending = null;
+  var currentCadence = 'off';
+  var catalog = [];
+  var STORE_KEY = 'dz_x_gate_user_v1';
+  var openedShare = false;
+
+  function loadMine() {
+   try {
+    var raw = localStorage.getItem(STORE_KEY);
+    var data = raw ? JSON.parse(raw) : null;
+    if (!data || typeof data !== 'object') data = {};
+    return {
+     cadence: data.cadence || 'off',
+     lastApprovedAt: data.lastApprovedAt || null,
+     lastDueAt: data.lastDueAt || null,
+     decided: data.decided && typeof data.decided === 'object' ? data.decided : {}
+    };
+   } catch (e) {
+    return { cadence: 'off', lastApprovedAt: null, lastDueAt: null, decided: {} };
+   }
+  }
+
+  function saveMine(mine) {
+   try { localStorage.setItem(STORE_KEY, JSON.stringify(mine)); } catch (e) {}
+  }
+
+  function intervalMs(cadence) {
+   if (cadence === 'hourly') return 60 * 60 * 1000;
+   if (cadence === 'every2h') return 2 * 60 * 60 * 1000;
+   if (cadence === 'daily') return 24 * 60 * 60 * 1000;
+   if (cadence === 'weekly') return 7 * 24 * 60 * 60 * 1000;
+   return null;
+  }
+
+  function esc(s) {
+   return String(s || '').replace(/[&<>"]/g, function (c) {
+    return ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' })[c];
+   });
+  }
+
+  function intentUrl(text) {
+   return 'https://x.com/intent/post?text=' + encodeURIComponent(text || '');
+  }
+
+  function gateUrl(id) {
+   var base = location.origin + '/classic/pages/doswapz/x-gate.html';
+   return id ? (base + '?share=' + encodeURIComponent(id)) : base;
+  }
+
+  function copyText(text) {
+   if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text);
+   }
+   var ta = document.createElement('textarea');
+   ta.value = text;
+   document.body.appendChild(ta);
+   ta.select();
+   try { document.execCommand('copy'); } catch (e) {}
+   document.body.removeChild(ta);
+   return Promise.resolve();
+  }
+
+  function paintCadence(cadence) {
+   currentCadence = cadence || 'off';
+   var btns = document.querySelectorAll('#cadenceRow button');
+   for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('on', btns[i].getAttribute('data-cadence') === currentCadence);
+   }
+  }
+
+  function fmtDue(iso) {
+   if (!iso) return '';
+   try {
+    var d = new Date(iso);
+    return d.toLocaleString();
+   } catch (e) { return iso; }
+  }
+
+  async function loadQueue() {
+   var res = await fetch('/api/x-gate', { credentials: 'same-origin', cache: 'no-store' });
+   var data = await res.json();
+   catalog = data.posts || data.pending || [];
+   var mine = loadMine();
+   var list = catalog.filter(function (p) { return !mine.decided[p.id]; });
+   var ms = intervalMs(mine.cadence);
+   var dueId = '';
+   var nextDueAt = null;
+   if (ms && list.length) {
+    var last = Date.parse(mine.lastDueAt || mine.lastApprovedAt || 0);
+    if (!last || Date.now() - last >= ms) dueId = list[0].id;
+    else nextDueAt = new Date(last + ms).toISOString();
+   }
+   paintCadence(mine.cadence);
+   if (mine.cadence && mine.cadence !== 'off') {
+    autoStatus.textContent = dueId
+     ? ('YOUR AUTO ' + mine.cadence.toUpperCase() + ' * DUE NOW * ' + list.length + ' LEFT ON YOUR LIST')
+     : ('YOUR AUTO ' + mine.cadence.toUpperCase() + ' * NEXT ' + fmtDue(nextDueAt) + ' * ' + list.length + ' LEFT');
+   } else {
+    autoStatus.textContent = 'YOUR AUTO OFF * ' + list.length + ' ON YOUR LIST * APPROVE ANYTIME';
+   }
+   if (!list.length) {
+    queue.innerHTML = '<div class="empty">YOUR LIST IS CLEAR. OTHER PEOPLE STILL HAVE THE FULL PACK. TAP RESET MY LIST TO SEE THEM AGAIN.</div>';
+    status.textContent = 'YOUR QUEUE CLEAR * PACK STILL HAS ' + catalog.length;
+    return data;
+   }
+   if (dueId) {
+    list = list.slice().sort(function (a, b) {
+     if (a.id === dueId) return -1;
+     if (b.id === dueId) return 1;
+     return 0;
+    });
+   }
+   status.textContent = list.length + ' READY TO SHARE FROM YOUR X ACCOUNT';
+   queue.innerHTML = list.map(function (p) {
+    var due = p.id === dueId;
+    return '<div class="post' + (due ? ' due' : '') + '" data-id="' + esc(p.id) + '">' +
+     '<div class="id">' + (due ? 'DUE NOW * ' : '') + esc(p.id) + '</div>' +
+     '<div class="body">' + esc(p.text) + '</div>' +
+     '<div class="row">' +
+     '<button type="button" class="yes" data-act="ask" data-id="' + esc(p.id) + '">SHARE TO X</button>' +
+     '<button type="button" data-act="copy" data-id="' + esc(p.id) + '">COPY POST</button>' +
+     '<button type="button" data-act="sharelink" data-id="' + esc(p.id) + '">COPY SHARE LINK</button>' +
+     '<button type="button" class="no" data-act="reject" data-id="' + esc(p.id) + '">SKIP</button>' +
+     '</div></div>';
+   }).join('');
+   var shareId = '';
+   try { shareId = new URLSearchParams(location.search).get('share') || ''; } catch (e) {}
+   if (shareId && !openedShare) {
+    openedShare = true;
+    var hit = catalog.filter(function (p) { return p.id === shareId; })[0];
+    if (hit) ask(hit.id, hit.text);
+   }
+   return data;
+  }
+
+  function setCadence(cadence) {
+   var mine = loadMine();
+   mine.cadence = cadence || 'off';
+   saveMine(mine);
+   loadQueue();
+  }
+
+  function ask(id, text) {
+   pending = { id: id, text: text };
+   modalText.textContent = text;
+   modal.classList.add('show');
+  }
+
+  function decide(action, id) {
+   var mine = loadMine();
+   var text = (pending && pending.text) || '';
+   if (!text) {
+    for (var i = 0; i < catalog.length; i++) {
+     if (catalog[i].id === id) { text = catalog[i].text; break; }
+    }
+   }
+   mine.decided[id] = action === 'approve' ? 'approved' : 'skipped';
+   if (action === 'approve') {
+    var now = new Date().toISOString();
+    mine.lastApprovedAt = now;
+    mine.lastDueAt = now;
+    copyText(text);
+    var w = window.open(intentUrl(text), '_blank', 'noopener');
+    status.textContent = w
+     ? 'SHARE OPENED AS YOUR X ACCOUNT. HIT POST ON X.'
+     : 'POPUP BLOCKED. POST COPIED. PASTE INTO YOUR X.';
+   } else {
+    status.textContent = 'SKIPPED ON YOUR LIST. STILL IN THE PACK FOR EVERYONE ELSE.';
+   }
+   saveMine(mine);
+   modal.classList.remove('show');
+   pending = null;
+   loadQueue();
+  }
+
+  queue.addEventListener('click', function (e) {
+   var btn = e.target.closest('button');
+   if (!btn) return;
+   var id = btn.getAttribute('data-id');
+   var act = btn.getAttribute('data-act');
+   var card = btn.closest('.post');
+   var text = card && card.querySelector('.body') ? card.querySelector('.body').textContent : '';
+   if (act === 'ask') ask(id, text);
+   if (act === 'reject') decide('reject', id);
+   if (act === 'copy') {
+    copyText(text).then(function () {
+     status.textContent = 'POST COPIED. PASTE INTO YOUR X.';
+    });
+   }
+   if (act === 'sharelink') {
+    copyText(gateUrl(id)).then(function () {
+     status.textContent = 'SHARE LINK COPIED. SEND IT. THEY POST FROM THEIR ACCOUNT.';
+    });
+   }
+  });
+
+  document.getElementById('modalYes').onclick = function () {
+   if (!pending) return;
+   decide('approve', pending.id);
+  };
+  document.getElementById('modalCopyLink').onclick = function () {
+   if (!pending) return;
+   copyText(gateUrl(pending.id)).then(function () {
+    status.textContent = 'SHARE LINK COPIED. THEY OPEN IT AND POST FROM THEIR X.';
+   });
+  };
+  document.getElementById('modalNo').onclick = function () {
+   modal.classList.remove('show');
+   pending = null;
+  };
+  modal.addEventListener('click', function (e) {
+   if (e.target === modal) {
+    modal.classList.remove('show');
+    pending = null;
+   }
+  });
+
+  document.getElementById('cadenceRow').addEventListener('click', function (e) {
+   var btn = e.target.closest('button');
+   if (!btn) return;
+   setCadence(btn.getAttribute('data-cadence'));
+  });
+
+  document.getElementById('resetMine').onclick = function () {
+   saveMine({ cadence: loadMine().cadence || 'off', lastApprovedAt: null, lastDueAt: null, decided: {} });
+   status.textContent = 'YOUR LIST RESET. FULL PACK IS BACK FOR YOU.';
+   loadQueue();
+  };
+  document.getElementById('copyGateLink').onclick = function () {
+   copyText(gateUrl()).then(function () {
+    status.textContent = 'GATE LINK COPIED. ANYONE CAN SHARE FROM THEIR OWN X.';
+   });
+  };
+
+  loadQueue();
+ })();
+ </script>
+</body>
+</html>

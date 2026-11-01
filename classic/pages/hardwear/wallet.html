@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // HARDWEAR - DIY HARDWARE WALLET</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ }
+
+ * {
+ box-sizing: border-box;
+ }
+
+ html, body {
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ min-height: 100%;
+ background: #000000;
+ color: #00ff00;
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: #000000;
+ padding: 24px 28px 60px;
+ }
+
+ /* Strong phosphor scanlines to match homepage feel */
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px,
+ rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .header {
+ font-size: 32px;
+ letter-spacing: 6px;
+ text-shadow: 0 0 5px #00ff00;
+ text-align: center;
+ margin-bottom: 6px;
+ }
+
+ .content {
+ max-width: 860px;
+ margin: 18px auto 0;
+ font-size: 19px;
+ line-height: 1.38;
+ padding: 0 8px;
+ }
+
+ .section {
+ margin-bottom: 22px;
+ }
+
+ .section-title {
+ font-size: 22px;
+ color: #ffff00;
+ margin-bottom: 6px;
+ }
+
+ .warning {
+ color: #ffaa00;
+ background: rgba(40, 20, 0, 0.4);
+ padding: 10px 14px;
+ border-left: 3px solid #ffaa00;
+ margin: 12px 0;
+ }
+
+ .disclaimer {
+ margin: 22px 0;
+ padding: 14px 16px;
+ border: 2px solid #ffff00;
+ background: rgba(40, 30, 0, 0.35);
+ font-size: 17px;
+ line-height: 1.35;
+ }
+
+ .disclaimer-title {
+ color: #ffff00;
+ margin-bottom: 6px;
+ letter-spacing: 1px;
+ }
+
+ .link {
+ color: #ffff00;
+ text-decoration: underline;
+ }
+
+ .buttons {
+ text-align: center;
+ margin-top: 28px;
+ }
+
+ .btn {
+ font-size: 17px;
+ color: #00ff00;
+ border: 2px solid #00ff00;
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px;
+ display: inline-block;
+ }
+
+ .btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .footer {
+ margin-top: 28px;
+ font-size: 13px;
+ color: #00aa00;
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ /* Vignette like the homepage */
+ .vignette {
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.58) 84%);
+ pointer-events: none;
+ z-index: 5;
+ }
+
+ /* Glitch layer (reduced-volume engine for content pages) */
+ .glitch-layer {
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 20;
+ mix-blend-mode: screen;
+ }
+
+ .mosh-band {
+ position: fixed;
+ left: 0;
+ width: 100%;
+ background: rgba(0, 255, 0, 0.16);
+ mix-blend-mode: difference;
+ pointer-events: none;
+ z-index: 25;
+ opacity: 0;
+ }
+ </style>
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ </head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+ <div class="header">DOSWAPZ // HARDWEAR - DIY HARDWARE WALLET</div>
+
+ <div class="content">
+
+ <div class="section">
+ <div class="section-title">RECOMMENDED PROJECT: SEEDSIGNER</div>
+ <img src="/assets/images/diy-assembled.jpg" alt="Assembled DIY SeedSigner hardware wallet with Raspberry Pi Zero, LCD and buttons" style="max-width:320px; border:2px solid #00ff41; margin:8px 0; display:block;">
+ <p>SeedSigner is the best open-source air-gapped Bitcoin signer you can build yourself.</p>
+ <p>It runs on a Raspberry Pi Zero and never touches the internet. You control the entire stack.</p>
+ <p><a href="https://seedsigner.com/" class="link" target="_blank">Official Site -> seedsigner.com</a></p>
+ <p><a href="https://docs.seedsigner.com/" class="link" target="_blank">Full Documentation &amp; Build Guide -> docs.seedsigner.com</a></p>
+ <p><a href="https://github.com/SeedSigner/seedsigner" class="link" target="_blank">GitHub (Open Source) -> github.com/SeedSigner</a></p>
+ </div>
+
+ <div class="section">
+ <div class="section-title">PARTS LIST (CHEAP &amp; COMMON)</div>
+ <img src="/assets/images/diy-parts.jpg" alt="Raspberry Pi Zero, LCD module and push buttons laid out as parts for SeedSigner build" style="max-width:300px; border:2px solid #00ff41; margin:8px 0; display:block;">
+ <p>- Raspberry Pi Zero 2 W (~$15)</p>
+ <p>- Waveshare 1.3" 240x240 LCD (or Waveshare 1.44" 128x128)</p>
+ <p>- 4x or 6x push buttons (6mm tactile)</p>
+ <p>- MicroSD card (16GB+ Class 10)</p>
+ <p>- 5V 1A+ USB power supply (or battery pack for true air-gap)</p>
+ <p>- Optional: 3D printed case or cardboard</p>
+ </div>
+
+ <div class="section">
+ <div class="section-title">BASIC BUILD STEPS</div>
+ <p>1. Flash the latest SeedSigner image to your microSD card (use Raspberry Pi Imager or balenaEtcher).</p>
+ <p>2. Insert SD card into Pi Zero.</p>
+ <p>3. Wire the LCD and buttons according to the official pinout (docs have clear diagrams).</p>
+ <img src="/assets/images/diy-wiring.jpg" alt="Wiring Raspberry Pi Zero to LCD and buttons during SeedSigner assembly" style="max-width:300px; border:2px solid #00ff41; margin:8px 0; display:block;">
+ <p>4. Power on. The device boots directly into the signer menu.</p>
+ <p>5. Generate or load your seed (never enter it on a computer).</p>
+ <p>6. Use it to sign PSBTs from your watch-only wallet (Electrum, Sparrow, etc.).</p>
+ <img src="/assets/images/diy-signing.jpg" alt="DIY SeedSigner in use signing a Bitcoin PSBT transaction with QR code" style="max-width:300px; border:2px solid #00ff41; margin:8px 0; display:block;">
+ </div>
+
+ <div class="warning">
+ <strong>SECURITY NOTES:</strong><br>
+ - Never reuse seeds from this device on other hardware.<br>
+ - Buy parts from reputable sellers (avoid used hardware).<br>
+ - Verify the image checksum when downloading.<br>
+ - This is the only way to truly know your signer has not been compromised.
+ </div>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">VERIFICATION DIRECTIVE - DO YOUR OWN RESEARCH</div>
+ BEFORE BUILDING, FLASHING, OR USING ANY DIY HARDWARE WALLET:<br>
+ * Independently audit all source code and verify every checksum from official repositories only.<br>
+ * DO NOT trust pre-built devices, binaries, or firmware from third parties or "convenience" sellers.<br>
+ * Research the full project history, contributors, audits, and community consensus before trusting with funds.<br>
+ * You bear full responsibility for your own opsec and security. DOSWAPZ provides information only.
+ </div>
+
+ <div class="section">
+ <div class="section-title">ALTERNATIVE SIMPLE DIY</div>
+ <p>If you want something even more minimal, you can build a basic air-gapped signer using:</p>
+ <p>- Raspberry Pi Zero + Python + bitcoinlib</p>
+ <p>- Simple OLED display + buttons</p>
+ <p>Many people in the community have open scripts for this. Search "DIY air-gapped bitcoin signer github".</p>
+ </div>
+
+ </div>
+
+ <div class="buttons">
+ <a href="/classic/hub.html" class="btn"><- BACK TO MENU</a>
+ </div>
+
+ <div class="footer">
+ DOSWAPZ - HARDWEAR DIY WALLET
+ </div>
+
+ <!-- Glitch layer (driven by reduced-volume engine for content pages) -->
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+<script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.content, #content' });
+ </script>
+<div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+<script src="/assets/js/core/price-ticker.js"></script>
+ </body>
+</html>

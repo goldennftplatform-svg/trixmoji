@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // CONNECT WITH X</title>
+ <meta name="description" content="Sign in with X to log arcade scores. Identity only — no posts, follows, or DMs are read.">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+  html, body { margin:0; min-height:100%; background:#000; color:#33ff66; font-family:VT323, monospace; }
+  .wrap { max-width:720px; margin:0 auto; padding:28px 16px 80px; }
+  h1 { letter-spacing:6px; color:#ffd700; text-align:center; font-size:clamp(26px,6vw,40px); }
+  .sub { text-align:center; color:#1a9944; letter-spacing:3px; margin-bottom:18px; }
+  .box { border:1px solid #0a3018; background:#041008; padding:14px; margin-bottom:14px; }
+  label { display:block; font-size:13px; color:#1a9944; letter-spacing:2px; margin:8px 0 4px; }
+  select, input { width:100%; background:#020805; border:1px solid #0a3018; color:#33ff66; font:inherit; font-size:18px; padding:8px 10px; }
+  button, .btn { font:inherit; letter-spacing:2px; cursor:pointer; border:1px solid #33ff66; background:transparent; color:#33ff66; padding:8px 12px; text-decoration:none; display:inline-block; }
+  button:hover, .btn:hover { background:#33ff66; color:#000; }
+  .row { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+  table { width:100%; border-collapse:collapse; font-size:17px; }
+  th, td { text-align:left; padding:6px 4px; border-bottom:1px solid #06140a; }
+  th { color:#ffd700; }
+  .note { color:#1a9944; font-size:15px; line-height:1.4; }
+  .status { min-height:18px; color:#9a9a6a; margin-top:8px; }
+  code { color:#ffd700; }
+ </style>
+</head>
+<body>
+ <div class="wrap">
+  <h1>CONNECT WITH X</h1>
+  <div class="sub">IDENTITY ONLY * NO DATA EXTRACTED</div>
+
+  <div id="xAuthMount"></div>
+
+  <div class="box">
+   <strong style="color:#ffd700;letter-spacing:2px">WHAT WE KEEP</strong>
+   <p class="note">X user id + @handle. Scores you choose to post. That is it.</p>
+   <p class="note">We do <strong>not</strong> read posts, follows, likes, lists, bookmarks, or DMs. The X token is thrown away after login.</p>
+  </div>
+
+  <div class="box">
+   <strong style="color:#ffd700;letter-spacing:2px">LOG A TEST SCORE</strong>
+   <label for="game">GAME</label>
+   <select id="game">
+    <option value="dad">Crypto Dad</option>
+    <option value="tbb">$TBB Bull Run</option>
+    <option value="ftwr">FTWR</option>
+    <option value="mom">Crypto Mom</option>
+    <option value="lily">Lily Leap</option>
+    <option value="snow">Snowman / Geoff</option>
+    <option value="trench">Save the Trenchez</option>
+   </select>
+   <label for="score">SCORE</label>
+   <input id="score" type="number" min="0" max="999999999" value="100" />
+   <div class="row">
+    <button type="button" id="postBtn">POST SCORE</button>
+    <button type="button" id="refreshBtn">REFRESH BOARD</button>
+   </div>
+   <div class="status" id="status"></div>
+  </div>
+
+  <div class="box">
+   <strong style="color:#ffd700;letter-spacing:2px">LIVE X BOARD</strong>
+   <div id="boardWrap"><p class="note">Connect, then refresh.</p></div>
+  </div>
+
+  <div class="box">
+   <strong style="color:#ffd700;letter-spacing:2px">LOCAL SETUP (YOUR LOGIN TEST)</strong>
+   <ol class="note">
+    <li>Open <a class="btn" href="https://developer.x.com/en/portal/dashboard" target="_blank" rel="noopener">developer.x.com</a> and create a Project + App.</li>
+    <li>User authentication: OAuth 2.0, type Web App.</li>
+    <li>Callback URLs (exact):<br><code>http://127.0.0.1:8890/api/auth/x</code><br><code>https://doswapz.com/api/auth/x</code></li>
+    <li>Website URL: <code>https://doswapz.com</code></li>
+    <li>Run <code>SET-X-LOGIN.bat</code> in the DOSWAPZ folder and paste Client ID + Secret.</li>
+    <li>Restart <code>START-SITE.bat</code>, then hit CONNECT WITH X above.</li>
+   </ol>
+  </div>
+
+  <div class="row">
+   <a class="btn" href="/classic/pages/arcade/scores.html">ARCADE SCORES</a>
+   <a class="btn" href="/classic/hub.html">HUB</a>
+  </div>
+ </div>
+
+ <script src="/assets/js/core/x-auth.js?v=20260816x"></script>
+ <script>
+ (function () {
+  var X = window.DOSWAPZ_X;
+  var status = document.getElementById('status');
+  var wrap = document.getElementById('boardWrap');
+
+  function who() { return X && X.user ? '@' + X.user.username : '(not linked)'; }
+
+  async function refreshBoard() {
+   if (!X) return;
+   var game = document.getElementById('game').value;
+   var data = await X.getBoard(game);
+   var rows = (data && data.scores) || [];
+   if (!rows.length) {
+    wrap.innerHTML = '<p class="note">No X scores on this cabinet yet.</p>';
+    return;
+   }
+   wrap.innerHTML = '<table><thead><tr><th>#</th><th>HANDLE</th><th>SCORE</th></tr></thead><tbody>' +
+    rows.map(function (r, i) {
+     return '<tr><td>' + (i + 1) + '</td><td>@' + r.username + '</td><td>' + Number(r.score).toLocaleString() + '</td></tr>';
+    }).join('') + '</tbody></table>';
+  }
+
+  document.getElementById('postBtn').onclick = async function () {
+   if (!X || !X.user) { status.textContent = 'Connect with X first.'; return; }
+   var score = Number(document.getElementById('score').value);
+   var game = document.getElementById('game').value;
+   status.textContent = 'Posting as ' + who() + '...';
+   var r = await X.postScore({ game: game, score: score });
+   status.textContent = r.ok
+    ? (r.keptOld ? 'Kept your best (' + r.best + ') as ' + who() : 'Logged ' + score + ' as ' + who())
+    : (r.error || 'Post failed');
+   refreshBoard();
+  };
+  document.getElementById('refreshBtn').onclick = refreshBoard;
+  document.getElementById('game').onchange = refreshBoard;
+  if (X) X.onReady(refreshBoard);
+ })();
+ </script>
+</body>
+</html>

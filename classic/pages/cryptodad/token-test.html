@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // $DOSWAPZ TOKEN TEST</title>
+ <meta name="description" content="LOCAL TEST of the $DOSWAPZ token page with live Trix mint pinned. Not production.">
+ <meta name="robots" content="noindex,nofollow">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='38' font-family='monospace' font-size='18' fill='%23fff' text-anchor='middle' font-weight='bold'%3EZ%3C/text%3E%3C/svg%3E">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ min-height: 100%;
+ background: #000000;
+ color: #00ff00;
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: #000000;
+ padding: 24px 28px 60px;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px,
+ rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .header {
+ font-size: 32px;
+ letter-spacing: 6px;
+ text-shadow: 0 0 5px #00ff00;
+ text-align: center;
+ margin-bottom: 4px;
+ }
+
+ .sub {
+ text-align: center;
+ color: #00aa00;
+ font-size: 16px;
+ letter-spacing: 2px;
+ margin-bottom: 18px;
+ }
+
+ .content {
+ max-width: 920px;
+ margin: 0 auto;
+ font-size: 19px;
+ line-height: 1.38;
+ padding: 0 8px;
+ position: relative;
+ z-index: 20;
+ }
+
+ .section {
+ margin-bottom: 24px;
+ }
+
+ .section-title {
+ font-size: 22px;
+ color: #ffff00;
+ margin-bottom: 6px;
+ border-bottom: 1px solid #003300;
+ padding-bottom: 3px;
+ }
+
+ .launch-note {
+ color: #ffcc00;
+ background: rgba(40, 30, 0, 0.45);
+ padding: 12px 14px;
+ border: 2px solid #ffff00;
+ margin: 14px 0;
+ font-size: 17px;
+ line-height: 1.35;
+ }
+
+ .pledge {
+ color: #aaffaa;
+ background: rgba(0, 40, 0, 0.35);
+ padding: 12px 14px;
+ border-left: 3px solid #00ff00;
+ margin: 14px 0;
+ }
+
+ .address-box {
+ margin: 14px 0;
+ padding: 12px 14px;
+ border: 2px solid #00aa00;
+ background: rgba(0, 30, 0, 0.45);
+ font-size: 17px;
+ letter-spacing: 1px;
+ word-break: break-all;
+ }
+
+ .address-label {
+ color: #ffff00;
+ font-size: 15px;
+ margin-bottom: 6px;
+ }
+
+ .stat-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+ gap: 12px;
+ margin: 16px 0;
+ }
+
+ .stat-card {
+ border: 2px solid #003300;
+ background: #001100;
+ padding: 12px;
+ text-align: center;
+ }
+
+ .stat-value {
+ font-size: 28px;
+ color: #ffff00;
+ text-shadow: 0 0 4px #ffff00;
+ }
+
+ .stat-label {
+ font-size: 14px;
+ color: #00aa00;
+ margin-top: 4px;
+ letter-spacing: 1px;
+ }
+
+ .ledger {
+ border: 2px solid #00ff00;
+ background: #000800;
+ margin: 14px 0;
+ overflow-x: auto;
+ }
+
+ .ledger table {
+ width: 100%;
+ border-collapse: collapse;
+ font-size: 15px;
+ }
+
+ .ledger th {
+ color: #ffff00;
+ text-align: left;
+ padding: 8px 10px;
+ border-bottom: 1px solid #003300;
+ letter-spacing: 1px;
+ }
+
+ .ledger td {
+ padding: 7px 10px;
+ border-bottom: 1px solid #001a00;
+ color: #00cc00;
+ }
+
+ .ledger tr:hover td {
+ background: rgba(0, 255, 0, 0.06);
+ }
+
+ .ledger .amount {
+ color: #ffff00;
+ }
+
+ .ledger a {
+ color: #88ff88;
+ text-decoration: none;
+ }
+
+ .ledger a:hover {
+ color: #ffffff;
+ text-decoration: underline;
+ }
+
+ .status-line {
+ font-size: 15px;
+ color: #00aa00;
+ margin: 10px 0;
+ min-height: 20px;
+ }
+
+ .btn {
+ font-size: 17px;
+ color: #00ff00;
+ background: transparent;
+ border: 2px solid #00ff00;
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px 8px 0;
+ display: inline-block;
+ cursor: pointer;
+ font-family: inherit;
+ }
+
+ .btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .disclaimer {
+ margin: 14px auto;
+ padding: 10px 12px;
+ border: 2px solid #ffff00;
+ background: rgba(40, 30, 0, 0.35);
+ font-size: 13px;
+ line-height: 1.28;
+ max-width: 920px;
+ text-align: left;
+ }
+
+ .disclaimer-title {
+ color: #ffff00;
+ margin-bottom: 4px;
+ letter-spacing: 1px;
+ text-align: center;
+ font-size: 13px;
+ }
+
+ .buttons {
+ text-align: center;
+ margin-top: 20px;
+ }
+
+ .footer {
+ margin-top: 18px;
+ font-size: 13px;
+ color: #00aa00;
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ .vignette {
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.58) 84%);
+ pointer-events: none;
+ z-index: 5;
+ }
+
+ .glitch-layer {
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 20;
+ mix-blend-mode: screen;
+ }
+
+ .mosh-band {
+ position: fixed;
+ left: 0;
+ width: 100%;
+ background: rgba(0, 255, 0, 0.16);
+ mix-blend-mode: difference;
+ pointer-events: none;
+ z-index: 25;
+ opacity: 0;
+ }
+
+ .empty-ledger {
+ padding: 20px;
+ text-align: center;
+ color: #00aa00;
+ font-size: 16px;
+ }
+
+ .neon-sign {
+ position: relative;
+ margin: 8px auto 22px;
+ max-width: 760px;
+ padding: 6px;
+ border: 3px solid #00ff66;
+ background: #000;
+ box-shadow:
+ 0 0 8px #00ff66,
+ 0 0 22px rgba(0, 255, 80, 0.45),
+ inset 0 0 18px rgba(0, 255, 80, 0.12);
+ animation: neon-frame 1.8s ease-in-out infinite;
+ }
+ .neon-sign::before {
+ content: '';
+ position: absolute;
+ inset: 8px;
+ border: 2px solid rgba(255, 255, 0, 0.55);
+ pointer-events: none;
+ box-shadow: 0 0 10px rgba(255, 255, 0, 0.35);
+ }
+ .neon-sign-inner {
+ position: relative;
+ z-index: 1;
+ padding: 16px 14px 18px;
+ text-align: center;
+ }
+ .neon-marquee {
+ font-size: 15px;
+ letter-spacing: 0.42em;
+ color: #ffff66;
+ text-shadow: 0 0 6px #ffff00, 0 0 16px #ffaa00;
+ margin-bottom: 6px;
+ animation: neon-flash 0.9s step-end infinite;
+ }
+ .neon-title {
+ font-size: clamp(36px, 8vw, 64px);
+ letter-spacing: 0.16em;
+ color: #7cff9a;
+ line-height: 1;
+ text-shadow:
+ 0 0 6px #00ff66,
+ 0 0 18px #00ff41,
+ 0 0 36px rgba(0, 255, 80, 0.7);
+ animation: neon-buzz 3.4s linear infinite;
+ }
+ .neon-release {
+ margin-top: 8px;
+ font-size: clamp(15px, 2.6vw, 20px);
+ letter-spacing: 0.16em;
+ color: #ffff88;
+ text-shadow: 0 0 8px #ffff00, 0 0 18px rgba(255, 200, 0, 0.55);
+ animation: neon-flash 1.4s step-end infinite;
+ }
+ .neon-clock {
+ display: flex;
+ justify-content: center;
+ align-items: flex-end;
+ gap: 8px;
+ margin-top: 16px;
+ flex-wrap: wrap;
+ }
+ .neon-unit {
+ min-width: 72px;
+ padding: 8px 6px 6px;
+ border: 2px solid #00aa44;
+ background: rgba(0, 20, 0, 0.7);
+ box-shadow: 0 0 10px rgba(0, 255, 80, 0.2), inset 0 0 8px rgba(0, 255, 80, 0.08);
+ }
+ .neon-unit span {
+ display: block;
+ font-size: clamp(28px, 6vw, 42px);
+ line-height: 1;
+ color: #7cff9a;
+ text-shadow: 0 0 8px #00ff66, 0 0 16px #00ff41;
+ }
+ .neon-unit label {
+ display: block;
+ margin-top: 4px;
+ font-size: 12px;
+ letter-spacing: 0.22em;
+ color: #88ff88;
+ }
+ .neon-colon {
+ font-size: 32px;
+ color: #ffff66;
+ line-height: 1.1;
+ padding-bottom: 18px;
+ text-shadow: 0 0 8px #ffff00;
+ animation: neon-flash 1s step-end infinite;
+ }
+ .neon-live {
+ display: none;
+ margin-top: 14px;
+ font-size: clamp(22px, 5vw, 34px);
+ letter-spacing: 0.28em;
+ color: #ffff66;
+ text-shadow: 0 0 8px #ffff00, 0 0 22px #ff6600;
+ animation: neon-flash 0.55s step-end infinite;
+ }
+ .neon-sign.is-live .neon-clock { display: none; }
+ .neon-sign.is-live .neon-live { display: block; }
+ .neon-sign.is-live .neon-marquee { color: #ff6666; text-shadow: 0 0 8px #ff0033, 0 0 18px #ff2200; }
+
+ @keyframes neon-flash {
+ 0%, 18%, 22%, 26%, 78%, 100% { opacity: 1; }
+ 20%, 24%, 80% { opacity: 0.18; }
+ }
+ @keyframes neon-buzz {
+ 0%, 92%, 100% { opacity: 1; filter: brightness(1); }
+ 93% { opacity: 0.55; filter: brightness(1.4); }
+ 95% { opacity: 1; }
+ 97% { opacity: 0.7; }
+ }
+ @keyframes neon-frame {
+ 0%, 100% { box-shadow: 0 0 8px #00ff66, 0 0 22px rgba(0, 255, 80, 0.45), inset 0 0 18px rgba(0, 255, 80, 0.12); }
+ 50% { box-shadow: 0 0 14px #ffff66, 0 0 32px rgba(255, 255, 0, 0.35), inset 0 0 22px rgba(0, 255, 80, 0.2); }
+ }
+ @media (max-width: 560px) {
+ .neon-unit { min-width: 58px; }
+ .neon-colon { display: none; }
+ }
+ @media (prefers-reduced-motion: reduce) {
+ .neon-sign, .neon-marquee, .neon-title, .neon-release, .neon-colon, .neon-live {
+ animation: none !important;
+ }
+ }
+ </style>
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <link rel="stylesheet" href="/assets/css/era-present-cryptodad.css?v=neonvoid9" data-era-present-cryptodad>
+ <script src="/assets/js/core/era-present-cryptodad.js?v=neonvoid9"></script>
+ </head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+
+ <div class="content">
+ <div class="header" id="tokenHeader">$DOSWAPZ</div>
+ <div class="sub" id="tokenSub">TRIX MARKET * 26 AUG 2026 * DEV HOLD 0 * 50% TO MAPS</div>
+ <div class="launch-note" style="text-align:center; letter-spacing:3px; margin-bottom:18px;">
+ LOCAL TEST ONLY * MINT + TRIX URL PINNED * NOT LIVE ON DOSWAPZ.COM
+ </div>
+
+ <div class="neon-sign" id="neonSign">
+ <div class="neon-sign-inner">
+ <div class="neon-marquee" id="neonMarquee">NOW OPENING</div>
+ <div class="neon-title" id="neonTitle">$DOSWAPZ</div>
+ <div class="neon-release" id="neonRelease">RELEASE * TRIX MARKET * 26 AUG 2026</div>
+ <div class="neon-clock" id="neonClock">
+ <div class="neon-unit"><span id="cdDays">00</span><label>DAYS</label></div>
+ <div class="neon-colon" aria-hidden="true">:</div>
+ <div class="neon-unit"><span id="cdHours">00</span><label>HRS</label></div>
+ <div class="neon-colon" aria-hidden="true">:</div>
+ <div class="neon-unit"><span id="cdMins">00</span><label>MIN</label></div>
+ <div class="neon-colon" aria-hidden="true">:</div>
+ <div class="neon-unit"><span id="cdSecs">00</span><label>SEC</label></div>
+ </div>
+ <div class="neon-live" id="neonLive">LIVE ON TRIX</div>
+ </div>
+ </div>
+
+ <div class="section">
+ <div class="section-title">$DOSWAPZ TOKEN</div>
+ <div class="stat-grid">
+ <div class="stat-card">
+ <div class="stat-value" id="launchDateValue">26 AUG 2026</div>
+ <div class="stat-label">TRIX MARKET LAUNCH</div>
+ </div>
+ <div class="stat-card">
+ <div class="stat-value" id="devHoldValue">0%</div>
+ <div class="stat-label">DEV HOLD</div>
+ </div>
+ <div class="stat-card">
+ <div class="stat-value" id="mapsPctValue">50%</div>
+ <div class="stat-label">DEV CLAIMS -&gt; MAPS</div>
+ </div>
+ <div class="stat-card">
+ <div class="stat-value">SITE</div>
+ <div class="stat-label">TRACKED ON THIS PAGE</div>
+ </div>
+ </div>
+ <div class="launch-note" id="launchNote"></div>
+ <p>
+ <span id="trixLinkWrap"></span>
+ <span id="tokenIntro">$DOSWAPZ launches on Trix Market 26 AUG 2026. Dev holds zero of the supply. 50% of developer fee claims go to MAPS. Every donation is tracked on this website with on-chain TX links.</span>
+ </p>
+ </div>
+
+ <div class="section">
+ <div class="section-title">50% TO MAPS</div>
+ <div class="pledge">
+ <strong id="pledgeText"></strong><br>
+ The Multidisciplinary Association for Psychedelic Studies (MAPS) researches safe,
+ legal frameworks for psychedelic-assisted therapy. Confirm the current donation address on
+ <a href="https://maps.org" target="_blank" style="color:#ffff00;">maps.org</a> before sending anything.
+ </div>
+
+ <div class="address-label">MAPS SOLANA DONATION ADDRESS:</div>
+ <div class="address-box" id="mapsAddress"></div>
+ <p style="font-size:16px; color:#aaffaa; margin-top:10px;">
+ <strong>Transparency on DOSWAPZ:</strong> Every outgoing donation transfer from the $DOSWAPZ fee wallet is posted in the ledger below.
+ Use it to verify the <span id="donationPctInline">50%</span> pledge - each row links to the on-chain transaction and recipient address.
+ Dev hold 0% is supply - the ledger tracks fee claims and MAPS donations, not a team allocation.
+ </p>
+
+ <div class="address-label" style="margin-top:18px;">$DOSWAPZ FEE WALLET (TRIX CLAIMS):</div>
+ <div class="address-box" id="devWalletDisplay"></div>
+ </div>
+
+ <div class="section" id="ledger">
+ <div class="section-title">DEV FEES &amp; DONATIONS - DAILY LEDGER</div>
+ <p>Accumulated developer claims from Trix Market, with <span id="donationPctLabel">50%</span> donated to MAPS. All donation transactions are published here on DOSWAPZ and refreshed from Solana on-chain transfers.</p>
+
+ <div class="stat-grid">
+ <div class="stat-card">
+ <div class="stat-value" id="totalClaimed"> - </div>
+ <div class="stat-label">DEV FEES CLAIMED (SOL)</div>
+ </div>
+ <div class="stat-card">
+ <div class="stat-value" id="totalDonated"> - </div>
+ <div class="stat-label">DONATED TO MAPS (SOL)</div>
+ </div>
+ <div class="stat-card">
+ <div class="stat-value" id="pledgeRemainder"> - </div>
+ <div class="stat-label">FEE REMAINDER (SOL)</div>
+ </div>
+ </div>
+
+ <div class="status-line" id="ledgerStatus">Initializing ledger sync...</div>
+ <button class="btn" onclick="loadLedger()">REFRESH LEDGER</button>
+
+ <div class="ledger">
+ <table>
+ <thead>
+ <tr>
+ <th>DATE (UTC)</th>
+ <th>DEV FEES IN</th>
+ <th>DONATED TO MAPS</th>
+ <th>RECIPIENT</th>
+ <th>TX</th>
+ </tr>
+ </thead>
+ <tbody id="ledgerBody">
+ <tr><td colspan="5" class="empty-ledger">Loading...</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">ON-CHAIN LEDGER - VERIFY EVERYTHING</div>
+ This page reads public Solana RPC data. Dev wallet must be published at launch for live totals.
+ Donation amounts are outgoing SOL transfers from the dev wallet to MAPS donation addresses (which rotate per donation on maps.org).
+ Every donation transaction is posted on DOSWAPZ in the ledger above. Always verify on Solscan before trusting any display.
+ DOSWAPZ is not MAPS and does not custody funds.
+ </div>
+
+ <div class="buttons">
+ <a href="/classic/hub.html" class="btn"><- BACK TO MENU</a>
+ <a href="/classic/pages/cryptodad/launch.html" class="btn">WATCH LAUNCH</a>
+ <a href="/classic/pages/cryptodad/rabbit.html" class="btn">FTWR</a>
+ <a href="/classic/pages/cryptodad/play.html" class="btn">PLAY CRYPTO DAD</a>
+ <a href="/classic/pages/cryptodad/donate.html" class="btn">CRYPTO DAD DONATE</a>
+ </div>
+
+ <div class="footer">
+ DOSWAPZ - $DOSWAPZ * TRIX 26 AUG 2026 * DEV HOLD 0 * 50% DEV CLAIMS -&gt; MAPS
+ </div>
+ </div>
+
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+ <script src="/assets/js/config/ftwr-config.test.js?v=20260827test"></script>
+ <script src="/assets/js/core/rabbit-icon.js"></script>
+ <script>
+ const cfg = window.FTWR_CONFIG;
+
+ function decorateFtwrCopy() {
+ if (window.FTWR_RABBIT && typeof window.FTWR_RABBIT.decorate === 'function') {
+ window.FTWR_RABBIT.decorate(document.querySelector('.content'));
+ }
+ }
+ const LAMPORTS = 1_000_000_000;
+
+ const ticker = cfg.ticker || ('$' + (cfg.symbol || 'DOSWAPZ'));
+ const launchDate = cfg.launchDate || '26 AUG 2026';
+ const venue = cfg.launchVenue || 'Trix Market';
+ const holdPct = (typeof cfg.devHoldPercent === 'number' ? cfg.devHoldPercent : 0) + '%';
+ const mapsPct = (cfg.donationPercent || 50) + '%';
+
+ const headerEl = document.getElementById('tokenHeader');
+ if (headerEl) headerEl.textContent = ticker;
+ const subEl = document.getElementById('tokenSub');
+ if (subEl) subEl.textContent = venue.toUpperCase() + ' * ' + launchDate + ' * DEV HOLD 0 * ' + mapsPct + ' TO MAPS';
+ const dateEl = document.getElementById('launchDateValue');
+ if (dateEl) dateEl.textContent = launchDate;
+ const holdEl = document.getElementById('devHoldValue');
+ if (holdEl) holdEl.textContent = holdPct;
+ const mapsPctEl = document.getElementById('mapsPctValue');
+ if (mapsPctEl) mapsPctEl.textContent = mapsPct;
+ const introEl = document.getElementById('tokenIntro');
+ if (introEl) {
+ introEl.textContent = ticker + ' launches on ' + venue + ' ' + launchDate +
+ '. Dev holds zero of the supply. ' + mapsPct +
+ ' of developer fee claims go to MAPS. Every donation is tracked on this website with on-chain TX links.';
+ }
+
+ const neonTitle = document.getElementById('neonTitle');
+ if (neonTitle) neonTitle.textContent = ticker;
+ const neonRelease = document.getElementById('neonRelease');
+ if (neonRelease) neonRelease.textContent = 'RELEASE * ' + venue.toUpperCase() + ' * ' + launchDate;
+
+ function pad2(n) {
+ return (n < 10 ? '0' : '') + n;
+ }
+ function parseLaunchMs(c) {
+ if (c && c.launchAt) {
+ var iso = Date.parse(c.launchAt);
+ if (!isNaN(iso)) return iso;
+ }
+ return Date.parse('2026-08-26T00:00:00.000Z');
+ }
+ function setDigit(id, value) {
+ var el = document.getElementById(id);
+ if (el) el.textContent = pad2(value);
+ }
+ function tickNeonCountdown() {
+ var sign = document.getElementById('neonSign');
+ var marquee = document.getElementById('neonMarquee');
+ var liveEl = document.getElementById('neonLive');
+ var target = parseLaunchMs(cfg);
+ var left = target - Date.now();
+ if (left <= 0) {
+ if (sign) sign.classList.add('is-live');
+ if (marquee) marquee.textContent = 'NOW LIVE';
+ if (liveEl) liveEl.textContent = 'LIVE ON TRIX';
+ setDigit('cdDays', 0);
+ setDigit('cdHours', 0);
+ setDigit('cdMins', 0);
+ setDigit('cdSecs', 0);
+ return;
+ }
+ if (sign) sign.classList.remove('is-live');
+ if (marquee) marquee.textContent = 'NOW OPENING';
+ var totalSec = Math.floor(left / 1000);
+ var days = Math.floor(totalSec / 86400);
+ var hours = Math.floor((totalSec % 86400) / 3600);
+ var mins = Math.floor((totalSec % 3600) / 60);
+ var secs = totalSec % 60;
+ setDigit('cdDays', days);
+ setDigit('cdHours', hours);
+ setDigit('cdMins', mins);
+ setDigit('cdSecs', secs);
+ }
+ tickNeonCountdown();
+ setInterval(tickNeonCountdown, 1000);
+
+ document.getElementById('launchNote').textContent = cfg.launchNote;
+ const mapsEl = document.getElementById('mapsAddress');
+ const mapsNote = cfg.mapsAddressNote ||
+ 'MAPS.ORG rotates their official Solana donation address with every donation. Confirm the current address on maps.org - do not reuse an old address.';
+ if (cfg.mapsWallet) {
+ mapsEl.textContent = cfg.mapsWallet;
+ } else {
+ mapsEl.innerHTML = '<span style="color:#ffcc00;">' + mapsNote + '</span>';
+ }
+ document.getElementById('donationPctLabel').textContent = mapsPct;
+ document.getElementById('donationPctInline').textContent = mapsPct;
+ document.getElementById('pledgeText').textContent =
+ mapsPct + ' of all ' + ticker + ' developer fee claims on Trix Market are donated to ' + cfg.mapsOrg + '.';
+
+ const trixWrap = document.getElementById('trixLinkWrap');
+ if (cfg.trixTokenUrl) {
+ trixWrap.innerHTML = '<a href="' + cfg.trixTokenUrl + '" target="_blank" style="color:#ffff00;">Trade ' + ticker + ' on Trix Market -> </a><br>';
+ } else {
+ trixWrap.innerHTML = '<a href="' + cfg.trixMarketHome + '" target="_blank" style="color:#ffff00;">Trix Market - launch ' + launchDate + ' -> </a><br>';
+ }
+
+ const devEl = document.getElementById('devWalletDisplay');
+ if (cfg.devWallet) {
+ devEl.textContent = cfg.devWallet;
+ } else {
+ devEl.innerHTML = '<span style="color:#ffaa00;">PENDING LAUNCH - fee wallet will be published here when ' + ticker + ' goes live on Trix Market ' + launchDate + '.</span>';
+ }
+ decorateFtwrCopy();
+
+ async function rpc(method, params) {
+ const res = await fetch(cfg.rpcUrl, {
+ method: 'POST',
+ headers: { 'Content-Type': 'application/json' },
+ body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params })
+ });
+ const data = await res.json();
+ if (data.error) throw new Error(data.error.message || 'RPC error');
+ return data.result;
+ }
+
+ function lamportsToSol(lamports) {
+ return (lamports / LAMPORTS).toFixed(4);
+ }
+
+ function utcDate(unixSec) {
+ return new Date(unixSec * 1000).toISOString().slice(0, 10);
+ }
+
+ function accountKeys(tx) {
+ const msg = tx && tx.transaction && tx.transaction.message;
+ if (!msg) return [];
+ const raw = msg.accountKeys || msg.staticAccountKeys || [];
+ return raw.map(k => (typeof k === 'string' ? k : String(k.pubkey || k)));
+ }
+
+ function extractOutgoingDonation(tx, sourceWallet) {
+ const out = { outgoing: 0, recipient: null };
+ if (!tx || !tx.meta || tx.meta.err) return out;
+
+ const keys = accountKeys(tx);
+ const srcIdx = keys.indexOf(sourceWallet);
+ if (srcIdx < 0) return out;
+
+ const pre = tx.meta.preBalances;
+ const post = tx.meta.postBalances;
+ const fee = tx.meta.fee || 0;
+ const srcLoss = pre[srcIdx] - post[srcIdx];
+ const netOut = srcLoss - fee;
+ if (netOut <= 5000) return out;
+
+ let bestGain = 0;
+ let bestIdx = -1;
+ for (let i = 0; i < keys.length; i++) {
+ if (i === srcIdx) continue;
+ const gain = post[i] - pre[i];
+ if (gain > bestGain) {
+ bestGain = gain;
+ bestIdx = i;
+ }
+ }
+
+ if (bestGain > 0) {
+ out.outgoing = Math.min(bestGain, netOut);
+ out.recipient = bestIdx >= 0 ? keys[bestIdx] : null;
+ }
+
+ return out;
+ }
+
+ function shortAddress(addr) {
+ if (!addr || addr.length < 12) return addr || ' - ';
+ return addr.slice(0, 4) + '...' + addr.slice(-4);
+ }
+
+ function extractIncoming(tx, wallet) {
+ if (!tx || !tx.meta || tx.meta.err) return 0;
+ const keys = accountKeys(tx);
+ const idx = keys.indexOf(wallet);
+ if (idx < 0) return 0;
+ const gain = tx.meta.postBalances[idx] - tx.meta.preBalances[idx];
+ return gain > 5000 ? gain : 0;
+ }
+
+ async function fetchTransactions(wallet, limit) {
+ const sigs = await rpc('getSignaturesForAddress', [wallet, { limit }]);
+ const txs = [];
+ for (const sig of sigs) {
+ try {
+ const tx = await rpc('getTransaction', [
+ sig.signature,
+ { encoding: 'json', maxSupportedTransactionVersion: 0 }
+ ]);
+ if (tx) txs.push({ signature: sig.signature, blockTime: sig.blockTime || tx.blockTime, tx });
+ } catch (e) { /* skip failed parse */ }
+ await new Promise(r => setTimeout(r, 80));
+ }
+ return txs;
+ }
+
+ async function loadLedger() {
+ const status = document.getElementById('ledgerStatus');
+ const body = document.getElementById('ledgerBody');
+
+ if (!cfg.devWallet) {
+ status.textContent = 'Awaiting dev wallet publication at Trix launch. Ledger will populate automatically once configured in ftwr-config.js.';
+ body.innerHTML = '<tr><td colspan="5" class="empty-ledger">No dev wallet yet. Update ftwr-config.js after launch.</td></tr>';
+ document.getElementById('totalClaimed').textContent = '0.0000';
+ document.getElementById('totalDonated').textContent = '0.0000';
+ document.getElementById('pledgeRemainder').textContent = '0.0000';
+ return;
+ }
+
+ status.textContent = 'Syncing on-chain transfers from Trix dev wallet...';
+ body.innerHTML = '<tr><td colspan="5" class="empty-ledger">Fetching...</td></tr>';
+
+ try {
+ const entries = await fetchTransactions(cfg.devWallet, 60);
+ const daily = {};
+
+ let totalIn = 0;
+ let totalOut = 0;
+
+ for (const entry of entries) {
+ const day = entry.blockTime ? utcDate(entry.blockTime) : 'unknown';
+ if (!daily[day]) daily[day] = { in: 0, out: 0, txs: [] };
+
+ const inc = extractIncoming(entry.tx, cfg.devWallet);
+ const xfer = extractOutgoingDonation(entry.tx, cfg.devWallet);
+
+ if (inc > 0) {
+ daily[day].in += inc;
+ totalIn += inc;
+ }
+ if (xfer.outgoing > 0) {
+ daily[day].out += xfer.outgoing;
+ totalOut += xfer.outgoing;
+ daily[day].txs.push({
+ sig: entry.signature,
+ amount: xfer.outgoing,
+ recipient: xfer.recipient
+ });
+ }
+ }
+
+ document.getElementById('totalClaimed').textContent = lamportsToSol(totalIn);
+ document.getElementById('totalDonated').textContent = lamportsToSol(totalOut);
+ document.getElementById('pledgeRemainder').textContent = lamportsToSol(Math.max(0, totalIn - totalOut));
+
+ const days = Object.keys(daily).filter(d => d !== 'unknown').sort().reverse();
+
+ if (days.length === 0) {
+ body.innerHTML = '<tr><td colspan="5" class="empty-ledger">No dev fee or donation transactions found yet.</td></tr>';
+ status.textContent = 'Ledger synced - no activity yet.';
+ return;
+ }
+
+ body.innerHTML = days.map(day => {
+ const d = daily[day];
+ const txLinks = d.txs.map(t =>
+ '<a href="https://solscan.io/tx/' + t.sig + '" target="_blank">' +
+ lamportsToSol(t.amount) + ' SOL</a>'
+ ).join('<br>') || ' - ';
+ const recipients = d.txs.map(t => {
+ if (!t.recipient) return ' - ';
+ return '<a href="https://solscan.io/account/' + t.recipient + '" target="_blank" title="' + t.recipient + '">' +
+ shortAddress(t.recipient) + '</a>';
+ }).join('<br>') || ' - ';
+ return '<tr>' +
+ '<td>' + day + '</td>' +
+ '<td class="amount">' + (d.in ? lamportsToSol(d.in) : ' - ') + '</td>' +
+ '<td class="amount">' + (d.out ? lamportsToSol(d.out) : ' - ') + '</td>' +
+ '<td>' + recipients + '</td>' +
+ '<td>' + txLinks + '</td>' +
+ '</tr>';
+ }).join('');
+
+ status.textContent = 'Ledger synced - ' + days.length + ' day(s) of on-chain activity.';
+ } catch (err) {
+ status.textContent = 'Ledger sync failed: ' + (err.message || err);
+ body.innerHTML = '<tr><td colspan="5" class="empty-ledger">RPC error. Try REFRESH LEDGER.</td></tr>';
+ }
+ decorateFtwrCopy();
+ }
+
+ window.onload = function() {
+ loadLedger();
+ };
+ </script>
+ 
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.content, #content' });
+ </script>
+<div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+<script src="/assets/js/core/price-ticker.js"></script>
+ 
+<!-- Present soft skin: assets/js/core/era-present-cryptodad.js -->
+</body>
+</html>

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // FTWR SCOREBOARD</title>
+ <meta name="description" content="FTWR scoreboard - soft wallet sign only. No funds moved. Follow The White Rabbit.">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ :root {
+ --green: #00ff41;
+ --amber: #ffb000;
+ --void: #000;
+ }
+
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+
+ html, body {
+ min-height: 100%;
+ background: #000;
+ color: #cfcfcf;
+ font-family: 'VT323', monospace;
+ }
+
+ body {
+ background:
+ radial-gradient(ellipse at 50% 0%, rgba(0, 255, 65, 0.05), transparent 45%),
+ #000;
+ }
+
+ .scan {
+ pointer-events: none;
+ position: fixed;
+ inset: 0;
+ z-index: 50;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0 2px,
+ rgba(0, 0, 0, 0.12) 2px 4px
+ );
+ }
+
+ .wrap {
+ position: relative;
+ z-index: 1;
+ max-width: 720px;
+ margin: 0 auto;
+ padding: 28px 18px 60px;
+ }
+
+ h1 {
+ font-family: 'Press Start 2P', monospace;
+ font-size: clamp(14px, 3vw, 22px);
+ letter-spacing: 3px;
+ color: #fff;
+ text-align: center;
+ text-shadow: 0 0 20px rgba(255, 255, 255, 0.25);
+ margin-bottom: 8px;
+ }
+
+ .sub {
+ text-align: center;
+ color: var(--green);
+ letter-spacing: 4px;
+ font-size: 18px;
+ margin-bottom: 8px;
+ text-shadow: 0 0 12px rgba(0, 255, 65, 0.35);
+ }
+
+ .note {
+ text-align: center;
+ color: #444;
+ font-size: 15px;
+ letter-spacing: 1px;
+ margin-bottom: 22px;
+ }
+
+ .stats {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 10px;
+ margin-bottom: 18px;
+ }
+
+ .stat {
+ border: 1px solid #151515;
+ background: #050505;
+ padding: 12px 10px;
+ text-align: center;
+ }
+
+ .stat .l {
+ color: #555;
+ font-size: 13px;
+ letter-spacing: 2px;
+ margin-bottom: 4px;
+ }
+
+ .stat .v {
+ color: var(--green);
+ font-size: 26px;
+ letter-spacing: 1px;
+ }
+
+ .board {
+ border: 1px solid #1a1a1a;
+ background: #050505;
+ box-shadow: 0 0 40px rgba(0, 255, 65, 0.05);
+ padding: 8px 12px 14px;
+ margin-bottom: 20px;
+ }
+
+ table {
+ width: 100%;
+ border-collapse: collapse;
+ font-size: 18px;
+ }
+
+ th {
+ color: var(--amber);
+ text-align: left;
+ font-weight: normal;
+ letter-spacing: 2px;
+ font-size: 14px;
+ padding: 10px 6px;
+ border-bottom: 1px solid #1f1f1f;
+ }
+
+ td {
+ padding: 10px 6px;
+ border-bottom: 1px solid #0e0e0e;
+ color: #9a9a9a;
+ }
+
+ tr:last-child td { border-bottom: none; }
+
+ .rank { width: 42px; color: #555; }
+ .depth { text-align: center; color: var(--green); width: 70px; }
+ .score { text-align: right; color: #fff; }
+ .when { text-align: right; color: #444; font-size: 14px; width: 110px; }
+ .wallet { color: #aaffaa; font-family: monospace; }
+
+ .empty {
+ text-align: center;
+ color: #333;
+ padding: 36px 12px !important;
+ font-style: italic;
+ }
+
+ .pending {
+ display: none;
+ border: 1px solid #333;
+ background: #080808;
+ padding: 14px;
+ margin-bottom: 18px;
+ text-align: center;
+ }
+
+ .pending.show { display: block; }
+
+ .pending .big {
+ font-family: 'Press Start 2P', monospace;
+ font-size: 14px;
+ color: var(--amber);
+ margin: 8px 0;
+ }
+
+ .pending .blurb {
+ color: #666;
+ font-size: 15px;
+ margin-bottom: 12px;
+ line-height: 1.35;
+ }
+
+ .pending .status {
+ min-height: 20px;
+ margin-top: 10px;
+ color: var(--green);
+ font-size: 15px;
+ }
+
+ .pending .status.err { color: #ff3355; }
+
+ .actions {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ justify-content: center;
+ margin-bottom: 16px;
+ }
+
+ .btn {
+ font-family: 'Press Start 2P', monospace;
+ font-size: 10px;
+ letter-spacing: 1px;
+ color: #000;
+ background: #fff;
+ border: none;
+ padding: 14px 16px;
+ text-decoration: none;
+ cursor: pointer;
+ box-shadow: 0 0 0 2px #000, 0 0 0 4px #fff;
+ }
+
+ .btn:hover {
+ background: var(--green);
+ box-shadow: 0 0 0 2px #000, 0 0 0 4px var(--green);
+ }
+
+ .btn.ghost {
+ color: #ccc;
+ background: transparent;
+ box-shadow: 0 0 0 2px #222, 0 0 0 4px #555;
+ }
+
+ .btn.ghost:hover {
+ color: var(--green);
+ box-shadow: 0 0 0 2px #000, 0 0 0 4px var(--green);
+ }
+
+ .btn:disabled {
+ opacity: 0.5;
+ cursor: wait;
+ }
+
+ .disclaimer {
+ border: 1px solid #2a2a00;
+ background: rgba(40, 30, 0, 0.25);
+ color: #888;
+ font-size: 14px;
+ line-height: 1.4;
+ padding: 12px;
+ margin-bottom: 18px;
+ letter-spacing: 0.5px;
+ }
+
+ .disclaimer strong {
+ color: var(--amber);
+ font-weight: normal;
+ display: block;
+ margin-bottom: 6px;
+ letter-spacing: 1px;
+ }
+
+ .rules {
+ color: #444;
+ font-size: 16px;
+ line-height: 1.45;
+ letter-spacing: 0.5px;
+ max-width: 520px;
+ margin: 0 auto;
+ text-align: center;
+ }
+
+ @media (max-width: 560px) {
+ .stats { grid-template-columns: 1fr; }
+ .when { display: none; }
+ }
+ </style>
+</head>
+<body>
+ <div class="scan"></div>
+ <div class="wrap">
+ <h1>FTWR SCOREBOARD</h1>
+ <div class="sub">FOLLOW THE WHITE RABBIT</div>
+ <div class="note">SOFT WALLET SIGN ONLY * NO FUNDS * TOP 10</div>
+
+ <div class="stats">
+ <div class="stat">
+ <div class="l">BEST DEPTH</div>
+ <div class="v" id="bestDepth"> - </div>
+ </div>
+ <div class="stat">
+ <div class="l">BEST SCORE</div>
+ <div class="v" id="bestScore"> - </div>
+ </div>
+ <div class="stat">
+ <div class="l">RUNS LOGGED</div>
+ <div class="v" id="runs">0</div>
+ </div>
+ </div>
+
+ <div class="pending" id="pendingBox">
+ <div style="color:#888;letter-spacing:2px;font-size:14px;">LAST RUN READY TO LOG</div>
+ <div class="big" id="pendingScore">0</div>
+ <div class="blurb" id="pendingMeta"> - </div>
+ <div class="blurb">
+ Soft connect Phantom / Solflare / MetaMask and sign a plain text message.<br>
+ <strong style="color:#aaa">No funds. No transaction. No approvals.</strong>
+ </div>
+ <button class="btn" id="signBtn" type="button">SIGN &amp; POST (NO FUNDS)</button>
+ <button class="btn ghost" id="skipBtn" type="button">SKIP</button>
+ <div class="status" id="pendingStatus"></div>
+ </div>
+
+ <div class="board">
+ <table>
+ <thead>
+ <tr>
+ <th class="rank">#</th>
+ <th>WALLET</th>
+ <th class="depth">DEPTH</th>
+ <th class="score">SCORE</th>
+ <th class="when">WHEN</th>
+ </tr>
+ </thead>
+ <tbody id="body">
+ <tr><td class="empty" colspan="5">no soft-signed scores yet</td></tr>
+ </tbody>
+ </table>
+ </div>
+
+ <div class="disclaimer">
+ <strong>SOFT VERIFY - SIGNATURE ONLY</strong>
+ We never ask for a private key, seed phrase, or permission to move funds.<br>
+ You only sign a simple message to prove the score came from your wallet.<br>
+ Scores are stored locally in this browser.
+ </div>
+
+ <div class="actions">
+ <a class="btn" href="/classic/pages/cryptodad/ftwr-maze.html">PLAY FTWR</a>
+ <a class="btn ghost" href="/classic/hub.html">HUB</a>
+ <button class="btn ghost" id="clearBtn" type="button">CLEAR BOARD</button>
+ </div>
+
+ <div class="rules">
+ Score builds per depth cleared. Death ends the run. Soft-sign to post - Phantom, Solflare, or MetaMask.
+ </div>
+ </div>
+
+ <script src="/assets/js/core/soft-score.js"></script>
+ <script>
+(function () {
+ var SCORE_KEY = 'ftwr_scores_v1';
+ var BEST_KEY = 'ftwr_best_depth';
+ var PENDING_KEY = 'pending_ftwr_score';
+ var Soft = window.DOSWAPZ_SOFT_SCORE;
+
+ function formatScore(n) {
+ return String(Math.max(0, Math.floor(n || 0))).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+ }
+
+ function escapeHtml(s) {
+ return String(s)
+ .replace(/&/g, '&amp;')
+ .replace(/</g, '&lt;')
+ .replace(/>/g, '&gt;')
+ .replace(/"/g, '&quot;');
+ }
+
+ function when(ts) {
+ if (!ts) return ' - ';
+ try {
+ var d = new Date(ts);
+ return (d.getMonth() + 1) + '/' + d.getDate() + ' ' +
+ String(d.getHours()).padStart(2, '0') + ':' +
+ String(d.getMinutes()).padStart(2, '0');
+ } catch (e) {
+ return ' - ';
+ }
+ }
+
+ function loadScores() {
+ return Soft ? Soft.loadBoard(SCORE_KEY) : [];
+ }
+
+ function render() {
+ var list = loadScores();
+ var bestDepth = 0;
+ try { bestDepth = parseInt(localStorage.getItem(BEST_KEY) || '0', 10) || 0; } catch (e) {}
+ if (!bestDepth && list.length) {
+ bestDepth = list.reduce(function (m, r) { return Math.max(m, r.depth || 0); }, 0);
+ }
+
+ document.getElementById('bestDepth').textContent = bestDepth > 0
+ ? String(bestDepth).padStart(2, '0') : ' - ';
+ document.getElementById('bestScore').textContent = list.length
+ ? formatScore(list[0].score) : ' - ';
+ document.getElementById('runs').textContent = String(list.length);
+
+ var body = document.getElementById('body');
+ if (!list.length) {
+ body.innerHTML = '<tr><td class="empty" colspan="5">no soft-signed scores yet - enter the hole</td></tr>';
+ return;
+ }
+
+ body.innerHTML = list.map(function (row, i) {
+ return '<tr>' +
+ '<td class="rank">' + String(i + 1).padStart(2, '0') + '</td>' +
+ '<td class="wallet">' + escapeHtml(row.wallet || row.name || '????') + '</td>' +
+ '<td class="depth">' + String(row.depth || 0).padStart(2, '0') + '</td>' +
+ '<td class="score">' + formatScore(row.score) + '</td>' +
+ '<td class="when">' + when(row.ts) + '</td>' +
+ '</tr>';
+ }).join('');
+ }
+
+ function showPending() {
+ var box = document.getElementById('pendingBox');
+ try {
+ var raw = localStorage.getItem(PENDING_KEY);
+ if (!raw) {
+ box.classList.remove('show');
+ return;
+ }
+ var p = JSON.parse(raw);
+ if (!p || !p.score) {
+ box.classList.remove('show');
+ return;
+ }
+ document.getElementById('pendingScore').textContent = formatScore(p.score);
+ document.getElementById('pendingMeta').textContent =
+ 'DEPTH ' + String(p.depth || 0).padStart(2, '0') +
+ ' * STEPS ' + (p.steps || 0) +
+ ' * STRIKES ' + (p.strikes || 0);
+ box.classList.add('show');
+ } catch (e) {
+ box.classList.remove('show');
+ }
+ }
+
+ document.getElementById('signBtn').addEventListener('click', async function () {
+ var status = document.getElementById('pendingStatus');
+ var btn = document.getElementById('signBtn');
+ var raw = localStorage.getItem(PENDING_KEY);
+ var p = null;
+ try { p = raw ? JSON.parse(raw) : null; } catch (e) {}
+ if (!p || !p.score) {
+ status.className = 'status err';
+ status.textContent = 'No pending run. Play FTWR first.';
+ return;
+ }
+ if (!Soft) {
+ status.className = 'status err';
+ status.textContent = 'Soft-score module missing.';
+ return;
+ }
+
+ btn.disabled = true;
+ status.className = 'status';
+ status.textContent = 'Connecting...';
+
+ var result = await Soft.signScore({
+ game: 'FTWR',
+ score: p.score,
+ fields: { depth: p.depth, steps: p.steps, strikes: p.strikes },
+ onStatus: function (msg) {
+ status.className = 'status';
+ status.textContent = msg;
+ }
+ });
+
+ if (!result.ok) {
+ status.className = 'status err';
+ status.textContent = result.error || 'Sign failed';
+ btn.disabled = false;
+ return;
+ }
+
+ Soft.saveBoardEntry(SCORE_KEY, {
+ wallet: result.wallet,
+ walletShort: result.short,
+ score: p.score,
+ depth: p.depth,
+ steps: p.steps,
+ strikes: p.strikes,
+ chain: result.chain,
+ soft: true,
+ ts: p.ts || Date.now()
+ }, { max: 10, keepBestPerWallet: true });
+
+ try { localStorage.removeItem(PENDING_KEY); } catch (e) {}
+ status.className = 'status';
+ status.textContent = 'SOFT SIGN SUCCESS - logged as ' + result.short + ' * no funds moved';
+ document.getElementById('pendingBox').classList.remove('show');
+ btn.disabled = false;
+ render();
+ });
+
+ document.getElementById('skipBtn').addEventListener('click', function () {
+ try { localStorage.removeItem(PENDING_KEY); } catch (e) {}
+ document.getElementById('pendingBox').classList.remove('show');
+ document.getElementById('pendingStatus').textContent = 'Skipped - score not logged.';
+ });
+
+ document.getElementById('clearBtn').addEventListener('click', function () {
+ if (!confirm('Wipe FTWR local scoreboard on this device?')) return;
+ try { localStorage.removeItem(SCORE_KEY); } catch (e) {}
+ render();
+ });
+
+ render();
+ showPending();
+})();
+ </script>
+ <script src="/assets/js/core/page-transition.js" data-page-transition="1"></script>
+ <script src="/assets/js/core/site-shell.js?v=20260715d" data-site-shell="1"></script>
+
+<script>
+/* Era embed: when Present hosts this classic game, hide Past hub exits so you stay in Present */
+(function(){
+  try {
+    if (!/[?&]embed=1(?:&|$)/.test(location.search)) return;
+    document.documentElement.classList.add('era-embed');
+    var style = document.createElement('style');
+    style.textContent = '.era-embed a[href*="classic/hub"], .era-embed a[href="/classic/hub.html"]{display:none!important}';
+    document.head.appendChild(style);
+    // force parent era remains orbit when possible
+    try { if (window.parent && window.parent !== window && window.parent.DOSWAPZ_ERA) window.parent.DOSWAPZ_ERA.set("orbit"); } catch(e){}
+  } catch(e){}
+})();
+</script>
+</body>
+</html>

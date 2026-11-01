@@ -1,0 +1,50 @@
+@echo off
+set SESSION=C:\Users\franc\.grok\sessions\C%%3A%%5CWINDOWS%%5Csystem32\019f33ae-9cda-7072-bd6d-603686ddfe06\images
+set CBL=%~dp0assets\images\kol-fighter\characters\crypto-bitlord\sources
+set DOGE=%~dp0assets\images\kol-fighter\characters\dogedesigner\sources
+
+copy /Y "%SESSION%\1.jpg" "%CBL%\low-punch-r.jpg"
+copy /Y "%SESSION%\2.jpg" "%CBL%\high-kick-r.jpg"
+copy /Y "%SESSION%\3.jpg" "%CBL%\med-punch-r.jpg"
+copy /Y "%SESSION%\4.jpg" "%CBL%\low-kick-r.jpg"
+copy /Y "%SESSION%\5.jpg" "%CBL%\high-punch-r.jpg"
+copy /Y "%SESSION%\6.jpg" "%CBL%\block-high-r.jpg"
+copy /Y "%SESSION%\7.jpg" "%CBL%\med-kick-r.jpg"
+copy /Y "%SESSION%\8.jpg" "%CBL%\special-1-r.jpg"
+copy /Y "%SESSION%\9.jpg" "%CBL%\crouch-r.jpg"
+copy /Y "%SESSION%\10.jpg" "%CBL%\special-2-r.jpg"
+copy /Y "%SESSION%\11.jpg" "%CBL%\jump-peak-r.jpg"
+copy /Y "%SESSION%\12.jpg" "%CBL%\walk-forward-1-r.jpg"
+copy /Y "%SESSION%\13.jpg" "%CBL%\block-low-r.jpg"
+copy /Y "%SESSION%\14.jpg" "%CBL%\idle-breath-r.jpg"
+copy /Y "%SESSION%\15.jpg" "%CBL%\jump-r.jpg"
+copy /Y "%SESSION%\16.jpg" "%CBL%\victory-r.jpg"
+copy /Y "%SESSION%\17.jpg" "%CBL%\hit-stun-r.jpg"
+copy /Y "%SESSION%\18.jpg" "%CBL%\walk-forward-2-r.jpg"
+copy /Y "%SESSION%\19.jpg" "%CBL%\knockdown-r.jpg"
+
+copy /Y "%SESSION%\20.jpg" "%DOGE%\low-punch-r.jpg"
+copy /Y "%SESSION%\21.jpg" "%DOGE%\high-kick-r.jpg"
+copy /Y "%SESSION%\22.jpg" "%DOGE%\high-punch-r.jpg"
+copy /Y "%SESSION%\23.jpg" "%DOGE%\low-kick-r.jpg"
+copy /Y "%SESSION%\24.jpg" "%DOGE%\med-punch-r.jpg"
+copy /Y "%SESSION%\25.jpg" "%DOGE%\block-high-r.jpg"
+copy /Y "%SESSION%\26.jpg" "%DOGE%\crouch-r.jpg"
+copy /Y "%SESSION%\27.jpg" "%DOGE%\special-1-r.jpg"
+copy /Y "%SESSION%\28.jpg" "%DOGE%\med-kick-r.jpg"
+copy /Y "%SESSION%\29.jpg" "%DOGE%\special-2-r.jpg"
+copy /Y "%SESSION%\30.jpg" "%DOGE%\jump-peak-r.jpg"
+copy /Y "%SESSION%\31.jpg" "%DOGE%\jump-r.jpg"
+copy /Y "%SESSION%\32.jpg" "%DOGE%\block-low-r.jpg"
+copy /Y "%SESSION%\33.jpg" "%DOGE%\idle-breath-r.jpg"
+copy /Y "%SESSION%\34.jpg" "%DOGE%\walk-forward-1-r.jpg"
+copy /Y "%SESSION%\35.jpg" "%DOGE%\victory-r.jpg"
+copy /Y "%SESSION%\36.jpg" "%DOGE%\walk-forward-2-r.jpg"
+copy /Y "%SESSION%\37.jpg" "%DOGE%\knockdown-r.jpg"
+copy /Y "%SESSION%\38.jpg" "%DOGE%\hit-stun-r.jpg"
+
+cd /d "%~dp0"
+echo START %DATE% %TIME%> "dev\build\_crypto_doge_install.txt"
+py -3 "dev\build\install_all_character_poses.py" crypto-bitlord dogedesigner >> "dev\build\_crypto_doge_install.txt" 2>&1
+echo EXIT %ERRORLEVEL% %DATE% %TIME%>> "dev\build\_crypto_doge_install.txt"
+exit /b %ERRORLEVEL%

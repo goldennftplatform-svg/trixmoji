@@ -1,0 +1,804 @@
+﻿/**
+ * CITY ONLY â€” dense architecture pass.
+ * No raccoon, no cars, no balls/cubes/collectibles.
+ * Focus: cracked asphalt, barrier, brick facades, fire escapes,
+ * poles/wires, lamps, golden-hour haze.
+ */
+(function (global) {
+  "use strict";
+
+  function M(o) {
+    o = o || {};
+    const mat = new THREE.MeshStandardMaterial({
+      color: o.color != null ? o.color : 0xffffff,
+      roughness: o.rough != null ? o.rough : 0.85,
+      metalness: o.metal != null ? o.metal : 0.05,
+      emissive: o.emissive || 0x000000,
+      emissiveIntensity: o.ei != null ? o.ei : 0,
+      flatShading: !!o.flat,
+    });
+    if (o.map) mat.map = o.map;
+    if (o.normalMap) mat.normalMap = o.normalMap;
+    if (o.bumpMap) {
+      mat.bumpMap = o.bumpMap;
+      mat.bumpScale = o.bumpScale != null ? o.bumpScale : 0.04;
+    }
+    if (o.transparent) mat.transparent = true;
+    if (o.opacity != null) mat.opacity = o.opacity;
+    return mat;
+  }
+
+  function texCanvas(w, h, draw, opts) {
+    opts = opts || {};
+    const c = document.createElement("canvas");
+    c.width = w;
+    c.height = h;
+    draw(c.getContext("2d"), w, h);
+    const t = new THREE.CanvasTexture(c);
+    t.encoding = THREE.sRGBEncoding;
+    t.wrapS = t.wrapT = THREE.RepeatWrapping;
+    t.anisotropy = 16;
+    t.needsUpdate = true;
+    if (opts.repeat) t.repeat.set(opts.repeat[0], opts.repeat[1]);
+    return t;
+  }
+
+  /** High-detail cracked asphalt */
+  function asphaltTex() {
+    return texCanvas(
+      1024,
+      1024,
+      (g, w, h) => {
+        // base grey-brown
+        g.fillStyle = "#3f3d37";
+        g.fillRect(0, 0, w, h);
+
+        // grit (noise via imageData for speed)
+        const img = g.getImageData(0, 0, w, h);
+        const d = img.data;
+        for (let i = 0; i < d.length; i += 4) {
+          const n = (Math.random() - 0.5) * 36;
+          d[i] = Math.max(0, Math.min(255, d[i] + n));
+          d[i + 1] = Math.max(0, Math.min(255, d[i + 1] + n - 2));
+          d[i + 2] = Math.max(0, Math.min(255, d[i + 2] + n - 6));
+        }
+        g.putImageData(img, 0, 0);
+
+        // large worn patches
+        for (let i = 0; i < 40; i++) {
+          const v = 50 + Math.random() * 30;
+          g.fillStyle = `rgba(${v},${v - 3},${v - 10},0.22)`;
+          g.beginPath();
+          g.ellipse(
+            Math.random() * w,
+            Math.random() * h,
+            40 + Math.random() * 120,
+            20 + Math.random() * 80,
+            Math.random() * Math.PI,
+            0,
+            Math.PI * 2
+          );
+          g.fill();
+        }
+
+        // deep cracks â€” multi-branch
+        for (let i = 0; i < 90; i++) {
+          g.strokeStyle = `rgba(12,10,8,${0.45 + Math.random() * 0.4})`;
+          g.lineWidth = 1 + Math.random() * 2.5;
+          g.lineCap = "round";
+          g.beginPath();
+          let x = Math.random() * w;
+          let y = Math.random() * h;
+          g.moveTo(x, y);
+          for (let j = 0; j < 10 + Math.floor(Math.random() * 8); j++) {
+            x += (Math.random() - 0.5) * 100;
+            y += (Math.random() - 0.35) * 70;
+            g.lineTo(x, y);
+          }
+          g.stroke();
+          // side branches
+          if (Math.random() > 0.5) {
+            g.beginPath();
+            g.moveTo(x - 40, y - 20);
+            g.lineTo(x + 30, y + 50);
+            g.stroke();
+          }
+        }
+
+        // hairline cracks
+        g.lineWidth = 0.6;
+        for (let i = 0; i < 120; i++) {
+          g.strokeStyle = `rgba(20,18,14,${0.2 + Math.random() * 0.25})`;
+          g.beginPath();
+          let x = Math.random() * w;
+          let y = Math.random() * h;
+          g.moveTo(x, y);
+          for (let j = 0; j < 5; j++) {
+            x += (Math.random() - 0.5) * 40;
+            y += (Math.random() - 0.3) * 30;
+            g.lineTo(x, y);
+          }
+          g.stroke();
+        }
+
+        // oil / wet stains
+        for (let i = 0; i < 28; i++) {
+          g.fillStyle = `rgba(18,20,16,${0.1 + Math.random() * 0.18})`;
+          g.beginPath();
+          g.ellipse(
+            Math.random() * w,
+            Math.random() * h,
+            20 + Math.random() * 70,
+            10 + Math.random() * 35,
+            Math.random(),
+            0,
+            Math.PI * 2
+          );
+          g.fill();
+        }
+
+        // faded yellow ghost paint
+        g.fillStyle = "rgba(200,175,90,0.07)";
+        for (let y = 0; y < h; y += 110) g.fillRect(w / 2 - 10, y, 20, 48);
+
+        // pothole pits
+        for (let i = 0; i < 12; i++) {
+          const cx = Math.random() * w;
+          const cy = Math.random() * h;
+          const r = 15 + Math.random() * 35;
+          const grd = g.createRadialGradient(cx, cy, 2, cx, cy, r);
+          grd.addColorStop(0, "rgba(25,22,18,0.55)");
+          grd.addColorStop(0.6, "rgba(40,38,32,0.25)");
+          grd.addColorStop(1, "rgba(50,48,42,0)");
+          g.fillStyle = grd;
+          g.beginPath();
+          g.ellipse(cx, cy, r, r * 0.7, Math.random(), 0, Math.PI * 2);
+          g.fill();
+        }
+      },
+      { repeat: [1.2, 12] }
+    );
+  }
+
+  function asphaltBump() {
+    return texCanvas(1024, 1024, (g, w, h) => {
+      g.fillStyle = "#808080";
+      g.fillRect(0, 0, w, h);
+      for (let i = 0; i < 40000; i++) {
+        const v = 100 + Math.random() * 55;
+        g.fillStyle = `rgb(${v},${v},${v})`;
+        g.fillRect(Math.random() * w, Math.random() * h, 1, 1);
+      }
+      g.strokeStyle = "#404040";
+      g.lineWidth = 2;
+      for (let i = 0; i < 50; i++) {
+        g.beginPath();
+        let x = Math.random() * w,
+          y = Math.random() * h;
+        g.moveTo(x, y);
+        for (let j = 0; j < 8; j++) {
+          x += (Math.random() - 0.5) * 80;
+          y += (Math.random() - 0.3) * 50;
+          g.lineTo(x, y);
+        }
+        g.stroke();
+      }
+    });
+  }
+
+  function concreteTex() {
+    return texCanvas(
+      1024,
+      1024,
+      (g, w, h) => {
+        g.fillStyle = "#8a8780";
+        g.fillRect(0, 0, w, h);
+        for (let i = 0; i < 35000; i++) {
+          const v = 90 + Math.random() * 60;
+          g.fillStyle = `rgba(${v},${v - 1},${v - 6},0.2)`;
+          g.fillRect(Math.random() * w, Math.random() * h, 2, 2);
+        }
+        // formwork joints
+        g.strokeStyle = "rgba(55,52,45,0.28)";
+        g.lineWidth = 3;
+        for (let y = 0; y < h; y += 96) {
+          g.beginPath();
+          g.moveTo(0, y);
+          g.lineTo(w, y);
+          g.stroke();
+        }
+        for (let x = 0; x < w; x += 160) {
+          g.beginPath();
+          g.moveTo(x, 0);
+          g.lineTo(x, h);
+          g.stroke();
+        }
+        // bolt holes along form lines
+        for (let y = 48; y < h; y += 96) {
+          for (let x = 40; x < w; x += 80) {
+            g.fillStyle = "rgba(40,38,34,0.35)";
+            g.beginPath();
+            g.arc(x, y, 3, 0, Math.PI * 2);
+            g.fill();
+          }
+        }
+        // water stains / rust streaks
+        for (let i = 0; i < 18; i++) {
+          const x = Math.random() * w;
+          const grd = g.createLinearGradient(x, 0, x, h);
+          grd.addColorStop(0, "rgba(90,70,50,0.18)");
+          grd.addColorStop(1, "rgba(70,75,70,0)");
+          g.fillStyle = grd;
+          g.fillRect(x - 12, Math.random() * h * 0.3, 24 + Math.random() * 20, h * 0.7);
+        }
+        // dark spalling patches
+        for (let i = 0; i < 15; i++) {
+          g.fillStyle = `rgba(60,58,52,${0.1 + Math.random() * 0.15})`;
+          g.beginPath();
+          g.ellipse(Math.random() * w, Math.random() * h, 30, 50, 0, 0, Math.PI * 2);
+          g.fill();
+        }
+      },
+      { repeat: [1.5, 2.5] }
+    );
+  }
+
+  function brickTex(seed) {
+    seed = seed || 0;
+    return texCanvas(
+      1024,
+      1024,
+      (g, w, h) => {
+        // mortar base
+        g.fillStyle = "#6a645c";
+        g.fillRect(0, 0, w, h);
+        const bw = 58,
+          bh = 26;
+        for (let row = 0; row < h / bh + 3; row++) {
+          const off = (row % 2) * (bw / 2);
+          for (let col = -1; col < w / bw + 3; col++) {
+            const n = (row * 19 + col * 37 + seed * 11) % 55;
+            // varied brick colors â€” red/brown/orange
+            const r = 105 + n + (seed % 20);
+            const gg = 62 + (n % 22);
+            const b = 48 + (n % 16);
+            g.fillStyle = `rgb(${r},${gg},${b})`;
+            const x = col * bw + off + 2;
+            const y = row * bh + 2;
+            g.fillRect(x, y, bw - 4, bh - 4);
+            // brick face variation
+            g.fillStyle = `rgba(30,20,15,${0.04 + (n % 10) / 120})`;
+            g.fillRect(x + 3, y + 3, bw - 10, bh - 10);
+            // edge highlight
+            g.fillStyle = "rgba(255,220,180,0.06)";
+            g.fillRect(x, y, bw - 4, 2);
+            // dark bottom edge
+            g.fillStyle = "rgba(20,10,5,0.12)";
+            g.fillRect(x, y + bh - 6, bw - 4, 2);
+          }
+        }
+        // vertical water streaks
+        for (let i = 0; i < 14; i++) {
+          const x = Math.random() * w;
+          const grd = g.createLinearGradient(x, 0, x, h);
+          grd.addColorStop(0, "rgba(40,35,30,0.2)");
+          grd.addColorStop(1, "rgba(40,35,30,0)");
+          g.fillStyle = grd;
+          g.fillRect(x, 0, 4 + Math.random() * 8, h);
+        }
+      },
+      { repeat: [2.8, 4] }
+    );
+  }
+
+  function sidewalkTex() {
+    return texCanvas(
+      512,
+      512,
+      (g, w, h) => {
+        g.fillStyle = "#6e6c64";
+        g.fillRect(0, 0, w, h);
+        const tile = 64;
+        for (let y = 0; y < h; y += tile) {
+          for (let x = 0; x < w; x += tile) {
+            const n = ((x / tile + y / tile) * 7) % 11;
+            g.fillStyle = `rgb(${108 + n * 2},${105 + n},${98 + n})`;
+            g.fillRect(x + 1, y + 1, tile - 2, tile - 2);
+            // grit
+            for (let i = 0; i < 40; i++) {
+              const v = 90 + Math.random() * 40;
+              g.fillStyle = `rgba(${v},${v},${v - 5},0.15)`;
+              g.fillRect(x + Math.random() * tile, y + Math.random() * tile, 1, 1);
+            }
+            g.strokeStyle = "rgba(35,32,28,0.45)";
+            g.lineWidth = 1.5;
+            g.strokeRect(x + 0.5, y + 0.5, tile - 1, tile - 1);
+            // corner chips
+            if (n % 3 === 0) {
+              g.fillStyle = "rgba(50,48,42,0.3)";
+              g.fillRect(x + 2, y + 2, 6, 6);
+            }
+          }
+        }
+      },
+      { repeat: [2.2, 14] }
+    );
+  }
+
+  /** Soft spray-paint graffiti texture (not flat colored boxes) */
+  function graffitiTex() {
+    return texCanvas(512, 256, (g, w, h) => {
+      g.clearRect(0, 0, w, h);
+      const cols = ["#e040a0", "#40d0e0", "#f0e040", "#ffffff", "#50e060", "#ff6030", "#c060ff"];
+      // fill some tags as abstract shapes
+      for (let t = 0; t < 8; t++) {
+        g.globalAlpha = 0.75 + Math.random() * 0.2;
+        g.fillStyle = cols[t % cols.length];
+        g.strokeStyle = cols[(t + 2) % cols.length];
+        g.lineWidth = 4 + Math.random() * 6;
+        g.beginPath();
+        let x = 20 + Math.random() * (w - 80);
+        let y = 30 + Math.random() * (h - 60);
+        g.moveTo(x, y);
+        for (let i = 0; i < 6; i++) {
+          x += 15 + Math.random() * 40;
+          y += (Math.random() - 0.5) * 50;
+          g.lineTo(x, Math.max(10, Math.min(h - 10, y)));
+        }
+        g.stroke();
+        // bubble letter blobs
+        g.beginPath();
+        g.ellipse(
+          40 + t * 55 + Math.random() * 20,
+          h / 2 + (Math.random() - 0.5) * 40,
+          18 + Math.random() * 22,
+          22 + Math.random() * 20,
+          Math.random(),
+          0,
+          Math.PI * 2
+        );
+        g.fill();
+      }
+      // drip
+      g.globalAlpha = 0.5;
+      for (let i = 0; i < 20; i++) {
+        g.fillStyle = cols[i % cols.length];
+        const x = Math.random() * w;
+        g.fillRect(x, 80 + Math.random() * 60, 2 + Math.random() * 3, 20 + Math.random() * 50);
+      }
+    });
+  }
+
+  function metalMat(color) {
+    return M({ color: color || 0x4a5058, rough: 0.42, metal: 0.62 });
+  }
+
+  function woodMat() {
+    return M({ color: 0x4a3a28, rough: 0.92, metal: 0.02 });
+  }
+
+  /** Detailed multi-floor building with ledges, mullions, pipes, AC */
+  function addBuilding(root, x, z, w, d, floors, opts) {
+    opts = opts || {};
+    const fh = 3.2;
+    const h = floors * fh;
+    const g = new THREE.Group();
+    const bodyMat = M({
+      map: opts.brick ? opts.brickMap : opts.concreteMap,
+      rough: 0.9,
+      metal: 0.02,
+    });
+
+    const body = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), bodyMat);
+    body.position.y = h / 2;
+    body.castShadow = true;
+    body.receiveShadow = true;
+    g.add(body);
+
+    // Floor ledges / belt courses
+    for (let f = 1; f <= floors; f++) {
+      const ledge = new THREE.Mesh(
+        new THREE.BoxGeometry(w + 0.18, 0.14, d + 0.18),
+        M({ color: 0x5a554c, rough: 0.88 })
+      );
+      ledge.position.y = f * fh;
+      ledge.castShadow = true;
+      g.add(ledge);
+    }
+
+    // Cornice
+    const cornice = new THREE.Mesh(
+      new THREE.BoxGeometry(w + 0.5, 0.4, d + 0.5),
+      M({ color: 0x4a453c, rough: 0.88 })
+    );
+    cornice.position.y = h + 0.15;
+    cornice.castShadow = true;
+    g.add(cornice);
+    // second cornice ring
+    const corn2 = new THREE.Mesh(
+      new THREE.BoxGeometry(w + 0.25, 0.2, d + 0.25),
+      M({ color: 0x3a3830, rough: 0.9 })
+    );
+    corn2.position.y = h + 0.45;
+    g.add(corn2);
+
+    // Roof
+    const roof = new THREE.Mesh(
+      new THREE.BoxGeometry(w - 0.25, 0.18, d - 0.25),
+      M({ color: 0x323028, rough: 0.95 })
+    );
+    roof.position.y = h + 0.55;
+    g.add(roof);
+
+    // Parapet walls
+    const parapetH = 0.7;
+    [
+      [0, d / 2 - 0.1, w, 0.18],
+      [0, -d / 2 + 0.1, w, 0.18],
+      [w / 2 - 0.1, 0, 0.18, d],
+      [-w / 2 + 0.1, 0, 0.18, d],
+    ].forEach((p) => {
+      const wall = new THREE.Mesh(
+        new THREE.BoxGeometry(p[2], parapetH, p[3]),
+        M({ color: 0x4a4840, rough: 0.9 })
+      );
+      wall.position.set(p[0], h + 0.9, p[1]);
+      wall.castShadow = true;
+      g.add(wall);
+    });
+
+    // AC units + chimneys on roof
+    for (let i = 0; i < 1 + (floors > 2 ? 1 : 0); i++) {
+      const ac = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.85, 1.2), metalMat(0x6a7078));
+      ac.position.set(-w * 0.22 + i * 2.0, h + 1.05, -d * 0.12);
+      ac.castShadow = true;
+      g.add(ac);
+      // vents
+      for (let v = 0; v < 3; v++) {
+        const vent = new THREE.Mesh(
+          new THREE.BoxGeometry(0.35, 0.08, 0.9),
+          metalMat(0x3a4048)
+        );
+        vent.position.set(-w * 0.22 + i * 2.0 - 0.4 + v * 0.4, h + 1.5, -d * 0.12);
+        g.add(vent);
+      }
+    }
+    if (floors >= 3) {
+      const chim = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.32, 0.38, 2.4, 10),
+        M({ color: 0x5a5048, rough: 0.9 })
+      );
+      chim.position.set(w * 0.22, h + 1.75, d * 0.18);
+      chim.castShadow = true;
+      g.add(chim);
+      const cap = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.45, 0.45, 0.12, 10),
+        M({ color: 0x3a3830, rough: 0.85 })
+      );
+      cap.position.set(w * 0.22, h + 3.0, d * 0.18);
+      g.add(cap);
+    }
+
+    // Windows with frames, glass, mullions, sills
+    const faces = [
+      { nx: 0, nz: 1, ox: 0, oz: d / 2 },
+      { nx: 0, nz: -1, ox: 0, oz: -d / 2 },
+      { nx: 1, nz: 0, ox: w / 2, oz: 0 },
+      { nx: -1, nz: 0, ox: -w / 2, oz: 0 },
+    ];
+    faces.forEach((face, fi) => {
+      if (opts.skipFace === fi) return;
+      const across = face.nx === 0 ? w : d;
+      const cols = Math.max(2, Math.floor(across / 1.85));
+      for (let f = 0; f < floors; f++) {
+        if (f === 0 && opts.shutter && (fi === 0 || fi === 2)) continue;
+        for (let c = 0; c < cols; c++) {
+          const t = -across / 2 + 1.0 + c * ((across - 2.0) / Math.max(1, cols - 1));
+          const wy = fh * 0.52 + f * fh;
+          const lit = (f + c + opts.seed) % 5 !== 0;
+
+          let px = face.ox;
+          let pz = face.oz;
+          if (face.nx === 0) {
+            px = t;
+            pz = face.oz + face.nz * 0.04;
+          } else {
+            pz = t;
+            px = face.ox + face.nx * 0.04;
+          }
+
+          // recessed frame
+          const frame = new THREE.Mesh(
+            new THREE.BoxGeometry(
+              face.nx === 0 ? 1.15 : 0.16,
+              1.45,
+              face.nx === 0 ? 0.16 : 1.15
+            ),
+            M({ color: 0x2a2824, rough: 0.85 })
+          );
+          frame.position.set(px, wy, pz);
+          g.add(frame);
+
+          // glass pane
+          const win = new THREE.Mesh(
+            new THREE.BoxGeometry(
+              face.nx === 0 ? 0.95 : 0.08,
+              1.25,
+              face.nx === 0 ? 0.08 : 0.95
+            ),
+            M({
+              color: lit ? 0x1a3040 : 0x0a1018,
+              rough: 0.08,
+              metal: 0.55,
+              emissive: lit ? 0x1a3020 : 0x050808,
+              ei: lit ? 0.22 + (f % 2) * 0.08 : 0.05,
+            })
+          );
+          win.position.set(
+            face.nx === 0 ? px : px + face.nx * 0.07,
+            wy,
+            face.nx === 0 ? pz + face.nz * 0.07 : pz
+          );
+          g.add(win);
+
+          // mullion cross
+          const mullV = new THREE.Mesh(
+            new THREE.BoxGeometry(
+              face.nx === 0 ? 0.06 : 0.1,
+              1.2,
+              face.nx === 0 ? 0.1 : 0.06
+            ),
+            M({ color: 0x1e1c18, rough: 0.7 })
+          );
+          mullV.position.copy(win.position);
+          mullV.position.y = wy;
+          g.add(mullV);
+          const mullH = new THREE.Mesh(
+            new THREE.BoxGeometry(
+              face.nx === 0 ? 0.9 : 0.1,
+              0.06,
+              face.nx === 0 ? 0.1 : 0.9
+            ),
+            M({ color: 0x1e1c18, rough: 0.7 })
+          );
+          mullH.position.copy(win.position);
+          g.add(mullH);
+
+          // sill
+          const sill = new THREE.Mesh(
+            new THREE.BoxGeometry(
+              face.nx === 0 ? 1.2 : 0.22,
+              0.1,
+              face.nx === 0 ? 0.28 : 1.2
+            ),
+            M({ color: 0x4a453c, rough: 0.9 })
+          );
+          sill.position.set(
+            px,
+            wy - 0.75,
+            pz + (face.nz || 0) * 0.1 + (face.nx || 0) * 0.1
+          );
+          g.add(sill);
+
+          // lintel
+          const lintel = new THREE.Mesh(
+            new THREE.BoxGeometry(
+              face.nx === 0 ? 1.25 : 0.2,
+              0.12,
+              face.nx === 0 ? 0.22 : 1.25
+            ),
+            M({ color: 0x3a3830, rough: 0.88 })
+          );
+          lintel.position.set(px, wy + 0.78, pz + (face.nz || 0) * 0.06);
+          g.add(lintel);
+
+          // facade AC unit on some windows
+          if (fi === 0 && f > 0 && c % 3 === 1) {
+            const fac = new THREE.Mesh(
+              new THREE.BoxGeometry(0.7, 0.45, 0.55),
+              metalMat(0x8a9098)
+            );
+            fac.position.set(px, wy - 0.15, d / 2 + 0.4);
+            fac.castShadow = true;
+            g.add(fac);
+          }
+        }
+      }
+    });
+
+    // Metal roll-down shutter
+    if (opts.shutter) {
+      const shut = new THREE.Mesh(
+        new THREE.BoxGeometry(w * 0.72, 2.55, 0.22),
+        metalMat(0x5a626c)
+      );
+      shut.position.set(0, 1.28, d / 2 + 0.1);
+      shut.castShadow = true;
+      g.add(shut);
+      for (let i = 0; i < 14; i++) {
+        const rib = new THREE.Mesh(
+          new THREE.BoxGeometry(w * 0.72, 0.06, 0.05),
+          metalMat(0x3a424c)
+        );
+        rib.position.set(0, 0.25 + i * 0.18, d / 2 + 0.22);
+        g.add(rib);
+      }
+      // shutter housing box above
+      const house = new THREE.Mesh(
+        new THREE.BoxGeometry(w * 0.76, 0.4, 0.4),
+        metalMat(0x4a5058)
+      );
+      house.position.set(0, 2.7, d / 2 + 0.2);
+      g.add(house);
+    }
+
+    // Fire escape â€” on street-facing side (flipEscape puts it on +X of building)
+    if (opts.escape) {
+      const rail = metalMat(0x3a444e);
+      const s = opts.flipEscape ? 1 : -1;
+      const ex = s * (w / 2 + 0.7);
+      for (let f = 0; f < floors; f++) {
+        const y = fh * (f + 0.82);
+        const plat = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.07, 1.15), rail);
+        plat.position.set(ex, y, 0.15);
+        plat.castShadow = true;
+        g.add(plat);
+        for (let k = 0; k < 6; k++) {
+          const gr = new THREE.Mesh(new THREE.BoxGeometry(1.55, 0.02, 0.035), rail);
+          gr.position.set(ex, y + 0.04, -0.4 + k * 0.2);
+          g.add(gr);
+        }
+        for (let p = 0; p < 5; p++) {
+          const post = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.6, 0.05), rail);
+          post.position.set(ex - s * (0.55 - p * 0.32), y + 0.32, 0.68);
+          g.add(post);
+        }
+        const topRail = new THREE.Mesh(new THREE.BoxGeometry(1.55, 0.04, 0.04), rail);
+        topRail.position.set(ex, y + 0.6, 0.68);
+        g.add(topRail);
+        const midRail = new THREE.Mesh(new THREE.BoxGeometry(1.55, 0.03, 0.03), rail);
+        midRail.position.set(ex, y + 0.32, 0.68);
+        g.add(midRail);
+        if (f < floors - 1) {
+          for (let side = -1; side <= 1; side += 2) {
+            const sideRail = new THREE.Mesh(
+              new THREE.BoxGeometry(0.04, fh * 0.75, 0.04),
+              rail
+            );
+            sideRail.position.set(ex + s * 0.45 + side * 0.18, y + fh * 0.4, 0.35);
+            g.add(sideRail);
+          }
+          for (let r = 0; r < 6; r++) {
+            const rung = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.035, 0.035), rail);
+            rung.position.set(ex + s * 0.45, y + 0.25 + r * 0.32, 0.4);
+            g.add(rung);
+          }
+        }
+      }
+      const drop = new THREE.Mesh(new THREE.BoxGeometry(0.4, 2.2, 0.06), rail);
+      drop.position.set(ex + s * 0.45, 1.1, 0.35);
+      g.add(drop);
+    }
+
+    // Downspout / drain pipe
+    const pipe = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.07, 0.07, h * 0.95, 8),
+      metalMat(0x5a6058)
+    );
+    pipe.position.set(w / 2 - 0.2, h * 0.48, d / 2 + 0.12);
+    pipe.castShadow = true;
+    g.add(pipe);
+    // elbow at top
+    const elbow = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.07, 0.07, 0.5, 8),
+      metalMat(0x5a6058)
+    );
+    elbow.rotation.z = Math.PI / 2;
+    elbow.position.set(w / 2 - 0.4, h * 0.95, d / 2 + 0.12);
+    g.add(elbow);
+
+    // Electrical meter boxes
+    const meter = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.7, 0.2), metalMat(0x3a4840));
+    meter.position.set(-w * 0.3, 1.4, d / 2 + 0.12);
+    meter.castShadow = true;
+    g.add(meter);
+    const conduit = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.03, 0.03, 2.5, 6),
+      metalMat(0x2a2a28)
+    );
+    conduit.position.set(-w * 0.3, 2.9, d / 2 + 0.1);
+    g.add(conduit);
+
+    // Graffiti as textured planes (spray look)
+    if (opts.graffiti !== false && opts.grafMap) {
+      for (let i = 0; i < 3; i++) {
+        const tag = new THREE.Mesh(
+          new THREE.PlaneGeometry(1.8 + Math.random() * 1.2, 0.9 + Math.random() * 0.7),
+          M({
+            map: opts.grafMap,
+            rough: 0.95,
+            transparent: true,
+            opacity: 0.92,
+          })
+        );
+        tag.position.set(-w * 0.2 + i * 1.4, 1.1 + (i % 2) * 0.6, d / 2 + 0.13);
+        g.add(tag);
+      }
+    }
+
+    // Door + frame + steps
+    const doorFrame = new THREE.Mesh(
+      new THREE.BoxGeometry(1.35, 2.45, 0.15),
+      M({ color: 0x2e2a24, rough: 0.85 })
+    );
+    doorFrame.position.set(w * 0.28, 1.22, d / 2 + 0.06);
+    g.add(doorFrame);
+    const door = new THREE.Mesh(
+      new THREE.BoxGeometry(1.1, 2.2, 0.1),
+      M({ color: 0x3a3028, rough: 0.78 })
+    );
+    door.position.set(w * 0.28, 1.15, d / 2 + 0.12);
+    door.castShadow = true;
+    g.add(door);
+    // door panels
+    for (let r = 0; r < 2; r++) {
+      for (let c = 0; c < 2; c++) {
+        const panel = new THREE.Mesh(
+          new THREE.BoxGeometry(0.4, 0.85, 0.04),
+          M({ color: 0x2a221c, rough: 0.8 })
+        );
+        panel.position.set(w * 0.28 - 0.22 + c * 0.44, 0.7 + r * 1.0, d / 2 + 0.18);
+        g.add(panel);
+      }
+    }
+    const knob = new THREE.Mesh(new THREE.SphereGeometry(0.055, 8, 8), metalMat(0xc0c8d0));
+    knob.position.set(w * 0.28 + 0.4, 1.15, d / 2 + 0.2);
+    g.add(knob);
+    // stoop steps
+    for (let s = 0; s < 2; s++) {
+      const step = new THREE.Mesh(
+        new THREE.BoxGeometry(1.6 - s * 0.15, 0.14, 0.4),
+        M({ color: 0x6a6860, rough: 0.9 })
+      );
+      step.position.set(w * 0.28, 0.07 + s * 0.14, d / 2 + 0.35 + s * 0.2);
+      step.castShadow = true;
+      g.add(step);
+    }
+
+    // Awning over storefront
+    if (opts.awning) {
+      const awn = new THREE.Mesh(
+        new THREE.BoxGeometry(w * 0.85, 0.08, 1.4),
+        M({ color: opts.awnColor || 0x8a3030, rough: 0.85 })
+      );
+      awn.position.set(0, 2.9, d / 2 + 0.75);
+      awn.rotation.x = 0.12;
+      awn.castShadow = true;
+      g.add(awn);
+      // stripes
+      for (let i = 0; i < 6; i++) {
+        const stripe = new THREE.Mesh(
+          new THREE.BoxGeometry(w * 0.12, 0.02, 1.35),
+          M({ color: 0xf0e8d8, rough: 0.9 })
+        );
+        stripe.position.set(-w * 0.35 + i * w * 0.14, 2.92, d / 2 + 0.75);
+        stripe.rotation.x = 0.12;
+        g.add(stripe);
+      }
+      // support rods
+      [-1, 1].forEach((s) => {
+        const rod = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.025, 0.025, 1.3, 6),
+          metalMat(0x3a3a38)
+        );
+        rod.position.set(s * w * 0.3, 2.5, d / 2 + 0.9);
+        rod.rotation.x = 0.5;
+        g.add(rod);
+      });
+    }
+
+    g.position.set(x, 0, z);
+    root.add(g);
+    return g;
+  }
+

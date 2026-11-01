@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOSWAPZ // HUB — FUDKER PEEK TEST</title>
+  <meta name="description" content="Test page: classic hub + shy Fudker eye that peeks, looks around, then vanishes. Click opens fudkers.xyz.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+    :root {
+      --green: #00ff00;
+      --green-dim: #00aa00;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      background: #000;
+      color: var(--green);
+      font-family: 'VT323', 'Courier New', monospace;
+      overflow-x: hidden;
+      image-rendering: pixelated;
+    }
+
+    .dos-screen {
+      position: relative;
+      min-height: 100vh;
+      padding: 0 24px 96px;
+      background: #000;
+    }
+
+    .dos-screen::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(0, 255, 0, 0.035) 3px,
+        rgba(0, 255, 0, 0.035) 5px
+      );
+      pointer-events: none;
+      z-index: 30;
+    }
+
+    .content {
+      position: relative;
+      max-width: 760px;
+      margin: 0 auto;
+      padding-top: 6vh;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .test-banner {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 6px 14px;
+      border: 1px solid #ffaa00;
+      color: #ffcc66;
+      letter-spacing: 2px;
+      font-size: 16px;
+      background: rgba(40, 20, 0, 0.55);
+    }
+
+    .doswap {
+      font-size: clamp(48px, 11vw, 72px);
+      letter-spacing: 10px;
+      text-shadow: 0 0 4px var(--green), 0 0 12px var(--green-dim);
+      line-height: 1;
+      margin-bottom: 6px;
+      user-select: none;
+    }
+
+    .menu-prompt {
+      font-size: clamp(20px, 4.5vw, 28px);
+      letter-spacing: 3px;
+      color: #00dd00;
+      text-shadow: 0 0 3px var(--green);
+      margin-bottom: 8px;
+    }
+
+    .menu-prompt .cursor {
+      display: inline-block;
+      width: 14px;
+      animation: blink 820ms steps(1) infinite;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .status {
+      font-size: 18px;
+      color: var(--green-dim);
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    .hint {
+      font-size: 15px;
+      color: #668866;
+      letter-spacing: 1px;
+      margin-bottom: 28px;
+      line-height: 1.4;
+    }
+
+    .hint em { color: #aaddaa; font-style: normal; }
+
+    .hub-map {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 8px;
+      justify-content: center;
+      margin: 0 auto 22px;
+      max-width: 720px;
+    }
+
+    .hub-map a {
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: #00cc66;
+      text-decoration: none;
+      border: 1px solid #114422;
+      padding: 6px 10px;
+      background: rgba(0, 30, 0, 0.4);
+    }
+
+    .hub-map a:hover {
+      color: #ffff66;
+      border-color: #44aa44;
+    }
+
+    .menu {
+      text-align: left;
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px 32px;
+    }
+
+    @media (max-width: 620px) {
+      .menu-grid { grid-template-columns: 1fr; }
+      .content { padding-top: 3vh; }
+    }
+
+    .section-head {
+      display: block;
+      width: 100%;
+      font-size: 26px;
+      color: #ffff00;
+      letter-spacing: 3px;
+      cursor: pointer;
+      user-select: none;
+      padding: 6px 0;
+      text-decoration: none;
+      transition: color 80ms, text-shadow 80ms;
+    }
+
+    .section-head:hover {
+      color: #ffffff;
+      text-shadow: 0 0 8px #00ff00;
+    }
+
+    details.menu-section > summary {
+      list-style: none;
+    }
+
+    details.menu-section > summary::-webkit-details-marker { display: none; }
+
+    .options {
+      padding: 2px 0 10px 16px;
+    }
+
+    .option {
+      display: block;
+      font-size: 20px;
+      color: #00cc00;
+      text-decoration: none;
+      padding: 4px 0;
+      letter-spacing: 1px;
+    }
+
+    .option:hover { color: #aaffaa; }
+
+    .hub-footer {
+      margin-top: 36px;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+
+    .warnings-box {
+      border: 1px solid #335500;
+      padding: 12px 14px;
+      font-size: 14px;
+      color: #668866;
+      line-height: 1.45;
+      letter-spacing: 0.5px;
+    }
+
+    .warnings-title {
+      color: #99aa44;
+      margin-bottom: 6px;
+      letter-spacing: 2px;
+    }
+
+    .exit-row {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .exit-row a {
+      color: #00aa66;
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    .exit-row a:hover { color: #ffff66; }
+
+    .glitch-credit {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 13px;
+      color: #335533;
+      letter-spacing: 2px;
+    }
+
+    /* ========== FUDKER PEEK ========== */
+    #fudkerPeek {
+      position: fixed;
+      left: 0;
+      top: 0;
+      display: block;
+      z-index: 99999;
+      width: clamp(140px, 22vw, 220px);
+      height: auto;
+      margin: 0;
+      padding: 0;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translate3d(-9999px, -9999px, 0) rotate(0deg) scale(1);
+      transition:
+        opacity 0.4s ease,
+        transform 0.5s cubic-bezier(0.22, 1.15, 0.36, 1),
+        visibility 0s linear 0.4s;
+      filter: none !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+      will-change: transform, opacity;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      text-decoration: none;
+      background: transparent;
+      border: 0;
+    }
+
+    #fudkerPeek.is-visible {
+      pointer-events: auto;
+      opacity: 1;
+      visibility: visible;
+      transition:
+        opacity 0.4s ease,
+        transform 0.5s cubic-bezier(0.22, 1.15, 0.36, 1),
+        visibility 0s linear 0s;
+    }
+
+    #fudkerPeek .fudker-eye-stage {
+      display: block;
+      width: 100%;
+      line-height: 0;
+      background: transparent;
+      filter: none;
+      box-shadow: none;
+    }
+
+    #fudkerPeek img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: none;
+      background: transparent;
+      border: 0;
+      outline: none;
+      filter: none !important;
+      box-shadow: none !important;
+      mix-blend-mode: normal;
+      user-select: none;
+      -webkit-user-drag: none;
+      pointer-events: none;
+    }
+
+    #fudkerPeek:hover,
+    #fudkerPeek:focus,
+    #fudkerPeek:active {
+      filter: none !important;
+      box-shadow: none !important;
+      opacity: 1;
+    }
+
+    #fudkerPeek:focus-visible {
+      outline: 1px dashed #666;
+      outline-offset: 4px;
+    }
+
+    .fudker-toast {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      z-index: 100000;
+      padding: 8px 14px;
+      border: 1px solid #445544;
+      background: rgba(0, 12, 0, 0.88);
+      color: #88aa88;
+      font-size: 14px;
+      letter-spacing: 2px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      white-space: nowrap;
+    }
+
+    .fudker-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .fudker-debug {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 100001;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-end;
+      font-family: 'VT323', monospace;
+    }
+
+    .fudker-debug button {
+      font-family: inherit;
+      font-size: 16px;
+      letter-spacing: 2px;
+      color: #0f0;
+      background: rgba(0, 20, 0, 0.9);
+      border: 1px solid #0a0;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .fudker-debug button:hover {
+      color: #ff0;
+      border-color: #6a0;
+    }
+
+    .fudker-debug .stat {
+      font-size: 13px;
+      color: #6a6;
+      letter-spacing: 1px;
+      max-width: 220px;
+      text-align: right;
+    }
+  </style>
+</head>
+<body class="hub-page">
+  <div class="dos-screen" id="screen">
+    <div class="content" id="content">
+      <div class="test-banner">// TEST PAGE — FUDKER PEEK OVERLAY</div>
+      <div class="doswap" id="doswapText">DOSWAPZ</div>
+      <div class="menu-prompt">select destination<span class="cursor">█</span></div>
+      <div class="status">[CONNECTED] — STABLE · PEEK TEST ACTIVE</div>
+      <p class="hint">
+        A shy eye may peek from the edges, look around, then hide again.<br>
+        <em>Click it → https://www.fudkers.xyz/</em>
+      </p>
+
+      <nav class="hub-map" aria-label="Bunker map">
+        <a href="/classic/pages/doswapz/swap.html">SWAP</a>
+        <a href="/classic/pages/doswapz/bridge.html">BRIDGE</a>
+        <a href="/classic/pages/arcade/intro.html">ARCADE</a>
+        <a href="/classic/pages/ape-chamber/">APE CHAMBER</a>
+        <a href="/classic/pages/cryptodad/mobile.html">GAMES</a>
+        <a href="/portal.html">TIME</a>
+        <a href="/classic/pages/basement.html">BASEMENT</a>
+        <a href="/docs/legal.html">DOCS</a>
+      </nav>
+
+      <nav class="menu">
+        <div class="menu-grid">
+          <div class="menu-section">
+            <a href="/classic/pages/arcade/intro.html" class="section-head">ARCADE</a>
+          </div>
+          <details class="menu-section">
+            <summary class="section-head">CRYPTO DAD</summary>
+            <div class="options">
+              <a href="/classic/pages/cryptodad/mobile.html" class="option">Mobile App</a>
+              <a href="/classic/pages/cryptodad/how-to-play.html" class="option">How to Play</a>
+              <a href="/classic/pages/cryptodad/donate.html" class="option">Donate</a>
+            </div>
+          </details>
+          <details class="menu-section">
+            <summary class="section-head">DEGEN$</summary>
+            <div class="options">
+              <a href="/classic/pages/degen/trailer.html" class="option">Official Trailer</a>
+              <a href="/classic/pages/degen/synopsis.html" class="option">Full Synopsis</a>
+            </div>
+          </details>
+          <details class="menu-section">
+            <summary class="section-head">DOSWAPZ</summary>
+            <div class="options">
+              <a href="/classic/pages/doswapz/swap.html" class="option">Swap (0% Jupiter)</a>
+              <a href="/classic/pages/doswapz/bridge.html" class="option">Bridge</a>
+              <a href="/classic/pages/doswapz/mint.html" class="option">Mint</a>
+              <a href="/classic/pages/doswapz/gallery.html" class="option">Gallery</a>
+            </div>
+          </details>
+          <div class="menu-section">
+            <a href="/classic/pages/pond-scum.html" class="section-head">POND SCUM</a>
+          </div>
+          <div class="menu-section">
+            <a href="/classic/pages/i-see-you.html" class="section-head">I SEE YOU</a>
+          </div>
+          <div class="menu-section">
+            <a href="/classic/pages/attic.html" class="section-head">THE ATTIC</a>
+          </div>
+          <div class="menu-section">
+            <a href="/classic/pages/basement.html" class="section-head">THE BASEMENT</a>
+          </div>
+          <div class="menu-section">
+            <a href="/classic/pages/lily-pad.html" class="section-head">THE LILY PAD</a>
+          </div>
+          <div class="menu-section">
+            <a href="/classic/pages/ape-chamber/" class="section-head">APE CHAMBER</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="hub-footer">
+        <div class="warnings-box">
+          <div class="warnings-title">TEST OVERLAY NOTES</div>
+          This is a local test of the classic hub shell plus a random Fudker peek.
+          The eye slides in from a random edge, glances around shyly, then ducks away for a while.
+          Clicking the eye opens fudkers.xyz in a new tab.
+        </div>
+        <div class="exit-row">
+          <a href="/classic/hub.html">← REAL CLASSIC HUB</a>
+          <span style="opacity:0.35;margin:0 12px">|</span>
+          <a href="/orbit/hub.html">ORBIT HUB →</a>
+        </div>
+        <div class="glitch-credit">powered by Glitch Protocol · fudker peek v1</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shy peeking Fudker -->
+  <a
+    id="fudkerPeek"
+    href="https://www.fudkers.xyz/"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="A shy Fudker is peeking. Open fudkers.xyz"
+    title="psst… fudkers.xyz"
+  >
+    <span class="fudker-eye-stage">
+      <img
+        id="fudkerEyeImg"
+        src="/assets/images/fudker-blink/00-open.png?v=imagine1"
+        alt="Fudker eye"
+        draggable="false"
+      >
+    </span>
+  </a>
+  <div class="fudker-toast" id="fudkerToast" role="status" aria-live="polite">something is watching…</div>
+  <div class="fudker-debug">
+    <button type="button" id="fudkerForceBtn">PEEK NOW</button>
+    <div class="stat" id="fudkerStat">loading eye…</div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var LINK = 'https://www.fudkers.xyz/';
+      var el = document.getElementById('fudkerPeek');
+      var img = document.getElementById('fudkerEyeImg');
+      var toast = document.getElementById('fudkerToast');
+      var stat = document.getElementById('fudkerStat');
+      var forceBtn = document.getElementById('fudkerForceBtn');
+      if (!el || !img) return;
+
+      function setStat(msg) {
+        if (stat) stat.textContent = msg;
+        try { console.log('[fudker]', msg); } catch (e) {}
+      }
+
+      // Real blink frames from Grok Imagine (open → mid → closed → mid → open)
+      var BLINK_FRAMES = {
+        open: '/assets/images/fudker-blink/00-open.png?v=imagine1',
+        mid: '/assets/images/fudker-blink/01-mid.png?v=imagine1',
+        closed: '/assets/images/fudker-blink/02-closed.png?v=imagine1'
+      };
+      if (location.protocol === 'file:') {
+        BLINK_FRAMES = {
+          open: 'assets/images/fudker-blink/00-open.png',
+          mid: 'assets/images/fudker-blink/01-mid.png',
+          closed: 'assets/images/fudker-blink/02-closed.png'
+        };
+      }
+
+      var candidates = [BLINK_FRAMES.open];
+
+      var hideTimer = null;
+      var lookTimer = null;
+      var scheduleTimer = null;
+      var blinkTimer = null;
+      var blinkAnimTimer = null;
+      var busy = false;
+      var ready = false;
+      var blinking = false;
+
+      function rand(min, max) {
+        return min + Math.random() * (max - min);
+      }
+
+      function pick(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+
+      function showToast(msg, ms) {
+        if (!toast) return;
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(showToast._t);
+        showToast._t = setTimeout(function () {
+          toast.classList.remove('show');
+        }, ms || 1800);
+      }
+
+      // Preload blink frames so swaps are instant
+      Object.keys(BLINK_FRAMES).forEach(function (k) {
+        var pre = new Image();
+        pre.src = BLINK_FRAMES[k];
+      });
+
+      function setEyeFrame(key) {
+        if (BLINK_FRAMES[key]) img.src = BLINK_FRAMES[key];
+      }
+
+      function stopBlinks() {
+        if (blinkTimer) {
+          clearTimeout(blinkTimer);
+          blinkTimer = null;
+        }
+        if (blinkAnimTimer) {
+          clearTimeout(blinkAnimTimer);
+          blinkAnimTimer = null;
+        }
+        blinking = false;
+        setEyeFrame('open');
+      }
+
+      /**
+       * Real eyelid blink using Imagine keyframes — not a scaleY squash.
+       * Sequence: open → mid → closed → mid → open
+       */
+      function doBlink(kind) {
+        if (!el.classList.contains('is-visible') || blinking) return;
+        blinking = true;
+
+        var steps;
+        if (kind === 'double') {
+          steps = [
+            { f: 'mid', t: 45 },
+            { f: 'closed', t: 55 },
+            { f: 'mid', t: 45 },
+            { f: 'open', t: 70 },
+            { f: 'mid', t: 40 },
+            { f: 'closed', t: 70 },
+            { f: 'mid', t: 50 },
+            { f: 'open', t: 0 }
+          ];
+        } else {
+          steps = [
+            { f: 'mid', t: 50 },
+            { f: 'closed', t: 70 },
+            { f: 'mid', t: 55 },
+            { f: 'open', t: 0 }
+          ];
+        }
+
+        var i = 0;
+        function step() {
+          if (!el.classList.contains('is-visible')) {
+            blinking = false;
+            setEyeFrame('open');
+            return;
+          }
+          setEyeFrame(steps[i].f);
+          if (i >= steps.length - 1) {
+            blinking = false;
+            return;
+          }
+          var delay = steps[i].t;
+          i += 1;
+          blinkAnimTimer = setTimeout(step, delay);
+        }
+        step();
+      }
+
+      function scheduleBlinkLoop() {
+        stopBlinks();
+        function next() {
+          if (!el.classList.contains('is-visible')) return;
+          var kind = Math.random() < 0.22 ? 'double' : 'single';
+          doBlink(kind);
+          blinkTimer = setTimeout(next, rand(1100, 2800));
+        }
+        blinkTimer = setTimeout(next, rand(400, 1000));
+      }
+
+      function eyeSize() {
+        var w = el.offsetWidth;
+        if (w && w > 20) return w;
+        return Math.min(220, Math.max(140, window.innerWidth * 0.22));
+      }
+
+      /**
+       * Peeks from edges — MOST of the eye stays on-screen so it's obvious.
+       */
+      function randomEdgePose() {
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+        var size = eyeSize();
+        var edge = pick(['left', 'right', 'bottom', 'top', 'bottom-left', 'bottom-right']);
+        var x, y, rot, peekIn;
+
+        switch (edge) {
+          case 'left':
+            x = -size * 0.55;
+            y = rand(h * 0.2, h * 0.65);
+            rot = rand(-10, 12);
+            peekIn = { x: size * 0.05, y: y, rot: rot };
+            break;
+          case 'right':
+            x = w - size * 0.45;
+            y = rand(h * 0.2, h * 0.65);
+            rot = rand(-12, 10);
+            peekIn = { x: w - size * 1.05, y: y, rot: rot };
+            break;
+          case 'top':
+            x = rand(w * 0.2, w * 0.65);
+            y = -size * 0.55;
+            rot = rand(-14, 14);
+            peekIn = { x: x, y: size * 0.05, rot: rot };
+            break;
+          case 'bottom':
+            x = rand(w * 0.2, w * 0.65);
+            y = h - size * 0.4;
+            rot = rand(-12, 12);
+            peekIn = { x: x, y: h - size * 1.05, rot: rot };
+            break;
+          case 'bottom-left':
+            x = -size * 0.5;
+            y = h - size * 0.35;
+            rot = rand(6, 20);
+            peekIn = { x: size * 0.08, y: h - size * 1.0, rot: rot };
+            break;
+          default: // bottom-right
+            x = w - size * 0.45;
+            y = h - size * 0.35;
+            rot = rand(-20, -6);
+            peekIn = { x: w - size * 1.05, y: h - size * 1.0, rot: rot };
+            break;
+        }
+
+        return {
+          edge: edge,
+          hide: { x: x, y: y, rot: rot },
+          show: peekIn
+        };
+      }
+
+      function applyPose(pose, scale) {
+        scale = scale == null ? 1 : scale;
+        el.style.left = '0px';
+        el.style.top = '0px';
+        el.style.transform =
+          'translate3d(' + pose.x + 'px,' + pose.y + 'px,0) rotate(' + pose.rot + 'deg) scale(' + scale + ')';
+      }
+
+      function clearLookLoop() {
+        if (lookTimer) {
+          clearTimeout(lookTimer);
+          lookTimer = null;
+        }
+      }
+
+      function lookAround(base, remaining) {
+        if (remaining <= 0 || !el.classList.contains('is-visible')) return;
+        var next = {
+          x: base.x + rand(-22, 22),
+          y: base.y + rand(-18, 18),
+          rot: base.rot + rand(-24, 24)
+        };
+        applyPose(next, rand(0.96, 1.08));
+
+        if (Math.random() < 0.3 && remaining > 1) {
+          lookTimer = setTimeout(function () {
+            applyPose({
+              x: base.x + rand(-6, 6),
+              y: base.y + rand(12, 30),
+              rot: base.rot + rand(-8, 8)
+            }, 0.92);
+            lookTimer = setTimeout(function () {
+              applyPose(base, 1);
+              lookTimer = setTimeout(function () {
+                lookAround(base, remaining - 1);
+              }, rand(250, 450));
+            }, rand(200, 380));
+          }, rand(350, 650));
+          return;
+        }
+
+        lookTimer = setTimeout(function () {
+          lookAround(base, remaining - 1);
+        }, rand(400, 850));
+      }
+
+      function hideAway(pose) {
+        clearLookLoop();
+        stopBlinks();
+        el.classList.remove('is-visible');
+        applyPose(pose.hide, 0.9);
+        busy = false;
+        setStat('hiding · next peek soon');
+        scheduleNext(rand(5000, 12000));
+      }
+
+      function peekOnce(force) {
+        if (!ready) {
+          setStat('eye not ready yet');
+          return;
+        }
+        if (busy && !force) return;
+        if (force) {
+          clearLookLoop();
+          if (hideTimer) clearTimeout(hideTimer);
+          if (scheduleTimer) clearTimeout(scheduleTimer);
+          busy = false;
+        }
+        if (busy) return;
+        busy = true;
+
+        var pose = randomEdgePose();
+        setStat('peeking from ' + pose.edge);
+
+        el.style.transition = 'none';
+        applyPose(pose.hide, 0.9);
+        el.classList.remove('is-visible');
+        void el.offsetWidth;
+
+        el.style.transition = '';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            el.classList.add('is-visible');
+            applyPose(pose.show, 1);
+            showToast('psst…', 1000);
+            scheduleBlinkLoop();
+            // welcome blink right as it peeks in
+            setTimeout(function () { doBlink('single'); }, 180);
+
+            lookTimer = setTimeout(function () {
+              lookAround(pose.show, Math.floor(rand(3, 6)));
+            }, 400);
+
+            var dwell = rand(3200, 5600);
+            hideTimer = setTimeout(function () {
+              if (Math.random() < 0.5) {
+                applyPose({
+                  x: (pose.show.x + pose.hide.x) / 2,
+                  y: (pose.show.y + pose.hide.y) / 2,
+                  rot: pose.hide.rot
+                }, 0.94);
+                hideTimer = setTimeout(function () {
+                  applyPose(pose.show, 1.03);
+                  hideTimer = setTimeout(function () {
+                    hideAway(pose);
+                  }, rand(450, 800));
+                }, rand(300, 550));
+              } else {
+                hideAway(pose);
+              }
+            }, dwell);
+          });
+        });
+      }
+
+      function scheduleNext(ms) {
+        if (scheduleTimer) clearTimeout(scheduleTimer);
+        scheduleTimer = setTimeout(function () { peekOnce(false); }, ms);
+      }
+
+      function startPeekLoop() {
+        ready = true;
+        setStat('ready · peeking…');
+        // First peek almost immediately so the demo is obvious
+        scheduleNext(400);
+      }
+
+      function tryLoad(i) {
+        if (i >= candidates.length) {
+          setStat('IMAGE FAILED — check /assets/images/fudker-eye.png');
+          return;
+        }
+        var src = candidates[i] + (candidates[i].indexOf('?') >= 0 ? '&' : '?') + 'v=3';
+        setStat('loading ' + candidates[i]);
+        img.onload = function () {
+          setStat('loaded ' + img.naturalWidth + 'x' + img.naturalHeight);
+          startPeekLoop();
+        };
+        img.onerror = function () {
+          setStat('fail ' + candidates[i]);
+          tryLoad(i + 1);
+        };
+        img.src = src;
+      }
+
+      el.setAttribute('href', LINK);
+      el.addEventListener('click', function () {
+        showToast('→ fudkers.xyz', 1200);
+      });
+
+      if (forceBtn) {
+        forceBtn.addEventListener('click', function () {
+          peekOnce(true);
+        });
+      }
+
+      document.querySelectorAll('details.menu-section').forEach(function (section) {
+        section.addEventListener('toggle', function () {
+          if (!section.open) return;
+          document.querySelectorAll('details.menu-section').forEach(function (other) {
+            if (other !== section) other.removeAttribute('open');
+          });
+        });
+      });
+
+      window.addEventListener('keydown', function (e) {
+        if (e.key === 'e' || e.key === 'E') peekOnce(true);
+      });
+
+      // If already cached
+      if (img.complete && img.naturalWidth > 0) {
+        startPeekLoop();
+      } else {
+        tryLoad(0);
+      }
+    })();
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // THE LILY PAD</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ }
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0; padding: 0;
+ width: 100%; min-height: 100%;
+ background: #000000;
+ color: #00ff00;
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: #000000;
+ padding: 24px 28px 60px;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px,
+ rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .header {
+ font-size: 32px;
+ letter-spacing: 6px;
+ text-shadow: 0 0 5px #00ff00;
+ text-align: center;
+ margin-bottom: 6px;
+ }
+
+ .content {
+ max-width: 920px;
+ margin: 18px auto 0;
+ font-size: 19px;
+ line-height: 1.38;
+ padding: 0 8px;
+ }
+
+ .section {
+ margin-bottom: 24px;
+ }
+
+ .section-title {
+ font-size: 22px;
+ color: #ffff00;
+ margin-bottom: 6px;
+ border-bottom: 1px solid #003300;
+ padding-bottom: 3px;
+ }
+
+ .warning {
+ color: #ffaa00;
+ background: rgba(40, 20, 0, 0.4);
+ padding: 10px 14px;
+ border-left: 3px solid #ffaa00;
+ margin: 14px 0;
+ }
+
+ .btn {
+ font-size: 17px;
+ color: #00ff00;
+ background: transparent;
+ border: 2px solid #00ff00;
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px;
+ display: inline-block;
+ cursor: pointer;
+ }
+
+ .btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .disclaimer {
+ margin: 14px auto;
+ padding: 10px 12px;
+ border: 2px solid #ffff00;
+ background: rgba(40, 30, 0, 0.35);
+ font-size: 13px;
+ line-height: 1.28;
+ max-width: 920px;
+ text-align: left;
+ }
+
+ .disclaimer-title {
+ color: #ffff00;
+ margin-bottom: 4px;
+ letter-spacing: 1px;
+ text-align: center;
+ font-size: 13px;
+ }
+
+ .buttons {
+ text-align: center;
+ margin-top: 20px;
+ }
+
+ .footer {
+ margin-top: 18px;
+ font-size: 13px;
+ color: #00aa00;
+ text-align: center;
+ letter-spacing: 1px;
+ }
+
+ .vignette {
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.58) 84%);
+ pointer-events: none;
+ z-index: 5;
+ }
+
+ .glitch-layer {
+ position: fixed;
+ inset: 0;
+ pointer-events: none;
+ z-index: 20;
+ mix-blend-mode: screen;
+ }
+
+ .mosh-band {
+ position: fixed;
+ left: 0;
+ width: 100%;
+ background: rgba(0, 255, 0, 0.16);
+ mix-blend-mode: difference;
+ pointer-events: none;
+ z-index: 25;
+ opacity: 0;
+ }
+
+ .node-sim {
+ border: 2px solid #00ff00;
+ background: #001100;
+ padding: 12px;
+ margin: 14px 0;
+ font-size: 15px;
+ }
+
+ .node-log {
+ background: #000;
+ border: 1px solid #003300;
+ padding: 8px;
+ height: 120px;
+ overflow-y: auto;
+ white-space: pre-line;
+ font-size: 14px;
+ color: #00aa00;
+ margin-top: 8px;
+ }
+
+ .declassified {
+ margin: 28px auto;
+ max-width: 640px;
+ border: 2px solid #ffaa00;
+ background: rgba(20, 12, 0, 0.55);
+ padding: 18px 16px 20px;
+ text-align: center;
+ box-shadow: 0 0 24px rgba(255, 170, 0, 0.12);
+ }
+ .declassified-stamp {
+ display: inline-block;
+ font-size: 13px;
+ letter-spacing: 5px;
+ color: #ff3344;
+ border: 2px solid #ff3344;
+ padding: 3px 14px;
+ margin-bottom: 10px;
+ transform: rotate(-2deg);
+ text-shadow: 0 0 6px rgba(255, 50, 50, 0.4);
+ }
+ .declassified h2 {
+ margin: 0 0 10px;
+ font-size: 26px;
+ letter-spacing: 6px;
+ color: #ffaa00;
+ font-weight: normal;
+ }
+ .declassified p {
+ margin: 0 0 12px;
+ font-size: 16px;
+ color: #ddcc88;
+ line-height: 1.45;
+ }
+ .declassified-img {
+ display: block;
+ width: 100%;
+ max-width: 420px;
+ height: auto;
+ margin: 12px auto 14px;
+ border: 2px solid #664400;
+ background: #000;
+ }
+ .declassified .btn-onlymemes {
+ font-size: 18px;
+ color: #000;
+ background: #ffaa00;
+ border: 2px solid #ffcc44;
+ padding: 8px 20px;
+ text-decoration: none;
+ display: inline-block;
+ letter-spacing: 2px;
+ margin-top: 4px;
+ }
+ .declassified .btn-onlymemes:hover {
+ background: #ffcc44;
+ color: #110800;
+ }
+ .declassified .fine {
+ margin-top: 12px;
+ font-size: 12px;
+ color: #887744;
+ letter-spacing: 1px;
+ }
+ </style>
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ </head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+
+ <div class="content">
+
+ <div class="header">THE LILY PAD</div>
+ <div style="text-align:center; font-size:15px; color:#00aa00; margin-bottom:18px; letter-spacing:1px;">
+ SIMULATED SOVEREIGNTY * LILY ACCESS
+ </div>
+
+ <div class="section">
+ <div class="section-title">WHAT IS A NODE?</div>
+ <p>In Solana (and most blockchains), a <strong>node</strong> is just a computer running the blockchain software.</p>
+ <p><strong>RPC node</strong> - answers queries ("what's my balance?") and can submit transactions. This is what the swap page uses when you pick "your own node".</p>
+ <p><strong>Validator / full node</strong> - participates in consensus, validates blocks, can earn rewards (but needs serious hardware and stake).</p>
+ <p>Public RPCs (like the default Jupiter one) are convenient but centralized - everyone uses the same few servers.</p>
+ </div>
+
+ <div class="warning">
+ <strong>IMPORTANT:</strong> You <strong>cannot</strong> run a real Solana node from this website or any browser tab.<br>
+ Browsers are sandboxed, can't open the required ports, and don't have the resources or uptime. Running a node is a server process (Linux VPS, dedicated machine, Raspberry Pi cluster, etc.).
+ </div>
+
+ <div class="section">
+ <div class="section-title">SIMULATE "YOUR NODE" RIGHT HERE</div>
+ <p>The swap page already has a node selector. Pick "Simulate your own node" or paste a custom RPC URL and the route text changes. It's all client-side theater - but it teaches the concept.</p>
+ <p>Click the button below to run a fake "sync" with your imaginary node and see live-style logs.</p>
+
+ <div class="node-sim">
+ <button onclick="simulateNodeConnect()" class="btn">CONNECT TO MY NODE (SIM)</button>
+ <div id="nodeStatus" style="margin-top:8px; color:#ffff00;"></div>
+ <div id="nodeLogs" class="node-log" style="display:none;"></div>
+ </div>
+ </div>
+
+ <div class="declassified" id="declassified">
+ <div class="declassified-stamp">DECLASSIFIED</div>
+ <h2>RUN A REAL NODE</h2>
+ <p>
+ Browser sims are training wheels. When you are ready for the real machine - 
+ the kind that stays online, answers RPC, and answers to nobody - go here:
+ </p>
+ <img
+ class="declassified-img"
+ src="/assets/images/onlymemes-node.jpg"
+ alt="OnlyMemes - run a real node"
+ width="420"
+ height="auto"
+ loading="lazy"
+ >
+ <p>
+ <strong>OnlyMemes</strong> has the path dialed - 
+ clean docs, real node ops, no theater.
+ They have it down. Skip the public RPC lottery and run your own.
+ </p>
+ <a class="btn-onlymemes" href="https://onlymemes.com/" target="_blank" rel="noopener noreferrer">
+ GO TO ONLYMEMES.COM -> 
+ </a>
+ <div class="fine">Third-party site * verify URLs yourself * DYOR * not financial advice</div>
+ </div>
+
+ <div class="section">
+ <div class="section-title">HOW TO ACTUALLY RUN A REAL NODE</div>
+ <p><strong>For RPC / queries (what the swap page cares about):</strong></p>
+ <ul style="margin-left:20px; line-height:1.4;">
+ <li>Cheap VPS (Hetzner, DigitalOcean, Contabo ~$5-12/mo)</li>
+ <li>Install Solana CLI, run a <strong>RPC node</strong> (not full validator)</li>
+ <li>Point your Jupiter or custom tools at your server's RPC URL</li>
+ <li>Optional: add a reverse proxy + firewall so only you (or your dapp) can use it</li>
+ </ul>
+
+ <p><strong>Official starting point:</strong> <a href="https://docs.solana.com/running-validator" target="_blank" style="color:#ffff00;">Solana Docs - Running a Validator / RPC node</a></p>
+
+ <p>For most people the sweet spot is a <strong>light client</strong> or just a personal RPC node on a cheap VPS + the swap page's "custom RPC" option.</p>
+ </div>
+
+ <div class="section">
+ <div class="section-title">TIE-IN TO THE REST OF DOSWAPZ</div>
+ <p><strong>DIY Hardware Wallet page</strong> - run a signer on your own hardware (Raspberry Pi + SeedSigner style). Combine with your own RPC node = maximum self-sovereignty.</p>
+ <p><strong>Meat (Alerts) page</strong> - the Telegram bot you run yourself is basically "your own alerts node". Self-hosted signals instead of trusting someone else's server.</p>
+ <p><strong>Swap page "node options"</strong> - choose public, simulate your node, or paste the RPC URL of the one you actually spun up.</p>
+ </div>
+
+ <div class="disclaimer">
+ <div class="disclaimer-title">LIVE GUIDES - SIMULATED IN BROWSER</div>
+ Nothing on this page runs a real node in your browser. The "connect to my node" button is a fun client-side animation. Real nodes require servers you control 24/7. Always verify official Solana docs before spending money or time on infrastructure.
+ </div>
+
+ <div class="buttons">
+ <a href="/classic/hub.html" class="btn"><- BACK TO MENU</a>
+ <a href="/classic/pages/doswapz/swap.html" class="btn">SWAP + NODE SELECTOR</a>
+ <a href="/classic/pages/hardwear/wallet.html" class="btn">DIY HARDWARE + NODES</a>
+ <a href="/classic/pages/doswapz/meat.html" class="btn">MEAT (YOUR ALERTS NODE)</a>
+ </div>
+
+ <div class="footer">
+ DOSWAPZ - THE LILY PAD * SIMULATED IN BROWSER
+ </div>
+
+ </div>
+
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+ <script>
+ // Node simulation
+ let nodeLogsEl = null;
+ let logInterval = null;
+
+ function simulateNodeConnect() {
+ const status = document.getElementById('nodeStatus');
+ const logs = document.getElementById('nodeLogs');
+ nodeLogsEl = logs;
+
+ status.textContent = 'SYNCING WITH YOUR NODE...';
+ logs.style.display = 'block';
+ logs.innerHTML = '';
+
+ const messages = [
+ 'Connecting to your RPC...',
+ 'Fetching latest slot...',
+ 'Block 284739201 synced',
+ 'No rate limit - your node, your rules',
+ 'Swap route calculated via your RPC',
+ 'Latency: 18ms (public was 87ms)',
+ 'Your node is now the source of truth (sim)'
+ ];
+
+ let i = 0;
+ if (logInterval) clearInterval(logInterval);
+
+ logInterval = setInterval(() => {
+ if (i < messages.length) {
+ logs.innerHTML += messages[i] + '\n';
+ logs.scrollTop = logs.scrollHeight;
+ i++;
+ } else {
+ clearInterval(logInterval);
+ status.textContent = 'CONNECTED TO YOUR NODE (SIM) - FEEL THE SOVEREIGNTY';
+ }
+ }, 420);
+ }
+
+ // Optional: if user has a real wallet connected on swap, show extra benefit note
+ function checkSwapNodeBenefit() {
+ // This is a demo hook - in a real integrated flow the swap page would read from localStorage or URL param
+ const note = document.createElement('div');
+ note.style.cssText = 'margin-top:12px; font-size:14px; color:#aaffaa;';
+ note.innerHTML = 'Tip: Go to the <a href="/classic/pages/doswapz/swap.html" style="color:#ffff00;">swap page</a>, connect a wallet, choose "Simulate your own node" or paste your custom RPC - your balance will be fetched via that node and the route text will reflect it.';
+ const section = document.querySelector('.section');
+ if (section) section.appendChild(note);
+ }
+
+ window.onload = function() {
+ // small auto-hint
+ setTimeout(checkSwapNodeBenefit, 1200);
+ };
+
+ </script>
+
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.content, #content' });
+ </script>
+<div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+<script src="/assets/js/core/price-ticker.js"></script>
+ </body>
+</html>

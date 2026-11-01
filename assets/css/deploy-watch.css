@@ -1,0 +1,89 @@
+.deploy-watch {
+  position: relative;
+  z-index: 10;
+  border: 2px solid #66ffff;
+  background: rgba(0, 24, 28, 0.55);
+  padding: 14px 16px 16px;
+  margin: 0 0 18px;
+  color: #00ffcc;
+}
+.deploy-watch .dw-head { text-align: center; }
+.deploy-watch .dw-flag {
+  color: #66ffff;
+  letter-spacing: 3px;
+  font-size: 14px;
+}
+.deploy-watch .dw-title {
+  margin: 4px 0 2px;
+  font-size: clamp(18px, 3vw, 24px);
+  letter-spacing: 2px;
+  font-weight: normal;
+  color: #c8fff8;
+}
+.deploy-watch .dw-count {
+  font-size: clamp(36px, 8vw, 64px);
+  letter-spacing: 6px;
+  color: #66ffff;
+  text-shadow: 0 0 10px rgba(102, 255, 255, 0.35);
+  line-height: 1.1;
+  margin: 4px 0;
+}
+.deploy-watch .dw-sub {
+  color: #5aa;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+.deploy-watch .dw-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  justify-content: center;
+  margin: 10px 0;
+  color: #5aa;
+  font-size: 14px;
+}
+.deploy-watch .dw-meta b { color: #66ffff; font-weight: normal; }
+.deploy-watch .dw-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.deploy-watch .dw-actions button {
+  font: inherit;
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: #66ffff;
+  background: transparent;
+  border: 2px solid #66ffff;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+.deploy-watch .dw-actions button:hover {
+  color: #000;
+  background: #66ffff;
+}
+.deploy-watch .dw-actions button:disabled { opacity: 0.45; cursor: wait; }
+.deploy-watch .dw-hint { color: #4a8888; font-size: 13px; letter-spacing: 1px; }
+.deploy-watch .dw-log {
+  border: 1px solid #134;
+  background: #000;
+  padding: 8px 10px;
+  max-height: 280px;
+  overflow: auto;
+  font-size: 14px;
+  line-height: 1.35;
+  color: #9ff;
+}
+.deploy-watch .dw-h {
+  color: #66ffff;
+  letter-spacing: 2px;
+  margin: 8px 0 4px;
+}
+.deploy-watch .dw-row { margin: 2px 0; }
+.deploy-watch .dw-row .when { color: #5aa; margin-right: 8px; }
+.deploy-watch .dw-row.new { color: #ffff66; }
+.deploy-watch .dw-row.down { color: #ff6688; }
+.deploy-watch .empty { color: #366; }

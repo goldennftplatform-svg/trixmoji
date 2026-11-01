@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DOSWAPZ // FANTASY FOOTBALL</title>
+  <meta name="description" content="DOSWAPZ Fantasy Football — free demo first. Planning path toward a licensed fantasy company. Not an offering. Paid contests off.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&display=swap">
+  <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+  <style>
+    :root { --g:#00ff00; --gd:#00aa00; --y:#ffff00; --r:#ff4466; --p:#cc88ff; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; background:#000; color:var(--g); font-family:'VT323','Courier New',monospace; }
+    .screen { max-width:1100px; margin:0 auto; padding:22px 16px 80px; position:relative; }
+    .screen::before { content:''; position:fixed; inset:0; pointer-events:none; z-index:30; background:repeating-linear-gradient(to bottom, transparent 0 3px, rgba(0,255,0,.035) 3px 5px); }
+    header { text-align:center; position:relative; z-index:10; }
+    .brand { font-size:clamp(36px,8vw,64px); letter-spacing:8px; text-shadow:0 0 8px var(--g); }
+    .brand a { color:inherit; text-decoration:none; }
+    .prompt { color:#00dd00; letter-spacing:2px; font-size:22px; }
+    .cursor { display:inline-block; width:12px; animation:blink .8s steps(1) infinite; }
+    @keyframes blink { 50%{opacity:0} }
+    .tag { color:var(--y); letter-spacing:2px; margin:8px 0 14px; text-shadow:0 0 8px rgba(255,255,0,.3); }
+    .pills { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:12px 0 18px; position:relative; z-index:10; }
+    .pills a, .pills button { font:inherit; color:var(--g); border:2px solid var(--g); background:transparent; padding:4px 10px; text-decoration:none; letter-spacing:2px; cursor:pointer; }
+    .pills a:hover, .pills button:hover, .pills button.on { color:var(--y); border-color:var(--y); background:#001800; }
+    .banner { border:2px solid var(--r); color:#ffb3c0; background:rgba(40,0,8,.55); padding:12px 14px; margin:0 0 18px; position:relative; z-index:10; line-height:1.35; }
+    .banner strong { color:#fff; }
+    .note { border-left:3px solid var(--y); color:var(--gd); padding:8px 12px; margin:0 0 16px; position:relative; z-index:10; }
+    .note strong { color:var(--y); display:block; letter-spacing:2px; }
+    h2 { color:var(--y); letter-spacing:3px; font-weight:normal; font-size:20px; margin:22px 0 10px; position:relative; z-index:10; }
+    h2 span { color:var(--gd); font-size:15px; }
+    .panel { border:2px solid var(--g); background:#000; padding:14px; margin:0 0 16px; position:relative; z-index:10; }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:8px; margin:0 0 14px; }
+    .kpis article { border:2px solid var(--g); padding:10px; }
+    .kpis .l { color:var(--gd); letter-spacing:2px; font-size:14px; }
+    .kpis .v { font-size:28px; margin-top:2px; }
+    .contestgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+    .contest { border:2px solid #003300; padding:12px; }
+    .contest.live { border-color:var(--y); }
+    .amount { font-size:26px; color:var(--y); margin:6px 0; }
+    .muted { color:var(--gd); font-size:15px; }
+    .btn { font:inherit; color:var(--g); border:2px solid var(--g); background:transparent; padding:6px 12px; cursor:pointer; letter-spacing:1px; }
+    .btn:hover { color:var(--y); border-color:var(--y); }
+    .slots { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+    .slot { border:1px solid #003300; padding:8px 10px; cursor:pointer; display:flex; justify-content:space-between; }
+    .slot.on { border-color:var(--y); background:#101000; color:var(--y); }
+    .score { font-size:32px; color:var(--y); }
+    .bar { height:6px; background:#001800; }
+    .bar b { display:block; height:100%; background:var(--g); width:0; }
+    table { width:100%; border-collapse:collapse; font-size:16px; }
+    th, td { text-align:left; padding:7px 8px; border-bottom:1px solid #003300; }
+    th { color:var(--y); font-weight:normal; letter-spacing:1px; }
+    .phase { border:1px solid #003300; padding:10px 12px; margin:0 0 8px; }
+    .phase b { color:var(--y); }
+    .warn { color:#ffb3c0; }
+    footer { text-align:center; color:var(--gd); margin-top:28px; letter-spacing:2px; position:relative; z-index:10; }
+    footer a { color:var(--g); }
+    .marquee { overflow:hidden; white-space:nowrap; border-top:1px solid #003300; border-bottom:1px solid #003300; padding:8px 0; margin:0 0 16px; color:var(--y); position:relative; z-index:10; }
+    .marquee div { display:inline-block; min-width:100%; animation:move 22s linear infinite; }
+    @keyframes move { to { transform:translateX(-100%); } }
+    .hide { display:none; }
+    .presets { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0; }
+    .presets button { font:inherit; color:var(--g); border:1px solid #003300; background:transparent; padding:4px 8px; cursor:pointer; }
+    .presets button.on { border-color:var(--y); color:var(--y); background:#101000; }
+    select, input[type=text] { font:inherit; color:var(--g); background:#000; border:1px solid #003300; padding:4px 8px; }
+    .break { font-size:14px; color:var(--gd); }
+    .break b { color:var(--y); font-weight:normal; }
+    @media (max-width:750px) { .grid, .contestgrid { grid-template-columns:1fr 1fr; } }
+    @media (max-width:520px) { .contestgrid, .slots { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <header>
+      <div class="brand"><a href="/classic/hub.html">DOSWAPZ</a></div>
+      <div class="prompt">C:\BASEMENT\FANTASY&gt;<span class="cursor">_</span></div>
+      <div class="tag">HELP BUILD IT. OWN PART OF IT. * PLANNING DESK * NOT AN OFFERING</div>
+    </header>
+    <div class="pills">
+      <button type="button" class="on" data-tab="demo">DEMO</button>
+      <button type="button" data-tab="pitch">PITCH</button>
+      <button type="button" data-tab="plan">PLAN</button>
+      <button type="button" data-tab="legal">LEGAL</button>
+      <a href="/docs/fantasy-legal.html">FANTASY LEGAL</a>
+      <a href="/docs/legal.html#s11b">LEGAL §11B</a>
+      <a href="/classic/pages/basement.html">BASEMENT</a>
+    </div>
+    <div class="banner">
+      <strong>THIS PAGE IS A FREE DEMO + PLANNING DESK.</strong>
+      It is not an offer to sell securities, not a paid fantasy contest, and not a license. Paid entry tiles stay OFF until required approvals exist. No wallet connect. No deposits. No ownership subscription from this page.
+    </div>
+    <div class="marquee"><div>FREE ROLL ONLY /// PAID CONTESTS LICENSE PENDING /// FOUNDING OWNERSHIP IS A LEGAL CONCEPT NOT A LIVE SALE /// ARIZONA PATH FIRST /// PLAYER FUNDS NEVER MIX WITH COMPANY CAPITAL ///</div></div>
+
+    <section id="tab-demo">
+      <h2>// DEMO  <span>SEE THIS FIRST * LOCAL PROTOTYPE * NO FUNDS</span></h2>
+      <p class="note"><strong>NO PLAYER NAMES ON THIS SITE.</strong> Every slot is CITY + POSITION + DEPTH only — CHI QB1, PHI RB1, PIT DST. Look up who that is on the public roster page. DOSWAPZ does not license player names or a commercial stats feed yet.</p>
+      <div class="panel">
+        <h2 style="margin-top:0">// HOW IT WORKS</h2>
+        <ol>
+          <li>Enter the <b>FREE ROLL</b>. Paid tiles are dead until a license exists.</li>
+          <li>Build eight slots: QB, 2 RB, 2 WR, TE, FLEX, DST.</li>
+          <li>Each slot is a <b>city + pos</b> tag (CHI QB1 = Chicago’s listed QB1 on the public depth chart). No names here.</li>
+          <li>Need the actual roster? Open the unlicensed public roster list. That site is third-party. We do not operate it and we do not pay it a fantasy-data license.</li>
+          <li>Create a league and pick a scoring book (ESPN, Yahoo, Sleeper, NFL.com, DFS-style, IDP). Each league keeps its own book.</li>
+          <li>Lock the squad. Demo week stats are simulated city+pos lines — not live NFL scoring.</li>
+        </ol>
+        <p>
+          <a class="btn" href="https://en.wikipedia.org/wiki/List_of_current_NFL_team_rosters" target="_blank" rel="noopener">PUBLIC NFL ROSTERS →</a>
+          <a class="btn" href="https://en.wikipedia.org/wiki/List_of_current_AFC_team_rosters" target="_blank" rel="noopener">AFC ROSTERS →</a>
+          <a class="btn" href="https://en.wikipedia.org/wiki/List_of_current_NFC_team_rosters" target="_blank" rel="noopener">NFC ROSTERS →</a>
+        </p>
+        <p class="muted">Wikipedia team roster lists — public, unlicensed, not a DOSWAPZ product, not official NFL scoring, not a substitute for a future licensed data vendor.</p>
+      </div>
+      <div class="panel">
+        <h2 style="margin-top:0">// CREATE LEAGUE * SCORING BOOK</h2>
+        <p class="muted">Presets copied from public defaults on ESPN, Yahoo, NFL.com, Sleeper, DraftKings, and FanDuel. Not affiliated. You can change the book per league.</p>
+        <p>
+          <label>LEAGUE NAME <input id="lgName" type="text" value="BASEMENT FREE ROLL" maxlength="40"></label>
+          <label>ROSTER
+            <select id="lgRoster"></select>
+          </label>
+        </p>
+        <div class="presets" id="lgPresets"></div>
+        <p id="lgRef" class="muted"></p>
+        <table id="lgRules"></table>
+        <p><button class="btn" type="button" onclick="saveLeague()">LOCK THIS LEAGUE BOOK</button> <span id="lgSaved" class="muted"></span></p>
+      </div>
+      <div class="panel">
+        <h2 style="margin-top:0">// WEEKLY CONTESTS</h2>
+        <div class="contestgrid">
+          <div class="contest live"><b>FREE ROLL</b><div class="amount">FREE</div><div class="muted">OPEN</div><button class="btn" type="button" onclick="enterFree()">ENTER</button></div>
+          <div class="contest"><b>$1</b><div class="amount">$1</div><div class="muted">LICENSE PENDING</div></div>
+          <div class="contest"><b>$2</b><div class="amount">$2</div><div class="muted">LICENSE PENDING</div></div>
+          <div class="contest"><b>$3</b><div class="amount">$3</div><div class="muted">LICENSE PENDING</div></div>
+          <div class="contest"><b>$5</b><div class="amount">$5</div><div class="muted">LICENSE PENDING</div></div>
+          <div class="contest"><b>$10</b><div class="amount">$10</div><div class="muted">LICENSE PENDING</div></div>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="panel">
+          <h2 style="margin-top:0">// BUILD YOUR SQUAD</h2>
+          <div class="muted">CITY + POS ONLY * EXAMPLE CHI QB1 * NO NAMES</div>
+          <div class="slots" id="slots" style="margin-top:12px"></div>
+          <div style="margin-top:12px">
+            <button class="btn" type="button" onclick="randomize()">RANDOMIZE</button>
+            <button class="btn" type="button" onclick="lock()">LOCK SQUAD</button>
+          </div>
+          <div id="msg" class="muted" style="margin-top:10px"></div>
+        </div>
+        <div class="panel">
+          <h2 style="margin-top:0">// YOUR SQUAD</h2>
+          <div class="muted" id="scoreFmt">WEEK 03 // SIMULATED BOX</div>
+          <div class="score" id="score">0.00</div>
+          <div class="bar"><b id="bar"></b></div>
+          <table id="summary" style="margin-top:10px"></table>
+          <div id="scoreBreak" class="break"></div>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="panel">
+          <h2 style="margin-top:0">// SCOREBOARD</h2>
+          <table>
+            <tr><th>#</th><th>WALLET</th><th>SCORE</th></tr>
+            <tr><td>01</td><td>7F...8F3</td><td>147.82</td></tr>
+            <tr><td>02</td><td>A1...A91</td><td>143.16</td></tr>
+            <tr><td>03</td><td>22...22C</td><td>139.44</td></tr>
+            <tr><td>04</td><td>91...91B</td><td>137.08</td></tr>
+          </table>
+          <p class="muted">Placeholder board. Not live NFL scoring.</p>
+        </div>
+        <div class="panel">
+          <h2 style="margin-top:0">// OPTIONAL DONATION * WHAT IT PAYS</h2>
+          <p>This is <b>not</b> a contest entry, not a prize pool, and not ownership. If donations are ever collected (payment is <b>disabled</b> on this prototype), they are company/start capital only:</p>
+          <ul>
+            <li>Arizona process / legal review (the plan cites a listed operator filing fee — re-verify before filing)</li>
+            <li>Business formation, books, IP</li>
+            <li>Building and hosting the <b>free</b> product</li>
+          </ul>
+          <p class="warn">They do not buy CHI QB1. They do not enter you in a paid contest. They do not issue shares. They never mix with future player entry fees.</p>
+          <div class="muted">DISPLAY ONLY * PAYMENT DISABLED</div>
+          <div style="margin-top:10px">
+            <button class="btn" type="button" onclick="support(.25)">$0.25</button>
+            <button class="btn" type="button" onclick="support(1)">$1</button>
+            <button class="btn" type="button" onclick="support(2)">$2</button>
+            <button class="btn" type="button" onclick="support(5)">$5</button>
+            <button class="btn" type="button" onclick="support(10)">$10</button>
+          </div>
+          <p id="support" class="muted">PAYMENT DISABLED IN THIS PROTOTYPE.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-pitch" class="hide">
+      <h2>// PITCH  <span>COMMUNITY OWNERSHIP BUSINESS PLAN</span></h2>
+      <div class="kpis">
+        <article><div class="l">ONE LINE</div><div class="v" style="font-size:18px">HELP BUILD IT. OWN PART OF IT.</div></article>
+        <article><div class="l">NOW</div><div class="v" style="font-size:18px">FREE PRODUCT</div></article>
+        <article><div class="l">PAID</div><div class="v" style="font-size:18px">LICENSE FIRST</div></article>
+        <article><div class="l">OWNERSHIP</div><div class="v" style="font-size:18px">COUNSEL FIRST</div></article>
+      </div>
+      <div class="panel">
+        <p>DOSWAPZ Fantasy Football is planned as a community-first football product: lineups, weekly contests, leaderboards, then — only after approvals — paid contests where lawful.</p>
+        <p>The founding idea: people who help start the company can have a <em>documented</em> ownership path. That is a legal structure to be written with counsel. It is not live on this page. It is not a token, not a donation-for-equity handshake, and not a promise of return.</p>
+        <p>Four pillars from the plan:</p>
+        <ol>
+          <li>Build the free product and community first.</li>
+          <li>Raise capital in stages. The first few thousand dollars is a start, not a licensed operator.</li>
+          <li>Document founding ownership before any money is accepted for ownership.</li>
+          <li>Turn on paid contests only after required licensing and controls exist.</li>
+        </ol>
+      </div>
+      <div class="grid">
+        <div class="panel">
+          <h2 style="margin-top:0">// WHAT IT IS</h2>
+          <p>Roster target from the plan: QB · 2 RB · 2 WR · TE · FLEX · DST · Captain (rules lock before any paid launch).</p>
+          <p>Free phase validates scoring, UX, retention. Paid phase is a licensed fantasy contest operator if and where permitted.</p>
+        </div>
+        <div class="panel">
+          <h2 style="margin-top:0">// WHAT IT IS NOT</h2>
+          <p class="warn">Not DraftKings. Not a forecast. Not a securities offering. Not mixed with $DOSWAPZ token, Awardz Pool, or Trix coins. Player entry fees (if ever collected) are not company founding capital.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <h2 style="margin-top:0">// STAGED CAPITAL (PLANNING RANGES)</h2>
+        <table>
+          <tr><th>STAGE</th><th>RANGE</th><th>JOB</th></tr>
+          <tr><td>START</td><td>$3K–$5K</td><td>Formation, Arizona process start, early legal, planning</td></tr>
+          <tr><td>BUILD</td><td>$10K–$15K</td><td>Docs, product, vendor discovery, runway</td></tr>
+          <tr><td>MVP</td><td>$25K–$50K</td><td>Platform, testing, security, early vendors</td></tr>
+          <tr><td>PREPARE</td><td>$50K–$100K+</td><td>KYC, geo, payments, data, fraud, launch readiness</td></tr>
+          <tr><td>GROW</td><td>later</td><td>Only after unit economics and approvals</td></tr>
+        </table>
+        <p class="muted">Planning ranges, not quotes. Arizona operator initial fee is cited in the plan as currently listed $2,000 — re-verify before any filing.</p>
+      </div>
+    </section>
+
+    <section id="tab-plan" class="hide">
+      <h2>// EXECUTION PLAN  <span>SESAME STREET VERSION * 8 PHASES</span></h2>
+      <div class="phase"><b>01 DEFINE</b> One-page business. Entity choice with counsel. What founding ownership means. Separate company capital from any future player money.</div>
+      <div class="phase"><b>02 FORM</b> File entity. EIN. Business bank. Books. IP inventory. Founder agreements. Cap table / membership ledger.</div>
+      <div class="phase"><b>03 FREE PRODUCT</b> Lock MVP rules. Accounts. Sports data vendor. Roster engine. Scoring. Contests/leaderboards. Test. Launch free.</div>
+      <div class="phase"><b>04 FOUNDING CAPITAL PREP</b> Capital target. Use-of-funds budget. Counsel reviews whether securities law applies. No informal ownership promises. Contribution workflow. Reporting.</div>
+      <div class="phase"><b>05 ARIZONA / REGULATORY</b> Fantasy/gaming + securities counsel. Confirm exact license. Responsible gaming. Age/ID. Geolocation. Fraud. Official rules. File only when the package is real.</div>
+      <div class="phase"><b>06 PAID PLATFORM</b> Only after the legal path permits: deposits, withdrawals, licensed data, security test, full money-flow test, controlled launch.</div>
+      <div class="phase"><b>07 OPERATE</b> Daily contest ops. Monthly financials. KPIs. Distributions only if legally allowed after reserves.</div>
+      <div class="phase"><b>08 EXPAND</b> Other states one by one. Other sports only when data, rules, and compliance exist.</div>
+      <p class="note"><strong>FIRST 10 REAL MOVES.</strong> 1 business definition · 2 entity with counsel · 3 define founding ownership · 4 first budget · 5 hire the right attorneys · 6 form the company · 7 bank + books · 8 lock IP · 9 lock free MVP spec · 10 ship and test free before paid.</p>
+    </section>
+
+    <section id="tab-legal" class="hide">
+      <h2>// LEGAL  <span>BINDING DISCLOSURES FOR THIS MODULE</span></h2>
+      <div class="banner">
+        <strong>NOT AN OFFER TO SELL SECURITIES.</strong>
+        Nothing on this page is a subscription, investment contract, token sale, profit-sharing offer, or invitation to send money for ownership. Founding-ownership language is a planning concept. Qualified counsel must write the instrument before any solicitation.
+      </div>
+      <div class="panel">
+        <ul>
+          <li>Free demo only. Scores are simulated city+pos week boxes, not live NFL. Scoreboard wallets are fake.</li>
+          <li>League scoring books copy public defaults from ESPN, Yahoo, NFL.com, Sleeper, DraftKings, and FanDuel. Not affiliated. Not a licensed stats feed.</li>
+          <li>No player names on DOSWAPZ. Slots are city + position + depth (CHI QB1). Public roster lookup is a third-party Wikipedia list, unlicensed, not our data feed.</li>
+          <li>Paid contest tiles are inert. No deposits, withdrawals, or prize pools on this Site today.</li>
+          <li>This module is not Awardz Pool. Awardz is a separate optional arcade PVP program under Legal §11A.</li>
+          <li>$DOSWAPZ / Trix / swaps are separate. Fantasy player funds, if they ever exist, must not mix with company capital or token treasuries.</li>
+          <li>Arizona Department of Gaming materials are cited as a possible operator path. We do not claim a current fantasy-sports license.</li>
+          <li>Market figures in the pitch (U.S. category size, Arizona reported entry fees) describe an industry, not a DOSWAPZ forecast.</li>
+          <li>18+ to use. Void where prohibited. You are responsible for local gambling / contest / securities law.</li>
+          <li>Photosensitivity: CRT scanlines and yellow flash on this page. Stop if unwell. Legal §16A.</li>
+        </ul>
+        <p><a href="/docs/fantasy-legal.html" style="color:#ffff00">Open the full Fantasy legal packet →</a> · <a href="/docs/legal.html#s11b" style="color:#ffff00">Legal §11B</a></p>
+      </div>
+    </section>
+
+    <footer>
+      DOSWAPZ * BASEMENT * <a href="/classic/pages/basement.html">RETURN</a> * <a href="/docs/fantasy-legal.html">LEGAL PACKET</a>
+    </footer>
+  </div>
+  <script src="/assets/js/fantasy-scoring.js?v=20260920score"></script>
+  <script>
+    const FS = window.FantasyScoring
+    const POOL = {
+      QB: ['CHI QB1','KC QB1','BUF QB1','BAL QB1','DET QB1','CIN QB1'],
+      RB: ['PHI RB1','SF RB1','IND RB1','DAL RB1','CHI RB1','KC RB2','DET RB1'],
+      WR: ['CIN WR1','MIA WR1','MIN WR1','GB WR1','DAL WR1','DET WR2','CHI WR1'],
+      TE: ['KC TE1','SF TE1','BAL TE1','DET TE1'],
+      FLEX: ['CHI RB2','LAR WR2','GB WR2','PHI WR2','SF TE2'],
+      SF: ['LAC QB1','GB QB1','HOU QB1','MIN QB1'],
+      K: ['BAL K1','KC K1','DAL K1','SF K1'],
+      DST: ['PIT DST','CLE DST','SF DST','BUF DST','CHI DST'],
+      DL: ['CLE DL1','SF DL1','PIT DL1'],
+      LB: ['CHI LB1','BUF LB1','DAL LB1'],
+      DB: ['SEA DB1','DEN DB1','PHI DB1']
+    }
+    let league = { name: 'BASEMENT FREE ROLL', scoringId: 'espn_half', rosterId: 'classic' }
+    let slots = []
+    let chosen = new Set()
+    const slotsEl = document.getElementById('slots')
+    const score = document.getElementById('score')
+    const bar = document.getElementById('bar')
+    const summary = document.getElementById('summary')
+    const msg = document.getElementById('msg')
+    const supportEl = document.getElementById('support')
+    function rules() { return FS.PRESETS[league.scoringId] }
+    function need() { return FS.ROSTERS[league.rosterId].slots }
+    function pickSquad() {
+      const used = {}
+      return need().map(function (pos) {
+        const bag = (POOL[pos] || POOL.FLEX).filter(function (tag) { return !used[tag] })
+        const tag = bag[Math.floor(Math.random() * bag.length)] || (POOL[pos] || POOL.FLEX)[0]
+        used[tag] = true
+        return { pos: pos, tag: tag }
+      })
+    }
+    function activeSquad() {
+      return slots.filter(function (_, i) { return chosen.has(i) }).map(function (s) {
+        return { pos: s.pos, tag: s.tag, stats: FS.weekStats(s.tag, s.pos) }
+      })
+    }
+    function paintRules() {
+      const r = rules()
+      document.getElementById('lgRef').textContent = r.ref
+      document.getElementById('lgRules').innerHTML =
+        '<tr><th>PASS</th><td>' + r.passTd + ' TD / ' + r.passYdPer + ' yds / INT ' + r.int + '</td></tr>' +
+        '<tr><th>RUSH</th><td>' + r.rushTd + ' TD / ' + r.rushYdPer + ' yds</td></tr>' +
+        '<tr><th>REC</th><td>' + r.rec + ' PPR' + (r.teRec ? ' / TE ' + r.teRec : '') + ' / ' + r.recYdPer + ' yds / TD ' + r.recTd + '</td></tr>' +
+        '<tr><th>MISC</th><td>2pt ' + r.twoPt + ' / FUM lost ' + r.fumLost + (r.passBonus300 ? ' / 300-pass +' + r.passBonus300 : '') + (r.rushBonus100 ? ' / 100-rush +' + r.rushBonus100 : '') + '</td></tr>'
+      document.querySelectorAll('#lgPresets button').forEach(function (b) {
+        b.classList.toggle('on', b.getAttribute('data-id') === league.scoringId)
+      })
+      document.getElementById('scoreFmt').textContent = 'WEEK 03 // ' + r.label.toUpperCase() + ' // SIMULATED BOX'
+    }
+    function render() {
+      const book = FS.scoreSquad(rules(), activeSquad())
+      const byTag = {}
+      book.rows.forEach(function (row) { byTag[row.tag + '|' + row.pos] = row })
+      slotsEl.innerHTML = slots.map(function (x, i) {
+        const hit = byTag[x.tag + '|' + x.pos]
+        const pts = hit ? hit.scored.total.toFixed(1) : '—'
+        return '<div class="slot' + (chosen.has(i) ? ' on' : '') + '" onclick="toggle(' + i + ')"><span>' + x.tag + '</span><span>' + x.pos + ' ' + pts + '</span></div>'
+      }).join('')
+      score.textContent = book.total.toFixed(2)
+      bar.style.width = (need().length ? (chosen.size / need().length * 100) : 0) + '%'
+      summary.innerHTML = book.rows.map(function (row) {
+        return '<tr><td>' + row.pos + '</td><td>' + row.tag + '</td><td>' + row.scored.total.toFixed(2) + '</td></tr>'
+      }).join('')
+      document.getElementById('scoreBreak').innerHTML = book.rows.map(function (row) {
+        const bits = row.scored.lines.map(function (l) { return l.label + ' ' + l.pts }).join(' · ')
+        return '<div><b>' + row.tag + '</b> ' + bits + '</div>'
+      }).join('')
+    }
+    function toggle(i) { chosen.has(i) ? chosen.delete(i) : chosen.add(i); render() }
+    function randomize() {
+      slots = pickSquad()
+      chosen = new Set(slots.map(function (_, i) { return i }))
+      render()
+      msg.textContent = 'SQUAD GENERATED // ' + rules().label.toUpperCase() + ' // CITY+POS ONLY'
+    }
+    function lock() {
+      msg.textContent = chosen.size === need().length
+        ? 'SQUAD LOCKED // ' + league.name + ' // ' + rules().label.toUpperCase() + ' // FREE ROLL'
+        : 'LOCK FAILED // FILL EVERY SLOT FOR THIS ROSTER'
+    }
+    function enterFree() { msg.textContent = 'FREE ROLL ENTERED // SCORING = ' + rules().label.toUpperCase() + ' // NO FUNDS' }
+    function support(a) { supportEl.textContent = 'OPTIONAL DONATION SELECTED: $' + a.toFixed(2) + ' // WOULD GO TO FORMATION / AZ PROCESS / FREE PRODUCT — NOT PRIZES, NOT OWNERSHIP // PAYMENT DISABLED' }
+    function saveLeague() {
+      league.name = document.getElementById('lgName').value || league.name
+      league.rosterId = document.getElementById('lgRoster').value
+      paintRules()
+      randomize()
+      document.getElementById('lgSaved').textContent = 'LOCKED // ' + league.name + ' // ' + rules().label
+    }
+    function bootLeague() {
+      const box = document.getElementById('lgPresets')
+      box.innerHTML = Object.keys(FS.PRESETS).map(function (id) {
+        return '<button type="button" data-id="' + id + '">' + FS.PRESETS[id].label + '</button>'
+      }).join('')
+      box.querySelectorAll('button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          league.scoringId = b.getAttribute('data-id')
+          if (league.scoringId === 'idp') {
+            league.rosterId = 'idp'
+            document.getElementById('lgRoster').value = 'idp'
+          }
+          paintRules()
+          render()
+        })
+      })
+      const sel = document.getElementById('lgRoster')
+      sel.innerHTML = Object.keys(FS.ROSTERS).map(function (id) {
+        return '<option value="' + id + '">' + FS.ROSTERS[id].label + '</option>'
+      }).join('')
+      sel.value = league.rosterId
+      sel.addEventListener('change', function () { league.rosterId = sel.value })
+      paintRules()
+    }
+    document.querySelectorAll('.pills button[data-tab]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.pills button[data-tab]').forEach(function (b) { b.classList.remove('on') })
+        btn.classList.add('on')
+        ;['demo','pitch','plan','legal'].forEach(function (id) {
+          document.getElementById('tab-' + id).classList.toggle('hide', id !== btn.getAttribute('data-tab'))
+        })
+      })
+    })
+    bootLeague()
+    randomize()
+  </script>
+  <script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+</body>
+</html>

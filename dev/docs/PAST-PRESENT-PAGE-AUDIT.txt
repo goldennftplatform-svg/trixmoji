@@ -1,0 +1,65 @@
+﻿PAST vs PRESENT - page-by-page
+Rule: PAST = CRT/DOS green menu. PRESENT = orbit void hollow shell. Future left alone.
+
+hub.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/13th-step.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/arcade/hub.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/arcade/intro.html past=OTHER present=PRESENT-VOID OK skins past=OTHER present=PRESENT-VOID
+pages/arcade/preview.html past=OTHER present=PRESENT-VOID OK skins past=OTHER present=PRESENT-VOID
+pages/attic.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/basement.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/basement/cryptomom/play.html past=PAST-CRT present=MISSING OK-CLASSIC-ONLY (game lives in past)
+pages/basement/cryptomom/scoreboard.html past=PAST-CRT present=MISSING OK-CLASSIC-ONLY (game lives in past)
+pages/basement/media-lab.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/basement/phunk-maker.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/basement/token-launcher.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/basement/vantablack/market.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/cryptodad/donate.html past=PAST-CRT present=MISSING OK-CLASSIC-ONLY (game lives in past)
+pages/cryptodad/ftwr-maze.html past=PAST-CRT/GAME present=MISSING OK-CLASSIC-ONLY (game lives in past)
+pages/cryptodad/ftwr-scoreboard.html past=PAST-CRT present=MISSING OK-CLASSIC-ONLY (game lives in past)
+pages/cryptodad/how-to-play.html past=PAST-CRT present=MISSING OK-CLASSIC-ONLY (game lives in past)
+pages/cryptodad/images.html past=PAST-CRT present=MISSING OK-CLASSIC-ONLY (game lives in past)
+pages/cryptodad/launch.html past=PAST-CRT present=MISSING OK-CLASSIC-ONLY (game lives in past)
+pages/cryptodad/mobile.html past=PAST-CRT present=MISSING OK-CLASSIC-ONLY (game lives in past)
+pages/cryptodad/play.html past=PAST-CRT present=MISSING OK-CLASSIC-ONLY (game lives in past)
+pages/cryptodad/rabbit.html past=PAST-CRT present=MISSING OK-CLASSIC-ONLY (game lives in past)
+pages/cryptodad/scoreboard.html past=PAST-CRT present=MISSING OK-CLASSIC-ONLY (game lives in past)
+pages/cryptodad/token.html past=PAST-CRT present=MISSING OK-CLASSIC-ONLY (game lives in past)
+pages/degen/characters-preview.html past=PAST-CRT/GAME present=PRESENT-VOID OK (past CRT, present void)
+pages/degen/degen-32bit-preview.html past=PAST-CRT/GAME present=PRESENT-VOID OK (past CRT, present void)
+pages/degen/degen-looks-like-reference.html past=PAST-CRT/GAME present=PRESENT-VOID OK (past CRT, present void)
+pages/degen/degen-poses-preview.html past=PAST-CRT/GAME present=PRESENT-VOID OK (past CRT, present void)
+pages/degen/donate.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/degen/kol-fighter.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/degen/kol-fighter-capture.html past=PAST-CRT/GAME present=PRESENT-VOID OK (past CRT, present void)
+pages/degen/kol-fighter-character-preview.html past=PAST-CRT/GAME present=PRESENT-VOID OK (past CRT, present void)
+pages/degen/synopsis.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/degen/trailer.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/demplar/character.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/donate.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/doswapz/gallery.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/doswapz/meat.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/doswapz/mint.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/doswapz/swap.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/eat-shit.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/harbinger.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/hardwear/merch.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/hardwear/wallet.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/i-see-you.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/lily-pad.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/nodes.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/perpetual-vision-center.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/perpetual-vision-vault.html past=OTHER present=PRESENT-VOID OK skins past=OTHER present=PRESENT-VOID
+pages/pond-scum.html past=PAST-CRT present=PRESENT-VOID OK (past CRT, present void)
+pages/tbb/play.html past=PAST-CRT/GAME present=MISSING OK-CLASSIC-ONLY (game lives in past)
+pages/tbb/scoreboard.html past=PAST-CRT present=MISSING OK-CLASSIC-ONLY (game lives in past)
+
+SUMMARY: ok-ish=52 problems=0 missing-present=0
+
+ARCADE DETAIL:
+ classic hub skin: PAST-CRT
+ orbit hub skin: PRESENT-VOID
+ classic intro: OTHER
+ orbit intro: PRESENT-VOID
+ classic preview: OTHER
+ orbit preview: PRESENT-VOID

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#1a0a0a"/>
+  <circle cx="140" cy="140" r="30" fill="#331111" stroke="#ff5555" stroke-width="2"/>
+  <circle cx="260" cy="140" r="30" fill="#331111" stroke="#ff5555" stroke-width="2"/>
+  <text x="200" y="220" fill="#ff5555" font-family="monospace" font-size="16" text-anchor="middle">KIDS STRESSED</text>
+</svg>

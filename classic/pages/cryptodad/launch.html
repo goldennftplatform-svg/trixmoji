@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // $DOSWAPZ LAUNCH</title>
+ <meta name="description" content="$DOSWAPZ token launch on Trix Market 26 AUG 2026. Dev holds zero. 50% of developer claims go to MAPS.">
+ <meta property="og:title" content="DOSWAPZ // $DOSWAPZ LAUNCH">
+ <meta property="og:description" content="$DOSWAPZ launch sequence - Trix Market 26 AUG 2026, CRT glitch, DOSWAPZ.">
+ <meta property="og:image" content="https://doswapz.com/assets/images/cryptodad_colorful/22.jpg">
+ <meta property="og:url" content="https://doswapz.com/classic/pages/cryptodad/launch.html">
+ <meta name="twitter:card" content="summary_large_image">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='38' font-family='monospace' font-size='14' fill='%23fff' text-anchor='middle' font-weight='bold'%3ECD%3C/text%3E%3C/svg%3E">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ height: 100%;
+ background: #000;
+ color: #00ff00;
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow: hidden;
+ }
+
+ .launch-screen {
+ position: fixed;
+ inset: 0;
+ background: #000;
+ }
+
+ .launch-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px, transparent 3px,
+ rgba(0, 255, 0, 0.04) 3px, rgba(0, 255, 0, 0.04) 5px
+ );
+ pointer-events: none;
+ z-index: 40;
+ }
+
+ .launch-stage {
+ position: absolute;
+ inset: 0;
+ overflow: hidden;
+ }
+
+ .launch-stage::after {
+ content: '';
+ position: absolute;
+ inset: 0;
+ background: radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.65) 100%);
+ pointer-events: none;
+ z-index: 2;
+ }
+
+ .launch-stage.mood-heat::after {
+ background: radial-gradient(circle at center, transparent 35%, rgba(40, 0, 0, 0.55) 100%);
+ box-shadow: inset 0 0 120px rgba(255, 40, 0, 0.25);
+ }
+
+ .launch-stage.mood-warm::after {
+ box-shadow: inset 0 0 80px rgba(255, 200, 80, 0.12);
+ }
+
+ .launch-img {
+ position: absolute;
+ inset: -8%;
+ width: 116%;
+ height: 116%;
+ object-fit: cover;
+ opacity: 0;
+ transform: scale(1.04);
+ transition: opacity 1.1s ease, transform 6s linear;
+ filter: saturate(1.05) contrast(1.02);
+ image-rendering: pixelated;
+ z-index: 0;
+ }
+
+ .launch-img.front {
+ opacity: 1;
+ transform: scale(1.12);
+ z-index: 1;
+ }
+
+ .launch-stage.mood-heat .launch-img.front {
+ filter: saturate(1.2) contrast(1.1) hue-rotate(-12deg);
+ }
+
+ .launch-stage.mood-warm .launch-img.front {
+ filter: saturate(1.15) contrast(1.05) sepia(0.15);
+ }
+
+ .launch-stage.mood-montage .launch-img {
+ transition: opacity 0.35s ease, transform 3s linear;
+ }
+
+ .launch-glitch-flash {
+ position: fixed;
+ inset: 0;
+ background: rgba(0, 255, 0, 0.12);
+ mix-blend-mode: screen;
+ opacity: 0;
+ pointer-events: none;
+ z-index: 35;
+ }
+
+ .launch-glitch-flash.on {
+ opacity: 1;
+ }
+
+ .launch-hud {
+ position: fixed;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ z-index: 50;
+ padding: 16px 18px 42px;
+ background: linear-gradient(to top, rgba(0, 0, 0, 0.92), transparent);
+ text-align: center;
+ }
+
+ .launch-title {
+ font-size: clamp(28px, 6vw, 42px);
+ letter-spacing: 8px;
+ color: #ffff00;
+ text-shadow: 0 0 8px #00ff00;
+ margin-bottom: 6px;
+ }
+
+ .launch-caption {
+ font-size: clamp(16px, 3.5vw, 22px);
+ color: #00ff00;
+ letter-spacing: 3px;
+ min-height: 28px;
+ margin-bottom: 14px;
+ }
+
+ .launch-btns {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ gap: 10px;
+ }
+
+ .launch-btn {
+ font-family: inherit;
+ font-size: 18px;
+ color: #00ff00;
+ background: transparent;
+ border: 2px solid #00ff41;
+ padding: 6px 18px;
+ cursor: pointer;
+ text-decoration: none;
+ display: inline-block;
+ }
+
+ .launch-btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .launch-btn-primary {
+ border-color: #ffff00;
+ color: #ffff00;
+ }
+
+ .launch-tag {
+ position: fixed;
+ top: 14px;
+ left: 14px;
+ z-index: 50;
+ font-size: 13px;
+ color: #00aa00;
+ letter-spacing: 2px;
+ border: 1px solid #003300;
+ padding: 4px 8px;
+ background: rgba(0, 0, 0, 0.7);
+ }
+
+ @media (max-width: 620px) {
+ .launch-hud { padding-bottom: 50px; }
+ .launch-btn { font-size: 17px; padding: 10px 16px; min-height: 44px; }
+ }
+
+ @media (prefers-reduced-motion: reduce) {
+ .launch-img { transition: none; transform: none; }
+ .launch-glitch-flash { display: none; }
+ }
+ </style>
+</head>
+<body>
+ <div class="launch-screen" id="screen">
+ <div class="launch-stage mood-hero" id="launchStage">
+ <img class="launch-img front" id="launchImgA" src="/assets/images/cryptodad_colorful/11.jpg" alt="">
+ <img class="launch-img" id="launchImgB" alt="">
+ </div>
+ <div class="launch-glitch-flash" id="launchGlitchFlash"></div>
+ <div class="launch-tag">$DOSWAPZ // LAUNCH SEQ * 26 AUG 2026</div>
+ <div class="launch-hud">
+ <div class="launch-title">$DOSWAPZ</div>
+ <div class="launch-caption" id="launchCaption">INITIALIZING...</div>
+ <div class="launch-btns">
+ <button type="button" class="launch-btn launch-btn-primary" id="launchEnter">ENTER TOKEN PAGE</button>
+ <button type="button" class="launch-btn" id="launchSkip">SKIP</button>
+ <a href="/classic/pages/cryptodad/rabbit.html" class="launch-btn">FTWR</a>
+ <a href="/classic/hub.html" class="launch-btn">HUB</a>
+ </div>
+ </div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+ <script src="/assets/js/config/ftwr-config.js"></script>
+ <script src="/assets/js/core/shell-boot.js?v=20260906gag3" data-shell-boot="1"></script>
+ <script src="/assets/js/cryptodad/launch.js?v=20260820z"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '#screen', content: '.launch-hud', enableTitle: false });
+ </script>
+ <div style="position:fixed;bottom:4px;left:0;right:0;text-align:center;font-size:9px;color:#00aa00;opacity:0.45;letter-spacing:1px;z-index:60;">powered by Glitch Protocol</div>
+ <script src="/assets/js/core/price-ticker.js"></script>
+ </body>
+</html>

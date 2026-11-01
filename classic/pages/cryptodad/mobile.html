@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // CRYPTO DAD MOBILE</title>
+ <meta name="description" content="Crypto Dad mobile app - coming soon to Google Play and the Apple App Store.">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='32' fill='%2300ff00' text-anchor='middle' font-weight='bold'%3EDZ%3C/text%3E%3C/svg%3E">
+ <link rel="stylesheet" href="/assets/css/doswapz-shell.css?v=20260715e">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ :root {
+ --green: #00ff00;
+ --green-dim: #00aa00;
+ }
+
+ * { box-sizing: border-box; }
+
+ html, body {
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ min-height: 100%;
+ background: #000000;
+ color: var(--green);
+ font-family: 'VT323', 'Courier New', monospace;
+ overflow-x: hidden;
+ image-rendering: pixelated;
+ }
+
+ .dos-screen {
+ position: relative;
+ min-height: 100vh;
+ background: #000000;
+ padding: 24px 28px 60px;
+ }
+
+ .dos-screen::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0px,
+ transparent 3px,
+ rgba(0, 255, 0, 0.034) 3px,
+ rgba(0, 255, 0, 0.034) 5px
+ );
+ pointer-events: none;
+ z-index: 30;
+ }
+
+ .header {
+ font-size: 32px;
+ letter-spacing: 6px;
+ text-shadow: 0 0 5px #00ff00;
+ text-align: center;
+ margin-bottom: 6px;
+ }
+
+ .sub {
+ text-align: center;
+ color: var(--green-dim);
+ font-size: 18px;
+ letter-spacing: 2px;
+ margin-bottom: 22px;
+ }
+
+ .content {
+ max-width: 720px;
+ margin: 0 auto;
+ font-size: 19px;
+ line-height: 1.38;
+ padding: 0 8px;
+ position: relative;
+ z-index: 10;
+ }
+
+ .hero-img {
+ display: block;
+ width: 100%;
+ max-width: 420px;
+ margin: 0 auto 22px;
+ border: 3px solid #00ff41;
+ image-rendering: crisp-edges;
+ box-shadow: 0 0 10px rgba(0, 255, 65, 0.25);
+ }
+
+ .store-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+ gap: 16px;
+ margin: 24px 0;
+ }
+
+ .store-card {
+ border: 2px solid #00ff41;
+ background: rgba(0, 25, 0, 0.45);
+ padding: 18px 16px;
+ text-align: center;
+ position: relative;
+ min-height: 160px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ }
+
+ .store-name {
+ font-size: 24px;
+ color: #ffff00;
+ letter-spacing: 3px;
+ margin-bottom: 10px;
+ }
+
+ .store-stamp {
+ font-size: 22px;
+ color: #ffaa00;
+ border: 4px solid #ffaa00;
+ padding: 4px 16px;
+ letter-spacing: 5px;
+ text-shadow: 0 0 6px #ffaa00;
+ transform: rotate(-8deg);
+ background: rgba(0, 0, 0, 0.6);
+ margin-bottom: 8px;
+ }
+
+ .store-note {
+ font-size: 15px;
+ color: #aaffaa;
+ letter-spacing: 1px;
+ }
+
+ .buttons {
+ text-align: center;
+ margin-top: 24px;
+ }
+
+ .btn {
+ font-size: 17px;
+ color: #00ff00;
+ border: 2px solid #00ff00;
+ padding: 5px 16px;
+ text-decoration: none;
+ margin: 0 5px;
+ display: inline-block;
+ }
+
+ .btn:hover {
+ background: #003300;
+ color: #ffff00;
+ border-color: #ffff00;
+ }
+
+ .footer {
+ margin-top: 24px;
+ font-size: 13px;
+ color: #00aa00;
+ text-align: center;
+ letter-spacing: 1px;
+ }
+ </style>
+</head>
+<body>
+ <div class="dos-screen" id="screen">
+ <div class="vignette"></div>
+
+ <div class="content">
+ <div class="header">CRYPTO DAD MOBILE</div>
+ <div class="sub">KEEP FAMILY HIGH * KEEP HEAT LOW * ON THE GO</div>
+
+ <img src="/assets/images/cryptodad_colorful/11.jpg" alt="Crypto Dad" class="hero-img">
+
+ <p style="text-align:center; font-size:1.2rem;">
+ The full Crypto Dad experience - pocket-sized CRT edition - is heading to official app stores.
+ </p>
+
+ <div class="store-grid">
+ <div class="store-card">
+ <div class="store-name">GOOGLE PLAY</div>
+ <div class="store-stamp">COMING SOON</div>
+ <div class="store-note">Android build in final prep</div>
+ </div>
+ <div class="store-card">
+ <div class="store-name">APPLE APP STORE</div>
+ <div class="store-stamp">COMING SOON</div>
+ <div class="store-note">iOS / iTunes submission pending</div>
+ </div>
+ </div>
+
+ <div class="buttons">
+ <a href="/classic/hub.html" class="btn"><- BACK TO MENU</a>
+ <a href="/classic/pages/cryptodad/play.html" class="btn">FULL DESKTOP GAME</a>
+ </div>
+
+ <div class="footer">
+ DOSWAPZ - CRYPTO DAD MOBILE * STORE LAUNCH IMMINENT
+ </div>
+ </div>
+
+ <div class="glitch-layer" id="glitchLayer"></div>
+ </div>
+
+ <script src="/assets/js/core/glitch.js"></script>
+ <script>
+ DOSWAPZ_GLITCH.init({ screen: '.dos-screen, #screen', content: '.content, #content' });
+ </script>
+ <div style="text-align:center; font-size:9px; color:#00aa00; opacity:0.5; margin-top:6px; letter-spacing:1px;">powered by Glitch Protocol</div>
+<script src="/assets/js/core/price-ticker.js"></script>
+ 
+<script>
+/* Era embed: when Present hosts this classic game, hide Past hub exits so you stay in Present */
+(function(){
+  try {
+    if (!/[?&]embed=1(?:&|$)/.test(location.search)) return;
+    document.documentElement.classList.add('era-embed');
+    var style = document.createElement('style');
+    style.textContent = '.era-embed a[href*="classic/hub"], .era-embed a[href="/classic/hub.html"]{display:none!important}';
+    document.head.appendChild(style);
+    // force parent era remains orbit when possible
+    try { if (window.parent && window.parent !== window && window.parent.DOSWAPZ_ERA) window.parent.DOSWAPZ_ERA.set("orbit"); } catch(e){}
+  } catch(e){}
+})();
+</script>
+</body>
+</html>

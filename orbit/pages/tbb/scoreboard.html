@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong> Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong> Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>DOSWAPZ // $TBB BULL RUN SCOREBOARD // ORBIT</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css">
+  <link rel="stylesheet" href="/assets/css/era-present-soft.css?v=neonvoid2">
+ <link rel="stylesheet" href="/assets/css/era-transition.css">
+ <style class="page-classic-styles">
+/* orbit: :root stripped */ * { box-sizing: border-box; margin: 0; padding: 0; }
+
+ /* orbit: global html,body stripped */
+
+ body {
+ background:
+ radial-gradient(ellipse at 50% 0%, rgba(51, 255, 102, 0.06), transparent 50%),
+ #020805;
+ }
+
+ .scan {
+ pointer-events: none;
+ position: fixed;
+ inset: 0;
+ z-index: 50;
+ background: repeating-linear-gradient(
+ to bottom,
+ transparent 0 2px,
+ rgba(0, 0, 0, 0.12) 2px 4px
+ );
+ }
+
+ .wrap {
+ position: relative;
+ z-index: 1;
+ max-width: 720px;
+ margin: 0 auto;
+ padding: 28px 18px 60px;
+ }
+
+ h1 {
+ font-family: 'Press Start 2P', monospace;
+ font-size: clamp(12px, 2.8vw, 18px);
+ letter-spacing: 2px;
+ color: var(--gold);
+ text-align: center;
+ text-shadow: 0 0 16px rgba(255, 215, 0, 0.35);
+ margin-bottom: 8px;
+ line-height: 1.5;
+ }
+
+ /* orbit: .sub stripped */
+
+ .note {
+ text-align: center;
+ color: #2a5535;
+ font-size: 15px;
+ letter-spacing: 1px;
+ margin-bottom: 22px;
+ }
+
+ .stats {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 10px;
+ margin-bottom: 18px;
+ }
+
+ .stat {
+ border: 1px solid #0a3018;
+ background: #041008;
+ padding: 12px 10px;
+ text-align: center;
+ }
+
+ .stat .l {
+ color: var(--dim);
+ font-size: 13px;
+ letter-spacing: 2px;
+ margin-bottom: 4px;
+ }
+
+ .stat .v {
+ color: var(--gold);
+ font-size: 24px;
+ letter-spacing: 1px;
+ }
+
+ .board {
+ border: 1px solid #0a3018;
+ background: #041008;
+ padding: 8px 12px 14px;
+ margin-bottom: 20px;
+ box-shadow: 0 0 30px rgba(51, 255, 102, 0.06);
+ }
+
+ table {
+ width: 100%;
+ border-collapse: collapse;
+ font-size: 18px;
+ }
+
+ th {
+ color: var(--gold);
+ text-align: left;
+ font-weight: normal;
+ letter-spacing: 2px;
+ font-size: 14px;
+ padding: 10px 6px;
+ border-bottom: 1px solid #0a3018;
+ }
+
+ td {
+ padding: 10px 6px;
+ border-bottom: 1px solid #06140a;
+ color: #7ab88a;
+ }
+
+ tr:last-child td { border-bottom: none; }
+ .rank { width: 42px; color: #2a5535; }
+ .score { text-align: right; color: #fff; }
+ .sats { text-align: right; color: var(--gold); }
+ .when { text-align: right; color: #2a5535; font-size: 14px; width: 110px; }
+ .empty {
+ text-align: center;
+ color: #2a5535;
+ padding: 36px 12px !important;
+ font-style: italic;
+ }
+
+ .actions {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ justify-content: center;
+ margin-bottom: 16px;
+ }
+
+ .btn {
+ font-family: 'Press Start 2P', monospace;
+ font-size: 10px;
+ letter-spacing: 1px;
+ color: transparent;
+ background: var(--gold);
+ border: none;
+ padding: 14px 16px;
+ text-decoration: none;
+ cursor: pointer;
+ box-shadow: 0 0 0 2px transparent, 0 0 0 4px var(--gold);
+ }
+
+ .btn:hover {
+ background: var(--green);
+ box-shadow: 0 0 0 2px transparent, 0 0 0 4px var(--green);
+ }
+
+ .btn.ghost {
+ color: var(--green);
+ background: transparent;
+ box-shadow: 0 0 0 2px #0a2010, 0 0 0 4px var(--dim);
+ }
+
+ .btn.ghost:hover {
+ color: var(--gold);
+ box-shadow: 0 0 0 2px transparent, 0 0 0 4px var(--gold);
+ }
+
+ .disclaimer {
+ border: 1px solid #2a2a00;
+ background: rgba(40, 30, 0, 0.25);
+ color: #668866;
+ font-size: 14px;
+ line-height: 1.4;
+ padding: 12px;
+ letter-spacing: 0.5px;
+ }
+
+ .disclaimer strong {
+ color: var(--gold);
+ font-weight: normal;
+ display: block;
+ margin-bottom: 6px;
+ }
+
+ @media (max-width: 560px) {
+ .stats { grid-template-columns: 1fr; }
+ .when { display: none; }
+ }
+ </style>
+</head>
+<body id="screen" class="orbit-void-inner">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+ <div class="vignette"></div>
+ <div class="glitch-layer" id="glitchLayer"></div>
+ <div class="cursor-ghost" id="cursorGhost"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+ <span class="crumb-zone">$TBB BULL RUN SCOREBOARD</span>
+ <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+ <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="float-field" id="field">
+ <div class="core-glow"></div>
+ <div class="orbit-line" style="width:calc(100vw - 72px);height:calc(100vh - 72px)"></div>
+ <div class="orbit-line" style="width:calc(68vw - 48px);height:calc(68vh - 48px)"></div>
+ <div class="orbit-line" style="width:min(34vmin,34vw);height:min(34vmin,34vh)"></div>
+ </div>
+
+ <main class="stage" id="content">
+ <h1 class="hollow-title" id="orbitTitle">$TBB BULL RUN SCOREBOARD</h1>
+ <p class="hollow-sub" id="stageSub">$tbb bull run scoreboard<span class="cursor-blink">|</span></p>
+</main>
+
+ <div class="orbit-panel accent-hub" id="orbitPanel">
+<h1>$TBB BULL RUN<br>SCOREBOARD</h1>
+ <div class="sub">SOFT CONNECT * RULES OK</div>
+ <div class="note">LOCAL BOARD FROM COMPLETED RUNS * NO WALLET * NO SEEDS</div>
+
+ <div class="stats">
+ <div class="stat">
+ <div class="l">BEST SCORE</div>
+ <div class="v" id="bestScore"> - </div>
+ </div>
+ <div class="stat">
+ <div class="l">ENTRIES</div>
+ <div class="v" id="entryCount">0</div>
+ </div>
+ <div class="stat">
+ <div class="l">LAST RUN</div>
+ <div class="v" id="lastRun"> - </div>
+ </div>
+ </div>
+
+ <div class="board">
+ <table>
+ <thead>
+ <tr>
+ <th class="rank">#</th>
+ <th>RUNNER</th>
+ <th class="sats">SATS</th>
+ <th class="score">PTS</th>
+ <th class="when">WHEN</th>
+ </tr>
+ </thead>
+ <tbody id="boardBody">
+ <tr><td colspan="5" class="empty">NO SCORES YET - PLAY A RUN &amp; POST AFTER REKT</td></tr>
+ </tbody>
+ </table>
+ </div>
+
+ <div class="actions">
+ <a class="btn" href="/orbit/pages/tbb/play.html">PLAY BULL RUN</a>
+ <a class="btn ghost" href="/orbit/hub.html"><- HUB</a>
+ <a class="btn ghost" href="/classic/pages/cryptodad/scoreboard.html">ALL BOARDS</a>
+ </div>
+
+ <div class="disclaimer">
+ <strong>SOFT CONNECT ONLY</strong>
+ Scores stay while rules are held: no wallet seed, soft social connect only, completed run.
+ This page reads local scores from this browser. Not financial advice. Stack sats.
+ </div>
+
+ <p class="glitch-credit">powered by Glitch Protocol</p>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/core/glitch.js"></script>
+ <script src="/assets/js/core/price-ticker.js"></script>
+
+ <script>hollowPageBoot('$TBB BULL RUN SCOREBOARD');</script>
+</body>
+</html>

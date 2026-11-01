@@ -1,0 +1,41 @@
+DOSWAPZ - ops left for you (credits next week)
+==============================================
+
+DONE FOR YOU
+------------
+- Exposed XAI key REMOVED from local .env
+- Netlify project "doswapz" (https://doswapz.com) env set:
+ HARBINGER_ALLOWED_ORIGINS = https://doswapz.com,https://www.doswapz.com,https://doswapz.netlify.app
+ HARBINGER_MAX_TOKENS = 500
+ HARBINGER_RATE_PER_MIN = 12
+ HARBINGER_RATE_PER_DAY = 80
+ XAI_MODEL = grok-4.5
+ (requires a redeploy to take effect on the live site)
+
+YOU MUST DO (cannot be done without your console login / card)
+-------------------------------------------------------------
+1) KEY ROTATION (security - do this before or when buying credits)
+ - https://console.x.ai
+ - Delete any key that was pasted in chat
+ - Create a NEW key
+
+2) SET THE NEW KEY (one double-click)
+ - Run: SET-HARBINGER-KEY.bat
+ - Paste the new key
+ - Say Y to redeploy if you want production updated immediately
+
+3) CREDITS (next week)
+ - https://console.x.ai -> team billing / credits
+ - After credits land, no code change - just refresh Harbinger
+
+4) OPTIONAL: KV for attic + live swap counters
+ - Netlify/Vercel KV: KV_REST_API_URL + KV_REST_API_TOKEN
+ - Without these, attic write + swap counter persistence stay limited
+
+LOCAL
+-----
+ START-SITE.bat -> hub
+ OPEN-HARBINGER.bat -> harbinger page
+ SET-HARBINGER-KEY.bat -> new key -> .env + Netlify
+
+Harbinger chat will say "not available" until NEW key + credits exist.

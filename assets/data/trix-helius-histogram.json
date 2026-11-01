@@ -1,0 +1,23 @@
+{
+  "updatedAt": "2026-09-13T02:51:45.932Z",
+  "pages": 48,
+  "txs": 4757,
+  "inflows": 4756,
+  "uniqueAmts": 1,
+  "newest": "2026-09-13T00:52:15.000Z",
+  "oldest": "2026-08-27T09:43:07.000Z",
+  "topAmounts": [
+    {
+      "sol": 0.306039173,
+      "lamports": 306039173,
+      "n": 4756
+    }
+  ],
+  "matchedInflows": 4756,
+  "unmatchedInflows": 0,
+  "boxesIfPriceMatched": 4756,
+  "kinds": {
+    "base": 4756
+  },
+  "unmatchedTop": []
+}

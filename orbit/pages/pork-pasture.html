@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/assets/js/core/access-gate.js?v=20261016gate"></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script>
+ (function(){if(location.protocol!=='file:')return;var p=location.pathname.replace(/\\/g,'/'),m='/doswapz',i=p.toLowerCase().lastIndexOf(m),r=i>=0?p.slice(i+m.length):'/orbit/hub.html',u='http://localhost:8890'+r;document.documentElement.innerHTML='<head><meta charset="UTF-8"><title>DOSWAPZ - use local server</title></head><body style="margin:0;background:#000;color:#0f0;font-family:Consolas,monospace"><div style="max-width:580px;margin:48px auto;padding:28px;border:2px solid #0f0;line-height:1.55"><h1 style="font-size:26px;letter-spacing:3px;margin:0 0 16px">OPEN VIA LOCAL SERVER</h1><p>Orbit pages need <code>/assets/</code> over HTTP - not <code>file://</code>.</p><p style="margin-top:20px"><strong>1.</strong> Double-click <code>OPEN-PREVIEW.bat</code><br><strong>2.</strong> Then open: <a href="'+u+'" style="color:#6cf">'+u+'</a></p></div></body>';})();
+ </script>
+ <title>DOSWAPZ // $PORK PASTURE</title>
+ <link rel="stylesheet" href="/assets/css/hollow-base.css?v=20260805v">
+ <link rel="stylesheet" href="/assets/css/orbit-void.css?v=20260805v">
+ <link rel="stylesheet" href="/assets/css/orbit-void-content.css?v=20260805v">
+ <link rel="stylesheet" href="/assets/css/era-present-soft.css?v=neonvoid2">
+ <link rel="stylesheet" href="/assets/css/era-transition.css?v=20260805v">
+ <style>
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+ * { box-sizing: border-box; }
+ body.pork-pasture {
+  margin: 0;
+  min-height: 100vh;
+  background: #070604;
+  color: #f4e6c8;
+  font-family: VT323, Consolas, monospace;
+ }
+ body.pork-pasture .dos-screen { display: none; }
+
+ .pasture-wrap {
+  position: relative;
+  z-index: 3;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 56px 14px 28px;
+ }
+
+ .pasture-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 18px;
+  margin: 0 0 10px;
+ }
+ .pasture-title h1 {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 42px);
+  letter-spacing: 3px;
+  font-weight: 400;
+  color: #ffb6c8;
+  text-shadow: 0 0 12px rgba(255, 140, 170, 0.35);
+ }
+ .pasture-title .ca {
+  font-size: 14px;
+  color: rgba(244, 230, 200, 0.55);
+  word-break: break-all;
+ }
+
+ .hud {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+ }
+ .hud-cell {
+  border: 1px solid rgba(255, 182, 200, 0.22);
+  background: rgba(8, 6, 4, 0.55);
+  padding: 8px 10px 6px;
+ }
+ .hud-cell .k {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: rgba(244, 230, 200, 0.45);
+ }
+ .hud-cell .v {
+  display: block;
+  font-size: 22px;
+  line-height: 1.1;
+  color: #fff4dc;
+ }
+ .hud-cell.buy .v { color: #8dff9a; }
+ .hud-cell.sell .v { color: #ff8a6a; }
+ .hud-chg.up { color: #8dff9a; }
+ .hud-chg.down { color: #ff8a6a; }
+ #hudPulse.live { color: #8dff9a; }
+
+ .field-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid rgba(255, 182, 200, 0.28);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+  background: #1a140c center / cover no-repeat url('/assets/images/pork-pasture/field.jpg');
+ }
+ #herd {
+  position: absolute;
+  inset: 0;
+ }
+ .zone-tag {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  letter-spacing: 3px;
+  font-size: 15px;
+  padding: 3px 8px;
+  background: rgba(0, 0, 0, 0.38);
+ }
+ .zone-tag.sell { top: 8%; left: 10%; color: #ffb197; }
+ .zone-tag.buy { bottom: 8%; left: 10%; color: #b6ffc0; }
+ .zone-tag.px { top: 46%; left: 50%; transform: translate(-50%, -50%); color: #f4e6c8; }
+ .zone-tag.time { top: 8%; right: 10%; left: auto; color: #f4e6c8; }
+
+ .pig {
+  position: absolute;
+  z-index: 3;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: translate(-50%, -50%) rotate(var(--rot, 0deg));
+  filter: none;
+ }
+ .pig .hoof {
+  position: absolute;
+  left: 50%;
+  top: 58%;
+  width: 42%;
+  height: 16%;
+  background: rgba(20, 14, 6, 0.32);
+  filter: blur(3px);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+ }
+ .pig img {
+  display: block;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+ }
+ .pig-sell img { filter: saturate(0.86) sepia(0.12); }
+ .pig-whale { z-index: 4; }
+ .pig-leave { opacity: 0.72; }
+
+ .under {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 10px;
+  margin-top: 10px;
+ }
+ .legend, .tape-box {
+  border: 1px solid rgba(255, 182, 200, 0.22);
+  background: rgba(8, 6, 4, 0.55);
+  padding: 10px 12px;
+ }
+ .legend p { margin: 0 0 6px; font-size: 16px; color: rgba(244, 230, 200, 0.78); }
+ .legend .row { font-size: 15px; color: rgba(244, 230, 200, 0.62); }
+ .legend .buy { color: #8dff9a; }
+ .legend .sell { color: #ff8a6a; }
+ .status-line {
+  margin-top: 8px;
+  font-size: 14px;
+  color: rgba(244, 230, 200, 0.5);
+ }
+ .tape-box .k {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: rgba(244, 230, 200, 0.45);
+  margin-bottom: 6px;
+ }
+ #tape { display: flex; flex-direction: column; gap: 3px; }
+ .tape-row {
+  display: grid;
+  grid-template-columns: 52px 1fr 36px;
+  gap: 6px;
+  text-decoration: none;
+  color: #fff4dc;
+  font-size: 16px;
+ }
+ .tape-row.tape-buy .tape-side { color: #8dff9a; }
+ .tape-row.tape-sell .tape-side { color: #ff8a6a; }
+ .tape-empty { font-size: 14px; color: rgba(244, 230, 200, 0.45); }
+ .links { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px; }
+ .links a {
+  color: #ffb6c8;
+  text-decoration: none;
+  border: 1px solid rgba(255, 182, 200, 0.3);
+  padding: 4px 10px;
+  font-size: 16px;
+ }
+ .links a:hover { background: rgba(255, 182, 200, 0.12); }
+
+ @media (max-width: 820px) {
+  .hud { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .under { grid-template-columns: 1fr; }
+  .pasture-wrap { padding-top: 64px; }
+ }
+ </style>
+</head>
+<body id="screen" class="orbit-void-inner pork-pasture">
+ <canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+ <div id="stars"></div>
+ <div class="grain"></div>
+
+ <nav class="ref-crumbs" style="color:rgba(255,255,255,0.15)">
+  <span class="crumb-zone">$PORK PASTURE</span>
+  <a href="/portal.html" class="tm-static">&#9678; TIME MACHINE</a>
+  <a href="/orbit/hub.html" class="hub-static">HUB</a>
+ </nav>
+
+ <div class="pasture-wrap">
+  <div class="pasture-title">
+   <h1>$PORK PASTURE</h1>
+   <span class="ca">0xb9f599ce614Feb2e1BBe58F180F370D05b39344E</span>
+  </div>
+
+  <div class="hud" aria-live="polite">
+   <div class="hud-cell"><span class="k">PRICE</span><span class="v" id="hudPrice">—</span></div>
+   <div class="hud-cell"><span class="k">24H</span><span class="v hud-chg" id="hudChg">—</span></div>
+   <div class="hud-cell buy"><span class="k">BUYS 24H</span><span class="v" id="hudBuys">—</span></div>
+   <div class="hud-cell sell"><span class="k">SELLS 24H</span><span class="v" id="hudSells">—</span></div>
+   <div class="hud-cell"><span class="k">VOL 24H</span><span class="v" id="hudVol">—</span></div>
+   <div class="hud-cell"><span class="k">MCAP</span><span class="v" id="hudMcap">—</span></div>
+  </div>
+
+  <div class="field-frame" role="img" aria-label="Live $PORK pasture. Green grass pigs are buys. Dry grass pigs are sells.">
+   <span class="zone-tag sell">UP = BUYS</span>
+   <span class="zone-tag px">ROAD</span>
+   <span class="zone-tag buy">DOWN = SELLS</span>
+   <span class="zone-tag time">NOW →</span>
+   <div id="herd"></div>
+  </div>
+
+  <div class="under">
+   <div class="legend">
+    <p>One line of pigs. That line is the $PORK tape.</p>
+    <div class="row"><span class="buy">BUY comes in</span> — the line grazes UP.</div>
+    <div class="row"><span class="sell">SELL comes in</span> — the line grazes DOWN.</div>
+    <div class="row">Left is older. Right is now. Click a pig for the tx.</div>
+    <div class="status-line" id="hudStatus">LOADING TAPE…</div>
+    <div class="status-line" id="hudPulse">GRAZING</div>
+   </div>
+   <div class="tape-box">
+    <div class="k">LAST PRINTS</div>
+    <div id="tape"><div class="tape-empty">WAITING ON CHAIN…</div></div>
+   </div>
+  </div>
+
+  <div class="links">
+   <a href="/orbit/hub.html">&lt;- HUB</a>
+   <a href="https://dexscreener.com/ethereum/0xb9f599ce614feb2e1bbe58f180f370d05b39344e" target="_blank" rel="noopener noreferrer">DEXSCREENER</a>
+   <a href="https://etherscan.io/token/0xb9f599ce614Feb2e1BBe58F180F370D05b39344E" target="_blank" rel="noopener noreferrer">ETHERSCAN</a>
+  </div>
+ </div>
+
+ <script src="/assets/js/core/hollow-spawn.js"></script>
+ <script src="/assets/js/core/hollow-orbit.js"></script>
+ <script src="/assets/js/core/hollow-page-boot.js"></script>
+ <script src="/assets/js/core/era-portal.js"></script>
+ <script src="/assets/js/core/era-transition.js"></script>
+ <script src="/assets/js/pork/pasture.js?v=3"></script>
+ <script>if (typeof hollowPageBoot === 'function') hollowPageBoot('$PORK PASTURE');</script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>DOSWAPZ // DROP BOARD - EXAMPLE B (BBS)</title>
+ <meta name="robots" content="noindex">
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+ :root {
+ --ansi-green: #00ff41;
+ --ansi-dim: #00aa44;
+ --ansi-cyan: #00ffff;
+ --ansi-yellow: #ffff00;
+ --attic: #ccaa66;
+ --bg: #000008;
+ }
+
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+
+ html, body {
+ min-height: 100%;
+ background: var(--bg);
+ color: var(--ansi-green);
+ font-family: 'VT323', monospace;
+ font-size: 18px;
+ }
+
+ body::after {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: repeating-linear-gradient(to bottom, transparent 0 2px, rgba(0,0,0,0.12) 2px 4px);
+ pointer-events: none;
+ z-index: 90;
+ }
+
+ .bbs-bar {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ align-items: center;
+ justify-content: space-between;
+ padding: 10px 14px;
+ border-bottom: 2px solid var(--ansi-green);
+ background: #001008;
+ }
+
+ .bbs-bar .brand { color: var(--ansi-yellow); font-family: 'Press Start 2P', monospace; font-size: 10px; }
+ .bbs-bar a { color: var(--ansi-dim); text-decoration: none; margin-left: 12px; font-size: 16px; }
+ .bbs-bar a:hover { color: var(--ansi-yellow); }
+
+ .wrap { max-width: 900px; margin: 0 auto; padding: 18px 16px 48px; }
+
+ .prompt {
+ text-align: center;
+ color: var(--ansi-cyan);
+ letter-spacing: 2px;
+ margin-bottom: 4px;
+ font-size: 20px;
+ }
+
+ .status {
+ text-align: center;
+ color: var(--ansi-dim);
+ margin-bottom: 16px;
+ font-size: 16px;
+ }
+
+ .panel {
+ border: 2px solid var(--ansi-dim);
+ background: rgba(0, 12, 0, 0.88);
+ padding: 12px 14px;
+ margin-bottom: 14px;
+ }
+
+ .panel h2 {
+ font-size: 18px;
+ color: var(--ansi-yellow);
+ border-bottom: 1px dashed var(--ansi-dim);
+ padding-bottom: 4px;
+ margin-bottom: 10px;
+ letter-spacing: 1px;
+ }
+
+ .file-list { list-style: none; }
+
+ .file-list li {
+ display: grid;
+ grid-template-columns: 52px 1fr auto;
+ gap: 8px;
+ padding: 6px 4px;
+ border-bottom: 1px solid #002200;
+ align-items: baseline;
+ }
+
+ .file-list li:hover { background: #003300; }
+
+ .file-list .num { color: var(--ansi-dim); }
+ .file-list .name { color: var(--ansi-green); }
+ .file-list .name .cat { color: var(--attic); margin-right: 6px; }
+ .file-list .name .live { color: #ff6666; }
+ .file-list .meta { color: var(--ansi-cyan); font-size: 15px; white-space: nowrap; }
+
+ .file-list a {
+ color: var(--ansi-yellow);
+ text-decoration: none;
+ margin-left: 8px;
+ }
+
+ .file-list a:hover { color: #fff; background: #003300; }
+
+ .cmd {
+ margin-top: 12px;
+ color: var(--ansi-dim);
+ font-size: 16px;
+ }
+
+ .cmd strong { color: var(--ansi-cyan); font-weight: normal; }
+
+ .fnbar {
+ position: fixed;
+ bottom: 0; left: 0; right: 0;
+ display: flex;
+ flex-wrap: wrap;
+ gap: 6px;
+ padding: 6px 8px;
+ background: #001008;
+ border-top: 2px solid var(--ansi-green);
+ z-index: 100;
+ }
+
+ .fnbar a {
+ flex: 1 1 auto;
+ min-width: 70px;
+ text-align: center;
+ text-decoration: none;
+ color: #000;
+ background: var(--ansi-green);
+ padding: 6px 4px;
+ font-size: 14px;
+ border: 1px solid var(--ansi-cyan);
+ }
+
+ .fnbar a:hover { background: var(--ansi-yellow); }
+ .fnbar a span { display: block; font-size: 11px; color: #003300; }
+
+ .example-note {
+ font-size: 14px;
+ color: var(--ansi-dim);
+ text-align: center;
+ margin-top: 10px;
+ }
+ </style>
+</head>
+<body>
+ <header class="bbs-bar">
+ <div class="brand">DOSWAPZ * ATTIC FILE AREA</div>
+ <nav>
+ <a href="drop-board-gallery.html">EXAMPLES</a>
+ <a href="drop-board-a.html">GRID A</a>
+ <a href="/classic/pages/attic.html">LIVE ATTIC</a>
+ <a href="/hub.html">HUB</a>
+ </nav>
+ </header>
+
+ <div class="wrap">
+ <p class="prompt">*** DROP LOG - NEW RELEASES ***</p>
+ <p class="status">AREA 7 * SPORTS / POKÉMON / TCG * NODES: 1 * MOCK</p>
+
+ <div class="panel">
+ <h2>[+] LIVE / PREORDER</h2>
+ <ul class="file-list">
+ <li>
+ <span class="num">[#01]</span>
+ <span class="name"><span class="cat">[PKMN]</span> <span class="live">●</span> Destined Rivals ETB - restock</span>
+ <span class="meta">07/12 <a href="https://www.pokemoncenter.com" target="_blank" rel="noopener">LINK</a></span>
+ </li>
+ <li>
+ <span class="num">[#02]</span>
+ <span class="name"><span class="cat">[OP]</span> <span class="live">●</span> One Piece OP-09 Booster Box</span>
+ <span class="meta">IN STK <a href="https://www.trollandtoad.com" target="_blank" rel="noopener">LINK</a></span>
+ </li>
+ <li>
+ <span class="num">[#03]</span>
+ <span class="name"><span class="cat">[BASE]</span> 2026 Topps Chrome Baseball Hobby</span>
+ <span class="meta">PRE * 07/18 <a href="https://www.dacardworld.com" target="_blank" rel="noopener">LINK</a></span>
+ </li>
+ <li>
+ <span class="num">[#04]</span>
+ <span class="name"><span class="cat">[MTG]</span> Edge of Eternities Bundle</span>
+ <span class="meta">PRE <a href="https://magic.wizards.com" target="_blank" rel="noopener">LINK</a></span>
+ </li>
+ </ul>
+ </div>
+
+ <div class="panel">
+ <h2>[+] UPCOMING / WATCH</h2>
+ <ul class="file-list">
+ <li>
+ <span class="num">[#05]</span>
+ <span class="name"><span class="cat">[NFL]</span> Panini Prizm Football Blaster</span>
+ <span class="meta">FALL <a href="#">CAL</a></span>
+ </li>
+ <li>
+ <span class="num">[#06]</span>
+ <span class="name"><span class="cat">[PKMN]</span> Prismatic Evolutions Bundle</span>
+ <span class="meta">OOS * WATCH</span>
+ </li>
+ </ul>
+ <p class="cmd">
+ Type <strong>NOTIFY &lt;id&gt;</strong> * webhook -> Discord #attic-drops<br>
+ Type <strong>FILTER PKMN</strong> * same cats as The Attic posts
+ </p>
+ </div>
+
+ <p class="example-note">
+ EXAMPLE B - night-BBS file list * pairs with hybrid OS / dial-up vibe * not wired to API yet
+ </p>
+ </div>
+
+ <nav class="fnbar" aria-label="Function keys">
+ <a href="drop-board-a.html"><span>F1</span>GRID</a>
+ <a href="drop-board-c.html"><span>F2</span>TICKER</a>
+ <a href="drop-board-gallery.html"><span>F3</span>ALL</a>
+ <a href="/classic/pages/attic.html"><span>F6</span>ATTIC</a>
+ <a href="/hub.html"><span>F7</span>HUB</a>
+ </nav>
+</body>
+</html>
