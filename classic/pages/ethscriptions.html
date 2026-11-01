@@ -624,9 +624,10 @@
     mintNote('Choose the wallet that will pay and mint.')
     chooseWallet(bar).then(function (provider) {
      eth = provider
+     mintNote('Wallet connected. Checking Ethereum mainnet…')
      return EthscriptionCheckout.ensureChain(eth)
     }).then(function () {
-     return eth.request({ method: 'eth_requestAccounts' })
+     return EthscriptionCheckout.requestAccounts(eth)
     }).then(function (rows) {
      from = rows && rows[0]
      if (!from) throw new Error('The wallet did not connect.')

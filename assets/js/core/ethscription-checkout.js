@@ -16,11 +16,31 @@
  }
  function remove(id) { save(records().filter(function (x) { return x.id !== id })) }
  function same(a, b) { return String(a).toLowerCase() === String(b).toLowerCase() }
+ function walletRequest(provider, payload, timeout) {
+  return new Promise(function (resolve, reject) {
+   var timer = setTimeout(function () {
+    reject(new Error('Wallet did not respond. Open your wallet extension, unlock it, and finish or reject its pending connection request. No mint transaction has been requested at this step.'))
+   }, timeout || 60000)
+   try {
+    Promise.resolve(provider.request(payload)).then(function (value) { clearTimeout(timer); resolve(value) }, function (error) {
+     clearTimeout(timer)
+     var code = Number(error && (error.code || error.data && error.data.originalError && error.data.originalError.code))
+     if (code === -32002) reject(new Error('Your wallet already has a pending request. Open its extension icon and approve or reject that request, then try again. No new mint was submitted.'))
+     else reject(error)
+    })
+   } catch (error) { clearTimeout(timer); reject(error) }
+   })
+ }
+ async function requestAccounts(provider) {
+  var accounts = await walletRequest(provider, { method: 'eth_requestAccounts' })
+  if (!accounts || !accounts[0]) throw new Error('No Ethereum account connected. Unlock your wallet and select an account.')
+  return accounts
+ }
  async function ensureChain(provider) {
-  if (BigInt(await provider.request({ method: 'eth_chainId' })) !== 1n) {
-   await provider.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x1' }] })
+  if (BigInt(await walletRequest(provider, { method: 'eth_chainId' })) !== 1n) {
+   await walletRequest(provider, { method: 'wallet_switchEthereumChain', params: [{ chainId: '0x1' }] })
   }
-  if (BigInt(await provider.request({ method: 'eth_chainId' })) !== 1n) throw new Error('Switch to Ethereum mainnet before continuing.')
+  if (BigInt(await walletRequest(provider, { method: 'eth_chainId' })) !== 1n) throw new Error('Switch to Ethereum mainnet before continuing.')
  }
  async function identity(provider, from) {
   await ensureChain(provider)
@@ -29,32 +49,44 @@
  }
  async function choose(host) {
   var rows = []
-  function add(provider, name) {
-   if (provider && provider.request && !rows.some(function (r) { return r.provider === provider })) rows.push({ provider: provider, name: name })
+  function add(provider, name, id) {
+   if (provider && provider.request && !rows.some(function (r) { return r.provider === provider || id && r.id === id })) rows.push({ provider: provider, name: name, id: id })
   }
-  function announce(event) { if (event.detail) add(event.detail.provider, event.detail.info && event.detail.info.name || 'Ethereum wallet') }
+  function announce(event) {
+   if (event.detail) { var info = event.detail.info || {}; add(event.detail.provider, info.name || 'Ethereum wallet', info.uuid || info.rdns) }
+  }
   root.addEventListener('eip6963:announceProvider', announce)
   root.dispatchEvent(new Event('eip6963:requestProvider'))
   await new Promise(function (resolve) { setTimeout(resolve, 250) })
   root.removeEventListener('eip6963:announceProvider', announce)
-  var injected = root.ethereum && (root.ethereum.providers || [root.ethereum]) || []
-  injected.forEach(function (p) { add(p, p.isCoinbaseWallet ? 'Coinbase Wallet' : p.isPhantom ? 'Phantom' : p.isMetaMask ? 'MetaMask' : 'Browser wallet') })
-  add(root.phantom && root.phantom.ethereum, 'Phantom')
+  // Prefer announced identities. Legacy globals can wrap the same provider and
+  // competing extensions may all advertise isMetaMask for compatibility.
+  if (!rows.length) {
+   var injected = root.ethereum && (root.ethereum.providers || [root.ethereum]) || []
+   injected.forEach(function (p) { add(p, p.isRabby ? 'Rabby Wallet' : p.isCoinbaseWallet ? 'Coinbase Wallet' : p.isPhantom ? 'Phantom' : p.isMetaMask ? 'MetaMask' : 'Browser wallet') })
+   add(root.phantom && root.phantom.ethereum, 'Phantom')
+  }
   return new Promise(function (resolve, reject) {
    var box = document.createElement('div')
    box.className = 'row'
    box.setAttribute('aria-label', 'Choose Ethereum wallet')
+   var status = document.createElement('p'); status.setAttribute('role', 'status'); box.appendChild(status)
    function button(label, run) {
     var b = document.createElement('button')
     b.type = 'button'; b.textContent = label
     b.onclick = async function () {
      Array.from(box.querySelectorAll('button')).forEach(function (x) { x.disabled = true })
+     status.textContent = 'Connecting ' + label + '… Open its extension icon if no window appears.'
      try { var p = await run(); active = p; box.remove(); resolve(p) }
      catch (e) { box.remove(); reject(e) }
     }
     box.appendChild(b)
    }
-   rows.forEach(function (r) { button(r.name, function () { return r.provider }) })
+   rows.forEach(function (r) { button(r.name, async function () {
+    // Ask for accounts inside the wallet-button click, before network RPCs.
+    await requestAccounts(r.provider)
+    return r.provider
+   }) })
    if (projectId) button('WalletConnect / mobile wallets', async function () {
     var mod = await import('https://esm.sh/@walletconnect/ethereum-provider@2.21.1')
     var Provider = mod.EthereumProvider || mod.default
@@ -77,7 +109,7 @@
  async function connect(host) {
   var p = active || await choose(host)
   await ensureChain(p)
-  var accounts = await p.request({ method: 'eth_requestAccounts' })
+  var accounts = await requestAccounts(p)
   if (!accounts[0]) throw new Error('No Ethereum account connected.')
   return { provider: p, address: accounts[0] }
  }
@@ -178,7 +210,7 @@
    host.appendChild(card)
   })
  }
- var exported = { choose: choose, connect: connect, ensureChain: ensureChain, identity: identity, send: send, reconcile: reconcile, finish: finish, recovery: recovery, records: records, eth: eth,
+ var exported = { choose: choose, connect: connect, requestAccounts: requestAccounts, walletRequest: walletRequest, ensureChain: ensureChain, identity: identity, send: send, reconcile: reconcile, finish: finish, recovery: recovery, records: records, eth: eth,
   configure: function (id) { projectId = id || '' } }
  if (typeof module !== 'undefined' && module.exports) module.exports = exported
  else root.EthscriptionCheckout = exported

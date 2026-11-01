@@ -285,3 +285,21 @@ test('wallet gallery shows only settled purchases and distinguishes current owne
  assert.equal((await b.call(null, 'GET', { wallet: 'invalid' })).status, 400)
  assert.equal((await b.call(null, 'GET', { wallet: buyer, page: '-1' })).status, 400)
 })
+
+test('wallet pending-request and nonresponsive-provider errors explain how to recover', async () => {
+ const b = browser()
+ await assert.rejects(b.app.requestAccounts({ request: async () => { throw { code: -32002 } } }), /already has a pending request/)
+ await assert.rejects(b.app.walletRequest({ request: () => new Promise(() => {}) }, { method: 'eth_chainId' }, 5), /Wallet did not respond/)
+ assert.equal(b.sends(), 0)
+})
+
+test('four selected pieces submit sequentially after each successful reconciliation', async () => {
+ const b = browser()
+ for (let i = 0; i < 4; i++) {
+  const record = await b.app.send(options(b, { picture: { id: 'order-' + i, tokenNo: 1201 + i, wei: '200000000000000' } }))
+  assert.equal(b.sends(), i + 1)
+  await b.app.reconcile(record, async () => ({ ok: true, listing: { preview: '/art/' + i + '.png' } }))
+ }
+ assert.equal(b.app.records().length, 4)
+ assert.ok(b.app.records().every(r => r.state === 'complete'))
+})
