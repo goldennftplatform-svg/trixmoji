@@ -237,3 +237,27 @@ test('legacy Blobs bridge uses direct API without cached-only reads and fails cl
  assert.equal(context.apiURL, 'https://api.netlify.com')
  assert.throws(() => bridge.connect({}), { name: 'MissingBlobsEnvironmentError' })
 })
+
+test('real Blobs SDK bypasses cached ambient endpoint when supplied explicit request credentials', async () => {
+ const blobs = require('@netlify/blobs')
+ const bridge = require('../../api/lib/ethscriptions-blobs')
+ const old = process.env.NETLIFY_BLOBS_CONTEXT
+ const urls = []
+ try {
+  blobs.setEnvironmentContext({ siteID: 'wrong-site', token: 'ambient', edgeURL: 'https://cached.example' })
+  await bridge.withConnection({ siteID: 'correct-site', token: 'request', apiURL: 'https://api.example' }, async () => {
+   const store = blobs.getStore({ ...bridge.storeOptions(), name: 'test', consistency: 'strong', fetch: async url => {
+    urls.push(String(url))
+    if (String(url).startsWith('https://api.example/')) return new Response(JSON.stringify({ url: 'https://direct.example/board' }), { status: 200 })
+    return new Response(null, { status: 404 })
+   } })
+   assert.equal(await store.getWithMetadata('board', { type: 'json', consistency: 'strong' }), null)
+  })
+  assert.ok(urls[0].startsWith('https://api.example/api/v1/blobs/correct-site/'), JSON.stringify(urls))
+  assert.equal(urls[1], 'https://direct.example/board')
+  assert.equal(bridge.storeOptions().siteID, undefined)
+ } finally {
+  if (old === undefined) delete process.env.NETLIFY_BLOBS_CONTEXT
+  else process.env.NETLIFY_BLOBS_CONTEXT = old
+ }
+})

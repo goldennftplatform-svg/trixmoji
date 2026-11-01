@@ -1,5 +1,8 @@
 'use strict'
 
+const { AsyncLocalStorage } = require('async_hooks')
+const connection = new AsyncLocalStorage()
+
 function decode(value) {
   if (value && typeof value === 'object') return value
   if (typeof value !== 'string' || !value) return {}
@@ -32,6 +35,13 @@ function connect(event) {
     throw error
   }
   blobs.setEnvironmentContext(context)
+  return context
 }
 
-module.exports = { connect }
+function withConnection(context, run) { return connection.run(context, run) }
+function storeOptions() {
+  const context = connection.getStore()
+  return context ? { ...context } : {}
+}
+
+module.exports = { connect, withConnection, storeOptions }

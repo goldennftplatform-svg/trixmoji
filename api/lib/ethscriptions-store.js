@@ -3,6 +3,7 @@
 const fs = require('fs')
 const path = require('path')
 const diagnostics = require('./ethscriptions-diagnostics')
+const { storeOptions } = require('./ethscriptions-blobs')
 
 const BLOB_STORE = 'doswapz-ethscriptions'
 const BLOB_KEY = 'board'
@@ -65,18 +66,16 @@ async function getBlobStore() {
     const { getStore } = require('@netlify/blobs')
     if (typeof getStore !== 'function') return null
     try {
-      return getStore({ name: BLOB_STORE, consistency: blobConsistency() })
+      // Explicit siteID/token tell the SDK to bypass ambient runtime context.
+      // That context can retain a legacy cached edge with no strong-read URL.
+      return getStore({ ...storeOptions(), name: BLOB_STORE, consistency: 'strong' })
     } catch (e1) {
-      try {
-        return getStore(BLOB_STORE)
-      } catch (e2) {
-        diagnostics.report('blob-store-init', e2)
-        return null
-      }
+      diagnostics.report('blob-store-init', e1)
+      throw e1
     }
   } catch (e) {
     diagnostics.report('blob-sdk-load', e)
-    return null
+    throw e
   }
 }
 
