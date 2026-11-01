@@ -23,6 +23,7 @@ const { readSession } = require('./lib/account-session')
 const { withBoard } = require('./lib/ethscriptions-store')
 const chain = require('./lib/ethscriptions-chain')
 const phunkMerkle = require('./lib/phunk-merkle')
+const diagnostics = require('./lib/ethscriptions-diagnostics')
 
 const HOLD_MS = 15 * 60 * 1000
 const COVER = '/assets/images/ethscription-cover.png'
@@ -420,8 +421,10 @@ function claimTx(state, hash, listingId) {
 async function handler(req, res) {
   if (req.method === 'GET') {
     if (rateLimitOrReject(req, res, { prefix: 'es-read', perMinute: 60, perDay: 4000 })) return
+    let stage = 'account-session'
     try {
       const user = await currentUser(req)
+      stage = 'board-storage'
       const state = await withBoard(async function (board) {
         const now = Date.now()
         let changed = false
@@ -432,13 +435,16 @@ async function handler(req, res) {
         })
         return changed ? board : null
       })
+      stage = 'minter-manifest'
+      const minter = phunkMinterInfo()
+      stage = 'board-response'
       const wallet = ethWallet(user)
       return res.status(200).json({
         ok: true,
         name: 'ETHSCRIPTIONS',
         fee: feeSchedule(),
         escrow: chain.escrowEth(),
-        phunkMinter: phunkMinterInfo().address,
+        phunkMinter: minter.address,
         walletConnectProjectId: process.env.WALLETCONNECT_PROJECT_ID || '',
         me: user ? { uid: user.uid, wallet: wallet } : null,
         collections: (findCollection(state, PHUNK_ID) ? state.collections : state.collections.concat([defaultPhunkCollection()])).slice(-40).reverse().map(function (drop) {
@@ -451,7 +457,8 @@ async function handler(req, res) {
         mine: myDesk(state, user, wallet)
       })
     } catch (e) {
-      return fail(res, 503, 'The ethscriptions board is not available on this server.')
+      const diagnostic = diagnostics.report(stage, e)
+      return res.status(503).json({ ok: false, error: 'The ethscriptions board is not available on this server.', diagnostic })
     }
   }
 

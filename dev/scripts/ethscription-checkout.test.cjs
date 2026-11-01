@@ -207,3 +207,14 @@ test('page scripts compile and recovery module is loaded before checkout', () =>
  const setup = fs.readFileSync(path.join(root, 'classic/pages/phunk-setup.html'), 'utf8')
  for (const match of setup.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)) new vm.Script(match[1])
 })
+
+test('production diagnostics classify failures without exposing credentials or error text', () => {
+ const logs = []
+ const diagnostics = load('api/lib/ethscriptions-diagnostics.js', {}, { console: { error: (...args) => logs.push(args.join(' ')) } })
+ const secret = 'private-test-credential-never-log'
+ const result = diagnostics.report('board-storage', new Error('Missing siteID and token: ' + secret))
+ assert.equal(result.reason, 'storage_configuration')
+ assert.equal(logs.length, 1)
+ assert.ok(!logs[0].includes(secret))
+ assert.equal(diagnostics.report('minter-manifest', new Error('The phunk minter file is missing.')).reason, 'minter_file_missing')
+})

@@ -2,6 +2,7 @@
 
 const fs = require('fs')
 const path = require('path')
+const diagnostics = require('./ethscriptions-diagnostics')
 
 const BLOB_STORE = 'doswapz-ethscriptions'
 const BLOB_KEY = 'board'
@@ -69,10 +70,12 @@ async function getBlobStore() {
       try {
         return getStore(BLOB_STORE)
       } catch (e2) {
+        diagnostics.report('blob-store-init', e2)
         return null
       }
     }
   } catch (e) {
+    diagnostics.report('blob-sdk-load', e)
     return null
   }
 }
