@@ -21,7 +21,7 @@ http.createServer(async (req, res) => {
   const file = path.resolve(root, '.' + decodeURIComponent(rel))
   if (!file.startsWith(root + path.sep)) { res.writeHead(403); res.end(); return }
   const data = await fs.promises.readFile(file)
-  res.setHeader('Content-Type', ({ '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png' })[path.extname(file)] || 'application/octet-stream')
+  res.setHeader('Content-Type', ({ '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.webp': 'image/webp' })[path.extname(file)] || 'application/octet-stream')
   res.end(data)
  } catch (e) { res.writeHead(500); res.end(e.message) }
 }).listen(8894, '127.0.0.1', () => console.log('Mint preview: http://127.0.0.1:8894/ethscriptions/past#collections'))

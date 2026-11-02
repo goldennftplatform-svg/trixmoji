@@ -2,7 +2,14 @@
  'use strict'
  const SIZE = 40, el = id => document.getElementById(id)
  let catalog, page = 0, matches = [], chosen = new Set(), currentArt = null
- const image = id => '/assets/ethscriptions/phunks/img/' + id + '.png'
+ const image = id => '/assets/ethscriptions/phunks/hd/' + id + '.webp'
+ const mintImage = id => '/assets/ethscriptions/phunks/img/' + id + '.png'
+ function fallback(img, id, onFailure) {
+  img.onerror = () => {
+   img.onerror = onFailure || null
+   img.src = mintImage(id)
+  }
+ }
  const traits = item => item.t.map(index => catalog.dictionary[index])
  const visualCount = item => traits(item).filter(t => !['Token', 'Type', 'Skin'].includes(t.group)).length
  function filter() {
@@ -27,7 +34,9 @@
  function open(id) {
   const item = catalog.items.find(i => i.id === id); if (!item) return
   currentArt = id; el('artTitle').textContent = 'PHUNK #' + id
-  el('largeArt').src = image(id); el('largeArt').alt = 'Phunk #' + id; el('openArt').href = image(id)
+  fallback(el('largeArt'), id)
+  el('largeArt').src = image(id); el('largeArt').alt = 'HD source-art preview for Phunk #' + id; el('openArt').href = image(id)
+  el('mintArt').href = mintImage(id)
   el('copyLink').textContent = 'COPY ARTWORK LINK'; el('artTraits').innerHTML = ''
   for (const index of item.t) {
    const trait = catalog.dictionary[index], b = document.createElement('button'), group = document.createElement('b')
@@ -43,12 +52,12 @@
   for (const item of matches.slice(page * SIZE, (page + 1) * SIZE)) {
    const card = document.createElement('article'); card.className = 'card'
    const button = document.createElement('button'); button.className = 'artButton'; button.setAttribute('aria-label', 'View Phunk ' + item.id); button.onclick = () => open(item.id)
-   const img = document.createElement('img'); img.src = image(item.id); img.alt = 'Phunk #' + item.id; img.loading = 'lazy'; img.decoding = 'async'; img.width = 256; img.height = 256; button.appendChild(img)
+   const img = document.createElement('img'); img.src = image(item.id); img.alt = 'HD preview of Phunk #' + item.id; img.loading = 'lazy'; img.decoding = 'async'; img.width = 960; img.height = 960; button.appendChild(img)
    const heading = document.createElement('h2'); heading.textContent = 'PHUNK #' + item.id
    const arrow = document.createElement('span'); arrow.textContent = '↗'; heading.appendChild(arrow)
    const type = document.createElement('p'); type.className = 'card-trait'; type.textContent = traits(item).find(t=>t.group==='Type')?.value || 'PHUNK'
    const note = document.createElement('p'); note.textContent = visualCount(item) + ' VISUAL TRAITS · PREVIEW'
-   img.onerror = () => { note.textContent = 'IMAGE UNAVAILABLE'; img.alt = 'Unavailable artwork #' + item.id }
+   fallback(img, item.id, () => { note.textContent = 'IMAGE UNAVAILABLE'; img.alt = 'Unavailable artwork #' + item.id })
    card.append(button, heading, type, note); el('grid').appendChild(card)
   }
   if (!matches.length) { const p = document.createElement('p'); p.className = 'empty'; p.textContent = 'No Phunks match these traits. Clear a filter or try another search.'; el('grid').appendChild(p) }
