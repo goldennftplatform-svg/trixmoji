@@ -4,6 +4,10 @@
  let catalog, page = 0, matches = [], chosen = new Set(), currentArt = null
  const cleanPop = document.body.dataset.collection === 'clean-pop-v1'
  const pieceName = cleanPop ? 'CLEAN POP' : 'PHUNK'
+ if (cleanPop) {
+  const nav = document.querySelector('header nav')
+  if (nav) { const link = document.createElement('a'); link.href = '/classic/pages/clean-pop-transfer.html'; link.textContent = 'SEND TO FRIEND ↗'; nav.appendChild(link) }
+ }
  const mintImage = id => (cleanPop ? '/assets/ethscriptions/clean-pop-v1/' : '/assets/ethscriptions/phunks/img/') + id + '.png'
  const image = mintImage
  const traits = item => item.t.map(index => catalog.dictionary[index])

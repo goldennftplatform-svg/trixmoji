@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "test:mint": "node --test dev/scripts/ethscription-checkout.test.cjs",
+    "test:transfer": "node --test dev/clean-pop/transfer-checkout.test.cjs dev/clean-pop/transfer-verify.test.cjs",
     "audit:mint": "node dev/scripts/audit-phunk-mint.cjs"
   },
   "engines": {
