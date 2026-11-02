@@ -11,6 +11,7 @@ function mocks(overrides = {}) {
  const rpc = async (_, method, params) => {
   if (method === 'eth_chainId') return '0x1'
   if (method === 'eth_getCode') return info.runtime
+  if (method === 'eth_gasPrice') return '0x10'
   if (method === 'eth_estimateGas') { estimates++; return '0x123456' }
   if (method === 'eth_call') {
    const selector = params[0].data.slice(0, 10)

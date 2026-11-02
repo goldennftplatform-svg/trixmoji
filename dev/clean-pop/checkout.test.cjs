@@ -5,7 +5,7 @@ const fs = require('node:fs'), vm = require('node:vm'), path = require('node:pat
 function setup() {
  const values = new Map(), root = { localStorage: { getItem: k => values.get(k) || null, setItem: (k, v) => values.set(k, v) }, navigator: { locks: { request: async (_, __, fn) => fn({}) } } }
  const module = { exports: {} }
- vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../../assets/js/core/clean-pop-checkout.js'), 'utf8'), { module, window: root, BigInt, Date, Error })
+ vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../../assets/js/core/clean-pop-checkout.js'), 'utf8'), { module, window: root, BigInt, Date, Error, setTimeout, clearTimeout })
  let sent = 0
  const provider = { request: async ({ method }) => { if (method === 'eth_estimateGas') return '0x100'; if (method === 'eth_gasPrice') return '0x10'; if (method === 'eth_sendTransaction') { sent++; return '0x' + 'a'.repeat(64) } } }
  const options = { provider, from: '0x1111111111111111111111111111111111111111', tokenNo: 3, tx: { to: '0x2222222222222222222222222222222222222222', value: '0x1' }, preflight: async () => {}, review: async quote => quote.approve() }
@@ -65,4 +65,20 @@ test('account or network change while review is open blocks wallet request', asy
  x.options.review = quote => { listeners.accountsChanged(); return quote.approve() }
  await assert.rejects(x.api.send(x.options), /Wallet, network, or quote changed/)
  assert.equal(x.sent(), 0)
+})
+test('stalled wallet gas estimate uses a read-only fallback before explicit approval', async () => {
+ const x = setup(), original = x.options.provider.request
+ x.options.provider.request = q => q.method === 'eth_estimateGas' ? new Promise(() => {}) : original(q)
+ x.options.rpcTimeoutMs = 2
+ x.options.gasFallback = async () => ({ gas: '3000000', gasPrice: '100' })
+ const row = await x.api.send(x.options)
+ assert.equal(row.state, 'submitted'); assert.equal(x.sent(), 1)
+})
+test('a rejected gas estimate does not fall back or send', async () => {
+ const x = setup(), original = x.options.provider.request
+ let fallback = false
+ x.options.provider.request = q => q.method === 'eth_estimateGas' ? Promise.reject(Error('execution reverted')) : original(q)
+ x.options.gasFallback = async () => { fallback = true; return { gas: '1', gasPrice: '1' } }
+ await assert.rejects(x.api.send(x.options), /execution reverted/)
+ assert.equal(fallback, false); assert.equal(x.sent(), 0)
 })

@@ -39,11 +39,14 @@ async function inspect(query, deps = {}) {
    if (BigInt(network) !== 1n || String(code).toLowerCase() !== info.runtime.toLowerCase()) throw Error('Wrong network or deployed runtime mismatch.')
    const paused = iface.decodeFunctionResult('paused', pausedRaw)[0], minted = iface.decodeFunctionResult('minted', mintedRaw)[0], reserved = iface.decodeFunctionResult('minted', legacyRaw)[0], count = iface.decodeFunctionResult('mintedBy', countRaw)[0].toNumber()
    const tx = { from: buyer, to: info.address, value: '0x' + BigInt(info.priceWei).toString(16), data: iface.encodeFunctionData('mint', [uri, entry.proof, tokenNo]) }
-   let gas = null, estimateError = null
+   let gas = null, gasPrice = null, estimateError = null
    if (!paused && !minted && !reserved && count < 20 && !index.result.exists) {
-    try { gas = BigInt(await request(url, 'eth_estimateGas', [tx])).toString() } catch (error) { estimateError = String(error.message || error).slice(0, 400) }
+    try {
+     const values = await Promise.all([request(url, 'eth_estimateGas', [tx]), request(url, 'eth_gasPrice', [])])
+     gas = BigInt(values[0]).toString(); gasPrice = BigInt(values[1]).toString()
+    } catch (error) { estimateError = String(error.message || error).slice(0, 400) }
    }
-   return { tokenNo, buyer, contract: info.address, chainId: 1, paused, minted, reserved, walletMintCount: count, contentAlreadyInscribed: index.result.exists, artworkProofValid: true, estimatedGas: gas, estimateError, readOnly: true, readyToRequestWallet: !!gas }
+   return { tokenNo, buyer, contract: info.address, chainId: 1, paused, minted, reserved, walletMintCount: count, contentAlreadyInscribed: index.result.exists, artworkProofValid: true, estimatedGas: gas, estimatedGasPriceWei: gasPrice, estimateError, readOnly: true, readyToRequestWallet: !!gas && !!gasPrice }
   } catch (error) { lastError = error }
  }
  throw lastError || Error('Ethereum RPC unavailable.')

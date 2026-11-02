@@ -13,6 +13,13 @@
  }
  function remove(id) { save(records().filter(function (x) { return x.id !== id })) }
  function same(a, b) { return String(a || '').toLowerCase() === String(b || '').toLowerCase() }
+ function readRpc(provider, payload, timeoutMs) {
+  return new Promise(function (resolve, reject) {
+   var timer = setTimeout(function () { var error = new Error('Wallet did not respond to ' + payload.method + '. No mint transaction has been requested.'); error.code = 'RPC_TIMEOUT'; reject(error) }, timeoutMs)
+   try { Promise.resolve(provider.request(payload)).then(function (value) { clearTimeout(timer); resolve(value) }, function (error) { clearTimeout(timer); reject(error) }) }
+   catch (error) { clearTimeout(timer); reject(error) }
+  })
+ }
  async function send(options) {
   var progress = options.progress || function () {}
   if (!root.navigator.locks) throw new Error('This browser cannot coordinate checkout tabs. Use a current browser.')
@@ -24,8 +31,17 @@
    progress('Checking wallet, network and piece availability…')
    await options.preflight()
    progress('Estimating transaction gas…')
-   var estimate = BigInt(await options.provider.request({ method: 'eth_estimateGas', params: [options.tx] }))
-   var gasPrice = BigInt(await options.provider.request({ method: 'eth_gasPrice' }))
+   var estimate, gasPrice, fallback
+   async function serverEstimate() {
+    if (!options.gasFallback) throw new Error('The wallet did not finish estimating gas. No mint transaction was requested.')
+    if (!fallback) { progress('Wallet estimate timed out. Checking the same mint through the site’s read-only Ethereum RPC…'); fallback = await options.gasFallback() }
+    if (!fallback || BigInt(fallback.gas || 0) <= 0n || BigInt(fallback.gasPrice || 0) <= 0n) throw new Error('A reliable gas estimate is unavailable. No mint transaction was requested.')
+    return fallback
+   }
+   try { estimate = BigInt(await readRpc(options.provider, { method: 'eth_estimateGas', params: [options.tx] }, options.rpcTimeoutMs || 45000)) }
+   catch (error) { if (error.code !== 'RPC_TIMEOUT') throw error; estimate = BigInt((await serverEstimate()).gas) }
+   try { gasPrice = BigInt(await readRpc(options.provider, { method: 'eth_gasPrice' }, options.rpcTimeoutMs || 20000)) }
+   catch (error) { if (error.code !== 'RPC_TIMEOUT') throw error; gasPrice = BigInt((await serverEstimate()).gasPrice) }
    progress('Rechecking availability before the wallet review…')
    await options.preflight()
    var reviewedAt = Date.now(), invalidated = false, sent = false
