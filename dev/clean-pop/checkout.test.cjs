@@ -82,3 +82,11 @@ test('a rejected gas estimate does not fall back or send', async () => {
  await assert.rejects(x.api.send(x.options), /execution reverted/)
  assert.equal(fallback, false); assert.equal(x.sent(), 0)
 })
+test('server-first estimate does not wait for the wallet gas estimator', async () => {
+ const x = setup(), original = x.options.provider.request
+ x.options.provider.request = q => q.method === 'eth_estimateGas' || q.method === 'eth_gasPrice' ? new Promise(() => {}) : original(q)
+ x.options.preferServerGas = true
+ x.options.gasFallback = async () => ({ gas: '5301966', gasPrice: '300000000' })
+ const result = await x.api.send(x.options)
+ assert.equal(result.state, 'submitted'); assert.equal(x.sent(), 1)
+})

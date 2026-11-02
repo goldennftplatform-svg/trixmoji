@@ -117,11 +117,11 @@
   if (states[3].gte(20)) throw new Error('This wallet has reached the 20-piece limit.')
   await api({ action: 'cleanPopUnique', sha: sha })
  }
- async function serverGasEstimate(token) {
+ async function serverGasEstimate(token, sha) {
   var url = '/.netlify/functions/clean-pop-preflight?token=' + encodeURIComponent(token) + '&buyer=' + encodeURIComponent(connection.address)
   var response = await fetch(url, { cache: 'no-store', signal: AbortSignal.timeout(45000) })
   var result = await response.json()
-  if (!response.ok || !result.ok || !result.readyToRequestWallet || result.paused || result.minted || result.reserved || result.contentAlreadyInscribed || !result.artworkProofValid || result.tokenNo !== token || String(result.buyer).toLowerCase() !== connection.address.toLowerCase() || String(result.contract).toLowerCase() !== info.address.toLowerCase()) throw Error(result.estimateError || result.error || 'The live mint preflight did not confirm this piece is available.')
+  if (!response.ok || !result.ok || !result.readyToRequestWallet || result.paused || result.minted || result.reserved || result.contentAlreadyInscribed || !result.artworkProofValid || result.chainId !== 1 || result.tokenNo !== token || String(result.contentSha256).toLowerCase() !== sha.toLowerCase() || String(result.buyer).toLowerCase() !== connection.address.toLowerCase() || String(result.contract).toLowerCase() !== info.address.toLowerCase()) throw Error(result.estimateError || result.error || 'The live mint preflight did not confirm this exact piece is available.')
   return { gas: result.estimatedGas, gasPrice: result.estimatedGasPriceWei }
  }
  async function finish(row) {
@@ -167,7 +167,7 @@
     var tx = { from: connection.address, to: info.address, value: '0x' + BigInt(info.priceWei).toString(16), data: iface.encodeFunctionData('mint', [image.uri, image.proof, token]) }
     var row = await CleanPopCheckout.send({ provider: connection.provider, from: connection.address, tokenNo: token, tx: tx, progress: status,
      preflight: function () { return preflight(token, image.sha) },
-     gasFallback: function () { return serverGasEstimate(token) },
+     gasFallback: function () { return serverGasEstimate(token, image.sha) }, preferServerGas: true,
      review: function (quote) { return reviewMint(token, quote) } })
     status('Submitted #' + token + ': ' + row.hash + '. Waiting for confirmation and indexing.'); recovery()
     await finish(row); delete selected[token]; recovery(); draw()

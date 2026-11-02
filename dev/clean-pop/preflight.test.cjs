@@ -25,7 +25,7 @@ function mocks(overrides = {}) {
 }
 test('read-only preflight validates real artwork and estimates an available mint', async () => {
  const m = mocks(), result = await inspect({ token: '1', buyer }, m)
- assert.equal(result.artworkProofValid, true); assert.equal(result.readyToRequestWallet, true); assert.equal(m.estimates(), 1)
+ assert.equal(result.artworkProofValid, true); assert.equal(result.contentSha256, manifest.files[1].contentSha256); assert.equal(result.readyToRequestWallet, true); assert.equal(m.estimates(), 1)
 })
 test('paused, reserved, minted, or duplicate artwork is never estimated as ready', async () => {
  for (const key of ['paused', 'reserved', 'minted', 'exists']) {

@@ -34,14 +34,18 @@
    var estimate, gasPrice, fallback
    async function serverEstimate() {
     if (!options.gasFallback) throw new Error('The wallet did not finish estimating gas. No mint transaction was requested.')
-    if (!fallback) { progress('Wallet estimate timed out. Checking the same mint through the site’s read-only Ethereum RPC…'); fallback = await options.gasFallback() }
+    if (!fallback) { progress(options.preferServerGas ? 'Estimating this mint through the site’s read-only Ethereum RPC…' : 'Wallet estimate timed out. Checking the same mint through the site’s read-only Ethereum RPC…'); fallback = await options.gasFallback() }
     if (!fallback || BigInt(fallback.gas || 0) <= 0n || BigInt(fallback.gasPrice || 0) <= 0n) throw new Error('A reliable gas estimate is unavailable. No mint transaction was requested.')
     return fallback
    }
-   try { estimate = BigInt(await readRpc(options.provider, { method: 'eth_estimateGas', params: [options.tx] }, options.rpcTimeoutMs || 45000)) }
-   catch (error) { if (error.code !== 'RPC_TIMEOUT') throw error; estimate = BigInt((await serverEstimate()).gas) }
-   try { gasPrice = BigInt(await readRpc(options.provider, { method: 'eth_gasPrice' }, options.rpcTimeoutMs || 20000)) }
-   catch (error) { if (error.code !== 'RPC_TIMEOUT') throw error; gasPrice = BigInt((await serverEstimate()).gasPrice) }
+   if (options.preferServerGas) {
+    var server = await serverEstimate(); estimate = BigInt(server.gas); gasPrice = BigInt(server.gasPrice)
+   } else {
+    try { estimate = BigInt(await readRpc(options.provider, { method: 'eth_estimateGas', params: [options.tx] }, options.rpcTimeoutMs || 45000)) }
+    catch (error) { if (error.code !== 'RPC_TIMEOUT') throw error; estimate = BigInt((await serverEstimate()).gas) }
+    try { gasPrice = BigInt(await readRpc(options.provider, { method: 'eth_gasPrice' }, options.rpcTimeoutMs || 20000)) }
+    catch (error) { if (error.code !== 'RPC_TIMEOUT') throw error; gasPrice = BigInt((await serverEstimate()).gasPrice) }
+   }
    progress('Rechecking availability before the wallet review…')
    await options.preflight()
    var reviewedAt = Date.now(), invalidated = false, sent = false
