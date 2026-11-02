@@ -17,7 +17,7 @@
   if (!root.navigator.locks) throw new Error('This browser cannot coordinate checkout tabs. Use a current browser.')
   return root.navigator.locks.request('trixmoji-clean-pop-checkout', { ifAvailable: true }, async function (lock) {
    if (!lock) throw new Error('Clean Pop checkout is already running in another tab.')
-   if (records().some(function (r) { return same(r.buyer, options.from) && r.state !== 'complete' && r.state !== 'failed' })) {
+   if (records().some(function (r) { return r.state !== 'complete' && r.state !== 'failed' })) {
     throw new Error('A previous Clean Pop mint needs checking before another transaction.')
    }
    await options.preflight()
