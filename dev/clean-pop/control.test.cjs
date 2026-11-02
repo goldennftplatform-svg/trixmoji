@@ -5,7 +5,7 @@ const creator = '0x' + '1'.repeat(40), address = '0x' + '2'.repeat(40), hash = '
 function setup(overrides = {}) {
  const values = new Map(), root = { localStorage: { getItem: k => values.get(k) || null, setItem: (k, v) => values.set(k, v), removeItem: k => values.delete(k) }, navigator: { locks: { request: async (_, __, fn) => fn({}) } } }
  const module = { exports: {} }, info = { creator, address, runtime: '0x6000' }, calls = []
- vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../../assets/js/core/clean-pop-control.js'), 'utf8'), { module, window: root, BigInt, Date, Error })
+ vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../../assets/js/core/clean-pop-control.js'), 'utf8'), { module, window: root, BigInt, Date, Error, setTimeout, clearTimeout })
  const provider = { request: async q => {
   calls.push(q)
   if (overrides[q.method]) return overrides[q.method](q)
@@ -18,7 +18,25 @@ test('opening asks for review and sends only the creator setPaused(false) transa
  const sent = x.calls.find(q => q.method === 'eth_sendTransaction').params[0]
  assert.equal(sent.to, address); assert.equal(sent.from, creator); assert.equal(sent.value, '0x0')
  assert.equal(sent.data, '0x16c38b3c' + '0'.repeat(64)); assert.equal(row.hash, hash)
- await assert.rejects(x.api.open(x.provider, x.info, async () => {}), /already exists/)
+ await assert.rejects(x.api.open(x.provider, x.info, async () => {}), /transaction saved/)
+})
+test('two-step preparation is read-only; explicit approval submits the reviewed transaction', async () => {
+ const x = setup()
+ const plan = await x.api.prepare(x.provider, x.info)
+ assert.equal(x.calls.some(q => q.method === 'eth_sendTransaction'), false)
+ const before = x.calls.length
+ const result = await x.api.submit(x.provider, x.info, plan)
+ assert.equal(result.hash, hash)
+ assert.deepEqual(x.calls.slice(before).map(q => q.method), ['eth_sendTransaction'])
+ const tx = x.calls[before].params[0]
+ assert.equal(tx.chainId, '0x1'); assert.equal(tx.value, '0x0'); assert.equal(tx.to, address)
+ await assert.rejects(x.api.submit(x.provider, x.info, plan), /saved/)
+})
+test('expired or altered opening plans never reach the wallet', async () => {
+ const x = setup(), plan = await x.api.prepare(x.provider, x.info)
+ await assert.rejects(x.api.submit(x.provider, x.info, { ...plan, preparedAt: Date.now() - 61000 }), /expired/)
+ await assert.rejects(x.api.submit(x.provider, x.info, { ...plan, tx: { ...plan.tx, to: creator } }), /does not match/)
+ assert.equal(x.calls.some(q => q.method === 'eth_sendTransaction'), false)
 })
 test('wrong creator, wrong chain, wrong runtime and cancelled review never submit', async () => {
  for (const override of [ { eth_accounts: () => ['0x' + '3'.repeat(40)] }, { eth_chainId: () => '0xaa36a7' }, { eth_getCode: () => '0x6001' } ]) {
@@ -32,7 +50,7 @@ test('ambiguous wallet failure keeps an intent that blocks retry', async () => {
  const x = setup({ eth_sendTransaction: () => { throw Error('wallet disconnected') } })
  await assert.rejects(x.api.open(x.provider, x.info, async () => {}), /disconnected/)
  assert.equal(x.api.saved().state, 'awaiting-wallet')
- await assert.rejects(x.api.open(x.provider, x.info, async () => {}), /already exists/)
+ await assert.rejects(x.api.open(x.provider, x.info, async () => {}), /unknown outcome/)
 })
 test('opening transaction verification checks sender, calldata and current pause state', async () => {
  let checks = 0

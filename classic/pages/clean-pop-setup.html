@@ -10,7 +10,8 @@
 <p id="status" role="status"></p><label for="hash">Saved deployment transaction</label><input id="hash" readonly>
 <section><h2>Public mint control</h2>
 <p>Opening makes public minting available to everyone on this contract, including direct contract calls. The creator wallet pays gas. Check the Trixmoji mint page and test carefully.</p>
-<button id="saleState" disabled>CHECK PUBLIC MINT STATE</button><button id="openSale" disabled>OPEN PUBLIC MINT · CREATOR APPROVAL</button>
+<button id="saleState" disabled>CHECK PUBLIC MINT STATE</button><button id="openSale" disabled>PREPARE OPEN PUBLIC MINT</button>
+<section id="saleReview" hidden><p id="saleQuote"></p><p><strong>This opens public minting for everyone on Ethereum mainnet.</strong></p><button id="approveSale">APPROVE OPENING IN WALLET</button><button id="cancelSale">CANCEL</button></section>
 <label for="saleHash">Opening transaction hash</label><input id="saleHash" placeholder="0x transaction hash"><button id="checkSaleTx" disabled>CHECK OPENING TRANSACTION</button><p id="saleStatus" role="status">Connect the creator wallet to check the contract.</p></section>
 <section id="recovery" hidden><h2>Recover an unfinished wallet request</h2>
 <p>If your wallet has no pending deployment and no transaction hash was returned, you can clear this browser's unfinished request. This checks the chain first and never sends a transaction.</p>
@@ -20,12 +21,12 @@
 <p><a href="/classic/pages/clean-pop-market.html">BROWSE ALL 10,000 CLEAN POP PIECES</a> · <a href="/classic/pages/clean-pop-delivery.html">DELIVER ORIGINAL-MINTER REISSUES</a> · <a href="/assets/ethscriptions/clean-pop-v1/0.png" target="_blank" rel="noopener">View packaged artwork #0</a> · <a href="/docs/CLEAN-POP-DEPLOYMENT.md">Deployment status and instructions</a></p></main>
 <script src="/assets/js/core/ethscription-checkout.js?v=20261101"></script>
 <script src="/assets/js/core/clean-pop-recovery.js?v=1"></script>
-<script src="/assets/js/core/clean-pop-control.js?v=1"></script>
+<script src="/assets/js/core/clean-pop-control.js?v=3"></script>
 <script>
 'use strict';
 const el = id => document.getElementById(id);
 const key = 'trixmoji.clean-pop-v1.deployment';
-let info, connection, tx;
+let info, connection, tx, salePlan;
 const message = text => { el('status').textContent = text; };
 async function check() {
  await EthscriptionCheckout.identity(connection.provider, connection.address);
@@ -75,7 +76,9 @@ el('deploy').onclick=async()=>{
 };
 el('check').onclick=()=>check().catch(e=>message(e.message));
 el('saleState').onclick=async()=>{try{const state=await CleanPopControl.inspect(connection.provider,info);el('saleStatus').textContent=state.paused?'Contract reports PUBLIC MINT PAUSED.':'Contract reports PUBLIC MINT OPEN.';}catch(e){el('saleStatus').textContent=e.message;}};
-el('openSale').onclick=async()=>{el('openSale').disabled=true;try{const result=await CleanPopControl.open(connection.provider,info,async quote=>{if(!confirm('Open PUBLIC minting for everyone on '+quote.contract+'? The creator wallet pays approximately '+EthscriptionCheckout.eth(quote.estimatedGasWei)+' ETH in gas.'))throw Error('Opening cancelled.');});if(result.alreadyOpen)el('saleStatus').textContent='Contract already reports PUBLIC MINT OPEN.';else{el('saleHash').value=result.hash;el('saleStatus').textContent='Submitted '+result.hash+'. Check the opening transaction before testing.';}}catch(e){el('saleStatus').textContent=e.message;}finally{el('openSale').disabled=false;}};
+el('openSale').onclick=async()=>{el('openSale').disabled=true;el('saleReview').hidden=true;salePlan=null;el('saleStatus').textContent='Reading contract state and estimating gas. No transaction requested yet…';try{const result=await CleanPopControl.prepare(connection.provider,info);if(result.alreadyOpen)el('saleStatus').textContent='Contract already reports PUBLIC MINT OPEN.';else{salePlan=result;el('saleQuote').textContent='Contract: '+info.address+' · Value: 0 ETH · Estimated gas cost: '+EthscriptionCheckout.eth(result.estimatedGasWei)+' ETH. Quote expires in 60 seconds.';el('saleReview').hidden=false;el('saleStatus').textContent='Prepared. Click APPROVE OPENING IN WALLET below to request approval.';}}catch(e){el('saleStatus').textContent=e.message;}finally{el('openSale').disabled=false;}};
+el('approveSale').onclick=async()=>{el('approveSale').disabled=true;el('saleStatus').textContent='Opening approval requested. Open the selected wallet extension to approve or reject. Do not submit again.';try{const result=await CleanPopControl.submit(connection.provider,info,salePlan);el('saleHash').value=result.hash;el('saleReview').hidden=true;salePlan=null;el('saleStatus').textContent='Submitted '+result.hash+'. Check the opening transaction before testing.';}catch(e){el('saleStatus').textContent=e.message;}finally{el('approveSale').disabled=false;}};
+el('cancelSale').onclick=()=>{salePlan=null;el('saleReview').hidden=true;el('saleStatus').textContent='Preparation cancelled. No wallet transaction requested.';};
 el('checkSaleTx').onclick=async()=>{try{const result=await CleanPopControl.check(connection.provider,info,el('saleHash').value.trim());el('saleStatus').textContent=result.state==='confirmed'?'Opening transaction confirmed; contract reports PUBLIC MINT OPEN.':'Opening transaction failed. Check wallet activity before retrying.';}catch(e){el('saleStatus').textContent=e.message;}};
 el('recover').onclick=async()=>{
  el('recover').disabled=true;
