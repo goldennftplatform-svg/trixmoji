@@ -26,24 +26,38 @@
    progress('Estimating transaction gas…')
    var estimate = BigInt(await options.provider.request({ method: 'eth_estimateGas', params: [options.tx] }))
    var gasPrice = BigInt(await options.provider.request({ method: 'eth_gasPrice' }))
-   await options.review({ gas: estimate * gasPrice, price: BigInt(options.tx.value) })
-   progress('Approval received. Rechecking availability before requesting the wallet…')
+   progress('Rechecking availability before the wallet review…')
    await options.preflight()
-   var row = { id: String(options.tokenNo), tokenNo: options.tokenNo, buyer: options.from,
-    state: 'awaiting-wallet', hash: '', contract: options.tx.to, at: new Date().toISOString() }
-   update(row)
-   progress('Transaction requested from your wallet. Open the selected wallet extension to approve or reject. Do not submit again.')
-   var hash
-   try {
-    hash = await options.provider.request({ method: 'eth_sendTransaction', params: [Object.assign({}, options.tx, { gas: '0x' + (estimate + estimate / 5n).toString(16) })] })
-   } catch (error) {
-    if (Number(error && error.code) === 4001) remove(row.id)
-    throw error
+   var reviewedAt = Date.now(), invalidated = false, sent = false
+   function changed() { invalidated = true }
+   if (options.provider.on) { options.provider.on('accountsChanged', changed); options.provider.on('chainChanged', changed) }
+   async function approve() {
+    if (sent) throw new Error('The wallet request was already made. Do not submit again.')
+    if (invalidated || Date.now() - reviewedAt > 60000 || Date.now() < reviewedAt) throw new Error('Wallet, network, or quote changed. Prepare the mint again.')
+    var row = { id: String(options.tokenNo), tokenNo: options.tokenNo, buyer: options.from,
+     state: 'awaiting-wallet', hash: '', contract: options.tx.to, at: new Date().toISOString() }
+    update(row); sent = true
+    progress('Transaction requested from your wallet. Open the selected wallet extension to approve or reject. Do not submit again.')
+    var hash
+    try {
+     // Called directly from the review button click: no asynchronous RPC between click and wallet request.
+     hash = await options.provider.request({ method: 'eth_sendTransaction', params: [Object.assign({}, options.tx, { chainId: '0x1', gas: '0x' + (estimate + estimate / 5n).toString(16) })] })
+    } catch (error) {
+     if (Number(error && error.code) === 4001) remove(row.id)
+     throw error
+    }
+    if (!/^0x[a-f0-9]{64}$/i.test(String(hash))) throw new Error('Wallet returned no valid transaction hash. Check wallet activity; do not mint again.')
+    row.hash = hash; row.state = 'submitted'
+    try { update(row) } catch (_) { throw new Error('Transaction submitted: ' + hash + '. Save this hash; browser storage failed. Do not mint again.') }
+    return row
    }
-   if (!/^0x[a-f0-9]{64}$/i.test(String(hash))) throw new Error('Wallet returned no valid transaction hash. Check wallet activity; do not mint again.')
-   row.hash = hash; row.state = 'submitted'
-   try { update(row) } catch (_) { throw new Error('Transaction submitted: ' + hash + '. Save this hash; browser storage failed. Do not mint again.') }
-   return row
+   try {
+    var result = await options.review({ gas: estimate * gasPrice, price: BigInt(options.tx.value), approve: approve })
+    if (!sent || !result || !result.hash) throw new Error('No wallet transaction was submitted.')
+    return result
+   } finally {
+    if (options.provider.removeListener) { options.provider.removeListener('accountsChanged', changed); options.provider.removeListener('chainChanged', changed) }
+   }
   })
  }
  async function reconcile(row, verify) {

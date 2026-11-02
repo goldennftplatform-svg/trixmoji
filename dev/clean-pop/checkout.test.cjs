@@ -8,7 +8,7 @@ function setup() {
  vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../../assets/js/core/clean-pop-checkout.js'), 'utf8'), { module, window: root, BigInt, Date, Error })
  let sent = 0
  const provider = { request: async ({ method }) => { if (method === 'eth_estimateGas') return '0x100'; if (method === 'eth_gasPrice') return '0x10'; if (method === 'eth_sendTransaction') { sent++; return '0x' + 'a'.repeat(64) } } }
- const options = { provider, from: '0x1111111111111111111111111111111111111111', tokenNo: 3, tx: { to: '0x2222222222222222222222222222222222222222', value: '0x1' }, preflight: async () => {}, review: async () => {} }
+ const options = { provider, from: '0x1111111111111111111111111111111111111111', tokenNo: 3, tx: { to: '0x2222222222222222222222222222222222222222', value: '0x1' }, preflight: async () => {}, review: async quote => quote.approve() }
  return { api: module.exports, options, root, sent: () => sent }
 }
 test('persists a submitted hash and blocks a duplicate while pending', async () => {
@@ -46,4 +46,23 @@ test('ambiguous wallet failure blocks a second submission', async () => {
  await assert.rejects(x.api.send(x.options), /wallet disconnected/)
  assert.equal(x.api.records()[0].state, 'awaiting-wallet')
  await assert.rejects(x.api.send(x.options), /previous Clean Pop mint/)
+})
+test('wallet transaction request occurs synchronously inside explicit approval callback', async () => {
+ const x = setup(), request = x.options.provider.request
+ let insideClick = false
+ x.options.provider.request = q => {
+  if (q.method === 'eth_sendTransaction') { assert.equal(insideClick, true); assert.equal(q.params[0].chainId, '0x1') }
+  return request(q)
+ }
+ x.options.review = quote => { insideClick = true; const pending = quote.approve(); insideClick = false; return pending }
+ await x.api.send(x.options)
+ assert.equal(x.sent(), 1)
+})
+test('account or network change while review is open blocks wallet request', async () => {
+ const x = setup(), listeners = {}
+ x.options.provider.on = (event, handler) => { listeners[event] = handler }
+ x.options.provider.removeListener = event => { delete listeners[event] }
+ x.options.review = quote => { listeners.accountsChanged(); return quote.approve() }
+ await assert.rejects(x.api.send(x.options), /Wallet, network, or quote changed/)
+ assert.equal(x.sent(), 0)
 })

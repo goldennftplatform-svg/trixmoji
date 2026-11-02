@@ -83,7 +83,10 @@
    text.textContent = 'Price: ' + EthscriptionCheckout.eth(quote.price) + ' ETH + estimated gas: ' + EthscriptionCheckout.eth(quote.gas) + ' ETH. The wallet shows final fees. Artwork stays hidden until confirmation and indexing.'
    approve.type = 'button'; approve.textContent = 'APPROVE MINT IN WALLET'
    cancel.type = 'button'; cancel.textContent = 'CANCEL THIS MINT'
-   approve.onclick = function () { host.hidden = true; host.textContent = ''; resolve() }
+   approve.onclick = function () {
+    approve.disabled = true; cancel.disabled = true
+    quote.approve().then(function (row) { host.hidden = true; host.textContent = ''; resolve(row) }, function (error) { host.hidden = true; host.textContent = ''; reject(error) })
+   }
    cancel.onclick = function () { host.hidden = true; host.textContent = ''; reject(new Error('Mint cancelled. Previously confirmed pieces remain in your wallet.')) }
    host.append(heading, text, approve, cancel)
    status('Gas estimate ready. Review below and click APPROVE MINT IN WALLET.')
