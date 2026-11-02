@@ -17,7 +17,7 @@ http.createServer(async (req, res) => {
    await handler(req, res); return
   }
   const rel = url.pathname === '/ethscriptions/past' ? '/classic/pages/ethscriptions.html' : url.pathname
-  if (!(rel.startsWith('/assets/') || ['/classic/pages/ethscriptions.html', '/classic/pages/phunk-setup.html', '/classic/pages/phunk-market-preview.html', '/docs/phunk-launch.md'].includes(rel))) { res.writeHead(404); res.end(); return }
+  if (!(rel.startsWith('/assets/') || rel.startsWith('/art-candidates/') || ['/classic/pages/ethscriptions.html', '/classic/pages/phunk-setup.html', '/classic/pages/phunk-market-preview.html', '/docs/phunk-launch.md'].includes(rel))) { res.writeHead(404); res.end(); return }
   const file = path.resolve(root, '.' + decodeURIComponent(rel))
   if (!file.startsWith(root + path.sep)) { res.writeHead(403); res.end(); return }
   const data = await fs.promises.readFile(file)

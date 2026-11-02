@@ -1,4 +1,5 @@
 node_modules/
+__pycache__/
 .vercel/
 *.log
 install_output.txt
@@ -23,4 +24,7 @@ extras/
 .data/
 .playwright-mcp/
 .cache/
+
+# Local, review-only artwork renders. Never deploy or mint these from this path.
+art-candidates/
 
