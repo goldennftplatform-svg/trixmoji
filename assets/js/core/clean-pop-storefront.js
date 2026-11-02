@@ -96,15 +96,29 @@
   }
  }
  el('cleanPopConnect').onclick = async function () {
+  var button = el('cleanPopConnect')
+  button.disabled = true
+  connection = null; paused = true; updateControls()
   try {
    if (!info) throw new Error('Clean Pop configuration is still loading.')
-   var settings = await fetch('/api/ethscriptions', { cache: 'no-store' }).then(function (r) { return r.json() }).catch(function () { return {} })
-   EthscriptionCheckout.configure(settings.walletConnectProjectId || '')
-   connection = await EthscriptionCheckout.connect(el('cleanPopWallets'))
+   var injected = window.ethereum
+   var providers = injected && Array.isArray(injected.providers) ? injected.providers : injected ? [injected] : []
+   if (providers.length === 1 && providers[0] && typeof providers[0].request === 'function') {
+    // Ask inside the original click gesture so MetaMask can open its prompt.
+    status('Open your wallet to approve the connection request.')
+    var accounts = await EthscriptionCheckout.requestAccounts(providers[0])
+    await EthscriptionCheckout.ensureChain(providers[0])
+    connection = { provider: providers[0], address: accounts[0] }
+   } else {
+    var settings = await fetch('/api/ethscriptions', { cache: 'no-store' }).then(function (r) { return r.json() }).catch(function () { return {} })
+    EthscriptionCheckout.configure(settings.walletConnectProjectId || '')
+    status('Choose your wallet below.')
+    connection = await EthscriptionCheckout.connect(el('cleanPopWallets'))
+   }
    var contract = await currentContract(); paused = await contract.paused()
    status(paused ? 'Clean Pop public mint is paused. Your selected covers remain in the grid.' : 'Wallet connected. Select covers, then mint.')
    recovery(); draw()
-  } catch (error) { status(error.message) }
+  } catch (error) { status(error.message) } finally { button.disabled = false }
  }
  el('cleanPopMint').onclick = async function () {
   busy = true; draw()
