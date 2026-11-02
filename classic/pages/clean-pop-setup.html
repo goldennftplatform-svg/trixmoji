@@ -8,8 +8,14 @@
 <pre id="details">Loading configuration…</pre><p id="connectionHelp" role="status">Checking wallet connection options…</p><div id="wallets"></div>
 <button id="prepare" disabled>CONNECT CREATOR · ESTIMATE</button><button id="deploy" disabled>DEPLOY · WALLET APPROVAL</button><button id="check" disabled>VERIFY CONTRACT CODE</button>
 <p id="status" role="status"></p><label for="hash">Saved deployment transaction</label><input id="hash" readonly>
+<section id="recovery" hidden><h2>Recover an unfinished wallet request</h2>
+<p>If your wallet has no pending deployment and no transaction hash was returned, you can clear this browser's unfinished request. This checks the chain first and never sends a transaction.</p>
+<label><input id="recoveryConfirmed" type="checkbox" style="width:auto"> I checked wallet activity: there is no pending deployment or open approval request.</label>
+<button id="recover">CHECK CHAIN · CLEAR UNSENT ATTEMPT</button>
+<p>A pending-count check cannot detect every privately submitted transaction. Do not use this if your wallet shows a submission or transaction hash.</p></section>
 <p><a href="/assets/ethscriptions/clean-pop-v1/0.png" target="_blank" rel="noopener">View packaged artwork #0</a> · <a href="/docs/CLEAN-POP-DEPLOYMENT.md">Deployment status and instructions</a></p></main>
 <script src="/assets/js/core/ethscription-checkout.js?v=20261101"></script>
+<script src="/assets/js/core/clean-pop-recovery.js?v=1"></script>
 <script>
 'use strict';
 const el = id => document.getElementById(id);
@@ -56,9 +62,23 @@ el('deploy').onclick=async()=>{
   catch(e) { if(Number(e.code)===4001)localStorage.removeItem(key); throw e; }
   localStorage.setItem(key,JSON.stringify({address:info.address,hash,state:'submitted'}));
   el('hash').value=hash; message('Submitted '+hash+'. Verify contract code after confirmation.');
- }catch(e){message(e.message);}
+ }catch(e){message(e.message);const saved=JSON.parse(localStorage.getItem(key)||'null');el('recovery').hidden=!saved||!!saved.hash||saved.state!=='awaiting-wallet';}
 };
 el('check').onclick=()=>check().catch(e=>message(e.message));
+el('recover').onclick=async()=>{
+ el('recover').disabled=true;
+ try {
+  if(!el('recoveryConfirmed').checked)throw Error('Confirm that you checked wallet activity first.');
+  if(!connection)connection=await EthscriptionCheckout.connect(el('wallets'));
+  const savedText=localStorage.getItem(key), saved=JSON.parse(savedText||'null');
+  const checks=await CleanPopRecovery.inspect(connection.provider,info.creator,info.address,saved);
+  if(localStorage.getItem(key)!==savedText)throw Error('Deployment state changed in another tab. Reload before continuing.');
+  localStorage.setItem(key+'.recovery.'+Date.now(),JSON.stringify({saved,checks,recoveredAt:new Date().toISOString()}));
+  localStorage.removeItem(key);
+  tx=null;el('hash').value='';el('recovery').hidden=true;el('prepare').disabled=false;el('deploy').disabled=true;
+  message('Unfinished wallet request archived and cleared. No transaction sent. Click CONNECT CREATOR · ESTIMATE to prepare a fresh deployment.');
+ }catch(e){message(e.message);}finally{el('recover').disabled=false;}
+};
 const walletOptions = fetch('/api/ethscriptions',{cache:'no-store',signal:AbortSignal.timeout(10000)})
  .then(r=>{if(!r.ok)throw Error('Wallet options unavailable');return r.json();})
  .then(board=>{
@@ -71,7 +91,7 @@ Promise.all([fetch('/assets/data/clean-pop-minter.json',{cache:'no-store'}).then
  info=config;
  if(info.version!=='clean-pop-v1'||info.chainId!==1||!/^0x[0-9a-f]{40}$/i.test(info.address)||!/^0x[0-9a-f]+$/i.test(info.deployData)||!/^0x[0-9a-f]+$/i.test(info.runtime))throw Error('Invalid Clean Pop deployment artifact');
  el('details').textContent='Creator: '+info.creator+'\nExpected NEW contract: '+info.address+'\nArtwork root: '+info.root+'\nNetwork: Ethereum mainnet\nStarts paused: yes\nPublic mint price: '+EthscriptionCheckout.eth(info.priceWei)+' ETH\nReplacements: manually verified by creator; project-paid gas';
- const saved=JSON.parse(localStorage.getItem(key)||'null');if(saved)el('hash').value=saved.hash||'Wallet outcome unknown — inspect activity';
+ const saved=JSON.parse(localStorage.getItem(key)||'null');if(saved){el('hash').value=saved.hash||'Wallet outcome unknown — inspect activity';el('recovery').hidden=!!saved.hash||saved.state!=='awaiting-wallet';}
  el('prepare').disabled=false;
 }).catch(e=>message(e.message));
 </script></body></html>
