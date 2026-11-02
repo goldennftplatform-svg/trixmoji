@@ -1,0 +1,24 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "clean-pop-minter.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.20;\n\ninterface ILegacyPhunks {\n    function minted(uint256 tokenNo) external view returns (bool);\n}\n\n/// @notice Separate Clean Pop collection. Never changes legacy mint records.\n/// @dev Owner manually verifies legacy ownership before replacement delivery.\ncontract CleanPopMinter {\n    event ethscriptions_protocol_CreateEthscription(address indexed initialOwner, string contentURI);\n    event ReplacementDelivered(bytes32 indexed legacyId, uint256 indexed tokenNo, address indexed recipient);\n    event SalePaused(bool paused);\n\n    address public constant OWNER = 0x915A3D363D0a4e4470B531f008F5142c540E5417;\n    address public constant SITE = 0x15e85a85B7026875d3529EF0c6de2723C285DA11;\n    address public constant LEGACY = 0x64A0CA6fE1f944De3210a64bD1DAb0619725281d;\n    uint256 public constant PRICE = 200000000000000;\n    bytes32 public constant ROOT = 0x9fc47a397158abd5575d778503a2a58e0ced72ee663635b91a79dca022c30669;\n    bool public paused = true;\n    bool private entered;\n    mapping(uint256 => bool) public minted;\n    mapping(address => uint256) public mintedBy;\n    mapping(bytes32 => bool) public replaced;\n\n    modifier ownerOnly() { require(msg.sender == OWNER, \"owner\"); _; }\n    modifier nonReentrant() {\n        require(!entered, \"reentrant\"); entered = true; _; entered = false;\n    }\n\n    function setPaused(bool value) external ownerOnly {\n        paused = value;\n        emit SalePaused(value);\n    }\n\n    function mint(string calldata contentURI, bytes32[] calldata proof, uint256 tokenNo) external payable nonReentrant {\n        require(!paused, \"paused\");\n        require(msg.value == PRICE, \"price\");\n        // Every previously minted legacy number stays reserved for its holder.\n        require(!ILegacyPhunks(LEGACY).minted(tokenNo), \"legacy reserved\");\n        require(mintedBy[msg.sender] < 20, \"wallet\");\n        _create(msg.sender, contentURI, proof, tokenNo);\n        mintedBy[msg.sender]++;\n        (bool siteOK,) = SITE.call{value: msg.value / 200}(\"\");\n        (bool creatorOK,) = OWNER.call{value: msg.value - msg.value / 200}(\"\");\n        require(siteOK && creatorOK, \"pay\");\n    }\n\n    /// @notice Project wallet pays gas. Zero mint price; works while public sale is paused.\n    /// @dev legacyId/recipient ownership is manually verified OFF CHAIN by OWNER.\n    function deliverReplacement(string calldata contentURI, bytes32[] calldata proof, uint256 tokenNo,\n                                bytes32 legacyId, address recipient) external ownerOnly nonReentrant {\n        require(legacyId != bytes32(0) && !replaced[legacyId], \"legacy id\");\n        require(ILegacyPhunks(LEGACY).minted(tokenNo), \"not legacy minted\");\n        require(recipient != address(0) && recipient != address(this), \"recipient\");\n        replaced[legacyId] = true;\n        _create(recipient, contentURI, proof, tokenNo);\n        emit ReplacementDelivered(legacyId, tokenNo, recipient);\n    }\n\n    function _create(address recipient, string calldata contentURI, bytes32[] calldata proof, uint256 tokenNo) private {\n        require(tokenNo < 10000 && !minted[tokenNo], \"token\");\n        require(proof.length == 14, \"proof length\");\n        bytes32 h = sha256(bytes(contentURI));\n        uint256 index = tokenNo;\n        for (uint256 p; p < 14; p++) {\n            h = (index & 1) == 0 ? sha256(abi.encodePacked(h, proof[p])) : sha256(abi.encodePacked(proof[p], h));\n            index >>= 1;\n        }\n        require(h == ROOT, \"art\");\n        minted[tokenNo] = true;\n        // The creation event must be the first creation event in the transaction.\n        emit ethscriptions_protocol_CreateEthscription(recipient, contentURI);\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "shanghai",
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode.object",
+          "evm.deployedBytecode.object"
+        ]
+      }
+    }
+  }
+}

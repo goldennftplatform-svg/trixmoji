@@ -1,0 +1,33 @@
+# Clean Pop V1 deployment status
+
+The approved 10,000 PNGs are packaged under `assets/ethscriptions/clean-pop-v1/` at 1536×1536. All files were decoded, checked for duplicate pixels, copied byte-for-byte, and verified against their ordered SHA-256 Merkle proofs. `manifest.json` includes source-file hashes, pixel hashes, exact data-URI hashes, sizes, and proofs.
+
+## Implemented
+
+- Separate `api/lib/clean-pop-minter.sol`, Solidity 0.8.20, immutable artwork root.
+- Public mint starts paused and can be paused by the configured creator.
+- Existing legacy-minted token numbers cannot be sold through the public Clean Pop mint.
+- Creator-only replacement delivery to an explicit recipient, no mint price, project pays transaction gas. Works while the public sale is paused.
+- Per-token and per-legacy-ID replay protection; reentrancy guard; creation event precedes payouts.
+- Manual eligibility model: the creator MUST verify the legacy ID, piece number and current holder off chain. The contract does NOT prove those ownership facts.
+- Separate deployment UI: `/classic/pages/clean-pop-setup.html`. It checks exact deployed runtime, saves pending transactions, and requires creator wallet approval.
+
+## Verified locally
+
+`cd dev/clean-pop` then `npm ci --ignore-scripts`, `npm run build`, `npm test`.
+
+The Ganache simulation covers paused sale, owner-only controls, legacy reservation, exact payload events, incorrect price/art, repeated public mint, and project-paid delivery/replay. Its Shanghai gas figures are NOT a current mainnet quote. Mainnet estimates must come from a current RPC.
+
+## Not completed — do not enable sales yet
+
+- Versioned checkout integration and legacy recovery regression testing.
+- Live contract deployment, code verification and independent Ethscriptions indexing of a test replacement.
+- Holder eligibility ledger and operator replacement interface.
+
+Keep `PHUNK_MINT_ENABLED=false`. This existing variable still controls the LEGACY checkout. This deployment page does not automatically migrate the checkout.
+
+## Deployment
+
+After Netlify serves the new artifact and page, open `https://trixmoji.netlify.app/classic/pages/clean-pop-setup.html`, connect the configured creator, estimate, review and approve deployment in the wallet. Deployment is optional until checkout integration is ready. It spends real gas, starts paused, and does not mint artwork. Save the transaction hash and verify code on the page. Never use the legacy `phunk-setup.html` for this collection.
+
+No real transaction was submitted by the development tools.

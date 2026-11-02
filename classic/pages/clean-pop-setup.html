@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clean Pop V1 · Deployment</title>
+<style>body{background:#10150a;color:#edf1e5;font:16px/1.6 system-ui;margin:0}main{max-width:850px;margin:auto;padding:32px}h1,a{color:#c6f308}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#202718;padding:20px}button{padding:14px;margin:8px 8px 8px 0;cursor:pointer}button:disabled{opacity:.5}input{width:100%;box-sizing:border-box;padding:12px}</style></head>
+<body><main><h1>TRIXMOJI · Clean Pop V1</h1>
+<p>Separate 1536×1536 collection. Deployment starts with public minting paused. This page sends zero ETH value; your wallet pays deployment gas.</p>
+<p><strong>Checkout migration is not complete. Keep PHUNK_MINT_ENABLED=false.</strong> Deployment does not switch the website or replace anyone's existing artwork.</p>
+<pre id="details">Loading configuration…</pre><div id="wallets"></div>
+<button id="prepare" disabled>CONNECT CREATOR · ESTIMATE</button><button id="deploy" disabled>DEPLOY · WALLET APPROVAL</button><button id="check" disabled>VERIFY CONTRACT CODE</button>
+<p id="status" role="status"></p><label for="hash">Saved deployment transaction</label><input id="hash" readonly>
+<p><a href="/assets/ethscriptions/clean-pop-v1/0.png" target="_blank" rel="noopener">View packaged artwork #0</a> · <a href="/docs/CLEAN-POP-DEPLOYMENT.md">Deployment status and instructions</a></p></main>
+<script src="/assets/js/core/ethscription-checkout.js?v=20261101"></script>
+<script>
+'use strict';
+const el = id => document.getElementById(id);
+const key = 'trixmoji.clean-pop-v1.deployment';
+let info, connection, tx;
+const message = text => { el('status').textContent = text; };
+async function check() {
+ await EthscriptionCheckout.identity(connection.provider, connection.address);
+ const code = await connection.provider.request({method:'eth_getCode',params:[info.address,'latest']});
+ if (code === '0x' || code === '0x0') { message('No deployed code. Check any saved transaction before retrying.'); return false; }
+ el('deploy').disabled = true;
+ if (code.toLowerCase() !== info.runtime.toLowerCase()) throw Error('STOP: deployed bytecode differs from the compiled artifact.');
+ message('Exact deployed runtime verified. Keep sales paused until indexed artwork testing and checkout integration are complete.');
+ return true;
+}
+el('prepare').onclick = async () => {
+ el('prepare').disabled = true; el('deploy').disabled = true;
+ try {
+  connection = await EthscriptionCheckout.connect(el('wallets'));
+  if (connection.address.toLowerCase() !== info.creator.toLowerCase()) throw Error('Connect creator wallet '+info.creator);
+  el('check').disabled = false;
+  if (await check()) return;
+  if (localStorage.getItem(key)) throw Error('Saved deployment attempt exists. Inspect its transaction before submitting anything else.');
+  const factoryCode = await connection.provider.request({method:'eth_getCode',params:[info.factory,'latest']});
+  if (factoryCode === '0x') throw Error('CREATE2 factory not found.');
+  tx={from:connection.address,to:info.factory,value:'0x0',data:info.deployData};
+  const gas=BigInt(await connection.provider.request({method:'eth_estimateGas',params:[tx]}));
+  const price=BigInt(await connection.provider.request({method:'eth_gasPrice'}));
+  tx.gas='0x'+(gas+gas/5n).toString(16);
+  message('Estimated deployment: '+gas+' gas, approximately '+EthscriptionCheckout.eth(gas*price)+' ETH. Nothing submitted.');
+  el('deploy').disabled=false;
+ } catch(e) { message(e.message); } finally { el('prepare').disabled=false; }
+};
+el('deploy').onclick=async()=>{
+ el('deploy').disabled=true;
+ try {
+  await EthscriptionCheckout.identity(connection.provider,info.creator);
+  if (await check()) return;
+  if (!tx || localStorage.getItem(key)) throw Error('Prepare deployment or inspect saved transaction first.');
+  localStorage.setItem(key,JSON.stringify({address:info.address,state:'awaiting-wallet'}));
+  let hash;
+  try { hash=await connection.provider.request({method:'eth_sendTransaction',params:[tx]}); }
+  catch(e) { if(Number(e.code)===4001)localStorage.removeItem(key); throw e; }
+  localStorage.setItem(key,JSON.stringify({address:info.address,hash,state:'submitted'}));
+  el('hash').value=hash; message('Submitted '+hash+'. Verify contract code after confirmation.');
+ }catch(e){message(e.message);}
+};
+el('check').onclick=()=>check().catch(e=>message(e.message));
+fetch('/assets/data/clean-pop-minter.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Deployment artifact unavailable');return r.json();}).then(config=>{
+ info=config;
+ if(info.version!=='clean-pop-v1'||info.chainId!==1||!/^0x[0-9a-f]{40}$/i.test(info.address)||!/^0x[0-9a-f]+$/i.test(info.deployData)||!/^0x[0-9a-f]+$/i.test(info.runtime))throw Error('Invalid Clean Pop deployment artifact');
+ el('details').textContent='Creator: '+info.creator+'\nExpected NEW contract: '+info.address+'\nArtwork root: '+info.root+'\nNetwork: Ethereum mainnet\nStarts paused: yes\nPublic mint price: '+EthscriptionCheckout.eth(info.priceWei)+' ETH\nReplacements: manually verified by creator; project-paid gas';
+ const saved=JSON.parse(localStorage.getItem(key)||'null');if(saved)el('hash').value=saved.hash||'Wallet outcome unknown — inspect activity';
+ el('prepare').disabled=false;
+}).catch(e=>message(e.message));
+</script></body></html>
