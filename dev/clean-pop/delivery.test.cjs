@@ -1,0 +1,28 @@
+'use strict'
+const { test } = require('node:test'), assert = require('node:assert/strict')
+const fs = require('fs'), path = require('path')
+const root = path.resolve(__dirname, '../..')
+const ledger = require('../../assets/data/clean-pop-legacy-mints.json')
+const artifact = require('../../assets/data/clean-pop-minter.json')
+test('original-minter delivery ledger is unique, well-formed and bound to the deployed Clean Pop contract', () => {
+ assert.equal(artifact.mainnetVerified, true)
+ assert.equal(artifact.deploymentTx, '0xe14f013e5a3d28d368e01384e5dcb1351417cccc3a1da3d1499e2ec8eae6a77a')
+ assert.equal(ledger.mints.length, 12)
+ const ids = new Set(), tokens = new Set()
+ ledger.mints.forEach(row => {
+  assert.match(row.legacyId, /^0x[0-9a-f]{64}$/i)
+  assert.match(row.originalMinter, /^0x[0-9a-f]{40}$/i)
+  assert.equal(ids.has(row.legacyId), false); ids.add(row.legacyId)
+  assert.equal(tokens.has(row.tokenNo), false); tokens.add(row.tokenNo)
+  assert.ok(Number.isInteger(row.tokenNo) && row.tokenNo >= 0 && row.tokenNo < 10000)
+ })
+})
+test('operator page is creator-gated and preflights replay, legacy, and artwork proof state', () => {
+ const page = fs.readFileSync(path.join(root, 'classic/pages/clean-pop-delivery.html'), 'utf8')
+ for (const required of ['Connect the creator wallet', 'c.LEGACY()', 'c.replaced(row.legacyId)', 'c.minted(row.tokenNo)', 'estimateGas.deliverReplacement', 'I manually verified this original-minter claim']) assert.ok(page.includes(required), required)
+})
+test('Clean Pop market catalogue is strictly read-only and enumerates the full approved collection', () => {
+ const page = fs.readFileSync(path.join(root, 'classic/pages/clean-pop-market.html'), 'utf8')
+ for (const required of ["total=10000", "clean-pop-v1/'+id+'.png", 'NO LISTINGS · NO CHECKOUT', 'Secondary listings, deposits, payments, and public checkout are not enabled']) assert.ok(page.includes(required), required)
+ assert.equal(page.includes('eth_sendTransaction'), false)
+})

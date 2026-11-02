@@ -13,9 +13,15 @@ Run `npm ci --ignore-scripts`, `npm test`, and `npm run sandbox` from the compan
 
 The public catalogue below has artwork #0–9999 with trait filters. The local interactive lab has **10 test pieces (#0–9)** for easier escrow testing: Seller has six, Buyer and Bidder each have two; Friend starts empty and can receive gifts through SEND TO FRIEND. Use MY WALLET, MY ESCROW, FOR SALE, AUCTIONS, and ALL PIECES. Deposit automatically advances five local cooldown blocks by default. RESET 10 TEST PIECES restores starting assets and fake balances. These are simulated assets, not existing mainnet inventory.
 
-A shareable, read-only catalogue is included at:
+A legacy Phunks catalogue is included at:
 
 https://trixmoji.netlify.app/classic/pages/phunk-market-preview.html
+
+The separate Clean Pop V1 catalogue is available at:
+
+https://trixmoji.netlify.app/classic/pages/clean-pop-market.html
+
+It renders all 10,000 approved Clean Pop artworks directly from the packaged collection. It is strictly read-only: there are no listings, deposits, payments, wallet signer, or ownership claims. Original-minter reissues are delivered manually by the creator while public minting remains paused.
 
 This URL updates after Netlify publishes the corresponding commit. It now has 10,000 real artwork previews, 40-card pagination, ID/trait/token search, multi-select trait filters, sorting, enlarged images, and trait frequencies. Multiple selected values within one category are OR; different categories are AND. The 315 trait values across 12 categories come from the supplied V2 metadata. This is not a value estimate or rarity rank. The catalogue accepts no payments, has no wallet signer, and does not claim artwork is minted or offered for resale. The separate PRIMARY MINT link leads to the existing real-money mint.
 

@@ -1,0 +1,18 @@
+{
+  "version": "clean-pop-original-minters-v1",
+  "source": "Legacy Clean Pop reissue eligibility is limited to these indexed legacy mint events. Recipient addresses are entered by the creator after manual claimant verification.",
+  "mints": [
+    {"tokenNo":0,"legacyId":"0x19975935092ed41f0ce6f4c4e3018ef4ed66e76f7ac8008efbc0490089bc0338","originalMinter":"0x8e066f69ce11aeae7b796a399ccedee14291d0b2"},
+    {"tokenNo":12,"legacyId":"0x296b67b4022b485b32dba6962f43393130027d034849f8d975e7e83ba72ded7c","originalMinter":"0x6a0bbcccbaf9669d40e28a42ed99a08ce9598b40"},
+    {"tokenNo":14,"legacyId":"0x8250be53bc831a6133e43981f40cc1ab52b437aad733759e2e232f768ab7127e","originalMinter":"0x6a0bbcccbaf9669d40e28a42ed99a08ce9598b40"},
+    {"tokenNo":29,"legacyId":"0x9c1ed6bbd2c45c5f6c13ae7028efaf2a974b904c2298ef43a7d00eff25b88acf","originalMinter":"0x6a0bbcccbaf9669d40e28a42ed99a08ce9598b40"},
+    {"tokenNo":31,"legacyId":"0x08a9089dbd8574538dea4ed513fff8e4acaa232d81316cd41321ba2d1cd000c8","originalMinter":"0x6a0bbcccbaf9669d40e28a42ed99a08ce9598b40"},
+    {"tokenNo":35,"legacyId":"0x37a2a8bbd3c03a023e2b314da0f8d2c0ee19a69979abf8ac69a2c5fdb18b5937","originalMinter":"0x15e85a85b7026875d3529ef0c6de2723c285da11"},
+    {"tokenNo":39,"legacyId":"0x32bde2380a35c8a43cd385e7ee8d1991fa790d6f0eff3d25a5b065d834363399","originalMinter":"0x915a3d363d0a4e4470b531f008f5142c540e5417"},
+    {"tokenNo":419,"legacyId":"0x68f93845ad5afd466664a88223b1bd61f7f02988cd3bb600030ff430705771ea","originalMinter":"0x47cf60bdd877203264921d05ce26f81f6d36aa3e"},
+    {"tokenNo":453,"legacyId":"0x4bc6c65fe48376fbda2ecf80da632f91aba0d38bf4286208d887ee636843b433","originalMinter":"0x47cf60bdd877203264921d05ce26f81f6d36aa3e"},
+    {"tokenNo":534,"legacyId":"0x7ced96a6cd237b35f076b0b764116c442f1d1f01986995f585551c3e0cf33f6b","originalMinter":"0x47cf60bdd877203264921d05ce26f81f6d36aa3e"},
+    {"tokenNo":1259,"legacyId":"0x1d6924a7f4ec968c33320a91220f4b2cbb317b393893d752ba971cdd5ccba6c0","originalMinter":"0x47cf60bdd877203264921d05ce26f81f6d36aa3e"},
+    {"tokenNo":1260,"legacyId":"0x2eb592028b5ed4970fa0a883122aab493fa6c0dc58e137ee24baa441d5bb6009","originalMinter":"0x47cf60bdd877203264921d05ce26f81f6d36aa3e"}
+  ]
+}

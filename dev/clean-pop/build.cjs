@@ -21,8 +21,8 @@ const artifact = { version: 'clean-pop-v1', root: manifest.root, factory, salt,
  bytecode, runtime, runtimeHash: ethers.utils.keccak256(runtime), deployData: salt + bytecode.slice(2),
  abi: c.abi, compiler: solc.version(), chainId: 1, priceWei: '200000000000000',
  creator: '0x915A3D363D0a4e4470B531f008F5142c540E5417', startsPaused: true,
- replacementPolicy: 'owner-verified manual delivery; owner pays gas; legacy token numbers reserved',
- mainnetVerified: false }
+  replacementPolicy: 'original-minter claims manually verified by creator; creator pays gas; legacy token numbers reserved',
+  deploymentTx: '0xe14f013e5a3d28d368e01384e5dcb1351417cccc3a1da3d1499e2ec8eae6a77a', mainnetVerified: true }
 fs.writeFileSync(path.join(root, 'assets/data/clean-pop-minter.json'), JSON.stringify(artifact, null, 2))
 fs.writeFileSync(path.join(__dirname, 'solidity-input.json'), JSON.stringify(input, null, 2))
 console.log(JSON.stringify({ address: artifact.address, root: artifact.root, initcodeBytes: (bytecode.length - 2) / 2, startsPaused: true }, null, 2))

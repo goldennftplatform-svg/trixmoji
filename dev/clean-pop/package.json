@@ -1,6 +1,6 @@
 {
   "name": "clean-pop-contract-tools",
   "private": true,
-  "scripts": { "build": "node build.cjs", "test": "node --test contract.test.cjs setup.test.cjs recovery.test.cjs" },
+  "scripts": { "build": "node build.cjs", "test": "node --test contract.test.cjs setup.test.cjs recovery.test.cjs delivery.test.cjs" },
   "devDependencies": { "ethers": "5.7.2", "solc": "0.8.20", "ganache": "7.9.2" }
 }

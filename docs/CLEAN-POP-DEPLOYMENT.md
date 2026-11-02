@@ -18,16 +18,23 @@ The approved 10,000 PNGs are packaged under `assets/ethscriptions/clean-pop-v1/`
 
 The Ganache simulation covers paused sale, owner-only controls, legacy reservation, exact payload events, incorrect price/art, repeated public mint, and project-paid delivery/replay. Its Shanghai gas figures are NOT a current mainnet quote. Mainnet estimates must come from a current RPC.
 
-## Not completed — do not enable sales yet
+## Mainnet deployment verified
 
-- Versioned checkout integration and legacy recovery regression testing.
-- Live contract deployment, code verification and independent Ethscriptions indexing of a test replacement.
-- Holder eligibility ledger and operator replacement interface.
+Clean Pop V1 was deployed to `0x11019B7af0F833f5695a44584c5B31Bb1D0baabC` in transaction [`0xe14f013e5a3d28d368e01384e5dcb1351417cccc3a1da3d1499e2ec8eae6a77a`](https://etherscan.io/tx/0xe14f013e5a3d28d368e01384e5dcb1351417cccc3a1da3d1499e2ec8eae6a77a). The deployment page verified the exact runtime. Public minting remains paused.
+
+## Original-minter reissues
+
+The creator can now use `/classic/pages/clean-pop-delivery.html` to deliver the matching Clean Pop piece to a manually verified recipient. The page only permits the 12 indexed legacy mint records in `assets/data/clean-pop-legacy-mints.json`; it fetches the exact approved PNG and Merkle proof, checks the paused/legacy/replay state on-chain, simulates the transaction, and then asks the creator wallet to approve it. Each delivery uses the legacy Ethscription creation transaction as the permanent replay-protected claim ID. The old asset stays untouched.
+
+The original minter policy is a manual policy: verify each claimant and destination wallet before clicking the delivery button. Record the resulting Clean Pop transaction hash with the claimant record. Do not enter a recipient based solely on an unauthenticated message.
+
+## Not completed — do not enable public sales yet
+
+- Independent Ethscriptions indexing of a first confirmed replacement.
+- Versioned public checkout integration and legacy recovery regression testing.
 
 Keep `PHUNK_MINT_ENABLED=false`. This existing variable still controls the LEGACY checkout. This deployment page does not automatically migrate the checkout.
 
 ## Deployment
 
-After Netlify serves the new artifact and page, open `https://trixmoji.netlify.app/classic/pages/clean-pop-setup.html`, connect the configured creator, estimate, review and approve deployment in the wallet. Deployment is optional until checkout integration is ready. It spends real gas, starts paused, and does not mint artwork. Save the transaction hash and verify code on the page. Never use the legacy `phunk-setup.html` for this collection.
-
-No real transaction was submitted by the development tools.
+The deployment is complete. Use `https://trixmoji.netlify.app/classic/pages/clean-pop-setup.html` only to verify the deployed runtime. Never use the legacy `phunk-setup.html` for this collection.
