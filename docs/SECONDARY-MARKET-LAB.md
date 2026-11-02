@@ -13,7 +13,7 @@ Run `npm ci --ignore-scripts`, `npm test`, and `npm run sandbox` from the compan
 
 The public catalogue below has artwork #0–9999 with trait filters. The local interactive lab has **10 test pieces (#0–9)** for easier escrow testing: Seller has six, Buyer and Bidder each have two; Friend starts empty and can receive gifts through SEND TO FRIEND. Use MY WALLET, MY ESCROW, FOR SALE, AUCTIONS, and ALL PIECES. Deposit automatically advances five local cooldown blocks by default. RESET 10 TEST PIECES restores starting assets and fake balances. These are simulated assets, not existing mainnet inventory.
 
-A legacy Phunks catalogue is included at:
+The established public collection-explorer URL now uses approved Clean Pop V1 artwork while preserving the original interface, filters, and `?id=` artwork links:
 
 https://trixmoji.netlify.app/classic/pages/phunk-market-preview.html
 
