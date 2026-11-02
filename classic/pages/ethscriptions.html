@@ -108,6 +108,7 @@
     <p id="cleanPopCount" role="status">Checking Clean Pop mint count…</p>
     <div class="mint-bar" id="cleanPopWallets"><button type="button" id="cleanPopConnect">CONNECT ETHEREUM WALLET</button><strong id="cleanPopSelection">SELECTED 0 / 20</strong><button type="button" id="cleanPopMint" disabled>MINT SELECTED</button></div>
     <p class="status" id="cleanPopStatus" role="status">Connect a wallet to check the mint status.</p>
+    <section id="cleanPopReview" class="mint-review" hidden aria-label="Review mint price and gas"></section>
     <div id="cleanPopRecovery"></div>
     <div class="pager"><button type="button" id="cleanPopPrev">PREV</button><button type="button" id="cleanPopNext">NEXT</button><span id="cleanPopPage" role="status"></span><label for="cleanPopJump">PIECE #</label><input id="cleanPopJump" type="number" min="0" max="9999"><button type="button" id="cleanPopGo">GO</button></div>
     <div class="phunk-grid" id="cleanPopGrid" aria-label="Clean Pop covers"></div>
@@ -254,8 +255,8 @@
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   <script src="/assets/js/core/ethscription-checkout.js?v=20261102connect"></script>
-  <script src="/assets/js/core/clean-pop-checkout.js?v=2"></script>
-  <script src="/assets/js/core/clean-pop-storefront.js?v=3"></script>
+  <script src="/assets/js/core/clean-pop-checkout.js?v=3"></script>
+  <script src="/assets/js/core/clean-pop-storefront.js?v=4"></script>
   <script>
   var ESCROW = '0x15e85a85B7026875d3529EF0c6de2723C285DA11'
   var PHUNK_ID = '45b48eca99f938b7'

@@ -1,13 +1,15 @@
 (function () {
  'use strict'
  var el = function (id) { return document.getElementById(id) }
- var page = 0, pageSize = 40, supply = 10000, selected = {}, connection = null, info, manifest, busy = false, paused = true
+ var page = 0, pageSize = 40, supply = 10000, selected = {}, reserved = {}, connection = null, info, manifest, busy = false, paused = true
  var status = function (message) { el('cleanPopStatus').textContent = message }
  function list() { return Object.keys(selected).map(Number).sort(function (a, b) { return a - b }) }
  function unfinished() { return CleanPopCheckout.records().filter(function (r) { return r.state !== 'complete' && r.state !== 'failed' }) }
  function updateControls() {
   el('cleanPopSelection').textContent = 'SELECTED ' + list().length + ' / 20'
   el('cleanPopMint').disabled = busy || !connection || paused || !list().length || unfinished().length > 0
+  el('cleanPopConnect').disabled = busy
+  el('cleanPopMint').textContent = connection && paused ? 'PUBLIC MINT PAUSED' : 'MINT SELECTED'
  }
  function draw() {
   var grid = el('cleanPopGrid'); grid.textContent = ''
@@ -18,8 +20,8 @@
    card.type = 'button'; card.className = 'phunk-card' + (selected[id] ? ' on' : '') + (complete[id] ? ' taken' : '')
    img.src = complete[id] ? '/assets/ethscriptions/clean-pop-v1/' + id + '.png' : '/assets/images/ethscription-cover.png'
    img.alt = complete[id] ? 'Confirmed Clean Pop #' + id : 'Unrevealed Clean Pop cover #' + id; img.loading = 'lazy'
-   meta.className = 'meta'; meta.textContent = '#' + id + (complete[id] ? ' · MINTED' : selected[id] ? ' · SELECTED' : '')
-   card.disabled = !!complete[id] || busy; card.setAttribute('aria-pressed', selected[id] ? 'true' : 'false')
+   meta.className = 'meta'; meta.textContent = '#' + id + (complete[id] ? ' · MINTED' : reserved[id] ? ' · RESERVED' : selected[id] ? ' · SELECTED' : '')
+   card.disabled = !!complete[id] || !!reserved[id] || busy; card.setAttribute('aria-pressed', selected[id] ? 'true' : 'false')
    ;(function (token) { card.addEventListener('click', function () {
     if (selected[token]) delete selected[token]
     else if (list().length >= 20) { status('Select at most 20 covers.'); return }
@@ -33,7 +35,7 @@
   updateControls()
  }
  async function api(body) {
-  var response = await fetch('/api/ethscriptions', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+  var response = await fetch('/api/ethscriptions', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), signal: AbortSignal.timeout(25000) })
   var result = await response.json()
   if (!response.ok || result.ok === false) throw new Error(result.error || 'Verification unavailable. Do not mint again.')
   return result
@@ -58,15 +60,40 @@
   })
  }
  async function currentContract() {
-  await EthscriptionCheckout.identity(connection.provider, connection.address)
-  var code = await connection.provider.request({ method: 'eth_getCode', params: [info.address, 'latest'] })
+  var provider = rpcProvider(connection.provider)
+  await EthscriptionCheckout.identity(provider, connection.address)
+  var code = await provider.request({ method: 'eth_getCode', params: [info.address, 'latest'] })
   if (String(code).toLowerCase() !== info.runtime.toLowerCase()) throw new Error('Clean Pop contract code does not match the approved deployment.')
-  return new ethers.Contract(info.address, info.abi, new ethers.providers.Web3Provider(connection.provider))
+  return new ethers.Contract(info.address, info.abi, new ethers.providers.Web3Provider(provider))
+ }
+ function rpcProvider(provider) {
+  return { request: function (payload) {
+   return new Promise(function (resolve, reject) {
+    var timer = setTimeout(function () { reject(new Error('Wallet did not respond to ' + payload.method + '. No new transaction was requested at this check.')) }, 20000)
+    try { Promise.resolve(provider.request(payload)).then(function (result) { clearTimeout(timer); resolve(result) }, function (error) { clearTimeout(timer); reject(error) }) }
+    catch (error) { clearTimeout(timer); reject(error) }
+   })
+  } }
+ }
+ function reviewMint(token, quote) {
+  return new Promise(function (resolve, reject) {
+   var host = el('cleanPopReview'); host.textContent = ''; host.hidden = false
+   var heading = document.createElement('h3'), text = document.createElement('p'), approve = document.createElement('button'), cancel = document.createElement('button')
+   heading.textContent = 'REVIEW CLEAN POP #' + token
+   text.textContent = 'Price: ' + EthscriptionCheckout.eth(quote.price) + ' ETH + estimated gas: ' + EthscriptionCheckout.eth(quote.gas) + ' ETH. The wallet shows final fees. Artwork stays hidden until confirmation and indexing.'
+   approve.type = 'button'; approve.textContent = 'APPROVE MINT IN WALLET'
+   cancel.type = 'button'; cancel.textContent = 'CANCEL THIS MINT'
+   approve.onclick = function () { host.hidden = true; host.textContent = ''; resolve() }
+   cancel.onclick = function () { host.hidden = true; host.textContent = ''; reject(new Error('Mint cancelled. Previously confirmed pieces remain in your wallet.')) }
+   host.append(heading, text, approve, cancel)
+   status('Gas estimate ready. Review below and click APPROVE MINT IN WALLET.')
+   approve.focus()
+  })
  }
  async function artwork(token) {
   var entry = manifest.files[token]
   if (!entry || entry.id !== token || !entry.proof || entry.proof.length !== 14) throw new Error('Approved artwork proof unavailable for #' + token)
-  var response = await fetch('/assets/ethscriptions/clean-pop-v1/' + token + '.png', { cache: 'no-store' })
+  var response = await fetch('/assets/ethscriptions/clean-pop-v1/' + token + '.png', { cache: 'no-store', signal: AbortSignal.timeout(20000) })
   if (!response.ok) throw new Error('Approved artwork unavailable for #' + token)
   var bytes = new Uint8Array(await response.arrayBuffer()), binary = ''
   for (var i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i])
@@ -113,10 +140,10 @@
     var settings = await fetch('/api/ethscriptions', { cache: 'no-store' }).then(function (r) { return r.json() }).catch(function () { return {} })
     EthscriptionCheckout.configure(settings.walletConnectProjectId || '')
     status('Choose your wallet below.')
-    connection = await EthscriptionCheckout.connect(el('cleanPopWallets'))
+    connection = await EthscriptionCheckout.connect(el('cleanPopWallets'), status)
    }
    var contract = await currentContract(); paused = await contract.paused()
-   status(paused ? 'Clean Pop public mint is paused. Your selected covers remain in the grid.' : 'Wallet connected. Select covers, then mint.')
+   status(paused ? 'Wallet connected: ' + connection.address + '. Clean Pop public mint is paused.' : 'Wallet connected: ' + connection.address + '. Select covers, then mint.')
    recovery(); draw()
   } catch (error) { status(error.message) } finally { button.disabled = false }
  }
@@ -128,11 +155,9 @@
     var token = ids[i]; status('Preparing #' + token + ' (' + (i + 1) + '/' + ids.length + ')…')
     var image = await artwork(token), iface = new ethers.utils.Interface(info.abi)
     var tx = { from: connection.address, to: info.address, value: '0x' + BigInt(info.priceWei).toString(16), data: iface.encodeFunctionData('mint', [image.uri, image.proof, token]) }
-    var row = await CleanPopCheckout.send({ provider: connection.provider, from: connection.address, tokenNo: token, tx: tx,
+    var row = await CleanPopCheckout.send({ provider: connection.provider, from: connection.address, tokenNo: token, tx: tx, progress: status,
      preflight: function () { return preflight(token, image.sha) },
-     review: async function (quote) {
-      if (!confirm('Mint Clean Pop #' + token + ' for ' + EthscriptionCheckout.eth(quote.price) + ' ETH plus estimated gas ' + EthscriptionCheckout.eth(quote.gas) + ' ETH?')) throw new Error('Mint cancelled. Completed mints remain confirmed.')
-     } })
+     review: function (quote) { return reviewMint(token, quote) } })
     status('Submitted #' + token + ': ' + row.hash + '. Waiting for confirmation and indexing.'); recovery()
     await finish(row); delete selected[token]; recovery(); draw()
    }
@@ -146,9 +171,12 @@
   if (!/^\d+$/.test(text) || !Number.isInteger(id) || id < 0 || id >= supply) { status('Enter a piece number from 0 to 9999.'); return }
   page = Math.floor(id / pageSize); draw()
  }
- Promise.all([fetch('/assets/data/clean-pop-minter.json', { cache: 'no-store' }), fetch('/assets/ethscriptions/clean-pop-v1/manifest.json', { cache: 'no-store' })]).then(async function (responses) {
+ Promise.all([fetch('/assets/data/clean-pop-minter.json', { cache: 'no-store' }), fetch('/assets/ethscriptions/clean-pop-v1/manifest.json', { cache: 'no-store' }), fetch('/assets/data/clean-pop-legacy-mints.json', { cache: 'no-store' })]).then(async function (responses) {
   if (responses.some(function (r) { return !r.ok })) throw new Error('Clean Pop configuration unavailable.')
   info = await responses[0].json(); manifest = await responses[1].json()
+  var legacy = await responses[2].json()
+  if (!legacy || !Array.isArray(legacy.mints)) throw new Error('Reserved-piece configuration unavailable.')
+  legacy.mints.forEach(function (row) { reserved[row.tokenNo] = true })
   if (info.address.toLowerCase() !== '0x11019b7af0f833f5695a44584c5b31bb1d0baabc' || info.root !== manifest.root || manifest.count !== supply) throw new Error('Clean Pop configuration does not match.')
   recovery(); draw()
  }).catch(function (error) { status(error.message) })

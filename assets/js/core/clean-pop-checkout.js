@@ -14,20 +14,25 @@
  function remove(id) { save(records().filter(function (x) { return x.id !== id })) }
  function same(a, b) { return String(a || '').toLowerCase() === String(b || '').toLowerCase() }
  async function send(options) {
+  var progress = options.progress || function () {}
   if (!root.navigator.locks) throw new Error('This browser cannot coordinate checkout tabs. Use a current browser.')
   return root.navigator.locks.request('trixmoji-clean-pop-checkout', { ifAvailable: true }, async function (lock) {
    if (!lock) throw new Error('Clean Pop checkout is already running in another tab.')
    if (records().some(function (r) { return r.state !== 'complete' && r.state !== 'failed' })) {
     throw new Error('A previous Clean Pop mint needs checking before another transaction.')
    }
+   progress('Checking wallet, network and piece availability…')
    await options.preflight()
+   progress('Estimating transaction gas…')
    var estimate = BigInt(await options.provider.request({ method: 'eth_estimateGas', params: [options.tx] }))
    var gasPrice = BigInt(await options.provider.request({ method: 'eth_gasPrice' }))
    await options.review({ gas: estimate * gasPrice, price: BigInt(options.tx.value) })
+   progress('Approval received. Rechecking availability before requesting the wallet…')
    await options.preflight()
    var row = { id: String(options.tokenNo), tokenNo: options.tokenNo, buyer: options.from,
     state: 'awaiting-wallet', hash: '', contract: options.tx.to, at: new Date().toISOString() }
    update(row)
+   progress('Transaction requested from your wallet. Open the selected wallet extension to approve or reject. Do not submit again.')
    var hash
    try {
     hash = await options.provider.request({ method: 'eth_sendTransaction', params: [Object.assign({}, options.tx, { gas: '0x' + (estimate + estimate / 5n).toString(16) })] })
