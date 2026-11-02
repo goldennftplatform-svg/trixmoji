@@ -7,7 +7,7 @@ async function load(options) {
  const elements = {}, configured = []
  const context = { document: { getElementById(id) { return elements[id] ||= { disabled: true, textContent: '' } } },
   EthscriptionCheckout: { configure(id) { configured.push(id) }, eth() { return '0.0002' } },
-  localStorage: { getItem() { return null } }, AbortSignal,
+  localStorage: { getItem() { return null } }, CleanPopControl: { saved() { return null } }, AbortSignal,
   fetch: async url => {
    if (url === '/api/ethscriptions') {
     if (options.error) throw Error('Offline')
