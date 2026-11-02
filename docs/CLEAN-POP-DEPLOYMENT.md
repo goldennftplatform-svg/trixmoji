@@ -37,4 +37,8 @@ Keep `PHUNK_MINT_ENABLED=false`. This existing variable still controls the LEGAC
 
 ## Deployment
 
-The deployment is complete. Use `https://trixmoji.netlify.app/classic/pages/clean-pop-setup.html` only to verify the deployed runtime. Never use the legacy `phunk-setup.html` for this collection.
+The deployment is complete. The setup page at `https://trixmoji.netlify.app/classic/pages/clean-pop-setup.html` verifies the runtime and includes creator-only public mint controls. Connect the creator, check the sale state, prepare opening, then use the separate approval button to request `setPaused(false)`. Opening makes the contract publicly mintable; the creator approves gas in the wallet.
+
+If an opening request was saved as `awaiting-wallet` without a transaction hash, the page displays **Recover an unsent opening request**. First close/reject any open wallet request and confirm wallet Activity has no pending opening transaction or transaction hash. Recovery checks the creator, mainnet, runtime, pause state, and pending/latest nonces, then archives only the opening-sale record. It refuses recovery for saved hashes or pending transactions. A pending-count check cannot detect every private or smart-wallet request, so checking wallet Activity remains necessary. Do not use deployment recovery to recover an opening request.
+
+The `?release=…` query parameter is a cache-busting label, not a deployment selector or an instruction to open the contract. Opening the page never submits a transaction by itself. Never use the legacy `phunk-setup.html` for this collection.

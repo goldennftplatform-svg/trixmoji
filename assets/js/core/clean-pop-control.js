@@ -2,6 +2,7 @@
  'use strict'
  var KEY = 'trixmoji.clean-pop-v1.open-sale'
  var CALL = '0x16c38b3c' + '0'.repeat(64)
+ var walletRequests = 0
  function same(a, b) { return String(a || '').toLowerCase() === String(b || '').toLowerCase() }
  function saved() { return JSON.parse(root.localStorage.getItem(KEY) || 'null') }
  function bounded(provider, progress) {
@@ -13,13 +14,15 @@
      reject(Error(signing ? 'The wallet has not returned a transaction hash. Its request may still be pending. Do not submit another transaction.' : 'Wallet did not respond to ' + payload.method + '. Preparation stopped before sending an opening transaction.'))
     }, signing ? 90000 : 20000)
     try {
-     Promise.resolve(provider.request(payload)).then(function (value) { clearTimeout(timer); resolve(value) }, function (error) {
+     if (signing) walletRequests++
+     Promise.resolve(provider.request(payload)).then(function (value) { if (signing) walletRequests--; clearTimeout(timer); resolve(value) }, function (error) {
+      if (signing) walletRequests--
       clearTimeout(timer)
       var code = Number(error && (error.code || error.data && error.data.originalError && error.data.originalError.code))
       if (code === -32002) reject(Error('The wallet already has a pending request. Open the wallet extension and finish or reject it before continuing.'))
       else reject(error)
      })
-    } catch (error) { clearTimeout(timer); reject(error) }
+    } catch (error) { if (signing) walletRequests--; clearTimeout(timer); reject(error) }
    })
   } }
  }
@@ -69,6 +72,25 @@
    row.state = 'submitted'; row.hash = hash
    try { root.localStorage.setItem(KEY, JSON.stringify(row)) } catch (_) { throw Error('Transaction submitted: ' + hash + '. Save this hash; browser storage failed.') }
    return row
+  })
+ }
+ async function recoverUnsent(provider, info, confirmed, progress) {
+  if (confirmed !== true) throw Error('Confirm that wallet Activity has no pending opening transaction and no open approval request.')
+  if (!root.navigator.locks) throw Error('Use a browser with Web Locks support.')
+  return root.navigator.locks.request(KEY, { ifAvailable: true }, async function (lock) {
+   if (!lock || walletRequests > 0) throw Error('A wallet request is still running. Finish or reject it in the wallet before recovery.')
+   var original = root.localStorage.getItem(KEY), row = JSON.parse(original || 'null')
+   if (!row || row.state !== 'awaiting-wallet' || row.hash || !same(row.contract, info.address) || !same(row.creator, info.creator)) throw Error('Recovery only clears an unsent opening request for this contract and creator. If there is a hash, check that transaction instead.')
+   var rpc = bounded(provider, progress)
+   var state = await inspect(rpc, info)
+   if (!state.paused) throw Error('Contract is already open. Check its current state instead of submitting another opening.')
+   var latest = BigInt(await rpc.request({ method: 'eth_getTransactionCount', params: [info.creator, 'latest'] }))
+   var pending = BigInt(await rpc.request({ method: 'eth_getTransactionCount', params: [info.creator, 'pending'] }))
+   if (pending !== latest) throw Error('Wallet RPC reports pending transactions. Resolve those before clearing this request.')
+   if (root.localStorage.getItem(KEY) !== original || walletRequests > 0) throw Error('Opening request changed while checking. Reload and inspect it.')
+   root.localStorage.setItem(KEY + '.recovery.' + Date.now(), JSON.stringify({ original: row, checkedNonce: latest.toString(), at: new Date().toISOString() }))
+   root.localStorage.removeItem(KEY)
+   return { recovered: true }
   })
  }
  async function open(provider, info, review, progress) {
@@ -123,7 +145,7 @@
   if (row.state === 'confirmed' && (await inspect(provider, info)).paused) throw Error('Transaction confirmed, but the contract currently reports paused. Inspect its current state.')
   root.localStorage.setItem(KEY, JSON.stringify(row)); return row
  }
- var api = { saved: saved, inspect: inspect, prepare: prepare, submit: submit, open: open, check: check }
+ var api = { saved: saved, inspect: inspect, prepare: prepare, submit: submit, recoverUnsent: recoverUnsent, open: open, check: check }
  if (typeof module !== 'undefined' && module.exports) module.exports = api
  else root.CleanPopControl = api
 })(typeof window !== 'undefined' ? window : globalThis)

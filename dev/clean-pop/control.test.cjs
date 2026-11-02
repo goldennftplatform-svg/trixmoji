@@ -64,3 +64,27 @@ test('opening transaction verification checks sender, calldata and current pause
  const wrong = setup({ eth_getTransactionByHash: () => ({ from: creator, to: address, value: '0x0', input: '0x' }) })
  await assert.rejects(wrong.api.check(wrong.provider, wrong.info, hash), /not the creator/)
 })
+function unsent(x, extra = {}) {
+ x.root.localStorage.setItem('trixmoji.clean-pop-v1.open-sale', JSON.stringify({ state: 'awaiting-wallet', contract: address, creator, ...extra }))
+}
+test('unsent opening recovery archives only the opening intent after creator and nonce checks', async () => {
+ const x = setup({ eth_getTransactionCount: () => '0x10' }); unsent(x)
+ x.root.localStorage.setItem('trixmoji.clean-pop-v1.deployment', 'keep-deployment')
+ const result = await x.api.recoverUnsent(x.provider, x.info, true)
+ assert.equal(result.recovered, true); assert.equal(x.api.saved(), null)
+ assert.equal(x.root.localStorage.getItem('trixmoji.clean-pop-v1.deployment'), 'keep-deployment')
+ assert.equal(x.calls.some(q => q.method === 'eth_sendTransaction'), false)
+ const plan = await x.api.prepare(x.provider, x.info)
+ assert.equal(plan.tx.to, address)
+})
+test('recovery refuses known hashes, pending transactions, wrong creators and unchecked confirmation', async () => {
+ const known = setup(); unsent(known, { hash })
+ await assert.rejects(known.api.recoverUnsent(known.provider, known.info, true), /unsent opening request/)
+ const pending = setup({ eth_getTransactionCount: q => q.params[1] === 'pending' ? '0x11' : '0x10' }); unsent(pending)
+ await assert.rejects(pending.api.recoverUnsent(pending.provider, pending.info, true), /pending transactions/)
+ assert.equal(pending.api.saved().state, 'awaiting-wallet')
+ const wrong = setup({ eth_accounts: () => [address] }); unsent(wrong)
+ await assert.rejects(wrong.api.recoverUnsent(wrong.provider, wrong.info, true), /creator wallet/)
+ const unchecked = setup(); unsent(unchecked)
+ await assert.rejects(unchecked.api.recoverUnsent(unchecked.provider, unchecked.info, false), /Confirm/)
+})
