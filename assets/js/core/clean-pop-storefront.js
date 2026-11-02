@@ -57,6 +57,23 @@
     } catch (error) { status(error.message); button.disabled = false }
    }
    wrap.appendChild(text); wrap.appendChild(input); wrap.appendChild(button); host.appendChild(wrap)
+   if (row.state === 'awaiting-wallet' && !row.hash) {
+    var confirmLabel = document.createElement('label'), checkbox = document.createElement('input'), recover = document.createElement('button'), warning = document.createElement('p')
+    checkbox.type = 'checkbox'; checkbox.style.width = 'auto'
+    confirmLabel.appendChild(checkbox); confirmLabel.appendChild(document.createTextNode(' I checked this wallet’s Activity and closed/rejected any approval request. There is no pending mint transaction or transaction hash.'))
+    recover.type = 'button'; recover.textContent = 'CHECK WALLET · RECOVER UNSENT MINT'; recover.disabled = !connection
+    warning.textContent = 'Recovery sends no transaction. Pending-count checks cannot see every private or smart-wallet request; resolve any wallet activity before continuing.'
+    recover.onclick = async function () {
+     recover.disabled = true
+     try {
+      status('Checking the saved mint and wallet state…')
+      await CleanPopCheckout.recoverUnsent({ provider: connection.provider, from: connection.address, info: info, tokenNo: row.tokenNo, confirmed: checkbox.checked })
+      status('Unsent mint request archived and cleared. No transaction sent. You can select a cover and prepare the mint again.')
+      recovery(); draw()
+     } catch (error) { status(error.message); recover.disabled = false }
+    }
+    wrap.appendChild(confirmLabel); wrap.appendChild(recover); wrap.appendChild(warning)
+   }
   })
  }
  async function currentContract() {

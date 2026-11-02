@@ -1,6 +1,7 @@
 (function (root) {
  'use strict'
  var KEY = 'trixmoji.clean-pop.checkout.v1'
+ var activeWalletRequests = 0
  function records() {
   var rows = JSON.parse(root.localStorage.getItem(KEY) || '[]')
   if (!Array.isArray(rows)) throw new Error('Saved Clean Pop checkout data is invalid. Do not mint again.')
@@ -61,11 +62,12 @@
     var hash
     try {
      // Called directly from the review button click: no asynchronous RPC between click and wallet request.
+     activeWalletRequests++
      hash = await options.provider.request({ method: 'eth_sendTransaction', params: [Object.assign({}, options.tx, { chainId: '0x1', gas: '0x' + (estimate + estimate / 5n).toString(16) })] })
     } catch (error) {
      if (Number(error && error.code) === 4001) remove(row.id)
      throw error
-    }
+    } finally { activeWalletRequests-- }
     if (!/^0x[a-f0-9]{64}$/i.test(String(hash))) throw new Error('Wallet returned no valid transaction hash. Check wallet activity; do not mint again.')
     row.hash = hash; row.state = 'submitted'
     try { update(row) } catch (_) { throw new Error('Transaction submitted: ' + hash + '. Save this hash; browser storage failed. Do not mint again.') }
@@ -86,7 +88,34 @@
   if (!result || !result.complete) throw new Error((result && result.message) || 'Mint confirmation or indexing is pending. Do not mint again.')
   row.state = 'complete'; update(row); return result
  }
- var api = { records: records, send: send, reconcile: reconcile }
+ async function recoverUnsent(options) {
+  if (options.confirmed !== true) throw new Error('Confirm there is no pending mint transaction or open wallet approval request.')
+  if (!root.navigator.locks) throw new Error('Use a browser with Web Locks support to recover this request.')
+  return root.navigator.locks.request('trixmoji-clean-pop-checkout', { ifAvailable: true }, async function (lock) {
+   if (!lock || activeWalletRequests > 0) throw new Error('A wallet request is still running. Finish or reject it in the wallet before recovery.')
+   var snapshot = root.localStorage.getItem(KEY), rows = records(), id = String(options.tokenNo)
+   var row = rows.find(function (item) { return item.id === id })
+   if (!row || row.state !== 'awaiting-wallet' || row.hash || !same(row.buyer, options.from) || !same(row.contract, options.info.address) || !Number.isInteger(row.tokenNo) || row.tokenNo < 0 || row.tokenNo >= 10000) throw new Error('Recovery applies only to this wallet’s no-hash mint request. Check any saved transaction hash instead.')
+   var rpc = function (method, params) { return readRpc(options.provider, { method: method, params: params || [] }, 20000) }
+   if (BigInt(await rpc('eth_chainId')) !== 1n) throw new Error('Switch to Ethereum mainnet.')
+   var accounts = await rpc('eth_accounts')
+   if (!accounts || !same(accounts[0], row.buyer)) throw new Error('Reconnect the original minting wallet.')
+   var code = await rpc('eth_getCode', [row.contract, 'latest'])
+   if (!code || !same(code, options.info.runtime)) throw new Error('Clean Pop contract code does not match the approved deployment.')
+   var data = '0x7dc0bf3f' + BigInt(row.tokenNo).toString(16).padStart(64, '0')
+   var minted = await rpc('eth_call', [{ to: row.contract, data: data }, 'latest'])
+   if (!/^0x[0-9a-f]{64}$/i.test(String(minted)) || BigInt(minted) > 1n) throw new Error('Could not verify the token’s mint state.')
+   if (BigInt(minted) !== 0n) throw new Error('This token is already minted. Check wallet activity and its transaction hash instead of retrying.')
+   var latest = BigInt(await rpc('eth_getTransactionCount', [row.buyer, 'latest']))
+   var pending = BigInt(await rpc('eth_getTransactionCount', [row.buyer, 'pending']))
+   if (pending !== latest) throw new Error('The wallet RPC reports a pending transaction. Resolve it before clearing this request.')
+   if (root.localStorage.getItem(KEY) !== snapshot || activeWalletRequests > 0) throw new Error('Saved checkout changed while checking. Reload and inspect it.')
+   root.localStorage.setItem(KEY + '.recovery.' + Date.now(), JSON.stringify({ original: row, checkedNonce: latest.toString(), at: new Date().toISOString() }))
+   save(rows.filter(function (item) { return item !== row }))
+   return { recovered: true, tokenNo: row.tokenNo }
+  })
+ }
+ var api = { records: records, send: send, reconcile: reconcile, recoverUnsent: recoverUnsent }
  if (typeof module !== 'undefined' && module.exports) module.exports = api
  else root.CleanPopCheckout = api
 })(typeof window !== 'undefined' ? window : globalThis)

@@ -90,3 +90,56 @@ test('server-first estimate does not wait for the wallet gas estimator', async (
  const result = await x.api.send(x.options)
  assert.equal(result.state, 'submitted'); assert.equal(x.sent(), 1)
 })
+function recoverFixture(overrides = {}) {
+ const x = setup(), buyer = x.options.from, address = x.options.tx.to
+ const row = { id: '2', tokenNo: 2, buyer, contract: address, state: 'awaiting-wallet', hash: '' }
+ x.root.localStorage.setItem('trixmoji.clean-pop.checkout.v1', JSON.stringify([{ id: '1', tokenNo: 1, state: 'complete', hash: '0x' + 'f'.repeat(64) }, row]))
+ const original = x.options.provider.request
+ x.options.provider.request = async q => {
+  if (overrides[q.method]) return overrides[q.method](q)
+  if (q.method === 'eth_chainId') return '0x1'
+  if (q.method === 'eth_accounts') return [buyer]
+  if (q.method === 'eth_getCode') return '0x6000'
+  if (q.method === 'eth_call') return '0x' + '0'.repeat(64)
+  if (q.method === 'eth_getTransactionCount') return '0x12'
+  return original(q)
+ }
+ return { ...x, recovery: { provider: x.options.provider, from: buyer, info: { address, runtime: '0x6000' }, tokenNo: 2, confirmed: true } }
+}
+test('no-hash mint recovery clears only the verified unsent intent and preserves completed records', async () => {
+ const x = recoverFixture(), result = await x.api.recoverUnsent(x.recovery)
+ assert.equal(result.recovered, true); assert.equal(result.tokenNo, 2)
+ assert.equal(x.api.records().length, 1); assert.equal(x.api.records()[0].state, 'complete')
+ assert.equal(x.sent(), 0)
+})
+test('no-hash mint recovery refuses pending transactions, minted tokens, wrong wallets, and missing confirmation', async () => {
+ for (const [overrides, expected] of [
+  [{ eth_getTransactionCount: q => q.params[1] === 'pending' ? '0x13' : '0x12' }, /pending transaction/],
+  [{ eth_call: () => '0x' + '0'.repeat(63) + '1' }, /already minted/],
+  [{ eth_accounts: () => ['0x3333333333333333333333333333333333333333'] }, /original minting wallet/],
+  [{ eth_chainId: () => '0xaa36a7' }, /mainnet/],
+  [{ eth_getCode: () => '0x6001' }, /contract code/]
+ ]) {
+  const x = recoverFixture(overrides)
+  await assert.rejects(x.api.recoverUnsent(x.recovery), expected)
+  assert.equal(x.api.records().length, 2); assert.equal(x.sent(), 0)
+ }
+ const x = recoverFixture()
+ await assert.rejects(x.api.recoverUnsent({ ...x.recovery, confirmed: false }), /Confirm/)
+})
+test('recovery cannot clear a saved transaction hash', async () => {
+ const x = recoverFixture(), rows = x.api.records()
+ rows[1].hash = '0x' + 'a'.repeat(64)
+ x.root.localStorage.setItem('trixmoji.clean-pop.checkout.v1', JSON.stringify(rows))
+ await assert.rejects(x.api.recoverUnsent(x.recovery), /no-hash mint request/)
+})
+test('recovery cannot clear a request while the wallet promise is still active', async () => {
+ const x = setup(), original = x.options.provider.request
+ let resolveWallet
+ x.options.provider.request = q => q.method === 'eth_sendTransaction' ? new Promise(resolve => { resolveWallet = resolve }) : original(q)
+ const sending = x.api.send(x.options)
+ await new Promise(resolve => setImmediate(resolve))
+ await assert.rejects(x.api.recoverUnsent({ provider: x.options.provider, from: x.options.from, info: { address: x.options.tx.to, runtime: '0x6000' }, tokenNo: 3, confirmed: true }), /still running/)
+ resolveWallet('0x' + 'b'.repeat(64))
+ assert.equal((await sending).state, 'submitted')
+})
