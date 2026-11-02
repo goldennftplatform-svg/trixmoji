@@ -21,7 +21,7 @@ The separate Clean Pop V1 catalogue is available at:
 
 https://trixmoji.netlify.app/classic/pages/clean-pop-market.html
 
-It renders all 10,000 approved Clean Pop artworks directly from the packaged collection. It is strictly read-only: there are no listings, deposits, payments, wallet signer, or ownership claims. Original-minter reissues are delivered manually by the creator while public minting remains paused.
+It now uses the original full collection-explorer GUI: trait sidebar, multi-select filters, search, sorting, 40-card pagination, enlarged images, and clickable trait frequencies. It renders approved Clean Pop artwork while retaining the supplied V2 trait catalogue matched by piece number. It is read-only and does not sign transactions or claim ownership/listings. The original polished trading interface remains intact in the companion project's `trixmoji/web/` directory and runs at `http://127.0.0.1:8895/`; its `/collection` route opens the trait explorer. That local trading lab has not been converted into a live-wallet Netlify resale service.
 
 This URL updates after Netlify publishes the corresponding commit. It now has 10,000 real artwork previews, 40-card pagination, ID/trait/token search, multi-select trait filters, sorting, enlarged images, and trait frequencies. Multiple selected values within one category are OR; different categories are AND. The 315 trait values across 12 categories come from the supplied V2 metadata. This is not a value estimate or rarity rank. The catalogue accepts no payments, has no wallet signer, and does not claim artwork is minted or offered for resale. The separate PRIMARY MINT link leads to the existing real-money mint.
 

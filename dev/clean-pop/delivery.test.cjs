@@ -23,7 +23,9 @@ test('operator page is creator-gated and preflights replay, legacy, and artwork 
 })
 test('Clean Pop market catalogue is strictly read-only and enumerates the full approved collection', () => {
  const page = fs.readFileSync(path.join(root, 'classic/pages/clean-pop-market.html'), 'utf8')
- for (const required of ["total=10000", "clean-pop-v1/'+id+'.png", 'NO LISTINGS · NO CHECKOUT', 'Secondary listings, deposits, payments, and public checkout are not enabled']) assert.ok(page.includes(required), required)
+ for (const required of ['data-collection="clean-pop-v1"', 'id="filterGroups"', 'id="artTraits"', 'NO LISTINGS · NO CHECKOUT', 'Secondary listings, deposits, payments, and public checkout are not enabled']) assert.ok(page.includes(required), required)
+ const catalog = require('../../assets/data/phunk-catalog.json')
+ assert.equal(catalog.supply, 10000); assert.equal(catalog.items.length, 10000)
  assert.equal(page.includes('eth_sendTransaction'), false)
 })
 test('public mint page batches selection but refuses mints while the contract is paused', () => {

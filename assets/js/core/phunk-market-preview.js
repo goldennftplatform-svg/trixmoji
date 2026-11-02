@@ -2,7 +2,9 @@
  'use strict'
  const SIZE = 40, el = id => document.getElementById(id)
  let catalog, page = 0, matches = [], chosen = new Set(), currentArt = null
- const mintImage = id => '/assets/ethscriptions/phunks/img/' + id + '.png'
+ const cleanPop = document.body.dataset.collection === 'clean-pop-v1'
+ const pieceName = cleanPop ? 'CLEAN POP' : 'PHUNK'
+ const mintImage = id => (cleanPop ? '/assets/ethscriptions/clean-pop-v1/' : '/assets/ethscriptions/phunks/img/') + id + '.png'
  const image = mintImage
  const traits = item => item.t.map(index => catalog.dictionary[index])
  const visualCount = item => traits(item).filter(t => !['Token', 'Type', 'Skin'].includes(t.group)).length
@@ -27,8 +29,8 @@
  }
  function open(id) {
   const item = catalog.items.find(i => i.id === id); if (!item) return
-  currentArt = id; el('artTitle').textContent = 'PHUNK #' + id
-  el('largeArt').src = image(id); el('largeArt').alt = 'Mint artwork for Phunk #' + id; el('openArt').href = image(id)
+   currentArt = id; el('artTitle').textContent = pieceName + ' #' + id
+   el('largeArt').src = image(id); el('largeArt').alt = pieceName + ' artwork #' + id; el('openArt').href = image(id)
   el('copyLink').textContent = 'COPY ARTWORK LINK'; el('artTraits').innerHTML = ''
   for (const index of item.t) {
    const trait = catalog.dictionary[index], b = document.createElement('button'), group = document.createElement('b')
@@ -43,9 +45,9 @@
   for (const index of chosen) { const t = catalog.dictionary[index], b = document.createElement('button'); b.textContent = t.group + ': ' + t.value + ' ×'; b.onclick = () => toggle(index); el('activeFilters').appendChild(b) }
   for (const item of matches.slice(page * SIZE, (page + 1) * SIZE)) {
    const card = document.createElement('article'); card.className = 'card'
-   const button = document.createElement('button'); button.className = 'artButton'; button.setAttribute('aria-label', 'View Phunk ' + item.id); button.onclick = () => open(item.id)
-   const img = document.createElement('img'); img.src = image(item.id); img.alt = 'Mint artwork for Phunk #' + item.id; img.loading = 'lazy'; img.decoding = 'async'; img.width = 256; img.height = 256; button.appendChild(img)
-   const heading = document.createElement('h2'); heading.textContent = 'PHUNK #' + item.id
+    const button = document.createElement('button'); button.className = 'artButton'; button.setAttribute('aria-label', 'View ' + pieceName + ' ' + item.id); button.onclick = () => open(item.id)
+    const img = document.createElement('img'); img.src = image(item.id); img.alt = pieceName + ' artwork #' + item.id; img.loading = 'lazy'; img.decoding = 'async'; img.width = 256; img.height = 256; button.appendChild(img)
+    const heading = document.createElement('h2'); heading.textContent = pieceName + ' #' + item.id
    const arrow = document.createElement('span'); arrow.textContent = '↗'; heading.appendChild(arrow)
    const type = document.createElement('p'); type.className = 'card-trait'; type.textContent = traits(item).find(t=>t.group==='Type')?.value || 'PHUNK'
    const note = document.createElement('p'); note.textContent = visualCount(item) + ' VISUAL TRAITS · PREVIEW'
