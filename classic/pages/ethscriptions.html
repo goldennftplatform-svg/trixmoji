@@ -250,14 +250,13 @@
   <script src="/assets/js/core/ethscription-checkout.js?v=20261101"></script>
   <script src="/assets/js/core/clean-pop-checkout.js?v=2"></script>
   <script src="/assets/js/core/clean-pop-storefront.js?v=3"></script>
-  <script src="/assets/js/core/phunk-wallet-gallery.js?v=20261101"></script>
   <script>
   var ESCROW = '0x15e85a85B7026875d3529EF0c6de2723C285DA11'
   var PHUNK_ID = '45b48eca99f938b7'
   function phunkDown(drop) { return !!(drop && drop.id === PHUNK_ID && !drop.live) }
   var marketProvider = null
   function chooseWallet(host) { return EthscriptionCheckout.choose(host) }
-  function refreshRecovery() { EthscriptionCheckout.recovery(document.getElementById('mintRecovery'), api) }
+  function refreshRecovery() {}
   var MINTER_INFO = null
   function minterInfo() {
    if (MINTER_INFO) return Promise.resolve(MINTER_INFO)
@@ -457,7 +456,7 @@
     EthscriptionCheckout.configure(data.walletConnectProjectId)
     text('escrow', ESCROW)
     me = data.me
-    var drops = data.collections || []
+    var drops = (data.collections || []).filter(function (drop) { return drop.id !== PHUNK_ID })
     drawDrops(drops)
     var openId = document.getElementById('depositCollection').value.trim()
     var still = null
@@ -468,8 +467,12 @@
     })
     if (still) openDrop(still)
     draw(data.listings || [])
-    drawMine(data.mine)
-    drawActivity(data.activity || [])
+    var mine = data.mine || {}
+    ;['collections', 'owned', 'incoming', 'selling'].forEach(function (key) {
+     mine[key] = (mine[key] || []).filter(function (item) { return item.collectionId !== PHUNK_ID && item.id !== PHUNK_ID })
+    })
+    drawMine(mine)
+    drawActivity((data.activity || []).filter(function (item) { return item.collectionId !== PHUNK_ID }))
     refreshRecovery()
    }).catch(function () { say('Board unavailable') })
   }

@@ -4,7 +4,7 @@
 <style>body{background:#10150a;color:#edf1e5;font:16px/1.6 system-ui;margin:0}main{max-width:850px;margin:auto;padding:32px}h1,a{color:#c6f308}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#202718;padding:20px}button{padding:14px;margin:8px 8px 8px 0;cursor:pointer}button:disabled{opacity:.5}input{width:100%;box-sizing:border-box;padding:12px}</style></head>
 <body><main><h1>TRIXMOJI · Clean Pop V1</h1>
 <p>Separate 1536×1536 collection. Deployment starts with public minting paused. This page sends zero ETH value; your wallet pays deployment gas.</p>
-<p><strong>Checkout migration is not complete. Keep PHUNK_MINT_ENABLED=false.</strong> Deployment does not switch the website or replace anyone's existing artwork.</p>
+<p><strong>Clean Pop contract controls.</strong> Connect the creator wallet to read the pause state or approve opening public minting.</p>
 <pre id="details">Loading configuration…</pre><p id="connectionHelp" role="status">Checking wallet connection options…</p><div id="wallets"></div>
 <button id="prepare" disabled>CONNECT CREATOR · ESTIMATE</button><button id="deploy" disabled>DEPLOY · WALLET APPROVAL</button><button id="check" disabled>VERIFY CONTRACT CODE</button>
 <p id="status" role="status"></p><label for="hash">Saved deployment transaction</label><input id="hash" readonly>
@@ -33,7 +33,7 @@ async function check() {
  if (code === '0x' || code === '0x0') { message('No deployed code. Check any saved transaction before retrying.'); return false; }
  el('deploy').disabled = true;
  if (code.toLowerCase() !== info.runtime.toLowerCase()) throw Error('STOP: deployed bytecode differs from the compiled artifact.');
- message('Exact deployed runtime verified. Keep sales paused until indexed artwork testing and checkout integration are complete.');
+  message('Exact deployed runtime verified. Use CHECK PUBLIC MINT STATE below to read the current sale state.');
  return true;
 }
 el('prepare').onclick = async () => {
