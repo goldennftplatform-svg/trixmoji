@@ -24,6 +24,7 @@ const { withBoard } = require('./lib/ethscriptions-store')
 const chain = require('./lib/ethscriptions-chain')
 const phunkMerkle = require('./lib/phunk-merkle')
 const diagnostics = require('./lib/ethscriptions-diagnostics')
+const cleanPopVerify = require('./lib/clean-pop-verify')
 
 const HOLD_MS = 15 * 60 * 1000
 const COVER = '/assets/images/ethscription-cover.png'
@@ -500,6 +501,13 @@ async function handler(req, res) {
   const action = String(body.action || '')
 
   try {
+    if (action === 'cleanPopVerify') return res.status(200).json(await cleanPopVerify.verify(chain, String(body.hash || ''), String(body.buyer || ''), Number(body.tokenNo)))
+    if (action === 'cleanPopUnique') {
+      const sha = String(body.sha || '')
+      if (!/^[a-f0-9]{64}$/i.test(sha)) throw new Error('Invalid artwork hash.')
+      await chain.requireUniqueContent(sha)
+      return res.status(200).json({ ok: true })
+    }
     if (action === 'list') return await postList(req, res, body)
     if (action === 'createCollection') return await postCreate(req, res, body)
     if (action === 'deposit') return await postDeposit(req, res, body)
