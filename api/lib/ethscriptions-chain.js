@@ -3,6 +3,7 @@
 const { ethRpcs, firstRpc } = require('./awardz-chain')
 
 const ESCROW = '0x15e85a85B7026875d3529EF0c6de2723C285DA11'
+const CLEAN_POP_MINTER = '0x11019B7af0F833f5695a44584c5B31Bb1D0baabC'
 
 function escrowEth() {
   return String(process.env.EK_ESCROW_ETH || ESCROW).trim()
@@ -105,7 +106,20 @@ async function readCreation(id) {
   if (!isHash(id)) throw new Error('An ethscription id is the 0x transaction that created it.')
   const found = await txAndReceipt(id)
   const text = hexToUtf8(found.tx.input)
-  if (text.indexOf('data:') !== 0) throw new Error('That transaction did not create an ethscription.')
+  if (text.indexOf('data:') !== 0) {
+    // Contract-created Ethscriptions are emitted in a log, not transaction input.
+    // Match both the receipt event and the independent protocol index before use.
+    const sent = await readPhunkMint(id)
+    if (!same(sent.to, CLEAN_POP_MINTER) || !same(sent.contractAddress, CLEAN_POP_MINTER) || !sent.uri) {
+      throw new Error('That transaction did not create a supported ethscription.')
+    }
+    await requireIndexedMint(sent)
+    return {
+      id: id.toLowerCase(), creator: sent.contractAddress, firstOwner: sent.owner,
+      contentUri: sent.uri.length > 80000 ? '' : sent.uri,
+      mime: sent.uri.slice(5, sent.uri.indexOf(',') > 0 ? sent.uri.indexOf(',') : 40).slice(0, 40)
+    }
+  }
   return {
     id: id.toLowerCase(),
     creator: found.tx.from,
