@@ -5,7 +5,7 @@
 <body><main><h1>TRIXMOJI · Clean Pop V1</h1>
 <p>Separate 1536×1536 collection. Deployment starts with public minting paused. This page sends zero ETH value; your wallet pays deployment gas.</p>
 <p><strong>Checkout migration is not complete. Keep PHUNK_MINT_ENABLED=false.</strong> Deployment does not switch the website or replace anyone's existing artwork.</p>
-<pre id="details">Loading configuration…</pre><div id="wallets"></div>
+<pre id="details">Loading configuration…</pre><p id="connectionHelp" role="status">Checking wallet connection options…</p><div id="wallets"></div>
 <button id="prepare" disabled>CONNECT CREATOR · ESTIMATE</button><button id="deploy" disabled>DEPLOY · WALLET APPROVAL</button><button id="check" disabled>VERIFY CONTRACT CODE</button>
 <p id="status" role="status"></p><label for="hash">Saved deployment transaction</label><input id="hash" readonly>
 <p><a href="/assets/ethscriptions/clean-pop-v1/0.png" target="_blank" rel="noopener">View packaged artwork #0</a> · <a href="/docs/CLEAN-POP-DEPLOYMENT.md">Deployment status and instructions</a></p></main>
@@ -27,6 +27,7 @@ async function check() {
 }
 el('prepare').onclick = async () => {
  el('prepare').disabled = true; el('deploy').disabled = true;
+ message('Choose your wallet below. On mobile, open this page inside your wallet browser if no wallet is listed.');
  try {
   connection = await EthscriptionCheckout.connect(el('wallets'));
   if (connection.address.toLowerCase() !== info.creator.toLowerCase()) throw Error('Connect creator wallet '+info.creator);
@@ -58,7 +59,15 @@ el('deploy').onclick=async()=>{
  }catch(e){message(e.message);}
 };
 el('check').onclick=()=>check().catch(e=>message(e.message));
-fetch('/assets/data/clean-pop-minter.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Deployment artifact unavailable');return r.json();}).then(config=>{
+const walletOptions = fetch('/api/ethscriptions',{cache:'no-store',signal:AbortSignal.timeout(10000)})
+ .then(r=>{if(!r.ok)throw Error('Wallet options unavailable');return r.json();})
+ .then(board=>{
+  EthscriptionCheckout.configure(board.walletConnectProjectId||'');
+  el('connectionHelp').textContent=board.walletConnectProjectId
+   ? 'Choose an installed Ethereum wallet or WalletConnect / mobile wallets after clicking CONNECT CREATOR.'
+   : 'Mobile QR is not configured. Use a browser with an Ethereum wallet extension, or open this exact URL inside your wallet app’s browser. Then click CONNECT CREATOR and select your wallet.';
+ }).catch(()=>{el('connectionHelp').textContent='Could not load mobile QR settings. Installed Ethereum wallets still work; on mobile, open this page inside your wallet app’s browser.';});
+Promise.all([fetch('/assets/data/clean-pop-minter.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Deployment artifact unavailable');return r.json();}),walletOptions]).then(([config])=>{
  info=config;
  if(info.version!=='clean-pop-v1'||info.chainId!==1||!/^0x[0-9a-f]{40}$/i.test(info.address)||!/^0x[0-9a-f]+$/i.test(info.deployData)||!/^0x[0-9a-f]+$/i.test(info.runtime))throw Error('Invalid Clean Pop deployment artifact');
  el('details').textContent='Creator: '+info.creator+'\nExpected NEW contract: '+info.address+'\nArtwork root: '+info.root+'\nNetwork: Ethereum mainnet\nStarts paused: yes\nPublic mint price: '+EthscriptionCheckout.eth(info.priceWei)+' ETH\nReplacements: manually verified by creator; project-paid gas';
