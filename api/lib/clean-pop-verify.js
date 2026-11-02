@@ -15,6 +15,16 @@ function validatePayload(uri, proof, tokenNo) {
  }
  if ('0x' + digest.toString('hex') !== info.root.toLowerCase()) throw Error('Artwork proof does not match Clean Pop.')
 }
+function decodeCreation(input, expectedUri) {
+ let decoded
+ try { decoded = iface.parseTransaction({ data: input }) } catch (_) { throw Error('Transaction is not a supported Clean Pop creation.') }
+ if (!decoded || !['mint', 'deliverReplacement'].includes(decoded.name)) throw Error('Transaction is not a supported Clean Pop creation.')
+ let tokenNo
+ try { tokenNo = decoded.args.tokenNo.toNumber() } catch (_) { throw Error('Invalid Clean Pop token number.') }
+ if (decoded.args.contentURI !== expectedUri) throw Error('Clean Pop transaction artwork does not match its creation event.')
+ validatePayload(decoded.args.contentURI, Array.from(decoded.args.proof), tokenNo)
+ return { tokenNo, preview: '/assets/ethscriptions/clean-pop-v1/' + tokenNo + '.png' }
+}
 async function verify(chain, hash, buyer, tokenNo) {
  if (!chain.isHash(hash) || !chain.isAddr(buyer) || !Number.isInteger(tokenNo)) throw Error('Invalid Clean Pop verification request.')
  const [sent, input] = await Promise.all([chain.readPhunkMint(hash), chain.readInput(hash)])
@@ -26,4 +36,4 @@ async function verify(chain, hash, buyer, tokenNo) {
  await chain.requireIndexedMint(sent)
  return { complete: true, hash: hash.toLowerCase(), tokenNo, preview: '/assets/ethscriptions/clean-pop-v1/' + tokenNo + '.png' }
 }
-module.exports = { validatePayload, verify }
+module.exports = { validatePayload, decodeCreation, verify }

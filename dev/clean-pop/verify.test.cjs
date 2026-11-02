@@ -27,3 +27,9 @@ test('verifier checks buyer, contract, transaction calldata and indexer', async 
  sent.owner = '0x2222222222222222222222222222222222222222'
  await assert.rejects(verifier.verify(chain, hash, owner, 0), /does not match/)
 })
+test('market artwork decoding supports creator replacements and rejects mismatched events', () => {
+ const iface = new ethers.utils.Interface(info.abi)
+ const data = iface.encodeFunctionData('deliverReplacement', [uri, proof, 0, '0x' + 'ab'.repeat(32), owner])
+ assert.equal(verifier.decodeCreation(data, uri).preview, '/assets/ethscriptions/clean-pop-v1/0.png')
+ assert.throws(() => verifier.decodeCreation(data, uri + 'A'), /does not match/)
+})

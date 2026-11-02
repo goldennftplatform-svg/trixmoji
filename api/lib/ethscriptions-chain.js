@@ -1,9 +1,11 @@
 'use strict'
 
 const { ethRpcs, firstRpc } = require('./awardz-chain')
+const cleanPopVerify = require('./clean-pop-verify')
 
 const ESCROW = '0x15e85a85B7026875d3529EF0c6de2723C285DA11'
 const CLEAN_POP_MINTER = '0x11019B7af0F833f5695a44584c5B31Bb1D0baabC'
+const CLEAN_POP_CREATOR = '0x915A3D363D0a4e4470B531f008F5142c540E5417'
 
 function escrowEth() {
   return String(process.env.EK_ESCROW_ETH || ESCROW).trim()
@@ -102,6 +104,18 @@ async function indexedOwnership(hash, wallet) {
   return { currentOwner: indexed.current_owner, owned: same(indexed.current_owner, wallet) }
 }
 
+async function requireIndexedTransfer(hash, transferHash, from, to, requireCurrentOwner) {
+  if (!isHash(hash) || !isHash(transferHash) || !isAddr(from) || !isAddr(to)) throw new Error('Invalid indexed transfer query.')
+  const indexed = await indexerGet('/ethscriptions/' + hash)
+  if (!same(indexed.transaction_hash, hash) || !Array.isArray(indexed.ethscription_transfers)) throw new Error('Indexed transfer history is unavailable. Wait for indexing before listing.')
+  const found = indexed.ethscription_transfers.some(function (transfer) {
+    return transfer && same(transfer.ethscription_transaction_hash, hash) && same(transfer.transaction_hash, transferHash) && same(transfer.from_address, from) && same(transfer.to_address, to)
+  })
+  if (!found) throw new Error('The Ethscriptions indexer has not confirmed this exact transfer. Wait for indexing before listing.')
+  if (requireCurrentOwner && (!same(indexed.current_owner, to) || !same(indexed.previous_owner, from))) throw new Error('The Ethscriptions indexer does not show this seller’s transfer as the current escrow custody.')
+  return indexed
+}
+
 async function readCreation(id) {
   if (!isHash(id)) throw new Error('An ethscription id is the 0x transaction that created it.')
   const found = await txAndReceipt(id)
@@ -114,8 +128,10 @@ async function readCreation(id) {
       throw new Error('That transaction did not create a supported ethscription.')
     }
     await requireIndexedMint(sent)
+    const artwork = cleanPopVerify.decodeCreation(found.tx.input, sent.uri)
     return {
-      id: id.toLowerCase(), creator: sent.contractAddress, firstOwner: sent.owner,
+      id: id.toLowerCase(), creator: CLEAN_POP_CREATOR, creationContract: sent.contractAddress, firstOwner: sent.owner,
+      tokenNo: artwork.tokenNo, preview: artwork.preview,
       contentUri: sent.uri.length > 80000 ? '' : sent.uri,
       mime: sent.uri.slice(5, sent.uri.indexOf(',') > 0 ? sent.uri.indexOf(',') : 40).slice(0, 40)
     }
@@ -223,5 +239,6 @@ module.exports = {
   requireMinter,
   requireUniqueContent,
   requireIndexedMint,
-  indexedOwnership
+  indexedOwnership,
+  requireIndexedTransfer
 }

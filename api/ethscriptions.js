@@ -541,6 +541,7 @@ async function postList(req, res, body) {
   if (!chain.same(lock.to, escrow)) return fail(res, 400, 'The ethscription was not sent to the escrow address.')
   if (lock.value !== '0') return fail(res, 400, 'The lock transfer has to be 0 ETH.')
   if (!chain.same(lock.from, seller)) return fail(res, 400, 'The lock transaction was not sent by your Ethereum wallet.')
+  await chain.requireIndexedTransfer(created.id, lock.hash, seller, escrow, true)
   const row = {
     id: crypto.randomBytes(8).toString('hex'),
     ethscriptionId: created.id,
@@ -552,7 +553,7 @@ async function postList(req, res, body) {
     buyerUid: '',
     state: 'open',
     mime: created.mime || '',
-    preview: created.contentUri && created.contentUri.indexOf('data:image/') === 0 ? created.contentUri : '',
+    preview: created.preview || (created.contentUri && created.contentUri.indexOf('data:image/') === 0 ? created.contentUri : ''),
     lockTx: lock.hash,
     payTx: '',
     deliverTx: '',
@@ -653,6 +654,7 @@ async function postDeposit(req, res, body) {
   if (!chain.same(lock.to, escrow)) return fail(res, 400, 'The ethscription was not sent to the escrow address.')
   if (lock.value !== '0') return fail(res, 400, 'The lock transfer has to be 0 ETH.')
   if (!chain.same(lock.from, seller)) return fail(res, 400, 'The lock transaction was not sent by your Ethereum wallet.')
+  await chain.requireIndexedTransfer(created.id, lock.hash, seller, escrow, true)
   if (!chain.same(created.creator, seller)) return fail(res, 400, 'A drop only accepts ethscriptions created by your wallet.')
   const row = {
     id: crypto.randomBytes(8).toString('hex'),
@@ -663,7 +665,7 @@ async function postDeposit(req, res, body) {
     buyerUid: '',
     state: 'open',
     mime: created.mime || '',
-    preview: created.contentUri && created.contentUri.indexOf('data:image/') === 0 ? created.contentUri : '',
+    preview: created.preview || (created.contentUri && created.contentUri.indexOf('data:image/') === 0 ? created.contentUri : ''),
     lockTx: lock.hash,
     payTx: '',
     deliverTx: '',
@@ -725,6 +727,10 @@ async function postHold(req, res, body) {
   const collectionId = String(body.collectionId || '')
   if (collectionId) return holdRandom(res, user, buyer, collectionId)
   const id = String(body.id || '')
+  const before = await withBoard(async function () { return null })
+  const candidate = findRow(before, id)
+  if (!candidate || candidate.collectionId) throw new Error('That listing is not on the board.')
+  await chain.requireIndexedTransfer(candidate.ethscriptionId, candidate.lockTx, candidate.seller, chain.escrowEth(), true)
   const now = Date.now()
   const state = await withBoard(async function (board) {
     const row = findRow(board, id)
@@ -818,6 +824,7 @@ async function postRelease(req, res, body) {
     if (!chain.same(deliver.id, row.ethscriptionId)) throw new Error('That transfer is a different ethscription.')
     if (!chain.same(deliver.from, escrow) || !chain.same(deliver.to, row.buyer)) throw new Error('The ethscription was not sent from escrow to the buyer.')
     if (deliver.value !== '0') throw new Error('The ethscription transfer has to be 0 ETH.')
+    await chain.requireIndexedTransfer(deliver.id, deliver.hash, escrow, row.buyer, false)
     if (!chain.same(payout.from, escrow) || !chain.same(payout.to, row.seller)) throw new Error('The seller payment was not sent from escrow to the seller.')
     if (combined) {
       if (payout.value !== (sellerDue + royalty).toString()) throw new Error('The seller was not paid the seller share.')
@@ -854,6 +861,8 @@ async function postRefund(req, res, body) {
     if (!row || row.state !== 'paid') throw new Error('That sale is not waiting on a refund.')
     if (!chain.same(back.id, row.ethscriptionId)) throw new Error('That transfer is a different ethscription.')
     if (!chain.same(back.from, escrow) || !chain.same(back.to, row.seller)) throw new Error('The ethscription was not sent back to the seller.')
+    if (back.value !== '0') throw new Error('The ethscription transfer has to be 0 ETH.')
+    await chain.requireIndexedTransfer(back.id, back.hash, escrow, row.seller, false)
     if (!chain.same(refund.from, escrow) || !chain.same(refund.to, row.buyer)) throw new Error('The ETH was not sent back to the buyer.')
     if (refund.value !== String(row.buyerWei || row.priceWei)) throw new Error('The refund is not the full amount the buyer paid.')
     if (!claimTx(board, back.hash, row.id) || !claimTx(board, refund.hash, row.id)) throw new Error('One of those transactions was already used.')
@@ -875,6 +884,8 @@ async function postPull(req, res, body) {
     if (row.state !== 'open') throw new Error('A listing can be pulled only before anyone pays.')
     if (!chain.same(back.id, row.ethscriptionId)) throw new Error('That transfer is a different ethscription.')
     if (!chain.same(back.from, escrow) || !chain.same(back.to, row.seller)) throw new Error('The ethscription was not sent back to you from escrow.')
+    if (back.value !== '0') throw new Error('The ethscription transfer has to be 0 ETH.')
+    await chain.requireIndexedTransfer(back.id, back.hash, escrow, row.seller, false)
     if (!claimTx(board, back.hash, row.id)) throw new Error('That return transaction was already used.')
     row.state = 'returned'
     return board
