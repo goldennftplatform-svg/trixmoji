@@ -1,30 +1,15 @@
-# HD display previews
+# Artwork Resolution Finding
 
-All 10,000 supplied source PNGs in `TRIX-PHUNKS/assets-v2` are 960×960. The existing mint PNGs are smaller (256×256). Enlarging the mint files cannot recover the source detail, so the explorer now displays lossless WebP copies of the full-resolution source art instead of using AI upscaling.
+The supplied V2 files are 960×960, while the current mint PNGs are 256×256. Pixel-for-pixel conversion proved that the V2 files are faithfully preserved in `assets/ethscriptions/phunks/hd/`, but canvas dimensions alone did **not** prove a higher-detail rendition of the emoji artwork.
 
-- HD URL: `/assets/ethscriptions/phunks/hd/{id}.webp`
-- Mint image URL: `/assets/ethscriptions/phunks/img/{id}.png`
-- IDs: 0 through 9999
-- 10,000 decoded WebPs pixel-verified against the source originals
-- Total WebP payload: 510,730,966 bytes (~487 MiB)
-- Manifest: `assets/ethscriptions/phunks/hd/manifest.json`
-- Explorer: `/classic/pages/phunk-market-preview.html`
+The collection explorer intentionally uses the verified mint images at `/assets/ethscriptions/phunks/img/{id}.png`. It must not claim that the V2 files are HD upgrades or use them for a new mint without a separate art-direction and visual-quality review.
 
-HD previews are display assets. **No mint PNG, Merkle leaf, deployed contract, or existing on-chain content was changed.** Each detail panel links separately to the HD preview and the actual mint image. Replacing an already-inscribed image is not possible through this display update.
+No mint PNG, Merkle leaf, deployed contract, or existing on-chain content was changed by the V2/WebP experiment. Existing Ethscriptions cannot be overwritten.
 
-## Regenerate
+## Before Any New Collection
 
-With the original V2 source folder alongside DOSWAPZ:
-
-```sh
-python -m pip install Pillow
-python dev/scripts/build-phunk-hd.py --workers 8
-```
-
-The script writes only the `hd/` directory, validates dimensions and exact decoded RGBA pixels, and publishes the full manifest only after all 10,000 succeed. `--limit 16` makes a small test batch without replacing the full manifest. Pillow must have WebP support. Netlify serves the committed files; regeneration is not part of its build.
-
-The explorer loads 40 cards per page, lazy-loads images, and falls back to the mint PNG if an HD file fails. The local ten-piece sandbox uses the same HD source previews, while ownership remains simulated.
-
-## DOSWAPZ integration
-
-If the developer's separate DOSWAPZ frontend needs the sharper art, resolve HD URLs against `https://trixmoji.netlify.app`, and fall back to the corresponding mint PNG. Label them as source-art previews, not newly-upgraded on-chain content. Never replace `picture.uri` or the bytes passed to the existing mint contract with HD preview data: that would invalidate the artwork proof.
+1. Obtain artist-approved replacement masters, not merely larger canvases.
+2. Review representative pieces at intended display and native image size.
+3. Get written approval that the art is the intended replacement collection.
+4. Generate a new manifest, Merkle root, contract, and test mint from those approved bytes.
+5. Verify an indexed on-chain test mint before any public sale or replacement program.
