@@ -4,6 +4,25 @@
  var CALL = '0x16c38b3c' + '0'.repeat(64)
  function same(a, b) { return String(a || '').toLowerCase() === String(b || '').toLowerCase() }
  function saved() { return JSON.parse(root.localStorage.getItem(KEY) || 'null') }
+ function bounded(provider, progress) {
+  return { request: function (payload) {
+   var signing = payload.method === 'eth_sendTransaction'
+   if (progress) progress(signing ? 'Transaction approval requested from the connected wallet. Open its extension to approve or reject.' : 'Waiting for wallet: ' + payload.method)
+   return new Promise(function (resolve, reject) {
+    var timer = setTimeout(function () {
+     reject(Error(signing ? 'The wallet has not returned a transaction hash. Its request may still be pending. Do not submit another transaction.' : 'Wallet did not respond to ' + payload.method + '. Preparation stopped before sending an opening transaction.'))
+    }, signing ? 90000 : 20000)
+    try {
+     Promise.resolve(provider.request(payload)).then(function (value) { clearTimeout(timer); resolve(value) }, function (error) {
+      clearTimeout(timer)
+      var code = Number(error && (error.code || error.data && error.data.originalError && error.data.originalError.code))
+      if (code === -32002) reject(Error('The wallet already has a pending request. Open the wallet extension and finish or reject it before continuing.'))
+      else reject(error)
+     })
+    } catch (error) { clearTimeout(timer); reject(error) }
+   })
+  } }
+ }
  async function inspect(provider, info) {
   if (BigInt(await provider.request({ method: 'eth_chainId' })) !== 1n) throw Error('Switch to Ethereum mainnet.')
   var accounts = await provider.request({ method: 'eth_accounts' })
@@ -18,7 +37,8 @@
   var existing = saved()
   if (existing && ['awaiting-wallet', 'submitted'].includes(existing.state)) throw Error(existing.hash ? 'Opening transaction saved: ' + existing.hash + '. Check this hash before submitting another transaction.' : 'An earlier opening request has no saved hash. It may still be in the wallet. This browser will not send a duplicate request.')
  }
- async function prepare(provider, info) {
+ async function prepare(provider, info, progress) {
+  provider = bounded(provider, progress)
   var state = await inspect(provider, info)
   if (!state.paused) return { alreadyOpen: true }
   assertNoPending()
@@ -28,7 +48,8 @@
   tx.gas = '0x' + (gas + gas / 5n).toString(16)
   return { tx: tx, estimatedGasWei: (gas * price).toString(), preparedAt: Date.now() }
  }
- async function submit(provider, info, plan) {
+ async function submit(provider, info, plan, progress) {
+  provider = bounded(provider, progress)
   if (!plan || Date.now() - plan.preparedAt > 60000 || Date.now() < plan.preparedAt || !plan.tx || !same(plan.tx.from, info.creator) || !same(plan.tx.to, info.address) || plan.tx.data !== CALL || plan.tx.chainId !== '0x1' || plan.tx.value !== '0x0') throw Error('Prepare the opening transaction again; its review expired or does not match the contract.')
   if (!root.navigator.locks) throw Error('Use a browser with Web Locks support to coordinate wallet requests.')
   return root.navigator.locks.request(KEY, { ifAvailable: true }, async function (lock) {

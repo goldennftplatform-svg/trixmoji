@@ -47,7 +47,8 @@
   var accounts = await provider.request({ method: 'eth_accounts' })
   if (!accounts[0] || !same(accounts[0], from)) throw new Error('Wallet changed. Reconnect the original purchasing wallet.')
  }
- async function choose(host) {
+  async function choose(host, report) {
+   report = report || function () {}
   var rows = []
   function add(provider, name, id) {
    if (provider && provider.request && !rows.some(function (r) { return r.provider === provider || id && r.id === id })) rows.push({ provider: provider, name: name, id: id })
@@ -76,7 +77,8 @@
     b.type = 'button'; b.textContent = label
     b.onclick = async function () {
      Array.from(box.querySelectorAll('button')).forEach(function (x) { x.disabled = true })
-     status.textContent = 'Connecting ' + label + '… Open its extension icon if no window appears.'
+      status.textContent = 'Connecting ' + label + '… Open its extension icon if no window appears.'
+      report(status.textContent)
      try { var p = await run(); active = p; box.remove(); resolve(p) }
      catch (e) { box.remove(); reject(e) }
     }
@@ -84,7 +86,8 @@
    }
    rows.forEach(function (r) { button(r.name, async function () {
     // Ask for accounts inside the wallet-button click, before network RPCs.
-    await requestAccounts(r.provider)
+     var accounts = await requestAccounts(r.provider)
+     report(r.name + ' returned account ' + accounts[0] + '. Checking Ethereum mainnet…')
     return r.provider
    }) })
    if (projectId) button('WalletConnect / mobile wallets', async function () {
@@ -106,11 +109,15 @@
    host.appendChild(box)
   })
  }
- async function connect(host) {
-  var p = active || await choose(host)
-  await ensureChain(p)
-  var accounts = await requestAccounts(p)
-  if (!accounts[0]) throw new Error('No Ethereum account connected.')
+  async function connect(host, report) {
+   report = report || function () {}
+   var p = active || await choose(host, report)
+   report('Wallet selected. Checking Ethereum mainnet…')
+   await ensureChain(p)
+   var accounts = await walletRequest(p, { method: 'eth_accounts' }, 20000)
+   if (!accounts || !accounts[0]) accounts = await requestAccounts(p)
+   if (!accounts[0]) throw new Error('No Ethereum account connected.')
+   report('Connected wallet: ' + accounts[0])
   return { provider: p, address: accounts[0] }
  }
  function eth(wei) {

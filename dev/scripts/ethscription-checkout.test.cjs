@@ -42,6 +42,29 @@ function options(b, more = {}) {
   picture: { id: '0123456789abcdef', tokenNo: 0, wei: '200000000000000' }, data: '0x1234',
   review: async q => { assert.equal(q.total, '0.0003') }, onHash: () => {}, ...more }
 }
+test('choosing Coinbase requests authorization once and then reads the connected account', async () => {
+ const calls = [], reports = []
+ const provider = { isCoinbaseWallet: true, request: async q => {
+  calls.push(q.method)
+  if (q.method === 'eth_requestAccounts' || q.method === 'eth_accounts') return [buyer]
+  if (q.method === 'eth_chainId') return '0x1'
+  throw Error(q.method)
+ } }
+ function element() { return { children: [], setAttribute() {}, appendChild(x) { this.children.push(x) }, querySelectorAll() { return this.children.filter(x => x.onclick) }, remove() {} } }
+ const host = element()
+ const app = load('assets/js/core/ethscription-checkout.js', {}, { ethereum: provider,
+  document: { createElement: element }, addEventListener() {}, removeEventListener() {}, dispatchEvent() {}, Event: class Event {} })
+ const connecting = app.connect(host, text => reports.push(text))
+ await new Promise(resolve => setTimeout(resolve, 300))
+ const choice = host.children[0].children.find(x => x.textContent === 'Coinbase Wallet')
+ assert.ok(choice)
+ await choice.onclick()
+ const result = await connecting
+ assert.equal(result.address, buyer)
+ assert.equal(calls.filter(x => x === 'eth_requestAccounts').length, 1)
+ assert.equal(calls.includes('eth_accounts'), true)
+ assert.ok(reports.some(x => x.includes('returned account')))
+})
 test('wrong-chain rejection cannot reach transaction submission', async () => {
  const b = browser(); b.chain('0x89')
  await assert.rejects(b.app.send(options(b)), /Rejected switch/)

@@ -19,9 +19,9 @@
 <button id="recover">CHECK CHAIN · CLEAR UNSENT ATTEMPT</button>
 <p>A pending-count check cannot detect every privately submitted transaction. Do not use this if your wallet shows a submission or transaction hash.</p></section>
 <p><a href="/classic/pages/clean-pop-market.html">BROWSE ALL 10,000 CLEAN POP PIECES</a> · <a href="/classic/pages/clean-pop-delivery.html">DELIVER ORIGINAL-MINTER REISSUES</a> · <a href="/assets/ethscriptions/clean-pop-v1/0.png" target="_blank" rel="noopener">View packaged artwork #0</a> · <a href="/docs/CLEAN-POP-DEPLOYMENT.md">Deployment status and instructions</a></p></main>
-<script src="/assets/js/core/ethscription-checkout.js?v=20261101"></script>
+<script src="/assets/js/core/ethscription-checkout.js?v=20261102connect"></script>
 <script src="/assets/js/core/clean-pop-recovery.js?v=1"></script>
-<script src="/assets/js/core/clean-pop-control.js?v=3"></script>
+<script src="/assets/js/core/clean-pop-control.js?v=4"></script>
 <script>
 'use strict';
 const el = id => document.getElementById(id);
@@ -44,7 +44,9 @@ el('prepare').onclick = async () => {
    const injected=window.ethereum, providers=injected&&Array.isArray(injected.providers)?injected.providers:injected?[injected]:[];
    if(providers.length===1&&providers[0]&&typeof providers[0].request==='function'){
     const accounts=await EthscriptionCheckout.requestAccounts(providers[0]);await EthscriptionCheckout.ensureChain(providers[0]);connection={provider:providers[0],address:accounts[0]};
-   }else connection = await EthscriptionCheckout.connect(el('wallets'));
+   }else connection = await EthscriptionCheckout.connect(el('wallets'),text=>{message(text);el('saleStatus').textContent=text;});
+   message('Wallet connected: '+connection.address+'. Verifying deployed contract…');
+   el('saleStatus').textContent='Wallet connected: '+connection.address+'. Checking creator address…';
    if (connection.address.toLowerCase() !== info.creator.toLowerCase()) throw Error('Connect creator wallet '+info.creator);
    el('check').disabled = false;
    el('saleState').disabled = false; el('openSale').disabled = false; el('checkSaleTx').disabled = false;
@@ -76,8 +78,8 @@ el('deploy').onclick=async()=>{
 };
 el('check').onclick=()=>check().catch(e=>message(e.message));
 el('saleState').onclick=async()=>{try{const state=await CleanPopControl.inspect(connection.provider,info);el('saleStatus').textContent=state.paused?'Contract reports PUBLIC MINT PAUSED.':'Contract reports PUBLIC MINT OPEN.';}catch(e){el('saleStatus').textContent=e.message;}};
-el('openSale').onclick=async()=>{el('openSale').disabled=true;el('saleReview').hidden=true;salePlan=null;el('saleStatus').textContent='Reading contract state and estimating gas. No transaction requested yet…';try{const result=await CleanPopControl.prepare(connection.provider,info);if(result.alreadyOpen)el('saleStatus').textContent='Contract already reports PUBLIC MINT OPEN.';else{salePlan=result;el('saleQuote').textContent='Contract: '+info.address+' · Value: 0 ETH · Estimated gas cost: '+EthscriptionCheckout.eth(result.estimatedGasWei)+' ETH. Quote expires in 60 seconds.';el('saleReview').hidden=false;el('saleStatus').textContent='Prepared. Click APPROVE OPENING IN WALLET below to request approval.';}}catch(e){el('saleStatus').textContent=e.message;}finally{el('openSale').disabled=false;}};
-el('approveSale').onclick=async()=>{el('approveSale').disabled=true;el('saleStatus').textContent='Opening approval requested. Open the selected wallet extension to approve or reject. Do not submit again.';try{const result=await CleanPopControl.submit(connection.provider,info,salePlan);el('saleHash').value=result.hash;el('saleReview').hidden=true;salePlan=null;el('saleStatus').textContent='Submitted '+result.hash+'. Check the opening transaction before testing.';}catch(e){el('saleStatus').textContent=e.message;}finally{el('approveSale').disabled=false;}};
+el('openSale').onclick=async()=>{el('openSale').disabled=true;el('saleReview').hidden=true;salePlan=null;el('saleStatus').textContent='Reading contract state and estimating gas. No transaction requested yet…';try{const result=await CleanPopControl.prepare(connection.provider,info,text=>{el('saleStatus').textContent=text;});if(result.alreadyOpen)el('saleStatus').textContent='Contract already reports PUBLIC MINT OPEN.';else{salePlan=result;el('saleQuote').textContent='Contract: '+info.address+' · Value: 0 ETH · Estimated gas cost: '+EthscriptionCheckout.eth(result.estimatedGasWei)+' ETH. Quote expires in 60 seconds.';el('saleReview').hidden=false;el('saleStatus').textContent='Prepared. Click APPROVE OPENING IN WALLET below to request approval.';}}catch(e){el('saleStatus').textContent=e.message;}finally{el('openSale').disabled=false;}};
+el('approveSale').onclick=async()=>{el('approveSale').disabled=true;el('saleStatus').textContent='Opening approval requested. Open the selected wallet extension to approve or reject. Do not submit again.';try{const result=await CleanPopControl.submit(connection.provider,info,salePlan,text=>{el('saleStatus').textContent=text;});el('saleHash').value=result.hash;el('saleReview').hidden=true;salePlan=null;el('saleStatus').textContent='Submitted '+result.hash+'. Check the opening transaction before testing.';}catch(e){el('saleStatus').textContent=e.message;}finally{el('approveSale').disabled=false;}};
 el('cancelSale').onclick=()=>{salePlan=null;el('saleReview').hidden=true;el('saleStatus').textContent='Preparation cancelled. No wallet transaction requested.';};
 el('checkSaleTx').onclick=async()=>{try{const result=await CleanPopControl.check(connection.provider,info,el('saleHash').value.trim());el('saleStatus').textContent=result.state==='confirmed'?'Opening transaction confirmed; contract reports PUBLIC MINT OPEN.':'Opening transaction failed. Check wallet activity before retrying.';}catch(e){el('saleStatus').textContent=e.message;}};
 el('recover').onclick=async()=>{
