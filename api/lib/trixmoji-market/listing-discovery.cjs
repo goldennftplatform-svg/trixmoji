@@ -11,12 +11,14 @@ const same = (a, b) => String(a || '').toLowerCase() === String(b || '').toLower
 async function discoverListings({ market, indexer, registry, minter, startBlock, confirmations = 2, blockChunk = 2000, maxCandidates = 1000 }) {
  if (!market || !market.provider || typeof indexer !== 'function' || typeof registry !== 'function' || !ethers.utils.isAddress(minter)) throw Error('Market, indexer, registry and collection minter are required.')
  if (!Number.isSafeInteger(startBlock) || startBlock < 0 || !Number.isInteger(confirmations) || confirmations < 1 || !Number.isInteger(blockChunk) || blockChunk < 1 || blockChunk > 10000 || !Number.isInteger(maxCandidates) || maxCandidates < 1) throw Error('Invalid listing discovery limits.')
- const latest = await market.provider.getBlockNumber(), head = latest - confirmations + 1
+ const latest = await market.provider.getBlockNumber(), confirmedHead = latest - confirmations + 1
+ const status = await indexer('/status'), indexed = Number(status && status.last_imported_block)
+ if (!Number.isSafeInteger(indexed) || indexed < 0 || latest - indexed > 2) throw Error('Ethscriptions indexer is behind the confirmed chain head.')
+ // Restrict discovery to the newest block that is both confirmed and indexed.
+ const head = Math.min(confirmedHead, indexed)
  if (head < startBlock) return { blockNumber: head, listings: [], auctions: [], deposits: [], candidateCount: 0 }
  const block = await market.provider.getBlock(head)
  if (!block || !block.hash) throw Error('Confirmed chain head is unavailable.')
- const status = await indexer('/status'), indexed = Number(status && status.last_imported_block)
- if (!Number.isSafeInteger(indexed) || indexed < head) throw Error('Ethscriptions indexer is behind the confirmed chain head.')
  const candidates = new Map(), filters = [market.filters.Listed(), market.filters.AuctionStarted(), market.filters.Deposited()]
  for (let from = startBlock; from <= head; from += blockChunk) {
   const batches = await Promise.all(filters.map(filter => market.provider.getLogs({ ...filter, fromBlock: from, toBlock: Math.min(head, from + blockChunk - 1) })))
