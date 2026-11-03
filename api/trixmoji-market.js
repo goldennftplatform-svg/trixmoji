@@ -12,6 +12,11 @@ const marketArtifact = require('../assets/data/trixmoji-escrow-artifact.json')
 const deployment = require('../assets/data/trixmoji-escrow-deployment.json')
 const minter = require('../assets/data/clean-pop-minter.json')
 
+function verifierKey() {
+ const value = String(process.env.TRIXMOJI_MARKET_VERIFIER_KEY || '').trim()
+ return /^[a-f0-9]{64}$/i.test(value) ? '0x' + value : value
+}
+
 async function authenticatedWallet(req) {
  const session = readSession(req)
  if (!session || !session.uid) throw Error('Sign in with your Ethereum wallet before requesting an authorization.')
@@ -23,7 +28,7 @@ async function authenticatedWallet(req) {
 
 async function runtime(readOnly) {
  if (process.env.TRIXMOJI_MARKET_ENABLED !== 'true') throw Error('MARKET_NOT_CONFIGURED')
- const rpc = String(process.env.ETH_RPC_URL || ''), marketAddress = deployment.address, runtimeHash = deployment.runtimeHash, start = String(deployment.deploymentBlock), key = String(process.env.TRIXMOJI_MARKET_VERIFIER_KEY || '')
+ const rpc = String(process.env.ETH_RPC_URL || ''), marketAddress = deployment.address, runtimeHash = deployment.runtimeHash, start = String(deployment.deploymentBlock), key = verifierKey()
  if (!/^https:\/\//i.test(rpc) || !ethers.utils.isAddress(marketAddress) || !/^0x[a-f0-9]{64}$/i.test(runtimeHash) || !/^\d+$/.test(start) || !Number.isSafeInteger(Number(start)) || (!readOnly && !/^0x[a-f0-9]{64}$/i.test(key))) throw Error('MARKET_NOT_CONFIGURED')
  const provider = new ethers.providers.JsonRpcProvider({ url: rpc, timeout: 10000 }, 1)
  const signer = readOnly ? { address: marketArtifact.verifier } : new ethers.Wallet(key, provider)
@@ -44,8 +49,8 @@ async function handler(req, res) {
   if (req.method === 'POST' && process.env.TRIXMOJI_MARKET_LIVE !== 'true') throw Error('MARKET_NOT_CONFIGURED')
   const service = await runtime(req.method === 'GET')
   if (req.method === 'GET') {
-   const key = String(process.env.TRIXMOJI_MARKET_VERIFIER_KEY || '')
-   const readiness = { sessionConfigured: !!sessionSecret(), verifierKeyMatches: false, quotaStorageAvailable: false }
+   const key = verifierKey()
+   const readiness = { sessionConfigured: !!sessionSecret(), verifierKeyPresent: !!key, verifierKeyFormatValid: /^0x[a-f0-9]{64}$/i.test(key), verifierKeyMatches: false, quotaStorageAvailable: false }
    try { readiness.verifierKeyMatches = /^0x[a-f0-9]{64}$/i.test(key) && new ethers.Wallet(key).address.toLowerCase() === marketArtifact.verifier.toLowerCase() } catch (_) {}
    try {
     const store = getStore({ ...storeOptions(), name: 'trixmoji-market-approval-quota', consistency: 'strong' })
@@ -67,3 +72,4 @@ async function handler(req, res) {
  }
 }
 module.exports = handler
+module.exports.verifierKey = verifierKey

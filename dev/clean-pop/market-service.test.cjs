@@ -20,3 +20,10 @@ test('invalid verifier configuration fails without returning secret values', asy
    const result = await request('POST', { action: 'authorize' }); assert.equal(result.status, 503); assert.doesNotMatch(JSON.stringify(result.json), /not-a-real-secret|private-token/)
  } finally { names.forEach(name => { if (old[name] === undefined) delete process.env[name]; else process.env[name] = old[name] }) }
 })
+test('verifier key accepts MetaMask hex with or without the 0x prefix', () => {
+ const original = process.env.TRIXMOJI_MARKET_VERIFIER_KEY, hex = '12'.repeat(32)
+ try {
+  process.env.TRIXMOJI_MARKET_VERIFIER_KEY = '  ' + hex + '  '; assert.equal(handler.verifierKey(), '0x' + hex)
+  process.env.TRIXMOJI_MARKET_VERIFIER_KEY = '0x' + hex; assert.equal(handler.verifierKey(), '0x' + hex)
+ } finally { if (original === undefined) delete process.env.TRIXMOJI_MARKET_VERIFIER_KEY; else process.env.TRIXMOJI_MARKET_VERIFIER_KEY = original }
+})
