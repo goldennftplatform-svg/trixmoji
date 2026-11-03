@@ -22,6 +22,9 @@
    if (BigInt(await read(options.provider, 'eth_chainId')) !== 1n) throw Error('Switch to Ethereum mainnet.')
    var accounts = await read(options.provider, 'eth_accounts')
    if (!accounts || !same(accounts[0], options.from)) throw Error('Wallet changed. Reconnect the original wallet.')
+   var accountCode = await read(options.provider, 'eth_getCode', [options.from, 'latest'])
+   if (!/^0x(?:[a-f0-9]{2})*$/i.test(String(accountCode || ''))) throw Error('Could not verify the wallet account type. No transfer was requested.')
+   if (accountCode.toLowerCase() !== '0x') throw Error('Direct Ethscription sends from smart-account wallets are not yet supported. No transfer was requested.')
    var latest = BigInt(await read(options.provider, 'eth_getTransactionCount', [options.from, 'latest'])), pending = BigInt(await read(options.provider, 'eth_getTransactionCount', [options.from, 'pending']))
    if (latest !== pending) throw Error('The wallet reports a pending transaction. Resolve it before sending.')
    var started = Date.now(), invalid = false, sent = false

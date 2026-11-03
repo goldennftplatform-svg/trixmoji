@@ -4,7 +4,7 @@ const from = '0x' + '1'.repeat(40), to = '0x' + '2'.repeat(40), id = '0x' + 'a'.
 function fixture(overrides = {}) {
  const values = new Map(), root = { localStorage: { getItem: k => values.get(k) || null, setItem: (k, v) => values.set(k, v) }, navigator: { locks: { request: async (_, __, fn) => fn({}) } } }, module = { exports: {} }, calls = []
  vm.runInNewContext(fs.readFileSync(path.resolve(__dirname, '../../assets/js/core/clean-pop-transfer-checkout.js'), 'utf8'), { module, window: root, BigInt, Date, Error, setTimeout, clearTimeout })
- const provider = { request: async q => { calls.push(q); if (overrides[q.method]) return overrides[q.method](q); return { eth_chainId: '0x1', eth_accounts: [from], eth_getTransactionCount: '0x10', eth_sendTransaction: hash }[q.method] } }
+ const provider = { request: async q => { calls.push(q); if (overrides[q.method]) return overrides[q.method](q); return { eth_chainId: '0x1', eth_accounts: [from], eth_getCode: '0x', eth_getTransactionCount: '0x10', eth_sendTransaction: hash }[q.method] } }
  const options = { provider, id, from, to, tokenNo: 6, gas: '30000', gasWei: '1000', preflight: async () => {}, review: async q => q.approve() }
  return { api: module.exports, root, provider, calls, options }
 }
@@ -28,6 +28,11 @@ test('wrong account or pending nonce blocks a transfer before wallet approval', 
  for (const override of [{ eth_accounts: () => [to] }, { eth_getTransactionCount: q => q.params[1] === 'pending' ? '0x11' : '0x10' }]) {
   const f = fixture(override); await assert.rejects(f.api.send(f.options)); assert.equal(f.calls.some(x => x.method === 'eth_sendTransaction'), false)
  }
+})
+test('a delegated smart account is blocked before a wallet transfer request', async () => {
+ const f = fixture({ eth_getCode: () => '0xef0100' + '11'.repeat(20) })
+ await assert.rejects(f.api.send(f.options), /smart-account wallets are not yet supported/)
+ assert.equal(f.calls.some(x => x.method === 'eth_sendTransaction'), false)
 })
 test('no-hash recovery refuses a changed nonce or unconfirmed user acknowledgement', async () => {
  const f = fixture({ eth_sendTransaction: () => { throw Error('wallet disconnected') } })
