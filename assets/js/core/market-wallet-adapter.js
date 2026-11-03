@@ -124,7 +124,16 @@
    if (BigInt(await rpc('eth_chainId')) !== BigInt(chainId)) throw Error('Wallet is on the wrong network.')
    var values = await Promise.all([rpc('eth_getTransactionByHash', [row.hash]), rpc('eth_getTransactionReceipt', [row.hash])]), tx = values[0], receipt = values[1]
    if (!tx || !receipt) throw Error('Transaction is not confirmed. Do not retry.')
-   if (!same(tx.from, row.from) || !same(tx.to, row.to) || !same(tx.input || tx.data, row.data) || !ethers.BigNumber.from(tx.value).eq(row.value)) throw Error('Transaction does not match the saved market action.')
+   if (!same(tx.from, row.from) || !same(tx.to, row.to) || !same(tx.input || tx.data, row.data) || !ethers.BigNumber.from(tx.value).eq(row.value)) {
+    if (row.action === 'deposit' && receipt.status === '0x1' && same(tx.from, row.from) && !same(tx.to, row.to)) {
+     var found = (receipt.logs || []).some(function (log) { if (!same(log.address, market)) return false; try { var event = iface.parseLog(log); return event.name === 'Deposited' && same(event.args.seller, row.from) && same(event.args.id, row.assetId) } catch (_) { return false } })
+     if (found) {
+      var indexed = await config.readAsset(row.assetId)
+      if (indexed && same(indexed.transaction_hash, row.assetId) && same(indexed.current_owner, row.from)) throw Error('The wallet sent a wrapped deposit; the indexer still shows this piece in your wallet. The escrow may have a false deposit record. Do not retry; recovery is needed.')
+     }
+    }
+    throw Error('Transaction does not match the saved market action. Do not retry until it is checked.')
+   }
    if (receipt.status === '0x0') { row.state = 'failed'; write(row); return { failed: true, hash: row.hash } }
    if (receipt.status !== '0x1') throw Error('Transaction receipt status is unavailable.')
    if (typeof verifyIndexed !== 'function' || !(await verifyIndexed(row, receipt))) throw Error('Transaction confirmed; protocol indexing or settlement verification is pending.')
