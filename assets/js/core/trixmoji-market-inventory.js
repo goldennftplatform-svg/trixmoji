@@ -6,6 +6,7 @@
  var say = function (text) { status.textContent = text }
  async function json(url, options) { var r = await fetch(url, options || { cache: 'no-store', signal: AbortSignal.timeout(25000) }); var body = await r.json(); if (!r.ok || body.ok === false) throw Error(body.error || 'Market request unavailable.'); return body }
  async function asset(id) { var body = await json('https://api.ethscriptions.com/v2/ethscriptions/' + encodeURIComponent(id)); if (!body.result) throw Error('Indexer asset unavailable.'); return body.result }
+ async function transferCheck(action, values) { var url = new URL('/.netlify/functions/clean-pop-transfer', location.origin); Object.entries(Object.assign({ action: action }, values)).forEach(function (entry) { url.searchParams.set(entry[0], entry[1]) }); return json(url) }
  async function configure() {
   var connection = MarketWalletConnector.current()
   if (!connection) throw Error('Connect your Ethereum wallet first.')
@@ -31,13 +32,22 @@
  }
  async function reconcile(row) { var result = await client.reconcile(row, verify); say(result.failed ? 'Transaction failed. Check wallet activity.' : 'Transaction confirmed and verified.'); await load(false) }
  function recovery() {
-  recoveryBox.textContent = ''; if (!client) return
-  client.records().filter(function (r) { return r.state !== 'complete' && r.state !== 'failed' }).forEach(function (row) {
+  recoveryBox.textContent = ''
+  if (client) client.records().filter(function (r) { return r.state !== 'complete' && r.state !== 'failed' }).forEach(function (row) {
    var text = document.createElement('p'), b = document.createElement('button'), input = document.createElement('input')
    text.textContent = row.action + ': ' + (row.hash || 'No transaction hash returned. Check wallet Activity; do not retry.')
    recoveryBox.appendChild(text)
    input.placeholder = '0x transaction hash from wallet Activity'; input.value = row.hash || ''; input.setAttribute('aria-label', 'Market transaction hash'); recoveryBox.appendChild(input)
    b.textContent = 'CHECK TRANSACTION'; b.onclick = async function () { try { await reconcile(Object.assign({}, row, { hash: input.value.trim() })); recovery() } catch (e) { say(e.message) } }; recoveryBox.appendChild(b)
+  })
+  CleanPopTransferCheckout.records().filter(function (r) { return r.state !== 'complete' && r.state !== 'failed' }).forEach(function (row) {
+   var text = document.createElement('p'), input = document.createElement('input'), check = document.createElement('button'), help = document.createElement('a')
+   text.textContent = 'Saved transfer of CLEAN POP #' + row.tokenNo + '. Check wallet Activity before sending again.'
+   input.placeholder = '0x transfer transaction hash'; input.value = row.hash || ''; input.setAttribute('aria-label', 'Saved transfer transaction hash')
+   check.type = 'button'; check.textContent = 'CHECK TRANSFER'
+   check.onclick = async function () { check.disabled = true; try { var result = await CleanPopTransferCheckout.reconcile(Object.assign({}, row, { hash: input.value.trim() }), function (r) { return transferCheck('verify', { id: r.id, hash: r.hash, from: r.from, to: r.to }) }); say('Transfer confirmed. Indexed owner: ' + result.currentOwner); recovery(); await load(false) } catch (e) { say(e.message); check.disabled = false } }
+   help.href = '/classic/pages/clean-pop-transfer.html?id=' + encodeURIComponent(row.id); help.textContent = 'TRANSFER RECOVERY ↗'
+   recoveryBox.append(text, input, check, help)
   })
  }
  function review(q) {
@@ -59,6 +69,24 @@
    try { await reconcile(row) } catch (e) { say(e.message + ' Transaction: ' + row.hash) }
   } catch (e) { say(e.message || 'Market action failed.') } finally { busy = false; recovery() }
  }
+ async function sendPiece(item, recipient) {
+  if (busy) return; busy = true
+  try {
+   var connection = MarketWalletConnector.current()
+   if (!connection) throw Error('Connect your wallet first.')
+   var to = recipient.trim(), from = connection.address
+   if (!ethers.utils.isAddress(to) || same(to, ethers.constants.AddressZero) || same(to, from) || same(to, '0x11019B7af0F833f5695a44584c5B31Bb1D0baabC') || (deployment && same(to, deployment.address))) throw Error('Enter a valid, different recipient wallet address.')
+   say('Checking ownership and network fee…')
+   var q = await transferCheck('plan', { id: item.id, from: from, to: to })
+   if (!q.owned || !same(q.id, item.id) || !same(q.from, from) || !same(q.to, to) || q.chainId !== 1 || q.value !== '0' || q.tokenNo !== item.tokenNo || BigInt(q.estimatedGas) <= 0n || BigInt(q.estimatedGasPriceWei) <= 0n) throw Error('Transfer check did not match the selected piece and recipient.')
+   var row = await CleanPopTransferCheckout.send({ provider: connection.provider, id: item.id, from: from, to: to, tokenNo: item.tokenNo, gas: q.estimatedGas, gasWei: (BigInt(q.estimatedGas) * BigInt(q.estimatedGasPriceWei)).toString(),
+    preflight: async function () { await EthscriptionCheckout.identity(connection.provider, from); var owner = await transferCheck('ownership', { id: item.id, wallet: from }); if (!owner.owned || !same(owner.id, item.id) || !same(owner.currentOwner, from)) throw Error('This piece is no longer shown in your wallet.') },
+    review: function (gift) { return review({ action: 'send CLEAN POP #' + item.tokenNo, assetId: gift.id, to: gift.to, valueWei: '0', estimatedGas: q.estimatedGas, approve: gift.approve }) } })
+   say('Transfer submitted: ' + row.hash + '. Checking confirmation and indexer…'); recovery()
+   try { await CleanPopTransferCheckout.reconcile(row, function (r) { return transferCheck('verify', { id: r.id, hash: r.hash, from: r.from, to: r.to }) }); await load(false); say('Transfer confirmed and indexed.') }
+   catch (e) { say(e.message + ' Check the saved transfer below before retrying.') }
+  } catch (e) { say(e.message || 'Transfer failed.') } finally { busy = false; recovery() }
+ }
  function button(parent, label, callback, disabled) { var b = document.createElement('button'); b.type = 'button'; b.textContent = label; b.disabled = !!disabled; b.onclick = callback; parent.appendChild(b) }
  function amount(label) { var value = window.prompt(label + ' in ETH'); if (value === null) return null; try { var n = ethers.utils.parseEther(value.trim()); if (n.lte(0)) throw Error(); return n.toString() } catch (_) { say('Enter a positive ETH amount.'); return null } }
  function card(item, kind, connection) {
@@ -67,7 +95,9 @@
   image.src = '/assets/ethscriptions/clean-pop-v1/' + item.tokenNo + '.png'; image.alt = 'Clean Pop #' + item.tokenNo; image.loading = 'lazy'; title.textContent = 'CLEAN POP #' + item.tokenNo
   article.append(image, title, info)
   if (kind === 'wallet') {
-   var link = document.createElement('a'); link.href = '/classic/pages/clean-pop-transfer.html?id=' + encodeURIComponent(item.id); link.textContent = 'SEND TO WALLET ↗'; article.appendChild(link)
+   var form = document.createElement('form'), recipient = document.createElement('input'), send = document.createElement('button')
+   recipient.type = 'text'; recipient.placeholder = 'Recipient 0x address'; recipient.setAttribute('aria-label', 'Recipient address for Clean Pop #' + item.tokenNo); recipient.autocomplete = 'off'; recipient.required = true
+   send.type = 'submit'; send.textContent = 'SEND TO WALLET'; form.onsubmit = function (event) { event.preventDefault(); sendPiece(item, recipient.value) }; form.append(recipient, send); article.appendChild(form)
    button(article, 'MOVE TO ESCROW', function () { action('deposit', { id: item.id }) }, !board || !board.tradingReady)
   } else if (kind === 'escrow') {
    info.textContent = item.cooldown ? 'Wait ' + item.cooldown + ' more blocks.' : 'Ready to list, auction, or return.'
