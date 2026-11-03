@@ -71,10 +71,10 @@
    } else if (action === 'withdraw') {
     to = market; data = iface.encodeFunctionData('withdraw', [address(args.recipient)])
    } else throw Error('Unknown market action.')
-   var tx = { from: account, to: to, value: value.toHexString(), data: data }
+   var tx = { from: account, to: to, value: ethers.utils.hexValue(value), data: data }
    await rpc('eth_call', [tx, 'latest'])
    var estimate = ethers.BigNumber.from(await rpc('eth_estimateGas', [tx]))
-   tx.gas = estimate.mul(12).div(10).toHexString(); tx.chainId = ethers.utils.hexValue(chainId)
+   tx.gas = ethers.utils.hexValue(estimate.mul(12).div(10)); tx.chainId = ethers.utils.hexValue(chainId)
    return { action: action, assetId: id || null, tx: tx, estimatedGas: estimate.toString(), preparedAt: Date.now() }
   }
   async function run(action, args, review) {

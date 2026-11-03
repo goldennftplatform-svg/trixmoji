@@ -1,6 +1,6 @@
 (() => {
  'use strict'
- const SIZE = 40, el = id => document.getElementById(id)
+ const SIZE = document.body.dataset.pageSize === '100' ? 100 : 40, el = id => document.getElementById(id)
  let catalog, page = 0, matches = [], chosen = new Set(), currentArt = null
  const cleanPop = document.body.dataset.collection === 'clean-pop-v1'
  const pieceName = cleanPop ? 'CLEAN POP' : 'PHUNK'
