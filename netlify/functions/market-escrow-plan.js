@@ -19,13 +19,14 @@ async function callRpc(method, params) {
  }
  throw last || Error('Ethereum RPC unavailable.')
 }
-async function inspect(request = callRpc) {
+async function inspect(request = callRpc, deployer = creator) {
+ if (![creator.toLowerCase(), verifier.toLowerCase()].includes(String(deployer).toLowerCase())) throw Error('Invalid deploying wallet.')
  if (artifact.version !== 'trixmoji-escrow-v1' || artifact.chainId !== 1 || artifact.creator !== creator || artifact.verifier !== verifier || artifact.bytecodeHash !== bytecodeHash || ethers.utils.keccak256(artifact.bytecode) !== bytecodeHash) throw Error('Escrow artifact does not match the reviewed build.')
- const provider = { request: q => q.method === 'eth_accounts' ? Promise.resolve([creator]) : allowed.has(q.method) ? request(q.method, q.params || []) : Promise.reject(Error('Read-only operation.')) }
- const deployer = create({ provider, artifact, creator, verifier, chainId: 1, expectedBytecodeHash: bytecodeHash,
+ const provider = { request: q => q.method === 'eth_accounts' ? Promise.resolve([deployer]) : allowed.has(q.method) ? request(q.method, q.params || []) : Promise.reject(Error('Read-only operation.')) }
+ const client = create({ provider, artifact, creator, verifier, deployer, chainId: 1, expectedBytecodeHash: bytecodeHash,
   storage: { getItem: () => null }, locks: { request: () => { throw Error('Read-only operation.') } } })
- const plan = await deployer.plan()
- return { creator, verifier, chainId: 1, bytecodeHash, initcodeHash: plan.initcodeHash, predictedAddress: plan.predictedAddress,
+ const plan = await client.plan()
+ return { creator, verifier, deployer, chainId: 1, bytecodeHash, initcodeHash: plan.initcodeHash, predictedAddress: plan.predictedAddress,
   startingNonce: plan.startingNonce, estimatedGas: plan.estimatedGas, estimatedGasPriceWei: plan.estimatedGasPriceWei,
   estimatedGasCostWei: plan.estimatedGasCostWei, balanceWei: plan.balanceWei, readOnly: true, transactionSubmitted: false }
 }
@@ -34,10 +35,10 @@ exports.handler = async event => {
  if (event.httpMethod !== 'GET') return { statusCode: 405, body: 'Method not allowed' }
  const limit = checkRateLimit({ headers: event.headers || {} }, { prefix: 'market-escrow-plan', perMinute: 10, perDay: 250 })
  if (!limit.ok) return { statusCode: 429, headers: { 'Content-Type': 'application/json', 'Retry-After': String(limit.retryAfter) }, body: JSON.stringify({ ok: false, error: 'Please wait before requesting another estimate.' }) }
- try { return { statusCode: 200, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify({ ok: true, ...await inspect() }) } }
+ try { return { statusCode: 200, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify({ ok: true, ...await inspect(callRpc, event.queryStringParameters && event.queryStringParameters.deployer || creator) }) } }
  catch (error) {
   const message = String(error && error.message || '')
-  const safe = /^(Wallet is on the wrong network|Connect the configured creator wallet|The creator wallet has a pending transaction|The predicted contract address already contains code|The creator wallet balance is below|Deployment gas estimate is unavailable|Escrow artifact does not match|Escrow constructor ABI does not match)/.test(message)
+   const safe = /^(Wallet is on the wrong network|Connect the configured deploying wallet|The deploying wallet has a pending transaction|The predicted contract address already contains code|The deploying wallet balance is below|Deployment gas estimate is unavailable|Escrow artifact does not match|Escrow constructor ABI does not match)/.test(message)
   return { statusCode: 503, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify({ ok: false, error: safe ? message : 'Escrow preflight unavailable. No deployment transaction was sent.' }) }
  }
 }

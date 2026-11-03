@@ -1,6 +1,6 @@
 (function () {
  'use strict'
- var el = function (id) { return document.getElementById(id) }, artifact, connection, deployer, busy = false
+ var el = function (id) { return document.getElementById(id) }, artifact, connection, deployer, busy = false, accountProvider
  var creator = '0x915A3D363D0a4e4470B531f008F5142c540E5417', verifier = '0x5f5d219c6B3f732eBDCe4BFD9c4655957Ff472C4'
  var expectedHash = '0xc18f4597e4b6f88db18ca526cefda84615bc18159f7b3545bd2029bb9c2aa468'
  var same = function (a, b) { return String(a || '').toLowerCase() === String(b || '').toLowerCase() }
@@ -15,10 +15,22 @@
   el('recover').disabled = !connection || busy
  }
  function controls() { el('connect').disabled = busy || !artifact; el('prepare').disabled = busy || !connection || !deployer; updateSaved() }
+ function finishConnection(candidate) {
+  accountProvider = candidate.provider
+  if (!same(candidate.address, creator) && !same(candidate.address, verifier)) {
+   connection = null; deployer = null; el('chooseAccount').hidden = false
+   say('Connected account: ' + candidate.address + '. Select the creator ' + creator + ' or verifier ' + verifier + ' in your wallet.')
+   return
+  }
+  connection = candidate; el('chooseAccount').hidden = true
+  deployer = TrixmojiEscrowDeployment.create({ provider: connection.provider, storage: localStorage, locks: navigator.locks, artifact: artifact, creator: creator, verifier: verifier, deployer: connection.address, chainId: 1, expectedBytecodeHash: expectedHash,
+   estimateDeployment: async function () { var response = await fetch('/.netlify/functions/market-escrow-plan?deployer=' + encodeURIComponent(connection.address), { cache: 'no-store', signal: AbortSignal.timeout(25000) }); var quote = await response.json(); if (!response.ok || !quote.ok) throw Error(quote.error || 'Site gas estimate unavailable. No deployment was requested.'); return quote } })
+  say('Deploying wallet connected: ' + connection.address + '. Check the verifier box, then prepare the deployment. The creator and royalty wallet remains ' + creator + '.')
+ }
  function review(quote) {
   return new Promise(function (resolve, reject) {
    var host = el('review'), text = document.createElement('p'), warning = document.createElement('p'), approve = document.createElement('button'), cancel = document.createElement('button'); host.textContent = ''; host.hidden = false
-   text.textContent = 'Creator: ' + quote.creator + ' · Verifier: ' + quote.verifier + ' · Network: Ethereum mainnet · Predicted address: ' + quote.predictedAddress + ' · Estimated gas: ' + quote.estimatedGas + ' · Approximate gas cost: ' + EthscriptionCheckout.eth(quote.estimatedGasCostWei) + ' ETH. The wallet shows final fees.'
+   text.textContent = 'Deploying wallet (pays gas): ' + quote.deployer + ' · Creator and royalty recipient: ' + quote.creator + ' · Verifier: ' + quote.verifier + ' · Network: Ethereum mainnet · Predicted address: ' + quote.predictedAddress + ' · Estimated gas: ' + quote.estimatedGas + ' · Approximate gas cost: ' + EthscriptionCheckout.eth(quote.estimatedGasCostWei) + ' ETH. The wallet shows final fees.'
    warning.textContent = 'The verifier address is immutable. Deployment does not start the signing service or make marketplace sales ready.'
    approve.type = 'button'; approve.textContent = 'APPROVE DEPLOYMENT IN WALLET'; cancel.type = 'button'; cancel.textContent = 'CANCEL'
    approve.onclick = function () { approve.disabled = true; cancel.disabled = true; say('Deployment approval requested from the creator wallet. Do not submit another.'); quote.approve().then(function (row) { host.hidden = true; host.textContent = ''; resolve(row) }, function (error) { host.hidden = true; host.textContent = ''; reject(error) }) }
@@ -37,11 +49,20 @@
     var settings = await fetch('/api/ethscriptions', { cache: 'no-store', signal: AbortSignal.timeout(10000) }).then(function (r) { return r.json() }).catch(function () { return {} })
     EthscriptionCheckout.configure(settings.walletConnectProjectId || ''); connection = await EthscriptionCheckout.connect(el('wallets'), say)
    }
-   if (!same(connection.address, creator)) { connection = null; throw Error('Connect creator wallet ' + creator) }
-   deployer = TrixmojiEscrowDeployment.create({ provider: connection.provider, storage: localStorage, locks: navigator.locks, artifact: artifact, creator: creator, verifier: verifier, chainId: 1, expectedBytecodeHash: expectedHash,
-    estimateDeployment: async function () { var response = await fetch('/.netlify/functions/market-escrow-plan', { cache: 'no-store', signal: AbortSignal.timeout(25000) }); var quote = await response.json(); if (!response.ok || !quote.ok) throw Error(quote.error || 'Site gas estimate unavailable. No deployment was requested.'); return quote } })
-   say('Creator connected. Confirm the verifier address and prepare the deployment.')
+   finishConnection(connection)
   } catch (error) { say(error.message) } finally { busy = false; controls() }
+ }
+ el('chooseAccount').onclick = async function () {
+  if (busy || !accountProvider) return
+  busy = true; el('chooseAccount').disabled = true; controls()
+  try {
+   say('Choose the creator account in your wallet. Open the MetaMask extension if the account selector is hidden.')
+   await accountProvider.request({ method: 'wallet_requestPermissions', params: [{ eth_accounts: {} }] })
+   var accounts = await EthscriptionCheckout.requestAccounts(accountProvider)
+   await EthscriptionCheckout.ensureChain(accountProvider)
+   finishConnection({ provider: accountProvider, address: accounts[0] })
+  } catch (error) { say('Could not select an account: ' + (error.message || 'wallet request failed') + '. Open MetaMask, connect the creator account to this site, then try again. No deployment was requested.') }
+  finally { busy = false; el('chooseAccount').disabled = false; controls() }
  }
  el('prepare').onclick = async function () {
   if (busy) return; busy = true; controls()

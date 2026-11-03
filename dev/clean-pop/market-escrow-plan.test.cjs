@@ -28,3 +28,12 @@ test('escrow plan refuses wrong network, pending creator transactions and insuff
   const f = rpcFixture(options); await assert.rejects(inspect(f.rpc)); assert.equal(f.calls.some(x => x.method === 'eth_sendTransaction'), false)
  }
 })
+test('verifier can deploy while creator remains the royalty recipient', async () => {
+ const f = rpcFixture(), verifier = '0x5f5d219c6B3f732eBDCe4BFD9c4655957Ff472C4'
+ const result = await inspect(f.rpc, verifier)
+ assert.equal(result.deployer, verifier)
+ assert.equal(result.creator, '0x915A3D363D0a4e4470B531f008F5142c540E5417')
+ assert.equal(result.predictedAddress, ethers.utils.getContractAddress({ from: verifier, nonce: 18 }))
+ assert.equal(f.calls.find(x => x.method === 'eth_estimateGas').params[0].from, verifier)
+ await assert.rejects(inspect(f.rpc, '0x0000000000000000000000000000000000000001'), /Invalid deploying wallet/)
+})
