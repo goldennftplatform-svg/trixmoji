@@ -53,7 +53,9 @@ async function handler(req, res) {
     readiness.quotaStorageAvailable = true
    } catch (_) {}
    const verifierConfigured = readiness.sessionConfigured && readiness.verifierKeyMatches && readiness.quotaStorageAvailable
-   return res.status(200).json({ ok: true, readiness, verifierConfigured, tradingReady: process.env.TRIXMOJI_MARKET_LIVE === 'true' && verifierConfigured, ...await service.list() })
+   const health = { ok: true, readiness, verifierConfigured, tradingReady: process.env.TRIXMOJI_MARKET_LIVE === 'true' && verifierConfigured }
+   if (req.query && req.query.health === '1') return res.status(200).json(health)
+   return res.status(200).json({ ...health, ...await service.list() })
   }
   const body = req.body && typeof req.body === 'object' ? req.body : {}
   if (body.action !== 'authorize') return res.status(400).json({ ok: false, error: 'Unknown market action.' })
