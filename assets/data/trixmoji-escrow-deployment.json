@@ -1,0 +1,12 @@
+{
+  "chainId": 1,
+  "address": "0xd935E162B6070C4FEAF600c67f7F729f318515a2",
+  "transactionHash": "0x8836df1e8e7a303e8321ee1bf3b2e5f866ca3b1eb789b57325781ef53745a3d9",
+  "deploymentBlock": 26331753,
+  "deployer": "0x5f5d219c6B3f732eBDCe4BFD9c4655957Ff472C4",
+  "creator": "0x915A3D363D0a4e4470B531f008F5142c540E5417",
+  "verifier": "0x5f5d219c6B3f732eBDCe4BFD9c4655957Ff472C4",
+  "royaltyBps": 250,
+  "initcodeHash": "0x5ddc6cb94412db927873223779a53230bd7d27062a1d96418a712e21f0d83947",
+  "runtimeHash": "0x773514ab71d5c588d5c83a4866beb041dabd069ef142f9eb46584dff72cf7e36"
+}
