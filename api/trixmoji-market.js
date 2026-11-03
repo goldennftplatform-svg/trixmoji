@@ -45,15 +45,15 @@ async function handler(req, res) {
   const service = await runtime(req.method === 'GET')
   if (req.method === 'GET') {
    const key = String(process.env.TRIXMOJI_MARKET_VERIFIER_KEY || '')
-   let tradingReady = false
+   let verifierConfigured = false
    try {
-    tradingReady = process.env.TRIXMOJI_MARKET_LIVE === 'true' && !!sessionSecret() && /^0x[a-f0-9]{64}$/i.test(key) && new ethers.Wallet(key).address.toLowerCase() === marketArtifact.verifier.toLowerCase()
-    if (tradingReady) {
+    verifierConfigured = !!sessionSecret() && /^0x[a-f0-9]{64}$/i.test(key) && new ethers.Wallet(key).address.toLowerCase() === marketArtifact.verifier.toLowerCase()
+    if (verifierConfigured) {
      const store = getStore({ ...storeOptions(), name: 'trixmoji-market-approval-quota', consistency: 'strong' })
      await store.getWithMetadata('readiness-probe', { type: 'json', consistency: 'strong' })
     }
-   } catch (_) { tradingReady = false }
-   return res.status(200).json({ ok: true, tradingReady, ...await service.list() })
+   } catch (_) { verifierConfigured = false }
+   return res.status(200).json({ ok: true, verifierConfigured, tradingReady: process.env.TRIXMOJI_MARKET_LIVE === 'true' && verifierConfigured, ...await service.list() })
   }
   const body = req.body && typeof req.body === 'object' ? req.body : {}
   if (body.action !== 'authorize') return res.status(400).json({ ok: false, error: 'Unknown market action.' })

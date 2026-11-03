@@ -22,7 +22,8 @@ compatible external signer integration must be implemented before launch.
 
 Redeploy after changing environment values. Confirm the function
 `/.netlify/functions/trixmoji-market` reports the expected escrow-backed data;
-it must report `tradingReady: false` while the launch switch is off. The user
+it should report `verifierConfigured: true` and must report `tradingReady: false`
+while the launch switch is off. The user
 must sign into the DOSWAPZ account with the same Ethereum wallet used for the
 market before requesting purchase or auction authorizations. Do not deposit a
 real piece merely to test the page while the verifier service is unavailable.
