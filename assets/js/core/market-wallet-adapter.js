@@ -41,6 +41,13 @@
    args = args || {}; var id, data, to = market, value = ethers.constants.Zero
    if (action === 'gift' || action === 'deposit') {
     id = assetId(args.id); await owned(id, account)
+    if (action === 'deposit') {
+     var recorded = (await call('depositBlock', [account, id]))[0]
+     if (!recorded.isZero()) throw Error('This wallet already has an escrow deposit record for this piece. Do not send it again; the existing record must be checked first.')
+     var accountCode = await rpc('eth_getCode', [account, 'latest'])
+     if (!accountCode || !/^0x(?:[a-f0-9]{2})*$/i.test(accountCode)) throw Error('Could not verify the wallet account type. No escrow deposit was requested.')
+     if (accountCode !== '0x' && !/^0x0+$/i.test(accountCode)) throw Error('This account has smart-account code. Wrapped transactions may not transfer Ethscriptions. Switch the account back to a standard account before depositing.')
+    }
     to = action === 'gift' ? address(args.recipient) : market
     if (same(to, account) || (action === 'gift' && same(to, market))) throw Error('Choose a different gift recipient; use deposit for escrow.')
     data = id
