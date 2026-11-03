@@ -38,7 +38,8 @@
     EthscriptionCheckout.configure(settings.walletConnectProjectId || ''); connection = await EthscriptionCheckout.connect(el('wallets'), say)
    }
    if (!same(connection.address, creator)) { connection = null; throw Error('Connect creator wallet ' + creator) }
-   deployer = TrixmojiEscrowDeployment.create({ provider: connection.provider, storage: localStorage, locks: navigator.locks, artifact: artifact, creator: creator, verifier: verifier, chainId: 1, expectedBytecodeHash: expectedHash })
+   deployer = TrixmojiEscrowDeployment.create({ provider: connection.provider, storage: localStorage, locks: navigator.locks, artifact: artifact, creator: creator, verifier: verifier, chainId: 1, expectedBytecodeHash: expectedHash,
+    estimateDeployment: async function () { var response = await fetch('/.netlify/functions/market-escrow-plan', { cache: 'no-store', signal: AbortSignal.timeout(25000) }); var quote = await response.json(); if (!response.ok || !quote.ok) throw Error(quote.error || 'Site gas estimate unavailable. No deployment was requested.'); return quote } })
    say('Creator connected. Confirm the verifier address and prepare the deployment.')
   } catch (error) { say(error.message) } finally { busy = false; controls() }
  }

@@ -40,12 +40,18 @@
    if (existing && existing !== '0x' && existing !== '0x0') throw Error('The predicted contract address already contains code.')
    var built = factory.getDeployTransaction(verifier, creator)
    var tx = { from: creator, data: built.data, value: '0x0' }
-   var estimate = ethers.BigNumber.from(await rpc('eth_estimateGas', [tx])), gasPrice = ethers.BigNumber.from(await rpc('eth_gasPrice'))
+   var initcodeHash = ethers.utils.keccak256(tx.data), estimate, gasPrice, balance
+   if (typeof config.estimateDeployment === 'function') {
+    var quote = await config.estimateDeployment()
+    if (!quote || quote.readOnly !== true || quote.transactionSubmitted !== false || Number(quote.chainId) !== chainId || !same(quote.creator, creator) || !same(quote.verifier, verifier) || !same(quote.bytecodeHash, config.expectedBytecodeHash) || !same(quote.initcodeHash, initcodeHash) || Number(quote.startingNonce) !== nonce || !same(quote.predictedAddress, expectedAddress)) throw Error('The site estimate does not match this deployment and wallet state.')
+    estimate = ethers.BigNumber.from(quote.estimatedGas); gasPrice = ethers.BigNumber.from(quote.estimatedGasPriceWei); balance = ethers.BigNumber.from(quote.balanceWei)
+   } else {
+    estimate = ethers.BigNumber.from(await rpc('eth_estimateGas', [tx])); gasPrice = ethers.BigNumber.from(await rpc('eth_gasPrice')); balance = ethers.BigNumber.from(await rpc('eth_getBalance', [creator, 'latest']))
+   }
    if (estimate.isZero() || gasPrice.isZero()) throw Error('Deployment gas estimate is unavailable.')
-   var balance = ethers.BigNumber.from(await rpc('eth_getBalance', [creator, 'latest']))
    if (balance.lt(estimate.mul(gasPrice))) throw Error('The creator wallet balance is below the estimated deployment gas cost.')
    return { tx: tx, creator: creator, verifier: verifier, chainId: chainId, startingNonce: nonce, predictedAddress: expectedAddress,
-    initcodeHash: ethers.utils.keccak256(tx.data), estimatedGas: estimate.toString(), estimatedGasPriceWei: gasPrice.toString(), estimatedGasCostWei: estimate.mul(gasPrice).toString(), balanceWei: balance.toString(), preparedAt: Date.now() }
+    initcodeHash: initcodeHash, estimatedGas: estimate.toString(), estimatedGasPriceWei: gasPrice.toString(), estimatedGasCostWei: estimate.mul(gasPrice).toString(), balanceWei: balance.toString(), preparedAt: Date.now() }
   }
   async function run(review) {
    if (typeof review !== 'function') throw Error('A creator wallet review is required.')
