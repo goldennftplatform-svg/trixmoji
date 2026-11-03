@@ -2,7 +2,7 @@
 const { ethers } = require('ethers')
 const { getStore } = require('@netlify/blobs')
 const { storeOptions } = require('./lib/ethscriptions-blobs')
-const { readSession } = require('./lib/account-session')
+const { readSession, sessionSecret } = require('./lib/account-session')
 const { loadState } = require('./lib/account-store')
 const { checkRateLimit } = require('./lib/rate-limit')
 const { createQuota } = require('./lib/market-approval-quota')
@@ -46,7 +46,13 @@ async function handler(req, res) {
   if (req.method === 'GET') {
    const key = String(process.env.TRIXMOJI_MARKET_VERIFIER_KEY || '')
    let tradingReady = false
-   try { tradingReady = process.env.TRIXMOJI_MARKET_LIVE === 'true' && /^0x[a-f0-9]{64}$/i.test(key) && new ethers.Wallet(key).address.toLowerCase() === marketArtifact.verifier.toLowerCase() } catch (_) {}
+   try {
+    tradingReady = process.env.TRIXMOJI_MARKET_LIVE === 'true' && !!sessionSecret() && /^0x[a-f0-9]{64}$/i.test(key) && new ethers.Wallet(key).address.toLowerCase() === marketArtifact.verifier.toLowerCase()
+    if (tradingReady) {
+     const store = getStore({ ...storeOptions(), name: 'trixmoji-market-approval-quota', consistency: 'strong' })
+     await store.getWithMetadata('readiness-probe', { type: 'json', consistency: 'strong' })
+    }
+   } catch (_) { tradingReady = false }
    return res.status(200).json({ ok: true, tradingReady, ...await service.list() })
   }
   const body = req.body && typeof req.body === 'object' ? req.body : {}
