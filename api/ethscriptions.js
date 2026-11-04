@@ -508,20 +508,6 @@ async function handler(req, res) {
       await chain.requireUniqueContent(sha)
       return res.status(200).json({ ok: true })
     }
-    if (action === 'marketCheckOwner') {
-      const id = String(body.id || ''), wallet = String(body.wallet || '')
-      if (!chain.isHash(id) || !chain.isAddr(wallet)) throw new Error('Enter a valid Ethscription ID and wallet address.')
-      const ownership = await chain.indexedOwnership(id, wallet)
-      return res.status(200).json({ ok: true, owned: ownership.owned, currentOwner: ownership.currentOwner })
-    }
-    if (action === 'marketVerifyTransfer') {
-      const id = String(body.id || ''), hash = String(body.hash || ''), from = String(body.from || ''), to = String(body.to || '')
-      if (!chain.isHash(id) || !chain.isHash(hash) || !chain.isAddr(from) || !chain.isAddr(to)) throw new Error('Invalid transfer verification request.')
-      const transfer = await chain.readTransfer(hash)
-      if (!chain.same(transfer.id, id) || !chain.same(transfer.from, from) || !chain.same(transfer.to, to) || transfer.value !== '0') throw new Error('That transaction does not match the requested transfer.')
-      await chain.requireIndexedTransfer(id, hash, from, to, false)
-      return res.status(200).json({ ok: true, hash: transfer.hash, id: id.toLowerCase() })
-    }
     if (action === 'list') return await postList(req, res, body)
     if (action === 'createCollection') return await postCreate(req, res, body)
     if (action === 'deposit') return await postDeposit(req, res, body)

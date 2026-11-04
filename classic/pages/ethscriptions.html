@@ -837,11 +837,11 @@
   document.getElementById('marketNav').addEventListener('click', function (e) {
    var btn = e.target.closest ? e.target.closest('button') : null
    if (!btn) return
-   if (btn.getAttribute('data-view') === 'market') { location.href = '/classic/pages/phunk-market-preview.html#catalogMarket'; return }
+   if (btn.getAttribute('data-view') === 'market') { location.href = '/classic/pages/trixmoji-market.html'; return }
    showView(btn.getAttribute('data-view'))
   })
   var startView = (location.hash || '').replace('#', '')
-  if (startView === 'market') location.replace('/classic/pages/phunk-market-preview.html#catalogMarket')
+  if (startView === 'market') location.replace('/classic/pages/trixmoji-market.html')
   if (startView === 'market' || startView === 'mine' || startView === 'activity' || startView === 'create' || startView === 'collections') showView(startView)
   document.getElementById('connectBtn').addEventListener('click', function () {
    var button = this; button.disabled = true

@@ -38,14 +38,6 @@ test('buyer cannot hold a listing whose indexed escrow custody is no longer conf
  const result = await app.call({ action: 'hold', id: listingId })
  assert.equal(result.ok, false); assert.match(result.error, /custody/); assert.equal(app.board().listings[0].state, 'open')
 })
-test('market transfer verification requires the exact indexed zero-value transfer', async () => {
- let checked = false
- const app = setup(async (asset, tx, from, to, current) => { checked = true; assert.equal(asset, id); assert.equal(tx, lock); assert.equal(from, seller); assert.equal(to, escrow); assert.equal(current, false) })
- const result = await app.call({ action: 'marketVerifyTransfer', id, hash: lock, from: seller, to: escrow })
- assert.equal(result.ok, true); assert.equal(checked, true)
- const mismatch = await app.call({ action: 'marketVerifyTransfer', id, hash: lock, from: seller, to: creator })
- assert.equal(mismatch.ok, false)
-})
 test('a late-confirming payment reconciles idempotently if no new buyer reserved the piece', async () => {
  const listingId = '0123456789abcdef', payHash = '0x' + 'c'.repeat(64)
  const options = { listings: [{ id: listingId, state: 'held', ethscriptionId: id, seller: creator, buyer: seller, buyerUid: 'u', holdUid: 'u', holdUntil: 1, priceWei: '1000000000000000000' }],
