@@ -71,7 +71,7 @@
     resolveButton.type = 'button'; resolveButton.textContent = 'CHECK CLEARED RECORD · NO GAS'
     resolveButton.onclick = async function () { resolveButton.disabled = true; try { await client.reconcileClearedWrapped(row.key, cancelInput.value.trim(), function () { return json('https://api.ethscriptions.com/v2/status') }); say('Recovered deposit verified: escrow record is clear and the piece remains in your wallet. No transaction was sent.'); recovery() } catch (e) { say(e.message); resolveButton.disabled = false } }
     recoveryBox.append(cancelInput, resolveButton)
-    if (!legacy && same(row.hash, '0x4bfc63cf6bb20dd54b4a44929593a01df76fe990ac4874280845386fb705d0c7')) { var recoveryLink = document.createElement('a'); recoveryLink.href = '/classic/pages/replacement-6-recovery.html'; recoveryLink.textContent = 'OPEN RECOVERY FOR LATEST WRAPPED #6 DEPOSIT ↗'; recoveryBox.appendChild(recoveryLink) }
+    if (!legacy && same(row.from, '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E') && same(row.assetId, '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74')) { var recoveryLink = document.createElement('a'); recoveryLink.href = '/classic/pages/replacement-6-recovery.html'; recoveryLink.textContent = 'OPEN #6 ESCROW RECORD RECOVERY ↗'; recoveryBox.appendChild(recoveryLink) }
    }
   })
   CleanPopTransferCheckout.records().filter(function (r) { return r.state !== 'complete' && r.state !== 'failed' }).forEach(function (row) {
