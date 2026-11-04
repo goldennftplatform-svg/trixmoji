@@ -28,6 +28,8 @@ test('replacement visual wallet card creates an explicit combined listing with t
  assert.equal(submitted.kind, 'depositAndList'); assert.equal(submitted.args.id, id); assert.equal(submitted.args.amountWei, ethers.utils.parseEther('0.012').toString()); assert.equal(typeof reviewCallback, 'function')
  const pending = reviewCallback({ action: 'depositAndList', assetId: id, to: deployment.address, valueWei: '0', estimatedGas: '50000', approve: () => { throw Error('must not request wallet') } })
  assert.match(els.marketReview.children[0].textContent, /optional Added protection checkbox/)
+ assert.match(els.marketStatus.textContent, /CONTINUE TO WALLET/)
+ assert.ok(els.marketReview.children.some(x => x.textContent === 'CONTINUE TO WALLET'))
  els.marketReview.children.find(x => x.textContent === 'CANCEL').onclick()
  await assert.rejects(pending, /Cancelled/)
 })
