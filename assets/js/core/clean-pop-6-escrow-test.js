@@ -44,7 +44,8 @@
   }
   async function plan() {
    report('Checking the connected wallet and the deployed escrow…')
-   await identity(); report('Checking saved earlier wallet requests…'); pendingPrior(); if (saved()) throw Error('An escrow test is already saved. Check it before another request.')
+    await identity(); report('Checking saved earlier wallet requests…'); pendingPrior()
+    var prior = saved(); if (prior && prior.state !== 'recovered') throw Error('An escrow test is already saved. Verify or recover it before another request.')
    report('Checking #6 ownership against the Ethscriptions indexer…')
    await ownership(seller, 0)
    report('Checking that the escrow record is clear…')
@@ -59,7 +60,34 @@
    return { tx: tx, estimatedGas: gas.toString(), nonce: BigInt(nonces[0]).toString(), preparedAt: Date.now() }
   }
   async function run(review) {
-   throw Error('This deposit experiment is closed: MetaMask wrapped the request and #6 did not transfer. No new wallet transaction will be requested.')
+   if (typeof review !== 'function') throw Error('A wallet review is required.')
+   if (c.storage.getItem(KEY + '.closed') === 'true') throw Error('This deposit experiment was closed. No new wallet transaction will be requested.')
+   return c.locks.request(MARKET_LOCK, { ifAvailable: true }, function (marketLock) {
+    if (!marketLock) throw Error('A market request is already open.')
+    return c.locks.request(ROUTE_LOCK, { ifAvailable: true }, async function (routeLock) {
+     if (!routeLock) throw Error('A wallet-route request is still open. Resolve it first.')
+      var p = await plan(), invalid = false, sent = false, recovered = saved()
+      if (recovered && recovered.state === 'recovered') {
+       c.storage.setItem(KEY + '.archive.' + Date.now(), JSON.stringify({ original: recovered, reason: 'owner recovery confirmed before fresh direct-route test', at: new Date().toISOString() }))
+       c.storage.removeItem(KEY)
+      }
+     function changed() { invalid = true }
+     if (provider.on) { provider.on('accountsChanged', changed); provider.on('chainChanged', changed) }
+     async function approve() {
+      if (sent) throw Error('Wallet request already made. Do not repeat it.')
+      if (invalid || Date.now() - p.preparedAt > 60000 || Date.now() < p.preparedAt) throw Error('Wallet, network or review changed. Prepare again.')
+      var row = { state: 'awaiting-wallet', from: seller, to: escrow, data: id, startingNonce: p.nonce, hash: '' }
+      write(row); sent = true
+      var hash
+      try { hash = await provider.request({ method: 'eth_sendTransaction', params: [p.tx] }) }
+      catch (e) { if (Number(e && e.code) === 4001) c.storage.removeItem(KEY); throw e }
+      if (!/^0x[a-f0-9]{64}$/i.test(String(hash || ''))) throw Error('No hash returned. Check wallet Activity; do not retry.')
+      row.hash = hash; row.state = 'submitted'; write(row); return row
+     }
+     try { var row = await review({ from: seller, to: escrow, id: id, estimatedGas: p.estimatedGas, approve: approve }); if (!sent || !row || !row.hash) throw Error('No escrow test was submitted.'); return row }
+     finally { if (provider.removeListener) { provider.removeListener('accountsChanged', changed); provider.removeListener('chainChanged', changed) } }
+    })
+   })
   }
   async function check(hash) {
    var row = saved(); if (!row || !/^0x[a-f0-9]{64}$/i.test(String(hash || '')) || (row.hash && !same(row.hash, hash))) throw Error('Enter the matching escrow-test hash from wallet Activity.')

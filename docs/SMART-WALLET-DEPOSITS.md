@@ -47,6 +47,19 @@ implementation is verified by `dev/clean-pop/verify-reference-deposit.cjs`.
 This establishes that delegated account code itself does not rule out direct
 transactions. It does not establish this user's wallet approval route.
 
+The existing Trixmoji escrow at
+`0xd935E162B6070C4FEAF600c67f7F729f318515a2` was matched exactly on Sourcify on
+2026-11-04 (creation and runtime bytecode). No contract was redeployed. This
+removes unverified source as a deployment uncertainty, but does not by itself
+prove MetaMask will bypass Added Protection for a Dapp transaction.
+
+The restricted #6 test is guarded by current wallet ownership, clean escrow
+state, no prior unresolved route or market requests, an exact simulated direct
+call, and a user confirmation of the MetaMask transaction details. It only
+reports success after receipt, cooldown, escrow storage, and the Ethscriptions
+indexer all agree. A wrapped transaction remains explicitly unverified and must
+be recovered; it is never treated as a deposit.
+
 The replacement recovery page is restricted to the latest false #6 record and
 checks indexed ownership before cancellation and after confirmation. It
 requires separate explicit approval and gas. Recovery is not a compatibility
