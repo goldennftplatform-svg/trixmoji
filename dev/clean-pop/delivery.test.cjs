@@ -19,8 +19,16 @@ test('original-minter delivery ledger is unique, well-formed and bound to the de
 })
 test('operator page is creator-gated and preflights replay, legacy, and artwork proof state', () => {
  const page = fs.readFileSync(path.join(root, 'classic/pages/clean-pop-delivery.html'), 'utf8')
- for (const required of ['Connect the creator wallet', 'c.LEGACY()', 'c.replaced(row.legacyId)', 'c.minted(row.tokenNo)', 'estimateGas.deliverReplacement', 'I manually verified this original-minter claim']) assert.ok(page.includes(required), required)
+ const app = fs.readFileSync(path.join(root, 'assets/js/core/clean-pop-delivery.js'), 'utf8')
+ for (const required of ['clean-pop-delivery-checkout.js', 'clean-pop-delivery.js', 'I verified the token number']) assert.ok(page.includes(required), required)
+ for (const required of ['Connect creator wallet', 'c.LEGACY()', 'c.replaced(record.legacyId)', 'c.minted(record.tokenNo)', 'clean-pop-delivery-preflight', 'CleanPopDeliveryCheckout.send']) assert.ok(app.includes(required), required)
 })
+require('./delivery-preflight.test.cjs')
+require('./delivery-checkout.test.cjs')
+require('./delivery-verify.test.cjs')
+require('./market-escrow-plan.test.cjs')
+require('./market-approval-quota.test.cjs')
+require('./market-service.test.cjs')
 test('Clean Pop market catalogue is strictly read-only and enumerates the full approved collection', () => {
  const page = fs.readFileSync(path.join(root, 'classic/pages/clean-pop-market.html'), 'utf8')
  for (const required of ['data-collection="clean-pop-v1"', 'id="filterGroups"', 'id="artTraits"', 'NO LISTINGS · NO CHECKOUT', 'Secondary listings, deposits, payments, and public checkout are not enabled']) assert.ok(page.includes(required), required)

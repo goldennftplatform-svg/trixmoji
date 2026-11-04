@@ -449,6 +449,11 @@
   status = 200
 
 [[redirects]]
+  from = "/api/trixmoji-market"
+  to = "/.netlify/functions/trixmoji-market"
+  status = 200
+
+[[redirects]]
   from = "/api/scores"
   to = "/.netlify/functions/scores"
   status = 200

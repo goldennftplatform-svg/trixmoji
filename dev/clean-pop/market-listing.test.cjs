@@ -38,6 +38,29 @@ test('buyer cannot hold a listing whose indexed escrow custody is no longer conf
  const result = await app.call({ action: 'hold', id: listingId })
  assert.equal(result.ok, false); assert.match(result.error, /custody/); assert.equal(app.board().listings[0].state, 'open')
 })
+test('market transfer verification requires the exact indexed zero-value transfer', async () => {
+ let checked = false
+ const app = setup(async (asset, tx, from, to, current) => { checked = true; assert.equal(asset, id); assert.equal(tx, lock); assert.equal(from, seller); assert.equal(to, escrow); assert.equal(current, false) })
+ const result = await app.call({ action: 'marketVerifyTransfer', id, hash: lock, from: seller, to: escrow })
+ assert.equal(result.ok, true); assert.equal(checked, true)
+ const mismatch = await app.call({ action: 'marketVerifyTransfer', id, hash: lock, from: seller, to: creator })
+ assert.equal(mismatch.ok, false)
+})
+test('a late-confirming payment reconciles idempotently if no new buyer reserved the piece', async () => {
+ const listingId = '0123456789abcdef', payHash = '0x' + 'c'.repeat(64)
+ const options = { listings: [{ id: listingId, state: 'held', ethscriptionId: id, seller: creator, buyer: seller, buyerUid: 'u', holdUid: 'u', holdUntil: 1, priceWei: '1000000000000000000' }],
+  chain: { readPayment: async () => ({ hash: payHash, from: seller, to: escrow, value: '1000000000000000000' }) } }
+ const app = setup(async () => {}, options), request = { action: 'pay', id: listingId, payTx: payHash }
+ assert.equal((await app.call(request)).ok, true); assert.equal(app.board().listings[0].state, 'paid')
+ assert.equal((await app.call(request)).ok, true); assert.equal(app.board().listings[0].payTx, payHash)
+})
+test('a late payment cannot replace another buyer’s active hold', async () => {
+ const listingId = '0123456789abcdef', payHash = '0x' + 'c'.repeat(64)
+ const options = { listings: [{ id: listingId, state: 'held', ethscriptionId: id, seller: creator, buyer: '0x5555555555555555555555555555555555555555', buyerUid: 'other', holdUid: 'other', holdUntil: Date.now() + 100000, priceWei: '1000000000000000000' }],
+  chain: { readPayment: async () => ({ hash: payHash, from: seller, to: escrow, value: '1000000000000000000' }) } }
+ const app = setup(async () => {}, options), result = await app.call({ action: 'pay', id: listingId, payTx: payHash })
+ assert.equal(result.ok, false); assert.match(result.error, /another buyer/); assert.equal(app.board().listings[0].buyerUid, 'other')
+})
 test('verified Clean Pop resale credits the creator wallet rather than the mint contract', async () => {
  const app = setup(async (asset, transaction, from, target, current) => { assert.equal(asset, id); assert.equal(transaction, lock); assert.equal(from, seller); assert.equal(target, escrow); assert.equal(current, true) })
  const result = await app.call(); assert.equal(result.ok, true)

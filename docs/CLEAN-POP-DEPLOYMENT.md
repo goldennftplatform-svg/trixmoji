@@ -7,9 +7,9 @@ The approved 10,000 PNGs are packaged under `assets/ethscriptions/clean-pop-v1/`
 - Separate `api/lib/clean-pop-minter.sol`, Solidity 0.8.20, immutable artwork root.
 - Public mint starts paused and can be paused by the configured creator.
 - Existing legacy-minted token numbers cannot be sold through the public Clean Pop mint.
-- Creator-only replacement delivery to an explicit recipient, no mint price, project pays transaction gas. Works while the public sale is paused.
+- Creator-only replacement delivery to an explicit recipient, no mint price, project pays transaction gas. Works whether the public sale is open or paused.
 - Per-token and per-legacy-ID replay protection; reentrancy guard; creation event precedes payouts.
-- Manual eligibility model: the creator MUST verify the legacy ID, piece number and current holder off chain. The contract does NOT prove those ownership facts.
+- Manual eligibility model: the creator verifies the original mint, intended recipient and legacy ID off chain. The contract does NOT prove those ownership facts.
 - Separate deployment UI: `/classic/pages/clean-pop-setup.html`. It checks exact deployed runtime, saves pending transactions, and requires creator wallet approval.
 
 ## Verified locally
@@ -20,13 +20,17 @@ The Ganache simulation covers paused sale, owner-only controls, legacy reservati
 
 ## Mainnet deployment verified
 
-Clean Pop V1 was deployed to `0x11019B7af0F833f5695a44584c5B31Bb1D0baabC` in transaction [`0xe14f013e5a3d28d368e01384e5dcb1351417cccc3a1da3d1499e2ec8eae6a77a`](https://etherscan.io/tx/0xe14f013e5a3d28d368e01384e5dcb1351417cccc3a1da3d1499e2ec8eae6a77a). The deployment page verified the exact runtime. Public minting remains paused.
+Clean Pop V1 was deployed to `0x11019B7af0F833f5695a44584c5B31Bb1D0baabC` in transaction [`0xe14f013e5a3d28d368e01384e5dcb1351417cccc3a1da3d1499e2ec8eae6a77a`](https://etherscan.io/tx/0xe14f013e5a3d28d368e01384e5dcb1351417cccc3a1da3d1499e2ec8eae6a77a). The deployment page verified the exact runtime. Public minting was opened in [transaction `0x2544…68ad`](https://etherscan.io/tx/0x2544b5ee12ebac172209ae61b036b8fbe7ba30ce6c2fd6fa3fcb196b9dba68ad); always check the current state on-chain. A real public mint of #6 in [transaction `0xdf23…5e74`](https://etherscan.io/tx/0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74) was confirmed and indexed with the approved artwork and recipient.
 
 ## Original-minter reissues
 
-The creator can now use `/classic/pages/clean-pop-delivery.html` to deliver the matching Clean Pop piece to a manually verified recipient. The page only permits the 12 indexed legacy mint records in `assets/data/clean-pop-legacy-mints.json`; it fetches the exact approved PNG and Merkle proof, checks the paused/legacy/replay state on-chain, simulates the transaction, and then asks the creator wallet to approve it. Each delivery uses the legacy Ethscription creation transaction as the permanent replay-protected claim ID. The old asset stays untouched.
+Use `/classic/pages/clean-pop-delivery.html` for a matching Clean Pop piece to a manually verified recipient. The page offers the 12 original mint records in `assets/data/clean-pop-legacy-mints.json`, including the original minter address. Select a token, enter the destination (or select its original minter address), check the manual-verification box, then **PREPARE CREATOR DELIVERY**. Review the full recipient and estimated creator-paid gas before **APPROVE DELIVERY IN WALLET**. The transaction has zero mint-price value and does not change the old asset. The public sale may be either open or paused.
+
+Each delivery uses its legacy creation transaction as the replay-protected ID. The page checks the creator account, chain, approved runtime, legacy mint state, new-token and legacy-ID replay state, exact PNG/Merkle proof and content uniqueness; a read-only mainnet estimate precedes the creator's wallet approval. A delivery is marked complete only after the Ethereum receipt and independent Ethscriptions indexer agree. The first real creator delivery remains unverified.
 
 The original minter policy is a manual policy: verify each claimant and destination wallet before clicking the delivery button. Record the resulting Clean Pop transaction hash with the claimant record. Do not enter a recipient based solely on an unauthenticated message.
+
+If the creator wallet returns a hash, retain it and use **CHECK DELIVERY** until the transaction and indexer confirm it. If a saved delivery has no hash, first check the creator wallet's Activity and reject/close any open wallet request. Only when there is no pending delivery or hash, use **CHECK WALLET · RECOVER UNSENT DELIVERY**. It checks the creator, network, runtime, token/legacy replay state and pending/latest nonces before archiving the no-hash intent. RPC pending counts do not detect every private or smart-wallet request; never recover while an approval or transaction may still be in flight.
 
 ## Not completed — do not enable public sales yet
 

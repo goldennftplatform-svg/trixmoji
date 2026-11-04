@@ -194,10 +194,11 @@
     <p class="note" style="text-align:left">This mint still pays you 99.5%. A seller who is not the creator cannot change the royalty. The seller receives the ask.</p>
     <label for="lockTx">LOCK TRANSACTION</label>
     <input id="lockTx" placeholder="0x transfer into escrow" autocomplete="off" spellcheck="false">
-    <div class="row">
-     <button id="listBtn" type="button">LIST IT</button>
-     <button id="connectBtn" type="button">CONNECT ETHEREUM</button>
-    </div>
+     <div class="row">
+      <button id="listBtn" type="button">LIST IT</button>
+      <button id="connectBtn" type="button">CONNECT ETHEREUM</button>
+     </div>
+     <div id="marketWalletOptions"></div>
     <div class="status" id="status"></div>
     <div id="detail"></div>
    </div>
@@ -255,6 +256,7 @@
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   <script src="/assets/js/core/ethscription-checkout.js?v=20261102connect"></script>
+  <script src="/assets/js/core/market-wallet-connect.js?v=1"></script>
   <script src="/assets/js/core/clean-pop-checkout.js?v=7"></script>
   <script src="/assets/js/core/clean-pop-storefront.js?v=8"></script>
   <script>
@@ -791,7 +793,7 @@
    }).catch(function () { say('Not closed') })
   }
   function connect() {
-   return EthscriptionCheckout.connect(document.getElementById('status')).then(function (connected) {
+   return MarketWalletConnector.connect(document.getElementById('marketWalletOptions'), say).then(function (connected) {
     marketProvider = connected.provider
     return connected.address
    })
@@ -835,12 +837,15 @@
   document.getElementById('marketNav').addEventListener('click', function (e) {
    var btn = e.target.closest ? e.target.closest('button') : null
    if (!btn) return
+   if (btn.getAttribute('data-view') === 'market') { location.href = '/classic/pages/phunk-market-preview.html#catalogMarket'; return }
    showView(btn.getAttribute('data-view'))
   })
   var startView = (location.hash || '').replace('#', '')
+  if (startView === 'market') location.replace('/classic/pages/phunk-market-preview.html#catalogMarket')
   if (startView === 'market' || startView === 'mine' || startView === 'activity' || startView === 'create' || startView === 'collections') showView(startView)
   document.getElementById('connectBtn').addEventListener('click', function () {
-   connect().then(function (addr) { say('Wallet ' + addr + '. Listing still uses the Ethereum wallet on your DOSWAPZ account.') }).catch(function () {})
+   var button = this; button.disabled = true
+   connect().then(function (addr) { say('Connected wallet: ' + addr + '. To list, this address must also be on your DOSWAPZ account.') }).catch(function (error) { say(error && error.message ? error.message : 'Wallet connection failed.') }).finally(function () { button.disabled = false })
   })
   document.getElementById('launchBtn').addEventListener('click', function () {
    say('Launching the collection…')

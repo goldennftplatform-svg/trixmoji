@@ -508,6 +508,20 @@ async function handler(req, res) {
       await chain.requireUniqueContent(sha)
       return res.status(200).json({ ok: true })
     }
+    if (action === 'marketCheckOwner') {
+      const id = String(body.id || ''), wallet = String(body.wallet || '')
+      if (!chain.isHash(id) || !chain.isAddr(wallet)) throw new Error('Enter a valid Ethscription ID and wallet address.')
+      const ownership = await chain.indexedOwnership(id, wallet)
+      return res.status(200).json({ ok: true, owned: ownership.owned, currentOwner: ownership.currentOwner })
+    }
+    if (action === 'marketVerifyTransfer') {
+      const id = String(body.id || ''), hash = String(body.hash || ''), from = String(body.from || ''), to = String(body.to || '')
+      if (!chain.isHash(id) || !chain.isHash(hash) || !chain.isAddr(from) || !chain.isAddr(to)) throw new Error('Invalid transfer verification request.')
+      const transfer = await chain.readTransfer(hash)
+      if (!chain.same(transfer.id, id) || !chain.same(transfer.from, from) || !chain.same(transfer.to, to) || transfer.value !== '0') throw new Error('That transaction does not match the requested transfer.')
+      await chain.requireIndexedTransfer(id, hash, from, to, false)
+      return res.status(200).json({ ok: true, hash: transfer.hash, id: id.toLowerCase() })
+    }
     if (action === 'list') return await postList(req, res, body)
     if (action === 'createCollection') return await postCreate(req, res, body)
     if (action === 'deposit') return await postDeposit(req, res, body)
@@ -795,10 +809,16 @@ async function postPay(req, res, body) {
   const state = await withBoard(async function (board) {
     const row = findRow(board, id)
     if (!row) throw new Error('That listing is not on the board.')
+    if (row.state === 'paid' && row.buyerUid === user.uid && chain.same(row.buyer, buyer) && chain.same(row.payTx, pay.hash)) return board
     clearHold(row, Date.now())
-    if (row.state !== 'held' || row.buyerUid !== user.uid) throw new Error('Hold the listing, then pay within 15 minutes.')
+    const sameHold = row.state === 'held' && row.buyerUid === user.uid && chain.same(row.buyer, buyer)
+    // An expired hold may reconcile a late-confirming payment only while no
+    // other buyer has subsequently reserved the listing.
+    const expiredSameBuyer = row.state === 'open' && row.buyerUid === user.uid && !row.buyer
+    if (!sameHold && !expiredSameBuyer) throw new Error('The listing was released or reserved by another buyer. Keep the transaction hash and contact escrow for review; do not pay again.')
     if (pay.value !== String(row.buyerWei || row.priceWei)) throw new Error('The payment is not the exact amount the buyer owes.')
     if (!claimTx(board, pay.hash, row.id)) throw new Error('That payment was already used.')
+    row.buyer = buyer
     row.state = 'paid'
     row.payTx = pay.hash
     row.holdUntil = 0
