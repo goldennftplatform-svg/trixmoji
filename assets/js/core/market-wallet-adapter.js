@@ -153,7 +153,30 @@
     remove(row.key); return { recovered: true }
    })
   }
-  return { run: run, reconcile: reconcile, recoverUnsent: recoverUnsent, records: read }
+  async function reconcileClearedWrapped(key, cancelHash, readStatus) {
+   if (!/^0x[a-f0-9]{64}$/i.test(String(cancelHash || '')) || typeof readStatus !== 'function') throw Error('Provide the confirmed recovery transaction hash.')
+   return config.locks.request(KEY, { ifAvailable: true }, async function (lock) {
+    if (!lock) throw Error('A market request is still active. Resolve it before checking recovery.')
+    var snapshot = config.storage.getItem(KEY), row = read().find(function (item) { return item.key === key })
+    if (!row || !['deposit', 'depositAndList'].includes(row.action) || !/^0x[a-f0-9]{64}$/i.test(String(row.hash || '')) || !same(row.to, market) || !/^0x[a-f0-9]{64}$/i.test(String(row.assetId || '')) || row.state === 'complete' || row.state === 'failed') throw Error('The saved deposit does not match this escrow or is already resolved.')
+    var account = await identity(); if (!same(account, row.from)) throw Error('Connect the wallet that made the saved deposit.')
+    var result = await Promise.all([rpc('eth_getTransactionByHash', [row.hash]), rpc('eth_getTransactionReceipt', [row.hash]), rpc('eth_getTransactionByHash', [cancelHash]), rpc('eth_getTransactionReceipt', [cancelHash]), rpc('eth_blockNumber'), readStatus(), config.readAsset(row.assetId), call('depositBlock', [row.from, row.assetId])])
+    var tx = result[0], receipt = result[1], cancel = result[2], cancelReceipt = result[3], head = Number(BigInt(result[4])), indexed = Number(result[5] && result[5].last_imported_block), asset = result[6]
+    if (!tx || !receipt || !cancel || !cancelReceipt || !same(tx.hash, row.hash) || !same(receipt.transactionHash, row.hash) || !same(cancel.hash, cancelHash) || !same(cancelReceipt.transactionHash, cancelHash) || receipt.status !== '0x1' || cancelReceipt.status !== '0x1' || !same(tx.from, row.from) || same(tx.to, market) || !same(cancel.from, row.from)) throw Error('Deposit or recovery transaction did not match this wallet. Keep the saved record.')
+    var depositBlock = Number(BigInt(receipt.blockNumber)), cancelBlock = Number(BigInt(cancelReceipt.blockNumber))
+    if (!Number.isSafeInteger(depositBlock) || !Number.isSafeInteger(cancelBlock) || depositBlock < 1 || cancelBlock <= depositBlock) throw Error('Recovery does not follow the saved deposit.')
+    function hasEvent(logs, name) { return (logs || []).some(function (log) { if (!same(log.address, market)) return false; try { var event = iface.parseLog(log); return event.name === name && same(event.args.seller, row.from) && same(event.args.id, row.assetId) } catch (_) { return false } }) }
+    if (!hasEvent(receipt.logs, 'Deposited') || !hasEvent(cancelReceipt.logs, 'Cancelled') || !result[7][0].isZero()) throw Error('The matching cancellation or cleared escrow record could not be verified.')
+    if (!Number.isSafeInteger(indexed) || indexed < cancelBlock || head - indexed > 2 || !asset || !same(asset.transaction_hash, row.assetId) || !same(asset.current_owner, row.from)) throw Error('Indexer freshness or current ownership could not be verified. Wait and check again.')
+    if (config.storage.getItem(KEY) !== snapshot) throw Error('Saved market requests changed. Reload and inspect them.')
+    var rows = read(), index = rows.findIndex(function (item) { return item.key === key })
+    if (index < 0 || !same(rows[index].hash, row.hash)) throw Error('The saved request changed. Reload and inspect it.')
+    config.storage.setItem(KEY + '.recovery.' + Date.now(), JSON.stringify({ original: rows[index], cancellationHash: cancelHash, at: new Date().toISOString() }))
+    rows[index].state = 'failed'; rows[index].resolution = 'Wrapped deposit was canceled; indexer confirms the asset remains with the seller. Recovery: ' + cancelHash
+    config.storage.setItem(KEY, JSON.stringify(rows)); return { resolved: true }
+   })
+  }
+  return { run: run, reconcile: reconcile, recoverUnsent: recoverUnsent, reconcileClearedWrapped: reconcileClearedWrapped, records: read }
  }
  return { create: create }
 })
