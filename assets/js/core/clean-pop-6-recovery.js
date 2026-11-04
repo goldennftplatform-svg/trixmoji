@@ -1,6 +1,6 @@
 (function () {
  'use strict'
- var owner = '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E', escrow = '0xd935E162B6070C4FEAF600c67f7F729f318515a2', assetId = '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74', originalHash = '0x48ff06edf9d3038bba749a56ec3832d5c73cf399edf099a83e0ab18712b872a8', depositBlock = 26337993
+  var owner = '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E', escrow = '0xd935E162B6070C4FEAF600c67f7F729f318515a2', assetId = '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74', originalHash = '0x53032a7a22e007d938d7b269332994357b4ad8ce0c352a78d0fd226ecce6759b', depositBlock = 26338927, originalNonce = '571'
  var expectedRuntimeHash = '0x773514ab71d5c588d5c83a4866beb041dabd069ef142f9eb46584dff72cf7e36', storageKey = 'trixmoji.clean-pop.6.ghost-recovery.v2.' + originalHash, marketKey = 'trixmoji.market.contract.transaction.v1', experimentKey = 'trixmoji.clean-pop.6.direct-escrow-test.v1', connection, iface, busy = false
  var el = function (id) { return document.getElementById(id) }, same = function (a, b) { return String(a || '').toLowerCase() === String(b || '').toLowerCase() }, say = function (s) { el('status').textContent = s }
  function saved() { return JSON.parse(localStorage.getItem(storageKey) || 'null') }
@@ -43,10 +43,10 @@
   await indexedState(Number(BigInt(receipt.blockNumber)))
   var raw = localStorage.getItem(marketKey), records = JSON.parse(raw || '[]')
   if (!Array.isArray(records)) throw Error('Saved market records are invalid. Do not retry.')
-  records.forEach(function (r) { if (r.action === 'deposit' && same(r.assetId, assetId) && same(r.from, owner) && same(r.to, escrow) && same(r.data, assetId) && (same(r.hash, originalHash) || (!r.hash && String(r.startingNonce) === '569'))) { r.state = 'failed'; r.resolution = 'Wrapped deposit did not transfer the Ethscription; false contract record cleared by ' + row.hash } })
+  records.forEach(function (r) { if (r.action === 'deposit' && same(r.assetId, assetId) && same(r.from, owner) && same(r.to, escrow) && same(r.data, assetId) && (same(r.hash, originalHash) || (!r.hash && String(r.startingNonce) === originalNonce))) { r.state = 'failed'; r.resolution = 'Wrapped deposit did not transfer the Ethscription; false contract record cleared by ' + row.hash } })
   if (localStorage.getItem(marketKey) !== raw) throw Error('Saved market records changed. Reload and inspect them.')
   var experimentRaw = localStorage.getItem(experimentKey), experiment = JSON.parse(experimentRaw || 'null')
-  if (experiment && same(experiment.from, owner) && same(experiment.to, escrow) && same(experiment.data, assetId) && (same(experiment.hash, originalHash) || (!experiment.hash && String(experiment.startingNonce) === '569'))) {
+  if (experiment && same(experiment.from, owner) && same(experiment.to, escrow) && same(experiment.data, assetId) && (same(experiment.hash, originalHash) || (!experiment.hash && String(experiment.startingNonce) === originalNonce))) {
    localStorage.setItem(experimentKey + '.archive.' + Date.now(), JSON.stringify({ original: experiment, resolvedBy: row.hash, reason: 'wrapped deposit record cleared; experiment closed' }))
    experiment.state = 'recovered'; experiment.recoveryHash = row.hash; localStorage.setItem(experimentKey, JSON.stringify(experiment))
   }

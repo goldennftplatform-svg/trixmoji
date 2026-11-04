@@ -2,13 +2,14 @@
 
 ## Current state
 
-Public trading is disabled. The minimal #6 deposit experiment is closed after
-two wrapped transactions created escrow records without indexed transfers.
+Public trading is enabled. The #6 route remains incompatible with this wallet's
+observed MetaMask wrapping: a wrapped call can create a false escrow record while
+the Ethscriptions indexer continues to show the piece in the seller's wallet.
 Changing the existing escrow alone is not a verified solution.
 
 The latest wrapped transaction is
-`0x48ff06edf9d3038bba749a56ec3832d5c73cf399edf099a83e0ab18712b872a8`,
-block `26337993`. Its outer target is MetaMask's DelegationManager
+`0x53032a7a22e007d938d7b269332994357b4ad8ce0c352a78d0fd226ecce6759b`,
+block `26338927`. Its outer target is MetaMask's DelegationManager
 `0xdb9B1e94B5b69Df7e401DDbedE43491141047dB3`. Its single inner execution calls
 the Trixmoji escrow with #6's ID and zero ETH. The indexer processed that block
 and continued to show the owner as `0x47cf60BdD877203264921D05CE26F81f6d36Aa3E`.
@@ -60,7 +61,10 @@ reports success after receipt, cooldown, escrow storage, and the Ethscriptions
 indexer all agree. A wrapped transaction remains explicitly unverified and must
 be recovered; it is never treated as a deposit.
 
-The replacement recovery page is restricted to the latest false #6 record and
-checks indexed ownership before cancellation and after confirmation. It
-requires separate explicit approval and gas. Recovery is not a compatibility
-fix and does not reopen trading.
+The recovery page now targets transaction
+`0x53032a7a22e007d938d7b269332994357b4ad8ce0c352a78d0fd226ecce6759b` at block
+`26338927`, checks indexed ownership before cancellation and after confirmation,
+and marks its matching saved market request failed only after the cancellation
+receipt is verified. It requires separate explicit approval and gas. Recovery
+is not a wallet-route fix; the item is not listable until a future deposit is
+both a direct transfer and indexed to escrow.
