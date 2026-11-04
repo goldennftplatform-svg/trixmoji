@@ -7,7 +7,7 @@ const deployment = require('../../assets/data/trixmoji-escrow-replacement-deploy
 const seller = '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E', id = ethers.utils.id('visual-asset')
 test('replacement visual wallet card creates an explicit combined listing with the selected price', async () => {
  const ids = ['walletGrid','marketStatus','moreWallet','marketReview','marketRecovery','myWallet','myEscrow','forSale','auctions','refreshWallet','withdrawCredit']
- function element() { return { children: [], hidden: false, textContent: '', appendChild(x) { this.children.push(x); return x }, append(...xs) { this.children.push(...xs) }, setAttribute() {} } }
+ function element() { return { children: [], hidden: false, textContent: '', appendChild(x) { this.children.push(x); return x }, append(...xs) { this.children.push(...xs) }, setAttribute() {}, focus() {} } }
  const els = Object.fromEntries(ids.map(x => [x, element()])); let submitted, reviewCallback
  const provider = { on() {}, removeListener() {} }, connection = { address: seller, provider }
  const market = { marketAddress: deployment.address, tradingReady: true, deposits: [], auctions: [], listings: [] }
@@ -26,4 +26,8 @@ test('replacement visual wallet card creates an explicit combined listing with t
  const card = els.walletGrid.children[0], button = card.children.find(x => x.textContent === 'LIST FOR SALE')
  assert.ok(button); await button.onclick(); await new Promise(resolve => setTimeout(resolve, 30))
  assert.equal(submitted.kind, 'depositAndList'); assert.equal(submitted.args.id, id); assert.equal(submitted.args.amountWei, ethers.utils.parseEther('0.012').toString()); assert.equal(typeof reviewCallback, 'function')
+ const pending = reviewCallback({ action: 'depositAndList', assetId: id, to: deployment.address, valueWei: '0', estimatedGas: '50000', approve: () => { throw Error('must not request wallet') } })
+ assert.match(els.marketReview.children[0].textContent, /optional Added protection checkbox/)
+ els.marketReview.children.find(x => x.textContent === 'CANCEL').onclick()
+ await assert.rejects(pending, /Cancelled/)
 })
