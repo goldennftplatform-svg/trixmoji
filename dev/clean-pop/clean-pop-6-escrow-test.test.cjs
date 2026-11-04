@@ -2,7 +2,7 @@
 const { test } = require('node:test'), assert = require('node:assert/strict'), { ethers } = require('ethers')
 const config = require('../../assets/data/trixmoji-escrow-deployment.json'), artifact = require('../../assets/data/trixmoji-escrow-artifact.json')
 const owner = '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E', id = '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74', hash = ethers.utils.id('escrow test'), iface = new ethers.utils.Interface(artifact.abi), block = 100
-function fixture({ pendingRoute = false, wrapped = false, stale = false } = {}) {
+function fixture({ pendingRoute = false, wrapped = false, stale = false, pendingNonce = false, heldLock = '' } = {}) {
  const values = new Map(), calls = []; let sent = false
  if (pendingRoute) values.set('trixmoji.quantum-route-test.v1', JSON.stringify({ state: 'awaiting-wallet', hash: '' }))
  const storage = { getItem: k => values.get(k) || null, setItem: (k, v) => values.set(k, v), removeItem: k => values.delete(k) }
@@ -12,7 +12,7 @@ function fixture({ pendingRoute = false, wrapped = false, stale = false } = {}) 
   if (q.method === 'eth_accounts') return [owner]
   if (q.method === 'eth_getCode') return '0x6000'
   if (q.method === 'eth_blockNumber') return '0x69'
-  if (q.method === 'eth_getTransactionCount') return '0xa'
+  if (q.method === 'eth_getTransactionCount') return pendingNonce && q.params[1] === 'pending' ? '0xb' : '0xa'
   if (q.method === 'eth_estimateGas') return '0xb6e5'
   if (q.method === 'eth_call') {
    const d = q.params[0].data
@@ -31,7 +31,7 @@ function fixture({ pendingRoute = false, wrapped = false, stale = false } = {}) 
  const fs = require('node:fs'), vm = require('node:vm'), path = require('node:path')
  const source = fs.readFileSync(path.resolve(__dirname, '../../assets/js/core/clean-pop-6-escrow-test.js'), 'utf8')
  const module = { exports: {} }; vm.runInNewContext(source.replace(config.runtimeHash, ethers.utils.keccak256('0x6000')), { module, require, Promise, Date, Error, BigInt, Number, String, JSON })
- const api = module.exports.create({ provider, storage, locks: { request: async (_, __, fn) => fn({}) }, readStatus: async () => ({ last_imported_block: stale ? 99 : 105 }), readAsset: async () => ({ transaction_hash: id, creator: '0x11019B7af0F833f5695a44584c5B31Bb1D0baabC', current_owner: sent && !wrapped ? config.address : owner, previous_owner: owner, ethscription_transfers: sent ? [{ transaction_hash: hash, from_address: owner, to_address: config.address, block_number: block }] : [] }) })
+ const api = module.exports.create({ provider, storage, locks: { request: async (key, _, fn) => fn(key === heldLock ? null : {}) }, readStatus: async () => ({ last_imported_block: stale ? 99 : 105 }), readAsset: async () => ({ transaction_hash: id, creator: '0x11019B7af0F833f5695a44584c5B31Bb1D0baabC', current_owner: sent && !wrapped ? config.address : owner, previous_owner: owner, ethscription_transfers: sent ? [{ transaction_hash: hash, from_address: owner, to_address: config.address, block_number: block }] : [] }) })
  return { api, calls, values }
 }
 test('the restricted deposit uses minimal fields and requires indexed custody to succeed', async () => {
@@ -46,4 +46,23 @@ test('wrapped deposits are explicitly unverified and cannot be repeated', async 
 })
 test('stale indexing blocks preparation without a transaction', async () => {
  const f = fixture({ stale: true }); await assert.rejects(f.api.run(q => q.approve()), /indexer is catching up/); assert.equal(f.calls.some(x => x.method === 'eth_sendTransaction'), false)
+})
+function seedRoute(f, key = 'trixmoji.quantum-route-test.v1', changes = {}) {
+ f.values.set(key, JSON.stringify({ state: 'awaiting-wallet', from: owner, to: config.verifier, data: hash, startingNonce: '10', hash: '', ...changes }))
+}
+test('no-gas route recovery archives matching records and unblocks preparation', async () => {
+ const f = fixture(); seedRoute(f)
+ seedRoute(f, 'trixmoji.ethscription.route-probe.v1', { startingNonce: undefined, nonce: '10', to: '0x000000000000000000000000000000000000dEaD' })
+ await assert.rejects(f.api.clearEarlierRoutes(false), /First confirm/)
+ assert.equal((await f.api.clearEarlierRoutes(true)).cleared, 2); assert.equal(f.api.earlierRoutes().length, 0)
+ assert.equal([...f.values.keys()].filter(k => k.includes('.archive.')).length, 2)
+ assert.equal((await f.api.plan()).tx.data, id); assert.equal(f.calls.some(q => q.method === 'eth_sendTransaction'), false)
+})
+test('route recovery refuses hashes, changed nonces, pending transactions and live request locks', async () => {
+ for (const [options, changes, message] of [
+  [{}, { hash }, /transaction hash/], [{}, { startingNonce: '9' }, /nonce changed/], [{ pendingNonce: true }, {}, /nonce changed/], [{ heldLock: 'trixmoji.quantum-route-test' }, {}, /still running/], [{ heldLock: 'trixmoji.ethscription.route-probe' }, {}, /still running/]
+ ]) {
+  const f = fixture(options); seedRoute(f, undefined, changes)
+  await assert.rejects(f.api.clearEarlierRoutes(true), message); assert.equal(f.api.earlierRoutes().length, 1); assert.equal(f.calls.some(q => q.method === 'eth_sendTransaction'), false)
+ }
 })

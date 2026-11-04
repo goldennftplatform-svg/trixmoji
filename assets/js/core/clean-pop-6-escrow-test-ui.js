@@ -1,9 +1,26 @@
 (function () {
  'use strict'
- var el = function (id) { return document.getElementById(id) }, test, busy = false
- function say(s) { el('status').textContent = s }
+ var el = function (id) { return document.getElementById(id) }, test, busy = false, requestRows = []
+ function renderTrace() { el('walletTrace').textContent = 'PAGE STATUS: ' + el('status').textContent + '\n\n' + JSON.stringify(requestRows, null, 2) }
+ function say(s) { el('status').textContent = s; renderTrace() }
  function controls() { el('connect').disabled = busy; el('prepare').disabled = busy || !test || !!test.saved() }
  async function get(url) { var r = await fetch(url, { cache: 'no-store', signal: AbortSignal.timeout(15000) }); if (!r.ok) throw Error('Indexer unavailable: HTTP ' + r.status); return r.json() }
+ function earlier() {
+  var host = el('earlier'), entries = test ? test.earlierRoutes() : []; host.textContent = ''; host.hidden = !entries.length
+  if (!entries.length) return
+  var p = document.createElement('p'); p.textContent = 'An earlier wallet-route test is saved. Clearing this record sends no transaction and costs no gas. First check MetaMask for any open approval, pending test or hash.'; host.appendChild(p)
+  if (entries.some(function (entry) { return !!entry.row.hash })) { p.textContent += ' A saved hash exists: use the earlier test page to verify it.'; return }
+  var label = document.createElement('label'), checkbox = document.createElement('input'), button = document.createElement('button'), note = document.createElement('p'); checkbox.type = 'checkbox'
+  label.append(checkbox, document.createTextNode(' I checked MetaMask: there is no open approval, pending test, or transaction hash.'))
+  button.type = 'button'; button.textContent = 'CHECK AND CLEAR UNSENT ROUTE TEST · NO GAS'
+  note.textContent = 'The check verifies the original nonce and archives only matching no-hash records. Public pending counts cannot see every private wallet request.'
+  button.onclick = async function () {
+   if (busy) return; busy = true; controls(); button.disabled = true
+   try { say('Checking the earlier test and wallet nonce. No transaction will be sent…'); await test.clearEarlierRoutes(checkbox.checked); earlier(); say('Earlier no-hash test archived and cleared. Now click CHECK #6 AND PREPARE ESCROW TEST. No transaction was sent by the recovery.') }
+   catch (e) { say(e.message); button.disabled = false } finally { busy = false; controls() }
+  }
+  host.append(label, button, note)
+ }
  function saved() {
   var host = el('saved'), row = test && test.saved(); host.hidden = !row; host.textContent = ''; if (!row) return
   var p = document.createElement('p'); p.textContent = 'Escrow test: ' + row.state + ' · ' + (row.hash || 'No hash returned. Do not repeat the request.'); host.appendChild(p)
@@ -32,16 +49,16 @@
   busy = true; test = null; controls(); el('wallets').textContent = ''
   try {
    say('Select MetaMask below. Connecting sends no transaction.')
-   var provider = await EthscriptionCheckout.choose(el('wallets'), say), trace = WalletRequestTrace.create(provider, function (rows) { el('walletTrace').textContent = JSON.stringify(rows, null, 2) })
+   var provider = await EthscriptionCheckout.choose(el('wallets'), say), trace = WalletRequestTrace.create(provider, function (rows) { requestRows = rows; renderTrace() })
    await EthscriptionCheckout.ensureChain(trace.provider)
-   test = CleanPop6EscrowTest.create({ provider: trace.provider, storage: localStorage, locks: navigator.locks, readStatus: function () { return get('https://api.ethscriptions.com/v2/status') }, readAsset: async function (id) { return (await get('https://api.ethscriptions.com/v2/ethscriptions/' + id)).result } })
-   saved(); say('Selected wallet connected. Check #6 and prepare the escrow test; no transaction has been requested.')
+   test = CleanPop6EscrowTest.create({ provider: trace.provider, storage: localStorage, locks: navigator.locks, report: say, readStatus: function () { return get('https://api.ethscriptions.com/v2/status') }, readAsset: async function (id) { return (await get('https://api.ethscriptions.com/v2/ethscriptions/' + id)).result } })
+   saved(); earlier(); say(test.saved() ? 'A previous escrow-test request is saved below. Verify it before starting another. No new transaction has been requested.' : test.earlierRoutes().length ? 'Wallet connected. Resolve the earlier no-hash route test using the no-gas control below.' : 'Wallet connected. Next click CHECK #6 AND PREPARE ESCROW TEST. Connecting alone does not request a transaction.')
   } catch (e) { say(e.message || 'Wallet connection failed.') } finally { busy = false; controls() }
  }
  el('prepare').onclick = async function () {
   if (busy || !test) return; busy = true; controls()
   try { say('Checking wallet, earlier requests, indexed ownership, escrow record and simulation…'); var row = await test.run(review); say('Escrow test submitted: ' + row.hash + '. Wait for confirmation, then verify the result.'); saved() }
-  catch (e) { say(e.message || 'Escrow test could not be prepared.'); saved() } finally { busy = false; controls() }
+  catch (e) { say(e.message || 'Escrow test could not be prepared.'); saved(); earlier() } finally { busy = false; controls() }
  }
  controls()
 })()

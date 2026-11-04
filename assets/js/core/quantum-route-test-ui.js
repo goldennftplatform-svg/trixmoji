@@ -1,7 +1,8 @@
 (function () {
  'use strict'
- var el = function (id) { return document.getElementById(id) }, connection, probe, busy = false, owner = '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E'
- function say(text) { el('status').textContent = text }
+ var el = function (id) { return document.getElementById(id) }, connection, probe, busy = false, owner = '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E', requestRows = []
+ function renderTrace() { el('walletTrace').textContent = 'PAGE STATUS: ' + el('status').textContent + '\n\n' + JSON.stringify(requestRows, null, 2) }
+ function say(text) { el('status').textContent = text; renderTrace() }
  function controls() { el('connect').disabled = busy; el('prepare').disabled = busy || !probe || !!probe.saved() }
  async function unused(id) {
   var status = await fetch('https://api.ethscriptions.com/v2/status', { cache: 'no-store', signal: AbortSignal.timeout(12000) }); if (!status.ok) return false
@@ -44,7 +45,7 @@
   try {
    say('Choose MetaMask from the wallet buttons below. This connection step sends no transaction.')
    var selected = await EthscriptionCheckout.choose(el('wallets'), say)
-   var trace = WalletRequestTrace.create(selected, function (rows) { el('walletTrace').textContent = JSON.stringify(rows, null, 2) })
+   var trace = WalletRequestTrace.create(selected, function (rows) { requestRows = rows; renderTrace() })
    var accounts = await trace.provider.request({ method: 'eth_accounts' }); if (!accounts || !accounts[0]) accounts = await EthscriptionCheckout.requestAccounts(trace.provider)
    await EthscriptionCheckout.ensureChain(trace.provider); connection = { provider: trace.provider, address: accounts[0] }
    if (String(connection.address).toLowerCase() !== owner.toLowerCase()) { connection = null; throw Error('Connect the wallet ending aa3E.') }
