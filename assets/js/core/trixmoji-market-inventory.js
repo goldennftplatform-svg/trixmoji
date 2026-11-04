@@ -1,7 +1,11 @@
 (function () {
  'use strict'
  var grid = document.getElementById('walletGrid'), status = document.getElementById('marketStatus'), more = document.getElementById('moreWallet'), reviewBox = document.getElementById('marketReview'), recoveryBox = document.getElementById('marketRecovery')
- var cursor = null, generation = 0, view = 'wallet', board = null, client = null, busy = false, artifact, deployment
+  var cursor = null, generation = 0, view = 'wallet', board = null, client = null, busy = false, artifact, deployment
+  var legacy = new URLSearchParams(location.search).get('market') === 'legacy'
+  var marketUrl = legacy ? '/.netlify/functions/trixmoji-market' : '/.netlify/functions/trixmoji-market-replacement'
+  var expectedMarket = legacy ? '0xd935E162B6070C4FEAF600c67f7F729f318515a2' : '0x21c1A938d06f87A039abfC48d1cCB459f55b1685'
+  var modeLabel = document.getElementById('marketMode'); if (modeLabel) modeLabel.textContent = legacy ? 'ORIGINAL ESCROW · ETHEREUM' : 'REPLACEMENT ESCROW · EXPERIMENTAL'
  var same = function (a, b) { return String(a || '').toLowerCase() === String(b || '').toLowerCase() }
  var say = function (text) { status.textContent = text }
  async function json(url, options) { var r = await fetch(url, options || { cache: 'no-store', signal: AbortSignal.timeout(25000) }); var body = await r.json(); if (!r.ok || body.ok === false) throw Error(body.error || 'Market request unavailable.'); return body }
@@ -11,19 +15,24 @@
   var connection = MarketWalletConnector.current()
   if (!connection) throw Error('Connect your Ethereum wallet first.')
   if (!artifact || !deployment) {
-   var values = await Promise.all([json('/assets/data/trixmoji-escrow-artifact.json'), json('/assets/data/trixmoji-escrow-deployment.json')]); artifact = values[0]; deployment = values[1]
+   var values = await Promise.all([json(legacy ? '/assets/data/trixmoji-escrow-artifact.json' : '/assets/data/trixmoji-escrow-replacement-artifact.json'), json(legacy ? '/assets/data/trixmoji-escrow-deployment.json' : '/assets/data/trixmoji-escrow-replacement-deployment.json')]); artifact = values[0]; deployment = values[1]
+   if (!same(deployment.address, expectedMarket)) throw Error('Market deployment address does not match the selected market.')
   }
-  client = TrixmojiMarketWallet.create({ provider: connection.provider, storage: localStorage, locks: navigator.locks, abi: artifact.abi, market: deployment.address, runtimeHash: deployment.runtimeHash, creator: deployment.creator, verifier: deployment.verifier, chainId: deployment.chainId, minter: '0x11019B7af0F833f5695a44584c5B31Bb1D0baabC', readAsset: asset,
-   authorize: async function (body) { return json('/.netlify/functions/trixmoji-market', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ action: 'authorize' }, body)), signal: AbortSignal.timeout(25000) }) } })
+  client = TrixmojiMarketWallet.create({ provider: connection.provider, storage: localStorage, locks: navigator.locks, abi: artifact.abi, market: deployment.address, runtimeHash: deployment.runtimeHash, creator: deployment.creator, verifier: deployment.verifier, chainId: deployment.chainId, minter: '0x11019B7af0F833f5695a44584c5B31Bb1D0baabC', combinedDepositEnabled: !legacy, readAsset: asset,
+   authorize: async function (body) { return json(marketUrl, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ action: 'authorize' }, body)), signal: AbortSignal.timeout(25000) }) } })
   return connection
  }
  async function verify(row, receipt) {
-  var names = { deposit: 'Deposited', list: 'Listed', cancel: 'Cancelled', buy: 'Sold', auction: 'AuctionStarted', bid: 'Bid', settle: 'AuctionSettled', withdraw: 'CreditWithdrawn' }, iface = new ethers.utils.Interface(artifact.abi), event
+  var names = { deposit: 'Deposited', depositAndList: 'Deposited', list: 'Listed', cancel: 'Cancelled', buy: 'Sold', auction: 'AuctionStarted', bid: 'Bid', settle: 'AuctionSettled', withdraw: 'CreditWithdrawn' }, iface = new ethers.utils.Interface(artifact.abi), event
   for (var log of receipt.logs || []) {
    if (!same(log.address, deployment.address)) continue
    try { var parsed = iface.parseLog(log); if (parsed.name === names[row.action] && (!row.assetId || same(parsed.args.id, row.assetId))) { event = parsed; break } } catch (_) {}
   }
   if (!event) return false
+  if (row.action === 'depositAndList') {
+   var marketData = await json(marketUrl)
+   return (marketData.listings || []).some(function (item) { return same(item.id, row.assetId) && same(item.seller, row.from) })
+  }
   if (['deposit', 'cancel', 'buy', 'settle'].includes(row.action)) {
    var indexed = await asset(row.assetId), expected = row.action === 'deposit' ? deployment.address : row.action === 'settle' ? event.args.buyer : row.from
    return same(indexed.current_owner, expected)
@@ -36,6 +45,7 @@
   if (client) client.records().filter(function (r) { return r.state !== 'complete' && r.state !== 'failed' }).forEach(function (row) {
    var text = document.createElement('p'), b = document.createElement('button'), input = document.createElement('input')
    text.textContent = row.action + ': ' + (row.hash || 'No transaction hash returned. Check wallet Activity; do not retry.')
+   if (!same(row.to, deployment.address)) { var link = document.createElement('a'); link.href = '/classic/pages/trixmoji-market.html' + (legacy ? '' : '?market=legacy'); link.textContent = 'OPEN THE OTHER ESCROW TO CHECK THIS REQUEST ↗'; recoveryBox.append(text, link); return }
    recoveryBox.appendChild(text)
    input.placeholder = '0x transaction hash from wallet Activity'; input.value = row.hash || ''; input.setAttribute('aria-label', 'Market transaction hash'); recoveryBox.appendChild(input)
    b.textContent = 'CHECK TRANSACTION'; b.onclick = async function () { try { await reconcile(Object.assign({}, row, { hash: input.value.trim() })); recovery() } catch (e) { say(e.message) } }; recoveryBox.appendChild(b)
@@ -50,11 +60,11 @@
    recoveryBox.append(text, input, check, help)
   })
  }
- function review(q) {
+ function review(q, listingPrice) {
   return new Promise(function (resolve, reject) {
    reviewBox.hidden = false; reviewBox.textContent = ''
    var p = document.createElement('p'), approve = document.createElement('button'), cancel = document.createElement('button')
-   p.textContent = 'Review ' + q.action + (q.assetId ? ' · ' + q.assetId : '') + ' · destination ' + q.to + ' · value ' + ethers.utils.formatEther(q.valueWei) + ' ETH · estimated gas ' + q.estimatedGas + '. Confirm final network fee in your wallet.'
+   p.textContent = 'Review ' + q.action + (q.assetId ? ' · ' + q.assetId : '') + ' · destination ' + q.to + ' · value ' + ethers.utils.formatEther(q.valueWei) + ' ETH' + (listingPrice ? ' · listing price ' + ethers.utils.formatEther(listingPrice) + ' ETH' : '') + ' · estimated gas ' + q.estimatedGas + '. Confirm final network fee in your wallet.' + (q.action === 'depositAndList' ? ' If the wallet wraps this request, the indexer may not transfer the piece even when the contract records a deposit.' : '')
    approve.textContent = 'APPROVE IN WALLET'; cancel.textContent = 'CANCEL'
    approve.onclick = function () { approve.disabled = true; cancel.disabled = true; say('Waiting for wallet. Do not repeat the request.'); q.approve().then(function (row) { reviewBox.hidden = true; resolve(row) }, function (e) { reviewBox.hidden = true; reject(e) }) }
    cancel.onclick = function () { reviewBox.hidden = true; reject(Error('Cancelled. No transaction was requested.')) }
@@ -65,7 +75,7 @@
   if (busy) return; busy = true
   try {
    await configure(); say('Checking wallet, custody, market and transaction…')
-   var row = await client.run(kind, args, review); say('Submitted ' + row.hash + '. Check confirmation before retrying.'); recovery()
+   var row = await client.run(kind, args, function (q) { return review(q, kind === 'depositAndList' ? args.amountWei : null) }); say('Submitted ' + row.hash + '. Check confirmation before retrying.'); recovery()
    try { await reconcile(row) } catch (e) { say(e.message + ' Transaction: ' + row.hash) }
   } catch (e) { say(e.message || 'Market action failed.') } finally { busy = false; recovery() }
  }
@@ -75,7 +85,7 @@
    var connection = MarketWalletConnector.current()
    if (!connection) throw Error('Connect your wallet first.')
    var to = recipient.trim(), from = connection.address
-   if (!ethers.utils.isAddress(to) || same(to, ethers.constants.AddressZero) || same(to, from) || same(to, '0x11019B7af0F833f5695a44584c5B31Bb1D0baabC') || (deployment && same(to, deployment.address))) throw Error('Enter a valid, different recipient wallet address.')
+   if (!ethers.utils.isAddress(to) || same(to, ethers.constants.AddressZero) || same(to, from) || same(to, '0x11019B7af0F833f5695a44584c5B31Bb1D0baabC') || same(to, '0xd935E162B6070C4FEAF600c67f7F729f318515a2') || same(to, '0x21c1A938d06f87A039abfC48d1cCB459f55b1685')) throw Error('Enter a valid, different recipient wallet address.')
    say('Checking ownership and network fee…')
    var q = await transferCheck('plan', { id: item.id, from: from, to: to })
    if (!q.owned || !same(q.id, item.id) || !same(q.from, from) || !same(q.to, to) || q.chainId !== 1 || q.value !== '0' || q.tokenNo !== item.tokenNo || BigInt(q.estimatedGas) <= 0n || BigInt(q.estimatedGasPriceWei) <= 0n) throw Error('Transfer check did not match the selected piece and recipient.')
@@ -98,7 +108,8 @@
    var form = document.createElement('form'), recipient = document.createElement('input'), send = document.createElement('button')
    recipient.type = 'text'; recipient.placeholder = 'Recipient 0x address'; recipient.setAttribute('aria-label', 'Recipient address for Clean Pop #' + item.tokenNo); recipient.autocomplete = 'off'; recipient.required = true
    send.type = 'submit'; send.textContent = 'SEND TO WALLET'; form.onsubmit = function (event) { event.preventDefault(); sendPiece(item, recipient.value) }; form.append(recipient, send); article.appendChild(form)
-   button(article, 'MOVE TO ESCROW', function () { action('deposit', { id: item.id }) }, !board || !board.tradingReady)
+   if (legacy) button(article, 'MOVE TO ESCROW', function () { action('deposit', { id: item.id }) }, !board || !board.tradingReady)
+   else button(article, 'LIST FOR SALE', function () { var n = amount('Sale price'); if (n) action('depositAndList', { id: item.id, amountWei: n }) }, !board || !board.tradingReady)
   } else if (kind === 'escrow') {
    info.textContent = item.cooldown ? 'Wait ' + item.cooldown + ' more blocks.' : 'Ready to list, auction, or return.'
    button(article, 'LIST FOR SALE', function () { var n = amount('Sale price'); if (n) action('list', { id: item.id, amountWei: n }) }, item.cooldown || !board.tradingReady)
@@ -120,7 +131,7 @@
   more.hidden = true; say('Loading verified market data…')
   try {
    if (connection) { await configure(); recovery() }
-   try { board = await json('/.netlify/functions/trixmoji-market') } catch (_) { board = null }
+   try { board = await json(marketUrl); if (!same(board.marketAddress, expectedMarket)) throw Error('Wrong market service.') } catch (_) { board = null }
    if (request !== generation) return
    if (view === 'wallet') {
     if (!connection) { say('Connect an Ethereum wallet to see your Clean Pop pieces.'); return }
