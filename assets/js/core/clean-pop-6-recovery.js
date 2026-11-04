@@ -1,8 +1,18 @@
 (function () {
  'use strict'
-  var owner = '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E', escrow = '0xd935E162B6070C4FEAF600c67f7F729f318515a2', assetId = '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74', originalHash = '0x53032a7a22e007d938d7b269332994357b4ad8ce0c352a78d0fd226ecce6759b', depositBlock = 26338927, originalNonce = '571'
- var expectedRuntimeHash = '0x773514ab71d5c588d5c83a4866beb041dabd069ef142f9eb46584dff72cf7e36', storageKey = 'trixmoji.clean-pop.6.ghost-recovery.v2.' + originalHash, marketKey = 'trixmoji.market.contract.transaction.v1', experimentKey = 'trixmoji.clean-pop.6.direct-escrow-test.v1', connection, iface, busy = false
- var el = function (id) { return document.getElementById(id) }, same = function (a, b) { return String(a || '').toLowerCase() === String(b || '').toLowerCase() }, say = function (s) { el('status').textContent = s }
+  var owner = '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E', escrow = '0xd935E162B6070C4FEAF600c67f7F729f318515a2', assetId = '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74'
+  var expectedRuntimeHash = '0x773514ab71d5c588d5c83a4866beb041dabd069ef142f9eb46584dff72cf7e36', marketKey = 'trixmoji.market.contract.transaction.v1', experimentKey = 'trixmoji.clean-pop.6.direct-escrow-test.v1', connection, iface, busy = false
+  var el = function (id) { return document.getElementById(id) }, same = function (a, b) { return String(a || '').toLowerCase() === String(b || '').toLowerCase() }, say = function (s) { el('status').textContent = s }
+  function latestSavedDeposit() {
+   try {
+    var rows = JSON.parse(localStorage.getItem(marketKey) || '[]')
+    if (!Array.isArray(rows)) return null
+    return rows.filter(function (row) { return row && row.action === 'deposit' && same(row.assetId, assetId) && same(row.from, owner) && same(row.to, escrow) && same(row.data, assetId) && row.state !== 'failed' && row.state !== 'complete' }).slice(-1)[0] || null
+   } catch (_) { return null }
+  }
+  var currentDeposit = latestSavedDeposit(), originalHash = currentDeposit && /^0x[a-f0-9]{64}$/i.test(String(currentDeposit.hash || '')) ? currentDeposit.hash : '0x8c3bda4f61dcf9960f78cbdfd46f110d3cbc05692a208ae8238f036d49f7b916'
+  var originalNonce = currentDeposit && /^\d+$/.test(String(currentDeposit.startingNonce || '')) ? String(currentDeposit.startingNonce) : '573', depositBlock = 0
+  var storageKey = 'trixmoji.clean-pop.6.ghost-recovery.v2.' + originalHash
  function saved() { return JSON.parse(localStorage.getItem(storageKey) || 'null') }
  function controls() { el('connect').disabled = busy; el('prepare').disabled = busy || !connection || !!saved() }
  async function rpc(method, params) { return connection.provider.request({ method: method, params: params || [] }) }
@@ -16,8 +26,10 @@
   return asset
  }
  async function verifyOriginal() {
-  var result = await Promise.all([rpc('eth_getTransactionByHash', [originalHash]), rpc('eth_getTransactionReceipt', [originalHash])]), tx = result[0], receipt = result[1], found = false
-  if (!tx || !receipt || !same(tx.hash, originalHash) || !same(receipt.transactionHash, originalHash) || receipt.status !== '0x1' || !same(tx.from, owner) || same(tx.to, escrow) || Number(BigInt(receipt.blockNumber)) !== depositBlock) throw Error('The original delegated transaction did not match the expected record.')
+   var result = await Promise.all([rpc('eth_getTransactionByHash', [originalHash]), rpc('eth_getTransactionReceipt', [originalHash])]), tx = result[0], receipt = result[1], found = false
+   if (!tx || !receipt || !same(tx.hash, originalHash) || !same(receipt.transactionHash, originalHash) || receipt.status !== '0x1' || !same(tx.from, owner) || same(tx.to, escrow)) throw Error('The saved delegated deposit transaction did not match this wallet and escrow.')
+   depositBlock = Number(BigInt(receipt.blockNumber))
+   if (!Number.isSafeInteger(depositBlock) || depositBlock < 1) throw Error('The original deposit block is unavailable.')
   for (var log of receipt.logs || []) { if (!same(log.address, escrow)) continue; try { var event = iface.parseLog(log); if (event.name === 'Deposited' && same(event.args.seller, owner) && same(event.args.id, assetId)) found = true } catch (_) {} }
   if (!found) throw Error('The expected original escrow event was not found.')
  }
@@ -30,10 +42,11 @@
   if (!states[0][0].eq(depositBlock)) throw Error('The escrow record changed. Stop and inspect it before continuing.')
   if (!states[1].price.isZero() || (!states[2].end.isZero() && !states[2].settled)) throw Error('An active listing or auction exists. Stop and inspect it before continuing.')
  }
- async function verifyRecovery(row) {
-  if (!/^0x[a-f0-9]{64}$/i.test(String(row.hash || ''))) throw Error('Enter the recovery transaction hash from wallet Activity.')
-  await EthscriptionCheckout.identity(connection.provider, owner)
-  var receipt = await rpc('eth_getTransactionReceipt', [row.hash]); if (!receipt) throw Error('Recovery is not confirmed yet. Do not submit another.')
+  async function verifyRecovery(row) {
+   if (!/^0x[a-f0-9]{64}$/i.test(String(row.hash || ''))) throw Error('Enter the recovery transaction hash from wallet Activity.')
+   await EthscriptionCheckout.identity(connection.provider, owner)
+   await verifyOriginal()
+   var receipt = await rpc('eth_getTransactionReceipt', [row.hash]); if (!receipt) throw Error('Recovery is not confirmed yet. Do not submit another.')
   if (!same(receipt.transactionHash, row.hash) || Number(BigInt(receipt.blockNumber)) <= depositBlock) throw Error('This recovery receipt predates the current false deposit record.')
   if (receipt.status !== '0x1') throw Error('Recovery transaction did not succeed. Check wallet Activity.')
   var match = false

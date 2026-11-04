@@ -8,8 +8,8 @@ the Ethscriptions indexer continues to show the piece in the seller's wallet.
 Changing the existing escrow alone is not a verified solution.
 
 The latest wrapped transaction is
-`0x53032a7a22e007d938d7b269332994357b4ad8ce0c352a78d0fd226ecce6759b`,
-block `26338927`. Its outer target is MetaMask's DelegationManager
+`0x8c3bda4f61dcf9960f78cbdfd46f110d3cbc05692a208ae8238f036d49f7b916`,
+block `26339062`. Its outer target is MetaMask's DelegationManager
 `0xdb9B1e94B5b69Df7e401DDbedE43491141047dB3`. Its single inner execution calls
 the Trixmoji escrow with #6's ID and zero ETH. The indexer processed that block
 and continued to show the owner as `0x47cf60BdD877203264921D05CE26F81f6d36Aa3E`.
@@ -61,10 +61,9 @@ reports success after receipt, cooldown, escrow storage, and the Ethscriptions
 indexer all agree. A wrapped transaction remains explicitly unverified and must
 be recovered; it is never treated as a deposit.
 
-The recovery page now targets transaction
-`0x53032a7a22e007d938d7b269332994357b4ad8ce0c352a78d0fd226ecce6759b` at block
-`26338927`, checks indexed ownership before cancellation and after confirmation,
-and marks its matching saved market request failed only after the cancellation
-receipt is verified. It requires separate explicit approval and gas. Recovery
-is not a wallet-route fix; the item is not listable until a future deposit is
-both a direct transfer and indexed to escrow.
+The recovery page now selects the latest saved wrapped deposit for #6, checks
+its receipt and record against chain state, checks indexed ownership before
+cancellation and after confirmation, and marks only the matching saved market
+request failed after the cancellation receipt is verified. It requires separate
+explicit approval and gas. Recovery is not a wallet-route fix; the item is not
+listable until a future deposit is both a direct transfer and indexed to escrow.

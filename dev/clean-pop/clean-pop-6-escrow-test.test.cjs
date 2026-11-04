@@ -85,10 +85,11 @@ test('route recovery refuses hashes, changed nonces, pending transactions and li
   await assert.rejects(f.api.clearEarlierRoutes(true), message); assert.equal(f.api.earlierRoutes().length, 1); assert.equal(f.calls.some(q => q.method === 'eth_sendTransaction'), false)
  }
 })
-test('on-chain recovery page targets the latest wrapped marketplace deposit and cleans its nonce record', () => {
+test('on-chain recovery page selects the latest saved wrapped deposit and cleans its nonce record', () => {
  const fs = require('node:fs'), path = require('node:path')
  const script = fs.readFileSync(path.resolve(__dirname, '../../assets/js/core/clean-pop-6-recovery.js'), 'utf8')
  const page = fs.readFileSync(path.resolve(__dirname, '../../classic/pages/clean-pop-6-recovery.html'), 'utf8')
- for (const expected of ['0x53032a7a22e007d938d7b269332994357b4ad8ce0c352a78d0fd226ecce6759b', 'depositBlock = 26338927', "originalNonce = '571'"]) assert.ok(script.includes(expected), expected)
- assert.ok(page.includes('0x53032a7a22e007d938d7b269332994357b4ad8ce0c352a78d0fd226ecce6759b'))
+ for (const expected of ['function latestSavedDeposit()', "row.action === 'deposit'", "row.state !== 'failed'", 'depositBlock = Number(BigInt(receipt.blockNumber))', 'originalNonce =']) assert.ok(script.includes(expected), expected)
+ assert.ok(script.includes('0x8c3bda4f61dcf9960f78cbdfd46f110d3cbc05692a208ae8238f036d49f7b916'))
+ assert.ok(page.includes('latest saved wrapped deposit for #6'))
 })
