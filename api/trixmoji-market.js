@@ -10,6 +10,8 @@ const { createEthscriptionsIndexer } = require('./lib/trixmoji-market/ethscripti
 const { createMarketRuntime } = require('./lib/trixmoji-market/market-runtime.cjs')
 const marketArtifact = require('../assets/data/trixmoji-escrow-artifact.json')
 const deployment = require('../assets/data/trixmoji-escrow-deployment.json')
+const replacementArtifact = require('../assets/data/trixmoji-escrow-replacement-artifact.json')
+const replacementDeployment = require('../assets/data/trixmoji-escrow-replacement-deployment.json')
 const minter = require('../assets/data/clean-pop-minter.json')
 
 function verifierKey() {
@@ -26,7 +28,7 @@ async function authenticatedWallet(req) {
  return wallet.address
 }
 
-async function runtime(readOnly) {
+async function runtime(readOnly, marketArtifact = require('../assets/data/trixmoji-escrow-artifact.json'), deployment = require('../assets/data/trixmoji-escrow-deployment.json')) {
  if (process.env.TRIXMOJI_MARKET_ENABLED !== 'true') throw Error('MARKET_NOT_CONFIGURED')
  const rpc = String(process.env.ETH_RPC_URL || ''), marketAddress = deployment.address, runtimeHash = deployment.runtimeHash, start = String(deployment.deploymentBlock), key = verifierKey()
  if (!/^https:\/\//i.test(rpc) || !ethers.utils.isAddress(marketAddress) || !/^0x[a-f0-9]{64}$/i.test(runtimeHash) || !/^\d+$/.test(start) || !Number.isSafeInteger(Number(start)) || (!readOnly && !/^0x[a-f0-9]{64}$/i.test(key))) throw Error('MARKET_NOT_CONFIGURED')
@@ -41,24 +43,26 @@ async function runtime(readOnly) {
   marketStartBlock: Number(start), confirmations: 2, blockChunk: 2000, maxCandidates: 1000 })
 }
 
-async function handler(req, res) {
+async function handler(req, res, replacement = false) {
  if (req.method !== 'GET' && req.method !== 'POST') return res.status(405).json({ ok: false, error: 'GET or POST only.' })
  const limit = checkRateLimit(req, { prefix: 'trixmoji-market', perMinute: 30, perDay: 1000 })
  if (!limit.ok) return res.status(429).json({ ok: false, error: 'Please wait before retrying.' })
  try {
   if (req.method === 'POST' && process.env.TRIXMOJI_MARKET_LIVE !== 'true') throw Error('MARKET_NOT_CONFIGURED')
-  const service = await runtime(req.method === 'GET')
+  const selectedArtifact = replacement ? replacementArtifact : marketArtifact
+  const selectedDeployment = replacement ? replacementDeployment : deployment
+  const service = await runtime(req.method === 'GET', selectedArtifact, selectedDeployment)
   if (req.method === 'GET') {
    const key = verifierKey()
    const readiness = { sessionConfigured: !!sessionSecret(), verifierKeyPresent: !!key, verifierKeyFormatValid: /^0x[a-f0-9]{64}$/i.test(key), verifierKeyMatches: false, quotaStorageAvailable: false }
-   try { readiness.verifierKeyMatches = /^0x[a-f0-9]{64}$/i.test(key) && new ethers.Wallet(key).address.toLowerCase() === marketArtifact.verifier.toLowerCase() } catch (_) {}
+    try { readiness.verifierKeyMatches = /^0x[a-f0-9]{64}$/i.test(key) && new ethers.Wallet(key).address.toLowerCase() === selectedArtifact.verifier.toLowerCase() } catch (_) {}
    try {
     const store = getStore({ ...storeOptions(), name: 'trixmoji-market-approval-quota', consistency: 'strong' })
     await store.getWithMetadata('readiness-probe', { type: 'json', consistency: 'strong' })
     readiness.quotaStorageAvailable = true
    } catch (_) {}
    const verifierConfigured = readiness.sessionConfigured && readiness.verifierKeyMatches && readiness.quotaStorageAvailable
-   const health = { ok: true, readiness, verifierConfigured, tradingReady: process.env.TRIXMOJI_MARKET_LIVE === 'true' && verifierConfigured }
+    const health = { ok: true, readiness, verifierConfigured, tradingReady: process.env.TRIXMOJI_MARKET_LIVE === 'true' && verifierConfigured, marketAddress: selectedDeployment.address }
    if (req.query && req.query.health === '1') return res.status(200).json(health)
    return res.status(200).json({ ...health, ...await service.list() })
   }
@@ -73,3 +77,4 @@ async function handler(req, res) {
 }
 module.exports = handler
 module.exports.verifierKey = verifierKey
+module.exports.replacement = (req, res) => handler(req, res, true)

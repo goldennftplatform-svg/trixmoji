@@ -1,0 +1,14 @@
+{
+  "version": "trixmoji-escrow-replacement-experimental-v1",
+  "chainId": 1,
+  "address": "0x21c1A938d06f87A039abfC48d1cCB459f55b1685",
+  "transactionHash": "0xb10367354202f4f029856e0f9027f7f5789784ff745aec45b3bbf9a39fb9a951",
+  "deploymentBlock": 26339689,
+  "deployer": "0x5f5d219c6B3f732eBDCe4BFD9c4655957Ff472C4",
+  "creator": "0x915A3D363D0a4e4470B531f008F5142c540E5417",
+  "verifier": "0x5f5d219c6B3f732eBDCe4BFD9c4655957Ff472C4",
+  "royaltyBps": 250,
+  "initcodeHash": "0xb5828615eb057fe42813a380ec1bd387eb7bf7fe89f382f91f832287cc871da5",
+  "runtimeHash": "0x509d4162264a94c741c00f6acfdd096aba84b6c03ca90db29bfe1043e89cd22e",
+  "status": "experimental-not-switched"
+}
