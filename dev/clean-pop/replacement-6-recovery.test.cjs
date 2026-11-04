@@ -13,6 +13,7 @@ function fixture({ currentOwner = owner, recordedBlock = block } = {}) {
   if (q.method === 'eth_getTransactionReceipt') return q.params[0] === original ? { transactionHash: original, status: '0x1', blockNumber: ethers.utils.hexValue(block), logs: [{ address: market, ...originalLog }] } : { transactionHash: recovery, status: '0x1', blockNumber: ethers.utils.hexValue(block + 7), logs: [{ address: market, ...cancelLog }] }
   if (q.method === 'eth_call') return iface.encodeFunctionResult('depositBlock', [canceled ? 0 : recordedBlock])
   if (q.method === 'eth_blockNumber') return ethers.utils.hexValue(block + 10)
+  if (q.method === 'eth_getLogs') return [{ address: market, transactionHash: original, ...originalLog }]
   if (q.method === 'eth_getTransactionCount') return '0x10'
   if (q.method === 'eth_estimateGas') return '0x10000'
   if (q.method === 'eth_sendTransaction') { sends++; canceled = true; return recovery }
