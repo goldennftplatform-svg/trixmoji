@@ -89,7 +89,7 @@ test('on-chain recovery page selects the latest saved wrapped deposit and cleans
  const fs = require('node:fs'), path = require('node:path')
  const script = fs.readFileSync(path.resolve(__dirname, '../../assets/js/core/clean-pop-6-recovery.js'), 'utf8')
  const page = fs.readFileSync(path.resolve(__dirname, '../../classic/pages/clean-pop-6-recovery.html'), 'utf8')
- for (const expected of ['function latestSavedDeposit()', "row.action === 'deposit'", "row.state !== 'failed'", 'depositBlock = Number(BigInt(receipt.blockNumber))', 'originalNonce =']) assert.ok(script.includes(expected), expected)
+ for (const expected of ['function latestSavedDeposit()', "row.action === 'deposit'", "row.state !== 'failed'", 'depositBlock = Number(BigInt(receipt.blockNumber))', 'originalNonce =', 'async function reconcileClearedMarketRow()', "marketButton.textContent = 'VERIFY CLEARED WRAPPED REQUEST · NO GAS'"]) assert.ok(script.includes(expected), expected)
  assert.ok(script.includes('0x8c3bda4f61dcf9960f78cbdfd46f110d3cbc05692a208ae8238f036d49f7b916'))
  assert.ok(page.includes('latest saved wrapped deposit for #6'))
 })

@@ -64,6 +64,9 @@ be recovered; it is never treated as a deposit.
 The recovery page now selects the latest saved wrapped deposit for #6, checks
 its receipt and record against chain state, checks indexed ownership before
 cancellation and after confirmation, and marks only the matching saved market
-request failed after the cancellation receipt is verified. It requires separate
-explicit approval and gas. Recovery is not a wallet-route fix; the item is not
-listable until a future deposit is both a direct transfer and indexed to escrow.
+request failed after the cancellation receipt is verified. If the record was
+already canceled, its **VERIFY CLEARED WRAPPED REQUEST · NO GAS** action checks
+the same transaction, zero record, current indexed owner, and nonce before
+clearing only that saved browser lock. Recovery is not a wallet-route fix; the
+item is not listable until a future deposit is both a direct transfer and
+indexed to escrow.

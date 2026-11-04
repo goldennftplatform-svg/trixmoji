@@ -63,10 +63,48 @@
    localStorage.setItem(experimentKey + '.archive.' + Date.now(), JSON.stringify({ original: experiment, resolvedBy: row.hash, reason: 'wrapped deposit record cleared; experiment closed' }))
    experiment.state = 'recovered'; experiment.recoveryHash = row.hash; localStorage.setItem(experimentKey, JSON.stringify(experiment))
   }
-  localStorage.setItem(marketKey, JSON.stringify(records)); row.state = 'confirmed'; localStorage.setItem(storageKey, JSON.stringify(row)); return true
- }
- function showSaved() {
-  var box = el('saved'), row = saved(); box.hidden = !row; box.textContent = ''
+   localStorage.setItem(marketKey, JSON.stringify(records)); row.state = 'confirmed'; localStorage.setItem(storageKey, JSON.stringify(row)); return true
+  }
+  async function reconcileClearedMarketRow() {
+   if (!navigator.locks) throw Error('Use a browser with Web Locks support to safely reconcile the saved market request.')
+   return navigator.locks.request(marketKey, { ifAvailable: true }, async function (lock) {
+    if (!lock) throw Error('A market transaction is still active in another tab. Finish or reject it before reconciliation.')
+    currentDeposit = latestSavedDeposit()
+    if (!currentDeposit || !/^0x[a-f0-9]{64}$/i.test(String(currentDeposit.hash || ''))) throw Error('No saved wrapped #6 market transaction with a hash was found.')
+    var snapshot = localStorage.getItem(marketKey), record = currentDeposit
+    await EthscriptionCheckout.identity(connection.provider, owner)
+    var code = await rpc('eth_getCode', [escrow, 'latest'])
+    if (!code || code === '0x' || !same(ethers.utils.keccak256(code), expectedRuntimeHash)) throw Error('Escrow runtime does not match the verified deployment.')
+    var values = await Promise.all([rpc('eth_getTransactionByHash', [record.hash]), rpc('eth_getTransactionReceipt', [record.hash])]), tx = values[0], receipt = values[1]
+    if (!tx || !receipt || !same(tx.hash, record.hash) || !same(receipt.transactionHash, record.hash) || receipt.status !== '0x1' || !same(tx.from, owner) || same(tx.to, escrow)) throw Error('Saved market transaction is not a confirmed wrapped deposit. Keep its record for review.')
+    var deposited = (receipt.logs || []).some(function (log) { if (!same(log.address, escrow)) return false; try { var event = iface.parseLog(log); return event.name === 'Deposited' && same(event.args.seller, owner) && same(event.args.id, assetId) } catch (_) { return false } })
+    if (!deposited) throw Error('The saved receipt does not contain the #6 escrow event. Keep its record for review.')
+    var block = Number(BigInt(receipt.blockNumber)), state = await contractRead('depositBlock', [owner, assetId])
+    if (!state[0].isZero()) throw Error('The false escrow record still exists. Use CHECK AND PREPARE RECOVERY first.')
+    await indexedState(block + 5)
+    var nonces = await Promise.all([rpc('eth_getTransactionCount', [owner, 'latest']), rpc('eth_getTransactionCount', [owner, 'pending'])])
+    if (BigInt(nonces[0]) !== BigInt(nonces[1])) throw Error('The owner wallet has a pending transaction. Resolve it before reconciling the saved request.')
+    if (localStorage.getItem(marketKey) !== snapshot) throw Error('Saved market requests changed while checking. Reload and inspect them.')
+    var records = JSON.parse(snapshot || '[]')
+    if (!Array.isArray(records)) throw Error('Saved market records are invalid. Keep them for review.')
+    var index = records.findIndex(function (row) { return row && ((record.key && row.key === record.key) || same(row.hash, record.hash)) })
+    if (index < 0 || records[index].state === 'complete') throw Error('The exact saved market request could not be matched. Keep the records for review.')
+    var original = records[index]; records[index].state = 'failed'; records[index].resolution = 'Confirmed wrapped deposit; on-chain escrow record is clear and indexer still shows the piece with its owner.'
+    if (localStorage.getItem(marketKey) !== snapshot) throw Error('Saved market requests changed while checking. Reload and inspect them.')
+    localStorage.setItem(marketKey + '.recovery.' + Date.now(), JSON.stringify({ original: original, reason: 'confirmed wrapped deposit has no active escrow record and no indexed transfer', checkedAt: new Date().toISOString() }))
+    localStorage.setItem(marketKey, JSON.stringify(records))
+    return { reconciled: true, hash: record.hash }
+   })
+  }
+  function showSaved() {
+  var box = el('saved'), row = saved(); currentDeposit = latestSavedDeposit(); box.hidden = !row && !currentDeposit; box.textContent = ''
+  if (currentDeposit) {
+   var marketNote = document.createElement('p'), marketButton = document.createElement('button')
+   marketNote.textContent = 'Saved market deposit: ' + (currentDeposit.hash || 'no transaction hash') + ' · This local request is not proof of escrow custody.'
+   marketButton.type = 'button'; marketButton.textContent = 'VERIFY CLEARED WRAPPED REQUEST · NO GAS'
+   marketButton.onclick = async function () { marketButton.disabled = true; try { await reconcileClearedMarketRow(); say('The wrapped request is confirmed, #6 remains in your wallet, and the escrow record is clear. The stale local market lock is cleared; no transaction was sent.'); showSaved() } catch (error) { say(error.message); marketButton.disabled = false } }
+   box.append(marketNote, marketButton)
+  }
   if (!row) return
   var p = document.createElement('p'); p.textContent = row.state === 'confirmed' ? 'Recovery confirmed. The escrow record is clear and #6 is still indexed to this wallet.' : 'Saved recovery: ' + (row.hash || 'no hash returned. Check wallet Activity; do not submit again.'); box.appendChild(p)
   if (row.state !== 'confirmed') { var input = document.createElement('input'), button = document.createElement('button'); input.placeholder = 'Recovery transaction hash'; input.value = row.hash || ''; button.textContent = 'CHECK RECOVERY'; button.onclick = async function () { button.disabled = true; try { await verifyRecovery(Object.assign({}, row, { hash: input.value.trim() })); say('Recovery confirmed. The false record is cleared.'); showSaved() } catch (e) { say(e.message); button.disabled = false } }; box.append(input, button) }
@@ -75,7 +113,7 @@
   busy = true; controls(); try { el('wallets').textContent = ''; var provider = await EthscriptionCheckout.choose(el('wallets'), say)
    var accounts = await provider.request({ method: 'eth_accounts' }); await EthscriptionCheckout.ensureChain(provider); if (!accounts || !same(accounts[0], owner)) throw Error('Connect wallet ' + owner + '.')
    connection = { provider: provider, address: accounts[0] }; var artifact = await fetch('/assets/data/trixmoji-escrow-artifact.json', { cache: 'no-store' }).then(function (r) { if (!r.ok) throw Error('Escrow ABI unavailable.'); return r.json() }); iface = new ethers.utils.Interface(artifact.abi)
-   showSaved(); say('Wallet connected. Check and prepare the recovery.')
+   showSaved(); say(currentDeposit ? 'Wallet connected. A saved market deposit can be reconciled read-only; recovery is needed only if the escrow record still exists.' : 'Wallet connected. Check and prepare the recovery.')
   } catch (e) { connection = null; say(e.message) } finally { busy = false; controls() }
  }
  el('prepare').onclick = async function () {
