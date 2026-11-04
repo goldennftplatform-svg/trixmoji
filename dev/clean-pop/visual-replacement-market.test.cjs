@@ -29,7 +29,7 @@ test('replacement visual market deposits first and lists only from the indexed e
  assert.equal(submitted.kind, 'deposit'); assert.equal(submitted.args.id, id)
  const depositReview = walletCard.children.find(x => x.className === 'market-review')
  const depositPending = reviewCallback({ action: 'deposit', assetId: id, to: deployment.address, valueWei: '0', estimatedGas: '50000', approve: () => { throw Error('must not request wallet') } })
- assert.match(depositReview.children[0].textContent, /Added protection/); assert.match(depositReview.children[0].textContent, /control is absent.*cancel/i)
+ assert.match(depositReview.children[0].textContent, /indexer must confirm escrow custody/); assert.doesNotMatch(depositReview.children[0].textContent, /uncheck|settings/i)
  depositReview.children.find(x => x.textContent === 'CANCEL').onclick(); await assert.rejects(depositPending, /Cancelled/)
  els.walletGrid.children = []; els.myEscrow.onclick(); await new Promise(resolve => setTimeout(resolve, 30)); assert.equal(els.walletGrid.children.length, 0)
  market.deposits = [{ id, tokenNo: 6, seller, cooldown: 0 }]; els.myEscrow.onclick(); await new Promise(resolve => setTimeout(resolve, 30))
