@@ -43,7 +43,9 @@
  async function reconcileKnownRecovery() {
   if (legacy || !client) return
   var original = '0x9de253efbaeb700b2947630706ce0234c19b23a8eb3ab16d1adb40db0e5a57c5', cancellation = '0x430a0f0cafa463ab9d8b075b68d88ec4bc9639a9490132f164dfb08d801e93db'
-  var row = client.records().find(function (r) { return r && r.state !== 'complete' && r.state !== 'failed' && r.action === 'depositAndList' && same(r.hash, original) && same(r.to, deployment.address) })
+  var pending = client.records().filter(function (r) { return r && r.state !== 'complete' && r.state !== 'failed' && r.action === 'depositAndList' && same(r.to, deployment.address) })
+  if (pending.some(function (r) { return !same(r.hash, original) })) return
+  var row = pending.find(function (r) { return same(r.hash, original) })
   if (!row) return
   try {
    await client.reconcileClearedWrapped(row.key, cancellation, function () { return json('https://api.ethscriptions.com/v2/status') })
@@ -69,7 +71,7 @@
     resolveButton.type = 'button'; resolveButton.textContent = 'CHECK CLEARED RECORD · NO GAS'
     resolveButton.onclick = async function () { resolveButton.disabled = true; try { await client.reconcileClearedWrapped(row.key, cancelInput.value.trim(), function () { return json('https://api.ethscriptions.com/v2/status') }); say('Recovered deposit verified: escrow record is clear and the piece remains in your wallet. No transaction was sent.'); recovery() } catch (e) { say(e.message); resolveButton.disabled = false } }
     recoveryBox.append(cancelInput, resolveButton)
-    if (!legacy && same(row.hash, '0x939deedb5781d5895daf8127f9c72a593909b53869eb25ce40eeca62830be472')) { var recoveryLink = document.createElement('a'); recoveryLink.href = '/classic/pages/replacement-6-recovery.html'; recoveryLink.textContent = 'OPEN RECOVERY FOR LATEST WRAPPED #6 DEPOSIT ↗'; recoveryBox.appendChild(recoveryLink) }
+    if (!legacy && same(row.hash, '0x4bfc63cf6bb20dd54b4a44929593a01df76fe990ac4874280845386fb705d0c7')) { var recoveryLink = document.createElement('a'); recoveryLink.href = '/classic/pages/replacement-6-recovery.html'; recoveryLink.textContent = 'OPEN RECOVERY FOR LATEST WRAPPED #6 DEPOSIT ↗'; recoveryBox.appendChild(recoveryLink) }
    }
   })
   CleanPopTransferCheckout.records().filter(function (r) { return r.state !== 'complete' && r.state !== 'failed' }).forEach(function (row) {
