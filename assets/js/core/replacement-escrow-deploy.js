@@ -14,14 +14,22 @@
   yes.onclick = function () { yes.disabled = true; no.disabled = true; say('Waiting for wallet. Do not repeat.'); q.approve().then(function (row) { host.hidden = true; resolve(row) }, function (error) { host.hidden = true; reject(error) }) }
   no.onclick = function () { host.hidden = true; reject(Error('Cancelled; no deployment requested.')) }; host.append(text, yes, no)
  }) }
- el('connect').onclick = async function () { busy = true; controls(); try {
-  var provider = await EthscriptionCheckout.choose(el('wallets'), say); await EthscriptionCheckout.ensureChain(provider)
-  var accounts = await provider.request({ method: 'eth_accounts' }), account = accounts && accounts[0]
+ el('connect').onclick = async function () { busy = true; client = null; controls(); el('wallets').textContent = ''; try {
+  var injected = window.ethereum, providers = injected && Array.isArray(injected.providers) ? injected.providers : injected ? [injected] : [], provider, accounts
+  if (providers.length === 1 && providers[0] && typeof providers[0].request === 'function') {
+   provider = providers[0]; say('Open your wallet extension and approve the connection if prompted. No transaction is requested.')
+   accounts = await EthscriptionCheckout.requestAccounts(provider)
+  } else {
+   say('Choose your wallet below. Connecting does not send a transaction.')
+   provider = await EthscriptionCheckout.choose(el('wallets'), say)
+  }
+  say('Checking Ethereum mainnet and the connected account…'); await EthscriptionCheckout.ensureChain(provider)
+  accounts = accounts || await provider.request({ method: 'eth_accounts' }); var account = accounts && accounts[0]
   if (!same(account, creator) && !same(account, verifier)) throw Error('Connect the creator or verifier wallet.')
   client = TrixmojiEscrowDeployment.create({ provider: provider, storage: localStorage, locks: navigator.locks, storageKey: 'trixmoji.market.deployment.replacement-v1', artifact: artifact, creator: creator, verifier: verifier, deployer: account, chainId: 1, expectedBytecodeHash: hash })
   saved(); say('Connected ' + account + '. Preparation performs read-only wallet estimates.')
  } catch (error) { say(error.message) } finally { busy = false; controls() } }
- el('prepare').onclick = async function () { if (busy || !client) return; busy = true; controls(); try { say('Checking wallet, bytecode, nonce and deployment gas…'); var row = await client.run(review); say('Submitted ' + row.hash + '. Verify it after confirmation; do not repeat.'); saved() } catch (error) { say(error.message); saved() } finally { busy = false; controls() } }
+ el('prepare').onclick = async function () { if (busy || !client) return; busy = true; controls(); try { say('Checking wallet, bytecode, nonce and deployment gas. Open the wallet extension if a request is waiting; no deployment is sent until the separate approval button.'); var row = await client.run(review); say('Submitted ' + row.hash + '. Verify it after confirmation; do not repeat.'); saved() } catch (error) { say(error.message); saved() } finally { busy = false; controls() } }
  el('check').onclick = async function () { if (!client || busy) return; busy = true; controls(); try { var result = await client.check(el('hash').value.trim()); say(result.confirmed ? 'Deployment confirmed: ' + result.address + '. Runtime hash: ' + result.runtimeHash + '. The market is not switched to this contract.' : 'Deployment failed. Check wallet activity.'); saved() } catch (error) { say(error.message) } finally { busy = false; controls() } }
  fetch('/assets/data/trixmoji-escrow-replacement-artifact.json', { cache: 'no-store' }).then(function (r) { if (!r.ok) throw Error('Replacement artifact unavailable.'); return r.json() }).then(function (data) {
   if (data.version !== 'trixmoji-escrow-replacement-experimental-v1' || data.chainId !== 1 || !same(data.creator, creator) || !same(data.verifier, verifier) || !same(data.bytecodeHash, hash) || !same(ethers.utils.keccak256(data.bytecode), hash)) throw Error('Replacement artifact does not match the pinned build.')
