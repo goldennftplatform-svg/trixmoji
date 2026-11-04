@@ -30,8 +30,6 @@ body[data-market-view="forSale"][data-grid-density="4"] .wallet-grid,body[data-m
 body[data-market-view="forSale"] .wallet-grid article,body[data-market-view="auctions"] .wallet-grid article{min-width:0;padding:8px}
 body[data-market-view="forSale"] .wallet-grid h2,body[data-market-view="auctions"] .wallet-grid h2{font-size:11px;overflow-wrap:anywhere}
 body[data-market-view="forSale"] .wallet-grid p,body[data-market-view="auctions"] .wallet-grid p{font-size:10px}
-@media(max-width:1200px){body[data-grid-density="10"] #grid,body[data-market-view="forSale"][data-grid-density="10"] .wallet-grid,body[data-market-view="auctions"][data-grid-density="10"] .wallet-grid{grid-template-columns:repeat(8,minmax(0,1fr))}}
-@media(max-width:1000px){body[data-grid-density="10"] #grid,body[data-market-view="forSale"][data-grid-density="10"] .wallet-grid,body[data-market-view="auctions"][data-grid-density="10"] .wallet-grid{grid-template-columns:repeat(6,minmax(0,1fr))}}
 @media(max-width:760px){body[data-grid-density="10"] #grid,body[data-grid-density="6"] #grid,body[data-market-view="forSale"][data-grid-density] .wallet-grid,body[data-market-view="auctions"][data-grid-density] .wallet-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.grid-density{margin-left:0}.hero-art img{max-width:100px}}
 @media(max-width:480px){body[data-grid-density] #grid,body[data-market-view="forSale"][data-grid-density] .wallet-grid,body[data-market-view="auctions"][data-grid-density] .wallet-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.result-head .tag{display:none}#grid .card h2{font-size:10px}}
 @media(max-width:760px){
