@@ -19,7 +19,7 @@
   var block = recorded.toNumber(); if (!Number.isSafeInteger(block) || block < 26339689) throw Error('Escrow record block is invalid.')
   var tag = ethers.utils.hexValue(block), logs = await rpc('eth_getLogs', [{ address: market, fromBlock: tag, toBlock: tag, topics: iface.encodeFilterTopics('Deposited', [owner, id]) }])
   if (!Array.isArray(logs)) throw Error('Could not locate the matching escrow event.')
-  var matches = logs.filter(function (log) { if (log.removed || !same(log.address, market) || !/^0x[a-f0-9]{64}$/i.test(String(log.transactionHash || ''))) return false; try { var event = iface.parseLog(log); return event.name === 'Deposited' && same(event.args.seller, owner) && same(event.args.id, id) } catch (_) { return false } })
+  var matches = logs.filter(function (log) { if (log.removed || !same(log.address, market) || !/^0x[a-f0-9]{64}$/i.test(String(log.transactionHash || ''))) return false; try { if (Number(BigInt(log.blockNumber)) !== block) return false; var event = iface.parseLog(log); return event.name === 'Deposited' && same(event.args.seller, owner) && same(event.args.id, id) } catch (_) { return false } })
   if (matches.length !== 1) throw Error('The active escrow record does not have exactly one matching deposit event. Stop and inspect it.')
   original = matches[0].transactionHash; depositBlock = block; key = 'trixmoji.replacement.6.recovery.' + original
  }

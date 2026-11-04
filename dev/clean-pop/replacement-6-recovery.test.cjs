@@ -4,7 +4,7 @@ const fs = require('node:fs'), path = require('node:path'), vm = require('node:v
 const { ethers } = require('ethers')
 const artifact = require('../../assets/data/trixmoji-escrow-replacement-artifact.json'), iface = new ethers.utils.Interface(artifact.abi)
 const owner = '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E', market = '0x21c1A938d06f87A039abfC48d1cCB459f55b1685', id = '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74', original = '0x4bfc63cf6bb20dd54b4a44929593a01df76fe990ac4874280845386fb705d0c7', recovery = ethers.utils.id('recovery'), block = 26343010
-function fixture({ currentOwner = owner, recordedBlock = block } = {}) {
+function fixture({ currentOwner = owner, recordedBlock = block, logBlock = recordedBlock } = {}) {
  let canceled = false, sends = 0
  const originalLog = iface.encodeEventLog(iface.getEvent('Deposited'), [owner, id, block]), cancelLog = iface.encodeEventLog(iface.getEvent('Cancelled'), [owner, id])
  const provider = { request: async q => {
@@ -13,7 +13,7 @@ function fixture({ currentOwner = owner, recordedBlock = block } = {}) {
   if (q.method === 'eth_getTransactionReceipt') return q.params[0] === original ? { transactionHash: original, status: '0x1', blockNumber: ethers.utils.hexValue(block), logs: [{ address: market, ...originalLog }] } : { transactionHash: recovery, status: '0x1', blockNumber: ethers.utils.hexValue(block + 7), logs: [{ address: market, ...cancelLog }] }
   if (q.method === 'eth_call') return iface.encodeFunctionResult('depositBlock', [canceled ? 0 : recordedBlock])
   if (q.method === 'eth_blockNumber') return ethers.utils.hexValue(block + 10)
-  if (q.method === 'eth_getLogs') return [{ address: market, transactionHash: original, ...originalLog }]
+  if (q.method === 'eth_getLogs') return [{ address: market, transactionHash: original, blockNumber: ethers.utils.hexValue(logBlock), ...originalLog }]
   if (q.method === 'eth_getTransactionCount') return '0x10'
   if (q.method === 'eth_estimateGas') return '0x10000'
   if (q.method === 'eth_sendTransaction') { sends++; canceled = true; return recovery }
@@ -36,7 +36,7 @@ test('replacement recovery only requests cancellation after explicit review and 
  assert.match(f.els.status.textContent, /Recovery confirmed/); assert.equal(JSON.parse(f.storage.getItem(f.rowsKey))[0].state, 'failed')
 })
 test('replacement recovery refuses changed indexed ownership or deposit record before asking for approval', async () => {
- for (const options of [{ currentOwner: market }, { recordedBlock: block + 1 }]) {
+ for (const options of [{ currentOwner: market }, { recordedBlock: block + 1 }, { logBlock: block + 1 }]) {
   const f = fixture(options); await f.els.connect.onclick(); await f.els.prepare.onclick(); assert.equal(f.sends(), 0); assert.equal(f.els.review.children.length, 0)
  }
 })
