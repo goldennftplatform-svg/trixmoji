@@ -60,22 +60,22 @@
    recoveryBox.append(text, input, check, help)
   })
  }
- function review(q, listingPrice) {
+ function review(q, listingPrice, target) {
   return new Promise(function (resolve, reject) {
-   reviewBox.hidden = false; reviewBox.textContent = ''
+   var host = target || reviewBox; host.hidden = false; host.textContent = ''
    var p = document.createElement('p'), approve = document.createElement('button'), cancel = document.createElement('button')
    p.textContent = 'Review ' + q.action + (q.assetId ? ' · ' + q.assetId : '') + ' · destination ' + q.to + ' · value ' + ethers.utils.formatEther(q.valueWei) + ' ETH' + (listingPrice ? ' · listing price ' + ethers.utils.formatEther(listingPrice) + ' ETH' : '') + ' · estimated gas ' + q.estimatedGas + '. Confirm final network fee in your wallet.' + (q.action === 'depositAndList' ? ' In MetaMask, if an optional Added protection checkbox is shown, uncheck it for this transaction before approving. This option may not be present in every MetaMask version. The outer transaction must target this escrow with the deposit-and-list calldata. If you cannot verify that, cancel. A wrapped transaction may create a false deposit record without transferring the piece.' : '')
    approve.type = 'button'; cancel.type = 'button'; approve.textContent = 'CONTINUE TO WALLET'; cancel.textContent = 'CANCEL'
-   approve.onclick = function () { approve.disabled = true; cancel.disabled = true; say('Waiting for wallet. Do not repeat the request.'); q.approve().then(function (row) { reviewBox.hidden = true; resolve(row) }, function (e) { reviewBox.hidden = true; reject(e) }) }
-   cancel.onclick = function () { reviewBox.hidden = true; reject(Error('Cancelled. No transaction was requested.')) }
-   reviewBox.append(p, approve, cancel); say('Review the transaction above, then click CONTINUE TO WALLET. MetaMask is not opened until you click that button.'); if (typeof reviewBox.scrollIntoView === 'function') reviewBox.scrollIntoView({ behavior: 'smooth', block: 'center' }); approve.focus()
+   approve.onclick = function () { approve.disabled = true; cancel.disabled = true; say('Waiting for wallet. Do not repeat the request.'); q.approve().then(function (row) { host.hidden = true; resolve(row) }, function (e) { host.hidden = true; reject(e) }) }
+   cancel.onclick = function () { host.hidden = true; reject(Error('Cancelled. No transaction was requested.')) }
+   host.append(p, approve, cancel); say(target ? 'Review the listing on the artwork card, then click CONTINUE TO WALLET.' : 'Review the transaction above, then click CONTINUE TO WALLET.'); if (typeof host.scrollIntoView === 'function') host.scrollIntoView({ behavior: 'smooth', block: 'center' }); approve.focus()
   })
  }
- async function action(kind, args) {
+ async function action(kind, args, reviewTarget) {
   if (busy) return; busy = true
   try {
    await configure(); say('Checking wallet, custody, market and transaction…')
-   var row = await client.run(kind, args, function (q) { return review(q, kind === 'depositAndList' ? args.amountWei : null) }); say('Submitted ' + row.hash + '. Check confirmation before retrying.'); recovery()
+   var row = await client.run(kind, args, function (q) { return review(q, kind === 'depositAndList' ? args.amountWei : null, reviewTarget) }); say('Submitted ' + row.hash + '. Check confirmation before retrying.'); recovery()
    try { await reconcile(row) } catch (e) { say(e.message + ' Transaction: ' + row.hash) }
   } catch (e) { say(e.message || 'Market action failed.') } finally { busy = false; recovery() }
  }
@@ -109,7 +109,14 @@
    recipient.type = 'text'; recipient.placeholder = 'Recipient 0x address'; recipient.setAttribute('aria-label', 'Recipient address for Clean Pop #' + item.tokenNo); recipient.autocomplete = 'off'; recipient.required = true
    send.type = 'submit'; send.textContent = 'SEND TO WALLET'; form.onsubmit = function (event) { event.preventDefault(); sendPiece(item, recipient.value) }; form.append(recipient, send); article.appendChild(form)
    if (legacy) button(article, 'MOVE TO ESCROW', function () { action('deposit', { id: item.id }) }, !board || !board.tradingReady)
-   else button(article, 'LIST FOR SALE', function () { var n = amount('Sale price'); if (n) action('depositAndList', { id: item.id, amountWei: n }) }, !board || !board.tradingReady)
+   else {
+    var listForm = document.createElement('form'), priceLabel = document.createElement('label'), priceInput = document.createElement('input'), listButton = document.createElement('button'), cardReview = document.createElement('div')
+    priceLabel.textContent = 'SALE PRICE · ETH'; priceInput.type = 'text'; priceInput.inputMode = 'decimal'; priceInput.placeholder = '0.01'; priceInput.autocomplete = 'off'; priceInput.required = true; priceInput.setAttribute('aria-label', 'Sale price in ETH for Clean Pop #' + item.tokenNo)
+    listButton.type = 'submit'; listButton.textContent = 'LIST FOR SALE'; listButton.disabled = !board || !board.tradingReady
+    cardReview.className = 'market-review'; cardReview.hidden = true
+    listForm.onsubmit = function (event) { event.preventDefault(); var n; try { n = ethers.utils.parseEther(priceInput.value.trim()); if (n.lte(0)) throw Error() } catch (_) { say('Enter a positive ETH sale price on the artwork card.'); priceInput.focus(); return } action('depositAndList', { id: item.id, amountWei: n.toString() }, cardReview) }
+    priceLabel.appendChild(priceInput); listForm.append(priceLabel, listButton); article.append(listForm, cardReview)
+   }
   } else if (kind === 'escrow') {
    info.textContent = item.cooldown ? 'Wait ' + item.cooldown + ' more blocks.' : 'Ready to list, auction, or return.'
    button(article, 'LIST FOR SALE', function () { var n = amount('Sale price'); if (n) action('list', { id: item.id, amountWei: n }) }, item.cooldown || !board.tradingReady)
