@@ -40,14 +40,16 @@
   })
  }
  el('connect').onclick = async function () {
-  busy = true; controls()
+  busy = true; connection = null; probe = null; controls(); el('wallets').textContent = ''
   try {
-   var injected = window.ethereum, providers = injected && Array.isArray(injected.providers) ? injected.providers : injected ? [injected] : []
-   if (providers.length === 1 && providers[0] && typeof providers[0].request === 'function') { var accounts = await EthscriptionCheckout.requestAccounts(providers[0]); await EthscriptionCheckout.ensureChain(providers[0]); connection = { provider: providers[0], address: accounts[0] } }
-   else { var settings = await fetch('/api/ethscriptions', { cache: 'no-store' }).then(function (r) { return r.json() }).catch(function () { return {} }); EthscriptionCheckout.configure(settings.walletConnectProjectId || ''); connection = await EthscriptionCheckout.connect(el('wallets'), say) }
+   say('Choose MetaMask from the wallet buttons below. This connection step sends no transaction.')
+   var selected = await EthscriptionCheckout.choose(el('wallets'), say)
+   var trace = WalletRequestTrace.create(selected, function (rows) { el('walletTrace').textContent = JSON.stringify(rows, null, 2) })
+   var accounts = await trace.provider.request({ method: 'eth_accounts' }); if (!accounts || !accounts[0]) accounts = await EthscriptionCheckout.requestAccounts(trace.provider)
+   await EthscriptionCheckout.ensureChain(trace.provider); connection = { provider: trace.provider, address: accounts[0] }
    if (String(connection.address).toLowerCase() !== owner.toLowerCase()) { connection = null; throw Error('Connect the wallet ending aa3E.') }
    probe = QuantumRouteTest.create({ provider: connection.provider, storage: localStorage, locks: navigator.locks, isUnused: unused, generateData: function () { return ethers.utils.hexlify(crypto.getRandomValues(new Uint8Array(32))) } })
-   showSaved(); say('Wallet connected. Prepare the test; nothing has been sent.')
+   showSaved(); say('Selected wallet connected: ' + connection.address + '. No new transaction has been requested. Resolve any saved test before preparing another.')
   } catch (e) { probe = null; say(e.message || 'Wallet connection failed.') } finally { busy = false; controls() }
  }
  el('prepare').onclick = async function () {
