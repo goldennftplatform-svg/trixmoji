@@ -72,7 +72,21 @@
    row.hash = hash; row.state = direct ? 'direct' : 'wrapped'; options.storage.setItem(KEY, JSON.stringify(row))
    return { direct: direct, hash: hash, transactionTo: tx.to, blockNumber: Number(BigInt(receipt.blockNumber)) }
   }
-  return { plan: plan, run: run, check: check, saved: saved, oldSaved: oldSaved }
+  async function recoverUnsent(confirmed) {
+   if (confirmed !== true) throw Error('Confirm in MetaMask that no test approval, pending transaction, or transaction hash exists.')
+   return options.locks.request(LOCK, { ifAvailable: true }, async function (lock) {
+    if (!lock) throw Error('The wallet request is still open. Resolve it in MetaMask before recovery.')
+    var snapshot = options.storage.getItem(KEY), row = saved()
+    if (!row || row.state !== 'awaiting-wallet' || row.hash || !same(row.from, owner) || !same(row.to, recipient) || !/^\d+$/.test(String(row.startingNonce || '')) || !/^0x[a-f0-9]{64}$/i.test(String(row.data || ''))) throw Error('Only the original no-hash test request can be recovered.')
+    await identity(false)
+    var counts = await Promise.all([rpc('eth_getTransactionCount', [owner, 'latest']), rpc('eth_getTransactionCount', [owner, 'pending'])])
+    if (!ethers.BigNumber.from(counts[0]).eq(row.startingNonce) || !ethers.BigNumber.from(counts[1]).eq(row.startingNonce)) throw Error('The wallet nonce changed or a transaction is pending. Check wallet Activity before continuing.')
+    if (options.storage.getItem(KEY) !== snapshot) throw Error('The saved test changed during the check. Reload and inspect it.')
+    options.storage.setItem(KEY + '.archive.' + Date.now(), JSON.stringify({ original: row, reason: 'no hash; owner confirmed wallet activity and nonce unchanged' }))
+    options.storage.removeItem(KEY); return { recovered: true }
+   })
+  }
+  return { plan: plan, run: run, check: check, saved: saved, oldSaved: oldSaved, recoverUnsent: recoverUnsent }
  }
  return { create: create }
 })

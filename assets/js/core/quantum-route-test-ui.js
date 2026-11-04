@@ -17,13 +17,24 @@
   var input = document.createElement('input'), check = document.createElement('button'); input.type = 'text'; input.placeholder = '0x transaction hash from wallet Activity'; input.value = row.hash || ''; input.setAttribute('aria-label', 'Test transaction hash'); check.textContent = 'CHECK TEST RESULT'
   check.onclick = async function () { check.disabled = true; try { var result = await probe.check(input.value.trim()); say(result.direct ? 'This test used a direct outer transaction. A real escrow deposit is not yet proven.' : 'This test was wrapped by the wallet. This route is not usable for an Ethscription deposit.'); showSaved() } catch (e) { say(e.message); check.disabled = false } }
   host.append(input, check)
+  if (row.state === 'awaiting-wallet' && !row.hash) {
+   var label = document.createElement('label'), confirmed = document.createElement('input'), recover = document.createElement('button'), note = document.createElement('p')
+   confirmed.type = 'checkbox'; label.append(confirmed, document.createTextNode(' I checked MetaMask Activity and closed or rejected any open request. There is no pending test transaction or hash.'))
+   recover.type = 'button'; recover.textContent = 'CHECK WALLET AND CLEAR UNSENT TEST'; note.textContent = 'This does not send a transaction. RPC pending counts cannot detect every private request; check MetaMask first.'
+   recover.onclick = async function () { recover.disabled = true; try { await probe.recoverUnsent(confirmed.checked); say('Unsent test record archived and cleared. No transaction was sent by this check.'); showSaved(); controls() } catch (e) { say(e.message); recover.disabled = false } }
+   host.append(label, recover, note)
+  }
  }
  function review(q) {
   return new Promise(function (resolve, reject) {
    var host = el('review'), text = document.createElement('p'), approve = document.createElement('button'), cancel = document.createElement('button'); host.hidden = false; host.textContent = ''
    text.textContent = 'Test from ' + q.from + ' to your wallet ' + q.to + '. Value: 0 ETH. Unused test data: ' + q.data + '. MetaMask determines and displays the network fee.'
    approve.textContent = 'APPROVE TEST IN WALLET'; cancel.textContent = 'CANCEL'
-   approve.onclick = function () { approve.disabled = true; cancel.disabled = true; say('Waiting for wallet approval. Do not send another test.'); q.approve().then(function (row) { host.hidden = true; resolve(row) }, function (e) { host.hidden = true; reject(e) }) }
+   approve.onclick = function () {
+    approve.disabled = true; cancel.disabled = true; say('Waiting for wallet approval. Do not send another test.')
+    var timer = setTimeout(function () { say('The wallet has not answered yet. Open the MetaMask extension icon and check for an approval or pending request. Do not submit another test.') }, 12000)
+    q.approve().then(function (row) { clearTimeout(timer); host.hidden = true; resolve(row) }, function (e) { clearTimeout(timer); host.hidden = true; reject(e) }); showSaved()
+   }
    cancel.onclick = function () { host.hidden = true; reject(Error('Cancelled. No transaction was requested.')) }
    host.append(text, approve, cancel); say('Review the destination and fee before approving.'); approve.focus()
   })
