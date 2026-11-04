@@ -1,5 +1,6 @@
 'use strict'
 const { ethers } = require('ethers')
+const { isDepositCalldata } = require('./deposit-calldata.cjs')
 const same = (a, b) => String(a || '').toLowerCase() === String(b || '').toLowerCase()
 
 /**
@@ -41,7 +42,7 @@ async function discoverListings({ market, indexer, registry, minter, startBlock,
   const transfers = (asset.ethscription_transfers || []).filter(t => same(t.from_address, candidate.seller) && same(t.to_address, market.address) && Number(t.block_number) === depositBlock.toNumber())
   if (transfers.length !== 1 || !/^0x[a-f0-9]{64}$/i.test(String(transfers[0].transaction_hash || ''))) continue
   const [tx, receipt] = await Promise.all([market.provider.getTransaction(transfers[0].transaction_hash), market.provider.getTransactionReceipt(transfers[0].transaction_hash)])
-  if (!tx || !receipt || receipt.status !== 1 || receipt.blockNumber !== depositBlock.toNumber() || !same(tx.from, candidate.seller) || !same(tx.to, market.address) || !same(tx.data, candidate.id) || !tx.value.isZero()) continue
+   if (!tx || !receipt || receipt.status !== 1 || receipt.blockNumber !== depositBlock.toNumber() || !same(tx.from, candidate.seller) || !same(tx.to, market.address) || !isDepositCalldata(tx.data, candidate.id) || !tx.value.isZero()) continue
   const cooldown = Math.max(0, 5 - (head - depositBlock.toNumber()))
   deposits.push({ id: candidate.id, tokenNo: committed.tokenNo, seller: candidate.seller, depositBlock: depositBlock.toNumber(), cooldown })
   if (cooldown) continue

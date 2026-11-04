@@ -39,15 +39,16 @@
   }
   async function prepare(action, args, account) {
    args = args || {}; var id, data, to = market, value = ethers.constants.Zero
-   if (action === 'gift' || action === 'deposit') {
-    id = assetId(args.id); await owned(id, account)
-    if (action === 'deposit') {
+    if (action === 'gift' || action === 'deposit' || action === 'depositAndList') {
+     id = assetId(args.id); await owned(id, account)
+     if (action === 'deposit' || action === 'depositAndList') {
+      if (action === 'depositAndList' && config.combinedDepositEnabled !== true) throw Error('Combined deposit-and-list is not enabled for this escrow.')
      var recorded = (await call('depositBlock', [account, id]))[0]
       if (!recorded.isZero()) throw Error('This wallet already has an escrow deposit record for this piece. Do not send it again; the existing record must be checked first.')
     }
     to = action === 'gift' ? address(args.recipient) : market
     if (same(to, account) || (action === 'gift' && same(to, market))) throw Error('Choose a different gift recipient; use deposit for escrow.')
-    data = id
+     data = action === 'depositAndList' ? ethers.utils.hexConcat([id, ethers.utils.id('DEPOSIT_AND_LIST_SIGNATURE'), ethers.utils.hexZeroPad(positive(args.amountWei).toHexString(), 32), ethers.constants.HashZero]) : id
    } else if (action === 'list' || action === 'cancel') {
     id = assetId(args.id); await owned(id, market, account)
     data = action === 'list' ? iface.encodeFunctionData('list', [id, positive(args.amountWei)]) : iface.encodeFunctionData('cancel', [id])
@@ -122,7 +123,7 @@
    var values = await Promise.all([rpc('eth_getTransactionByHash', [row.hash]), rpc('eth_getTransactionReceipt', [row.hash])]), tx = values[0], receipt = values[1]
    if (!tx || !receipt) throw Error('Transaction is not confirmed. Do not retry.')
    if (!same(tx.from, row.from) || !same(tx.to, row.to) || !same(tx.input || tx.data, row.data) || !ethers.BigNumber.from(tx.value).eq(row.value)) {
-    if (row.action === 'deposit' && receipt.status === '0x1' && same(tx.from, row.from) && !same(tx.to, row.to)) {
+     if ((row.action === 'deposit' || row.action === 'depositAndList') && receipt.status === '0x1' && same(tx.from, row.from) && !same(tx.to, row.to)) {
      var found = (receipt.logs || []).some(function (log) { if (!same(log.address, market)) return false; try { var event = iface.parseLog(log); return event.name === 'Deposited' && same(event.args.seller, row.from) && same(event.args.id, row.assetId) } catch (_) { return false } })
      if (found) {
       var indexed = await config.readAsset(row.assetId)

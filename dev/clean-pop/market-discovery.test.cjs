@@ -19,6 +19,15 @@ test('market discovery excludes stale indexed custody', async () => {
  config.indexer = async path => path === '/status' ? indexer(path) : { ...(await indexer(path)), current_owner: seller }
  const result = await discoverListings(config); assert.equal(result.deposits.length, 0); assert.equal(result.auctions.length, 0)
 })
+test('combined direct deposit is discoverable only when outer sender, recipient and indexed custody agree', async () => {
+ const config = fixture(), signature = ethers.utils.id('DEPOSIT_AND_LIST_SIGNATURE')
+ const payload = ethers.utils.hexConcat([id, signature, ethers.utils.hexZeroPad('0x01', 32), ethers.constants.HashZero])
+ config.market.provider.getTransaction = async () => ({ from: seller, to: marketAddress, data: payload, value: ethers.constants.Zero })
+ config.market.listings = async () => ({ price: ethers.BigNumber.from(1), nonce: ethers.BigNumber.from(1) })
+ assert.equal((await discoverListings(config)).listings.length, 1)
+ config.market.provider.getTransaction = async () => ({ from: seller, to: '0x4444444444444444444444444444444444444444', data: payload, value: ethers.constants.Zero })
+ assert.equal((await discoverListings(config)).listings.length, 0)
+})
 test('discovery uses a confirmed indexed head for small lag and refuses stale indexes', async () => {
  const config = fixture(), indexer = config.indexer
  config.indexer = async path => path === '/status' ? { last_imported_block: 18 } : indexer(path)

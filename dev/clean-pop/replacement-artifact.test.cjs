@@ -1,0 +1,20 @@
+'use strict'
+const { test } = require('node:test')
+const assert = require('node:assert/strict')
+const { ethers } = require('ethers')
+const artifact = require('../../assets/data/trixmoji-escrow-replacement-artifact.json')
+const existing = require('../../assets/data/trixmoji-escrow-artifact.json')
+const { compile } = require('../../../ethereumphunks-market/trixmoji/build.cjs')
+test('replacement artifact is pinned to the locally tested source, constructor roles, and distinct bytecode', () => {
+ const rebuilt = compile()
+ assert.equal(artifact.version, 'trixmoji-escrow-replacement-experimental-v1')
+ assert.equal(artifact.chainId, 1)
+ assert.equal(artifact.creator, existing.creator)
+ assert.equal(artifact.verifier, existing.verifier)
+ assert.equal(artifact.bytecodeHash, ethers.utils.keccak256(artifact.bytecode))
+ assert.notEqual(artifact.bytecodeHash, existing.bytecodeHash)
+ assert.equal(artifact.bytecode, rebuilt.bytecode)
+ assert.deepEqual(artifact.abi, rebuilt.abi)
+ const deploy = new ethers.utils.Interface(artifact.abi).deploy
+ assert.deepEqual(deploy.inputs.map(input => [input.name, input.type]), [['verifier_', 'address'], ['creator_', 'address']])
+})

@@ -7,9 +7,11 @@
  var KEY = 'trixmoji.market.deployment.v1'
  function same(a, b) { return String(a || '').toLowerCase() === String(b || '').toLowerCase() }
  function addr(value) { if (!ethers.utils.isAddress(value) || same(value, ethers.constants.AddressZero)) throw Error('Invalid Ethereum address.'); return ethers.utils.getAddress(value) }
- function create(config) {
+  function create(config) {
   if (!config || !config.provider || typeof config.provider.request !== 'function' || !config.storage || !config.locks || !config.artifact || !config.artifact.abi || !/^0x[a-f0-9]+$/i.test(String(config.artifact.bytecode || '')) || !/^0x[a-f0-9]{64}$/i.test(String(config.expectedBytecodeHash || ''))) throw Error('Escrow deployment is not configured.')
-  var creator = addr(config.creator), verifier = addr(config.verifier), deployer = addr(config.deployer || config.creator), chainId = Number(config.chainId), provider = config.provider
+   var KEY = config.storageKey || 'trixmoji.market.deployment.v1'
+   if (typeof KEY !== 'string' || !/^trixmoji\.market\.deployment\.[a-z0-9.-]+$/.test(KEY)) throw Error('Invalid deployment storage key.')
+   var creator = addr(config.creator), verifier = addr(config.verifier), deployer = addr(config.deployer || config.creator), chainId = Number(config.chainId), provider = config.provider
   if (!same(deployer, creator) && !same(deployer, verifier)) throw Error('Connect the creator or verifier wallet to deploy.')
   if (same(creator, verifier)) throw Error('Use a separate verifier address from the creator wallet.')
   if (!Number.isSafeInteger(chainId) || chainId < 1) throw Error('Invalid deployment chain.')
