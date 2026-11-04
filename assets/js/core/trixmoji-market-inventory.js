@@ -1,7 +1,7 @@
 (function () {
  'use strict'
  var grid = document.getElementById('walletGrid'), status = document.getElementById('marketStatus'), more = document.getElementById('moreWallet'), reviewBox = document.getElementById('marketReview'), recoveryBox = document.getElementById('marketRecovery')
-  var cursor = null, generation = 0, view = 'wallet', board = null, client = null, busy = false, artifact, deployment
+ var cursor = null, generation = 0, view = 'wallet', board = null, client = null, busy = false, artifact, deployment, recoveryNotice = ''
   var legacy = new URLSearchParams(location.search).get('market') === 'legacy'
   var marketUrl = legacy ? '/.netlify/functions/trixmoji-market' : '/.netlify/functions/trixmoji-market-replacement'
   var expectedMarket = legacy ? '0xd935E162B6070C4FEAF600c67f7F729f318515a2' : '0x21c1A938d06f87A039abfC48d1cCB459f55b1685'
@@ -40,8 +40,21 @@
   return true
  }
  async function reconcile(row) { var result = await client.reconcile(row, verify); say(result.failed ? 'Transaction failed. Check wallet activity.' : 'Transaction confirmed and verified.'); await load(false) }
+ async function reconcileKnownRecovery() {
+  if (legacy || !client) return
+  var original = '0x9de253efbaeb700b2947630706ce0234c19b23a8eb3ab16d1adb40db0e5a57c5', cancellation = '0x430a0f0cafa463ab9d8b075b68d88ec4bc9639a9490132f164dfb08d801e93db'
+  var row = client.records().find(function (r) { return r && r.state !== 'complete' && r.state !== 'failed' && r.action === 'depositAndList' && same(r.hash, original) && same(r.to, deployment.address) })
+  if (!row) return
+  try {
+   await client.reconcileClearedWrapped(row.key, cancellation, function () { return json('https://api.ethscriptions.com/v2/status') })
+   recoveryNotice = 'The recovered wrapped #6 request was verified and cleared from the pending list. No transaction or gas was used. The wallet route is still unproven.'
+  } catch (error) {
+   recoveryNotice = 'Could not yet verify the saved #6 recovery: ' + (error.message || 'retry the read-only check') + '. No transaction was sent.'
+  }
+ }
  function recovery() {
   recoveryBox.textContent = ''
+  if (recoveryNotice) { var notice = document.createElement('p'); notice.textContent = recoveryNotice; recoveryBox.appendChild(notice) }
   if (client) client.records().filter(function (r) { return r.state !== 'complete' && r.state !== 'failed' }).forEach(function (row) {
    var text = document.createElement('p'), b = document.createElement('button'), input = document.createElement('input')
    text.textContent = row.action + ': ' + (row.hash || 'No transaction hash returned. Check wallet Activity; do not retry.')
@@ -56,6 +69,7 @@
     resolveButton.type = 'button'; resolveButton.textContent = 'CHECK CLEARED RECORD · NO GAS'
     resolveButton.onclick = async function () { resolveButton.disabled = true; try { await client.reconcileClearedWrapped(row.key, cancelInput.value.trim(), function () { return json('https://api.ethscriptions.com/v2/status') }); say('Recovered deposit verified: escrow record is clear and the piece remains in your wallet. No transaction was sent.'); recovery() } catch (e) { say(e.message); resolveButton.disabled = false } }
     recoveryBox.append(cancelInput, resolveButton)
+    if (!legacy && same(row.hash, '0x939deedb5781d5895daf8127f9c72a593909b53869eb25ce40eeca62830be472')) { var recoveryLink = document.createElement('a'); recoveryLink.href = '/classic/pages/replacement-6-recovery.html'; recoveryLink.textContent = 'OPEN RECOVERY FOR LATEST WRAPPED #6 DEPOSIT ↗'; recoveryBox.appendChild(recoveryLink) }
    }
   })
   CleanPopTransferCheckout.records().filter(function (r) { return r.state !== 'complete' && r.state !== 'failed' }).forEach(function (row) {
@@ -145,7 +159,7 @@
   if (!append) { grid.textContent = ''; cursor = null }
   more.hidden = true; say('Loading verified market data…')
   try {
-   if (connection) { await configure(); recovery() }
+   if (connection) { await configure(); await reconcileKnownRecovery(); recovery() }
    try { board = await json(marketUrl); if (!same(board.marketAddress, expectedMarket)) throw Error('Wrong market service.') } catch (_) { board = null }
    if (request !== generation) return
    if (view === 'wallet') {

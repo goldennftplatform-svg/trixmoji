@@ -3,7 +3,7 @@ const { test } = require('node:test'), assert = require('node:assert/strict')
 const fs = require('node:fs'), path = require('node:path'), vm = require('node:vm')
 const { ethers } = require('ethers')
 const artifact = require('../../assets/data/trixmoji-escrow-replacement-artifact.json'), iface = new ethers.utils.Interface(artifact.abi)
-const owner = '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E', market = '0x21c1A938d06f87A039abfC48d1cCB459f55b1685', id = '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74', original = '0x9de253efbaeb700b2947630706ce0234c19b23a8eb3ab16d1adb40db0e5a57c5', recovery = ethers.utils.id('recovery'), block = 26339898
+const owner = '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E', market = '0x21c1A938d06f87A039abfC48d1cCB459f55b1685', id = '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74', original = '0x939deedb5781d5895daf8127f9c72a593909b53869eb25ce40eeca62830be472', recovery = ethers.utils.id('recovery'), block = 26340299
 function fixture({ currentOwner = owner, recordedBlock = block } = {}) {
  let canceled = false, sends = 0
  const originalLog = iface.encodeEventLog(iface.getEvent('Deposited'), [owner, id, block]), cancelLog = iface.encodeEventLog(iface.getEvent('Cancelled'), [owner, id])
