@@ -110,6 +110,40 @@
    if (transfers.length !== 1) throw Error('The indexer has not confirmed the exact transfer.')
    row.hash = hash; row.state = 'verified'; write(row); return { state: 'verified', hash: hash }
   }
+  async function recoverWrapped(confirmed) {
+   if (confirmed !== true) throw Error('Confirm that wallet Activity has no pending transaction or open approval request.')
+   return c.locks.request(MARKET_LOCK, { ifAvailable: true }, function (marketLock) {
+    if (!marketLock) throw Error('A market request is still running. Resolve it before recovery.')
+    return c.locks.request(ROUTE_LOCK, { ifAvailable: true }, async function (routeLock) {
+     if (!routeLock) throw Error('A wallet-route request is still running. Resolve it before recovery.')
+     var original = c.storage.getItem(KEY), row = JSON.parse(original || 'null')
+     if (!row || row.state !== 'wrapped-unverified' || !same(row.from, seller) || !same(row.to, escrow) || !same(row.data, id) || !/^0x[a-f0-9]{64}$/i.test(String(row.hash || ''))) throw Error('Recovery only applies to this saved wrapped #6 transaction. Keep other records for review.')
+     await identity()
+     var result = await Promise.all([rpc('eth_getTransactionByHash', [row.hash]), rpc('eth_getTransactionReceipt', [row.hash])]), tx = result[0], receipt = result[1]
+     if (!tx || !receipt || !same(tx.hash, row.hash) || !same(receipt.transactionHash, row.hash) || receipt.status !== '0x1' || !same(tx.from, seller)) throw Error('The saved wrapped transaction is not confirmed. Check wallet Activity; do not retry.')
+     var found = (receipt.logs || []).some(function (log) { if (!same(log.address, escrow)) return false; try { var event = iface.parseLog(log); return event.name === 'Deposited' && same(event.args.seller, seller) && same(event.args.id, id) } catch (_) { return false } })
+     if (!found) throw Error('The saved receipt does not contain the expected #6 escrow event. Keep the record for review.')
+     var record = await call('depositBlock', [seller, id])
+     if (!record.isZero()) throw Error('The escrow record still exists. Use the #6 recovery page; no local record was cleared.')
+     var block = Number(BigInt(receipt.blockNumber)), state = await ownership(seller, block)
+     if (!Number.isSafeInteger(block) || !same(state.asset.current_owner, seller)) throw Error('The Ethscriptions indexer does not confirm #6 remains in this wallet. Keep the record for review.')
+     var nonces = await Promise.all([rpc('eth_getTransactionCount', [seller, 'latest']), rpc('eth_getTransactionCount', [seller, 'pending'])])
+     if (BigInt(nonces[0]) !== BigInt(nonces[1])) throw Error('The wallet has a pending transaction. Resolve it before clearing the saved test.')
+     if (c.storage.getItem(KEY) !== original) throw Error('The saved test changed while checking. Reload and inspect it.')
+     var market = read(MARKET_LOCK) || []
+     if (!Array.isArray(market)) throw Error('Saved market records are invalid. Keep them for review.')
+     market.forEach(function (entry) {
+      if (entry && entry.action === 'deposit' && same(entry.assetId, id) && same(entry.from, seller) && same(entry.to, escrow) && same(entry.hash, row.hash)) {
+       entry.state = 'failed'; entry.resolution = 'Wrapped deposit verified: indexer still shows seller and escrow record is clear.'
+      }
+     })
+     c.storage.setItem(KEY + '.archive.' + Date.now(), JSON.stringify({ original: row, reason: 'confirmed wrapped transaction; #6 remains with seller and escrow record is clear', at: new Date().toISOString() }))
+     row.state = 'recovered'; row.resolution = 'Wrapped transaction checked; no deposit record or indexed transfer. Direct-route test closed.'
+     write(row); c.storage.setItem(KEY + '.closed', 'true'); c.storage.setItem(MARKET_LOCK, JSON.stringify(market))
+     return { recovered: true, hash: row.hash }
+    })
+   })
+  }
   async function clearEarlierRoutes(confirmed) {
    if (confirmed !== true) throw Error('First confirm there is no open wallet approval, pending test, or transaction hash in MetaMask.')
    return c.locks.request(MARKET_LOCK, { ifAvailable: true }, function (marketLock) {
@@ -139,7 +173,7 @@
     })
    })
   }
-  return { plan: plan, run: run, check: check, saved: saved, earlierRoutes: earlierRoutes, clearEarlierRoutes: clearEarlierRoutes }
+   return { plan: plan, run: run, check: check, recoverWrapped: recoverWrapped, saved: saved, earlierRoutes: earlierRoutes, clearEarlierRoutes: clearEarlierRoutes }
  }
  return { create: create }
 })

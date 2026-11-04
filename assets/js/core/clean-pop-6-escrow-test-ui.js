@@ -24,8 +24,23 @@
  function saved() {
   var host = el('saved'), row = test && test.saved(); host.hidden = !row; host.textContent = ''; if (!row) return
   var p = document.createElement('p'); p.textContent = 'Escrow test: ' + row.state + ' · ' + (row.hash || 'No hash returned. Do not repeat the request.'); host.appendChild(p)
-  if (row.state === 'verified') { p.textContent += ' · Direct transaction and indexed escrow ownership verified. Public trading remains disabled.'; return }
-  if (row.state === 'wrapped-unverified') { p.textContent += ' · MetaMask wrapped this deposit. Do not retry; inspect ownership and the escrow record.'; return }
+  if (row.state === 'verified') { p.textContent += ' · Direct transaction and indexed escrow ownership verified. The market is live.'; return }
+  if (row.state === 'recovered') { p.textContent += ' · The saved wrapped transaction was checked; #6 remains in your wallet and the escrow record is clear. This direct-route experiment is closed.'; return }
+  if (row.state === 'wrapped-unverified') {
+   p.textContent += ' · This saved transaction was wrapped; the prepare button is intentionally blocked. Check the confirmed transaction and current ownership below. No transaction will be sent.'
+   var label = document.createElement('label'), checkbox = document.createElement('input'), button = document.createElement('button'), recovery = document.createElement('a'), note = document.createElement('p')
+   checkbox.type = 'checkbox'; checkbox.style.width = 'auto'; label.append(checkbox, document.createTextNode(' I checked wallet Activity: no transaction is pending and no approval is open.'))
+   button.type = 'button'; button.textContent = 'CHECK SAVED WRAPPED TEST · NO GAS'
+   button.onclick = async function () {
+    if (busy) return; busy = true; button.disabled = true; controls()
+    try { say('Checking the saved receipt, escrow record, indexer owner and pending nonce. No transaction will be sent…'); await test.recoverWrapped(checkbox.checked); say('#6 is still in your wallet and the escrow record is clear. Saved test archived; no transaction sent. This direct-route experiment is closed.'); saved() }
+    catch (error) { say(error.message); button.disabled = false }
+    finally { busy = false; controls() }
+   }
+   recovery.href = '/classic/pages/clean-pop-6-recovery.html'; recovery.textContent = 'OPEN ON-CHAIN FALSE-RECORD RECOVERY'
+   note.textContent = 'If the check says an escrow record still exists, use the recovery page. Do not retry the deposit.'
+   host.append(label, button, note, recovery); return
+  }
   if (row.state === 'failed') return
   var input = document.createElement('input'), b = document.createElement('button'); input.type = 'text'; input.value = row.hash || ''; input.placeholder = '0x escrow-test transaction hash'; input.setAttribute('aria-label', 'Escrow test transaction hash'); b.textContent = 'VERIFY ESCROW TEST'
   b.onclick = async function () { b.disabled = true; try { var result = await test.check(input.value.trim()); say(result.state === 'verified' ? '#6 deposit verified: direct transaction, escrow record, indexed custody and cooldown agree.' : 'Escrow test result: ' + result.state + '. Do not repeat the request.'); saved() } catch (e) { say(e.message); b.disabled = false } }

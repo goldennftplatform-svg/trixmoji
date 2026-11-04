@@ -2,7 +2,7 @@
 const { test } = require('node:test'), assert = require('node:assert/strict'), { ethers } = require('ethers')
 const config = require('../../assets/data/trixmoji-escrow-deployment.json'), artifact = require('../../assets/data/trixmoji-escrow-artifact.json')
 const owner = '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E', id = '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74', hash = ethers.utils.id('escrow test'), iface = new ethers.utils.Interface(artifact.abi), block = 100
-function fixture({ pendingRoute = false, wrapped = false, stale = false, pendingNonce = false, heldLock = '', submitted = false, recovered = false } = {}) {
+function fixture({ pendingRoute = false, wrapped = false, stale = false, pendingNonce = false, heldLock = '', submitted = false, recovered = false, depositRecordPresent } = {}) {
  const values = new Map(), calls = []; let sent = submitted
  if (submitted || recovered) values.set('trixmoji.clean-pop.6.direct-escrow-test.v1', JSON.stringify({ state: recovered ? 'recovered' : 'submitted', from: owner, to: config.address, data: id, hash: recovered ? '' : hash, startingNonce: '10' }))
  if (pendingRoute) values.set('trixmoji.quantum-route-test.v1', JSON.stringify({ state: 'awaiting-wallet', hash: '' }))
@@ -19,7 +19,7 @@ function fixture({ pendingRoute = false, wrapped = false, stale = false, pending
    const d = q.params[0].data
    if (d === iface.encodeFunctionData('creator')) return iface.encodeFunctionResult('creator', [config.creator])
    if (d === iface.encodeFunctionData('verifier')) return iface.encodeFunctionResult('verifier', [config.verifier])
-   if (d === iface.encodeFunctionData('depositBlock', [owner, id])) return iface.encodeFunctionResult('depositBlock', [sent ? block : 0])
+    if (d === iface.encodeFunctionData('depositBlock', [owner, id])) return iface.encodeFunctionResult('depositBlock', [depositRecordPresent === undefined ? (sent ? block : 0) : depositRecordPresent ? block : 0])
    assert.equal(d, id); return '0x'
   }
   if (q.method === 'eth_sendTransaction') { assert.deepEqual(Object.keys(q.params[0]).sort(), ['data', 'from', 'to', 'value']); assert.equal(q.params[0].to, config.address); assert.equal(q.params[0].data, id); sent = true; return hash }
@@ -48,6 +48,20 @@ test('an unresolved route request blocks a deposit without sending', async () =>
 })
 test('wrapped deposits are explicitly unverified and cannot be repeated', async () => {
  const f = fixture({ wrapped: true, submitted: true }); assert.equal((await f.api.check(hash)).state, 'wrapped-unverified'); await assert.rejects(f.api.run(q => q.approve()), /already saved/)
+})
+test('confirmed wrapped test can be archived without gas only when ownership and escrow state are clear', async () => {
+ const f = fixture({ wrapped: true, submitted: true, depositRecordPresent: false })
+ assert.equal((await f.api.check(hash)).state, 'wrapped-unverified')
+ await assert.rejects(f.api.recoverWrapped(false), /Confirm that wallet Activity/)
+ const result = await f.api.recoverWrapped(true)
+ assert.equal(result.recovered, true); assert.equal(f.api.saved().state, 'recovered'); assert.equal(f.values.get('trixmoji.clean-pop.6.direct-escrow-test.v1.closed'), 'true')
+ assert.equal(f.calls.some(q => q.method === 'eth_sendTransaction'), false)
+})
+test('wrapped test cannot be locally cleared while escrow custody or indexed ownership is unresolved', async () => {
+ const record = fixture({ wrapped: true, submitted: true }); await record.api.check(hash)
+ await assert.rejects(record.api.recoverWrapped(true), /escrow record still exists/)
+ const owner = fixture({ wrapped: true, submitted: true, depositRecordPresent: false, stale: true }); await owner.api.check(hash)
+ await assert.rejects(owner.api.recoverWrapped(true), /indexer is catching up/)
 })
 test('stale indexing blocks preparation without a transaction', async () => {
  const f = fixture({ stale: true }); await assert.rejects(f.api.plan(), /indexer is catching up/); assert.equal(f.calls.some(x => x.method === 'eth_sendTransaction'), false)
