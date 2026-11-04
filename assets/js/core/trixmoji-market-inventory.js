@@ -88,7 +88,7 @@
   return new Promise(function (resolve, reject) {
    var host = target || reviewBox; host.hidden = false; host.textContent = ''
    var p = document.createElement('p'), approve = document.createElement('button'), cancel = document.createElement('button')
-   p.textContent = 'Review ' + q.action + (q.assetId ? ' · ' + q.assetId : '') + ' · destination ' + q.to + ' · value ' + ethers.utils.formatEther(q.valueWei) + ' ETH' + (listingPrice ? ' · listing price ' + ethers.utils.formatEther(listingPrice) + ' ETH' : '') + ' · estimated gas ' + q.estimatedGas + '. Confirm final network fee in your wallet.' + (q.action === 'depositAndList' ? ' In MetaMask, if an optional Added protection checkbox is shown, uncheck it for this transaction before approving. This option may not be present in every MetaMask version. The outer transaction must target this escrow with the deposit-and-list calldata. If you cannot verify that, cancel. A wrapped transaction may create a false deposit record without transferring the piece.' : '')
+   p.textContent = 'Review ' + q.action + (q.assetId ? ' · ' + q.assetId : '') + ' · destination ' + q.to + ' · value ' + ethers.utils.formatEther(q.valueWei) + ' ETH' + (listingPrice ? ' · listing price ' + ethers.utils.formatEther(listingPrice) + ' ETH' : '') + ' · estimated gas ' + q.estimatedGas + '. Confirm final network fee in your wallet.' + (q.action === 'deposit' || q.action === 'depositAndList' ? ' The outer transaction must directly target this escrow with the Ethscription ID as calldata. If your wallet wraps it, the contract may record a deposit without transferring the piece. If you cannot verify the outer transaction, cancel.' : '')
    approve.type = 'button'; cancel.type = 'button'; approve.textContent = 'CONTINUE TO WALLET'; cancel.textContent = 'CANCEL'
    approve.onclick = function () { approve.disabled = true; cancel.disabled = true; say('Waiting for wallet. Do not repeat the request.'); q.approve().then(function (row) { host.hidden = true; resolve(row) }, function (e) { host.hidden = true; reject(e) }) }
    cancel.onclick = function () { host.hidden = true; reject(Error('Cancelled. No transaction was requested.')) }
@@ -99,7 +99,7 @@
   if (busy) return; busy = true
   try {
    await configure(); say('Checking wallet, custody, market and transaction…')
-   var row = await client.run(kind, args, function (q) { return review(q, kind === 'depositAndList' ? args.amountWei : null, reviewTarget) }); say('Submitted ' + row.hash + '. Check confirmation before retrying.'); recovery()
+   var row = await client.run(kind, args, function (q) { return review(q, kind === 'list' || kind === 'depositAndList' ? args.amountWei : null, reviewTarget) }); say('Submitted ' + row.hash + '. Check confirmation before retrying.'); recovery()
    try { await reconcile(row) } catch (e) { say(e.message + ' Transaction: ' + row.hash) }
   } catch (e) { say(e.message || 'Market action failed.') } finally { busy = false; recovery() }
  }
@@ -129,21 +129,20 @@
   image.src = '/assets/ethscriptions/clean-pop-v1/' + item.tokenNo + '.png'; image.alt = 'Clean Pop #' + item.tokenNo; image.loading = 'lazy'; title.textContent = 'CLEAN POP #' + item.tokenNo
   article.append(image, title, info)
   if (kind === 'wallet') {
+   info.textContent = 'First move this piece to escrow. Once indexed and the cooldown is complete, list it from MY ESCROW.'
    var form = document.createElement('form'), recipient = document.createElement('input'), send = document.createElement('button')
    recipient.type = 'text'; recipient.placeholder = 'Recipient 0x address'; recipient.setAttribute('aria-label', 'Recipient address for Clean Pop #' + item.tokenNo); recipient.autocomplete = 'off'; recipient.required = true
    send.type = 'submit'; send.textContent = 'SEND TO WALLET'; form.onsubmit = function (event) { event.preventDefault(); sendPiece(item, recipient.value) }; form.append(recipient, send); article.appendChild(form)
-   if (legacy) button(article, 'MOVE TO ESCROW', function () { action('deposit', { id: item.id }) }, !board || !board.tradingReady)
-   else {
-    var listForm = document.createElement('form'), priceLabel = document.createElement('label'), priceInput = document.createElement('input'), listButton = document.createElement('button'), cardReview = document.createElement('div')
-    priceLabel.textContent = 'SALE PRICE · ETH'; priceInput.type = 'text'; priceInput.inputMode = 'decimal'; priceInput.placeholder = '0.01'; priceInput.autocomplete = 'off'; priceInput.required = true; priceInput.setAttribute('aria-label', 'Sale price in ETH for Clean Pop #' + item.tokenNo)
-    listButton.type = 'submit'; listButton.textContent = 'LIST FOR SALE'; listButton.disabled = !board || !board.tradingReady
-    cardReview.className = 'market-review'; cardReview.hidden = true
-    listForm.onsubmit = function (event) { event.preventDefault(); var n; try { n = ethers.utils.parseEther(priceInput.value.trim()); if (n.lte(0)) throw Error() } catch (_) { say('Enter a positive ETH sale price on the artwork card.'); priceInput.focus(); return } action('depositAndList', { id: item.id, amountWei: n.toString() }, cardReview) }
-    priceLabel.appendChild(priceInput); listForm.append(priceLabel, listButton); article.append(listForm, cardReview)
-   }
+   var depositReview = document.createElement('div'); depositReview.className = 'market-review'; depositReview.hidden = true
+   button(article, 'MOVE TO ESCROW', function () { action('deposit', { id: item.id }, depositReview) }, !board || !board.tradingReady); article.appendChild(depositReview)
   } else if (kind === 'escrow') {
    info.textContent = item.cooldown ? 'Wait ' + item.cooldown + ' more blocks.' : 'Ready to list, auction, or return.'
-   button(article, 'LIST FOR SALE', function () { var n = amount('Sale price'); if (n) action('list', { id: item.id, amountWei: n }) }, item.cooldown || !board.tradingReady)
+   var listForm = document.createElement('form'), priceLabel = document.createElement('label'), priceInput = document.createElement('input'), listButton = document.createElement('button'), cardReview = document.createElement('div')
+   priceLabel.textContent = 'SALE PRICE · ETH'; priceInput.type = 'text'; priceInput.inputMode = 'decimal'; priceInput.placeholder = '0.01'; priceInput.autocomplete = 'off'; priceInput.required = true; priceInput.setAttribute('aria-label', 'Sale price in ETH for Clean Pop #' + item.tokenNo)
+   listButton.type = 'submit'; listButton.textContent = 'LIST FOR SALE'; listButton.disabled = !!item.cooldown || !board.tradingReady
+   cardReview.className = 'market-review'; cardReview.hidden = true
+   listForm.onsubmit = function (event) { event.preventDefault(); var n; try { n = ethers.utils.parseEther(priceInput.value.trim()); if (n.lte(0)) throw Error() } catch (_) { say('Enter a positive ETH sale price on the artwork card.'); priceInput.focus(); return } action('list', { id: item.id, amountWei: n.toString() }, cardReview) }
+   priceLabel.appendChild(priceInput); listForm.append(priceLabel, listButton); article.append(listForm, cardReview)
    button(article, 'START AUCTION', function () { var n = amount('Auction reserve'), duration = n && window.prompt('Auction duration in hours (1–168)', '24'); if (n && duration !== null) action('auction', { id: item.id, amountWei: n, duration: Number(duration) * 3600 }) }, item.cooldown || !board.tradingReady)
    button(article, 'RETURN TO WALLET', function () { action('cancel', { id: item.id }) }, item.cooldown)
   } else if (kind === 'sale') {
