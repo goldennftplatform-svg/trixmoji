@@ -79,7 +79,13 @@
    var tx = { from: account, to: to, value: ethers.utils.hexValue(value), data: data }
    await rpc('eth_call', [tx, 'latest'])
    var estimate = ethers.BigNumber.from(await rpc('eth_estimateGas', [tx]))
-   tx.gas = ethers.utils.hexValue(estimate.mul(12).div(10)); tx.chainId = ethers.utils.hexValue(chainId)
+   // Keep Ethscription transfer requests minimal; let the wallet fill gas/network fields.
+   // This request shape alone does not guarantee the wallet's broadcast routing.
+   var ethscriptionTransfer = action === 'gift' || action === 'deposit' || action === 'depositAndList'
+   if (!ethscriptionTransfer) {
+    tx.gas = ethers.utils.hexValue(estimate.mul(12).div(10))
+    tx.chainId = ethers.utils.hexValue(chainId)
+   }
    return { action: action, assetId: id || null, tx: tx, estimatedGas: estimate.toString(), preparedAt: Date.now() }
   }
   async function run(action, args, review) {
