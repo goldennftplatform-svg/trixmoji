@@ -32,12 +32,13 @@ test('escrow deposit uses canonical Ethereum RPC quantities', async () => {
  const result = await adapter.run('deposit', { id }, quote => quote.approve())
  assert.equal(result.state, 'submitted'); assert.equal(calls.filter(q => q.method === 'eth_sendTransaction').length, 1)
 })
-test('smart accounts and pre-existing deposit records are blocked before submission', async () => {
- for (const options of [{ accountCode: '0xef0100' + '11'.repeat(20) }, { depositBlock: 123 }]) {
-  const { adapter, id, calls } = fixture(options)
-  await assert.rejects(adapter.run('deposit', { id }, quote => quote.approve()), options.depositBlock ? /already has an escrow deposit record/ : /smart-account code/)
-  assert.equal(calls.some(q => q.method === 'eth_sendTransaction'), false)
- }
+test('delegated EOAs may use the direct transfer route, but stale escrow records are blocked', async () => {
+ const direct = fixture({ accountCode: '0xef0100' + '11'.repeat(20) })
+ const result = await direct.adapter.run('deposit', { id: direct.id }, quote => quote.approve())
+ assert.equal(result.state, 'submitted'); assert.equal(direct.calls.filter(q => q.method === 'eth_sendTransaction').length, 1)
+ const recorded = fixture({ depositBlock: 123 })
+ await assert.rejects(recorded.adapter.run('deposit', { id: recorded.id }, quote => quote.approve()), /already has an escrow deposit record/)
+ assert.equal(recorded.calls.some(q => q.method === 'eth_sendTransaction'), false)
 })
 test('a wrapped deposit that did not transfer is reported without clearing the saved state', async () => {
  const { adapter, id, account, market } = fixture({ wrapped: true }), row = { action: 'deposit', assetId: id, from: account, to: market, data: id, value: '0x0', hash: ethers.utils.id('wrapped'), state: 'submitted' }
