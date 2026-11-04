@@ -2,8 +2,9 @@
 const { test } = require('node:test'), assert = require('node:assert/strict'), { ethers } = require('ethers')
 const config = require('../../assets/data/trixmoji-escrow-deployment.json'), artifact = require('../../assets/data/trixmoji-escrow-artifact.json')
 const owner = '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E', id = '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74', hash = ethers.utils.id('escrow test'), iface = new ethers.utils.Interface(artifact.abi), block = 100
-function fixture({ pendingRoute = false, wrapped = false, stale = false, pendingNonce = false, heldLock = '' } = {}) {
- const values = new Map(), calls = []; let sent = false
+function fixture({ pendingRoute = false, wrapped = false, stale = false, pendingNonce = false, heldLock = '', submitted = false } = {}) {
+ const values = new Map(), calls = []; let sent = submitted
+ if (submitted) values.set('trixmoji.clean-pop.6.direct-escrow-test.v1', JSON.stringify({ state: 'submitted', from: owner, to: config.address, data: id, hash, startingNonce: '10' }))
  if (pendingRoute) values.set('trixmoji.quantum-route-test.v1', JSON.stringify({ state: 'awaiting-wallet', hash: '' }))
  const storage = { getItem: k => values.get(k) || null, setItem: (k, v) => values.set(k, v), removeItem: k => values.delete(k) }
  const provider = { request: async q => {
@@ -34,18 +35,21 @@ function fixture({ pendingRoute = false, wrapped = false, stale = false, pending
  const api = module.exports.create({ provider, storage, locks: { request: async (key, _, fn) => fn(key === heldLock ? null : {}) }, readStatus: async () => ({ last_imported_block: stale ? 99 : 105 }), readAsset: async () => ({ transaction_hash: id, creator: '0x11019B7af0F833f5695a44584c5B31Bb1D0baabC', current_owner: sent && !wrapped ? config.address : owner, previous_owner: owner, ethscription_transfers: sent ? [{ transaction_hash: hash, from_address: owner, to_address: config.address, block_number: block }] : [] }) })
  return { api, calls, values }
 }
-test('the restricted deposit uses minimal fields and requires indexed custody to succeed', async () => {
- const f = fixture(), row = await f.api.run(q => { assert.equal(f.calls.some(x => x.method === 'eth_sendTransaction'), false); return q.approve() })
- assert.equal(row.state, 'submitted'); assert.equal((await f.api.check(hash)).state, 'verified')
+test('the closed deposit experiment cannot submit another wallet transaction', async () => {
+ const f = fixture(); await assert.rejects(f.api.run(q => q.approve()), /experiment is closed/)
+ assert.equal(f.calls.some(x => x.method === 'eth_sendTransaction'), false)
+})
+test('a previously saved direct deposit still requires indexed custody for verification', async () => {
+ const f = fixture({ submitted: true }); assert.equal((await f.api.check(hash)).state, 'verified')
 })
 test('an unresolved route request blocks a deposit without sending', async () => {
- const f = fixture({ pendingRoute: true }); await assert.rejects(f.api.run(q => q.approve()), /earlier wallet-route test/); assert.equal(f.calls.some(x => x.method === 'eth_sendTransaction'), false)
+ const f = fixture({ pendingRoute: true }); await assert.rejects(f.api.plan(), /earlier wallet-route test/); assert.equal(f.calls.some(x => x.method === 'eth_sendTransaction'), false)
 })
 test('wrapped deposits are explicitly unverified and cannot be repeated', async () => {
- const f = fixture({ wrapped: true }); await f.api.run(q => q.approve()); assert.equal((await f.api.check(hash)).state, 'wrapped-unverified'); await assert.rejects(f.api.run(q => q.approve()), /already saved/)
+ const f = fixture({ wrapped: true, submitted: true }); assert.equal((await f.api.check(hash)).state, 'wrapped-unverified'); await assert.rejects(f.api.run(q => q.approve()), /experiment is closed/)
 })
 test('stale indexing blocks preparation without a transaction', async () => {
- const f = fixture({ stale: true }); await assert.rejects(f.api.run(q => q.approve()), /indexer is catching up/); assert.equal(f.calls.some(x => x.method === 'eth_sendTransaction'), false)
+ const f = fixture({ stale: true }); await assert.rejects(f.api.plan(), /indexer is catching up/); assert.equal(f.calls.some(x => x.method === 'eth_sendTransaction'), false)
 })
 function seedRoute(f, key = 'trixmoji.quantum-route-test.v1', changes = {}) {
  f.values.set(key, JSON.stringify({ state: 'awaiting-wallet', from: owner, to: config.verifier, data: hash, startingNonce: '10', hash: '', ...changes }))

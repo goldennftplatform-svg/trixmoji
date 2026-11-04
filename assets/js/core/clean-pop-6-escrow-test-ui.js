@@ -3,7 +3,7 @@
  var el = function (id) { return document.getElementById(id) }, test, busy = false, requestRows = []
  function renderTrace() { el('walletTrace').textContent = 'PAGE STATUS: ' + el('status').textContent + '\n\n' + JSON.stringify(requestRows, null, 2) }
  function say(s) { el('status').textContent = s; renderTrace() }
- function controls() { el('connect').disabled = busy; el('prepare').disabled = busy || !test || !!test.saved() }
+ function controls() { el('connect').disabled = busy; el('prepare').disabled = true }
  async function get(url) { var r = await fetch(url, { cache: 'no-store', signal: AbortSignal.timeout(15000) }); if (!r.ok) throw Error('Indexer unavailable: HTTP ' + r.status); return r.json() }
  function earlier() {
   var host = el('earlier'), entries = test ? test.earlierRoutes() : []; host.textContent = ''; host.hidden = !entries.length
@@ -16,7 +16,7 @@
   note.textContent = 'The check verifies the original nonce and archives only matching no-hash records. Public pending counts cannot see every private wallet request.'
   button.onclick = async function () {
    if (busy) return; busy = true; controls(); button.disabled = true
-   try { say('Checking the earlier test and wallet nonce. No transaction will be sent…'); await test.clearEarlierRoutes(checkbox.checked); earlier(); say('Earlier no-hash test archived and cleared. Now click CHECK #6 AND PREPARE ESCROW TEST. No transaction was sent by the recovery.') }
+   try { say('Checking the earlier test and wallet nonce. No transaction will be sent…'); await test.clearEarlierRoutes(checkbox.checked); earlier(); say('Earlier no-hash test archived and cleared. The deposit experiment remains closed. No transaction was sent by this recovery.') }
    catch (e) { say(e.message); button.disabled = false } finally { busy = false; controls() }
   }
   host.append(label, button, note)
@@ -52,7 +52,7 @@
    var provider = await EthscriptionCheckout.choose(el('wallets'), say), trace = WalletRequestTrace.create(provider, function (rows) { requestRows = rows; renderTrace() })
    await EthscriptionCheckout.ensureChain(trace.provider)
    test = CleanPop6EscrowTest.create({ provider: trace.provider, storage: localStorage, locks: navigator.locks, report: say, readStatus: function () { return get('https://api.ethscriptions.com/v2/status') }, readAsset: async function (id) { return (await get('https://api.ethscriptions.com/v2/ethscriptions/' + id)).result } })
-   saved(); earlier(); say(test.saved() ? 'A previous escrow-test request is saved below. Verify it before starting another. No new transaction has been requested.' : test.earlierRoutes().length ? 'Wallet connected. Resolve the earlier no-hash route test using the no-gas control below.' : 'Wallet connected. Next click CHECK #6 AND PREPARE ESCROW TEST. Connecting alone does not request a transaction.')
+   saved(); earlier(); say('Deposit experiment closed. You can inspect the saved result below. No new escrow test can be requested; use the recovery link for the latest false record.')
   } catch (e) { say(e.message || 'Wallet connection failed.') } finally { busy = false; controls() }
  }
  el('prepare').onclick = async function () {

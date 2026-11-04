@@ -59,29 +59,7 @@
    return { tx: tx, estimatedGas: gas.toString(), nonce: BigInt(nonces[0]).toString(), preparedAt: Date.now() }
   }
   async function run(review) {
-   if (typeof review !== 'function') throw Error('A wallet review is required.')
-   return c.locks.request(MARKET_LOCK, { ifAvailable: true }, function (marketLock) {
-    if (!marketLock) throw Error('A market request is already open.')
-    return c.locks.request(ROUTE_LOCK, { ifAvailable: true }, async function (routeLock) {
-     if (!routeLock) throw Error('A wallet-route request is still open. Resolve it before depositing.')
-     var p = await plan(), invalid = false, sent = false
-     function changed() { invalid = true }
-     if (provider.on) { provider.on('accountsChanged', changed); provider.on('chainChanged', changed) }
-     async function approve() {
-      if (sent) throw Error('Wallet request already made. Do not repeat it.')
-      if (invalid || Date.now() - p.preparedAt > 60000 || Date.now() < p.preparedAt) throw Error('Wallet, network or review changed. Prepare again.')
-      var row = { state: 'awaiting-wallet', from: seller, to: escrow, data: id, startingNonce: p.nonce, hash: '' }
-      write(row); sent = true
-      var hash
-      try { hash = await provider.request({ method: 'eth_sendTransaction', params: [p.tx] }) }
-      catch (e) { if (Number(e && e.code) === 4001) c.storage.removeItem(KEY); throw e }
-      if (!/^0x[a-f0-9]{64}$/i.test(String(hash || ''))) throw Error('No hash returned. Check wallet Activity; do not retry.')
-      row.hash = hash; row.state = 'submitted'; write(row); return row
-     }
-     try { var row = await review({ from: seller, to: escrow, id: id, estimatedGas: p.estimatedGas, approve: approve }); if (!sent || !row || !row.hash) throw Error('No escrow test was submitted.'); return row }
-     finally { if (provider.removeListener) { provider.removeListener('accountsChanged', changed); provider.removeListener('chainChanged', changed) } }
-    })
-   })
+   throw Error('This deposit experiment is closed: MetaMask wrapped the request and #6 did not transfer. No new wallet transaction will be requested.')
   }
   async function check(hash) {
    var row = saved(); if (!row || !/^0x[a-f0-9]{64}$/i.test(String(hash || '')) || (row.hash && !same(row.hash, hash))) throw Error('Enter the matching escrow-test hash from wallet Activity.')

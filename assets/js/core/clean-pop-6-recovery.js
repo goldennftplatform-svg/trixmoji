@@ -1,7 +1,7 @@
 (function () {
  'use strict'
- var owner = '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E', escrow = '0xd935E162B6070C4FEAF600c67f7F729f318515a2', assetId = '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74', originalHash = '0xfbdc04e2bd56314e31622bb6391fbc95d6a10dcb3c400adaccbc6628ec52ec9b', depositBlock = 26336553
- var expectedRuntimeHash = '0x773514ab71d5c588d5c83a4866beb041dabd069ef142f9eb46584dff72cf7e36', storageKey = 'trixmoji.clean-pop.6.ghost-recovery.v1', marketKey = 'trixmoji.market.contract.transaction.v1', connection, iface, busy = false
+ var owner = '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E', escrow = '0xd935E162B6070C4FEAF600c67f7F729f318515a2', assetId = '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74', originalHash = '0x48ff06edf9d3038bba749a56ec3832d5c73cf399edf099a83e0ab18712b872a8', depositBlock = 26337993
+ var expectedRuntimeHash = '0x773514ab71d5c588d5c83a4866beb041dabd069ef142f9eb46584dff72cf7e36', storageKey = 'trixmoji.clean-pop.6.ghost-recovery.v2.' + originalHash, marketKey = 'trixmoji.market.contract.transaction.v1', experimentKey = 'trixmoji.clean-pop.6.direct-escrow-test.v1', connection, iface, busy = false
  var el = function (id) { return document.getElementById(id) }, same = function (a, b) { return String(a || '').toLowerCase() === String(b || '').toLowerCase() }, say = function (s) { el('status').textContent = s }
  function saved() { return JSON.parse(localStorage.getItem(storageKey) || 'null') }
  function controls() { el('connect').disabled = busy; el('prepare').disabled = busy || !connection || !!saved() }
@@ -17,7 +17,7 @@
  }
  async function verifyOriginal() {
   var result = await Promise.all([rpc('eth_getTransactionByHash', [originalHash]), rpc('eth_getTransactionReceipt', [originalHash])]), tx = result[0], receipt = result[1], found = false
-  if (!tx || !receipt || receipt.status !== '0x1' || !same(tx.from, owner) || same(tx.to, escrow) || Number(BigInt(receipt.blockNumber)) !== depositBlock) throw Error('The original delegated transaction did not match the expected record.')
+  if (!tx || !receipt || !same(tx.hash, originalHash) || !same(receipt.transactionHash, originalHash) || receipt.status !== '0x1' || !same(tx.from, owner) || same(tx.to, escrow) || Number(BigInt(receipt.blockNumber)) !== depositBlock) throw Error('The original delegated transaction did not match the expected record.')
   for (var log of receipt.logs || []) { if (!same(log.address, escrow)) continue; try { var event = iface.parseLog(log); if (event.name === 'Deposited' && same(event.args.seller, owner) && same(event.args.id, assetId)) found = true } catch (_) {} }
   if (!found) throw Error('The expected original escrow event was not found.')
  }
@@ -34,6 +34,7 @@
   if (!/^0x[a-f0-9]{64}$/i.test(String(row.hash || ''))) throw Error('Enter the recovery transaction hash from wallet Activity.')
   await EthscriptionCheckout.identity(connection.provider, owner)
   var receipt = await rpc('eth_getTransactionReceipt', [row.hash]); if (!receipt) throw Error('Recovery is not confirmed yet. Do not submit another.')
+  if (!same(receipt.transactionHash, row.hash) || Number(BigInt(receipt.blockNumber)) <= depositBlock) throw Error('This recovery receipt predates the current false deposit record.')
   if (receipt.status !== '0x1') throw Error('Recovery transaction did not succeed. Check wallet Activity.')
   var match = false
   for (var log of receipt.logs || []) { if (!same(log.address, escrow)) continue; try { var event = iface.parseLog(log); if (event.name === 'Cancelled' && same(event.args.seller, owner) && same(event.args.id, assetId)) match = true } catch (_) {} }
@@ -42,8 +43,13 @@
   await indexedState(Number(BigInt(receipt.blockNumber)))
   var raw = localStorage.getItem(marketKey), records = JSON.parse(raw || '[]')
   if (!Array.isArray(records)) throw Error('Saved market records are invalid. Do not retry.')
-  records.forEach(function (r) { if (r.action === 'deposit' && same(r.assetId, assetId) && same(r.from, owner) && same(r.to, escrow) && same(r.data, assetId) && (same(r.hash, originalHash) || (!r.hash && String(r.startingNonce) === '566'))) { r.state = 'failed'; r.resolution = 'Original wrapped deposit did not transfer the Ethscription; false contract record cleared by ' + row.hash } })
+  records.forEach(function (r) { if (r.action === 'deposit' && same(r.assetId, assetId) && same(r.from, owner) && same(r.to, escrow) && same(r.data, assetId) && (same(r.hash, originalHash) || (!r.hash && String(r.startingNonce) === '569'))) { r.state = 'failed'; r.resolution = 'Wrapped deposit did not transfer the Ethscription; false contract record cleared by ' + row.hash } })
   if (localStorage.getItem(marketKey) !== raw) throw Error('Saved market records changed. Reload and inspect them.')
+  var experimentRaw = localStorage.getItem(experimentKey), experiment = JSON.parse(experimentRaw || 'null')
+  if (experiment && same(experiment.from, owner) && same(experiment.to, escrow) && same(experiment.data, assetId) && (same(experiment.hash, originalHash) || (!experiment.hash && String(experiment.startingNonce) === '569'))) {
+   localStorage.setItem(experimentKey + '.archive.' + Date.now(), JSON.stringify({ original: experiment, resolvedBy: row.hash, reason: 'wrapped deposit record cleared; experiment closed' }))
+   experiment.state = 'recovered'; experiment.recoveryHash = row.hash; localStorage.setItem(experimentKey, JSON.stringify(experiment))
+  }
   localStorage.setItem(marketKey, JSON.stringify(records)); row.state = 'confirmed'; localStorage.setItem(storageKey, JSON.stringify(row)); return true
  }
  function showSaved() {
@@ -53,8 +59,8 @@
   if (row.state !== 'confirmed') { var input = document.createElement('input'), button = document.createElement('button'); input.placeholder = 'Recovery transaction hash'; input.value = row.hash || ''; button.textContent = 'CHECK RECOVERY'; button.onclick = async function () { button.disabled = true; try { await verifyRecovery(Object.assign({}, row, { hash: input.value.trim() })); say('Recovery confirmed. The false record is cleared.'); showSaved() } catch (e) { say(e.message); button.disabled = false } }; box.append(input, button) }
  }
  el('connect').onclick = async function () {
-  busy = true; controls(); try { var provider = window.ethereum; if (!provider || typeof provider.request !== 'function') throw Error('Open this page in the owner wallet browser.')
-   var accounts = await EthscriptionCheckout.requestAccounts(provider); await EthscriptionCheckout.ensureChain(provider); if (!same(accounts[0], owner)) throw Error('Connect wallet ' + owner + '.')
+  busy = true; controls(); try { el('wallets').textContent = ''; var provider = await EthscriptionCheckout.choose(el('wallets'), say)
+   var accounts = await provider.request({ method: 'eth_accounts' }); await EthscriptionCheckout.ensureChain(provider); if (!accounts || !same(accounts[0], owner)) throw Error('Connect wallet ' + owner + '.')
    connection = { provider: provider, address: accounts[0] }; var artifact = await fetch('/assets/data/trixmoji-escrow-artifact.json', { cache: 'no-store' }).then(function (r) { if (!r.ok) throw Error('Escrow ABI unavailable.'); return r.json() }); iface = new ethers.utils.Interface(artifact.abi)
    showSaved(); say('Wallet connected. Check and prepare the recovery.')
   } catch (e) { connection = null; say(e.message) } finally { busy = false; controls() }
