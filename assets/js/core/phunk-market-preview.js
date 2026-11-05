@@ -3,8 +3,9 @@
  const SIZE = document.body.dataset.pageSize === '100' ? 100 : 40, el = id => document.getElementById(id)
  let catalog, page = 0, matches = [], chosen = new Set(), currentArt = null
  const cleanPop = document.body.dataset.collection === 'clean-pop-v1'
+ const webpV2 = cleanPop && !!document.body.dataset.marketView && new URLSearchParams(location.search).get('collection') === 'webp-v2'
  const pieceName = cleanPop ? 'CLEAN POP' : 'PHUNK'
- const mintImage = id => (cleanPop ? '/assets/ethscriptions/clean-pop-v1/' : '/assets/ethscriptions/phunks/img/') + id + '.png'
+ const mintImage = id => webpV2 ? '/assets/ethscriptions/clean-pop-webp-v2/' + id + '.webp' : (cleanPop ? '/assets/ethscriptions/clean-pop-v1/' : '/assets/ethscriptions/phunks/img/') + id + '.png'
  const image = mintImage
  const traits = item => item.t.map(index => catalog.dictionary[index])
  const visualCount = item => traits(item).filter(t => !['Token', 'Type', 'Skin'].includes(t.group)).length

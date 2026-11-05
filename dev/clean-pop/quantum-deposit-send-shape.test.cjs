@@ -14,8 +14,8 @@ const id = '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74'
 const hash = '0x' + 'ab'.repeat(32)
 const iface = new ethers.utils.Interface(artifact.abi)
 
-function fixture(action, accountCode = '0x') {
-  const store = new Map(), sends = [], calls = []
+function fixture(action, accountCode = '0x', sharedStore = null, storageKey = undefined) {
+  const store = sharedStore || new Map(), sends = [], calls = []
   const provider = {
     request: async (q) => {
       calls.push(JSON.parse(JSON.stringify(q)))
@@ -40,7 +40,7 @@ function fixture(action, accountCode = '0x') {
     }
   }
   const client = create({
-    provider,
+    provider, storageKey,
     storage: { getItem: (k) => store.get(k) || null, setItem: (k, v) => store.set(k, v) },
     locks: { request: async (_n, _o, fn) => fn({}) },
     abi: artifact.abi,
@@ -54,8 +54,16 @@ function fixture(action, accountCode = '0x') {
       creator: minter
     })
   })
-  return { client, sends, calls, setAccountCode: code => { accountCode = code } }
+  return { client, sends, calls, store, setAccountCode: code => { accountCode = code } }
 }
+
+test('V1 and WebP market transaction records remain separate', async () => {
+  const v1 = fixture('deposit'), v2 = fixture('deposit', '0x', v1.store, 'trixmoji.market.contract.transaction.webp-v2')
+  await v1.client.run('deposit', { id }, q => q.approve())
+  await v2.client.run('deposit', { id }, q => q.approve())
+  assert.equal(v1.client.records().length, 1); assert.equal(v2.client.records().length, 1)
+  assert.equal(v1.sends.length, 1); assert.equal(v2.sends.length, 1)
+})
 
 test('delegated account can request a deposit without a blanket block', async () => {
   const f = fixture('deposit', '0xef0100' + 'ab'.repeat(20))

@@ -8,8 +8,9 @@ const createTopic = ethers.utils.id('ethscriptions_protocol_CreateEthscription(a
  * Ethscriptions indexer. All configuration is fixed by the server, never
  * supplied by a listing or approval request. No image files are rewritten.
  */
-function createCleanPopRegistry({ provider, indexer, minter, abi, root, mintPriceWei }) {
+function createCleanPopRegistry({ provider, indexer, minter, abi, root, mintPriceWei, mimeType = 'image/png' }) {
  if (!provider || typeof provider.getTransaction !== 'function' || typeof provider.getTransactionReceipt !== 'function' || typeof indexer !== 'function' || !ethers.utils.isAddress(minter || '') || !/^0x[a-f0-9]{64}$/i.test(String(root || '')) || !abi) throw Error('Clean Pop registry is not configured.')
+ if (!['image/png', 'image/webp'].includes(mimeType)) throw Error('Unsupported Clean Pop artwork format.')
  const iface = new ethers.utils.Interface(abi), price = ethers.BigNumber.from(mintPriceWei)
  return async function lookup(id) {
   if (!/^0x[a-f0-9]{64}$/i.test(String(id || ''))) throw Error('Invalid Ethscription ID.')
@@ -19,7 +20,8 @@ function createCleanPopRegistry({ provider, indexer, minter, abi, root, mintPric
   try { parsed = iface.parseTransaction({ data: tx.data, value: tx.value }) } catch (_) { throw Error('Unsupported Clean Pop creation transaction.') }
   if (!parsed || !['mint', 'deliverReplacement'].includes(parsed.name)) throw Error('Unsupported Clean Pop creation transaction.')
   const tokenNo = parsed.args.tokenNo.toNumber(), uri = parsed.args.contentURI, proof = Array.from(parsed.args.proof)
-  if (tokenNo < 0 || tokenNo >= 10000 || proof.length !== 14 || !/^data:image\/png;base64,[A-Za-z0-9+/]+=*$/.test(uri)) throw Error('Invalid Clean Pop artwork payload.')
+  const prefix = 'data:' + mimeType + ';base64,'
+  if (tokenNo < 0 || tokenNo >= 10000 || proof.length !== 14 || !uri.startsWith(prefix) || !/^[A-Za-z0-9+/]+=*$/.test(uri.slice(prefix.length))) throw Error('Invalid Clean Pop artwork payload.')
   if (parsed.name === 'mint' ? !tx.value.eq(price) : !tx.value.isZero()) throw Error('Clean Pop transaction value is invalid.')
   let digest = ethers.utils.sha256(ethers.utils.toUtf8Bytes(uri)), position = tokenNo
   const contentSha = digest

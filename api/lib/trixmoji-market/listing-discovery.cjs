@@ -35,7 +35,11 @@ async function discoverListings({ market, indexer, registry, minter, startBlock,
  for (const candidate of candidates.values()) {
   const [offer, auction] = await Promise.all([market.listings(candidate.seller, candidate.id, { blockTag: head }), market.auctions(candidate.seller, candidate.id, { blockTag: head })])
   const activeAuction = !auction.end.isZero() && !auction.settled
-  const [asset, committed] = await Promise.all([indexer('/ethscriptions/' + candidate.id), registry(candidate.id)])
+  // The same escrow can contain other collections. Filter their indexed
+  // creator before invoking this collection's strict provenance registry.
+  const asset = await indexer('/ethscriptions/' + candidate.id)
+  if (!asset || !same(asset.creator, minter)) continue
+  const committed = await registry(candidate.id)
   if (!asset || !committed || !/^0x[a-f0-9]{64}$/i.test(String(committed.contentSha || '')) || !same(asset.transaction_hash, candidate.id) || !same(asset.creator, minter) || !same(asset.content_sha, committed.contentSha) || !same(asset.current_owner, market.address) || !same(asset.previous_owner, candidate.seller)) continue
   const depositBlock = await market.depositBlock(candidate.seller, candidate.id, { blockTag: head })
   if (depositBlock.isZero()) continue

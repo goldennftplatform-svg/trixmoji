@@ -1,6 +1,6 @@
 (function (root) {
  'use strict'
- var KEY = 'trixmoji.clean-pop.checkout.v1'
+ function createCheckout(KEY) {
  var activeWalletRequests = 0
  function records() {
   var rows = JSON.parse(root.localStorage.getItem(KEY) || '[]')
@@ -117,7 +117,10 @@
    return { recovered: true, tokenNo: row.tokenNo }
   })
  }
- var api = { records: records, send: send, reconcile: reconcile, recoverUnsent: recoverUnsent }
+  return { records: records, send: send, reconcile: reconcile, recoverUnsent: recoverUnsent }
+ }
+ var api = createCheckout('trixmoji.clean-pop.checkout.v1')
+ api.createWebpV2 = function () { return createCheckout('trixmoji.clean-pop.checkout.webp-v2') }
  if (typeof module !== 'undefined' && module.exports) module.exports = api
  else root.CleanPopCheckout = api
 })(typeof window !== 'undefined' ? window : globalThis)

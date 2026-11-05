@@ -32,6 +32,11 @@ test('two-step preparation is read-only; explicit approval submits the reviewed 
  assert.equal(tx.chainId, '0x1'); assert.equal(tx.value, '0x0'); assert.equal(tx.to, address)
  await assert.rejects(x.api.submit(x.provider, x.info, plan), /saved/)
 })
+test('WebP sale opening uses a separate saved record from V1', async () => {
+ const x = setup(), v2 = x.api.createWebpV2(), plan = await v2.prepare(x.provider, x.info)
+ await v2.submit(x.provider, x.info, plan)
+ assert.equal(v2.saved().hash, hash); assert.equal(x.api.saved(), null)
+})
 test('expired or altered opening plans never reach the wallet', async () => {
  const x = setup(), plan = await x.api.prepare(x.provider, x.info)
  await assert.rejects(x.api.submit(x.provider, x.info, { ...plan, preparedAt: Date.now() - 61000 }), /expired/)

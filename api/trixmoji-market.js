@@ -13,6 +13,7 @@ const deployment = require('../assets/data/trixmoji-escrow-deployment.json')
 const replacementArtifact = require('../assets/data/trixmoji-escrow-replacement-artifact.json')
 const replacementDeployment = require('../assets/data/trixmoji-escrow-replacement-deployment.json')
 const minter = require('../assets/data/clean-pop-minter.json')
+const webpMinter = require('../assets/data/clean-pop-webp-v2-candidate.json')
 
 function verifierKey() {
  const value = String(process.env.TRIXMOJI_MARKET_VERIFIER_KEY || '').trim()
@@ -28,7 +29,7 @@ async function authenticatedWallet(req) {
  return wallet.address
 }
 
-async function runtime(readOnly, marketArtifact = require('../assets/data/trixmoji-escrow-artifact.json'), deployment = require('../assets/data/trixmoji-escrow-deployment.json')) {
+async function runtime(readOnly, marketArtifact = require('../assets/data/trixmoji-escrow-artifact.json'), deployment = require('../assets/data/trixmoji-escrow-deployment.json'), selectedMinter = minter, mimeType = 'image/png') {
  if (process.env.TRIXMOJI_MARKET_ENABLED !== 'true') throw Error('MARKET_NOT_CONFIGURED')
  const rpc = String(process.env.ETH_RPC_URL || ''), marketAddress = deployment.address, runtimeHash = deployment.runtimeHash, start = String(deployment.deploymentBlock), key = verifierKey()
  if (!/^https:\/\//i.test(rpc) || !ethers.utils.isAddress(marketAddress) || !/^0x[a-f0-9]{64}$/i.test(runtimeHash) || !/^\d+$/.test(start) || !Number.isSafeInteger(Number(start)) || (!readOnly && !/^0x[a-f0-9]{64}$/i.test(key))) throw Error('MARKET_NOT_CONFIGURED')
@@ -39,11 +40,11 @@ async function runtime(readOnly, marketArtifact = require('../assets/data/trixmo
  const indexer = createEthscriptionsIndexer({ baseUrl: process.env.ETHSCRIPTIONS_INDEXER_URL || 'https://api.ethscriptions.com/v2/' })
  return createMarketRuntime({ provider, signer, indexer, registry: undefined, authenticate: authenticatedWallet, consumeQuota: quota,
   chainId: 1, marketAddress, creator: marketArtifact.creator, marketRuntimeHash: runtimeHash, marketAbi: marketArtifact.abi,
-  minter: minter.address, minterRuntimeHash: minter.runtimeHash, minterAbi: minter.abi, artworkRoot: minter.root, mintPriceWei: minter.priceWei,
+  minter: selectedMinter.address, minterRuntimeHash: selectedMinter.runtimeHash, minterAbi: selectedMinter.abi, artworkRoot: selectedMinter.root, mintPriceWei: selectedMinter.priceWei, mintMimeType: mimeType,
   marketStartBlock: Number(start), confirmations: 2, blockChunk: 2000, maxCandidates: 1000 })
 }
 
-async function handler(req, res, replacement = false) {
+async function handler(req, res, replacement = false, webpV2 = false) {
  if (req.method !== 'GET' && req.method !== 'POST') return res.status(405).json({ ok: false, error: 'GET or POST only.' })
  const limit = checkRateLimit(req, { prefix: 'trixmoji-market', perMinute: 30, perDay: 1000 })
  if (!limit.ok) return res.status(429).json({ ok: false, error: 'Please wait before retrying.' })
@@ -51,7 +52,7 @@ async function handler(req, res, replacement = false) {
   if (req.method === 'POST' && process.env.TRIXMOJI_MARKET_LIVE !== 'true') throw Error('MARKET_NOT_CONFIGURED')
   const selectedArtifact = replacement ? replacementArtifact : marketArtifact
   const selectedDeployment = replacement ? replacementDeployment : deployment
-  const service = await runtime(req.method === 'GET', selectedArtifact, selectedDeployment)
+   const service = await runtime(req.method === 'GET', selectedArtifact, selectedDeployment, webpV2 ? webpMinter : minter, webpV2 ? 'image/webp' : 'image/png')
   if (req.method === 'GET') {
    const key = verifierKey()
    const readiness = { sessionConfigured: !!sessionSecret(), verifierKeyPresent: !!key, verifierKeyFormatValid: /^0x[a-f0-9]{64}$/i.test(key), verifierKeyMatches: false, quotaStorageAvailable: false }
@@ -78,3 +79,4 @@ async function handler(req, res, replacement = false) {
 module.exports = handler
 module.exports.verifierKey = verifierKey
 module.exports.replacement = (req, res) => handler(req, res, true)
+module.exports.webpV2 = (req, res) => handler(req, res, true, true)

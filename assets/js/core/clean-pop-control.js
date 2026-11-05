@@ -1,6 +1,6 @@
 (function (root) {
  'use strict'
- var KEY = 'trixmoji.clean-pop-v1.open-sale'
+ function createSaleControl(KEY) {
  var CALL = '0x16c38b3c' + '0'.repeat(64)
  var walletRequests = 0
  function same(a, b) { return String(a || '').toLowerCase() === String(b || '').toLowerCase() }
@@ -145,7 +145,10 @@
   if (row.state === 'confirmed' && (await inspect(provider, info)).paused) throw Error('Transaction confirmed, but the contract currently reports paused. Inspect its current state.')
   root.localStorage.setItem(KEY, JSON.stringify(row)); return row
  }
- var api = { saved: saved, inspect: inspect, prepare: prepare, submit: submit, recoverUnsent: recoverUnsent, open: open, check: check }
+  return { saved: saved, inspect: inspect, prepare: prepare, submit: submit, recoverUnsent: recoverUnsent, open: open, check: check }
+ }
+ var api = createSaleControl('trixmoji.clean-pop-v1.open-sale')
+ api.createWebpV2 = function () { return createSaleControl('trixmoji.clean-pop-webp-v2.open-sale') }
  if (typeof module !== 'undefined' && module.exports) module.exports = api
  else root.CleanPopControl = api
 })(typeof window !== 'undefined' ? window : globalThis)

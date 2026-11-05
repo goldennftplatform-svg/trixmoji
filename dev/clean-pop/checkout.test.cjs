@@ -18,6 +18,13 @@ test('persists a submitted hash and blocks a duplicate while pending', async () 
  await assert.rejects(x.api.reconcile(row, async () => ({ complete: false })), /pending/)
  await x.api.reconcile(row, async () => ({ complete: true })); assert.equal(x.api.records()[0].state, 'complete')
 })
+test('WebP checkout keeps its saved requests separate from V1', async () => {
+ const x = setup(), webp = x.api.createWebpV2()
+ await webp.send(x.options)
+ assert.equal(webp.records().length, 1); assert.equal(x.api.records().length, 0)
+ await x.api.send({ ...x.options, tokenNo: 4 })
+ assert.equal(webp.records()[0].tokenNo, 3); assert.equal(x.api.records()[0].tokenNo, 4)
+})
 test('preflight failure never submits', async () => {
  const x = setup(); x.options.preflight = async () => { throw Error('paused') }
  await assert.rejects(x.api.send(x.options), /paused/); assert.equal(x.sent(), 0)
