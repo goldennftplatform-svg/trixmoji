@@ -42,16 +42,21 @@
  async function reconcile(row) { var result = await client.reconcile(row, verify); say(result.failed ? 'Transaction failed. Check wallet activity.' : 'Transaction confirmed and verified.'); await load(false) }
  async function reconcileKnownRecovery() {
   if (legacy || !client) return
-  var original = '0x9de253efbaeb700b2947630706ce0234c19b23a8eb3ab16d1adb40db0e5a57c5', cancellation = '0x430a0f0cafa463ab9d8b075b68d88ec4bc9639a9490132f164dfb08d801e93db'
-  var pending = client.records().filter(function (r) { return r && r.state !== 'complete' && r.state !== 'failed' && r.action === 'depositAndList' && same(r.to, deployment.address) })
-  if (pending.some(function (r) { return !same(r.hash, original) })) return
-  var row = pending.find(function (r) { return same(r.hash, original) })
-  if (!row) return
-  try {
-   await client.reconcileClearedWrapped(row.key, cancellation, function () { return json('https://api.ethscriptions.com/v2/status') })
-   recoveryNotice = 'The recovered wrapped #6 request was verified and cleared from the pending list. No transaction or gas was used. The wallet route is still unproven.'
-  } catch (error) {
-   recoveryNotice = 'Could not yet verify the saved #6 recovery: ' + (error.message || 'retry the read-only check') + '. No transaction was sent.'
+  var recoveries = {
+   '0x9de253efbaeb700b2947630706ce0234c19b23a8eb3ab16d1adb40db0e5a57c5': '0x430a0f0cafa463ab9d8b075b68d88ec4bc9639a9490132f164dfb08d801e93db',
+   '0x939deedb5781d5895daf8127f9c72a593909b53869eb25ce40eeca62830be472': '0xf7ce6ffe0734282df2c67758b56bfdb063f2f811073c6e1dea6306cd372e2a8f',
+   '0x4bfc63cf6bb20dd54b4a44929593a01df76fe990ac4874280845386fb705d0c7': '0xf0db5c57d47fd3b9eb32ddd3f3ceffd1339df6ebda31d9e474ccef65422a8fed',
+   '0xe8200d6de23a76bb9f185b20f75d2758d0378f840d94b809c54afdc21a6b892a': '0x28ef37a34a01928885627dbef04b15a9434b0a42b26715c1db3198a97e952cb2',
+   '0x11a345e1991dbbac260346f5dbc8c4a85214e8b3cfa4d66ddb24eff85074e846': '0x8bb809bd4614e794dc5a3af262ee134d4331a2805375556730f366c9862ce834'
+  }
+  var pending = client.records().filter(function (r) { return r && r.state !== 'complete' && r.state !== 'failed' && (r.action === 'deposit' || r.action === 'depositAndList') && same(r.to, deployment.address) && recoveries[String(r.hash || '').toLowerCase()] })
+  for (var row of pending) {
+   try {
+    await client.reconcileClearedWrapped(row.key, recoveries[row.hash.toLowerCase()], function () { return json('https://api.ethscriptions.com/v2/status') })
+    recoveryNotice = 'Recovered #6 deposit verified and cleared from the pending list. No transaction or gas was used.'
+   } catch (error) {
+    recoveryNotice = 'Could not verify the saved #6 recovery: ' + (error.message || 'retry the read-only check') + '. No transaction was sent.'
+   }
   }
  }
  function recovery() {
