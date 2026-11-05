@@ -190,9 +190,16 @@
    priceLabel.appendChild(priceInput); listForm.append(priceLabel, listButton); article.append(listForm, cardReview)
    button(article, 'START AUCTION', function () { var n = amount('Auction reserve'), duration = n && window.prompt('Auction duration in hours (1–168)', '24'); if (n && duration !== null) action('auction', { id: item.id, amountWei: n, duration: Number(duration) * 3600 }) }, item.cooldown || !board.tradingReady)
    button(article, 'RETURN TO WALLET', function () { action('cancel', { id: item.id }) }, item.cooldown)
-  } else if (kind === 'sale') {
-   info.textContent = ethers.utils.formatEther(item.priceWei) + ' ETH · seller ' + item.seller
-   button(article, 'BUY', function () { action('buy', { id: item.id, seller: item.seller, amountWei: item.priceWei }) }, !connection || !board.tradingReady || same(item.seller, connection.address))
+   } else if (kind === 'sale') {
+    article.classList.add('sale-card')
+    info.className = 'sale-price'
+    var priceLabel = document.createElement('span'), priceValue = document.createElement('strong'), sellerLine = document.createElement('p'), sellerAddress = document.createElement('span')
+    priceLabel.textContent = 'PRICE'; priceValue.textContent = ethers.utils.formatEther(item.priceWei) + ' ETH'
+    info.append(priceLabel, priceValue)
+    sellerLine.className = 'sale-seller'; sellerLine.appendChild(document.createTextNode('SELLER '))
+    sellerAddress.textContent = item.seller.slice(0, 6) + '…' + item.seller.slice(-4); sellerAddress.title = item.seller; sellerAddress.setAttribute('aria-label', 'Seller ' + item.seller); sellerLine.appendChild(sellerAddress); article.appendChild(sellerLine)
+    var isOwn = connection && same(item.seller, connection.address)
+    button(article, isOwn ? 'YOUR LISTING' : 'BUY', function () { action('buy', { id: item.id, seller: item.seller, amountWei: item.priceWei }) }, !connection || !board.tradingReady || isOwn)
   } else {
    info.textContent = 'Reserve ' + ethers.utils.formatEther(item.reserveWei) + ' ETH · top bid ' + ethers.utils.formatEther(item.amountWei) + ' ETH · ends ' + new Date(item.end * 1000).toLocaleString()
    if (item.end * 1000 > Date.now()) button(article, 'PLACE BID', function () { var n = amount('Your bid'); if (n) action('bid', { id: item.id, seller: item.seller, nonce: item.nonce, amountWei: n }) }, !connection || same(item.seller, connection.address))
