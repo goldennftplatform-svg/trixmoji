@@ -120,13 +120,12 @@
    }
   })
   CleanPopTransferCheckout.records().filter(function (r) { return r.state !== 'complete' && r.state !== 'failed' }).forEach(function (row) {
-   var text = document.createElement('p'), input = document.createElement('input'), check = document.createElement('button'), help = document.createElement('a')
+   var text = document.createElement('p'), input = document.createElement('input'), check = document.createElement('button')
    text.textContent = 'Saved transfer of CLEAN POP #' + row.tokenNo + '. Check wallet Activity before sending again.'
    input.placeholder = '0x transfer transaction hash'; input.value = row.hash || ''; input.setAttribute('aria-label', 'Saved transfer transaction hash')
    check.type = 'button'; check.textContent = 'CHECK TRANSFER'
    check.onclick = async function () { check.disabled = true; try { var result = await CleanPopTransferCheckout.reconcile(Object.assign({}, row, { hash: input.value.trim() }), function (r) { return transferCheck('verify', { id: r.id, hash: r.hash, from: r.from, to: r.to }) }); say('Transfer confirmed. Indexed owner: ' + result.currentOwner); recovery(); await load(false) } catch (e) { say(e.message); check.disabled = false } }
-   help.href = '/classic/pages/clean-pop-transfer.html?id=' + encodeURIComponent(row.id); help.textContent = 'TRANSFER RECOVERY ↗'
-   recoveryBox.append(text, input, check, help)
+   recoveryBox.append(text, input, check)
   })
  }
  function review(q, listingPrice, target, auctionDuration) {

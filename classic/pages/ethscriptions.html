@@ -71,6 +71,23 @@
   table.fees th { color:#f0c14b; font-weight:normal; letter-spacing:1px; }
   select { width:100%; background:#070500; color:#fff4cc; border:1px solid #e0b04a; font:inherit; font-size:18px; padding:8px 10px; }
   @media (max-width:800px) { .steps, .split { grid-template-columns:1fr; } h1 { letter-spacing:3px; } table.fees { font-size:16px; } }
+  #cleanPopMintSection{padding:22px;background:linear-gradient(145deg,#181207,#100c04);border-color:#8a6a2a}
+  #cleanPopMintSection .clean-pop-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  #cleanPopMintSection .clean-pop-heading h2{margin:0}
+  #cleanPopMintSection .clean-pop-market-link{font-size:17px;letter-spacing:1px}
+  #cleanPopMintSection .clean-pop-intro{color:#d8bf83;line-height:1.4}
+  #cleanPopMintSection .mint-bar{padding:12px;border:1px solid #5a4720;background:#0c0903}
+  #cleanPopMintSection .mint-bar strong{margin-left:auto;color:#f0c14b}
+  #cleanPopMintSection .phunk-grid{grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:10px}
+  #cleanPopMintSection .phunk-card{padding:0;text-align:left;letter-spacing:0;transition:border-color .15s,transform .15s}
+  #cleanPopMintSection .phunk-card:not(:disabled):hover{transform:translateY(-2px);background:#191307;color:#ffe7a3}
+  #cleanPopMintSection .phunk-card .clean-pop-blank{aspect-ratio:1;display:grid;place-items:center;background:#211a0b;color:#a78b4e;font-size:13px;letter-spacing:1px}
+  #cleanPopMintSection .phunk-card .meta{min-height:42px;padding:8px;font-size:15px;line-height:1.2}
+  #cleanPopMintSection .clean-pop-recovery-card{padding:14px;margin:12px 0;border:1px solid #8a6a2a;background:#191307}
+  #cleanPopMintSection .clean-pop-recovery-card input:not([type=checkbox]){max-width:480px}
+  #cleanPopMintSection .clean-pop-recovery-card label{color:#ffe7a3}
+  #cleanPopMintSection .clean-pop-recovery-card summary{cursor:pointer;color:#f0c14b}
+  @media(max-width:600px){#cleanPopMintSection{padding:14px}#cleanPopMintSection .phunk-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#cleanPopMintSection .mint-bar strong{margin-left:0}#cleanPopMintSection .mint-bar button{min-height:44px}}
  </style>
 </head>
 <body>
@@ -101,9 +118,9 @@
     </ol>
     </details>
    <p class="note" style="text-align:left"><a href="/docs/ethscriptions.html">Full instructions</a> · <a href="/docs/legal.html#s15c">Legal §15C</a></p>
-   <section class="box" aria-labelledby="cleanPopHeading">
-    <h2 id="cleanPopHeading">TRIXMOJI · CLEAN POP V1</h2>
-    <p>Select blank covers. Each mint requires a separate wallet approval; artwork reveals after confirmation and indexing.</p>
+   <section class="box" id="cleanPopMintSection" aria-labelledby="cleanPopHeading">
+    <div class="clean-pop-heading"><h2 id="cleanPopHeading">TRIXMOJI · CLEAN POP V1</h2><a class="btn clean-pop-market-link" href="/classic/pages/trixmoji-market.html">EXPLORE THE MARKET ↗</a></div>
+    <p class="clean-pop-intro">Explore the artwork on the market, then select its blank cover here. Availability is checked before minting. Each mint needs a separate wallet approval; artwork reveals after confirmation and indexing.</p>
     <p><strong>0.0002 ETH per piece plus gas · Ethereum mainnet</strong></p>
     <p id="cleanPopCount" role="status">Checking Clean Pop mint count…</p>
     <div class="mint-bar" id="cleanPopWallets"><button type="button" id="cleanPopConnect">CONNECT ETHEREUM WALLET</button><strong id="cleanPopSelection">SELECTED 0 / 20</strong><button type="button" id="cleanPopMint" disabled>MINT SELECTED</button></div>
@@ -257,8 +274,8 @@
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   <script src="/assets/js/core/ethscription-checkout.js?v=20261102connect"></script>
   <script src="/assets/js/core/market-wallet-connect.js?v=1"></script>
-  <script src="/assets/js/core/clean-pop-checkout.js?v=7"></script>
-  <script src="/assets/js/core/clean-pop-storefront.js?v=8"></script>
+  <script src="/assets/js/core/clean-pop-checkout.js?v=mint9"></script>
+  <script src="/assets/js/core/clean-pop-storefront.js?v=mint9"></script>
   <script>
   var ESCROW = '0x15e85a85B7026875d3529EF0c6de2723C285DA11'
   var PHUNK_ID = '45b48eca99f938b7'

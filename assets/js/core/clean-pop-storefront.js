@@ -16,11 +16,11 @@
   var start = page * pageSize, end = Math.min(start + pageSize, supply)
   var complete = {}; CleanPopCheckout.records().forEach(function (r) { if (r.state === 'complete') complete[r.tokenNo] = true })
   for (var id = start; id < end; id++) {
-   var card = document.createElement('button'), img = document.createElement('img'), meta = document.createElement('div')
+   var card = document.createElement('button'), img = document.createElement(complete[id] ? 'img' : 'div'), meta = document.createElement('div')
    card.type = 'button'; card.className = 'phunk-card' + (selected[id] ? ' on' : '') + (complete[id] ? ' taken' : '')
-   img.src = complete[id] ? '/assets/ethscriptions/clean-pop-v1/' + id + '.png' : '/assets/images/ethscription-cover.png'
-   img.alt = complete[id] ? 'Confirmed Clean Pop #' + id : 'Unrevealed Clean Pop cover #' + id; img.loading = 'lazy'
-   meta.className = 'meta'; meta.textContent = '#' + id + (complete[id] ? ' · MINTED' : reserved[id] ? ' · RESERVED' : selected[id] ? ' · SELECTED' : '')
+   if (complete[id]) { img.src = '/assets/ethscriptions/clean-pop-v1/' + id + '.png'; img.alt = 'Confirmed Clean Pop #' + id; img.loading = 'lazy' }
+   else { img.className = 'clean-pop-blank'; img.setAttribute('aria-hidden', 'true'); img.textContent = 'UNREVEALED' }
+   meta.className = 'meta'; meta.textContent = 'CLEAN POP #' + id + (complete[id] ? ' · MINTED' : reserved[id] ? ' · RESERVED' : selected[id] ? ' · SELECTED' : ' · SELECT TO CHECK')
    card.disabled = !!complete[id] || !!reserved[id] || busy; card.setAttribute('aria-pressed', selected[id] ? 'true' : 'false')
    ;(function (token) { card.addEventListener('click', function () {
     if (selected[token]) delete selected[token]
@@ -45,7 +45,7 @@
   var host = el('cleanPopRecovery'); host.textContent = ''
   unfinished().forEach(function (row) {
    var wrap = document.createElement('div'), text = document.createElement('p'), input = document.createElement('input'), button = document.createElement('button')
-   text.textContent = 'Clean Pop #' + row.tokenNo + ' · ' + row.state + '. Check wallet activity before retrying.'
+   text.textContent = 'Mint #' + row.tokenNo + (row.hash ? ' is awaiting confirmation.' : ' has an unfinished wallet request.')
    input.placeholder = '0x transaction hash'; input.value = row.hash || ''; input.setAttribute('aria-label', 'Transaction hash for Clean Pop ' + row.tokenNo)
    button.type = 'button'; button.textContent = 'CHECK SAVED MINT'
    button.onclick = async function () {
@@ -56,12 +56,14 @@
      delete selected[row.tokenNo]; status('Mint #' + row.tokenNo + ' confirmed and indexed.'); recovery(); draw()
     } catch (error) { status(error.message); button.disabled = false }
    }
-   wrap.appendChild(text); wrap.appendChild(input); wrap.appendChild(button); host.appendChild(wrap)
+   wrap.className = 'clean-pop-recovery-card'; wrap.appendChild(text)
+   if (row.hash) { wrap.appendChild(input); wrap.appendChild(button) }
+   host.appendChild(wrap)
    if (row.state === 'awaiting-wallet' && !row.hash) {
     var confirmLabel = document.createElement('label'), checkbox = document.createElement('input'), recover = document.createElement('button'), warning = document.createElement('p')
     checkbox.type = 'checkbox'; checkbox.style.width = 'auto'
     confirmLabel.appendChild(checkbox); confirmLabel.appendChild(document.createTextNode(' I checked this wallet’s Activity and closed/rejected any approval request. There is no pending mint transaction or transaction hash.'))
-    recover.type = 'button'; recover.textContent = 'CHECK WALLET · RECOVER UNSENT MINT'; recover.disabled = !connection
+    recover.type = 'button'; recover.textContent = 'CHECK & CLEAR UNSENT REQUEST · NO GAS'; recover.disabled = !connection
     warning.textContent = 'Recovery sends no transaction. Pending-count checks cannot see every private or smart-wallet request; resolve any wallet activity before continuing.'
     recover.onclick = async function () {
      recover.disabled = true
@@ -72,7 +74,9 @@
       recovery(); draw()
      } catch (error) { status(error.message); recover.disabled = false }
     }
-    wrap.appendChild(confirmLabel); wrap.appendChild(recover); wrap.appendChild(warning)
+    var hashDetails = document.createElement('details'), summary = document.createElement('summary')
+    summary.textContent = 'Have a transaction hash?'; hashDetails.append(summary, input, button)
+    wrap.append(confirmLabel, recover, warning, hashDetails)
    }
   })
  }
@@ -97,7 +101,7 @@
    var host = el('cleanPopReview'); host.textContent = ''; host.hidden = false
    var heading = document.createElement('h3'), text = document.createElement('p'), approve = document.createElement('button'), cancel = document.createElement('button')
    heading.textContent = 'REVIEW CLEAN POP #' + token
-   text.textContent = 'Price: ' + EthscriptionCheckout.eth(quote.price) + ' ETH + estimated gas: ' + EthscriptionCheckout.eth(quote.gas) + ' ETH. The wallet shows final fees. Artwork stays hidden until confirmation and indexing.'
+   text.textContent = 'Price: ' + EthscriptionCheckout.eth(quote.price) + ' ETH. ' + (quote.insufficientFunds ? 'The RPC reported insufficient funds for gas. Your wallet will show the final fee and may block confirmation until funded.' : 'Estimated gas: ' + EthscriptionCheckout.eth(quote.gas) + ' ETH. The wallet shows final fees.') + ' Artwork stays hidden until confirmation and indexing.'
    approve.type = 'button'; approve.textContent = 'APPROVE MINT IN WALLET'
    cancel.type = 'button'; cancel.textContent = 'CANCEL THIS MINT'
    approve.onclick = function () {
@@ -106,7 +110,7 @@
    }
    cancel.onclick = function () { host.hidden = true; host.textContent = ''; reject(new Error('Mint cancelled. Previously confirmed pieces remain in your wallet.')) }
    host.append(heading, text, approve, cancel)
-   status('Gas estimate ready. Review below and click APPROVE MINT IN WALLET.')
+   status(quote.insufficientFunds ? 'Review below. Your wallet will display the fee and any insufficient-funds warning.' : 'Gas estimate ready. Review below and click APPROVE MINT IN WALLET.')
    approve.focus()
   })
  }
@@ -139,7 +143,7 @@
   var response = await fetch(url, { cache: 'no-store', signal: AbortSignal.timeout(45000) })
   var result = await response.json()
   if (!response.ok || !result.ok || !result.readyToRequestWallet || result.paused || result.minted || result.reserved || result.contentAlreadyInscribed || !result.artworkProofValid || result.chainId !== 1 || result.tokenNo !== token || String(result.contentSha256).toLowerCase() !== sha.toLowerCase() || String(result.buyer).toLowerCase() !== connection.address.toLowerCase() || String(result.contract).toLowerCase() !== info.address.toLowerCase()) throw Error(result.estimateError || result.error || 'The live mint preflight did not confirm this exact piece is available.')
-  return { gas: result.estimatedGas, gasPrice: result.estimatedGasPriceWei }
+   return { gas: result.estimatedGas, gasPrice: result.estimatedGasPriceWei, insufficientFunds: result.insufficientFunds === true }
  }
  async function finish(row) {
   for (var i = 0; i < 24; i++) {

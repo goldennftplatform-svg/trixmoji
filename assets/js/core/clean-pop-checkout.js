@@ -36,11 +36,11 @@
    async function serverEstimate() {
     if (!options.gasFallback) throw new Error('The wallet did not finish estimating gas. No mint transaction was requested.')
     if (!fallback) { progress(options.preferServerGas ? 'Estimating this mint through the site’s read-only Ethereum RPC…' : 'Wallet estimate timed out. Checking the same mint through the site’s read-only Ethereum RPC…'); fallback = await options.gasFallback() }
-    if (!fallback || BigInt(fallback.gas || 0) <= 0n || BigInt(fallback.gasPrice || 0) <= 0n) throw new Error('A reliable gas estimate is unavailable. No mint transaction was requested.')
+     if (!fallback || (!fallback.insufficientFunds && (BigInt(fallback.gas || 0) <= 0n || BigInt(fallback.gasPrice || 0) <= 0n))) throw new Error('A reliable gas estimate is unavailable. No mint transaction was requested.')
     return fallback
    }
    if (options.preferServerGas) {
-    var server = await serverEstimate(); estimate = BigInt(server.gas); gasPrice = BigInt(server.gasPrice)
+     var server = await serverEstimate(); estimate = server.insufficientFunds ? null : BigInt(server.gas); gasPrice = server.insufficientFunds ? null : BigInt(server.gasPrice)
    } else {
     try { estimate = BigInt(await readRpc(options.provider, { method: 'eth_estimateGas', params: [options.tx] }, options.rpcTimeoutMs || 45000)) }
     catch (error) { if (error.code !== 'RPC_TIMEOUT') throw error; estimate = BigInt((await serverEstimate()).gas) }
@@ -63,7 +63,9 @@
     try {
      // Called directly from the review button click: no asynchronous RPC between click and wallet request.
      activeWalletRequests++
-     hash = await options.provider.request({ method: 'eth_sendTransaction', params: [Object.assign({}, options.tx, { chainId: '0x1', gas: '0x' + (estimate + estimate / 5n).toString(16) })] })
+      var requestTx = Object.assign({}, options.tx, { chainId: '0x1' })
+      if (estimate !== null) requestTx.gas = '0x' + (estimate + estimate / 5n).toString(16)
+      hash = await options.provider.request({ method: 'eth_sendTransaction', params: [requestTx] })
     } catch (error) {
      if (Number(error && error.code) === 4001) remove(row.id)
      throw error
@@ -74,7 +76,7 @@
     return row
    }
    try {
-    var result = await options.review({ gas: estimate * gasPrice, price: BigInt(options.tx.value), approve: approve })
+     var result = await options.review({ gas: estimate === null ? null : estimate * gasPrice, insufficientFunds: estimate === null, price: BigInt(options.tx.value), approve: approve })
     if (!sent || !result || !result.hash) throw new Error('No wallet transaction was submitted.')
     return result
    } finally {

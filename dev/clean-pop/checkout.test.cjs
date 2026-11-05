@@ -90,6 +90,13 @@ test('server-first estimate does not wait for the wallet gas estimator', async (
  const result = await x.api.send(x.options)
  assert.equal(result.state, 'submitted'); assert.equal(x.sent(), 1)
 })
+test('insufficient-funds preflight opens wallet without inventing a gas estimate', async () => {
+ const x = setup(), original = x.options.provider.request
+ x.options.preferServerGas = true; x.options.gasFallback = async () => ({ insufficientFunds: true, gas: null, gasPrice: null })
+ x.options.provider.request = q => { if (q.method === 'eth_sendTransaction') assert.equal('gas' in q.params[0], false); return original(q) }
+ x.options.review = async quote => { assert.equal(quote.gas, null); assert.equal(quote.insufficientFunds, true); return quote.approve() }
+ await x.api.send(x.options); assert.equal(x.sent(), 1)
+})
 function recoverFixture(overrides = {}) {
  const x = setup(), buyer = x.options.from, address = x.options.tx.to
  const row = { id: '2', tokenNo: 2, buyer, contract: address, state: 'awaiting-wallet', hash: '' }
