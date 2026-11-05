@@ -57,21 +57,11 @@ function fixture(action, accountCode = '0x') {
   return { client, sends, calls, setAccountCode: code => { accountCode = code } }
 }
 
-for (const action of ['deposit', 'depositAndList']) {
-  test(action + ' refuses EIP-7702 accounts before wallet approval', async () => {
-    const f = fixture(action, '0xef0100' + 'ab'.repeat(20))
-    await assert.rejects(f.client.run(action, { id, amountWei: '1' }, async q => q.approve()), /EIP-7702 delegation/)
-    assert.equal(f.sends.length, 0)
-  })
-}
-
-test('deposit rechecks delegation immediately before sending', async () => {
-  const f = fixture('deposit')
-  await assert.rejects(f.client.run('deposit', { id }, async q => {
-    f.setAccountCode('0xef0100' + 'ab'.repeat(20))
-    return q.approve()
-  }), /EIP-7702 delegation/)
-  assert.equal(f.sends.length, 0)
+test('delegated account can request a deposit without a blanket block', async () => {
+  const f = fixture('deposit', '0xef0100' + 'ab'.repeat(20))
+  await f.client.run('deposit', { id }, async q => q.approve())
+  assert.equal(f.sends.length, 1)
+  assert.deepEqual(Object.keys(f.sends[0]).sort(), ['data', 'from', 'to', 'value'])
 })
 
 for (const action of ['deposit', 'depositAndList', 'gift']) {
