@@ -82,3 +82,22 @@ test('known recovered wrapped request is automatically verified without a wallet
  assert.equal(calls.length, 1); assert.equal(calls[0].key, 'saved'); assert.equal(calls[0].hash, cancel); assert.equal(row.state, 'failed')
   assert.ok(els.marketRecovery.children.some(x => /No gas used/.test(x.textContent)))
 })
+test('confirmed submitted listing is checked on load without sending a transaction', async () => {
+ const ids = ['walletGrid','marketStatus','moreWallet','marketReview','marketRecovery','myWallet','myEscrow','forSale','auctions','refreshWallet','withdrawCredit']
+ function element() { return { children: [], hidden: false, textContent: '', appendChild(x) { this.children.push(x); return x }, append(...xs) { this.children.push(...xs) }, setAttribute() {}, focus() {} } }
+ const els = Object.fromEntries(ids.map(x => [x, element()])), calls = []
+ const row = { key: 'listing', action: 'list', hash: ethers.utils.id('list'), from: seller, to: deployment.address, state: 'submitted' }
+ const client = { records: () => [row], reconcile: async item => { calls.push(item.hash); item.state = 'complete'; return { complete: true } } }
+ const fetch = async url => { const s = String(url); let value
+  if (s.includes('replacement-artifact')) value = artifact
+  else if (s.includes('replacement-deployment')) value = deployment
+  else if (s.includes('market-wallet-inventory')) value = { items: [], nextPageKey: null }
+  else if (s.includes('trixmoji-market-replacement')) value = { marketAddress: deployment.address, tradingReady: true, deposits: [], auctions: [], listings: [] }
+  else throw Error('unexpected fetch ' + s)
+  return { ok: true, json: async () => value }
+ }
+ const context = { document: { getElementById: id => els[id], createElement: () => element() }, window: { addEventListener() {} }, location: { search: '', origin: 'https://example.test' }, URL, URLSearchParams, AbortSignal, fetch, ethers, localStorage: {}, navigator: { locks: {} }, MarketWalletConnector: { current: () => ({ address: seller, provider: {} }) }, TrixmojiMarketWallet: { create: () => client }, CleanPopTransferCheckout: { records: () => [] }, setTimeout, console }
+ vm.runInNewContext(fs.readFileSync(path.resolve(__dirname, '../../assets/js/core/trixmoji-market-inventory.js'), 'utf8'), context)
+ els.myWallet.onclick(); await new Promise(resolve => setTimeout(resolve, 30))
+ assert.deepEqual(calls, [row.hash]); assert.equal(row.state, 'complete')
+})

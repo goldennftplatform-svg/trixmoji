@@ -40,6 +40,15 @@
   return true
  }
  async function reconcile(row) { var result = await client.reconcile(row, verify); say(result.failed ? 'Transaction failed. Check wallet activity.' : 'Transaction confirmed and verified.'); await load(false) }
+ async function reconcileSubmittedListings() {
+  if (!client || !deployment) return
+  var connection = MarketWalletConnector.current()
+  if (!connection) return
+  var pending = client.records().filter(function (row) { return row && row.state === 'submitted' && row.action === 'list' && /^0x[a-f0-9]{64}$/i.test(String(row.hash || '')) && same(row.to, deployment.address) && same(row.from, connection.address) })
+  for (var row of pending) {
+   try { await client.reconcile(row, verify) } catch (_) { /* Keep unresolved requests visible for manual checks. */ }
+  }
+ }
  async function reconcileKnownRecovery() {
   if (legacy || !client) return
   var recoveries = {
@@ -134,7 +143,7 @@
  async function action(kind, args, reviewTarget) {
   if (busy) return; busy = true
   try {
-   await configure(); say('Checking saved recovery records…'); await reconcileKnownRecovery(); recovery(); say('Checking wallet, custody, market and transaction…')
+   await configure(); say('Checking saved recovery records…'); await reconcileKnownRecovery(); await reconcileSubmittedListings(); recovery(); say('Checking wallet, custody, market and transaction…')
    var row = await client.run(kind, args, function (q) { return review(q, kind === 'list' || kind === 'depositAndList' || kind === 'auction' ? args.amountWei : null, reviewTarget, kind === 'auction' ? args.duration : null) }); say('Submitted ' + row.hash + '. Check confirmation before retrying.'); recovery()
    try { await reconcile(row) } catch (e) { say(e.message + ' Transaction: ' + row.hash) }
    } catch (e) {
@@ -232,7 +241,7 @@
   if (!append) { grid.textContent = ''; cursor = null }
   more.hidden = true; say('Loading verified market data…')
   try {
-   if (connection) { await configure(); await reconcileKnownRecovery(); recovery() }
+   if (connection) { await configure(); await reconcileKnownRecovery(); await reconcileSubmittedListings(); recovery() }
    try { board = await json(marketUrl); if (!same(board.marketAddress, expectedMarket)) throw Error('Wrong market service.') } catch (_) { board = null }
    if (request !== generation) return
    if (view === 'wallet') {
