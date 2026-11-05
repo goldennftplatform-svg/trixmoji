@@ -70,9 +70,34 @@
   if (recoveryNotice) { var notice = document.createElement('p'); notice.textContent = recoveryNotice; recoveryBox.appendChild(notice) }
   if (client) client.records().filter(function (r) { return r.state !== 'complete' && r.state !== 'failed' }).forEach(function (row) {
    var text = document.createElement('p'), b = document.createElement('button'), input = document.createElement('input')
-   text.textContent = row.action + ': ' + (row.hash || 'No transaction hash returned. Check wallet Activity; do not retry.')
-   if (!same(row.to, deployment.address)) { var link = document.createElement('a'); link.href = '/classic/pages/trixmoji-market.html' + (legacy ? '' : '?market=legacy'); link.textContent = 'OPEN THE OTHER ESCROW TO CHECK THIS REQUEST ↗'; recoveryBox.append(text, link); return }
-   recoveryBox.appendChild(text)
+    text.textContent = row.action + ': ' + (row.hash || 'No transaction hash returned. Check wallet Activity; do not retry.')
+    if (!same(row.to, deployment.address)) { var link = document.createElement('a'); link.href = '/classic/pages/trixmoji-market.html' + (legacy ? '' : '?market=legacy'); link.textContent = 'OPEN THE OTHER ESCROW TO CHECK THIS REQUEST ↗'; recoveryBox.append(text, link); return }
+    recoveryBox.appendChild(text)
+    if (!row.hash && row.state === 'awaiting-wallet' && (row.action === 'deposit' || row.action === 'depositAndList')) {
+     var confirmation = document.createElement('label'), checkbox = document.createElement('input'), clearUnsent = document.createElement('button')
+     checkbox.type = 'checkbox'; confirmation.append(checkbox, document.createTextNode(' I checked my wallet: no approval or pending transaction remains for this request.'))
+     clearUnsent.type = 'button'; clearUnsent.textContent = 'CHECK AND CLEAR UNSENT REQUEST · NO GAS'
+     clearUnsent.onclick = async function () {
+      clearUnsent.disabled = true
+      try {
+       await client.recoverUnsent(row.key, checkbox.checked, async function (saved) {
+        if (!/^0x[a-f0-9]{64}$/i.test(String(saved.assetId || '')) || !same(saved.to, deployment.address)) return false
+        var connection = MarketWalletConnector.current(), provider = connection && connection.provider
+        if (!provider) return false
+        var iface = new ethers.utils.Interface(artifact.abi)
+        var checks = await Promise.all([
+         asset(saved.assetId), json('https://api.ethscriptions.com/v2/status'),
+         provider.request({ method: 'eth_blockNumber', params: [] }),
+         provider.request({ method: 'eth_call', params: [{ to: deployment.address, data: iface.encodeFunctionData('depositBlock', [saved.from, saved.assetId]) }, 'latest'] })
+        ])
+        var head = Number(BigInt(checks[2])), indexed = Number(checks[1] && checks[1].last_imported_block)
+        return Number.isSafeInteger(head) && Number.isSafeInteger(indexed) && indexed <= head && head - indexed <= 12 && same(checks[0].transaction_hash, saved.assetId) && same(checks[0].current_owner, saved.from) && iface.decodeFunctionResult('depositBlock', checks[3])[0].isZero()
+       })
+       recoveryNotice = 'Unsent deposit request checked and cleared. No transaction or gas was used.'; recovery(); say(recoveryNotice)
+      } catch (error) { say(error.message); clearUnsent.disabled = false }
+     }
+     recoveryBox.append(confirmation, clearUnsent)
+    }
    input.placeholder = '0x transaction hash from wallet Activity'; input.value = row.hash || ''; input.setAttribute('aria-label', 'Market transaction hash'); recoveryBox.appendChild(input)
    b.textContent = 'CHECK TRANSACTION'; b.onclick = async function () { try { await reconcile(Object.assign({}, row, { hash: input.value.trim() })); recovery() } catch (e) { say(e.message + (/wrapped deposit/i.test(e.message) ? ' If recovery already confirmed, use CHECK CLEARED RECORD · NO GAS above.' : '')) } }; recoveryBox.appendChild(b)
    if (row.action === 'deposit' || row.action === 'depositAndList') {
