@@ -56,3 +56,41 @@ body[data-market-view="forSale"] .wallet-grid p,body[data-market-view="auctions"
  .toolbar label:not(.search){flex:1 1 90px}
  .toolbar button{padding:9px 10px}
 }
+
+/* Market-only overrides: keep the desktop composition while removing the empty
+   transaction-status spacer and making the compact layout touch-friendly. */
+body[data-market-view] .market-bar{margin:0;padding:0;border:0;background:transparent}
+body[data-market-view] #marketRecovery:not(:empty){padding:12px 0}
+body[data-market-view] .hero{padding-top:20px}
+body[data-market-view] .hero .eyebrow{margin:0 0 8px}
+@media(max-width:760px){
+ body[data-market-view] main{padding:0 16px 32px}
+ body[data-market-view] .notice{padding:8px 16px;font-size:10px}
+ body[data-market-view] .market-header{padding:12px 0;gap:8px}
+ body[data-market-view] .market-header .market-tabs{display:flex;gap:4px;width:100%;padding:2px 0 4px;scrollbar-width:thin}
+ body[data-market-view] .market-header .market-tabs button{min-height:42px;padding:10px 12px;white-space:nowrap;font-size:10px}
+ body[data-market-view] #marketWalletConnect{max-width:none}
+ body[data-market-view] #marketWalletConnect>button{min-height:42px;padding:10px 12px;font-size:10px}
+ body[data-market-view] .market-more summary{min-height:42px;display:flex;align-items:center}
+ body[data-market-view] .hero{display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:8px;padding:20px 0}
+ body[data-market-view] .hero h1{font-size:clamp(25px,7vw,34px);line-height:1.05;letter-spacing:-1.5px}
+ body[data-market-view] .hero-art{display:flex;padding:0 0 18px}
+ body[data-market-view] .hero-art img{width:52%;max-width:68px;border-width:3px}
+ body[data-market-view] .hero-art span{font-size:7px;letter-spacing:0;white-space:nowrap}
+ body[data-market-view] .toolbar{gap:10px;padding:14px 0}
+ body[data-market-view] .toolbar button,body[data-market-view] .toolbar input,body[data-market-view] .toolbar select{min-height:44px}
+ body[data-market-view] .trade-panel{padding:24px 0}
+ body[data-market-view] .wallet-grid button{min-height:44px}
+}
+@media(max-width:480px){
+ body[data-market-view] .market-header .market-tabs{gap:2px;scrollbar-width:none}
+ body[data-market-view] .market-header .market-tabs::-webkit-scrollbar{display:none}
+ body[data-market-view] .market-header .market-tabs button{padding:9px 7px;font-size:9px}
+ body[data-market-view] .hero-art span{display:none}
+ body[data-market-view][data-grid-density] #grid,body[data-market-view="forSale"][data-grid-density] .wallet-grid,body[data-market-view="auctions"][data-grid-density] .wallet-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ body[data-market-view] #grid .card h2{font-size:12px;line-height:1.25}
+ body[data-market-view] #grid .card p{font-size:10px;line-height:1.4}
+ body[data-market-view] .wallet-grid article{padding:10px}
+ body[data-market-view] .wallet-grid .sale-card .sale-price strong{font-size:20px}
+ body[data-market-view] .wallet-menu,body[data-market-view] .market-more-menu{max-width:calc(100vw - 32px)}
+}
