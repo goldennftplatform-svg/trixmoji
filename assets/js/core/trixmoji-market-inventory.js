@@ -120,22 +120,22 @@
    recoveryBox.append(text, input, check, help)
   })
  }
- function review(q, listingPrice, target) {
+ function review(q, listingPrice, target, auctionDuration) {
   return new Promise(function (resolve, reject) {
    var host = target || reviewBox; host.hidden = false; host.textContent = ''
    var p = document.createElement('p'), approve = document.createElement('button'), cancel = document.createElement('button')
-   p.textContent = 'Review ' + q.action + (q.assetId ? ' · ' + q.assetId : '') + ' · destination ' + q.to + ' · value ' + ethers.utils.formatEther(q.valueWei) + ' ETH' + (listingPrice ? ' · listing price ' + ethers.utils.formatEther(listingPrice) + ' ETH' : '') + ' · estimated gas ' + q.estimatedGas + '. Confirm final network fee in your wallet.' + (q.action === 'deposit' || q.action === 'depositAndList' ? ' In your wallet, reject if the outer transaction shows redeemDelegations or a different destination. A successful receipt alone does not prove custody; the indexer must confirm it.' : '')
+   p.textContent = 'Review ' + q.action + (q.assetId ? ' · ' + q.assetId : '') + ' · destination ' + q.to + ' · value ' + ethers.utils.formatEther(q.valueWei) + ' ETH' + (listingPrice ? ' · ' + (q.action === 'auction' ? 'minimum bid ' : 'listing price ') + ethers.utils.formatEther(listingPrice) + ' ETH' : '') + (auctionDuration ? ' · duration ' + (auctionDuration / 3600) + ' hours' : '') + ' · estimated gas ' + q.estimatedGas + '. Confirm final network fee in your wallet.' + (q.action === 'deposit' || q.action === 'depositAndList' ? ' In your wallet, reject if the outer transaction shows redeemDelegations or a different destination. A successful receipt alone does not prove custody; the indexer must confirm it.' : '')
    approve.type = 'button'; cancel.type = 'button'; approve.textContent = 'CONTINUE TO WALLET'; cancel.textContent = 'CANCEL'
    approve.onclick = function () { approve.disabled = true; cancel.disabled = true; say('Waiting for wallet. Do not repeat the request.'); q.approve().then(function (row) { host.hidden = true; resolve(row) }, function (e) { host.hidden = true; reject(e) }) }
    cancel.onclick = function () { host.hidden = true; reject(Error('Cancelled. No transaction was requested.')) }
-   host.append(p, approve, cancel); say(target ? 'Review the listing on the artwork card, then click CONTINUE TO WALLET.' : 'Review the transaction above, then click CONTINUE TO WALLET.'); if (typeof host.scrollIntoView === 'function') host.scrollIntoView({ behavior: 'smooth', block: 'center' }); approve.focus()
+   host.append(p, approve, cancel); say(target ? 'Review the transaction on the artwork card, then click CONTINUE TO WALLET.' : 'Review the transaction above, then click CONTINUE TO WALLET.'); if (typeof host.scrollIntoView === 'function') host.scrollIntoView({ behavior: 'smooth', block: 'center' }); approve.focus()
   })
  }
  async function action(kind, args, reviewTarget) {
   if (busy) return; busy = true
   try {
    await configure(); say('Checking saved recovery records…'); await reconcileKnownRecovery(); recovery(); say('Checking wallet, custody, market and transaction…')
-   var row = await client.run(kind, args, function (q) { return review(q, kind === 'list' || kind === 'depositAndList' ? args.amountWei : null, reviewTarget) }); say('Submitted ' + row.hash + '. Check confirmation before retrying.'); recovery()
+   var row = await client.run(kind, args, function (q) { return review(q, kind === 'list' || kind === 'depositAndList' || kind === 'auction' ? args.amountWei : null, reviewTarget, kind === 'auction' ? args.duration : null) }); say('Submitted ' + row.hash + '. Check confirmation before retrying.'); recovery()
    try { await reconcile(row) } catch (e) { say(e.message + ' Transaction: ' + row.hash) }
    } catch (e) {
     var message = e.message || 'Market action failed.'
@@ -181,15 +181,35 @@
    var depositReview = document.createElement('div'); depositReview.className = 'market-review'; depositReview.hidden = true
    button(article, 'MOVE TO ESCROW', function () { action('deposit', { id: item.id }, depositReview) }, !board || !board.tradingReady); article.appendChild(depositReview)
   } else if (kind === 'escrow') {
-   info.textContent = item.cooldown ? 'Wait ' + item.cooldown + ' more blocks.' : 'Ready to list, auction, or return.'
+   var listing = (board.listings || []).find(function (x) { return same(x.id, item.id) && same(x.seller, item.seller) })
+   var activeAuction = (board.auctions || []).find(function (x) { return same(x.id, item.id) && same(x.seller, item.seller) })
+   info.textContent = activeAuction ? 'Auction active. Manage or settle it from AUCTIONS.' : item.cooldown ? 'Wait ' + item.cooldown + ' more blocks.' : listing ? 'Listed for ' + ethers.utils.formatEther(listing.priceWei) + ' ETH. You can update the price or replace the listing with an auction.' : 'Ready to list, auction, or return.'
    var listForm = document.createElement('form'), priceLabel = document.createElement('label'), priceInput = document.createElement('input'), listButton = document.createElement('button'), cardReview = document.createElement('div')
    priceLabel.textContent = 'SALE PRICE · ETH'; priceInput.type = 'text'; priceInput.inputMode = 'decimal'; priceInput.placeholder = '0.01'; priceInput.autocomplete = 'off'; priceInput.required = true; priceInput.setAttribute('aria-label', 'Sale price in ETH for Clean Pop #' + item.tokenNo)
-   listButton.type = 'submit'; listButton.textContent = 'LIST FOR SALE'; listButton.disabled = !!item.cooldown || !board.tradingReady
+   if (listing) priceInput.value = ethers.utils.formatEther(listing.priceWei)
+   listButton.type = 'submit'; listButton.textContent = listing ? 'UPDATE SALE PRICE' : 'LIST FOR SALE'; listButton.disabled = !!item.cooldown || !board.tradingReady || !!activeAuction
    cardReview.className = 'market-review'; cardReview.hidden = true
    listForm.onsubmit = function (event) { event.preventDefault(); var n; try { n = ethers.utils.parseEther(priceInput.value.trim()); if (n.lte(0)) throw Error() } catch (_) { say('Enter a positive ETH sale price on the artwork card.'); priceInput.focus(); return } action('list', { id: item.id, amountWei: n.toString() }, cardReview) }
    priceLabel.appendChild(priceInput); listForm.append(priceLabel, listButton); article.append(listForm, cardReview)
-   button(article, 'START AUCTION', function () { var n = amount('Auction reserve'), duration = n && window.prompt('Auction duration in hours (1–168)', '24'); if (n && duration !== null) action('auction', { id: item.id, amountWei: n, duration: Number(duration) * 3600 }) }, item.cooldown || !board.tradingReady)
-   button(article, 'RETURN TO WALLET', function () { action('cancel', { id: item.id }) }, item.cooldown)
+   var auctionToggle = document.createElement('button'), auctionForm = document.createElement('form'), auctionHeading = document.createElement('h3'), auctionNote = document.createElement('p'), reserveLabel = document.createElement('label'), reserveInput = document.createElement('input'), durationLabel = document.createElement('label'), durationInput = document.createElement('input'), auctionError = document.createElement('p'), auctionSubmit = document.createElement('button')
+   auctionToggle.type = 'button'; auctionToggle.textContent = 'SET UP AUCTION'; auctionToggle.disabled = !!item.cooldown || !board.tradingReady || !!activeAuction; auctionToggle.setAttribute('aria-expanded', 'false')
+   auctionForm.className = 'auction-form'; auctionForm.hidden = true
+   auctionHeading.textContent = 'CREATE AN AUCTION'
+   auctionNote.textContent = listing ? 'Starting an auction replaces your current fixed-price listing. Review the details before approving in your wallet.' : 'Choose a minimum bid and duration. Review the details before approving in your wallet.'
+   reserveLabel.textContent = 'MINIMUM BID · ETH'; reserveInput.type = 'text'; reserveInput.inputMode = 'decimal'; reserveInput.placeholder = '0.01'; reserveInput.autocomplete = 'off'; reserveInput.required = true; reserveInput.setAttribute('aria-label', 'Minimum bid in ETH for Clean Pop #' + item.tokenNo); reserveLabel.appendChild(reserveInput)
+   durationLabel.textContent = 'DURATION · HOURS'; durationInput.type = 'number'; durationInput.min = '1'; durationInput.max = '168'; durationInput.step = '1'; durationInput.value = '24'; durationInput.required = true; durationInput.setAttribute('aria-label', 'Auction duration in hours for Clean Pop #' + item.tokenNo); durationLabel.appendChild(durationInput)
+   auctionError.className = 'auction-error'; auctionError.setAttribute('role', 'alert')
+   auctionSubmit.type = 'submit'; auctionSubmit.textContent = 'REVIEW AUCTION'
+   auctionToggle.onclick = function () { auctionForm.hidden = !auctionForm.hidden; auctionToggle.setAttribute('aria-expanded', String(!auctionForm.hidden)); auctionToggle.textContent = auctionForm.hidden ? 'SET UP AUCTION' : 'CLOSE AUCTION SETUP'; if (!auctionForm.hidden) reserveInput.focus() }
+   auctionForm.onsubmit = function (event) {
+    event.preventDefault(); auctionError.textContent = ''
+    var reserve, hours = Number(durationInput.value)
+    try { reserve = ethers.utils.parseEther(reserveInput.value.trim()); if (reserve.lte(0)) throw Error() } catch (_) { auctionError.textContent = 'Enter a minimum bid greater than zero in ETH.'; reserveInput.focus(); return }
+    if (!Number.isInteger(hours) || hours < 1 || hours > 168) { auctionError.textContent = 'Choose a whole number of hours between 1 and 168.'; durationInput.focus(); return }
+    action('auction', { id: item.id, amountWei: reserve.toString(), duration: hours * 3600 }, cardReview)
+   }
+   auctionForm.append(auctionHeading, auctionNote, reserveLabel, durationLabel, auctionError, auctionSubmit); article.append(auctionToggle, auctionForm)
+   button(article, listing ? 'REMOVE LISTING & RETURN' : 'RETURN TO WALLET', function () { action('cancel', { id: item.id }, cardReview) }, item.cooldown || !!activeAuction)
    } else if (kind === 'sale') {
     article.classList.add('sale-card')
     info.className = 'sale-price'
