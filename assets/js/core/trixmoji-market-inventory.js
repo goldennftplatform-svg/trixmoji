@@ -50,13 +50,19 @@
    '0x11a345e1991dbbac260346f5dbc8c4a85214e8b3cfa4d66ddb24eff85074e846': '0x8bb809bd4614e794dc5a3af262ee134d4331a2805375556730f366c9862ce834'
   }
   var pending = client.records().filter(function (r) { return r && r.state !== 'complete' && r.state !== 'failed' && (r.action === 'deposit' || r.action === 'depositAndList') && same(r.to, deployment.address) && recoveries[String(r.hash || '').toLowerCase()] })
+  var cleared = 0, errors = []
   for (var row of pending) {
    try {
     await client.reconcileClearedWrapped(row.key, recoveries[row.hash.toLowerCase()], function () { return json('https://api.ethscriptions.com/v2/status') })
-    recoveryNotice = 'Recovered #6 deposit verified and cleared from the pending list. No transaction or gas was used.'
+    cleared++
    } catch (error) {
-    recoveryNotice = 'Could not verify the saved #6 recovery: ' + (error.message || 'retry the read-only check') + '. No transaction was sent.'
+    errors.push(row.hash + ': ' + (error.message || 'check failed'))
    }
+  }
+  if (cleared || errors.length) recoveryNotice = (cleared ? 'Cleared ' + cleared + ' recovered deposit record(s). No gas used. ' : '') + (errors.length ? 'Could not clear: ' + errors.join(' | ') : '')
+  else {
+   var blockers = client.records().filter(function (r) { return r && r.state !== 'complete' && r.state !== 'failed' })
+   recoveryNotice = blockers.length ? 'Saved request(s) blocking new actions: ' + blockers.map(function (r) { return (r.action || '?') + ' · ' + (r.hash || 'no hash') + ' · ' + r.state }).join(' | ') : ''
   }
  }
  function recovery() {
@@ -103,7 +109,7 @@
  async function action(kind, args, reviewTarget) {
   if (busy) return; busy = true
   try {
-   await configure(); say('Checking wallet, custody, market and transaction…')
+   await configure(); say('Checking saved recovery records…'); await reconcileKnownRecovery(); recovery(); say('Checking wallet, custody, market and transaction…')
    var row = await client.run(kind, args, function (q) { return review(q, kind === 'list' || kind === 'depositAndList' ? args.amountWei : null, reviewTarget) }); say('Submitted ' + row.hash + '. Check confirmation before retrying.'); recovery()
    try { await reconcile(row) } catch (e) { say(e.message + ' Transaction: ' + row.hash) }
    } catch (e) {

@@ -30,7 +30,7 @@ test('cleared wrapped deposit is reconciled without submitting a transaction', a
  assert.ok([...f.store.keys()].some(k => k.startsWith(key + '.recovery.')))
 })
 test('reconciliation refuses active record, changed owner, stale indexer and missing cancellation event', async () => {
- for (const options of [{ recorded: 100 }, { ownerNow: market }, { indexed: 107 }, { cancelEvent: false }]) {
+ for (const options of [{ recorded: 100 }, { ownerNow: market }, { indexed: 104 }, { cancelEvent: false }]) {
   const f = fixture(options); await assert.rejects(f.client.reconcileClearedWrapped('test-key', cancelHash, f.readStatus)); assert.equal(JSON.parse(f.store.get(key))[0].state, 'submitted'); assert.equal(f.calls.includes('eth_sendTransaction'), false)
  }
 })
