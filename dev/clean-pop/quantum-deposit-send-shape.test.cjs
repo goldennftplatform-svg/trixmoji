@@ -14,14 +14,14 @@ const id = '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74'
 const hash = '0x' + 'ab'.repeat(32)
 const iface = new ethers.utils.Interface(artifact.abi)
 
-function fixture(action) {
+function fixture(action, accountCode = '0x') {
   const store = new Map(), sends = [], calls = []
   const provider = {
     request: async (q) => {
       calls.push(JSON.parse(JSON.stringify(q)))
       if (q.method === 'eth_chainId') return '0x1'
       if (q.method === 'eth_accounts') return [owner]
-      if (q.method === 'eth_getCode') return '0x6000'
+      if (q.method === 'eth_getCode') return q.params[0].toLowerCase() === owner.toLowerCase() ? accountCode : '0x6000'
       if (q.method === 'eth_getTransactionCount') return '0x10'
       if (q.method === 'eth_estimateGas') return '0x186a0'
       if (q.method === 'eth_call') {
@@ -54,8 +54,25 @@ function fixture(action) {
       creator: minter
     })
   })
-  return { client, sends, calls }
+  return { client, sends, calls, setAccountCode: code => { accountCode = code } }
 }
+
+for (const action of ['deposit', 'depositAndList']) {
+  test(action + ' refuses EIP-7702 accounts before wallet approval', async () => {
+    const f = fixture(action, '0xef0100' + 'ab'.repeat(20))
+    await assert.rejects(f.client.run(action, { id, amountWei: '1' }, async q => q.approve()), /EIP-7702 delegation/)
+    assert.equal(f.sends.length, 0)
+  })
+}
+
+test('deposit rechecks delegation immediately before sending', async () => {
+  const f = fixture('deposit')
+  await assert.rejects(f.client.run('deposit', { id }, async q => {
+    f.setAccountCode('0xef0100' + 'ab'.repeat(20))
+    return q.approve()
+  }), /EIP-7702 delegation/)
+  assert.equal(f.sends.length, 0)
+})
 
 for (const action of ['deposit', 'depositAndList', 'gift']) {
   test(action + ' sends only from/to/value/data and retains simulation and estimation', async () => {

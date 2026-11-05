@@ -37,11 +37,17 @@
    if (config.minter && !same(result.creator, config.minter)) throw Error('Asset does not belong to the configured collection.')
    return result
   }
-  async function prepare(action, args, account) {
+   async function checkDepositAccount(account) {
+    var code = await rpc('eth_getCode', [account, 'latest'])
+    if (typeof code !== 'string' || !/^0x(?:[0-9a-f]{2})*$/i.test(code)) throw Error('Could not verify wallet account code. No deposit requested.')
+    if (/^0xef0100/i.test(code)) throw Error('This account has EIP-7702 delegation. Deposits are blocked because wallet wrapping can prevent Ethscription custody. Use an undelegated account or clear delegation before trying. No transaction requested.')
+   }
+   async function prepare(action, args, account) {
    args = args || {}; var id, data, to = market, value = ethers.constants.Zero
     if (action === 'gift' || action === 'deposit' || action === 'depositAndList') {
      id = assetId(args.id); await owned(id, account)
-     if (action === 'deposit' || action === 'depositAndList') {
+      if (action === 'deposit' || action === 'depositAndList') {
+       await checkDepositAccount(account)
       if (action === 'depositAndList' && config.combinedDepositEnabled !== true) throw Error('Combined deposit-and-list is not enabled for this escrow.')
      var recorded = (await call('depositBlock', [account, id]))[0]
       if (!recorded.isZero()) throw Error('This wallet already has an escrow deposit record for this piece. Do not send it again; the existing record must be checked first.')
@@ -104,6 +110,12 @@
     async function approve() {
      if (sent) throw Error('Wallet request already made. Check activity before retrying.')
      if (invalid || Date.now() - plan.preparedAt > 60000 || Date.now() < plan.preparedAt) throw Error('Wallet, network, or review changed. Prepare the transaction again.')
+     if (action === 'deposit' || action === 'depositAndList') {
+      await checkDepositAccount(account)
+      var expected = action === 'deposit' ? assetId(args.id) : ethers.utils.hexConcat([assetId(args.id), ethers.utils.id('DEPOSIT_AND_LIST_SIGNATURE'), ethers.utils.hexZeroPad(positive(args.amountWei).toHexString(), 32), ethers.constants.HashZero])
+      if (!same(plan.tx.to, market) || !same(plan.tx.data, expected) || plan.tx.value !== '0x0' || Object.keys(plan.tx).sort().join(',') !== 'data,from,to,value') throw Error('Deposit request does not match the expected escrow transfer. No transaction requested.')
+      if (invalid || Date.now() - plan.preparedAt > 60000 || Date.now() < plan.preparedAt) throw Error('Wallet, network, or review changed. Prepare the transaction again.')
+     }
      var row = { key: Date.now() + ':' + Math.random().toString(36).slice(2), action: action, assetId: plan.assetId, chainId: chainId, from: account, to: plan.tx.to, data: plan.tx.data, value: plan.tx.value, startingNonce: startingNonce, state: 'awaiting-wallet', hash: '' }
      write(row); sent = true
      var hash

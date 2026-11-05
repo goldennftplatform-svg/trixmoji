@@ -13,22 +13,18 @@
  }
  async function connect(host, report) {
   report = report || function () {}
-  var injected = root.ethereum
-  var providers = injected && Array.isArray(injected.providers) ? injected.providers : injected ? [injected] : []
-  if (providers.length === 1 && providers[0] && typeof providers[0].request === 'function') {
-   report('Open your wallet to approve the connection if requested.')
-   // Request accounts inside the click gesture; already-authorized wallets may not show a popup.
-   var accounts = await EthscriptionCheckout.requestAccounts(providers[0])
-   await EthscriptionCheckout.identity(providers[0], accounts[0])
-   return setActive({ provider: providers[0], address: accounts[0] })
-  }
   var settings = await fetch('/api/ethscriptions', { cache: 'no-store', signal: AbortSignal.timeout(10000) }).then(function (response) {
    if (!response.ok) throw new Error('Wallet options unavailable')
    return response.json()
   }).catch(function () { return {} })
   EthscriptionCheckout.configure(settings.walletConnectProjectId || '')
   report('Choose your wallet below.')
-  return setActive(await EthscriptionCheckout.connect(host, report))
+   var provider = await EthscriptionCheckout.choose(host, report)
+   await EthscriptionCheckout.ensureChain(provider)
+   var accounts = await provider.request({ method: 'eth_accounts' })
+   if (!accounts || !accounts[0]) throw Error('No Ethereum account connected.')
+   await EthscriptionCheckout.identity(provider, accounts[0])
+   return setActive({ provider: provider, address: accounts[0] })
  }
  var api = { connect: connect, current: function () { return active } }
  if (typeof module !== 'undefined' && module.exports) module.exports = api
