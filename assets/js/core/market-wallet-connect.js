@@ -33,7 +33,7 @@
  if (!host) return
  var button = document.createElement('button'), choices = document.createElement('div'), status = document.createElement('p')
  button.type = 'button'; button.textContent = 'CONNECT ETHEREUM WALLET'
- status.setAttribute('role', 'status'); status.textContent = 'Connect your Ethereum wallet. To list or buy, also sign in to your DOSWAPZ account.'
+ status.setAttribute('role', 'status'); status.textContent = 'Connect your Ethereum wallet to view your collection and manage your listings.'
  host.append(button, choices, status)
  button.onclick = async function () {
   button.disabled = true; choices.textContent = ''

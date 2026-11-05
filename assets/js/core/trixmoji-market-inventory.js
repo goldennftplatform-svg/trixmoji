@@ -101,7 +101,16 @@
    await configure(); say('Checking wallet, custody, market and transaction…')
    var row = await client.run(kind, args, function (q) { return review(q, kind === 'list' || kind === 'depositAndList' ? args.amountWei : null, reviewTarget) }); say('Submitted ' + row.hash + '. Check confirmation before retrying.'); recovery()
    try { await reconcile(row) } catch (e) { say(e.message + ' Transaction: ' + row.hash) }
-  } catch (e) { say(e.message || 'Market action failed.') } finally { busy = false; recovery() }
+   } catch (e) {
+    var message = e.message || 'Market action failed.'
+    say(message)
+    if (reviewTarget) {
+     reviewTarget.textContent = message
+     reviewTarget.hidden = false
+     reviewTarget.setAttribute('role', 'alert')
+     if (typeof reviewTarget.scrollIntoView === 'function') reviewTarget.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+   } finally { busy = false; recovery() }
  }
  async function sendPiece(item, recipient) {
   if (busy) return; busy = true
