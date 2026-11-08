@@ -21,12 +21,12 @@ async function createMarketRuntime(config) {
  const [creator, verifier] = await Promise.all([market.creator(), market.verifier()])
  if (!same(creator, config.creator) || !same(verifier, config.signer.address)) throw Error('Market creator or protected verifier does not match configuration.')
  const registry = createCleanPopRegistry({ provider: config.provider, indexer: config.indexer, minter: config.minter,
-  abi: config.minterAbi, root: config.artworkRoot, mintPriceWei: config.mintPriceWei, mimeType: config.mintMimeType || 'image/png', allowWrappedMints: config.allowWrappedMints === true })
+  abi: config.minterAbi, root: config.artworkRoot, mintPriceWei: config.mintPriceWei, mimeType: config.mintMimeType || 'image/png', allowWrappedMints: config.allowWrappedMints === true, historyProvider: config.historyProvider || config.provider })
  const approvals = createApprovalService({ market, signer: config.signer, indexer: config.indexer, registry, minter: config.minter,
-  chainId: config.chainId, marketAddress: config.marketAddress, authenticate: config.authenticate, consumeQuota: config.consumeQuota })
+  chainId: config.chainId, marketAddress: config.marketAddress, authenticate: config.authenticate, consumeQuota: config.consumeQuota, historyProvider: config.historyProvider || config.provider })
  return {
   list: () => discoverListings({ market, indexer: config.indexer, registry, minter: config.minter,
-   startBlock: config.marketStartBlock, confirmations: config.confirmations || 2, blockChunk: config.blockChunk || 2000, maxCandidates: config.maxCandidates || 1000 }),
+   startBlock: config.marketStartBlock, confirmations: config.confirmations || 2, blockChunk: config.blockChunk || 2000, maxCandidates: config.maxCandidates || 1000, historyProvider: config.historyProvider || config.provider }),
   issueApproval: (context, body) => approvals.issue(context, body)
  }
 }

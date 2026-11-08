@@ -4,6 +4,7 @@ const { checkRateLimit } = require('../../api/lib/rate-limit')
 const { createEthscriptionsIndexer } = require('../../api/lib/trixmoji-market/ethscriptions-indexer.cjs')
 const { createCleanPopRegistry } = require('../../api/lib/trixmoji-market/clean-pop-registry.cjs')
 const { walletInventory } = require('../../api/lib/trixmoji-market/wallet-inventory.cjs')
+const { createHistoryReader } = require('../../api/lib/trixmoji-market/history-reader.cjs')
 const minter = require('../../assets/data/clean-pop-minter.json')
 
 exports.handler = async event => {
@@ -15,7 +16,9 @@ exports.handler = async event => {
  try {
   const provider = new ethers.providers.JsonRpcProvider({ url: process.env.ETH_RPC_URL || 'https://ethereum.publicnode.com', timeout: 10000 }, 1)
   const indexer = createEthscriptionsIndexer()
-  const registry = createCleanPopRegistry({ provider, indexer, minter: minter.address, abi: minter.abi, root: minter.root, mintPriceWei: minter.priceWei })
+  const fallback = new ethers.providers.JsonRpcProvider({ url: 'https://eth.drpc.org', timeout: 10000 }, 1)
+  const historyProvider = createHistoryReader(provider, fallback, 1)
+  const registry = createCleanPopRegistry({ provider, historyProvider, indexer, minter: minter.address, abi: minter.abi, root: minter.root, mintPriceWei: minter.priceWei })
   const fetchPage = async ({ wallet: address, minter: creator, pageKey: cursor }) => {
    const url = new URL('https://api.ethscriptions.com/v2/ethscriptions')
    url.searchParams.set('current_owner', address); url.searchParams.set('creator', creator); url.searchParams.set('per_page', '20')

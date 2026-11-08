@@ -2,9 +2,15 @@
 const { test } = require('node:test'), assert = require('node:assert/strict')
 const fs = require('fs'), path = require('path'), ganache = require('ganache'), solc = require('solc'), { ethers } = require('ethers')
 const artifact = require('../../assets/data/clean-pop-webp-v2-candidate.json')
+const deployment = require('../../assets/data/clean-pop-webp-v2-deployment.json')
 const manifest = require('../../assets/ethscriptions/clean-pop-webp-v2/manifest.json')
 const root = path.resolve(__dirname, '../../assets/ethscriptions/clean-pop-webp-v2')
 function art(id) { return ['data:image/webp;base64,' + fs.readFileSync(path.join(root, id + '.webp')).toString('base64'), manifest.files[id].proof, id] }
+
+test('recorded mainnet deployment matches the reviewed WebP candidate', () => {
+ assert.equal(deployment.chainId, 1); assert.equal(deployment.address, artifact.address); assert.equal(deployment.root, artifact.root); assert.equal(deployment.runtimeHash, artifact.runtimeHash)
+ assert.equal(deployment.deploymentBlock, 26367827); assert.match(deployment.deploymentTx, /^0x[a-f0-9]{64}$/)
+})
 
 test('candidate creation and runtime bytecode reproduce from normalized Solidity source', () => {
  const source = fs.readFileSync(path.resolve(__dirname, '../../api/lib/clean-pop-webp-minter.sol'), 'utf8').replace(/\r\n/g, '\n')

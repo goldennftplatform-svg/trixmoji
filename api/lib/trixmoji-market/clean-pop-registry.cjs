@@ -9,13 +9,14 @@ const createTopic = ethers.utils.id('ethscriptions_protocol_CreateEthscription(a
  * Ethscriptions indexer. All configuration is fixed by the server, never
  * supplied by a listing or approval request. No image files are rewritten.
  */
-function createCleanPopRegistry({ provider, indexer, minter, abi, root, mintPriceWei, mimeType = 'image/png', allowWrappedMints = false }) {
+function createCleanPopRegistry({ provider, indexer, minter, abi, root, mintPriceWei, mimeType = 'image/png', allowWrappedMints = false, historyProvider = provider }) {
  if (!provider || typeof provider.getTransaction !== 'function' || typeof provider.getTransactionReceipt !== 'function' || typeof indexer !== 'function' || !ethers.utils.isAddress(minter || '') || !/^0x[a-f0-9]{64}$/i.test(String(root || '')) || !abi) throw Error('Clean Pop registry is not configured.')
+ if (!historyProvider || typeof historyProvider.getTransaction !== 'function' || typeof historyProvider.getTransactionReceipt !== 'function') throw Error('Clean Pop transaction history is not configured.')
  if (!['image/png', 'image/webp'].includes(mimeType)) throw Error('Unsupported Clean Pop artwork format.')
  const iface = new ethers.utils.Interface(abi), price = ethers.BigNumber.from(mintPriceWei)
  return async function lookup(id) {
   if (!/^0x[a-f0-9]{64}$/i.test(String(id || ''))) throw Error('Invalid Ethscription ID.')
-  const [tx, receipt, indexed] = await Promise.all([provider.getTransaction(id), provider.getTransactionReceipt(id), indexer('/ethscriptions/' + id)])
+  const [tx, receipt, indexed] = await Promise.all([historyProvider.getTransaction(id), historyProvider.getTransactionReceipt(id), indexer('/ethscriptions/' + id)])
   if (!tx || !receipt || receipt.status !== 1 || !same(tx.hash, id) || !same(receipt.transactionHash, id)) throw Error('Clean Pop creation transaction is unavailable or invalid.')
   let call
   try { call = extractMintCall(tx, minter, allowWrappedMints) } catch (_) { throw Error('Clean Pop creation transaction is unavailable or invalid.') }

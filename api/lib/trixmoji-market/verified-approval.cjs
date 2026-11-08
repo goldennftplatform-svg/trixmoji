@@ -5,7 +5,7 @@ const { isDepositCalldata } = require('./deposit-calldata.cjs')
 // Production boundary: the signer is trusted to attest Ethscriptions ownership.
 // Do not call approval() directly from a public handler. Never accept an item
 // manifest, RPC URL, signer key or indexer URL from the requesting browser.
-async function verifiedApproval({ market, signer, indexer, expectedChainId, expectedMarket, minter, manifest }, request) {
+async function verifiedApproval({ market, signer, indexer, expectedChainId, expectedMarket, minter, manifest, historyProvider }, request) {
  const { id, seller, buyer, kind, amount, duration } = request
  if (!/^0x[0-9a-f]{64}$/i.test(id || '') || !ethers.utils.isAddress(seller)) throw new Error('Invalid asset or seller')
  if (![0, 1].includes(kind)) throw new Error('Invalid sale type')
@@ -26,8 +26,9 @@ async function verifiedApproval({ market, signer, indexer, expectedChainId, expe
  const deposits = (asset.ethscription_transfers || []).filter(t => eq(t.from_address, seller) && eq(t.to_address, market.address) && Number(t.block_number) === received.toNumber())
  if (deposits.length !== 1) throw new Error('Deposit proof missing or ambiguous')
  const deposit = deposits[0]
- const [tx, receipt] = await Promise.all([market.provider.getTransaction(deposit.transaction_hash), market.provider.getTransactionReceipt(deposit.transaction_hash)])
- if (!tx || !receipt || receipt.status !== 1 || receipt.blockNumber !== received.toNumber() || !eq(tx.from, seller) || !eq(tx.to, market.address) || !isDepositCalldata(tx.data, id) || !tx.value.isZero()) throw new Error('Deposit transaction mismatch')
+ const history = historyProvider || market.provider
+ const [tx, receipt] = await Promise.all([history.getTransaction(deposit.transaction_hash), history.getTransactionReceipt(deposit.transaction_hash)])
+ if (!tx || !receipt || !eq(tx.hash, deposit.transaction_hash) || !eq(receipt.transactionHash, deposit.transaction_hash) || receipt.status !== 1 || receipt.blockNumber !== received.toNumber() || !eq(tx.from, seller) || !eq(tx.to, market.address) || !isDepositCalldata(tx.data, id) || !tx.value.isZero()) throw new Error('Deposit transaction mismatch')
  if (kind === 1) {
   if (!Number.isInteger(duration) || duration < 3600 || duration > 604800 || !ethers.BigNumber.from(amount).gt(0)) throw new Error('Invalid auction terms')
   const current = await market.auctions(seller, id)

@@ -11,7 +11,7 @@ const same = (a, b) => String(a || '').toLowerCase() === String(b || '').toLower
  */
 function createApprovalService(config) {
  if (!config || !config.market || !config.signer || typeof config.indexer !== 'function' || typeof config.registry !== 'function' || typeof config.authenticate !== 'function' || typeof config.consumeQuota !== 'function' || !Number.isSafeInteger(config.chainId) || !ethers.utils.isAddress(config.marketAddress || '') || !ethers.utils.isAddress(config.minter || '')) throw Error('Protected approval service is not configured.')
- const fixed = { market: config.market, signer: config.signer, indexer: config.indexer, manifest: config.registry,
+ const fixed = { market: config.market, signer: config.signer, indexer: config.indexer, manifest: config.registry, historyProvider: config.historyProvider,
   expectedChainId: config.chainId, expectedMarket: config.marketAddress, minter: config.minter }
  return {
   async issue(context, body) {

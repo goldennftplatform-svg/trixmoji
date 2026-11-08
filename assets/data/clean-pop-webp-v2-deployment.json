@@ -1,0 +1,12 @@
+{
+  "version": "clean-pop-webp-v2-deployment",
+  "chainId": 1,
+  "address": "0xD085EB56d7195Bdf4a17bf3107FDC938a118B704",
+  "factory": "0x4e59b44847b379578588920ca78fbf26c0b4956c",
+  "deployer": "0x915A3D363D0a4e4470B531f008F5142c540E5417",
+  "deploymentTx": "0xbf88617bd7e8c1ce6749f5b6e1fc2c20a6b7773f219821323bae17ddeb866af1",
+  "deploymentBlock": 26367827,
+  "deploymentBlockHash": "0xb288faa3f25b1d15ec86738f2bc1e33d73b00537ecdce0b8a4d780f0275aa099",
+  "runtimeHash": "0x4ce7d8626b0f962fe55be514b37d3749ce69957d0a9d50025288e46cfcb747dc",
+  "root": "0xfe6a7cece9e254f117607c2ef328ca17e47141be89c50a893d1547bc2bc838cc"
+}
