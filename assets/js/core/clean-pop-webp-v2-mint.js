@@ -58,6 +58,16 @@
   return result
  }
  async function verify(row) { return json('/.netlify/functions/clean-pop-webp-v2-verify?token=' + encodeURIComponent(row.tokenNo) + '&buyer=' + encodeURIComponent(row.buyer) + '&hash=' + encodeURIComponent(row.hash)) }
+ async function finish(row) {
+  for (var attempt = 0; attempt < 24; attempt++) {
+   try { return await client.reconcile(row, verify) }
+   catch (error) {
+    if (!/not confirmed|not on Ethereum yet|indexing is pending/i.test(error.message) || attempt === 23) throw error
+    say('Mint #' + row.tokenNo + ' submitted. Waiting for confirmation and indexing before the next piece…')
+    await new Promise(function (resolve) { setTimeout(resolve, 5000) })
+   }
+  }
+ }
  function recovery() {
   var host = el('recovery'); host.textContent = ''
   pending().forEach(function (row) {
@@ -112,7 +122,7 @@
      preflight: function () { return preflight(token, image.sha) }, gasFallback: async function () { var q = await preflight(token, image.sha); return { gas: q.estimatedGas, gasPrice: q.estimatedGasPriceWei, insufficientFunds: q.insufficientFunds === true } },
      review: function (quote) { return review(token, quote) } })
     say('Mint submitted: ' + row.hash + '. Checking confirmation and indexing…'); recovery()
-    await client.reconcile(row, verify); delete selected[token]; recovery(); draw()
+    await finish(row); delete selected[token]; recovery(); draw()
    }
    say('Selected mints confirmed and indexed.')
   } catch (error) { say(error.message); recovery() } finally { busy = false; draw() }

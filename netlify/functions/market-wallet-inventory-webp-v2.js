@@ -17,7 +17,7 @@ exports.handler = async event => {
   const [network, code] = await Promise.all([provider.getNetwork(), provider.getCode(minter.address)])
   if (network.chainId !== 1 || !code || code === '0x' || ethers.utils.keccak256(code).toLowerCase() !== minter.runtimeHash.toLowerCase()) throw Error('WebP minter is not deployed with the reviewed runtime.')
   const indexer = createEthscriptionsIndexer()
-  const registry = createCleanPopRegistry({ provider, indexer, minter: minter.address, abi: minter.abi, root: minter.root, mintPriceWei: minter.priceWei, mimeType: 'image/webp' })
+  const registry = createCleanPopRegistry({ provider, indexer, minter: minter.address, abi: minter.abi, root: minter.root, mintPriceWei: minter.priceWei, mimeType: 'image/webp', allowWrappedMints: true })
   const fetchPage = async ({ wallet: address, minter: creator, pageKey: cursor }) => {
    const url = new URL('https://api.ethscriptions.com/v2/ethscriptions')
    url.searchParams.set('current_owner', address); url.searchParams.set('creator', creator); url.searchParams.set('per_page', '20')

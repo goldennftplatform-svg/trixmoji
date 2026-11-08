@@ -30,4 +30,5 @@ test('WebP preflight blocks undeployed runtime, paused/minted items, wallet cap,
  for (const options of [{ paused: true }, { minted: true }, { count: 20 }, { exists: true }]) { const m = mocks(options), result = await inspect({ token: String(token), buyer }, m); assert.equal(result.readyToRequestWallet, false); assert.equal(m.estimates(), 0) }
  const bad = await inspect({ token: String(token), buyer }, mocks({ estimateError: 'execution reverted' })); assert.equal(bad.readyToRequestWallet, false)
  const funds = await inspect({ token: String(token), buyer }, mocks({ estimateError: 'insufficient funds for gas' })); assert.equal(funds.readyToRequestWallet, true); assert.equal(funds.insufficientFunds, true)
+ const outOfFunds = await inspect({ token: String(token), buyer }, mocks({ estimateError: 'EVM error: OutOfFunds' })); assert.equal(outOfFunds.readyToRequestWallet, true); assert.equal(outOfFunds.insufficientFunds, true)
 })

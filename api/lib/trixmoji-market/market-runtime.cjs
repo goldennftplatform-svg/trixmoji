@@ -21,7 +21,7 @@ async function createMarketRuntime(config) {
  const [creator, verifier] = await Promise.all([market.creator(), market.verifier()])
  if (!same(creator, config.creator) || !same(verifier, config.signer.address)) throw Error('Market creator or protected verifier does not match configuration.')
  const registry = createCleanPopRegistry({ provider: config.provider, indexer: config.indexer, minter: config.minter,
-  abi: config.minterAbi, root: config.artworkRoot, mintPriceWei: config.mintPriceWei, mimeType: config.mintMimeType || 'image/png' })
+  abi: config.minterAbi, root: config.artworkRoot, mintPriceWei: config.mintPriceWei, mimeType: config.mintMimeType || 'image/png', allowWrappedMints: config.allowWrappedMints === true })
  const approvals = createApprovalService({ market, signer: config.signer, indexer: config.indexer, registry, minter: config.minter,
   chainId: config.chainId, marketAddress: config.marketAddress, authenticate: config.authenticate, consumeQuota: config.consumeQuota })
  return {

@@ -49,7 +49,7 @@ async function runtime(readOnly, marketArtifact = require('../assets/data/trixmo
  const indexer = createEthscriptionsIndexer({ baseUrl: process.env.ETHSCRIPTIONS_INDEXER_URL || 'https://api.ethscriptions.com/v2/' })
  return createMarketRuntime({ provider, signer, indexer, registry: undefined, authenticate: authenticatedWallet, consumeQuota: quota,
   chainId: 1, marketAddress, creator: marketArtifact.creator, marketRuntimeHash: runtimeHash, marketAbi: marketArtifact.abi,
-  minter: selectedMinter.address, minterRuntimeHash: selectedMinter.runtimeHash, minterAbi: selectedMinter.abi, artworkRoot: selectedMinter.root, mintPriceWei: selectedMinter.priceWei, mintMimeType: mimeType,
+  minter: selectedMinter.address, minterRuntimeHash: selectedMinter.runtimeHash, minterAbi: selectedMinter.abi, artworkRoot: selectedMinter.root, mintPriceWei: selectedMinter.priceWei, mintMimeType: mimeType, allowWrappedMints: mimeType === 'image/webp',
   marketStartBlock: Number(start), confirmations: 2, blockChunk: 2000, maxCandidates: 1000 })
 }
 

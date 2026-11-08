@@ -16,7 +16,7 @@ exports.handler = async event => {
  try { return { statusCode: 200, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify({ ok: true, ...await inspect(event.queryStringParameters || {}) }) } }
  catch (error) {
   const message = String(error.message || error)
-  const safe = /^(Invalid WebP|Transaction does not match this WebP|Transaction is not a supported WebP|Transaction is not a WebP mint|WebP creation event|WebP artwork proof|Minted WebP number|That transaction is not confirmed|Ethscriptions indexing is pending|The indexed Ethscription does not match)/.test(message)
+  const safe = /^(Invalid WebP|Transaction does not match this WebP|Transaction is not a supported WebP|Transaction is not a WebP mint|WebP creation event|WebP artwork proof|Minted WebP number|That transaction is not on Ethereum yet|That transaction is not confirmed|Ethscriptions indexing is pending|The indexed Ethscription does not match)/.test(message)
   return { statusCode: 400, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify({ ok: false, error: safe ? message : 'WebP mint verification is unavailable. Check the saved transaction before retrying.' }) }
  }
 }

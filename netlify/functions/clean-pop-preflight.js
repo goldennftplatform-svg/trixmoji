@@ -46,7 +46,7 @@ async function inspect(query, deps = {}) {
      gas = BigInt(values[0]).toString(); gasPrice = BigInt(values[1]).toString()
     } catch (error) { estimateError = String(error.message || error).slice(0, 400) }
    }
-    const insufficientFunds = !gas && !!estimateError && /insufficient funds|insufficient balance|exceeds (?:the )?(?:account )?balance/i.test(estimateError)
+    const insufficientFunds = !gas && !!estimateError && /insufficient funds|insufficient balance|exceeds (?:the )?(?:account )?balance|out[\s_-]*of[\s_-]*funds/i.test(estimateError)
     return { tokenNo, buyer, contract: info.address, chainId: 1, paused, minted, reserved, walletMintCount: count, contentAlreadyInscribed: index.result.exists, artworkProofValid: true, contentSha256: contentSha, estimatedGas: gas, estimatedGasPriceWei: gasPrice, estimateError, insufficientFunds, readOnly: true, readyToRequestWallet: !!gas && !!gasPrice || insufficientFunds }
   } catch (error) { lastError = error }
  }

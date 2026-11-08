@@ -30,6 +30,8 @@ test('read-only preflight validates real artwork and estimates an available mint
 test('insufficient funds allows wallet review without accepting other estimation failures', async () => {
  const insufficient = await inspect({ token: '1', buyer }, mocks({ estimateError: 'insufficient funds for gas * price + value' }))
  assert.equal(insufficient.insufficientFunds, true); assert.equal(insufficient.readyToRequestWallet, true); assert.equal(insufficient.estimatedGas, null)
+ const outOfFunds = await inspect({ token: '1', buyer }, mocks({ estimateError: 'EVM error: OutOfFunds' }))
+ assert.equal(outOfFunds.insufficientFunds, true); assert.equal(outOfFunds.readyToRequestWallet, true)
  const revert = await inspect({ token: '1', buyer }, mocks({ estimateError: 'execution reverted' }))
  assert.equal(revert.insufficientFunds, false); assert.equal(revert.readyToRequestWallet, false)
 })

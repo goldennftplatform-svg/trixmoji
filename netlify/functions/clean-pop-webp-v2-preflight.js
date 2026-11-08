@@ -44,7 +44,7 @@ async function inspect(query, deps = {}) {
     try { const values = await Promise.all([request(url, 'eth_estimateGas', [tx]), request(url, 'eth_gasPrice', [])]); gas = BigInt(values[0]).toString(); gasPrice = BigInt(values[1]).toString() }
     catch (error) {
      const message = String(error.message || error)
-     estimateError = /insufficient funds|insufficient balance|exceeds (?:the )?(?:account )?balance/i.test(message) ? 'Insufficient funds for this mint and gas.' : /execution reverted/i.test(message) ? 'Mint simulation reverted.' : 'Gas estimation is unavailable.'
+     estimateError = /insufficient funds|insufficient balance|exceeds (?:the )?(?:account )?balance|out[\s_-]*of[\s_-]*funds/i.test(message) ? 'Insufficient funds for this mint and gas.' : /execution reverted/i.test(message) ? 'Mint simulation reverted.' : 'Gas estimation is unavailable.'
     }
    }
    const insufficientFunds = !gas && !!estimateError && /insufficient funds|insufficient balance|exceeds (?:the )?(?:account )?balance/i.test(estimateError)

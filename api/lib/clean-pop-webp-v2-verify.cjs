@@ -2,6 +2,7 @@
 // Separate candidate verifier: does not replace the deployed V1 PNG verifier.
 const crypto = require('crypto'), { ethers } = require('ethers')
 const info = require('../../assets/data/clean-pop-webp-v2-candidate.json')
+const { extractMintCall } = require('./trixmoji-market/mint-call.cjs')
 const iface = new ethers.utils.Interface(info.abi)
 function validatePayload(uri, proof, tokenNo) {
  if (!Number.isInteger(tokenNo) || tokenNo < 0 || tokenNo >= 10000 || !Array.isArray(proof) || proof.length !== 14 || !/^data:image\/webp;base64,[A-Za-z0-9+/]+=*$/.test(uri)) throw Error('Invalid Clean Pop WebP artwork payload.')
@@ -26,8 +27,11 @@ function decodeCreation(input, expectedUri) {
 async function verify(chain, hash, buyer, tokenNo) {
  if (!chain.isHash(hash) || !chain.isAddr(buyer) || !Number.isInteger(tokenNo)) throw Error('Invalid WebP mint verification request.')
  const [sent, input] = await Promise.all([chain.readPhunkMint(hash), chain.readInput(hash)])
- if (!chain.same(sent.hash, hash) || !chain.same(sent.to, info.address) || !chain.same(sent.contractAddress, info.address) || !chain.same(sent.from, buyer) || !chain.same(sent.owner, buyer) || sent.value !== info.priceWei) throw Error('Transaction does not match this WebP mint.')
- const decoded = decodeCreation(input.input, sent.uri)
+ if (!chain.same(sent.hash, hash) || !chain.same(sent.contractAddress, info.address) || !chain.same(sent.from, buyer) || !chain.same(sent.owner, buyer)) throw Error('Transaction does not match this WebP mint.')
+ let call
+ try { call = extractMintCall({ to: sent.to, data: input.input, value: sent.value }, info.address, true) } catch (_) { throw Error('Transaction does not match this WebP mint.') }
+ if (!call.value.eq(info.priceWei)) throw Error('Transaction does not match this WebP mint.')
+ const decoded = decodeCreation(call.data, sent.uri)
  if (decoded.tokenNo !== tokenNo) throw Error('Minted WebP number does not match.')
  await chain.requireIndexedMint(sent)
  return { complete: true, hash: hash.toLowerCase(), tokenNo, preview: decoded.preview }
