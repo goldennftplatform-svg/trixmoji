@@ -16,6 +16,7 @@ const iface = new ethers.utils.Interface(artifact.abi)
 
 function fixture(action, accountCode = '0x', sharedStore = null, storageKey = undefined) {
   const store = sharedStore || new Map(), sends = [], calls = []
+  let sendError = null
   const provider = {
     request: async (q) => {
       calls.push(JSON.parse(JSON.stringify(q)))
@@ -33,6 +34,7 @@ function fixture(action, accountCode = '0x', sharedStore = null, storageKey = un
       }
       if (q.method === 'eth_sendTransaction') {
         assert.equal(q.params.length, 1)
+        if (sendError) throw sendError
         sends.push(q.params[0])
         return hash
       }
@@ -54,8 +56,19 @@ function fixture(action, accountCode = '0x', sharedStore = null, storageKey = un
       creator: minter
     })
   })
-  return { client, sends, calls, store, setAccountCode: code => { accountCode = code } }
+  return { client, sends, calls, store, setSendError: error => { sendError = error }, setAccountCode: code => { accountCode = code } }
 }
+
+test('explicit wallet rejections clear only the unsent request; ambiguous errors stay saved', async () => {
+  for (const error of [Object.assign(Error('rejected'), { code: 4001 }), Object.assign(Error('rejected'), { code: -32603, data: { originalError: { code: 4001 } } })]) {
+    const f = fixture('deposit'); f.setSendError(error)
+    await assert.rejects(f.client.run('deposit', { id }, q => q.approve()), /rejected/)
+    assert.equal(f.client.records().length, 0)
+  }
+  const f = fixture('deposit'); f.setSendError(Error('wallet disconnected'))
+  await assert.rejects(f.client.run('deposit', { id }, q => q.approve()), /disconnected/)
+  assert.equal(f.client.records()[0].state, 'awaiting-wallet')
+})
 
 test('V1 and WebP market transaction records remain separate', async () => {
   const v1 = fixture('deposit'), v2 = fixture('deposit', '0x', v1.store, 'trixmoji.market.contract.transaction.webp-v2')

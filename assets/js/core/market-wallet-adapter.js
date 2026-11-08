@@ -115,7 +115,12 @@
      write(row); sent = true
      var hash
      try { hash = await provider.request({ method: 'eth_sendTransaction', params: [plan.tx] }) }
-     catch (error) { if (Number(error && error.code) === 4001) remove(row.key); throw error }
+     catch (error) {
+      // Wallets may nest the EIP-1193 user-rejection code in an original error.
+      var codes = [error && error.code, error && error.data && error.data.code, error && error.data && error.data.originalError && error.data.originalError.code, error && error.error && error.error.code]
+      if (codes.some(function (code) { return Number(code) === 4001 })) remove(row.key)
+      throw error
+     }
      if (!/^0x[a-f0-9]{64}$/i.test(String(hash))) throw Error('Wallet returned no hash. Check wallet activity; do not retry.')
      row.hash = hash; row.state = 'submitted'
      try { write(row) } catch (_) { throw Error('Submitted transaction ' + hash + '. Save it; local storage failed.') }

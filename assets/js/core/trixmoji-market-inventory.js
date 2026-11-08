@@ -92,15 +92,15 @@
    var text = document.createElement('p'), b = document.createElement('button'), input = document.createElement('input')
     text.textContent = row.action + ': ' + (row.hash || 'No transaction hash returned. Check wallet Activity; do not retry.')
     if (!same(row.to, deployment.address)) { var link = document.createElement('a'); link.href = '/classic/pages/trixmoji-market.html' + (legacy ? '' : '?market=legacy'); link.textContent = 'OPEN THE OTHER ESCROW TO CHECK THIS REQUEST ↗'; recoveryBox.append(text, link); return }
-    recoveryBox.appendChild(text)
     if (!row.hash && row.state === 'awaiting-wallet' && (row.action === 'deposit' || row.action === 'depositAndList')) {
-     var confirmation = document.createElement('label'), checkbox = document.createElement('input'), clearUnsent = document.createElement('button')
-     checkbox.type = 'checkbox'; confirmation.append(checkbox, document.createTextNode(' I checked my wallet: no approval or pending transaction remains for this request.'))
-     clearUnsent.type = 'button'; clearUnsent.textContent = 'CHECK AND CLEAR UNSENT REQUEST · NO GAS'
+     var details = document.createElement('details'), summary = document.createElement('summary'), instructions = document.createElement('p'), clearUnsent = document.createElement('button'), hashDetails = document.createElement('details'), hashSummary = document.createElement('summary')
+     details.className = 'pending-request'; summary.textContent = 'Previous wallet request needs attention'
+     instructions.textContent = 'If your wallet has no pending approval or transaction, check and clear the unsent request. No gas is used.'
+     clearUnsent.type = 'button'; clearUnsent.textContent = 'I CHECKED MY WALLET · CLEAR UNSENT REQUEST'
      clearUnsent.onclick = async function () {
       clearUnsent.disabled = true
       try {
-       await client.recoverUnsent(row.key, checkbox.checked, async function (saved) {
+       await client.recoverUnsent(row.key, true, async function (saved) {
         if (!/^0x[a-f0-9]{64}$/i.test(String(saved.assetId || '')) || !same(saved.to, deployment.address)) return false
         var connection = MarketWalletConnector.current(), provider = connection && connection.provider
         if (!provider) return false
@@ -116,8 +116,12 @@
        recoveryNotice = 'Unsent deposit request checked and cleared. No transaction or gas was used.'; recovery(); say(recoveryNotice)
       } catch (error) { say(error.message); clearUnsent.disabled = false }
      }
-     recoveryBox.append(confirmation, clearUnsent)
+     hashSummary.textContent = 'I have a transaction hash'; input.placeholder = '0x transaction hash'; input.setAttribute('aria-label', 'Market transaction hash')
+     b.type = 'button'; b.textContent = 'CHECK TRANSACTION'; b.onclick = async function () { b.disabled = true; try { await reconcile(Object.assign({}, row, { hash: input.value.trim() })); recovery() } catch (error) { say(error.message); b.disabled = false } }
+     hashDetails.append(hashSummary, input, b); details.append(summary, instructions, clearUnsent, hashDetails); recoveryBox.appendChild(details)
+     return
     }
+    recoveryBox.appendChild(text)
    input.placeholder = '0x transaction hash from wallet Activity'; input.value = row.hash || ''; input.setAttribute('aria-label', 'Market transaction hash'); recoveryBox.appendChild(input)
    b.textContent = 'CHECK TRANSACTION'; b.onclick = async function () { try { await reconcile(Object.assign({}, row, { hash: input.value.trim() })); recovery() } catch (e) { say(e.message + (/wrapped deposit/i.test(e.message) ? ' If recovery already confirmed, use CHECK CLEARED RECORD · NO GAS above.' : '')) } }; recoveryBox.appendChild(b)
    if (row.action === 'deposit' || row.action === 'depositAndList') {

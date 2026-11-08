@@ -123,3 +123,27 @@ test('escrow button rechecks service on click and never requests a wallet while 
  assert.equal(requested, 0); assert.match(review.textContent, /market is not ready/i); assert.equal(review.hidden, false)
  market.tradingReady = true; button.onclick(); await new Promise(resolve => setTimeout(resolve, 30)); assert.equal(requested, 1)
 })
+test('no-hash deposit shows one compact recovery and keeps the custody checks', async () => {
+ const ids = ['walletGrid','marketStatus','moreWallet','marketReview','marketRecovery','myWallet','myEscrow','forSale','auctions','refreshWallet','withdrawCredit']
+ function element() { let text = ''; return { children: [], hidden: false, textContent: '', appendChild(x) { this.children.push(x); return x }, append(...xs) { this.children.push(...xs) }, setAttribute() {}, focus() {}, set textContent(v) { text = v; this.children = [] }, get textContent() { return text } } }
+ const els = Object.fromEntries(ids.map(x => [x, element()])), row = { key: 'pending', state: 'awaiting-wallet', hash: '', action: 'deposit', assetId: id, from: seller, to: deployment.address }, calls = []
+ const iface = new ethers.utils.Interface(artifact.abi), provider = { request: async q => { calls.push(q.method); if (q.method === 'eth_blockNumber') return '0x6e'; if (q.method === 'eth_call') return iface.encodeFunctionResult('depositBlock', [0]); throw Error('Unexpected wallet request') } }
+ const client = { records: () => [row], recoverUnsent: async (key, confirmed, verify) => { assert.equal(key, row.key); assert.equal(confirmed, true); assert.equal(await verify(row), true); row.state = 'failed' } }
+ const fetch = async url => { const s = String(url); let value
+  if (s.includes('replacement-artifact')) value = artifact
+  else if (s.includes('replacement-deployment')) value = deployment
+  else if (s.includes('market-wallet-inventory-webp-v2')) value = { items: [], nextPageKey: null }
+  else if (s.includes('trixmoji-market-webp-v2')) value = { marketAddress: deployment.address, tradingReady: true, deposits: [], auctions: [], listings: [] }
+  else if (s.includes('/v2/status')) value = { last_imported_block: 110 }
+  else if (s.includes('/v2/ethscriptions/')) value = { result: { transaction_hash: id, current_owner: seller } }
+  else throw Error('unexpected fetch ' + s)
+  return { ok: true, json: async () => value }
+ }
+ const context = { document: { getElementById: id => els[id], createElement: () => element() }, window: { addEventListener() {} }, location: { search: '?collection=webp-v2', origin: 'https://example.test' }, URL, URLSearchParams, AbortSignal, fetch, ethers, localStorage: {}, navigator: { locks: {} }, MarketWalletConnector: { current: () => ({ address: seller, provider }) }, TrixmojiMarketWallet: { create: () => client }, CleanPopTransferCheckout: { records: () => [] }, setTimeout, console }
+ vm.runInNewContext(fs.readFileSync(path.resolve(__dirname, '../../assets/js/core/trixmoji-market-inventory.js'), 'utf8'), context)
+ els.myWallet.onclick(); await new Promise(resolve => setTimeout(resolve, 30))
+ const details = els.marketRecovery.children.find(x => x.className === 'pending-request'); assert.ok(details); assert.match(details.children[0].textContent, /needs attention/)
+ assert.equal(details.children.some(x => x.textContent === 'CHECK CLEARED RECORD · NO GAS'), false)
+ await details.children.find(x => x.textContent === 'I CHECKED MY WALLET · CLEAR UNSENT REQUEST').onclick()
+ assert.equal(row.state, 'failed'); assert.equal(calls.includes('eth_sendTransaction'), false)
+})
