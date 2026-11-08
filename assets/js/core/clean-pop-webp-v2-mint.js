@@ -31,11 +31,13 @@
   return body
  }
  async function statusOfContract() {
-  await EthscriptionCheckout.identity(connection.provider, connection.address)
-  var code = await connection.provider.request({ method: 'eth_getCode', params: [info.address, 'latest'] })
+  await EthscriptionCheckout.ensureChain(connection.provider)
+  var accounts = await EthscriptionCheckout.walletRequest(connection.provider, { method: 'eth_accounts' }, 20000)
+  if (!accounts || !same(accounts[0], connection.address)) throw Error('Wallet account changed. Connect again.')
+  var code = await EthscriptionCheckout.walletRequest(connection.provider, { method: 'eth_getCode', params: [info.address, 'latest'] }, 20000)
   if (!code || code === '0x' || code === '0x0') { deployed = false; paused = true; return }
   if (!same(code, info.runtime)) throw Error('Deployed contract does not match the reviewed WebP candidate.')
-  var iface = new ethers.utils.Interface(info.abi), result = await connection.provider.request({ method: 'eth_call', params: [{ to: info.address, data: iface.encodeFunctionData('paused') }, 'latest'] })
+  var iface = new ethers.utils.Interface(info.abi), result = await EthscriptionCheckout.walletRequest(connection.provider, { method: 'eth_call', params: [{ to: info.address, data: iface.encodeFunctionData('paused') }, 'latest'] }, 20000)
   deployed = true; paused = iface.decodeFunctionResult('paused', result)[0]
  }
  async function artwork(token) {
@@ -88,8 +90,11 @@
   el('connect').disabled = true; el('walletChoices').textContent = ''
   try {
    if (!info || !manifest) throw Error('WebP mint configuration is still loading.')
+   say('Choose MetaMask, Rabby, or another wallet from the list below.')
+   var walletOptions = await fetch('/api/ethscriptions', { cache: 'no-store', signal: AbortSignal.timeout(10000) }).then(function (r) { if (!r.ok) throw Error('Wallet options unavailable.'); return r.json() }).catch(function () { return {} })
+   EthscriptionCheckout.configure(walletOptions.walletConnectProjectId || '')
    var provider = await EthscriptionCheckout.choose(el('walletChoices'), say); await EthscriptionCheckout.ensureChain(provider)
-   var accounts = await provider.request({ method: 'eth_accounts' }); if (!accounts || !accounts[0]) throw Error('No wallet account connected.')
+   var accounts = await EthscriptionCheckout.walletRequest(provider, { method: 'eth_accounts' }, 20000); if (!accounts || !accounts[0]) throw Error('No wallet account connected.')
    connection = { provider: provider, address: accounts[0] }; await statusOfContract()
    if (provider.on) { var selectedProvider = provider; var invalidate = function () { if (connection && connection.provider === selectedProvider) { connection = null; deployed = false; paused = true; say('Wallet or network changed. Connect again.'); recovery(); draw() } }; provider.on('accountsChanged', invalidate); provider.on('chainChanged', invalidate); provider.on('disconnect', invalidate) }
    say(!deployed ? 'Your wallet’s Ethereum RPC did not return the WebP contract code. Check its network and reconnect; no mint was requested.' : paused ? 'The WebP mint is paused.' : 'Wallet connected. Select pieces to mint.')
