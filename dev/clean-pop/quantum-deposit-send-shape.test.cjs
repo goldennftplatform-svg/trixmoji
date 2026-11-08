@@ -56,11 +56,11 @@ function fixture(action, accountCode = '0x', sharedStore = null, storageKey = un
       creator: minter
     })
   })
-  return { client, sends, calls, store, setSendError: error => { sendError = error }, setAccountCode: code => { accountCode = code } }
+  return { client, provider, sends, calls, store, setSendError: error => { sendError = error }, setAccountCode: code => { accountCode = code } }
 }
 
 test('explicit wallet rejections clear only the unsent request; ambiguous errors stay saved', async () => {
-  for (const error of [Object.assign(Error('rejected'), { code: 4001 }), Object.assign(Error('rejected'), { code: -32603, data: { originalError: { code: 4001 } } })]) {
+  for (const error of [Object.assign(Error('rejected'), { code: 4001 }), Object.assign(Error('rejected'), { code: 'ACTION_REJECTED' }), Object.assign(Error('rejected'), { code: -32603, data: { originalError: { code: 4001 } } })]) {
     const f = fixture('deposit'); f.setSendError(error)
     await assert.rejects(f.client.run('deposit', { id }, q => q.approve()), /rejected/)
     assert.equal(f.client.records().length, 0)
@@ -68,6 +68,25 @@ test('explicit wallet rejections clear only the unsent request; ambiguous errors
   const f = fixture('deposit'); f.setSendError(Error('wallet disconnected'))
   await assert.rejects(f.client.run('deposit', { id }, q => q.approve()), /disconnected/)
   assert.equal(f.client.records()[0].state, 'awaiting-wallet')
+})
+test('no-hash listing remains blocked until explicit confirmation and market-state verification', async () => {
+  const f = fixture('list', '0x', null, 'trixmoji.market.contract.transaction.webp-v2')
+  const row = { key: 'list-test', action: 'list', assetId: id, state: 'awaiting-wallet', hash: '', chainId: 1, from: owner, to: market, startingNonce: '16', data: iface.encodeFunctionData('list', [id, 1]) }
+  f.store.set('trixmoji.market.contract.transaction.webp-v2', JSON.stringify([row]))
+  await assert.rejects(f.client.recoverUnsent(row.key, false, async () => true), /Confirm/)
+  await assert.rejects(f.client.recoverUnsent(row.key, true, async () => false), /market or indexed asset state has changed/i)
+  assert.equal(f.client.records().length, 1)
+  assert.equal((await f.client.recoverUnsent(row.key, true, async () => true)).recovered, true)
+  assert.equal(f.client.records().length, 0); assert.equal(f.sends.length, 0)
+})
+test('no-hash recovery does not clear if the nonce changes during verification', async () => {
+  const f = fixture('list', '0x', null, 'trixmoji.market.contract.transaction.webp-v2'), original = f.provider.request
+  const row = { key: 'race', action: 'list', assetId: id, state: 'awaiting-wallet', hash: '', chainId: 1, from: owner, to: market, startingNonce: '16', data: iface.encodeFunctionData('list', [id, 1]) }
+  f.store.set('trixmoji.market.contract.transaction.webp-v2', JSON.stringify([row]))
+  let nonceReads = 0
+  f.provider.request = q => q.method === 'eth_getTransactionCount' && ++nonceReads > 2 ? Promise.resolve('0x11') : original(q)
+  await assert.rejects(f.client.recoverUnsent(row.key, true, async () => true), /nonce changed/i)
+  assert.equal(f.client.records().length, 1); assert.equal(f.sends.length, 0)
 })
 
 test('V1 and WebP market transaction records remain separate', async () => {

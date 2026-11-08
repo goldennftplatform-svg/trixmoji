@@ -1,7 +1,7 @@
 (function () {
  'use strict'
  var grid = document.getElementById('walletGrid'), status = document.getElementById('marketStatus'), more = document.getElementById('moreWallet'), reviewBox = document.getElementById('marketReview'), recoveryBox = document.getElementById('marketRecovery')
- var cursor = null, generation = 0, view = 'wallet', board = null, client = null, busy = false, artifact, deployment, recoveryNotice = ''
+ var cursor = null, generation = 0, view = 'wallet', board = null, client = null, busy = false, artifact, deployment, recoveryNotice = '', activeSubmissionKey = null
   var params = new URLSearchParams(location.search), webpV2 = params.get('collection') === 'webp-v2'
   var legacy = !webpV2 && params.get('market') === 'legacy'
   var marketUrl = webpV2 ? '/.netlify/functions/trixmoji-market-webp-v2' : legacy ? '/.netlify/functions/trixmoji-market' : '/.netlify/functions/trixmoji-market-replacement'
@@ -37,7 +37,7 @@
   var names = { deposit: 'Deposited', depositAndList: 'Deposited', list: 'Listed', cancel: 'Cancelled', buy: 'Sold', auction: 'AuctionStarted', bid: 'Bid', settle: 'AuctionSettled', withdraw: 'CreditWithdrawn' }, iface = new ethers.utils.Interface(artifact.abi), event
   for (var log of receipt.logs || []) {
    if (!same(log.address, deployment.address)) continue
-   try { var parsed = iface.parseLog(log); if (parsed.name === names[row.action] && (!row.assetId || same(parsed.args.id, row.assetId))) { event = parsed; break } } catch (_) {}
+   try { var parsed = iface.parseLog(log); if (parsed.name === names[row.action] && (!row.assetId || same(parsed.args.id, row.assetId)) && (!['deposit', 'depositAndList', 'list', 'cancel'].includes(row.action) || same(parsed.args.seller, row.from))) { event = parsed; break } } catch (_) {}
   }
   if (!event) return false
   if (row.action === 'depositAndList') {
@@ -46,18 +46,29 @@
   }
   if (['deposit', 'cancel', 'buy', 'settle'].includes(row.action)) {
    var indexed = await asset(row.assetId), expected = row.action === 'deposit' ? deployment.address : row.action === 'settle' ? event.args.buyer : row.from
+   if (row.action === 'deposit') return same(indexed.current_owner, expected) && same(indexed.previous_owner, row.from) && Array.isArray(indexed.ethscription_transfers) && indexed.ethscription_transfers.some(function (t) { return same(t.transaction_hash, row.hash) && same(t.from_address, row.from) && same(t.to_address, deployment.address) })
    return same(indexed.current_owner, expected)
   }
   return true
  }
  async function reconcile(row) { var result = await client.reconcile(row, verify); say(result.failed ? 'Transaction failed. Check wallet activity.' : 'Transaction confirmed and verified.'); await load(false) }
- async function reconcileSubmittedListings() {
+ async function reconcileSubmittedActions() {
   if (!client || !deployment) return
   var connection = MarketWalletConnector.current()
   if (!connection) return
-  var pending = client.records().filter(function (row) { return row && row.state === 'submitted' && row.action === 'list' && /^0x[a-f0-9]{64}$/i.test(String(row.hash || '')) && same(row.to, deployment.address) && same(row.from, connection.address) })
+  var pending = client.records().filter(function (row) { return row && row.state === 'submitted' && ['list', 'deposit', 'depositAndList'].includes(row.action) && /^0x[a-f0-9]{64}$/i.test(String(row.hash || '')) && same(row.to, deployment.address) && same(row.from, connection.address) })
   for (var row of pending) {
    try { await client.reconcile(row, verify) } catch (_) { /* Keep unresolved requests visible for manual checks. */ }
+  }
+ }
+ async function waitForDeposit(row, targetClient) {
+  for (var attempt = 0; attempt < 24; attempt++) {
+   try { return await targetClient.reconcile(row, verify) }
+   catch (error) {
+    if (!/not confirmed|indexing.*pending|indexer.*unavailable|not found/i.test(error.message) || attempt === 23) throw error
+    say('Deposit submitted. Waiting for confirmation and indexed custody…')
+    await new Promise(function (resolve) { setTimeout(resolve, 5000) })
+   }
   }
  }
  async function reconcileKnownRecovery() {
@@ -89,10 +100,11 @@
   recoveryBox.textContent = ''
   if (recoveryNotice) { var notice = document.createElement('p'); notice.textContent = recoveryNotice; recoveryBox.appendChild(notice) }
   if (client) client.records().filter(function (r) { return r.state !== 'complete' && r.state !== 'failed' }).forEach(function (row) {
+   if (row.key === activeSubmissionKey) return
    var text = document.createElement('p'), b = document.createElement('button'), input = document.createElement('input')
     text.textContent = row.action + ': ' + (row.hash || 'No transaction hash returned. Check wallet Activity; do not retry.')
     if (!same(row.to, deployment.address)) { var link = document.createElement('a'); link.href = '/classic/pages/trixmoji-market.html' + (legacy ? '' : '?market=legacy'); link.textContent = 'OPEN THE OTHER ESCROW TO CHECK THIS REQUEST ↗'; recoveryBox.append(text, link); return }
-    if (!row.hash && row.state === 'awaiting-wallet' && (row.action === 'deposit' || row.action === 'depositAndList')) {
+    if (!row.hash && row.state === 'awaiting-wallet' && (row.action === 'deposit' || row.action === 'depositAndList' || row.action === 'list')) {
      var details = document.createElement('details'), summary = document.createElement('summary'), instructions = document.createElement('p'), clearUnsent = document.createElement('button'), hashDetails = document.createElement('details'), hashSummary = document.createElement('summary')
      details.className = 'pending-request'; summary.textContent = 'Previous wallet request needs attention'
      instructions.textContent = 'If your wallet has no pending approval or transaction, check and clear the unsent request. No gas is used.'
@@ -108,12 +120,21 @@
         var checks = await Promise.all([
          asset(saved.assetId), json('https://api.ethscriptions.com/v2/status'),
          provider.request({ method: 'eth_blockNumber', params: [] }),
-         provider.request({ method: 'eth_call', params: [{ to: deployment.address, data: iface.encodeFunctionData('depositBlock', [saved.from, saved.assetId]) }, 'latest'] })
+         provider.request({ method: 'eth_call', params: [{ to: deployment.address, data: iface.encodeFunctionData('depositBlock', [saved.from, saved.assetId]) }, 'latest'] }),
+         saved.action === 'list' ? provider.request({ method: 'eth_call', params: [{ to: deployment.address, data: iface.encodeFunctionData('listings', [saved.from, saved.assetId]) }, 'latest'] }) : Promise.resolve(null)
         ])
         var head = Number(BigInt(checks[2])), indexed = Number(checks[1] && checks[1].last_imported_block)
-        return Number.isSafeInteger(head) && Number.isSafeInteger(indexed) && indexed <= head && head - indexed <= 12 && same(checks[0].transaction_hash, saved.assetId) && same(checks[0].current_owner, saved.from) && iface.decodeFunctionResult('depositBlock', checks[3])[0].isZero()
+        if (!Number.isSafeInteger(head) || !Number.isSafeInteger(indexed) || indexed > head || head - indexed > 12 || !same(checks[0].transaction_hash, saved.assetId)) return false
+        var recorded = iface.decodeFunctionResult('depositBlock', checks[3])[0]
+        if (saved.action === 'list') {
+         var requested
+         try { requested = iface.decodeFunctionData('list', saved.data) } catch (_) { return false }
+         var current = iface.decodeFunctionResult('listings', checks[4])
+         return same(requested.id, saved.assetId) && same(checks[0].current_owner, deployment.address) && same(checks[0].previous_owner, saved.from) && !recorded.isZero() && !current.price.eq(requested.price)
+        }
+        return same(checks[0].current_owner, saved.from) && recorded.isZero()
        })
-       recoveryNotice = 'Unsent deposit request checked and cleared. No transaction or gas was used.'; recovery(); say(recoveryNotice)
+       recoveryNotice = 'Unsent ' + row.action + ' request checked and cleared. No transaction or gas was used.'; recovery(); say(recoveryNotice)
       } catch (error) { say(error.message); clearUnsent.disabled = false }
      }
      hashSummary.textContent = 'I have a transaction hash'; input.placeholder = '0x transaction hash'; input.setAttribute('aria-label', 'Market transaction hash')
@@ -121,17 +142,19 @@
      hashDetails.append(hashSummary, input, b); details.append(summary, instructions, clearUnsent, hashDetails); recoveryBox.appendChild(details)
      return
     }
-    recoveryBox.appendChild(text)
-   input.placeholder = '0x transaction hash from wallet Activity'; input.value = row.hash || ''; input.setAttribute('aria-label', 'Market transaction hash'); recoveryBox.appendChild(input)
-   b.textContent = 'CHECK TRANSACTION'; b.onclick = async function () { try { await reconcile(Object.assign({}, row, { hash: input.value.trim() })); recovery() } catch (e) { say(e.message + (/wrapped deposit/i.test(e.message) ? ' If recovery already confirmed, use CHECK CLEARED RECORD · NO GAS above.' : '')) } }; recoveryBox.appendChild(b)
+    var entryHost = recoveryBox
+    if (row.hash) { var submittedDetails = document.createElement('details'), submittedSummary = document.createElement('summary'); submittedDetails.className = 'pending-request'; submittedSummary.textContent = 'Recent transaction · verification pending'; submittedDetails.appendChild(submittedSummary); recoveryBox.appendChild(submittedDetails); entryHost = submittedDetails }
+    entryHost.appendChild(text)
+   input.placeholder = '0x transaction hash from wallet Activity'; input.value = row.hash || ''; input.setAttribute('aria-label', 'Market transaction hash'); entryHost.appendChild(input)
+   b.textContent = 'CHECK TRANSACTION'; b.onclick = async function () { try { await reconcile(Object.assign({}, row, { hash: input.value.trim() })); recovery() } catch (e) { say(e.message + (/wrapped deposit/i.test(e.message) ? ' If recovery already confirmed, use CHECK CLEARED RECORD · NO GAS above.' : '')) } }; entryHost.appendChild(b)
    if (row.action === 'deposit' || row.action === 'depositAndList') {
     var cancelInput = document.createElement('input'), resolveButton = document.createElement('button')
     cancelInput.placeholder = '0x confirmed cancellation / recovery hash'; cancelInput.setAttribute('aria-label', 'Confirmed escrow recovery transaction hash')
     if (same(row.hash, '0x9de253efbaeb700b2947630706ce0234c19b23a8eb3ab16d1adb40db0e5a57c5')) cancelInput.value = '0x430a0f0cafa463ab9d8b075b68d88ec4bc9639a9490132f164dfb08d801e93db'
     resolveButton.type = 'button'; resolveButton.textContent = 'CHECK CLEARED RECORD · NO GAS'
     resolveButton.onclick = async function () { resolveButton.disabled = true; try { await client.reconcileClearedWrapped(row.key, cancelInput.value.trim(), function () { return json('https://api.ethscriptions.com/v2/status') }); say('Recovered deposit verified: escrow record is clear and the piece remains in your wallet. No transaction was sent.'); recovery() } catch (e) { say(e.message); resolveButton.disabled = false } }
-    recoveryBox.append(cancelInput, resolveButton)
-    if (!legacy && same(row.from, '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E') && same(row.assetId, '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74')) { var recoveryLink = document.createElement('a'); recoveryLink.href = '/classic/pages/replacement-6-recovery.html'; recoveryLink.textContent = 'OPEN #6 ESCROW RECORD RECOVERY ↗'; recoveryBox.appendChild(recoveryLink) }
+    entryHost.append(cancelInput, resolveButton)
+    if (!legacy && same(row.from, '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E') && same(row.assetId, '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74')) { var recoveryLink = document.createElement('a'); recoveryLink.href = '/classic/pages/replacement-6-recovery.html'; recoveryLink.textContent = 'OPEN #6 ESCROW RECORD RECOVERY ↗'; entryHost.appendChild(recoveryLink) }
    }
   })
   if (!webpV2) CleanPopTransferCheckout.records().filter(function (r) { return r.state !== 'complete' && r.state !== 'failed' }).forEach(function (row) {
@@ -157,7 +180,7 @@
  async function action(kind, args, reviewTarget) {
   if (busy) return; busy = true
   try {
-   await configure(); say('Checking saved recovery records…'); await reconcileKnownRecovery(); await reconcileSubmittedListings(); recovery()
+   await configure(); say('Checking saved recovery records…'); await reconcileKnownRecovery(); await reconcileSubmittedActions(); recovery()
    if (kind === 'deposit' || kind === 'depositAndList') {
     say('Checking market availability…')
     var currentBoard = await json(marketUrl)
@@ -165,8 +188,11 @@
     board = currentBoard
    }
    say('Checking wallet, custody, market and transaction…')
-   var row = await client.run(kind, args, function (q) { return review(q, kind === 'list' || kind === 'depositAndList' || kind === 'auction' ? args.amountWei : null, reviewTarget, kind === 'auction' ? args.duration : null) }); say('Submitted ' + row.hash + '. Check confirmation before retrying.'); recovery()
-   try { await reconcile(row) } catch (e) { say(e.message + ' Transaction: ' + row.hash) }
+   var row = await client.run(kind, args, function (q) { return review(q, kind === 'list' || kind === 'depositAndList' || kind === 'auction' ? args.amountWei : null, reviewTarget, kind === 'auction' ? args.duration : null) }); activeSubmissionKey = row.key; say('Submitted ' + row.hash + '. Checking confirmation…'); recovery()
+   try {
+    if (kind === 'deposit' || kind === 'depositAndList') { var result = await waitForDeposit(row, client); say(result.failed ? 'Transaction failed. Check wallet activity.' : 'Deposit confirmed and indexed. Open MY ESCROW to list it.'); await load(false) }
+    else await reconcile(row)
+   } catch (e) { say(e.message + ' Transaction: ' + row.hash) }
    } catch (e) {
     var message = e.message || 'Market action failed.'
     say(message)
@@ -176,7 +202,7 @@
      reviewTarget.setAttribute('role', 'alert')
      if (typeof reviewTarget.scrollIntoView === 'function') reviewTarget.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
-   } finally { busy = false; recovery() }
+   } finally { activeSubmissionKey = null; busy = false; recovery() }
  }
  async function sendPiece(item, recipient) {
   if (webpV2) return action('gift', { id: item.id, recipient: recipient.trim() })
@@ -263,7 +289,7 @@
   if (!append) { grid.textContent = ''; cursor = null }
   more.hidden = true; say('Loading verified market data…')
   try {
-   if (connection) { await configure(); await reconcileKnownRecovery(); await reconcileSubmittedListings(); recovery() }
+   if (connection) { await configure(); await reconcileKnownRecovery(); await reconcileSubmittedActions(); recovery() }
    try { board = await json(marketUrl); if (!same(board.marketAddress, expectedMarket)) throw Error('Wrong market service.') } catch (_) { board = null }
    if (request !== generation) return
    if (view === 'wallet') {

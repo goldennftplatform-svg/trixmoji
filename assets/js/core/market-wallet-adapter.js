@@ -118,7 +118,8 @@
      catch (error) {
       // Wallets may nest the EIP-1193 user-rejection code in an original error.
       var codes = [error && error.code, error && error.data && error.data.code, error && error.data && error.data.originalError && error.data.originalError.code, error && error.error && error.error.code]
-      if (codes.some(function (code) { return Number(code) === 4001 })) remove(row.key)
+      var rejected = codes.some(function (code) { return Number(code) === 4001 || code === 'ACTION_REJECTED' })
+      if (rejected) remove(row.key)
       throw error
      }
      if (!/^0x[a-f0-9]{64}$/i.test(String(hash))) throw Error('Wallet returned no hash. Check wallet activity; do not retry.')
@@ -140,7 +141,18 @@
    if (BigInt(await rpc('eth_chainId')) !== BigInt(chainId)) throw Error('Wallet is on the wrong network.')
    var values = await Promise.all([rpc('eth_getTransactionByHash', [row.hash]), rpc('eth_getTransactionReceipt', [row.hash])]), tx = values[0], receipt = values[1]
    if (!tx || !receipt) throw Error('Transaction is not confirmed. Do not retry.')
-   if (!same(tx.from, row.from) || !same(tx.to, row.to) || !same(tx.input || tx.data, row.data) || !ethers.BigNumber.from(tx.value).eq(row.value)) {
+   var matches = same(tx.from, row.from) && same(tx.to, row.to) && same(tx.input || tx.data, row.data) && ethers.BigNumber.from(tx.value).eq(row.value)
+   // Listing is an ordinary contract call, so a successful wallet wrapper can
+   // be verified through its single inner call and the escrow's Listed event.
+   // Ethscription deposits remain restricted to a direct outer transaction.
+   if (!matches && row.action === 'list' && same(tx.from, row.from) && same(tx.to, '0xdb9B1e94B5b69Df7e401DDbedE43491141047dB3') && ethers.BigNumber.from(tx.value).isZero()) {
+    try {
+     var wrapper = new ethers.utils.Interface(['function redeemDelegations(bytes[] permissionContexts, bytes32[] modes, bytes[] executionCallDatas)'])
+     var parsed = wrapper.parseTransaction({ data: tx.input || tx.data }), execution = parsed.args.executionCallDatas[0]
+     matches = parsed.name === 'redeemDelegations' && parsed.args.permissionContexts.length === 1 && parsed.args.modes.length === 1 && parsed.args.executionCallDatas.length === 1 && same(parsed.args.modes[0], ethers.constants.HashZero) && ethers.utils.hexDataLength(execution) >= 56 && same(ethers.utils.hexDataSlice(execution, 0, 20), row.to) && ethers.BigNumber.from(ethers.utils.hexDataSlice(execution, 20, 52)).eq(row.value) && same(ethers.utils.hexDataSlice(execution, 52), row.data)
+    } catch (_) { matches = false }
+   }
+   if (!matches) {
      if ((row.action === 'deposit' || row.action === 'depositAndList') && receipt.status === '0x1' && same(tx.from, row.from) && !same(tx.to, row.to)) {
      var found = (receipt.logs || []).some(function (log) { if (!same(log.address, market)) return false; try { var event = iface.parseLog(log); return event.name === 'Deposited' && same(event.args.seller, row.from) && same(event.args.id, row.assetId) } catch (_) { return false } })
      if (found) {
@@ -164,8 +176,10 @@
     var account = await identity()
     if (!same(account, row.from) || row.chainId !== chainId) throw Error('Reconnect the original wallet on the original network.')
     var nonceValues = await Promise.all([rpc('eth_getTransactionCount', [account, 'latest']), rpc('eth_getTransactionCount', [account, 'pending'])])
-    if (!ethers.BigNumber.from(nonceValues[0]).eq(row.startingNonce) || !ethers.BigNumber.from(nonceValues[1]).eq(row.startingNonce)) throw Error('Wallet nonce changed or a transaction is pending. Inspect wallet activity before retrying.')
-    if (!(await verifyNotApplied(row))) throw Error('The market or indexed asset state has changed. Inspect the transaction before retrying.')
+   if (!ethers.BigNumber.from(nonceValues[0]).eq(row.startingNonce) || !ethers.BigNumber.from(nonceValues[1]).eq(row.startingNonce)) throw Error('Wallet nonce changed or a transaction is pending. Inspect wallet activity before retrying.')
+   if (!(await verifyNotApplied(row))) throw Error('The market or indexed asset state has changed. Inspect the transaction before retrying.')
+   nonceValues = await Promise.all([rpc('eth_getTransactionCount', [account, 'latest']), rpc('eth_getTransactionCount', [account, 'pending'])])
+   if (!ethers.BigNumber.from(nonceValues[0]).eq(row.startingNonce) || !ethers.BigNumber.from(nonceValues[1]).eq(row.startingNonce)) throw Error('Wallet nonce changed or a transaction is pending. Inspect wallet activity before retrying.')
     if (config.storage.getItem(KEY) !== snapshot) throw Error('Saved transaction changed while checking. Reload and inspect it.')
     config.storage.setItem(KEY + '.recovery.' + Date.now(), JSON.stringify({ original: row, at: new Date().toISOString() }))
     remove(row.key); return { recovered: true }

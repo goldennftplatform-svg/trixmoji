@@ -101,6 +101,46 @@ test('confirmed submitted listing is checked on load without sending a transacti
  els.myWallet.onclick(); await new Promise(resolve => setTimeout(resolve, 30))
  assert.deepEqual(calls, [row.hash]); assert.equal(row.state, 'complete')
 })
+test('submitted deposit clears automatically only after the exact indexed transfer is confirmed', async () => {
+ const ids = ['walletGrid','marketStatus','moreWallet','marketReview','marketRecovery','myWallet','myEscrow','forSale','auctions','refreshWallet','withdrawCredit']
+ function element() { let text = ''; return { children: [], hidden: false, value: '', set textContent(v) { text = v; this.children = [] }, get textContent() { return text }, appendChild(x) { this.children.push(x); return x }, append(...xs) { this.children.push(...xs) }, setAttribute() {}, focus() {} } }
+ const els = Object.fromEntries(ids.map(x => [x, element()])), hash = ethers.utils.id('submitted-deposit'), row = { key: 'deposit', action: 'deposit', assetId: id, hash, from: seller, to: deployment.address, state: 'submitted' }
+ const iface = new ethers.utils.Interface(artifact.abi), event = iface.encodeEventLog(iface.getEvent('Deposited'), [seller, id, 100]), receipt = { logs: [{ address: deployment.address, ...event }] }
+ let correctTransfer = false, checks = 0
+ const client = { records: () => [row], reconcile: async (item, verify) => { checks++; if (!await verify(item, receipt)) throw Error('indexing pending'); item.state = 'complete'; return { complete: true } } }
+ const fetch = async url => { const s = String(url); let value
+  if (s.includes('replacement-artifact')) value = artifact
+  else if (s.includes('replacement-deployment')) value = deployment
+  else if (s.includes('market-wallet-inventory-webp-v2')) value = { items: [], nextPageKey: null }
+  else if (s.includes('trixmoji-market-webp-v2')) value = { marketAddress: deployment.address, tradingReady: true, deposits: [], auctions: [], listings: [] }
+  else if (s.includes('/v2/ethscriptions/')) value = { result: { transaction_hash: id, current_owner: deployment.address, previous_owner: seller, ethscription_transfers: [{ transaction_hash: correctTransfer ? hash : ethers.constants.HashZero, from_address: seller, to_address: deployment.address }] } }
+  else throw Error('unexpected fetch ' + s)
+  return { ok: true, json: async () => value }
+ }
+ const context = { document: { getElementById: id => els[id], createElement: () => element() }, window: { addEventListener() {} }, location: { search: '?collection=webp-v2', origin: 'https://example.test' }, URL, URLSearchParams, AbortSignal, fetch, ethers, localStorage: {}, navigator: { locks: {} }, MarketWalletConnector: { current: () => ({ address: seller, provider: {} }) }, TrixmojiMarketWallet: { create: () => client }, CleanPopTransferCheckout: { records: () => [] }, setTimeout, console }
+ vm.runInNewContext(fs.readFileSync(path.resolve(__dirname, '../../assets/js/core/trixmoji-market-inventory.js'), 'utf8'), context)
+ els.myWallet.onclick(); await new Promise(resolve => setTimeout(resolve, 30)); assert.equal(row.state, 'submitted')
+ correctTransfer = true; els.myWallet.onclick(); await new Promise(resolve => setTimeout(resolve, 30)); assert.equal(row.state, 'complete'); assert.equal(checks, 2)
+})
+test('new deposit waits through indexing without showing recovery controls', async () => {
+ const ids = ['walletGrid','marketStatus','moreWallet','marketReview','marketRecovery','myWallet','myEscrow','forSale','auctions','refreshWallet','withdrawCredit']
+ function element() { let text = ''; return { children: [], hidden: false, value: '', set textContent(v) { text = v; this.children = [] }, get textContent() { return text }, appendChild(x) { this.children.push(x); return x }, append(...xs) { this.children.push(...xs) }, setAttribute() {}, focus() {} } }
+ const els = Object.fromEntries(ids.map(x => [x, element()])), hash = ethers.utils.id('new-deposit'), row = { key: 'deposit', action: 'deposit', assetId: id, hash, from: seller, to: deployment.address, state: 'submitted' }
+ let submitted = false, checks = 0
+ const client = { records: () => submitted ? [row] : [], run: async () => { submitted = true; return row }, reconcile: async () => { checks++; if (checks === 1) throw Error('Transaction is not confirmed.'); row.state = 'complete'; return { complete: true } } }
+ const fetch = async url => { const s = String(url); let value
+  if (s.includes('replacement-artifact')) value = artifact
+  else if (s.includes('replacement-deployment')) value = deployment
+  else if (s.includes('market-wallet-inventory-webp-v2')) value = { items: [{ id, tokenNo: 2 }], nextPageKey: null }
+  else if (s.includes('trixmoji-market-webp-v2')) value = { marketAddress: deployment.address, tradingReady: true, deposits: [], auctions: [], listings: [] }
+  else throw Error('unexpected fetch ' + s)
+  return { ok: true, json: async () => value }
+ }
+ const context = { document: { getElementById: id => els[id], createElement: () => element() }, window: { addEventListener() {} }, location: { search: '?collection=webp-v2', origin: 'https://example.test' }, URL, URLSearchParams, AbortSignal, fetch, ethers, localStorage: {}, navigator: { locks: {} }, MarketWalletConnector: { current: () => ({ address: seller, provider: {} }) }, TrixmojiMarketWallet: { create: () => client }, CleanPopTransferCheckout: { records: () => [] }, setTimeout: fn => setTimeout(fn, 0), console }
+ vm.runInNewContext(fs.readFileSync(path.resolve(__dirname, '../../assets/js/core/trixmoji-market-inventory.js'), 'utf8'), context)
+ els.myWallet.onclick(); await new Promise(resolve => setTimeout(resolve, 30)); els.walletGrid.children[0].children.find(x => x.textContent === 'MOVE TO ESCROW').onclick()
+ await new Promise(resolve => setTimeout(resolve, 40)); assert.equal(row.state, 'complete'); assert.equal(checks, 2); assert.equal(els.marketRecovery.children.length, 0)
+})
 test('escrow button rechecks service on click and never requests a wallet while unavailable', async () => {
  const ids = ['walletGrid','marketStatus','moreWallet','marketReview','marketRecovery','myWallet','myEscrow','forSale','auctions','refreshWallet','withdrawCredit']
  function element() { return { children: [], hidden: false, textContent: '', appendChild(x) { this.children.push(x); return x }, append(...xs) { this.children.push(...xs) }, setAttribute() {}, focus() {} } }
@@ -146,4 +186,29 @@ test('no-hash deposit shows one compact recovery and keeps the custody checks', 
  assert.equal(details.children.some(x => x.textContent === 'CHECK CLEARED RECORD · NO GAS'), false)
  await details.children.find(x => x.textContent === 'I CHECKED MY WALLET · CLEAR UNSENT REQUEST').onclick()
  assert.equal(row.state, 'failed'); assert.equal(calls.includes('eth_sendTransaction'), false)
+})
+test('no-hash listing can be cleared only when the requested price is not already on chain', async () => {
+ const ids = ['walletGrid','marketStatus','moreWallet','marketReview','marketRecovery','myWallet','myEscrow','forSale','auctions','refreshWallet','withdrawCredit']
+ function element() { let text = ''; return { children: [], hidden: false, textContent: '', appendChild(x) { this.children.push(x); return x }, append(...xs) { this.children.push(...xs) }, setAttribute() {}, focus() {}, set textContent(v) { text = v; this.children = [] }, get textContent() { return text } } }
+ const els = Object.fromEntries(ids.map(x => [x, element()])), iface = new ethers.utils.Interface(artifact.abi), wanted = ethers.utils.parseEther('0.01')
+ const row = { key: 'pending-list', state: 'awaiting-wallet', hash: '', action: 'list', assetId: id, from: seller, to: deployment.address, data: iface.encodeFunctionData('list', [id, wanted]) }, calls = []
+ let currentPrice = wanted
+ const provider = { request: async q => { calls.push(q.method); if (q.method === 'eth_blockNumber') return '0x6e'; if (q.method === 'eth_call') { const fn = iface.parseTransaction({ data: q.params[0].data }).name; return fn === 'depositBlock' ? iface.encodeFunctionResult(fn, [100]) : iface.encodeFunctionResult(fn, [currentPrice, 1]) } throw Error('Unexpected wallet request') } }
+ const client = { records: () => [row], recoverUnsent: async (key, confirmed, verify) => { assert.equal(key, row.key); assert.equal(confirmed, true); if (!await verify(row)) throw Error('Market state changed'); row.state = 'failed' } }
+ const fetch = async url => { const s = String(url); let value
+  if (s.includes('replacement-artifact')) value = artifact
+  else if (s.includes('replacement-deployment')) value = deployment
+  else if (s.includes('market-wallet-inventory-webp-v2')) value = { items: [], nextPageKey: null }
+  else if (s.includes('trixmoji-market-webp-v2')) value = { marketAddress: deployment.address, tradingReady: true, deposits: [], auctions: [], listings: [] }
+  else if (s.includes('/v2/status')) value = { last_imported_block: 110 }
+  else if (s.includes('/v2/ethscriptions/')) value = { result: { transaction_hash: id, current_owner: deployment.address, previous_owner: seller } }
+  else throw Error('unexpected fetch ' + s)
+  return { ok: true, json: async () => value }
+ }
+ const context = { document: { getElementById: id => els[id], createElement: () => element() }, window: { addEventListener() {} }, location: { search: '?collection=webp-v2', origin: 'https://example.test' }, URL, URLSearchParams, AbortSignal, fetch, ethers, localStorage: {}, navigator: { locks: {} }, MarketWalletConnector: { current: () => ({ address: seller, provider }) }, TrixmojiMarketWallet: { create: () => client }, CleanPopTransferCheckout: { records: () => [] }, setTimeout, console }
+ vm.runInNewContext(fs.readFileSync(path.resolve(__dirname, '../../assets/js/core/trixmoji-market-inventory.js'), 'utf8'), context)
+ els.myWallet.onclick(); await new Promise(resolve => setTimeout(resolve, 30))
+ const details = els.marketRecovery.children.find(x => x.className === 'pending-request'), clear = details.children.find(x => x.textContent === 'I CHECKED MY WALLET · CLEAR UNSENT REQUEST')
+ await clear.onclick(); assert.equal(row.state, 'awaiting-wallet'); assert.match(els.marketStatus.textContent, /Market state changed/)
+ currentPrice = ethers.constants.Zero; await clear.onclick(); assert.equal(row.state, 'failed'); assert.equal(calls.includes('eth_sendTransaction'), false)
 })
