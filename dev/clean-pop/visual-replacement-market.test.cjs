@@ -101,3 +101,25 @@ test('confirmed submitted listing is checked on load without sending a transacti
  els.myWallet.onclick(); await new Promise(resolve => setTimeout(resolve, 30))
  assert.deepEqual(calls, [row.hash]); assert.equal(row.state, 'complete')
 })
+test('escrow button rechecks service on click and never requests a wallet while unavailable', async () => {
+ const ids = ['walletGrid','marketStatus','moreWallet','marketReview','marketRecovery','myWallet','myEscrow','forSale','auctions','refreshWallet','withdrawCredit']
+ function element() { return { children: [], hidden: false, textContent: '', appendChild(x) { this.children.push(x); return x }, append(...xs) { this.children.push(...xs) }, setAttribute() {}, focus() {} } }
+ const els = Object.fromEntries(ids.map(x => [x, element()])), market = { marketAddress: deployment.address, tradingReady: false, deposits: [], auctions: [], listings: [] }
+ let requested = 0
+ const client = { records: () => [], run: async () => { requested++; throw Error('test stop before wallet') } }
+ const fetch = async url => { const s = String(url); let value
+  if (s.includes('replacement-artifact')) value = artifact
+  else if (s.includes('replacement-deployment')) value = deployment
+  else if (s.includes('market-wallet-inventory')) value = { items: [{ id, tokenNo: 6 }], nextPageKey: null }
+  else if (s.includes('trixmoji-market-replacement')) value = market
+  else throw Error('unexpected fetch ' + s)
+  return { ok: true, json: async () => value }
+ }
+ const context = { document: { getElementById: id => els[id], createElement: () => element() }, window: { addEventListener() {} }, location: { search: '', origin: 'https://example.test' }, URL, URLSearchParams, AbortSignal, fetch, ethers, localStorage: {}, navigator: { locks: {} }, MarketWalletConnector: { current: () => ({ address: seller, provider: {} }) }, TrixmojiMarketWallet: { create: () => client }, CleanPopTransferCheckout: { records: () => [] }, setTimeout, console }
+ vm.runInNewContext(fs.readFileSync(path.resolve(__dirname, '../../assets/js/core/trixmoji-market-inventory.js'), 'utf8'), context)
+ els.myWallet.onclick(); await new Promise(resolve => setTimeout(resolve, 30))
+ const card = els.walletGrid.children[0], button = card.children.find(x => x.textContent === 'MOVE TO ESCROW'), review = card.children.find(x => x.className === 'market-review')
+ assert.equal(button.disabled, false); button.onclick(); await new Promise(resolve => setTimeout(resolve, 30))
+ assert.equal(requested, 0); assert.match(review.textContent, /market is not ready/i); assert.equal(review.hidden, false)
+ market.tradingReady = true; button.onclick(); await new Promise(resolve => setTimeout(resolve, 30)); assert.equal(requested, 1)
+})

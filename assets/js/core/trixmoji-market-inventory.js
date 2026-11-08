@@ -153,7 +153,14 @@
  async function action(kind, args, reviewTarget) {
   if (busy) return; busy = true
   try {
-   await configure(); say('Checking saved recovery records…'); await reconcileKnownRecovery(); await reconcileSubmittedListings(); recovery(); say('Checking wallet, custody, market and transaction…')
+   await configure(); say('Checking saved recovery records…'); await reconcileKnownRecovery(); await reconcileSubmittedListings(); recovery()
+   if (kind === 'deposit' || kind === 'depositAndList') {
+    say('Checking market availability…')
+    var currentBoard = await json(marketUrl)
+    if (!same(currentBoard.marketAddress, expectedMarket) || !currentBoard.tradingReady) throw Error('The market is not ready for escrow deposits. No transaction was requested; please try the check again shortly.')
+    board = currentBoard
+   }
+   say('Checking wallet, custody, market and transaction…')
    var row = await client.run(kind, args, function (q) { return review(q, kind === 'list' || kind === 'depositAndList' || kind === 'auction' ? args.amountWei : null, reviewTarget, kind === 'auction' ? args.duration : null) }); say('Submitted ' + row.hash + '. Check confirmation before retrying.'); recovery()
    try { await reconcile(row) } catch (e) { say(e.message + ' Transaction: ' + row.hash) }
    } catch (e) {
@@ -199,7 +206,7 @@
    recipient.type = 'text'; recipient.placeholder = 'Recipient 0x address'; recipient.setAttribute('aria-label', 'Recipient address for Clean Pop #' + item.tokenNo); recipient.autocomplete = 'off'; recipient.required = true
    send.type = 'submit'; send.textContent = 'SEND TO WALLET'; form.onsubmit = function (event) { event.preventDefault(); sendPiece(item, recipient.value) }; form.append(recipient, send); article.appendChild(form)
    var depositReview = document.createElement('div'); depositReview.className = 'market-review'; depositReview.hidden = true
-   button(article, 'MOVE TO ESCROW', function () { action('deposit', { id: item.id }, depositReview) }, !board || !board.tradingReady); article.appendChild(depositReview)
+   button(article, 'MOVE TO ESCROW', function () { action('deposit', { id: item.id }, depositReview) }, false); article.appendChild(depositReview)
   } else if (kind === 'escrow') {
    var listing = (board.listings || []).find(function (x) { return same(x.id, item.id) && same(x.seller, item.seller) })
    var activeAuction = (board.auctions || []).find(function (x) { return same(x.id, item.id) && same(x.seller, item.seller) })
@@ -260,7 +267,7 @@
     var url = new URL(webpV2 ? '/.netlify/functions/market-wallet-inventory-webp-v2' : '/.netlify/functions/market-wallet-inventory', location.origin); url.searchParams.set('wallet', connection.address); if (cursor) url.searchParams.set('pageKey', cursor)
     var data = await json(url); if (request !== generation) return
     data.items.forEach(function (item) { card(item, 'wallet', connection) }); cursor = data.nextPageKey; more.hidden = !cursor
-    say((grid.children.length ? 'Verified Clean Pop pieces in ' + connection.address : 'No verified Clean Pop pieces found in this wallet.') + (!board || !board.tradingReady ? ' Trading service is unavailable; deposits are disabled.' : ''))
+    say((grid.children.length ? 'Verified Clean Pop pieces in ' + connection.address : 'No verified Clean Pop pieces found in this wallet.') + (!board || !board.tradingReady ? ' Market data is unavailable; MOVE TO ESCROW will recheck before requesting a wallet transaction.' : ''))
    } else {
     if (!board) throw Error('Trading service is unavailable. No market transaction was requested.')
     if (view === 'escrow' && !connection) throw Error('Connect your wallet to view your escrow.')
