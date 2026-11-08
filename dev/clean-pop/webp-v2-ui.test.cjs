@@ -11,5 +11,5 @@ test('WebP mint preview allows all numbers but refuses to mint before reviewed r
  await new Promise(resolve => setImmediate(resolve))
  els.jump.value = '419'; els.go.onclick(); assert.equal(els.grid.children.length, 40)
  const card = els.grid.children[19]; assert.match(card.children[1].textContent, /#419/); assert.equal(card.disabled, false)
- await els.connect.onclick(); assert.match(els.status.textContent, /has not been deployed/); assert.equal(els.mint.disabled, true); assert.equal(calls.includes('eth_sendTransaction'), false)
+ await els.connect.onclick(); assert.match(els.status.textContent, /did not return the WebP contract code/); assert.equal(els.mint.disabled, true); assert.equal(calls.includes('eth_sendTransaction'), false)
 })

@@ -87,12 +87,12 @@
  el('connect').onclick = async function () {
   el('connect').disabled = true; el('walletChoices').textContent = ''
   try {
-   if (!info || !manifest) throw Error('WebP candidate is still loading.')
+   if (!info || !manifest) throw Error('WebP mint configuration is still loading.')
    var provider = await EthscriptionCheckout.choose(el('walletChoices'), say); await EthscriptionCheckout.ensureChain(provider)
    var accounts = await provider.request({ method: 'eth_accounts' }); if (!accounts || !accounts[0]) throw Error('No wallet account connected.')
    connection = { provider: provider, address: accounts[0] }; await statusOfContract()
    if (provider.on) { var selectedProvider = provider; var invalidate = function () { if (connection && connection.provider === selectedProvider) { connection = null; deployed = false; paused = true; say('Wallet or network changed. Connect again.'); recovery(); draw() } }; provider.on('accountsChanged', invalidate); provider.on('chainChanged', invalidate); provider.on('disconnect', invalidate) }
-   say(!deployed ? 'The WebP candidate has not been deployed. No mint request can be made yet.' : paused ? 'The WebP mint is paused.' : 'Wallet connected. Select pieces to mint.')
+   say(!deployed ? 'Your wallet’s Ethereum RPC did not return the WebP contract code. Check its network and reconnect; no mint was requested.' : paused ? 'The WebP mint is paused.' : 'Wallet connected. Select pieces to mint.')
    recovery(); draw()
   } catch (error) { connection = null; deployed = false; paused = true; say(error.message); recovery(); draw() } finally { el('connect').disabled = false }
  }
@@ -118,6 +118,6 @@
  Promise.all([json('/assets/data/clean-pop-webp-v2-candidate.json'), json('/assets/ethscriptions/clean-pop-webp-v2/manifest.json')]).then(function (values) {
   info = values[0]; manifest = values[1]
   if (info.root !== manifest.root || manifest.count !== 10000 || info.mimeType !== 'image/webp' || !same(info.address, '0xD085EB56d7195Bdf4a17bf3107FDC938a118B704') || !same(ethers.utils.keccak256(info.runtime), info.runtimeHash)) throw Error('WebP candidate configuration mismatch.')
-  recovery(); draw(); say('Candidate loaded. Connect a wallet to check deployment and mint status.')
+  recovery(); draw(); say('Connect a wallet to check the current mint status.')
  }).catch(function (error) { say(error.message) })
 })()

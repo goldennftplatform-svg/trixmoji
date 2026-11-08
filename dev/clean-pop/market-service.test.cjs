@@ -27,3 +27,12 @@ test('verifier key accepts MetaMask hex with or without the 0x prefix', () => {
   process.env.TRIXMOJI_MARKET_VERIFIER_KEY = '0x' + hex; assert.equal(handler.verifierKey(), '0x' + hex)
  } finally { if (original === undefined) delete process.env.TRIXMOJI_MARKET_VERIFIER_KEY; else process.env.TRIXMOJI_MARKET_VERIFIER_KEY = original }
 })
+test('market read diagnostics categorize failures without exposing provider secrets', () => {
+ const cases = [
+  ['eth_getLogs failed at https://rpc.example/private-token', /RPC cannot read the escrow history/],
+  ['archive requests require a personal token', /RPC cannot read the escrow history/],
+  ['Ethscriptions indexer unavailable.', /indexer is unavailable/],
+  ['unexpected private-token from https://rpc.example/', /Market verification is unavailable/]
+ ]
+ for (const [input, expected] of cases) { const message = handler.marketReadError(input); assert.match(message, expected); assert.doesNotMatch(message, /private-token|rpc\.example/) }
+})

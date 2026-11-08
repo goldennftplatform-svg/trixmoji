@@ -20,6 +20,15 @@ function verifierKey() {
  return /^[a-f0-9]{64}$/i.test(value) ? '0x' + value : value
 }
 
+// Expose a category only: RPC errors can contain private provider URLs/tokens.
+function marketReadError(message) {
+ const text = String(message || '')
+ if (/indexer is behind/i.test(text)) return 'Ethscriptions indexer is behind the confirmed chain head.'
+ if (/eth_getLogs|archive requests|historical data|ranges over \d+ blocks|block range/i.test(text)) return 'Ethereum RPC cannot read the escrow history needed for the market. Check the production RPC plan and configuration.'
+ if (/Ethscriptions indexer unavailable|Ethscriptions indexer returned|Ethscriptions indexer height/i.test(text)) return 'Ethscriptions indexer is unavailable. Please check again shortly.'
+ return 'Market verification is unavailable. No authorization was issued.'
+}
+
 async function authenticatedWallet(req) {
  const session = readSession(req)
  if (!session || !session.uid) throw Error('Sign in with your Ethereum wallet before requesting an authorization.')
@@ -73,10 +82,11 @@ async function handler(req, res, replacement = false, webpV2 = false) {
  } catch (error) {
   const message = String(error && error.message || '')
   const safe = /^(Sign in with your Ethereum wallet|A verified Ethereum wallet login|Authenticated wallet does not match|Authorization rate limit exceeded|Invalid market authorization request|Listing price changed|Invalid market amount|Market amount must be positive|Invalid auction duration|Indexer is behind|Ethscriptions indexer is behind)/.test(message)
-  return res.status(message === 'MARKET_NOT_CONFIGURED' ? 503 : 400).json({ ok: false, error: message === 'MARKET_NOT_CONFIGURED' ? 'The forked market is not configured yet.' : safe ? message : 'Market verification is unavailable. No authorization was issued.' })
+   return res.status(message === 'MARKET_NOT_CONFIGURED' ? 503 : 400).json({ ok: false, error: message === 'MARKET_NOT_CONFIGURED' ? 'The forked market is not configured yet.' : safe ? message : req.method === 'GET' ? marketReadError(message) : 'Market verification is unavailable. No authorization was issued.' })
  }
 }
 module.exports = handler
 module.exports.verifierKey = verifierKey
+module.exports.marketReadError = marketReadError
 module.exports.replacement = (req, res) => handler(req, res, true)
 module.exports.webpV2 = (req, res) => handler(req, res, true, true)
