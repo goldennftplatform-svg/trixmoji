@@ -187,7 +187,11 @@
   try {
    await configure(); say('Checking saved recovery records…'); await reconcileKnownRecovery(); await reconcileSubmittedActions(); recovery()
    if (kind === 'deposit' || kind === 'depositAndList') {
-    say('Checking market availability…')
+     var selectedWallet = MarketWalletConnector.current()
+     if (launch && selectedWallet && same(selectedWallet.address, '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E')) {
+      throw Error('This wallet recently wrapped an escrow deposit without transferring custody. Further deposits are disabled while the route is investigated. No transaction was requested.')
+     }
+     say('Checking market availability…')
     var currentBoard = await json(marketUrl)
     if (!same(currentBoard.marketAddress, expectedMarket) || !currentBoard.tradingReady) throw Error('The market is not ready for escrow deposits. No transaction was requested; please try the check again shortly.')
     board = currentBoard
