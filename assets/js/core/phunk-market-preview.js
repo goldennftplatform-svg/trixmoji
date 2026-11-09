@@ -30,9 +30,10 @@
   const input = document.querySelector('input[data-trait="' + index + '"]'); if (input) input.checked = chosen.has(index)
   filter()
  }
- function open(id) {
-  const item = catalog.items.find(i => i.id === id); if (!item) return
-   currentArt = id; el('artTitle').textContent = pieceName + ' #' + id
+  function open(id) {
+   const item = catalog.items.find(i => i.id === id); if (!item) return
+    currentArt = id; el('artTitle').textContent = pieceName + ' #' + id
+    const mint = el('mintArt'); if (mint) mint.hidden = true
    el('largeArt').src = image(id); el('largeArt').alt = pieceName + ' artwork #' + id; el('openArt').href = image(id)
   el('copyLink').textContent = 'COPY ARTWORK LINK'; el('artTraits').innerHTML = ''
   for (const index of item.t) {
@@ -41,7 +42,14 @@
    b.onclick = () => { el('artDialog').close(); if (!chosen.has(index)) toggle(index) }
    el('artTraits').appendChild(b)
   }
-  el('artDialog').showModal()
+   el('artDialog').showModal()
+   if (launch && mint) {
+    const requested = id, pageNumber = Math.floor(id / 40)
+    fetch('/.netlify/functions/trixmoji-minted-page?page=' + pageNumber, {cache:'no-store',signal:AbortSignal.timeout(20000)}).then(async response=>{if(!response.ok)throw Error('Mint status unavailable');return response.json()}).then(result=>{
+     if(currentArt!==requested||!el('artDialog').open||result.ok!==true||result.page!==pageNumber||result.pageSize!==40||String(result.contract).toLowerCase()!=='0x14f9b4a11a10a83c6a686012110dc2bd54efd673'||!Array.isArray(result.minted)||result.minted.some(n=>!Number.isInteger(n)||n<pageNumber*40||n>=pageNumber*40+40))return
+     if(!result.minted.includes(requested)){mint.href='/classic/pages/trixmoji-mint.html?id='+requested;mint.textContent='MINT #'+requested+' ↗';mint.hidden=false}
+    }).catch(()=>{})
+   }
  }
  function draw() {
   el('grid').innerHTML = ''; el('activeFilters').innerHTML = ''
@@ -84,11 +92,11 @@
  el('clear').onclick=()=>{chosen.clear();el('search').value='';el('sort').value='asc';document.querySelectorAll('[data-trait]').forEach(i=>i.checked=false);if(catalog)filter()}
  el('toggleFilters').onclick=()=>{const hidden=document.querySelector('.workspace').classList.toggle('filters-hidden');el('toggleFilters').setAttribute('aria-expanded',String(!hidden))}
  el('closeDialog').onclick=()=>el('artDialog').close()
-  el('copyLink').onclick=async()=>{const query=(launch?'?collection=trixmoji&id=':webpV2?'?collection=webp-v2&id=':'?id=')+currentArt;try{await navigator.clipboard.writeText(location.origin+location.pathname+query);el('copyLink').textContent='LINK COPIED'}catch(_){el('copyLink').textContent='COPY FROM ADDRESS BAR';history.replaceState(null,'',location.pathname+query)}}
+  el('copyLink').onclick=async()=>{const query=(webpV2?'?collection=webp-v2&id=':'?id=')+currentArt,share=launch?'https://tm.aisp.live/#'+currentArt:location.origin+location.pathname+query;try{await navigator.clipboard.writeText(share);el('copyLink').textContent='LINK COPIED'}catch(_){el('copyLink').textContent='COPY FROM ADDRESS BAR';history.replaceState(null,'',location.pathname+query)}}
  if (matchMedia('(max-width:760px)').matches) {document.querySelector('.workspace').classList.add('filters-hidden');el('toggleFilters').setAttribute('aria-expanded','false')}
   fetch(launch ? '/assets/data/trixmoji-launch-catalog.json' : '/assets/data/phunk-catalog.json').then(async response=>{if(!response.ok)throw new Error('Trait catalogue unavailable. Refresh or retry after deployment.');return response.json()}).then(data=>{
   if(data.supply!==10000 || data.items.length!==10000)throw new Error('Incomplete trait catalogue')
   catalog=data;el('traitTotal').textContent=data.dictionary.length;groups();filter()
-  const id=new URLSearchParams(location.search).get('id');if(id!==null && /^\d+$/.test(id) && Number(id)<10000)open(Number(id))
+  const queryId=new URLSearchParams(location.search).get('id'),fragment=location.hash.slice(1),id=queryId!==null?queryId:launch&&/^\d+$/.test(fragment)?fragment:null;if(id!==null && /^\d+$/.test(id) && Number(id)<10000)open(Number(id))
  }).catch(e=>{el('status').textContent=e.message;el('range').textContent='CATALOGUE UNAVAILABLE';el('previous').disabled=true;el('next').disabled=true})
 })()

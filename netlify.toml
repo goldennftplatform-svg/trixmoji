@@ -5,6 +5,14 @@
   publish = "."
   command = "npm ci --omit=dev"
 
+# Once tm.aisp.live is added to this Netlify site as a domain alias, serve the
+# market at its root without changing other domains' homepages.
+[[redirects]]
+  from = "https://tm.aisp.live/"
+  to = "/classic/pages/trixmoji-market.html"
+  status = 200
+  force = true
+
 # Retire the previous TrixMoji public mint entry points. Contracts require
 # separate creator-wallet pause transactions; redirects cannot pause them.
 [[redirects]]

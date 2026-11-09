@@ -8,6 +8,8 @@
  var el = function (id) { return document.getElementById(id) }, client = launch ? CleanPopCheckout.createTrixMojiLaunch() : CleanPopCheckout.createWebpV2()
  var info, manifest, connection = null, paused = true, deployed = false, busy = false, page = 0, selected = {}, pageSize = 40
  var mintedPages = {}, mintedRequest = 0
+ var linkedToken = null
+ if (launch) { var rawLinkedToken = new URLSearchParams(window.location.search).get('id'); if (rawLinkedToken !== null && /^\d{1,4}$/.test(rawLinkedToken) && Number(rawLinkedToken) < 10000) { linkedToken = Number(rawLinkedToken); page = Math.floor(linkedToken / pageSize) } }
  var same = function (a, b) { return String(a || '').toLowerCase() === String(b || '').toLowerCase() }
  var say = function (message) { el('status').textContent = message }
  function pending() { return client.records().filter(function (r) { return r.state !== 'complete' && r.state !== 'failed' }) }
@@ -48,7 +50,9 @@
    var flags = {}, start = requestedPage * pageSize
    result.minted.forEach(function (n) { if (!Number.isInteger(n) || n < start || n >= start + pageSize || flags[n]) throw Error('Invalid minted-status response.'); flags[n] = true; delete selected[n] })
    if (request !== mintedRequest) return
-   mintedPages[requestedPage] = flags; note.textContent = 'Minted pieces are blurred. Select one to view its market details.'; draw()
+   mintedPages[requestedPage] = flags
+   if (linkedToken !== null && Math.floor(linkedToken / pageSize) === requestedPage) { if (flags[linkedToken]) say('TrixMoji #' + linkedToken + ' is already minted.'); else { selected[linkedToken] = true; say('TrixMoji #' + linkedToken + ' selected. Connect a wallet to mint.') } linkedToken = null }
+   note.textContent = 'Minted pieces are blurred. Select one to view its market details.'; draw()
   } catch (error) { if (request === mintedRequest) note.textContent = 'Minted status is temporarily unavailable. Availability is checked again before minting.' }
  }
  async function statusOfContract() {
