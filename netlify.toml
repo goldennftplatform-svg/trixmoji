@@ -5,6 +5,20 @@
   publish = "."
   command = "npm ci --omit=dev"
 
+# Retire the previous TrixMoji public mint entry points. Contracts require
+# separate creator-wallet pause transactions; redirects cannot pause them.
+[[redirects]]
+  from = "/classic/pages/clean-pop-mint.html"
+  to = "/classic/pages/trixmoji-mint.html"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/classic/pages/clean-pop-webp-v2-mint.html"
+  to = "/classic/pages/trixmoji-mint.html"
+  status = 302
+  force = true
+
 [build.environment]
   NODE_VERSION = "20"
 
