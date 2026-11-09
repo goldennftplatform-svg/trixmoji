@@ -191,7 +191,13 @@
  async function action(kind, args, reviewTarget) {
   if (busy) return; busy = true
   try {
-   await configure(); say('Checking saved recovery records…'); await reconcileKnownRecovery(); await reconcileSubmittedActions(); recovery()
+    await configure(); say('Checking saved recovery records…'); await reconcileKnownRecovery(); await reconcileSubmittedActions(); recovery()
+    if (kind === 'buy' || kind === 'auction') {
+     var loginConnection = MarketWalletConnector.current()
+     say('Checking wallet sign-in…')
+     await TrixmojiMarketLogin.create({fetch:fetch,document:document,identity:EthscriptionCheckout.identity}).ensure(loginConnection, reviewTarget || reviewBox)
+     if (!MarketWalletConnector.current() || MarketWalletConnector.current().provider !== loginConnection.provider || !same(MarketWalletConnector.current().address, loginConnection.address)) throw Error('Wallet changed. Connect again before continuing.')
+    }
    if (kind === 'deposit' || kind === 'depositAndList') {
      var selectedWallet = MarketWalletConnector.current()
      var rabby = selectedWallet && (selectedWallet.provider.isRabby === true || (selectedWallet.walletInfo && selectedWallet.walletInfo.rdns === 'io.rabby'))
