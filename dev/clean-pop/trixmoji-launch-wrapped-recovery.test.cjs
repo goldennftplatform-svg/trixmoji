@@ -1,0 +1,14 @@
+'use strict'
+const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('fs'),path=require('path'),vm=require('vm'),{ethers}=require('ethers')
+const artifact=require('../../assets/data/trixmoji-escrow-replacement-artifact.json'),deployment=require('../../assets/data/trixmoji-escrow-replacement-deployment.json')
+test('known #2 cancellation reconciles without gas and affected wallet cannot retry deposit',async()=>{
+ const names=['walletGrid','marketStatus','moreWallet','marketReview','marketRecovery','myWallet','myEscrow','forSale','auctions','refreshWallet','withdrawCredit']
+ function element(){return {children:[],hidden:false,textContent:'',appendChild(x){this.children.push(x);return x},append(...xs){this.children.push(...xs)},setAttribute(){},focus(){}}}
+ const els=Object.fromEntries(names.map(n=>[n,element()])),calls=[],seller='0x47cf60BdD877203264921D05CE26F81f6d36Aa3E',original='0xd908efe7044911d8c368a0a998d3ace3d36a359c86b9998b40ffcece74e61cb4',cancel='0x99c2fda0b421b81a0eae8e70753b6acbf6844eed3bd7c08d32cbdcb78eea0627',id='0xa4bc92ffe2a00e2a46f2cd9054fd7a87a3a3dc42bd1be4d241e89a3c39b458a4'
+ const row={key:'saved',action:'deposit',hash:original,to:deployment.address,state:'submitted'},client={records:()=>[row],reconcileClearedWrapped:async(k,h)=>{calls.push([k,h]);row.state='failed'},run:async()=>{throw Error('must not send')}}
+ const fetch=async url=>{let s=String(url),value;if(s.includes('replacement-artifact'))value=artifact;else if(s.includes('replacement-deployment'))value=deployment;else if(s.includes('market-wallet-inventory'))value={items:[{id,tokenNo:2}],nextPageKey:null};else if(s.includes('trixmoji-market-launch'))value={marketAddress:deployment.address,tradingReady:true,deposits:[],auctions:[],listings:[]};else throw Error('unexpected fetch '+s);return {ok:true,json:async()=>value}}
+ const context={document:{getElementById:id=>els[id],createElement:()=>element()},window:{addEventListener(){}},location:{search:'?collection=trixmoji',origin:'https://example.test'},URL,URLSearchParams,AbortSignal,fetch,ethers,localStorage:{},navigator:{locks:{}},MarketWalletConnector:{current:()=>({address:seller,provider:{}})},TrixmojiMarketWallet:{create:()=>client},CleanPopTransferCheckout:{records:()=>[]},setTimeout,console}
+ vm.runInNewContext(fs.readFileSync(path.resolve(__dirname,'../../assets/js/core/trixmoji-market-inventory.js'),'utf8'),context)
+ els.myWallet.onclick();await new Promise(r=>setTimeout(r,30));assert.equal(calls.length,1);assert.equal(calls[0][1],cancel);assert.equal(row.state,'failed')
+ const card=els.walletGrid.children[0];card.children.find(x=>x.textContent==='MOVE TO ESCROW').onclick();await new Promise(r=>setTimeout(r,30));assert.match(els.marketStatus.textContent,/Further deposits are disabled/)
+})

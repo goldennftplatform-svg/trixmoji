@@ -77,8 +77,10 @@
   }
  }
  async function reconcileKnownRecovery() {
-   if (legacy || webpV2 || launch || !client) return
-  var recoveries = {
+   if (legacy || webpV2 || !client) return
+  var recoveries = launch ? {
+   '0xd908efe7044911d8c368a0a998d3ace3d36a359c86b9998b40ffcece74e61cb4': '0x99c2fda0b421b81a0eae8e70753b6acbf6844eed3bd7c08d32cbdcb78eea0627'
+  } : {
    '0x9de253efbaeb700b2947630706ce0234c19b23a8eb3ab16d1adb40db0e5a57c5': '0x430a0f0cafa463ab9d8b075b68d88ec4bc9639a9490132f164dfb08d801e93db',
    '0x939deedb5781d5895daf8127f9c72a593909b53869eb25ce40eeca62830be472': '0xf7ce6ffe0734282df2c67758b56bfdb063f2f811073c6e1dea6306cd372e2a8f',
    '0x4bfc63cf6bb20dd54b4a44929593a01df76fe990ac4874280845386fb705d0c7': '0xf0db5c57d47fd3b9eb32ddd3f3ceffd1339df6ebda31d9e474ccef65422a8fed',
