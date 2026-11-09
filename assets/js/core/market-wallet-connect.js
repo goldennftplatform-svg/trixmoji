@@ -34,7 +34,8 @@
  var button = document.createElement('button'), choices = document.createElement('div'), status = document.createElement('p'), menu = document.createElement('div'), heading = document.createElement('strong'), address = document.createElement('p')
  button.type = 'button'; button.textContent = '◉  CONNECT WALLET'; button.setAttribute('aria-expanded', 'false'); button.setAttribute('aria-haspopup', 'true')
  menu.className = 'wallet-menu'; menu.hidden = true; menu.setAttribute('aria-label', 'Connected wallet')
- heading.className = 'wallet-menu-heading'; heading.textContent = 'CONNECTED WALLET · ETHEREUM'; address.className = 'wallet-menu-address'; menu.append(heading, address)
+  heading.className = 'wallet-menu-heading'; heading.textContent = 'CONNECTED WALLET · ETHEREUM'; address.className = 'wallet-menu-address'; menu.append(heading, address)
+  var depositNote = document.createElement('p'); depositNote.className = 'wallet-menu-note'; depositNote.textContent = 'For escrow deposits, Rabby is recommended. MetaMask may wrap deposits, preventing indexed custody.'; menu.appendChild(depositNote)
  function closeMenu() { menu.hidden = true; button.setAttribute('aria-expanded', 'false') }
  function menuButton(label, callback) { var item = document.createElement('button'); item.type = 'button'; item.textContent = label; item.onclick = function () { closeMenu(); callback() }; menu.appendChild(item) }
  menuButton('◈  MY WALLET', function () { var tab = document.getElementById('myWallet'); if (tab) tab.click() })

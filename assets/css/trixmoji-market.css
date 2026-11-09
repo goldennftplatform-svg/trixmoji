@@ -9,4 +9,5 @@
 @media(max-width:850px){.market-header .market-tabs{flex-wrap:nowrap}.market-header .market-tabs button{flex:0 0 auto}}
 #marketRecovery .pending-request{margin:12px 0;padding:12px 14px;border:1px solid #64733f;border-radius:8px;background:#151b10}#marketRecovery .pending-request summary{cursor:pointer;color:var(--ink);font:700 12px/1.4 monospace}#marketRecovery .pending-request p{color:var(--muted);font-size:13px}#marketRecovery .pending-request button{margin:6px 8px 6px 0}#marketRecovery .pending-request details{margin-top:10px}
 #artTraits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:14px}#artTraits button{width:100%;min-width:0;padding:7px 9px;text-align:left;line-height:1.35;white-space:normal;overflow-wrap:anywhere}#artTraits b{margin-bottom:2px}
+.wallet-menu .wallet-menu-note{margin:0;padding:0 10px 10px;color:#c6c8b7;font:11px/1.45 system-ui,sans-serif}
 .detail-mint{display:inline-block;margin:0 8px 8px 0;padding:9px 12px;border:1px solid #64733f;border-radius:5px;color:var(--lime);font:700 11px monospace;letter-spacing:.04em}.detail-mint:hover{border-color:var(--lime);background:#1c2612}.detail-mint[hidden]{display:none}
