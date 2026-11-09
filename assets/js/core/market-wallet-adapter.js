@@ -144,10 +144,10 @@
    var values = await Promise.all([rpc('eth_getTransactionByHash', [row.hash]), rpc('eth_getTransactionReceipt', [row.hash])]), tx = values[0], receipt = values[1]
    if (!tx || !receipt) throw Error('Transaction is not confirmed. Do not retry.')
    var matches = same(tx.from, row.from) && same(tx.to, row.to) && same(tx.input || tx.data, row.data) && ethers.BigNumber.from(tx.value).eq(row.value)
-   // Listing is an ordinary contract call, so a successful wallet wrapper can
-   // be verified through its single inner call and the escrow's Listed event.
+    // Listing and buying are ordinary contract calls, so a successful wallet
+    // wrapper can be verified through its exact single inner call and event.
    // Ethscription deposits remain restricted to a direct outer transaction.
-   if (!matches && row.action === 'list' && same(tx.from, row.from) && same(tx.to, '0xdb9B1e94B5b69Df7e401DDbedE43491141047dB3') && ethers.BigNumber.from(tx.value).isZero()) {
+    if (!matches && (row.action === 'list' || row.action === 'buy') && same(tx.from, row.from) && same(tx.to, '0xdb9B1e94B5b69Df7e401DDbedE43491141047dB3') && ethers.BigNumber.from(tx.value).isZero()) {
     try {
      var wrapper = new ethers.utils.Interface(['function redeemDelegations(bytes[] permissionContexts, bytes32[] modes, bytes[] executionCallDatas)'])
      var parsed = wrapper.parseTransaction({ data: tx.input || tx.data }), execution = parsed.args.executionCallDatas[0]

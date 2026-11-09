@@ -78,7 +78,7 @@
   if (!client || !deployment) return
   var connection = MarketWalletConnector.current()
   if (!connection) return
-  var pending = client.records().filter(function (row) { return row && row.state === 'submitted' && ['list', 'deposit', 'depositAndList'].includes(row.action) && /^0x[a-f0-9]{64}$/i.test(String(row.hash || '')) && same(row.to, deployment.address) && same(row.from, connection.address) })
+  var pending = client.records().filter(function (row) { return row && row.state === 'submitted' && ['list', 'buy', 'deposit', 'depositAndList'].includes(row.action) && /^0x[a-f0-9]{64}$/i.test(String(row.hash || '')) && same(row.to, deployment.address) && same(row.from, connection.address) })
   for (var row of pending) {
    try { await client.reconcile(row, verify) } catch (_) { /* Keep unresolved requests visible for manual checks. */ }
   }
