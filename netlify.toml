@@ -19,6 +19,54 @@
   status = 302
   force = true
 
+[[redirects]]
+  from = "/classic/pages/clean-pop-market.html"
+  to = "/classic/pages/trixmoji-market.html"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/classic/pages/phunk-market-preview.html"
+  to = "/classic/pages/trixmoji-market.html"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/classic/pages/clean-pop-setup.html"
+  to = "/classic/pages/pause-previous-mints.html"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/classic/pages/clean-pop-webp-v2-setup.html"
+  to = "/classic/pages/pause-previous-mints.html"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/classic/pages/phunk-setup.html"
+  to = "/classic/pages/pause-previous-mints.html"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/classic/pages/clean-pop-delivery.html"
+  to = "/classic/pages/trixmoji-mint.html"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/classic/pages/clean-pop-reserved-master.html"
+  to = "/classic/pages/trixmoji-mint.html"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/classic/pages/replacement-market-test.html"
+  to = "/classic/pages/trixmoji-market.html"
+  status = 302
+  force = true
+
 [build.environment]
   NODE_VERSION = "20"
 
