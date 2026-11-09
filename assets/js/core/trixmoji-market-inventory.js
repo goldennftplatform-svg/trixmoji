@@ -7,6 +7,10 @@
   var marketUrl = launch ? '/.netlify/functions/trixmoji-market-launch' : webpV2 ? '/.netlify/functions/trixmoji-market-webp-v2' : legacy ? '/.netlify/functions/trixmoji-market' : '/.netlify/functions/trixmoji-market-replacement'
   var expectedMarket = legacy ? '0xd935E162B6070C4FEAF600c67f7F729f318515a2' : '0x21c1A938d06f87A039abfC48d1cCB459f55b1685'
   var modeLabel = document.getElementById('marketMode'); if (modeLabel) modeLabel.textContent = launch ? 'TRIXMOJI · ETHEREUM' : webpV2 ? 'WEBP V2 · REPLACEMENT ESCROW' : legacy ? 'ORIGINAL ESCROW · ETHEREUM' : 'REPLACEMENT ESCROW · EXPERIMENTAL'
+  if (webpV2 || legacy) {
+   var collectionNotice = document.getElementById('collectionNotice')
+   if (collectionNotice) { collectionNotice.hidden = false; collectionNotice.textContent = 'You are viewing a previous collection. To see current TrixMoji pieces, open '; var currentLink = document.createElement('a'); currentLink.href = '/classic/pages/trixmoji-market.html?collection=trixmoji'; currentLink.textContent = 'THE CURRENT TRIXMOJI MARKET ↗'; collectionNotice.appendChild(currentLink) }
+  }
   if ((launch || webpV2) && document.querySelector) {
    var brandLink = document.querySelector('.market-header .brand'), mintLink = document.querySelector('.market-header .mint-link'), brandLabel = document.querySelector('.market-header .brand small')
    if (brandLink) brandLink.href = '/classic/pages/trixmoji-market.html?collection=' + (launch ? 'trixmoji' : 'webp-v2')
@@ -305,11 +309,12 @@
    try { board = await json(marketUrl); if (!same(board.marketAddress, expectedMarket)) throw Error('Wrong market service.') } catch (_) { board = null }
    if (request !== generation) return
    if (view === 'wallet') {
-    if (!connection) { say('Connect an Ethereum wallet to see your Clean Pop pieces.'); return }
+    if (!connection) { say('Connect an Ethereum wallet to see your ' + (launch ? 'TrixMoji' : 'Clean Pop') + ' pieces.'); return }
     var url = new URL(launch ? '/.netlify/functions/market-wallet-inventory-launch' : webpV2 ? '/.netlify/functions/market-wallet-inventory-webp-v2' : '/.netlify/functions/market-wallet-inventory', location.origin); url.searchParams.set('wallet', connection.address); if (cursor) url.searchParams.set('pageKey', cursor)
     var data = await json(url); if (request !== generation) return
     data.items.forEach(function (item) { card(item, 'wallet', connection) }); cursor = data.nextPageKey; more.hidden = !cursor
-    say((grid.children.length ? 'Verified Clean Pop pieces in ' + connection.address : 'No verified Clean Pop pieces found in this wallet.') + (!board || !board.tradingReady ? ' Market data is unavailable; MOVE TO ESCROW will recheck before requesting a wallet transaction.' : ''))
+    var collectionName = launch ? 'TrixMoji' : 'Clean Pop'
+    say((grid.children.length ? 'Verified ' + collectionName + ' pieces in ' + connection.address : 'No verified ' + collectionName + ' pieces found in this wallet.') + (!board || !board.tradingReady ? ' Market data is unavailable; MOVE TO ESCROW will recheck before requesting a wallet transaction.' : ''))
    } else {
     if (!board) throw Error('Trading service is unavailable. No market transaction was requested.')
     if (view === 'escrow' && !connection) throw Error('Connect your wallet to view your escrow.')

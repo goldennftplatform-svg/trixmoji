@@ -176,10 +176,15 @@
     var account = await identity()
     if (!same(account, row.from) || row.chainId !== chainId) throw Error('Reconnect the original wallet on the original network.')
     var nonceValues = await Promise.all([rpc('eth_getTransactionCount', [account, 'latest']), rpc('eth_getTransactionCount', [account, 'pending'])])
-   if (!ethers.BigNumber.from(nonceValues[0]).eq(row.startingNonce) || !ethers.BigNumber.from(nonceValues[1]).eq(row.startingNonce)) throw Error('Wallet nonce changed or a transaction is pending. Inspect wallet activity before retrying.')
+    var latestNonce = ethers.BigNumber.from(nonceValues[0]), pendingNonce = ethers.BigNumber.from(nonceValues[1]), startNonce = ethers.BigNumber.from(row.startingNonce)
+    // A later confirmed transaction can consume the saved nonce. For listing
+    // requests only, a current indexed custody + exact listing-state check can
+    // prove the requested listing is not active even when the nonce advanced.
+    // Transfers retain the stricter original-nonce requirement.
+    if (!pendingNonce.eq(latestNonce) || latestNonce.lt(startNonce) || (!latestNonce.eq(startNonce) && row.action !== 'list')) throw Error('Wallet nonce changed or a transaction is pending. Inspect wallet activity before retrying.')
    if (!(await verifyNotApplied(row))) throw Error('The market or indexed asset state has changed. Inspect the transaction before retrying.')
    nonceValues = await Promise.all([rpc('eth_getTransactionCount', [account, 'latest']), rpc('eth_getTransactionCount', [account, 'pending'])])
-   if (!ethers.BigNumber.from(nonceValues[0]).eq(row.startingNonce) || !ethers.BigNumber.from(nonceValues[1]).eq(row.startingNonce)) throw Error('Wallet nonce changed or a transaction is pending. Inspect wallet activity before retrying.')
+    if (!ethers.BigNumber.from(nonceValues[0]).eq(latestNonce) || !ethers.BigNumber.from(nonceValues[1]).eq(latestNonce)) throw Error('Wallet nonce changed or a transaction is pending. Inspect wallet activity before retrying.')
     if (config.storage.getItem(KEY) !== snapshot) throw Error('Saved transaction changed while checking. Reload and inspect it.')
     config.storage.setItem(KEY + '.recovery.' + Date.now(), JSON.stringify({ original: row, at: new Date().toISOString() }))
     remove(row.key); return { recovered: true }

@@ -88,6 +88,22 @@ test('no-hash recovery does not clear if the nonce changes during verification',
   await assert.rejects(f.client.recoverUnsent(row.key, true, async () => true), /nonce changed/i)
   assert.equal(f.client.records().length, 1); assert.equal(f.sends.length, 0)
 })
+test('a no-hash listing with a consumed nonce clears only after listing state is verified', async () => {
+  const f = fixture('list', '0x', null, 'trixmoji.market.contract.transaction.webp-v2')
+  const row = { key: 'advanced', action: 'list', assetId: id, state: 'awaiting-wallet', hash: '', chainId: 1, from: owner, to: market, startingNonce: '15', data: iface.encodeFunctionData('list', [id, 1]) }
+  f.store.set('trixmoji.market.contract.transaction.webp-v2', JSON.stringify([row]))
+  await assert.rejects(f.client.recoverUnsent(row.key, true, async () => false), /state has changed/i)
+  assert.equal(f.client.records().length, 1)
+  assert.equal((await f.client.recoverUnsent(row.key, true, async () => true)).recovered, true)
+  assert.equal(f.client.records().length, 0); assert.equal(f.sends.length, 0)
+})
+test('a no-hash deposit with a consumed nonce remains blocked', async () => {
+  const f = fixture('deposit', '0x', null, 'trixmoji.market.contract.transaction.webp-v2')
+  const row = { key: 'deposit-advanced', action: 'deposit', assetId: id, state: 'awaiting-wallet', hash: '', chainId: 1, from: owner, to: market, startingNonce: '15', data: id }
+  f.store.set('trixmoji.market.contract.transaction.webp-v2', JSON.stringify([row]))
+  await assert.rejects(f.client.recoverUnsent(row.key, true, async () => true), /nonce changed/)
+  assert.equal(f.client.records().length, 1); assert.equal(f.sends.length, 0)
+})
 
 test('V1 and WebP market transaction records remain separate', async () => {
   const v1 = fixture('deposit'), v2 = fixture('deposit', '0x', v1.store, 'trixmoji.market.contract.transaction.webp-v2')
