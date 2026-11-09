@@ -1,0 +1,111 @@
+{
+  "name": "TRIXMOJI PHUNKS #6129",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6129. Left-facing phunk. Type Male. Skin Medium. Hair/Hat Do-rag. Glasses Regular Shades. Facial Hair Luxurious Beard. Tokens: 😼 FREEDOM (FREE, rank 122, Luxurious Beard); 🙁 GEO CUCK (GEOCUCK, rank 128, Do-rag); 📦 Black Box (BOX, rank 129, Black tiles); 📦 Black Box (BOX, rank 129, Do-rag); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6129.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Do-rag"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Regular Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Luxurious Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😼 FREEDOM · FREE · rank 122 · Luxurious Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙁 GEO CUCK · GEOCUCK · rank 128 · Do-rag"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Do-rag"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6129,
+    "files": [
+      {
+        "uri": "6129.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😼",
+        "token": "FREEDOM",
+        "symbol": "FREE",
+        "rank": 122,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Luxurious Beard",
+        "mint": "4gHwSxGcNVCTRfWzVZV7EkMuD8LLtWjn7rKyTn9ZTRiX"
+      },
+      {
+        "emoji": "🙁",
+        "token": "GEO CUCK",
+        "symbol": "GEOCUCK",
+        "rank": 128,
+        "rarity": "UNCOMMON",
+        "pixels": 32,
+        "where": "Do-rag",
+        "mint": "BKupCCMBWR8M5ycLyRZEoAvje73uoLSQCwPZH39mTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 118,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Do-rag",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 44,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

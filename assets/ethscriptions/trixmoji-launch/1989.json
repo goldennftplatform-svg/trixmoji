@@ -1,0 +1,79 @@
+{
+  "name": "TRIXMOJI PHUNKS #1989",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #1989. Left-facing phunk. Type Male. Skin Medium. Hair/Hat Crazy Hair. Glasses Small Shades. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 👀 WazzAAA (WAZZA, rank 154, Crazy Hair); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "1989.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Crazy Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Small Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👀 WazzAAA · WAZZA · rank 154 · Crazy Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 1989,
+    "files": [
+      {
+        "uri": "1989.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 97,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👀",
+        "token": "WazzAAA",
+        "symbol": "WAZZA",
+        "rank": 154,
+        "rarity": "UNCOMMON",
+        "pixels": 52,
+        "where": "Crazy Hair",
+        "mint": "8xBRX7rK6DnxGEU41PE5rTG7huLNZtH8v1rh2bBeTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 95,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

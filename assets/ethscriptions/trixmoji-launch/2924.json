@@ -1,0 +1,113 @@
+{
+  "name": "TRIXMOJI PHUNKS #2924",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #2924. Left-facing phunk. Type Ape. Hair/Hat Hoodie. Tokens: ⬛ VOID (VOID, rank 4, Ape); 🕴️ MICHAEL SELLER (SELLER, rank 5, Ape); 🖐️ Shocker (SHOCKER, rank 6, Ape); 🍬 Everlasting Gobstopper (UMPALUMPA, rank 7, Ape); 📦 Black Box (BOX, rank 129, Black tiles); 🐋 Cymru (CYM, rank 158, Mohawk Thin). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "2924.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Ape"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Hoodie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "⬛ VOID · VOID · rank 4 · Ape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🕴️ MICHAEL SELLER · SELLER · rank 5 · Ape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🖐️ Shocker · SHOCKER · rank 6 · Ape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🍬 Everlasting Gobstopper · UMPALUMPA · rank 7 · Ape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐋 Cymru · CYM · rank 158 · Mohawk Thin"
+    }
+  ],
+  "properties": {
+    "edition": 2924,
+    "files": [
+      {
+        "uri": "2924.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "⬛",
+        "token": "VOID",
+        "symbol": "VOID",
+        "rank": 4,
+        "rarity": "RAREST",
+        "pixels": 63,
+        "where": "Ape",
+        "mint": "74nSAMYRsm3MZLqVXcoZoUFsjiqKZhAJCqttHVycTRiX"
+      },
+      {
+        "emoji": "🕴️",
+        "token": "MICHAEL SELLER",
+        "symbol": "SELLER",
+        "rank": 5,
+        "rarity": "RAREST",
+        "pixels": 26,
+        "where": "Ape",
+        "mint": "9mBEqBs2xMBkeTpUUeYFqRtnHGSkEmHz73zR5m74TRiX"
+      },
+      {
+        "emoji": "🖐️",
+        "token": "Shocker",
+        "symbol": "SHOCKER",
+        "rank": 6,
+        "rarity": "RAREST",
+        "pixels": 4,
+        "where": "Ape",
+        "mint": "E6LwzUpR2NsdUzAiGzZb1K5PbffkXANagXHt1R4BTRiX"
+      },
+      {
+        "emoji": "🍬",
+        "token": "Everlasting Gobstopper",
+        "symbol": "UMPALUMPA",
+        "rank": 7,
+        "rarity": "RAREST",
+        "pixels": 2,
+        "where": "Ape",
+        "mint": "5CtD6uGSjSXj4jmGZZ3eBjymfvekinm2ksinCtaXTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 141,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐋",
+        "token": "Cymru",
+        "symbol": "CYM",
+        "rank": 158,
+        "rarity": "UNCOMMON",
+        "pixels": 70,
+        "where": "Mohawk Thin",
+        "mint": "5QaWBQwxxJDquNAoKJNyAXEDdwnt8tCcdnsP2FWRTRiX"
+      }
+    ]
+  }
+}

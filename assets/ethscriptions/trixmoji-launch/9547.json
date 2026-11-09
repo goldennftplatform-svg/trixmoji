@@ -1,0 +1,101 @@
+{
+  "name": "TRIXMOJI PHUNKS #9547",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #9547. Left-facing phunk. Type Male. Skin Light. Hair/Hat Stringy Hair. Glasses Regular Shades. Facial Hair Normal Beard Black. Makeup Rosy Cheeks. Tokens: 📟 GLITCH (GLITCH, rank 56, Rosy Cheeks); 📦 Black Box (BOX, rank 129, Black tiles); 🥇 D&D GP (GOLD, rank 215, Type: Human); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "9547.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Stringy Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Regular Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Normal Beard Black"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Rosy Cheeks"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📟 GLITCH · GLITCH · rank 56 · Rosy Cheeks"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥇 D&D GP · GOLD · rank 215 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 9547,
+    "files": [
+      {
+        "uri": "9547.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📟",
+        "token": "GLITCH",
+        "symbol": "GLITCH",
+        "rank": 56,
+        "rarity": "RARE",
+        "pixels": 4,
+        "where": "Rosy Cheeks",
+        "mint": "FxoFpw6vVNtHo3bcSGURmr8sBiuSVSxBsiWknixVTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 119,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🥇",
+        "token": "D&D GP",
+        "symbol": "GOLD",
+        "rank": 215,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "FioWU8Z8DVym8MfHmK2TiTHUV2AtABWeNiSMRKR6TRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 68,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

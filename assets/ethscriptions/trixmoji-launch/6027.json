@@ -1,0 +1,139 @@
+{
+  "name": "TRIXMOJI PHUNKS #6027",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6027. Left-facing phunk. Type Male. Skin Light. Hair/Hat Shaved Head. Glasses Classic Shades. Makeup Mole. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🦉 OWL (OWL, rank 132, Shaved Head); 🙃 Ray Liotta Laughing (RLL, rank 133, Shaved Head); 🐐 BIG DAWG (DAWG, rank 164, Classic Shades); 🐒 RootkitAlpha (RKA, rank 165, Classic Shades); 🐲 Jesus Orbweaver (WIZJ, rank 196, Mole); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6027.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Shaved Head"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Classic Shades"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Mole"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🦉 OWL · OWL · rank 132 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙃 Ray Liotta Laughing · RLL · rank 133 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐐 BIG DAWG · DAWG · rank 164 · Classic Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐒 RootkitAlpha · RKA · rank 165 · Classic Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐲 Jesus Orbweaver · WIZJ · rank 196 · Mole"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6027,
+    "files": [
+      {
+        "uri": "6027.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 75,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🦉",
+        "token": "OWL",
+        "symbol": "OWL",
+        "rank": 132,
+        "rarity": "UNCOMMON",
+        "pixels": 25,
+        "where": "Shaved Head",
+        "mint": "Amh4zw7oFxGhbCMAJw15cZDhndv2pJwFrgPgs6HbTRiX"
+      },
+      {
+        "emoji": "🙃",
+        "token": "Ray Liotta Laughing",
+        "symbol": "RLL",
+        "rank": 133,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Shaved Head",
+        "mint": "r6FMedKMD61UFFEjFK6WAwqgEUXpDTQQNXBhi8dTRiX"
+      },
+      {
+        "emoji": "🐐",
+        "token": "BIG DAWG",
+        "symbol": "DAWG",
+        "rank": 164,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Classic Shades",
+        "mint": "C5armesyd7sQsgoz1DvSAea96TdYmGC7txNYG76aErp2"
+      },
+      {
+        "emoji": "🐒",
+        "token": "RootkitAlpha",
+        "symbol": "RKA",
+        "rank": 165,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Classic Shades",
+        "mint": "GDBPZNwpJqmAsXNj3F4c4HSVrSGE27QXPCK5AbC3TRiX"
+      },
+      {
+        "emoji": "🐲",
+        "token": "Jesus Orbweaver",
+        "symbol": "WIZJ",
+        "rank": 196,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Mole",
+        "mint": "2GDib46tKf2jMHoRnbiZgcdPEWZJJvmbK4f1XdGwTRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 80,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "name": "TRIXMOJI PHUNKS #4496",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #4496. Left-facing phunk. Type Female. Skin Medium. Hair/Hat Mohawk Thin. Glasses Blue Eye Shadow. Mouth Hot Lipstick. Jewelry Earring. Tokens: 😫 Cosmic Flex (CFLEX, rank 101, Blue Eye Shadow); 😬 JIMOTHY (JIM, rank 102, Blue Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 🐋 Cymru (CYM, rank 158, Mohawk Thin); 🐶 MICROPENIS (SMOL, rank 202, Hot Lipstick); 🐺 Nickel Metal Hydride (NIMH, rank 204, Type: Human); 💚 BOONG (BOONG, rank 216, Earring); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "4496.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Mohawk Thin"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Blue Eye Shadow"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Hot Lipstick"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😫 Cosmic Flex · CFLEX · rank 101 · Blue Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😬 JIMOTHY · JIM · rank 102 · Blue Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐋 Cymru · CYM · rank 158 · Mohawk Thin"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐶 MICROPENIS · SMOL · rank 202 · Hot Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐺 Nickel Metal Hydride · NIMH · rank 204 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 4496,
+    "files": [
+      {
+        "uri": "4496.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😫",
+        "token": "Cosmic Flex",
+        "symbol": "CFLEX",
+        "rank": 101,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Blue Eye Shadow",
+        "mint": "3nUDxGyHY8hkKYq69oY6T1jRc3bGVE5RUDPo1iFXTRiX"
+      },
+      {
+        "emoji": "😬",
+        "token": "JIMOTHY",
+        "symbol": "JIM",
+        "rank": 102,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Blue Eye Shadow",
+        "mint": "2RGfkLxVN8KTXVEXLoSXC21PEF8kyP8ke5UZ1KviTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 57,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐋",
+        "token": "Cymru",
+        "symbol": "CYM",
+        "rank": 158,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Mohawk Thin",
+        "mint": "5QaWBQwxxJDquNAoKJNyAXEDdwnt8tCcdnsP2FWRTRiX"
+      },
+      {
+        "emoji": "🐶",
+        "token": "MICROPENIS",
+        "symbol": "SMOL",
+        "rank": 202,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Hot Lipstick",
+        "mint": "Drh3zXhawDgQJjz2KjgKgdBkhKch9GoTM3BbARbeTRiX"
+      },
+      {
+        "emoji": "🐺",
+        "token": "Nickel Metal Hydride",
+        "symbol": "NIMH",
+        "rank": 204,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Type: Human",
+        "mint": "EGC52THyatGsVZJy3xyFEiZT7U92vz12p2KPmVzTTRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 87,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

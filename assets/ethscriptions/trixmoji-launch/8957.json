@@ -1,0 +1,117 @@
+{
+  "name": "TRIXMOJI PHUNKS #8957",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #8957. Left-facing phunk. Type Zombie. Hair/Hat Frumpy Hair. Facial Hair Luxurious Beard. Tokens: 💧 Water (WATER, rank 23, Zombie); 💰 Money (MONEY, rank 24, Zombie); 🤠 JuanSolo (JUAN, rank 25, Zombie); 😼 FREEDOM (FREE, rank 122, Luxurious Beard); 📦 Black Box (BOX, rank 129, Black tiles); 🐌 MemeKing (KING, rank 160, Frumpy Hair). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "8957.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Zombie"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Frumpy Hair"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Luxurious Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💧 Water · WATER · rank 23 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💰 Money · MONEY · rank 24 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🤠 JuanSolo · JUAN · rank 25 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😼 FREEDOM · FREE · rank 122 · Luxurious Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐌 MemeKing · KING · rank 160 · Frumpy Hair"
+    }
+  ],
+  "properties": {
+    "edition": 8957,
+    "files": [
+      {
+        "uri": "8957.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "💧",
+        "token": "Water",
+        "symbol": "WATER",
+        "rank": 23,
+        "rarity": "LEGENDARY",
+        "pixels": 42,
+        "where": "Zombie",
+        "mint": "HpCNsRRKs1fcsuQAsovJxyauM7Sv3PZkcHLGqUnaTRiX"
+      },
+      {
+        "emoji": "💰",
+        "token": "Money",
+        "symbol": "MONEY",
+        "rank": 24,
+        "rarity": "LEGENDARY",
+        "pixels": 6,
+        "where": "Zombie",
+        "mint": "DHdHgj875BtSkomhKimT7qEaJLNZGiqrTdYfKHLbTRiX"
+      },
+      {
+        "emoji": "🤠",
+        "token": "JuanSolo",
+        "symbol": "JUAN",
+        "rank": 25,
+        "rarity": "LEGENDARY",
+        "pixels": 2,
+        "where": "Zombie",
+        "mint": "2CToo39f6bVa5C6B74CzK4jbmkh8UdbuaBrJSgewTRiX"
+      },
+      {
+        "emoji": "😼",
+        "token": "FREEDOM",
+        "symbol": "FREE",
+        "rank": 122,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Luxurious Beard",
+        "mint": "4gHwSxGcNVCTRfWzVZV7EkMuD8LLtWjn7rKyTn9ZTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 173,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐌",
+        "token": "MemeKing",
+        "symbol": "KING",
+        "rank": 160,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Frumpy Hair",
+        "mint": "61hbpeoF4J2dJDpR3E9yxAnuvDweAVQvFHi88gnjTRiX"
+      }
+    ]
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "name": "TRIXMOJI PHUNKS #3119",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #3119. Left-facing phunk. Type Female. Skin Dark. Hair/Hat Wild White Hair. Glasses Horned Rim Glasses. Mouth Black Lipstick. Tokens: 📖 PaulyVerse (VERSE, rank 65, Wild White Hair); 📦 Black Box (BOX, rank 129, Black tiles); 🐅 GTA MONEY (MONEY, rank 152, Headband); 🐞 Ziggy (ZIGGY, rank 176, Horned Rim Glasses); 🐢 OK (OK, rank 180, Horned Rim Glasses); 🐣 GTA IV (GTA, rank 181, Horned Rim Glasses); 🐤 ALANYA (ALANYA, rank 182, Horned Rim Glasses); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "3119.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Wild White Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Horned Rim Glasses"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Black Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📖 PaulyVerse · VERSE · rank 65 · Wild White Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐞 Ziggy · ZIGGY · rank 176 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐢 OK · OK · rank 180 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐣 GTA IV · GTA · rank 181 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐤 ALANYA · ALANYA · rank 182 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 3119,
+    "files": [
+      {
+        "uri": "3119.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📖",
+        "token": "PaulyVerse",
+        "symbol": "VERSE",
+        "rank": 65,
+        "rarity": "RARE",
+        "pixels": 1,
+        "where": "Wild White Hair",
+        "mint": "EPikhBfCpouxZGcPf11HwcoUUdF9typkGv3sQud2TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 87,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 42,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "🐞",
+        "token": "Ziggy",
+        "symbol": "ZIGGY",
+        "rank": 176,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CmMZ4RNRZZBt1bfcxkYiXB3SXAWFucdFZcP1y5MCTRiX"
+      },
+      {
+        "emoji": "🐢",
+        "token": "OK",
+        "symbol": "OK",
+        "rank": 180,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Horned Rim Glasses",
+        "mint": "6VEhTpHR5tssT1xg9cRcXF2ot28tspjYvTyykGQGTRiX"
+      },
+      {
+        "emoji": "🐣",
+        "token": "GTA IV",
+        "symbol": "GTA",
+        "rank": 181,
+        "rarity": "UNCOMMON",
+        "pixels": 9,
+        "where": "Horned Rim Glasses",
+        "mint": "Bfc299cLrPnFTYFUW8so99N2HHZyKwYgPXQEYrXwTRiX"
+      },
+      {
+        "emoji": "🐤",
+        "token": "ALANYA",
+        "symbol": "ALANYA",
+        "rank": 182,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "BYyaH21eR5dwnR5uh7eAWXPcn7AwmDTwxWB88wvHTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 53,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

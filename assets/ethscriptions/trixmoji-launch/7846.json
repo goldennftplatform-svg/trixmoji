@@ -1,0 +1,163 @@
+{
+  "name": "TRIXMOJI PHUNKS #7846",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #7846. Left-facing phunk. Type Male. Skin Light. Hair/Hat Beanie. Glasses 3D Glasses. Tokens: ⛏️ MINE HARDER (MINE, rank 11, Beanie); 😀 POOKU (POOKU, rank 12, Beanie); 😩 COPE HARDER (COPE, rank 13, Beanie); 🐕 Doge on Sol (DOGESOL, rank 14, Beanie); 😹 FUNNY MONEY (MONEY, rank 119, 3D Glasses); 😺 Shit Coin (SHIT, rank 120, 3D Glasses); 😻 what (WHAT, rank 121, 3D Glasses); 📦 Black Box (BOX, rank 129, Black tiles); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "7846.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Beanie"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "⛏️ MINE HARDER · MINE · rank 11 · Beanie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😀 POOKU · POOKU · rank 12 · Beanie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😩 COPE HARDER · COPE · rank 13 · Beanie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐕 Doge on Sol · DOGESOL · rank 14 · Beanie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😹 FUNNY MONEY · MONEY · rank 119 · 3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😺 Shit Coin · SHIT · rank 120 · 3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😻 what · WHAT · rank 121 · 3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 7846,
+    "files": [
+      {
+        "uri": "7846.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "⛏️",
+        "token": "MINE HARDER",
+        "symbol": "MINE",
+        "rank": 11,
+        "rarity": "LEGENDARY",
+        "pixels": 5,
+        "where": "Beanie",
+        "mint": "41yaqmU5vgoTyVxe6SJEKpR3B3bSnqsc9hFkcACnTRiX"
+      },
+      {
+        "emoji": "😀",
+        "token": "POOKU",
+        "symbol": "POOKU",
+        "rank": 12,
+        "rarity": "LEGENDARY",
+        "pixels": 5,
+        "where": "Beanie",
+        "mint": "Ebv9RGybF848qVAtko1gW7u2RSs65v2kXSHUTQHCTRiX"
+      },
+      {
+        "emoji": "😩",
+        "token": "COPE HARDER",
+        "symbol": "COPE",
+        "rank": 13,
+        "rarity": "LEGENDARY",
+        "pixels": 16,
+        "where": "Beanie",
+        "mint": "pqPyJmjC8NYaecNu8dD68XqtimjAxRbSgv4NEs9TRiX"
+      },
+      {
+        "emoji": "🐕",
+        "token": "Doge on Sol",
+        "symbol": "DOGESOL",
+        "rank": 14,
+        "rarity": "LEGENDARY",
+        "pixels": 7,
+        "where": "Beanie",
+        "mint": "6T1GBn7yd6WWWMZFu2cDjoGqxvqLgF65oBKQSfraTRiX"
+      },
+      {
+        "emoji": "😹",
+        "token": "FUNNY MONEY",
+        "symbol": "MONEY",
+        "rank": 119,
+        "rarity": "UNCOMMON",
+        "pixels": 22,
+        "where": "3D Glasses",
+        "mint": "HuEt5dcUpd12tCRMpFE7bjMPtS5ofvhHELbdUczeTRiX"
+      },
+      {
+        "emoji": "😺",
+        "token": "Shit Coin",
+        "symbol": "SHIT",
+        "rank": 120,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "3D Glasses",
+        "mint": "5AVhKEfbvxMUqVmcMtxT2Zn42PwYy3t9N5vUngZSTRiX"
+      },
+      {
+        "emoji": "😻",
+        "token": "what",
+        "symbol": "WHAT",
+        "rank": 121,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "3D Glasses",
+        "mint": "3ho3KkqYkANUKRUu4UxJ2ue56ZrSCzMX4XtrdC8jTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 61,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 69,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

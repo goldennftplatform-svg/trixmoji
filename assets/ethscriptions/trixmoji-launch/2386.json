@@ -1,0 +1,103 @@
+{
+  "name": "TRIXMOJI PHUNKS #2386",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #2386. Left-facing phunk. Type Ape. Hair/Hat Headband. Glasses Small Shades. Tokens: ⬛ VOID (VOID, rank 4, Ape); 🕴️ MICHAEL SELLER (SELLER, rank 5, Ape); 📦 Black Box (BOX, rank 129, Black tiles); 🐅 GTA MONEY (MONEY, rank 152, Headband); 🐆 RED (RED, rank 153, Headband). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "2386.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Ape"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Headband"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Small Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "⬛ VOID · VOID · rank 4 · Ape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🕴️ MICHAEL SELLER · SELLER · rank 5 · Ape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐆 RED · RED · rank 153 · Headband"
+    }
+  ],
+  "properties": {
+    "edition": 2386,
+    "files": [
+      {
+        "uri": "2386.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "⬛",
+        "token": "VOID",
+        "symbol": "VOID",
+        "rank": 4,
+        "rarity": "RAREST",
+        "pixels": 55,
+        "where": "Ape",
+        "mint": "74nSAMYRsm3MZLqVXcoZoUFsjiqKZhAJCqttHVycTRiX"
+      },
+      {
+        "emoji": "🕴️",
+        "token": "MICHAEL SELLER",
+        "symbol": "SELLER",
+        "rank": 5,
+        "rarity": "RAREST",
+        "pixels": 33,
+        "where": "Ape",
+        "mint": "9mBEqBs2xMBkeTpUUeYFqRtnHGSkEmHz73zR5m74TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 85,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 9,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "🐆",
+        "token": "RED",
+        "symbol": "RED",
+        "rank": 153,
+        "rarity": "UNCOMMON",
+        "pixels": 9,
+        "where": "Headband",
+        "mint": "AKXr2DLYdjqYxnvPXNEVfoEGNXdaR7a1WxiECz7wTRiX"
+      }
+    ]
+  }
+}

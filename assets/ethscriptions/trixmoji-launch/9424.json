@@ -1,0 +1,111 @@
+{
+  "name": "TRIXMOJI PHUNKS #9424",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #9424. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Wild Hair. Glasses Nerd Glasses. In Mouth Vape. Tokens: 🐇 WHITE (RABBIT, rank 117, Vape); 😸 Super Intelligent Retard (SIR, rank 118, Vape); 📦 Black Box (BOX, rank 129, Black tiles); 🌊 The Heart of The Ocean (HOO, rank 193, Nerd Glasses); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "9424.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Wild Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Nerd Glasses"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐇 WHITE · RABBIT · rank 117 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😸 Super Intelligent Retard · SIR · rank 118 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🌊 The Heart of The Ocean · HOO · rank 193 · Nerd Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 9424,
+    "files": [
+      {
+        "uri": "9424.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🐇",
+        "token": "WHITE",
+        "symbol": "RABBIT",
+        "rank": 117,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Vape",
+        "mint": "6BMQaSmUco7Gj7fRe5KJWGSKvVFkHX5yYjfWov8dTRiX"
+      },
+      {
+        "emoji": "😸",
+        "token": "Super Intelligent Retard",
+        "symbol": "SIR",
+        "rank": 118,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Vape",
+        "mint": "4kBTPPBxpiDrZ4jKzhrVt3n9JQCUaZ4eJmRFisciTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 189,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🌊",
+        "token": "The Heart of The Ocean",
+        "symbol": "HOO",
+        "rank": 193,
+        "rarity": "UNCOMMON",
+        "pixels": 8,
+        "where": "Nerd Glasses",
+        "mint": "0x3Ba84f6f5427624b30D05E94D3D7390dEAE121Df"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 66,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

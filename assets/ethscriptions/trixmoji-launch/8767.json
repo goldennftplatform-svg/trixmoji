@@ -1,0 +1,171 @@
+{
+  "name": "TRIXMOJI PHUNKS #8767",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #8767. Left-facing phunk. Type Female. Skin Light. Hair/Hat Wild White Hair. Glasses Horned Rim Glasses. Mouth Hot Lipstick. Jewelry Earring. Tokens: 📖 PaulyVerse (VERSE, rank 65, Wild White Hair); 📦 Black Box (BOX, rank 129, Black tiles); 🐅 GTA MONEY (MONEY, rank 152, Headband); 🐞 Ziggy (ZIGGY, rank 176, Horned Rim Glasses); 🐟 IzReal (IZATARD, rank 177, Horned Rim Glasses); 🐠 A1 (A1, rank 178, Horned Rim Glasses); 🐡 Blazed Nirvana (NIRVA, rank 179, Horned Rim Glasses); 🐶 MICROPENIS (SMOL, rank 202, Hot Lipstick); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "8767.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Wild White Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Horned Rim Glasses"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Hot Lipstick"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📖 PaulyVerse · VERSE · rank 65 · Wild White Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐞 Ziggy · ZIGGY · rank 176 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐟 IzReal · IZATARD · rank 177 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐠 A1 · A1 · rank 178 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐡 Blazed Nirvana · NIRVA · rank 179 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐶 MICROPENIS · SMOL · rank 202 · Hot Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 8767,
+    "files": [
+      {
+        "uri": "8767.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📖",
+        "token": "PaulyVerse",
+        "symbol": "VERSE",
+        "rank": 65,
+        "rarity": "RARE",
+        "pixels": 1,
+        "where": "Wild White Hair",
+        "mint": "EPikhBfCpouxZGcPf11HwcoUUdF9typkGv3sQud2TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 84,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 42,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "🐞",
+        "token": "Ziggy",
+        "symbol": "ZIGGY",
+        "rank": 176,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CmMZ4RNRZZBt1bfcxkYiXB3SXAWFucdFZcP1y5MCTRiX"
+      },
+      {
+        "emoji": "🐟",
+        "token": "IzReal",
+        "symbol": "IZATARD",
+        "rank": 177,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Horned Rim Glasses",
+        "mint": "BEEBsdF8Ez2kmoVNt22zbx3ksvWWuMoLjNSY9uTLTRiX"
+      },
+      {
+        "emoji": "🐠",
+        "token": "A1",
+        "symbol": "A1",
+        "rank": 178,
+        "rarity": "UNCOMMON",
+        "pixels": 9,
+        "where": "Horned Rim Glasses",
+        "mint": "FiWpHXKjWEKUigLWWRjRn3KdvWWmvcLDhrDTqVET5FMz"
+      },
+      {
+        "emoji": "🐡",
+        "token": "Blazed Nirvana",
+        "symbol": "NIRVA",
+        "rank": 179,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CTW5iL9nubR9r98qfRWm9jiPhfPjGPUxJCiWGTP5TRiX"
+      },
+      {
+        "emoji": "🐶",
+        "token": "MICROPENIS",
+        "symbol": "SMOL",
+        "rank": 202,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Hot Lipstick",
+        "mint": "Drh3zXhawDgQJjz2KjgKgdBkhKch9GoTM3BbARbeTRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 53,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "name": "TRIXMOJI PHUNKS #3238",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #3238. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Messy Hair. Glasses Regular Shades. Jewelry Earring. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 💚 BOONG (BOONG, rank 216, Earring); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "3238.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Messy Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Regular Shades"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 3238,
+    "files": [
+      {
+        "uri": "3238.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 123,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 87,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

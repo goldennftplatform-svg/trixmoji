@@ -1,0 +1,153 @@
+{
+  "name": "TRIXMOJI PHUNKS #1505",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #1505. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Knitted Cap. Glasses VR. In Mouth Cigarette. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🙋 $FLUX (FLUX, rank 142, VR); 🙌 bitchsquirtend (SQURT, rank 143, VR); 🐉 Bitcoin (BTC, rank 156, Knitted Cap); 🐊 PORKTARDS (PTARD, rank 157, Knitted Cap); 🐽 PACKS (PACKS, rank 208, Cigarette); 🐾 ROOSTER (ROOSTER, rank 209, Cigarette); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "1505.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Knitted Cap"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "VR"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Cigarette"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙋 $FLUX · FLUX · rank 142 · VR"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙌 bitchsquirtend · SQURT · rank 143 · VR"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐉 Bitcoin · BTC · rank 156 · Knitted Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐊 PORKTARDS · PTARD · rank 157 · Knitted Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐽 PACKS · PACKS · rank 208 · Cigarette"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐾 ROOSTER · ROOSTER · rank 209 · Cigarette"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 1505,
+    "files": [
+      {
+        "uri": "1505.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 106,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙋",
+        "token": "$FLUX",
+        "symbol": "FLUX",
+        "rank": 142,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "VR",
+        "mint": "DdZ7kjzEe658RdtDQapSbgM1fB8s5y4fYtQ5bBW6TRiX"
+      },
+      {
+        "emoji": "🙌",
+        "token": "bitchsquirtend",
+        "symbol": "SQURT",
+        "rank": 143,
+        "rarity": "UNCOMMON",
+        "pixels": 18,
+        "where": "VR",
+        "mint": "H5V8NaipqQs4uvrC6iqYFVXufiG8JNPmg2U3zJE7TRiX"
+      },
+      {
+        "emoji": "🐉",
+        "token": "Bitcoin",
+        "symbol": "BTC",
+        "rank": 156,
+        "rarity": "UNCOMMON",
+        "pixels": 17,
+        "where": "Knitted Cap",
+        "mint": "FvsKtnUgj8yL3pSHDYWdn63QK177vAgyAvhybrTYTRiX"
+      },
+      {
+        "emoji": "🐊",
+        "token": "PORKTARDS",
+        "symbol": "PTARD",
+        "rank": 157,
+        "rarity": "UNCOMMON",
+        "pixels": 12,
+        "where": "Knitted Cap",
+        "mint": "7sjchnFFTf7e7S8xigwpUXtHvnkx5z3aQhXir4ULTRiX"
+      },
+      {
+        "emoji": "🐽",
+        "token": "PACKS",
+        "symbol": "PACKS",
+        "rank": 208,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Cigarette",
+        "mint": "GujHKn811bShZXNYdxW7vBJisTQNTdiC9R56hdoeTRiX"
+      },
+      {
+        "emoji": "🐾",
+        "token": "ROOSTER",
+        "symbol": "ROOSTER",
+        "rank": 209,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Cigarette",
+        "mint": "7EypRJqVAfTyeVazAbqY2JEz8rcTnheTdVxvVBbw1aTJ"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 50,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

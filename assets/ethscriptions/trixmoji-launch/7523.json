@@ -1,0 +1,163 @@
+{
+  "name": "TRIXMOJI PHUNKS #7523",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #7523. Left-facing phunk. Type Alien. Hair/Hat Knitted Cap. In Mouth Medical Mask. Jewelry Earring. Tokens: 🪠 Crack On Sol (CRACK, rank 1, Alien); ❤️ Your Moms (MOMS, rank 2, Alien); ♾️ Hold On Eternally (HOE, rank 3, Alien); 😗 Yek (YEK, rank 78, Medical Mask); 😘 BIDEN (BIDEN, rank 79, Medical Mask); 📦 Black Box (BOX, rank 129, Black tiles); 🐉 Bitcoin (BTC, rank 156, Knitted Cap); 🐊 PORKTARDS (PTARD, rank 157, Knitted Cap); 💚 BOONG (BOONG, rank 216, Earring). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "7523.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Alien"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Knitted Cap"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Medical Mask"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🪠 Crack On Sol · CRACK · rank 1 · Alien"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "❤️ Your Moms · MOMS · rank 2 · Alien"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "♾️ Hold On Eternally · HOE · rank 3 · Alien"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😗 Yek · YEK · rank 78 · Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😘 BIDEN · BIDEN · rank 79 · Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐉 Bitcoin · BTC · rank 156 · Knitted Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐊 PORKTARDS · PTARD · rank 157 · Knitted Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    }
+  ],
+  "properties": {
+    "edition": 7523,
+    "files": [
+      {
+        "uri": "7523.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🪠",
+        "token": "Crack On Sol",
+        "symbol": "CRACK",
+        "rank": 1,
+        "rarity": "RAREST",
+        "pixels": 57,
+        "where": "Alien",
+        "mint": "9x9MKbh5pq8fsTAH6fpSi17UuBgGNAVJPwMYTyXLTRiX"
+      },
+      {
+        "emoji": "❤️",
+        "token": "Your Moms",
+        "symbol": "MOMS",
+        "rank": 2,
+        "rarity": "RAREST",
+        "pixels": 3,
+        "where": "Alien",
+        "mint": "HDYP5e1dUM3zjqw3tQvDHDxtt6CKxkgyEN3NdNcXTRiX"
+      },
+      {
+        "emoji": "♾️",
+        "token": "Hold On Eternally",
+        "symbol": "HOE",
+        "rank": 3,
+        "rarity": "RAREST",
+        "pixels": 2,
+        "where": "Alien",
+        "mint": "FYhtoxpaaRXVubqjuijhbNmTc9bUuXr7LVYeaTZQTRiX"
+      },
+      {
+        "emoji": "😗",
+        "token": "Yek",
+        "symbol": "YEK",
+        "rank": 78,
+        "rarity": "RARE",
+        "pixels": 38,
+        "where": "Medical Mask",
+        "mint": "CPuKRLoWjMuktTajkzySyKAVjXKL4d4vJt5SEw4aTRiX"
+      },
+      {
+        "emoji": "😘",
+        "token": "BIDEN",
+        "symbol": "BIDEN",
+        "rank": 79,
+        "rarity": "RARE",
+        "pixels": 3,
+        "where": "Medical Mask",
+        "mint": "0xa6D6399bA1B1B6b28183BA934dfBa161AE528f7e"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 57,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐉",
+        "token": "Bitcoin",
+        "symbol": "BTC",
+        "rank": 156,
+        "rarity": "UNCOMMON",
+        "pixels": 21,
+        "where": "Knitted Cap",
+        "mint": "FvsKtnUgj8yL3pSHDYWdn63QK177vAgyAvhybrTYTRiX"
+      },
+      {
+        "emoji": "🐊",
+        "token": "PORKTARDS",
+        "symbol": "PTARD",
+        "rank": 157,
+        "rarity": "UNCOMMON",
+        "pixels": 17,
+        "where": "Knitted Cap",
+        "mint": "7sjchnFFTf7e7S8xigwpUXtHvnkx5z3aQhXir4ULTRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      }
+    ]
+  }
+}

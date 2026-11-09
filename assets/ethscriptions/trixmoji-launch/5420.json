@@ -1,0 +1,167 @@
+{
+  "name": "TRIXMOJI PHUNKS #5420",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5420. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Cap. Glasses Horned Rim Glasses. Facial Hair Luxurious Beard. Tokens: 😼 FREEDOM (FREE, rank 122, Luxurious Beard); 📦 Black Box (BOX, rank 129, Black tiles); 🙍 SILK ROAD (SILK, rank 144, Cap); 🤑 Mo Kings (MOKINGS, rank 145, Cap); 🐞 Ziggy (ZIGGY, rank 176, Horned Rim Glasses); 🐢 OK (OK, rank 180, Horned Rim Glasses); 🐣 GTA IV (GTA, rank 181, Horned Rim Glasses); 🐤 ALANYA (ALANYA, rank 182, Horned Rim Glasses); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5420.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Cap"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Horned Rim Glasses"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Luxurious Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😼 FREEDOM · FREE · rank 122 · Luxurious Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙍 SILK ROAD · SILK · rank 144 · Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🤑 Mo Kings · MOKINGS · rank 145 · Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐞 Ziggy · ZIGGY · rank 176 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐢 OK · OK · rank 180 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐣 GTA IV · GTA · rank 181 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐤 ALANYA · ALANYA · rank 182 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 5420,
+    "files": [
+      {
+        "uri": "5420.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😼",
+        "token": "FREEDOM",
+        "symbol": "FREE",
+        "rank": 122,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Luxurious Beard",
+        "mint": "4gHwSxGcNVCTRfWzVZV7EkMuD8LLtWjn7rKyTn9ZTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 117,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙍",
+        "token": "SILK ROAD",
+        "symbol": "SILK",
+        "rank": 144,
+        "rarity": "UNCOMMON",
+        "pixels": 32,
+        "where": "Cap",
+        "mint": "3L1f5ENJqmKBZSJxYaUFxox3GtPirVF5skssdxgvTRiX"
+      },
+      {
+        "emoji": "🤑",
+        "token": "Mo Kings",
+        "symbol": "MOKINGS",
+        "rank": 145,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Cap",
+        "mint": "7AHpA6dhkkRHz54FHKP2vAdPSJc11vxomcbqxxBhTRiX"
+      },
+      {
+        "emoji": "🐞",
+        "token": "Ziggy",
+        "symbol": "ZIGGY",
+        "rank": 176,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CmMZ4RNRZZBt1bfcxkYiXB3SXAWFucdFZcP1y5MCTRiX"
+      },
+      {
+        "emoji": "🐢",
+        "token": "OK",
+        "symbol": "OK",
+        "rank": 180,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Horned Rim Glasses",
+        "mint": "6VEhTpHR5tssT1xg9cRcXF2ot28tspjYvTyykGQGTRiX"
+      },
+      {
+        "emoji": "🐣",
+        "token": "GTA IV",
+        "symbol": "GTA",
+        "rank": 181,
+        "rarity": "UNCOMMON",
+        "pixels": 10,
+        "where": "Horned Rim Glasses",
+        "mint": "Bfc299cLrPnFTYFUW8so99N2HHZyKwYgPXQEYrXwTRiX"
+      },
+      {
+        "emoji": "🐤",
+        "token": "ALANYA",
+        "symbol": "ALANYA",
+        "rank": 182,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "BYyaH21eR5dwnR5uh7eAWXPcn7AwmDTwxWB88wvHTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 41,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

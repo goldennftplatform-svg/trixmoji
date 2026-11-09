@@ -1,0 +1,111 @@
+{
+  "name": "TRIXMOJI PHUNKS #939",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #939. Left-facing phunk. Type Male. Skin Medium. Hair/Hat Hoodie. Glasses VR. Jewelry Earring. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🙋 $FLUX (FLUX, rank 142, VR); 🙌 bitchsquirtend (SQURT, rank 143, VR); 🐋 Cymru (CYM, rank 158, Mohawk Thin); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "939.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Hoodie"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "VR"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙋 $FLUX · FLUX · rank 142 · VR"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙌 bitchsquirtend · SQURT · rank 143 · VR"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐋 Cymru · CYM · rank 158 · Mohawk Thin"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 939,
+    "files": [
+      {
+        "uri": "939.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 159,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙋",
+        "token": "$FLUX",
+        "symbol": "FLUX",
+        "rank": 142,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "VR",
+        "mint": "DdZ7kjzEe658RdtDQapSbgM1fB8s5y4fYtQ5bBW6TRiX"
+      },
+      {
+        "emoji": "🙌",
+        "token": "bitchsquirtend",
+        "symbol": "SQURT",
+        "rank": 143,
+        "rarity": "UNCOMMON",
+        "pixels": 18,
+        "where": "VR",
+        "mint": "H5V8NaipqQs4uvrC6iqYFVXufiG8JNPmg2U3zJE7TRiX"
+      },
+      {
+        "emoji": "🐋",
+        "token": "Cymru",
+        "symbol": "CYM",
+        "rank": 158,
+        "rarity": "UNCOMMON",
+        "pixels": 67,
+        "where": "Mohawk Thin",
+        "mint": "5QaWBQwxxJDquNAoKJNyAXEDdwnt8tCcdnsP2FWRTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 56,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

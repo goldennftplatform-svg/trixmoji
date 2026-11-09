@@ -1,0 +1,139 @@
+{
+  "name": "TRIXMOJI PHUNKS #1088",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #1088. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Shaved Head. Glasses Classic Shades. On Nose Clown Nose. Tokens: 🍳 Let him cook (COOK, rank 86, Clown Nose); 📦 Black Box (BOX, rank 129, Black tiles); 🙂 0xGEOFF (0XG, rank 130, Shaved Head); 🌋 MAGMA (MAG, rank 131, Shaved Head); 🐐 BIG DAWG (DAWG, rank 164, Classic Shades); 🐒 RootkitAlpha (RKA, rank 165, Classic Shades); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "1088.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Shaved Head"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Classic Shades"
+    },
+    {
+      "trait_type": "On Nose",
+      "value": "Clown Nose"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🍳 Let him cook · COOK · rank 86 · Clown Nose"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙂 0xGEOFF · 0XG · rank 130 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🌋 MAGMA · MAG · rank 131 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐐 BIG DAWG · DAWG · rank 164 · Classic Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐒 RootkitAlpha · RKA · rank 165 · Classic Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 1088,
+    "files": [
+      {
+        "uri": "1088.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🍳",
+        "token": "Let him cook",
+        "symbol": "COOK",
+        "rank": 86,
+        "rarity": "RARE",
+        "pixels": 4,
+        "where": "Clown Nose",
+        "mint": "2yK1xxNVjXJ1M4B3Wtf14SXQCEZhGa2onccQXdK7TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 73,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙂",
+        "token": "0xGEOFF",
+        "symbol": "0XG",
+        "rank": 130,
+        "rarity": "UNCOMMON",
+        "pixels": 25,
+        "where": "Shaved Head",
+        "mint": "69fCFYE3GKfea428dNb618mKtSyoNFdT5QxvPouUkH1n"
+      },
+      {
+        "emoji": "🌋",
+        "token": "MAGMA",
+        "symbol": "MAG",
+        "rank": 131,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Shaved Head",
+        "mint": "B9Qo41JeYEoYpNUXvzSJg9EDSeJCjjzm3JK9KWrGTRiX"
+      },
+      {
+        "emoji": "🐐",
+        "token": "BIG DAWG",
+        "symbol": "DAWG",
+        "rank": 164,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Classic Shades",
+        "mint": "C5armesyd7sQsgoz1DvSAea96TdYmGC7txNYG76aErp2"
+      },
+      {
+        "emoji": "🐒",
+        "token": "RootkitAlpha",
+        "symbol": "RKA",
+        "rank": 165,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Classic Shades",
+        "mint": "GDBPZNwpJqmAsXNj3F4c4HSVrSGE27QXPCK5AbC3TRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 79,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

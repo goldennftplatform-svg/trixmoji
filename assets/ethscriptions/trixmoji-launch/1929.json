@@ -1,0 +1,149 @@
+{
+  "name": "TRIXMOJI PHUNKS #1929",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #1929. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Police Cap. Facial Hair Front Beard Dark. Tokens: 😜 Pauly.ai (PAULYAI, rank 84, Police Cap); 😝 ZEFCASH (ZEF, rank 85, Police Cap); 😢 U Cant Do That (UCDT, rank 91, Front Beard Dark); 📦 Black Box (BOX, rank 129, Black tiles); 🐅 GTA MONEY (MONEY, rank 152, Headband); 👨 $COOK (COOK, rank 211, Type: Human); 🐿 SLOP (SLOP, rank 212, Type: Human); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "1929.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Police Cap"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Front Beard Dark"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😜 Pauly.ai · PAULYAI · rank 84 · Police Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😝 ZEFCASH · ZEF · rank 85 · Police Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😢 U Cant Do That · UCDT · rank 91 · Front Beard Dark"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👨 $COOK · COOK · rank 211 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐿 SLOP · SLOP · rank 212 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 1929,
+    "files": [
+      {
+        "uri": "1929.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😜",
+        "token": "Pauly.ai",
+        "symbol": "PAULYAI",
+        "rank": 84,
+        "rarity": "RARE",
+        "pixels": 32,
+        "where": "Police Cap",
+        "mint": "6cAiPNP4Rxdcdg9FeSNhjAkwGsHoto9QrY5t4AziTRiX"
+      },
+      {
+        "emoji": "😝",
+        "token": "ZEFCASH",
+        "symbol": "ZEF",
+        "rank": 85,
+        "rarity": "RARE",
+        "pixels": 1,
+        "where": "Police Cap",
+        "mint": "DHyGLyCVm5AURBwwSXLooZozFvimtpuMTwuUGUbBTRiX"
+      },
+      {
+        "emoji": "😢",
+        "token": "U Cant Do That",
+        "symbol": "UCDT",
+        "rank": 91,
+        "rarity": "RARE",
+        "pixels": 18,
+        "where": "Front Beard Dark",
+        "mint": "Agrb4pzJe3Xudma1SHDszfPwspNAf5oPeXbdjpBiTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 78,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "👨",
+        "token": "$COOK",
+        "symbol": "COOK",
+        "rank": 211,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "5xbuGdFCSXpW1zkGEiK3FKFDLioZ8tzsA2WosKATRiX"
+      },
+      {
+        "emoji": "🐿",
+        "token": "SLOP",
+        "symbol": "SLOP",
+        "rank": 212,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "Gtn1kxqdPMkjjpcj2Ch3n4t2VJ2mxpBRVHHYe7WYTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 80,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

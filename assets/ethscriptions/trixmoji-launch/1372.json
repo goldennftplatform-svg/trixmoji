@@ -1,0 +1,135 @@
+{
+  "name": "TRIXMOJI PHUNKS #1372",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #1372. Left-facing phunk. Type Female. Skin Dark. Hair/Hat Dark Hair. Glasses Horned Rim Glasses. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🐚 HALLUCINATE (RAVE, rank 172, Type: Human); 🐞 Ziggy (ZIGGY, rank 176, Horned Rim Glasses); 🐢 OK (OK, rank 180, Horned Rim Glasses); 🐣 GTA IV (GTA, rank 181, Horned Rim Glasses); 🐤 ALANYA (ALANYA, rank 182, Horned Rim Glasses); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "1372.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Dark Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐚 HALLUCINATE · RAVE · rank 172 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐞 Ziggy · ZIGGY · rank 176 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐢 OK · OK · rank 180 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐣 GTA IV · GTA · rank 181 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐤 ALANYA · ALANYA · rank 182 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 1372,
+    "files": [
+      {
+        "uri": "1372.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 135,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐚",
+        "token": "HALLUCINATE",
+        "symbol": "RAVE",
+        "rank": 172,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "D5zLvsT6HH6ywDJyg6gPhqSbHUL6njVe4T8RQnVBF61e"
+      },
+      {
+        "emoji": "🐞",
+        "token": "Ziggy",
+        "symbol": "ZIGGY",
+        "rank": 176,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CmMZ4RNRZZBt1bfcxkYiXB3SXAWFucdFZcP1y5MCTRiX"
+      },
+      {
+        "emoji": "🐢",
+        "token": "OK",
+        "symbol": "OK",
+        "rank": 180,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Horned Rim Glasses",
+        "mint": "6VEhTpHR5tssT1xg9cRcXF2ot28tspjYvTyykGQGTRiX"
+      },
+      {
+        "emoji": "🐣",
+        "token": "GTA IV",
+        "symbol": "GTA",
+        "rank": 181,
+        "rarity": "UNCOMMON",
+        "pixels": 10,
+        "where": "Horned Rim Glasses",
+        "mint": "Bfc299cLrPnFTYFUW8so99N2HHZyKwYgPXQEYrXwTRiX"
+      },
+      {
+        "emoji": "🐤",
+        "token": "ALANYA",
+        "symbol": "ALANYA",
+        "rank": 182,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "BYyaH21eR5dwnR5uh7eAWXPcn7AwmDTwxWB88wvHTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 45,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

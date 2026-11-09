@@ -1,0 +1,203 @@
+{
+  "name": "TRIXMOJI PHUNKS #8753",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #8753. Left-facing phunk. Type Male. Skin Medium. Hair/Hat Cap Forward. Glasses Horned Rim Glasses. Facial Hair Front Beard Dark. Mouth Buck Teeth. Jewelry Earring. Tokens: 😞 42 (42, rank 87, Cap Forward); 😟 GREEN (GREEN, rank 88, Cap Forward); 😢 U Cant Do That (UCDT, rank 91, Front Beard Dark); 📦 Black Box (BOX, rank 129, Black tiles); 🐅 GTA MONEY (MONEY, rank 152, Headband); 🐞 Ziggy (ZIGGY, rank 176, Horned Rim Glasses); 🥵 HOT NORDIC ALIEN (NORDIC, rank 183, Horned Rim Glasses); 🐥 Paulymon (PLYMN, rank 184, Horned Rim Glasses); 🐧 Deal With It (DEAL, rank 185, Horned Rim Glasses); 💚 BOONG (BOONG, rank 216, Earring); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "8753.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Cap Forward"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Horned Rim Glasses"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Front Beard Dark"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Buck Teeth"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😞 42 · 42 · rank 87 · Cap Forward"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😟 GREEN · GREEN · rank 88 · Cap Forward"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😢 U Cant Do That · UCDT · rank 91 · Front Beard Dark"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐞 Ziggy · ZIGGY · rank 176 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥵 HOT NORDIC ALIEN · NORDIC · rank 183 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐥 Paulymon · PLYMN · rank 184 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐧 Deal With It · DEAL · rank 185 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 8753,
+    "files": [
+      {
+        "uri": "8753.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😞",
+        "token": "42",
+        "symbol": "42",
+        "rank": 87,
+        "rarity": "RARE",
+        "pixels": 19,
+        "where": "Cap Forward",
+        "mint": "2B1DwahiByTVU5fSwJ6HjWpeiZk5s66bzDb2pyHCTRiX"
+      },
+      {
+        "emoji": "😟",
+        "token": "GREEN",
+        "symbol": "GREEN",
+        "rank": 88,
+        "rarity": "RARE",
+        "pixels": 10,
+        "where": "Cap Forward",
+        "mint": "2Fr1y9199bPJoNMwsXR66nmadYdijB9aiLYErsvZTRiX"
+      },
+      {
+        "emoji": "😢",
+        "token": "U Cant Do That",
+        "symbol": "UCDT",
+        "rank": 91,
+        "rarity": "RARE",
+        "pixels": 18,
+        "where": "Front Beard Dark",
+        "mint": "Agrb4pzJe3Xudma1SHDszfPwspNAf5oPeXbdjpBiTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 90,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "🐞",
+        "token": "Ziggy",
+        "symbol": "ZIGGY",
+        "rank": 176,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CmMZ4RNRZZBt1bfcxkYiXB3SXAWFucdFZcP1y5MCTRiX"
+      },
+      {
+        "emoji": "🥵",
+        "token": "HOT NORDIC ALIEN",
+        "symbol": "NORDIC",
+        "rank": 183,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Horned Rim Glasses",
+        "mint": "J5Lm4fZmzoaUw7V6zJWm3BPrWJsxC7NAnEsAV5j4TRiX"
+      },
+      {
+        "emoji": "🐥",
+        "token": "Paulymon",
+        "symbol": "PLYMN",
+        "rank": 184,
+        "rarity": "UNCOMMON",
+        "pixels": 10,
+        "where": "Horned Rim Glasses",
+        "mint": "8RZveZ2bUk5dAx4qqu2wdF3PTNqusxU298xzTxxWTRiX"
+      },
+      {
+        "emoji": "🐧",
+        "token": "Deal With It",
+        "symbol": "DEAL",
+        "rank": 185,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "FqNCKubbdcc8MQ4TA38Z1QokmZdKyeMKC4VqfDeTRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 56,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "name": "TRIXMOJI PHUNKS #6011",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6011. Left-facing phunk. Type Male. Skin Light. Hair/Hat Wild Hair. Glasses Big Shades. In Mouth Medical Mask. Tokens: 😗 Yek (YEK, rank 78, Medical Mask); 😘 BIDEN (BIDEN, rank 79, Medical Mask); 📦 Black Box (BOX, rank 129, Black tiles); 🐛 TrixCat (TRIXCAT, rank 173, Big Shades); 🐜 Non Fungible Token (NFT, rank 174, Big Shades); 🐝 MASK (MASK, rank 175, Big Shades); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6011.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Wild Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Big Shades"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😗 Yek · YEK · rank 78 · Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😘 BIDEN · BIDEN · rank 79 · Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐛 TrixCat · TRIXCAT · rank 173 · Big Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐜 Non Fungible Token · NFT · rank 174 · Big Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐝 MASK · MASK · rank 175 · Big Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6011,
+    "files": [
+      {
+        "uri": "6011.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😗",
+        "token": "Yek",
+        "symbol": "YEK",
+        "rank": 78,
+        "rarity": "RARE",
+        "pixels": 38,
+        "where": "Medical Mask",
+        "mint": "CPuKRLoWjMuktTajkzySyKAVjXKL4d4vJt5SEw4aTRiX"
+      },
+      {
+        "emoji": "😘",
+        "token": "BIDEN",
+        "symbol": "BIDEN",
+        "rank": 79,
+        "rarity": "RARE",
+        "pixels": 3,
+        "where": "Medical Mask",
+        "mint": "0xa6D6399bA1B1B6b28183BA934dfBa161AE528f7e"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 162,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐛",
+        "token": "TrixCat",
+        "symbol": "TRIXCAT",
+        "rank": 173,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "Big Shades",
+        "mint": "jSaawPyMtQNWcgoUM49j7rxEt4HLxWES6SgZateTRiX"
+      },
+      {
+        "emoji": "🐜",
+        "token": "Non Fungible Token",
+        "symbol": "NFT",
+        "rank": 174,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "Big Shades",
+        "mint": "8WxdjYpSrR7Rbj97X5ZnfK4DSLR3CUzcCJnkEQV6TRiX"
+      },
+      {
+        "emoji": "🐝",
+        "token": "MASK",
+        "symbol": "MASK",
+        "rank": 175,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "Big Shades",
+        "mint": "23hXd1tpmh4StG3sMFwQ8cZdnj5XZD15WY9TuerWTRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 36,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

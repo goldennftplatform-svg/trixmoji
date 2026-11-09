@@ -1,0 +1,185 @@
+{
+  "name": "TRIXMOJI PHUNKS #2498",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #2498. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Do-rag. Glasses Classic Shades. Facial Hair Shadow Beard. In Mouth Cigarette. Tokens: 🙁 GEO CUCK (GEOCUCK, rank 128, Do-rag); 📦 Black Box (BOX, rank 129, Black tiles); 📦 Black Box (BOX, rank 129, Do-rag); 🐐 BIG DAWG (DAWG, rank 164, Classic Shades); 🐒 RootkitAlpha (RKA, rank 165, Classic Shades); 🐓 PEPE (PEPE, rank 166, Shadow Beard); 🐔 WW3 (WW3, rank 167, Shadow Beard); 🐽 PACKS (PACKS, rank 208, Cigarette); 🐾 ROOSTER (ROOSTER, rank 209, Cigarette); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "2498.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Do-rag"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Classic Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Shadow Beard"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Cigarette"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙁 GEO CUCK · GEOCUCK · rank 128 · Do-rag"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Do-rag"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐐 BIG DAWG · DAWG · rank 164 · Classic Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐒 RootkitAlpha · RKA · rank 165 · Classic Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐓 PEPE · PEPE · rank 166 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐔 WW3 · WW3 · rank 167 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐽 PACKS · PACKS · rank 208 · Cigarette"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐾 ROOSTER · ROOSTER · rank 209 · Cigarette"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 2498,
+    "files": [
+      {
+        "uri": "2498.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🙁",
+        "token": "GEO CUCK",
+        "symbol": "GEOCUCK",
+        "rank": 128,
+        "rarity": "UNCOMMON",
+        "pixels": 32,
+        "where": "Do-rag",
+        "mint": "BKupCCMBWR8M5ycLyRZEoAvje73uoLSQCwPZH39mTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 89,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Do-rag",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐐",
+        "token": "BIG DAWG",
+        "symbol": "DAWG",
+        "rank": 164,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Classic Shades",
+        "mint": "C5armesyd7sQsgoz1DvSAea96TdYmGC7txNYG76aErp2"
+      },
+      {
+        "emoji": "🐒",
+        "token": "RootkitAlpha",
+        "symbol": "RKA",
+        "rank": 165,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Classic Shades",
+        "mint": "GDBPZNwpJqmAsXNj3F4c4HSVrSGE27QXPCK5AbC3TRiX"
+      },
+      {
+        "emoji": "🐓",
+        "token": "PEPE",
+        "symbol": "PEPE",
+        "rank": 166,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Shadow Beard",
+        "mint": "BJj96imZGv4sTFgU8Br9soeTs22Fq5BSmpLs4dPcTRiX"
+      },
+      {
+        "emoji": "🐔",
+        "token": "WW3",
+        "symbol": "WW3",
+        "rank": 167,
+        "rarity": "UNCOMMON",
+        "pixels": 27,
+        "where": "Shadow Beard",
+        "mint": "AMhiqRWR52QhUoNUE9bbQGjjnyf2bBmkcYQrJEtDTRiX"
+      },
+      {
+        "emoji": "🐽",
+        "token": "PACKS",
+        "symbol": "PACKS",
+        "rank": 208,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Cigarette",
+        "mint": "GujHKn811bShZXNYdxW7vBJisTQNTdiC9R56hdoeTRiX"
+      },
+      {
+        "emoji": "🐾",
+        "token": "ROOSTER",
+        "symbol": "ROOSTER",
+        "rank": 209,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Cigarette",
+        "mint": "7EypRJqVAfTyeVazAbqY2JEz8rcTnheTdVxvVBbw1aTJ"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 41,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

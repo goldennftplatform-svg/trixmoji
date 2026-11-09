@@ -1,0 +1,125 @@
+{
+  "name": "TRIXMOJI PHUNKS #6459",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6459. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Top Hat. Glasses VR. Facial Hair Normal Beard Black. Tokens: 🎛️ Techno Capitalist Era (TECHNO, rank 38, Top Hat); 📦 Black Box (BOX, rank 129, Black tiles); 🙋 $FLUX (FLUX, rank 142, VR); 🙌 bitchsquirtend (SQURT, rank 143, VR); 🥇 D&D GP (GOLD, rank 215, Type: Human); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6459.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Top Hat"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "VR"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Normal Beard Black"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎛️ Techno Capitalist Era · TECHNO · rank 38 · Top Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙋 $FLUX · FLUX · rank 142 · VR"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙌 bitchsquirtend · SQURT · rank 143 · VR"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥇 D&D GP · GOLD · rank 215 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6459,
+    "files": [
+      {
+        "uri": "6459.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🎛️",
+        "token": "Techno Capitalist Era",
+        "symbol": "TECHNO",
+        "rank": 38,
+        "rarity": "EPIC",
+        "pixels": 9,
+        "where": "Top Hat",
+        "mint": "DgH3qE4gPPJ3BjT8VwtxLQUeAa267QGNvNEAZG1GTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 189,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙋",
+        "token": "$FLUX",
+        "symbol": "FLUX",
+        "rank": 142,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "VR",
+        "mint": "DdZ7kjzEe658RdtDQapSbgM1fB8s5y4fYtQ5bBW6TRiX"
+      },
+      {
+        "emoji": "🙌",
+        "token": "bitchsquirtend",
+        "symbol": "SQURT",
+        "rank": 143,
+        "rarity": "UNCOMMON",
+        "pixels": 18,
+        "where": "VR",
+        "mint": "H5V8NaipqQs4uvrC6iqYFVXufiG8JNPmg2U3zJE7TRiX"
+      },
+      {
+        "emoji": "🥇",
+        "token": "D&D GP",
+        "symbol": "GOLD",
+        "rank": 215,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "FioWU8Z8DVym8MfHmK2TiTHUV2AtABWeNiSMRKR6TRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 24,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

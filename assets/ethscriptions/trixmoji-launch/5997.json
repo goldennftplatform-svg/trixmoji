@@ -1,0 +1,111 @@
+{
+  "name": "TRIXMOJI PHUNKS #5997",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5997. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Knitted Cap. Glasses Small Shades. Makeup Mole. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🐉 Bitcoin (BTC, rank 156, Knitted Cap); 🐊 PORKTARDS (PTARD, rank 157, Knitted Cap); 🐯 Mine Kampf (MNKF, rank 195, Mole); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5997.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Knitted Cap"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Small Shades"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Mole"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐉 Bitcoin · BTC · rank 156 · Knitted Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐊 PORKTARDS · PTARD · rank 157 · Knitted Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐯 Mine Kampf · MNKF · rank 195 · Mole"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 5997,
+    "files": [
+      {
+        "uri": "5997.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 74,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐉",
+        "token": "Bitcoin",
+        "symbol": "BTC",
+        "rank": 156,
+        "rarity": "UNCOMMON",
+        "pixels": 21,
+        "where": "Knitted Cap",
+        "mint": "FvsKtnUgj8yL3pSHDYWdn63QK177vAgyAvhybrTYTRiX"
+      },
+      {
+        "emoji": "🐊",
+        "token": "PORKTARDS",
+        "symbol": "PTARD",
+        "rank": 157,
+        "rarity": "UNCOMMON",
+        "pixels": 17,
+        "where": "Knitted Cap",
+        "mint": "7sjchnFFTf7e7S8xigwpUXtHvnkx5z3aQhXir4ULTRiX"
+      },
+      {
+        "emoji": "🐯",
+        "token": "Mine Kampf",
+        "symbol": "MNKF",
+        "rank": 195,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Mole",
+        "mint": "3rFLjkV4JfRHZgpqR3oFYcCdGnGqY3VCEpHEBSFxTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 82,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

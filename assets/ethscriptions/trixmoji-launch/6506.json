@@ -1,0 +1,163 @@
+{
+  "name": "TRIXMOJI PHUNKS #6506",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6506. Left-facing phunk. Type Female. Skin Light. Hair/Hat Mohawk Thin. Glasses Horned Rim Glasses. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🐋 Cymru (CYM, rank 158, Mohawk Thin); 🐞 Ziggy (ZIGGY, rank 176, Horned Rim Glasses); 🐟 IzReal (IZATARD, rank 177, Horned Rim Glasses); 🐠 A1 (A1, rank 178, Horned Rim Glasses); 🐡 Blazed Nirvana (NIRVA, rank 179, Horned Rim Glasses); 👮 Copzy (COPZ, rank 205, Type: Human); 🐻 PAWN (PAWN, rank 206, Type: Human); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6506.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Mohawk Thin"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐋 Cymru · CYM · rank 158 · Mohawk Thin"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐞 Ziggy · ZIGGY · rank 176 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐟 IzReal · IZATARD · rank 177 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐠 A1 · A1 · rank 178 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐡 Blazed Nirvana · NIRVA · rank 179 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👮 Copzy · COPZ · rank 205 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐻 PAWN · PAWN · rank 206 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6506,
+    "files": [
+      {
+        "uri": "6506.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 65,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐋",
+        "token": "Cymru",
+        "symbol": "CYM",
+        "rank": 158,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Mohawk Thin",
+        "mint": "5QaWBQwxxJDquNAoKJNyAXEDdwnt8tCcdnsP2FWRTRiX"
+      },
+      {
+        "emoji": "🐞",
+        "token": "Ziggy",
+        "symbol": "ZIGGY",
+        "rank": 176,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CmMZ4RNRZZBt1bfcxkYiXB3SXAWFucdFZcP1y5MCTRiX"
+      },
+      {
+        "emoji": "🐟",
+        "token": "IzReal",
+        "symbol": "IZATARD",
+        "rank": 177,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Horned Rim Glasses",
+        "mint": "BEEBsdF8Ez2kmoVNt22zbx3ksvWWuMoLjNSY9uTLTRiX"
+      },
+      {
+        "emoji": "🐠",
+        "token": "A1",
+        "symbol": "A1",
+        "rank": 178,
+        "rarity": "UNCOMMON",
+        "pixels": 10,
+        "where": "Horned Rim Glasses",
+        "mint": "FiWpHXKjWEKUigLWWRjRn3KdvWWmvcLDhrDTqVET5FMz"
+      },
+      {
+        "emoji": "🐡",
+        "token": "Blazed Nirvana",
+        "symbol": "NIRVA",
+        "rank": 179,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CTW5iL9nubR9r98qfRWm9jiPhfPjGPUxJCiWGTP5TRiX"
+      },
+      {
+        "emoji": "👮",
+        "token": "Copzy",
+        "symbol": "COPZ",
+        "rank": 205,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "8YgbTPPcic2wdQEqe7vtW1wSJVi69VpSNxwnsxYgTRiX"
+      },
+      {
+        "emoji": "🐻",
+        "token": "PAWN",
+        "symbol": "PAWN",
+        "rank": 206,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Type: Human",
+        "mint": "CrV4bJME2yVnnh7WypzQ33KfEJVLh56p1iBDr612TRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 66,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

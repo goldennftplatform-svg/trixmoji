@@ -1,0 +1,171 @@
+{
+  "name": "TRIXMOJI PHUNKS #5056",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5056. Left-facing phunk. Type Male. Skin Albino. Hair/Hat Beanie. Glasses VR. Facial Hair Luxurious Beard. Jewelry Earring. Tokens: ⛏️ MINE HARDER (MINE, rank 11, Beanie); 😀 POOKU (POOKU, rank 12, Beanie); 😩 COPE HARDER (COPE, rank 13, Beanie); 😼 FREEDOM (FREE, rank 122, Luxurious Beard); 📦 Black Box (BOX, rank 129, Black tiles); 🙋 $FLUX (FLUX, rank 142, VR); 🙌 bitchsquirtend (SQURT, rank 143, VR); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human); 💚 BOONG (BOONG, rank 216, Earring). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5056.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Beanie"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "VR"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Luxurious Beard"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "⛏️ MINE HARDER · MINE · rank 11 · Beanie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😀 POOKU · POOKU · rank 12 · Beanie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😩 COPE HARDER · COPE · rank 13 · Beanie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😼 FREEDOM · FREE · rank 122 · Luxurious Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙋 $FLUX · FLUX · rank 142 · VR"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙌 bitchsquirtend · SQURT · rank 143 · VR"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    }
+  ],
+  "properties": {
+    "edition": 5056,
+    "files": [
+      {
+        "uri": "5056.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "⛏️",
+        "token": "MINE HARDER",
+        "symbol": "MINE",
+        "rank": 11,
+        "rarity": "LEGENDARY",
+        "pixels": 5,
+        "where": "Beanie",
+        "mint": "41yaqmU5vgoTyVxe6SJEKpR3B3bSnqsc9hFkcACnTRiX"
+      },
+      {
+        "emoji": "😀",
+        "token": "POOKU",
+        "symbol": "POOKU",
+        "rank": 12,
+        "rarity": "LEGENDARY",
+        "pixels": 5,
+        "where": "Beanie",
+        "mint": "Ebv9RGybF848qVAtko1gW7u2RSs65v2kXSHUTQHCTRiX"
+      },
+      {
+        "emoji": "😩",
+        "token": "COPE HARDER",
+        "symbol": "COPE",
+        "rank": 13,
+        "rarity": "LEGENDARY",
+        "pixels": 16,
+        "where": "Beanie",
+        "mint": "pqPyJmjC8NYaecNu8dD68XqtimjAxRbSgv4NEs9TRiX"
+      },
+      {
+        "emoji": "😼",
+        "token": "FREEDOM",
+        "symbol": "FREE",
+        "rank": 122,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Luxurious Beard",
+        "mint": "4gHwSxGcNVCTRfWzVZV7EkMuD8LLtWjn7rKyTn9ZTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 136,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙋",
+        "token": "$FLUX",
+        "symbol": "FLUX",
+        "rank": 142,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "VR",
+        "mint": "DdZ7kjzEe658RdtDQapSbgM1fB8s5y4fYtQ5bBW6TRiX"
+      },
+      {
+        "emoji": "🙌",
+        "token": "bitchsquirtend",
+        "symbol": "SQURT",
+        "rank": 143,
+        "rarity": "UNCOMMON",
+        "pixels": 18,
+        "where": "VR",
+        "mint": "H5V8NaipqQs4uvrC6iqYFVXufiG8JNPmg2U3zJE7TRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 18,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      }
+    ]
+  }
+}

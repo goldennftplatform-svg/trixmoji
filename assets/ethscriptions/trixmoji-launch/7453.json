@@ -1,0 +1,139 @@
+{
+  "name": "TRIXMOJI PHUNKS #7453",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #7453. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Cap. Glasses VR. Facial Hair Luxurious Beard. Tokens: 😼 FREEDOM (FREE, rank 122, Luxurious Beard); 📦 Black Box (BOX, rank 129, Black tiles); 🙋 $FLUX (FLUX, rank 142, VR); 🙌 bitchsquirtend (SQURT, rank 143, VR); 🙍 SILK ROAD (SILK, rank 144, Cap); 🤑 Mo Kings (MOKINGS, rank 145, Cap); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "7453.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Cap"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "VR"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Luxurious Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😼 FREEDOM · FREE · rank 122 · Luxurious Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙋 $FLUX · FLUX · rank 142 · VR"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙌 bitchsquirtend · SQURT · rank 143 · VR"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙍 SILK ROAD · SILK · rank 144 · Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🤑 Mo Kings · MOKINGS · rank 145 · Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 7453,
+    "files": [
+      {
+        "uri": "7453.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😼",
+        "token": "FREEDOM",
+        "symbol": "FREE",
+        "rank": 122,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Luxurious Beard",
+        "mint": "4gHwSxGcNVCTRfWzVZV7EkMuD8LLtWjn7rKyTn9ZTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 136,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙋",
+        "token": "$FLUX",
+        "symbol": "FLUX",
+        "rank": 142,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "VR",
+        "mint": "DdZ7kjzEe658RdtDQapSbgM1fB8s5y4fYtQ5bBW6TRiX"
+      },
+      {
+        "emoji": "🙌",
+        "token": "bitchsquirtend",
+        "symbol": "SQURT",
+        "rank": 143,
+        "rarity": "UNCOMMON",
+        "pixels": 18,
+        "where": "VR",
+        "mint": "H5V8NaipqQs4uvrC6iqYFVXufiG8JNPmg2U3zJE7TRiX"
+      },
+      {
+        "emoji": "🙍",
+        "token": "SILK ROAD",
+        "symbol": "SILK",
+        "rank": 144,
+        "rarity": "UNCOMMON",
+        "pixels": 32,
+        "where": "Cap",
+        "mint": "3L1f5ENJqmKBZSJxYaUFxox3GtPirVF5skssdxgvTRiX"
+      },
+      {
+        "emoji": "🤑",
+        "token": "Mo Kings",
+        "symbol": "MOKINGS",
+        "rank": 145,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Cap",
+        "mint": "7AHpA6dhkkRHz54FHKP2vAdPSJc11vxomcbqxxBhTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 18,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

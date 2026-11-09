@@ -1,0 +1,93 @@
+{
+  "name": "TRIXMOJI PHUNKS #5517",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5517. Left-facing phunk. Type Male. Skin Medium. Glasses Regular Shades. Facial Hair Mustache. Tokens: 😾 Boost (BOOST, rank 124, Mustache); 📦 Black Box (BOX, rank 129, Black tiles); 🐺 Nickel Metal Hydride (NIMH, rank 204, Type: Human); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5517.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Regular Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Mustache"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😾 Boost · BOOST · rank 124 · Mustache"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐺 Nickel Metal Hydride · NIMH · rank 204 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 5517,
+    "files": [
+      {
+        "uri": "5517.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😾",
+        "token": "Boost",
+        "symbol": "BOOST",
+        "rank": 124,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Mustache",
+        "mint": "Gg9xsoYq7wYGW4KmZo2bTPTvMJ6ZYLU9BEGGNTtvTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 77,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐺",
+        "token": "Nickel Metal Hydride",
+        "symbol": "NIMH",
+        "rank": 204,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "EGC52THyatGsVZJy3xyFEiZT7U92vz12p2KPmVzTTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 110,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

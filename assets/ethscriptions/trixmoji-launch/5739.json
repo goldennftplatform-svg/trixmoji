@@ -1,0 +1,181 @@
+{
+  "name": "TRIXMOJI PHUNKS #5739",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5739. Left-facing phunk. Type Female. Skin Light. Hair/Hat Knitted Cap. In Mouth Vape. Jewelry Earring. Tokens: 🐇 WHITE (RABBIT, rank 117, Vape); 😸 Super Intelligent Retard (SIR, rank 118, Vape); 📦 Black Box (BOX, rank 129, Black tiles); 🐉 Bitcoin (BTC, rank 156, Knitted Cap); 🐊 PORKTARDS (PTARD, rank 157, Knitted Cap); 👮 Copzy (COPZ, rank 205, Type: Human); 👃 fiDaars (FIDAARS, rank 214, Type: Human); 💚 BOONG (BOONG, rank 216, Earring); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5739.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Knitted Cap"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Vape"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐇 WHITE · RABBIT · rank 117 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😸 Super Intelligent Retard · SIR · rank 118 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐉 Bitcoin · BTC · rank 156 · Knitted Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐊 PORKTARDS · PTARD · rank 157 · Knitted Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👮 Copzy · COPZ · rank 205 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👃 fiDaars · FIDAARS · rank 214 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 5739,
+    "files": [
+      {
+        "uri": "5739.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🐇",
+        "token": "WHITE",
+        "symbol": "RABBIT",
+        "rank": 117,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Vape",
+        "mint": "6BMQaSmUco7Gj7fRe5KJWGSKvVFkHX5yYjfWov8dTRiX"
+      },
+      {
+        "emoji": "😸",
+        "token": "Super Intelligent Retard",
+        "symbol": "SIR",
+        "rank": 118,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Vape",
+        "mint": "4kBTPPBxpiDrZ4jKzhrVt3n9JQCUaZ4eJmRFisciTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 66,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐉",
+        "token": "Bitcoin",
+        "symbol": "BTC",
+        "rank": 156,
+        "rarity": "UNCOMMON",
+        "pixels": 19,
+        "where": "Knitted Cap",
+        "mint": "FvsKtnUgj8yL3pSHDYWdn63QK177vAgyAvhybrTYTRiX"
+      },
+      {
+        "emoji": "🐊",
+        "token": "PORKTARDS",
+        "symbol": "PTARD",
+        "rank": 157,
+        "rarity": "UNCOMMON",
+        "pixels": 15,
+        "where": "Knitted Cap",
+        "mint": "7sjchnFFTf7e7S8xigwpUXtHvnkx5z3aQhXir4ULTRiX"
+      },
+      {
+        "emoji": "👮",
+        "token": "Copzy",
+        "symbol": "COPZ",
+        "rank": 205,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "8YgbTPPcic2wdQEqe7vtW1wSJVi69VpSNxwnsxYgTRiX"
+      },
+      {
+        "emoji": "👃",
+        "token": "fiDaars",
+        "symbol": "FIDAARS",
+        "rank": 214,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "JCNh8yuohBSvkBj36FEQMCkB63zexQcUoNx55TURTRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 72,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

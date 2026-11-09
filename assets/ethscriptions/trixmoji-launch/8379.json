@@ -1,0 +1,125 @@
+{
+  "name": "TRIXMOJI PHUNKS #8379",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #8379. Left-facing phunk. Type Male. Skin Light. Hair/Hat Stringy Hair. Glasses Eye Mask. Facial Hair Handlebars. Tokens: 😪 MOVE (MOVE, rank 100, Handlebars); 🙀 THE RABBIT HOLE (HOLE, rank 127, Eye Mask); 📦 Black Box (BOX, rank 129, Black tiles); 👃 fiDaars (FIDAARS, rank 214, Type: Human); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "8379.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Stringy Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Eye Mask"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Handlebars"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😪 MOVE · MOVE · rank 100 · Handlebars"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙀 THE RABBIT HOLE · HOLE · rank 127 · Eye Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👃 fiDaars · FIDAARS · rank 214 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 8379,
+    "files": [
+      {
+        "uri": "8379.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😪",
+        "token": "MOVE",
+        "symbol": "MOVE",
+        "rank": 100,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Handlebars",
+        "mint": "GqLqzS1F31t8H9qtXztgDqP5a5C4oju5eh8ACKnZTRiX"
+      },
+      {
+        "emoji": "🙀",
+        "token": "THE RABBIT HOLE",
+        "symbol": "HOLE",
+        "rank": 127,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Eye Mask",
+        "mint": "0xe018D593A352300520be604e686e4De654ff1809"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 98,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👃",
+        "token": "fiDaars",
+        "symbol": "FIDAARS",
+        "rank": 214,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "JCNh8yuohBSvkBj36FEQMCkB63zexQcUoNx55TURTRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 76,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 11,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

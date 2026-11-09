@@ -1,0 +1,119 @@
+{
+  "name": "TRIXMOJI PHUNKS #6667",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6667. Left-facing phunk. Type Female. Skin Medium. Hair/Hat Straight Hair Dark. Glasses Nerd Glasses. Mouth Purple Lipstick. Neck Gold Chain. Jewelry Earring. Tokens: 🧠 Dopamine (DOPAMINE, rank 77, Gold Chain); 📦 Black Box (BOX, rank 129, Black tiles); 🌊 The Heart of The Ocean (HOO, rank 193, Nerd Glasses); 🐵 Trollge (TROLLGE, rank 201, Purple Lipstick); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6667.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Straight Hair Dark"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Nerd Glasses"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Purple Lipstick"
+    },
+    {
+      "trait_type": "Neck",
+      "value": "Gold Chain"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🧠 Dopamine · DOPAMINE · rank 77 · Gold Chain"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🌊 The Heart of The Ocean · HOO · rank 193 · Nerd Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐵 Trollge · TROLLGE · rank 201 · Purple Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6667,
+    "files": [
+      {
+        "uri": "6667.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🧠",
+        "token": "Dopamine",
+        "symbol": "DOPAMINE",
+        "rank": 77,
+        "rarity": "RARE",
+        "pixels": 3,
+        "where": "Gold Chain",
+        "mint": "2NuKx5fw4zvAuVGn4jhM3B38PCow8DuNsyAaV1WKTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 117,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🌊",
+        "token": "The Heart of The Ocean",
+        "symbol": "HOO",
+        "rank": 193,
+        "rarity": "UNCOMMON",
+        "pixels": 8,
+        "where": "Nerd Glasses",
+        "mint": "0x3Ba84f6f5427624b30D05E94D3D7390dEAE121Df"
+      },
+      {
+        "emoji": "🐵",
+        "token": "Trollge",
+        "symbol": "TROLLGE",
+        "rank": 201,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Purple Lipstick",
+        "mint": "EgJYqs33bm76zQw7xvCMvD1YBprSSaqWXFLaxtwcTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 50,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

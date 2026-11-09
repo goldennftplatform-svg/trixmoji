@@ -1,0 +1,167 @@
+{
+  "name": "TRIXMOJI PHUNKS #9203",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #9203. Left-facing phunk. Type Zombie. Hair/Hat Cap Forward. Facial Hair Goat. Makeup Mole. On Nose Clown Nose. Tokens: 💧 Water (WATER, rank 23, Zombie); 💰 Money (MONEY, rank 24, Zombie); 🤠 JuanSolo (JUAN, rank 25, Zombie); 🌌 GALAXY (GLX, rank 35, Zombie); 🍳 Let him cook (COOK, rank 86, Clown Nose); 😞 42 (42, rank 87, Cap Forward); 😟 GREEN (GREEN, rank 88, Cap Forward); 📦 Black Box (BOX, rank 129, Black tiles); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "9203.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Zombie"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Cap Forward"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Goat"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Mole"
+    },
+    {
+      "trait_type": "On Nose",
+      "value": "Clown Nose"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💧 Water · WATER · rank 23 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💰 Money · MONEY · rank 24 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🤠 JuanSolo · JUAN · rank 25 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🌌 GALAXY · GLX · rank 35 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🍳 Let him cook · COOK · rank 86 · Clown Nose"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😞 42 · 42 · rank 87 · Cap Forward"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😟 GREEN · GREEN · rank 88 · Cap Forward"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 9203,
+    "files": [
+      {
+        "uri": "9203.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "💧",
+        "token": "Water",
+        "symbol": "WATER",
+        "rank": 23,
+        "rarity": "LEGENDARY",
+        "pixels": 84,
+        "where": "Zombie",
+        "mint": "HpCNsRRKs1fcsuQAsovJxyauM7Sv3PZkcHLGqUnaTRiX"
+      },
+      {
+        "emoji": "💰",
+        "token": "Money",
+        "symbol": "MONEY",
+        "rank": 24,
+        "rarity": "LEGENDARY",
+        "pixels": 7,
+        "where": "Zombie",
+        "mint": "DHdHgj875BtSkomhKimT7qEaJLNZGiqrTdYfKHLbTRiX"
+      },
+      {
+        "emoji": "🤠",
+        "token": "JuanSolo",
+        "symbol": "JUAN",
+        "rank": 25,
+        "rarity": "LEGENDARY",
+        "pixels": 2,
+        "where": "Zombie",
+        "mint": "2CToo39f6bVa5C6B74CzK4jbmkh8UdbuaBrJSgewTRiX"
+      },
+      {
+        "emoji": "🌌",
+        "token": "GALAXY",
+        "symbol": "GLX",
+        "rank": 35,
+        "rarity": "EPIC",
+        "pixels": 1,
+        "where": "Zombie",
+        "mint": "9wn3noyPH3Pvsrk5Pj5v4c49K8qcuKnxNF5hAb4R2eU7"
+      },
+      {
+        "emoji": "🍳",
+        "token": "Let him cook",
+        "symbol": "COOK",
+        "rank": 86,
+        "rarity": "RARE",
+        "pixels": 4,
+        "where": "Clown Nose",
+        "mint": "2yK1xxNVjXJ1M4B3Wtf14SXQCEZhGa2onccQXdK7TRiX"
+      },
+      {
+        "emoji": "😞",
+        "token": "42",
+        "symbol": "42",
+        "rank": 87,
+        "rarity": "RARE",
+        "pixels": 19,
+        "where": "Cap Forward",
+        "mint": "2B1DwahiByTVU5fSwJ6HjWpeiZk5s66bzDb2pyHCTRiX"
+      },
+      {
+        "emoji": "😟",
+        "token": "GREEN",
+        "symbol": "GREEN",
+        "rank": 88,
+        "rarity": "RARE",
+        "pixels": 10,
+        "where": "Cap Forward",
+        "mint": "2Fr1y9199bPJoNMwsXR66nmadYdijB9aiLYErsvZTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 77,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 7,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

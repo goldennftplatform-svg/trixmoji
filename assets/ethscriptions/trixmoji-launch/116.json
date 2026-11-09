@@ -1,0 +1,171 @@
+{
+  "name": "TRIXMOJI PHUNKS #116",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #116. Left-facing phunk. Type Female. Skin Dark. Hair/Hat Tiara. Glasses Clown Eyes Blue. Mouth Black Lipstick. Jewelry Earring. Tokens: 😁 JANGUS (JANGUS, rank 16, Tiara); 🪙 BIT COIN (BIT, rank 17, Tiara); 📦 Black Box (BOX, rank 129, Black tiles); 🐁 Paulizard (PZARD, rank 149, Clown Eyes Blue); 🐃 GEOFF.AI (214AM, rank 150, Clown Eyes Blue); 🐄 Did Not Fade (DNF, rank 151, Clown Eyes Blue); 🐹 SCAM (SCAM, rank 203, Type: Human); 💚 BOONG (BOONG, rank 216, Earring); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "116.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Tiara"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Clown Eyes Blue"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Black Lipstick"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😁 JANGUS · JANGUS · rank 16 · Tiara"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🪙 BIT COIN · BIT · rank 17 · Tiara"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐁 Paulizard · PZARD · rank 149 · Clown Eyes Blue"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐃 GEOFF.AI · 214AM · rank 150 · Clown Eyes Blue"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐄 Did Not Fade · DNF · rank 151 · Clown Eyes Blue"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐹 SCAM · SCAM · rank 203 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 116,
+    "files": [
+      {
+        "uri": "116.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😁",
+        "token": "JANGUS",
+        "symbol": "JANGUS",
+        "rank": 16,
+        "rarity": "LEGENDARY",
+        "pixels": 9,
+        "where": "Tiara",
+        "mint": "FGjRq553fHYnXy7gHf4k76UWiuAtCMHcVYRNcsyETRiX"
+      },
+      {
+        "emoji": "🪙",
+        "token": "BIT COIN",
+        "symbol": "BIT",
+        "rank": 17,
+        "rarity": "LEGENDARY",
+        "pixels": 1,
+        "where": "Tiara",
+        "mint": "LnGbUSf4JeKmWhjvuXQaAzsXb44mu8p2xEgCppsTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 52,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐁",
+        "token": "Paulizard",
+        "symbol": "PZARD",
+        "rank": 149,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Blue",
+        "mint": "E3txwAc9UMQQo9qSnn7HtMv8XhxtpN4osKDyYRP1TRiX"
+      },
+      {
+        "emoji": "🐃",
+        "token": "GEOFF.AI",
+        "symbol": "214AM",
+        "rank": 150,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Blue",
+        "mint": "7SjHKPFhbN1ac4bq7sVyHXMnActyc2f5tzhofHL2TRiX"
+      },
+      {
+        "emoji": "🐄",
+        "token": "Did Not Fade",
+        "symbol": "DNF",
+        "rank": 151,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Clown Eyes Blue",
+        "mint": "3Zq56bAjjJufhmpdnMFxhp9mEoUuJk8Gmf43F7ryTRiX"
+      },
+      {
+        "emoji": "🐹",
+        "token": "SCAM",
+        "symbol": "SCAM",
+        "rank": 203,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Type: Human",
+        "mint": "7jYnvBMb7Sxof6r45146Pihqak3vKmPma6722HyWTRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 76,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

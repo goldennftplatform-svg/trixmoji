@@ -1,0 +1,181 @@
+{
+  "name": "TRIXMOJI PHUNKS #3712",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #3712. Left-facing phunk. Type Female. Skin Medium. Hair/Hat Tiara. Glasses Classic Shades. In Mouth Vape. Tokens: 😁 JANGUS (JANGUS, rank 16, Tiara); 🪙 BIT COIN (BIT, rank 17, Tiara); 🐇 WHITE (RABBIT, rank 117, Vape); 😸 Super Intelligent Retard (SIR, rank 118, Vape); 📦 Black Box (BOX, rank 129, Black tiles); 🐐 BIG DAWG (DAWG, rank 164, Classic Shades); 🐒 RootkitAlpha (RKA, rank 165, Classic Shades); 🐬 BROSSAD (BROSSAD, rank 192, Type: Human); 🐺 Nickel Metal Hydride (NIMH, rank 204, Type: Human); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "3712.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Tiara"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Classic Shades"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😁 JANGUS · JANGUS · rank 16 · Tiara"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🪙 BIT COIN · BIT · rank 17 · Tiara"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐇 WHITE · RABBIT · rank 117 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😸 Super Intelligent Retard · SIR · rank 118 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐐 BIG DAWG · DAWG · rank 164 · Classic Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐒 RootkitAlpha · RKA · rank 165 · Classic Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐬 BROSSAD · BROSSAD · rank 192 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐺 Nickel Metal Hydride · NIMH · rank 204 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 3712,
+    "files": [
+      {
+        "uri": "3712.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😁",
+        "token": "JANGUS",
+        "symbol": "JANGUS",
+        "rank": 16,
+        "rarity": "LEGENDARY",
+        "pixels": 8,
+        "where": "Tiara",
+        "mint": "FGjRq553fHYnXy7gHf4k76UWiuAtCMHcVYRNcsyETRiX"
+      },
+      {
+        "emoji": "🪙",
+        "token": "BIT COIN",
+        "symbol": "BIT",
+        "rank": 17,
+        "rarity": "LEGENDARY",
+        "pixels": 1,
+        "where": "Tiara",
+        "mint": "LnGbUSf4JeKmWhjvuXQaAzsXb44mu8p2xEgCppsTRiX"
+      },
+      {
+        "emoji": "🐇",
+        "token": "WHITE",
+        "symbol": "RABBIT",
+        "rank": 117,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Vape",
+        "mint": "6BMQaSmUco7Gj7fRe5KJWGSKvVFkHX5yYjfWov8dTRiX"
+      },
+      {
+        "emoji": "😸",
+        "token": "Super Intelligent Retard",
+        "symbol": "SIR",
+        "rank": 118,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Vape",
+        "mint": "4kBTPPBxpiDrZ4jKzhrVt3n9JQCUaZ4eJmRFisciTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 77,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐐",
+        "token": "BIG DAWG",
+        "symbol": "DAWG",
+        "rank": 164,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Classic Shades",
+        "mint": "C5armesyd7sQsgoz1DvSAea96TdYmGC7txNYG76aErp2"
+      },
+      {
+        "emoji": "🐒",
+        "token": "RootkitAlpha",
+        "symbol": "RKA",
+        "rank": 165,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Classic Shades",
+        "mint": "GDBPZNwpJqmAsXNj3F4c4HSVrSGE27QXPCK5AbC3TRiX"
+      },
+      {
+        "emoji": "🐬",
+        "token": "BROSSAD",
+        "symbol": "BROSSAD",
+        "rank": 192,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "CFJktPm2FZ7SiCLWYRbNiFrhumAgVXZvFrpTCWsRTRiX"
+      },
+      {
+        "emoji": "🐺",
+        "token": "Nickel Metal Hydride",
+        "symbol": "NIMH",
+        "rank": 204,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Type: Human",
+        "mint": "EGC52THyatGsVZJy3xyFEiZT7U92vz12p2KPmVzTTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 58,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

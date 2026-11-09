@@ -1,0 +1,195 @@
+{
+  "name": "TRIXMOJI PHUNKS #9746",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #9746. Left-facing phunk. Type Female. Skin Medium. Hair/Hat Red Mohawk. Glasses Clown Eyes Blue. In Mouth Pipe. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🙇 pond (POND, rank 138, Pipe); 🥛 Memetic Milk (MILK, rank 139, Pipe); 🙉 69420 (69420, rank 140, Pipe); 🐁 Paulizard (PZARD, rank 149, Clown Eyes Blue); 🐃 GEOFF.AI (214AM, rank 150, Clown Eyes Blue); 🐄 Did Not Fade (DNF, rank 151, Clown Eyes Blue); 👀 WazzAAA (WAZZA, rank 154, Crazy Hair); 🐬 BROSSAD (BROSSAD, rank 192, Type: Human); 🐺 Nickel Metal Hydride (NIMH, rank 204, Type: Human); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "9746.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Red Mohawk"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Clown Eyes Blue"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙇 pond · POND · rank 138 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥛 Memetic Milk · MILK · rank 139 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙉 69420 · 69420 · rank 140 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐁 Paulizard · PZARD · rank 149 · Clown Eyes Blue"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐃 GEOFF.AI · 214AM · rank 150 · Clown Eyes Blue"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐄 Did Not Fade · DNF · rank 151 · Clown Eyes Blue"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👀 WazzAAA · WAZZA · rank 154 · Crazy Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐬 BROSSAD · BROSSAD · rank 192 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐺 Nickel Metal Hydride · NIMH · rank 204 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 9746,
+    "files": [
+      {
+        "uri": "9746.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 79,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙇",
+        "token": "pond",
+        "symbol": "POND",
+        "rank": 138,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Pipe",
+        "mint": "6vdYTi2fb11rS97JZTHRhthbckUnMpco4FP9PK8vTRiX"
+      },
+      {
+        "emoji": "🥛",
+        "token": "Memetic Milk",
+        "symbol": "MILK",
+        "rank": 139,
+        "rarity": "UNCOMMON",
+        "pixels": 10,
+        "where": "Pipe",
+        "mint": "G4mqFjqSdexj2YLTtjtjKYSvX2mZbNLWfHV3CE3JTRiX"
+      },
+      {
+        "emoji": "🙉",
+        "token": "69420",
+        "symbol": "69420",
+        "rank": 140,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Pipe",
+        "mint": "3mvjSowJctaHr8r8pu9DhXf4nxpDyy47PHcMxqecTRiX"
+      },
+      {
+        "emoji": "🐁",
+        "token": "Paulizard",
+        "symbol": "PZARD",
+        "rank": 149,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Blue",
+        "mint": "E3txwAc9UMQQo9qSnn7HtMv8XhxtpN4osKDyYRP1TRiX"
+      },
+      {
+        "emoji": "🐃",
+        "token": "GEOFF.AI",
+        "symbol": "214AM",
+        "rank": 150,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Blue",
+        "mint": "7SjHKPFhbN1ac4bq7sVyHXMnActyc2f5tzhofHL2TRiX"
+      },
+      {
+        "emoji": "🐄",
+        "token": "Did Not Fade",
+        "symbol": "DNF",
+        "rank": 151,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Clown Eyes Blue",
+        "mint": "3Zq56bAjjJufhmpdnMFxhp9mEoUuJk8Gmf43F7ryTRiX"
+      },
+      {
+        "emoji": "👀",
+        "token": "WazzAAA",
+        "symbol": "WAZZA",
+        "rank": 154,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Crazy Hair",
+        "mint": "8xBRX7rK6DnxGEU41PE5rTG7huLNZtH8v1rh2bBeTRiX"
+      },
+      {
+        "emoji": "🐬",
+        "token": "BROSSAD",
+        "symbol": "BROSSAD",
+        "rank": 192,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "CFJktPm2FZ7SiCLWYRbNiFrhumAgVXZvFrpTCWsRTRiX"
+      },
+      {
+        "emoji": "🐺",
+        "token": "Nickel Metal Hydride",
+        "symbol": "NIMH",
+        "rank": 204,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Type: Human",
+        "mint": "EGC52THyatGsVZJy3xyFEiZT7U92vz12p2KPmVzTTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 83,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

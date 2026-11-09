@@ -1,0 +1,149 @@
+{
+  "name": "TRIXMOJI PHUNKS #258",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #258. Left-facing phunk. Type Male. Skin Medium. Hair/Hat Cap Forward. Facial Hair Handlebars. Tokens: 😞 42 (42, rank 87, Cap Forward); 😟 GREEN (GREEN, rank 88, Cap Forward); 😪 MOVE (MOVE, rank 100, Handlebars); 📦 Black Box (BOX, rank 129, Black tiles); 👂 Imminent (NOT, rank 213, Type: Human); 🥇 D&D GP (GOLD, rank 215, Type: Human); 👆 MOO (COW, rank 219, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "258.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Cap Forward"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Handlebars"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😞 42 · 42 · rank 87 · Cap Forward"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😟 GREEN · GREEN · rank 88 · Cap Forward"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😪 MOVE · MOVE · rank 100 · Handlebars"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👂 Imminent · NOT · rank 213 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥇 D&D GP · GOLD · rank 215 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 258,
+    "files": [
+      {
+        "uri": "258.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😞",
+        "token": "42",
+        "symbol": "42",
+        "rank": 87,
+        "rarity": "RARE",
+        "pixels": 19,
+        "where": "Cap Forward",
+        "mint": "2B1DwahiByTVU5fSwJ6HjWpeiZk5s66bzDb2pyHCTRiX"
+      },
+      {
+        "emoji": "😟",
+        "token": "GREEN",
+        "symbol": "GREEN",
+        "rank": 88,
+        "rarity": "RARE",
+        "pixels": 10,
+        "where": "Cap Forward",
+        "mint": "2Fr1y9199bPJoNMwsXR66nmadYdijB9aiLYErsvZTRiX"
+      },
+      {
+        "emoji": "😪",
+        "token": "MOVE",
+        "symbol": "MOVE",
+        "rank": 100,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Handlebars",
+        "mint": "GqLqzS1F31t8H9qtXztgDqP5a5C4oju5eh8ACKnZTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 79,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👂",
+        "token": "Imminent",
+        "symbol": "NOT",
+        "rank": 213,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "9zuZLv8o3AKNFVUtLy7MYLUZk25py7H3JZz3aWYTTRiX"
+      },
+      {
+        "emoji": "🥇",
+        "token": "D&D GP",
+        "symbol": "GOLD",
+        "rank": 215,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "FioWU8Z8DVym8MfHmK2TiTHUV2AtABWeNiSMRKR6TRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 84,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 7,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

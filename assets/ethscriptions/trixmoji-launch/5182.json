@@ -1,0 +1,143 @@
+{
+  "name": "TRIXMOJI PHUNKS #5182",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5182. Left-facing phunk. Type Male. Skin Albino. Hair/Hat Police Cap. Glasses Small Shades. Makeup Mole. Jewelry Earring. Tokens: 😜 Pauly.ai (PAULYAI, rank 84, Police Cap); 😝 ZEFCASH (ZEF, rank 85, Police Cap); 📦 Black Box (BOX, rank 129, Black tiles); 🐅 GTA MONEY (MONEY, rank 152, Headband); 🤣 Poo Poo Pug (PPP, rank 197, Mole); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human); 💚 BOONG (BOONG, rank 216, Earring). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5182.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Police Cap"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Small Shades"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Mole"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😜 Pauly.ai · PAULYAI · rank 84 · Police Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😝 ZEFCASH · ZEF · rank 85 · Police Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🤣 Poo Poo Pug · PPP · rank 197 · Mole"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    }
+  ],
+  "properties": {
+    "edition": 5182,
+    "files": [
+      {
+        "uri": "5182.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😜",
+        "token": "Pauly.ai",
+        "symbol": "PAULYAI",
+        "rank": 84,
+        "rarity": "RARE",
+        "pixels": 32,
+        "where": "Police Cap",
+        "mint": "6cAiPNP4Rxdcdg9FeSNhjAkwGsHoto9QrY5t4AziTRiX"
+      },
+      {
+        "emoji": "😝",
+        "token": "ZEFCASH",
+        "symbol": "ZEF",
+        "rank": 85,
+        "rarity": "RARE",
+        "pixels": 1,
+        "where": "Police Cap",
+        "mint": "DHyGLyCVm5AURBwwSXLooZozFvimtpuMTwuUGUbBTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 95,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "🤣",
+        "token": "Poo Poo Pug",
+        "symbol": "PPP",
+        "rank": 197,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Mole",
+        "mint": "ChXGsL15HUySWwkXKY2CoWRchqL1SpBLRkuq2j9ETRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 84,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      }
+    ]
+  }
+}

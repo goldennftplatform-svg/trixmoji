@@ -1,0 +1,199 @@
+{
+  "name": "TRIXMOJI PHUNKS #5010",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5010. Left-facing phunk. Type Female. Skin Light. Hair/Hat Straight Hair. Glasses Horned Rim Glasses. Mouth Purple Lipstick. In Mouth Medical Mask. Tokens: 😓 Satoshi (TOSH, rank 73, Straight Hair); 😔 VOIDIUM (VOIDIUM, rank 74, Straight Hair); 😗 Yek (YEK, rank 78, Medical Mask); 😘 BIDEN (BIDEN, rank 79, Medical Mask); 🧘 ZenCat (ZEN, rank 80, Medical Mask); 📦 Black Box (BOX, rank 129, Black tiles); 🐞 Ziggy (ZIGGY, rank 176, Horned Rim Glasses); 🐟 IzReal (IZATARD, rank 177, Horned Rim Glasses); 🐠 A1 (A1, rank 178, Horned Rim Glasses); 🐡 Blazed Nirvana (NIRVA, rank 179, Horned Rim Glasses); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5010.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Straight Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Horned Rim Glasses"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Purple Lipstick"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😓 Satoshi · TOSH · rank 73 · Straight Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😔 VOIDIUM · VOIDIUM · rank 74 · Straight Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😗 Yek · YEK · rank 78 · Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😘 BIDEN · BIDEN · rank 79 · Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🧘 ZenCat · ZEN · rank 80 · Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐞 Ziggy · ZIGGY · rank 176 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐟 IzReal · IZATARD · rank 177 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐠 A1 · A1 · rank 178 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐡 Blazed Nirvana · NIRVA · rank 179 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 5010,
+    "files": [
+      {
+        "uri": "5010.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😓",
+        "token": "Satoshi",
+        "symbol": "TOSH",
+        "rank": 73,
+        "rarity": "RARE",
+        "pixels": 39,
+        "where": "Straight Hair",
+        "mint": "9LAYBviTKNgvGSvBGM1ucACx6TfdetNqRmPiPb4bTRiX"
+      },
+      {
+        "emoji": "😔",
+        "token": "VOIDIUM",
+        "symbol": "VOIDIUM",
+        "rank": 74,
+        "rarity": "RARE",
+        "pixels": 1,
+        "where": "Straight Hair",
+        "mint": "9FreX2nso96fk7cKuiXT732mU9n6aA5tbS1UhzXATRiX"
+      },
+      {
+        "emoji": "😗",
+        "token": "Yek",
+        "symbol": "YEK",
+        "rank": 78,
+        "rarity": "RARE",
+        "pixels": 34,
+        "where": "Medical Mask",
+        "mint": "CPuKRLoWjMuktTajkzySyKAVjXKL4d4vJt5SEw4aTRiX"
+      },
+      {
+        "emoji": "😘",
+        "token": "BIDEN",
+        "symbol": "BIDEN",
+        "rank": 79,
+        "rarity": "RARE",
+        "pixels": 3,
+        "where": "Medical Mask",
+        "mint": "0xa6D6399bA1B1B6b28183BA934dfBa161AE528f7e"
+      },
+      {
+        "emoji": "🧘",
+        "token": "ZenCat",
+        "symbol": "ZEN",
+        "rank": 80,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Medical Mask",
+        "mint": "Ho3eSy6WrLbf2fXiuzXSpoGUZAbr54n4Qn5T5WKPTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 66,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐞",
+        "token": "Ziggy",
+        "symbol": "ZIGGY",
+        "rank": 176,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CmMZ4RNRZZBt1bfcxkYiXB3SXAWFucdFZcP1y5MCTRiX"
+      },
+      {
+        "emoji": "🐟",
+        "token": "IzReal",
+        "symbol": "IZATARD",
+        "rank": 177,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Horned Rim Glasses",
+        "mint": "BEEBsdF8Ez2kmoVNt22zbx3ksvWWuMoLjNSY9uTLTRiX"
+      },
+      {
+        "emoji": "🐠",
+        "token": "A1",
+        "symbol": "A1",
+        "rank": 178,
+        "rarity": "UNCOMMON",
+        "pixels": 7,
+        "where": "Horned Rim Glasses",
+        "mint": "FiWpHXKjWEKUigLWWRjRn3KdvWWmvcLDhrDTqVET5FMz"
+      },
+      {
+        "emoji": "🐡",
+        "token": "Blazed Nirvana",
+        "symbol": "NIRVA",
+        "rank": 179,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CTW5iL9nubR9r98qfRWm9jiPhfPjGPUxJCiWGTP5TRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 21,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

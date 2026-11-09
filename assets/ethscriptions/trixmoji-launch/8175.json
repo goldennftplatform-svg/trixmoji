@@ -1,0 +1,149 @@
+{
+  "name": "TRIXMOJI PHUNKS #8175",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #8175. Left-facing phunk. Type Male. Skin Albino. Hair/Hat Frumpy Hair. In Mouth Pipe. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🙇 pond (POND, rank 138, Pipe); 🥛 Memetic Milk (MILK, rank 139, Pipe); 🙉 69420 (69420, rank 140, Pipe); 🐌 MemeKing (KING, rank 160, Frumpy Hair); 🐪 Dick in a Box (DIAB, rank 190, Type: Human); 🐫 Timing is Perfection (TIP, rank 191, Type: Human); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "8175.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Frumpy Hair"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙇 pond · POND · rank 138 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥛 Memetic Milk · MILK · rank 139 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙉 69420 · 69420 · rank 140 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐌 MemeKing · KING · rank 160 · Frumpy Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐪 Dick in a Box · DIAB · rank 190 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐫 Timing is Perfection · TIP · rank 191 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 8175,
+    "files": [
+      {
+        "uri": "8175.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 161,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙇",
+        "token": "pond",
+        "symbol": "POND",
+        "rank": 138,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Pipe",
+        "mint": "6vdYTi2fb11rS97JZTHRhthbckUnMpco4FP9PK8vTRiX"
+      },
+      {
+        "emoji": "🥛",
+        "token": "Memetic Milk",
+        "symbol": "MILK",
+        "rank": 139,
+        "rarity": "UNCOMMON",
+        "pixels": 10,
+        "where": "Pipe",
+        "mint": "G4mqFjqSdexj2YLTtjtjKYSvX2mZbNLWfHV3CE3JTRiX"
+      },
+      {
+        "emoji": "🙉",
+        "token": "69420",
+        "symbol": "69420",
+        "rank": 140,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Pipe",
+        "mint": "3mvjSowJctaHr8r8pu9DhXf4nxpDyy47PHcMxqecTRiX"
+      },
+      {
+        "emoji": "🐌",
+        "token": "MemeKing",
+        "symbol": "KING",
+        "rank": 160,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Frumpy Hair",
+        "mint": "61hbpeoF4J2dJDpR3E9yxAnuvDweAVQvFHi88gnjTRiX"
+      },
+      {
+        "emoji": "🐪",
+        "token": "Dick in a Box",
+        "symbol": "DIAB",
+        "rank": 190,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "26y4fu6LWD4Y1mmgTdJ58gruawXxirR86J2ojU1zTRiX"
+      },
+      {
+        "emoji": "🐫",
+        "token": "Timing is Perfection",
+        "symbol": "TIP",
+        "rank": 191,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "6QadgRGYRCB5dbCjJDbt3jwcsHQRqFB7hNbF74uJTRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 78,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

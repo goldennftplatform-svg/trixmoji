@@ -1,0 +1,121 @@
+{
+  "name": "TRIXMOJI PHUNKS #6831",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6831. Left-facing phunk. Type Female. Skin Light. Hair/Hat Wild Hair. Glasses Clown Eyes Green. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🙎 AIR (AIR, rank 146, Clown Eyes Green); 🙏 Jason Lawnmoa (LAWNMOA, rank 147, Clown Eyes Green); 🐀 $8 (8, rank 148, Clown Eyes Green); 👮 Copzy (COPZ, rank 205, Type: Human); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6831.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Wild Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Clown Eyes Green"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙎 AIR · AIR · rank 146 · Clown Eyes Green"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙏 Jason Lawnmoa · LAWNMOA · rank 147 · Clown Eyes Green"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐀 $8 · 8 · rank 148 · Clown Eyes Green"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👮 Copzy · COPZ · rank 205 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6831,
+    "files": [
+      {
+        "uri": "6831.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 168,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙎",
+        "token": "AIR",
+        "symbol": "AIR",
+        "rank": 146,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Green",
+        "mint": "3F1CXHWcjjG2iDFyzSixoRDZqPqYCU9s82fEfh1dTRiX"
+      },
+      {
+        "emoji": "🙏",
+        "token": "Jason Lawnmoa",
+        "symbol": "LAWNMOA",
+        "rank": 147,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Green",
+        "mint": "9oDVZhKPR6qEkT3k1PMasEMVrTGAnrQfEHNv6z8MTRiX"
+      },
+      {
+        "emoji": "🐀",
+        "token": "$8",
+        "symbol": "8",
+        "rank": 148,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Clown Eyes Green",
+        "mint": "B92yrSsKDRfu1ERXk32AZYNu55GLF7ds4dSgCKPeTRiX"
+      },
+      {
+        "emoji": "👮",
+        "token": "Copzy",
+        "symbol": "COPZ",
+        "rank": 205,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "8YgbTPPcic2wdQEqe7vtW1wSJVi69VpSNxwnsxYgTRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 69,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

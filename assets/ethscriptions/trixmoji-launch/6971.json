@@ -1,0 +1,147 @@
+{
+  "name": "TRIXMOJI PHUNKS #6971",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6971. Left-facing phunk. Type Male. Skin Light. Hair/Hat Headband. Glasses Regular Shades. Facial Hair Front Beard. Makeup Spots. Jewelry Earring. Tokens: 💵 DCA (DCA, rank 40, Spots); 📦 Black Box (BOX, rank 129, Black tiles); 🐅 GTA MONEY (MONEY, rank 152, Headband); 🐆 RED (RED, rank 153, Headband); 💚 BOONG (BOONG, rank 216, Earring); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6971.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Headband"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Regular Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Front Beard"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Spots"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💵 DCA · DCA · rank 40 · Spots"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐆 RED · RED · rank 153 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6971,
+    "files": [
+      {
+        "uri": "6971.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "💵",
+        "token": "DCA",
+        "symbol": "DCA",
+        "rank": 40,
+        "rarity": "EPIC",
+        "pixels": 5,
+        "where": "Spots",
+        "mint": "536SDxmqEzUeZnxP8KEvdm3kyqdHh9JJsUNjnZy8TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 78,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 9,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "🐆",
+        "token": "RED",
+        "symbol": "RED",
+        "rank": 153,
+        "rarity": "UNCOMMON",
+        "pixels": 9,
+        "where": "Headband",
+        "mint": "AKXr2DLYdjqYxnvPXNEVfoEGNXdaR7a1WxiECz7wTRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 79,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 18,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

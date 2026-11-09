@@ -1,0 +1,125 @@
+{
+  "name": "TRIXMOJI PHUNKS #6370",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6370. Left-facing phunk. Type Female. Skin Albino. Hair/Hat Straight Hair Blonde. Glasses Purple Eye Shadow. Jewelry Earring. Tokens: 😑 DONG (DONG, rank 71, Blonde Bob); 😨 All Wood (WOOD, rank 98, Purple Eye Shadow); 🐰 POOLVOID (POOLVOID, rank 99, Purple Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 👮 Copzy (COPZ, rank 205, Type: Human); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6370.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Straight Hair Blonde"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Purple Eye Shadow"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😑 DONG · DONG · rank 71 · Blonde Bob"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😨 All Wood · WOOD · rank 98 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐰 POOLVOID · POOLVOID · rank 99 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👮 Copzy · COPZ · rank 205 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6370,
+    "files": [
+      {
+        "uri": "6370.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😑",
+        "token": "DONG",
+        "symbol": "DONG",
+        "rank": 71,
+        "rarity": "RARE",
+        "pixels": 43,
+        "where": "Blonde Bob",
+        "mint": "Bj5CownyhcGFHa8f2m1W7vx7cRkUFVpxNc9HrSoBTRiX"
+      },
+      {
+        "emoji": "😨",
+        "token": "All Wood",
+        "symbol": "WOOD",
+        "rank": 98,
+        "rarity": "RARE",
+        "pixels": 4,
+        "where": "Purple Eye Shadow",
+        "mint": "2zQfbeFpPJePhbqUdbAjbHCW1QfyLR6dzjALjVPWz9C5"
+      },
+      {
+        "emoji": "🐰",
+        "token": "POOLVOID",
+        "symbol": "POOLVOID",
+        "rank": 99,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Purple Eye Shadow",
+        "mint": "5W6groNYcd3ZMuTmGPCAEB1mDSLBJx9jtBG3W2AmTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 59,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👮",
+        "token": "Copzy",
+        "symbol": "COPZ",
+        "rank": 205,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "8YgbTPPcic2wdQEqe7vtW1wSJVi69VpSNxwnsxYgTRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 70,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

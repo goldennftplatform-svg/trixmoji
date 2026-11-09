@@ -1,0 +1,135 @@
+{
+  "name": "TRIXMOJI PHUNKS #1502",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #1502. Left-facing phunk. Type Male. Skin Light. Hair/Hat Shaved Head. Glasses Eye Mask. Tokens: 🙀 THE RABBIT HOLE (HOLE, rank 127, Eye Mask); 📦 Black Box (BOX, rank 129, Black tiles); 🦉 OWL (OWL, rank 132, Shaved Head); 🙃 Ray Liotta Laughing (RLL, rank 133, Shaved Head); 👃 fiDaars (FIDAARS, rank 214, Type: Human); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "1502.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Shaved Head"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Eye Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙀 THE RABBIT HOLE · HOLE · rank 127 · Eye Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🦉 OWL · OWL · rank 132 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙃 Ray Liotta Laughing · RLL · rank 133 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👃 fiDaars · FIDAARS · rank 214 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 1502,
+    "files": [
+      {
+        "uri": "1502.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🙀",
+        "token": "THE RABBIT HOLE",
+        "symbol": "HOLE",
+        "rank": 127,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Eye Mask",
+        "mint": "0xe018D593A352300520be604e686e4De654ff1809"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 86,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🦉",
+        "token": "OWL",
+        "symbol": "OWL",
+        "rank": 132,
+        "rarity": "UNCOMMON",
+        "pixels": 25,
+        "where": "Shaved Head",
+        "mint": "Amh4zw7oFxGhbCMAJw15cZDhndv2pJwFrgPgs6HbTRiX"
+      },
+      {
+        "emoji": "🙃",
+        "token": "Ray Liotta Laughing",
+        "symbol": "RLL",
+        "rank": 133,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Shaved Head",
+        "mint": "r6FMedKMD61UFFEjFK6WAwqgEUXpDTQQNXBhi8dTRiX"
+      },
+      {
+        "emoji": "👃",
+        "token": "fiDaars",
+        "symbol": "FIDAARS",
+        "rank": 214,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "JCNh8yuohBSvkBj36FEQMCkB63zexQcUoNx55TURTRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 70,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

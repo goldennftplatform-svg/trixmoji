@@ -1,0 +1,125 @@
+{
+  "name": "TRIXMOJI PHUNKS #9274",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #9274. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Shaved Head. Glasses Nerd Glasses. Facial Hair Luxurious Beard. Tokens: 😼 FREEDOM (FREE, rank 122, Luxurious Beard); 📦 Black Box (BOX, rank 129, Black tiles); 🙂 0xGEOFF (0XG, rank 130, Shaved Head); 🌋 MAGMA (MAG, rank 131, Shaved Head); 🌊 The Heart of The Ocean (HOO, rank 193, Nerd Glasses); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "9274.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Shaved Head"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Nerd Glasses"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Luxurious Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😼 FREEDOM · FREE · rank 122 · Luxurious Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙂 0xGEOFF · 0XG · rank 130 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🌋 MAGMA · MAG · rank 131 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🌊 The Heart of The Ocean · HOO · rank 193 · Nerd Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 9274,
+    "files": [
+      {
+        "uri": "9274.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😼",
+        "token": "FREEDOM",
+        "symbol": "FREE",
+        "rank": 122,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Luxurious Beard",
+        "mint": "4gHwSxGcNVCTRfWzVZV7EkMuD8LLtWjn7rKyTn9ZTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 119,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙂",
+        "token": "0xGEOFF",
+        "symbol": "0XG",
+        "rank": 130,
+        "rarity": "UNCOMMON",
+        "pixels": 25,
+        "where": "Shaved Head",
+        "mint": "69fCFYE3GKfea428dNb618mKtSyoNFdT5QxvPouUkH1n"
+      },
+      {
+        "emoji": "🌋",
+        "token": "MAGMA",
+        "symbol": "MAG",
+        "rank": 131,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Shaved Head",
+        "mint": "B9Qo41JeYEoYpNUXvzSJg9EDSeJCjjzm3JK9KWrGTRiX"
+      },
+      {
+        "emoji": "🌊",
+        "token": "The Heart of The Ocean",
+        "symbol": "HOO",
+        "rank": 193,
+        "rarity": "UNCOMMON",
+        "pixels": 8,
+        "where": "Nerd Glasses",
+        "mint": "0x3Ba84f6f5427624b30D05E94D3D7390dEAE121Df"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 39,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

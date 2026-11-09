@@ -1,0 +1,143 @@
+{
+  "name": "TRIXMOJI PHUNKS #3812",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #3812. Left-facing phunk. Type Female. Skin Light. Hair/Hat Straight Hair Blonde. Glasses Purple Eye Shadow. Mouth Hot Lipstick. Makeup Spots. Tokens: 😰 Post Traumatic Selloff Disorder (PTSD, rank 43, Spots); 😑 DONG (DONG, rank 71, Blonde Bob); 🐮 The Rabbit Bull (TRB, rank 94, Purple Eye Shadow); 😦 Slugworth Industries (SLUGWORTH, rank 95, Purple Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 🐶 MICROPENIS (SMOL, rank 202, Hot Lipstick); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "3812.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Straight Hair Blonde"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Purple Eye Shadow"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Hot Lipstick"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Spots"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😰 Post Traumatic Selloff Disorder · PTSD · rank 43 · Spots"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😑 DONG · DONG · rank 71 · Blonde Bob"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐮 The Rabbit Bull · TRB · rank 94 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😦 Slugworth Industries · SLUGWORTH · rank 95 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐶 MICROPENIS · SMOL · rank 202 · Hot Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 3812,
+    "files": [
+      {
+        "uri": "3812.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😰",
+        "token": "Post Traumatic Selloff Disorder",
+        "symbol": "PTSD",
+        "rank": 43,
+        "rarity": "EPIC",
+        "pixels": 5,
+        "where": "Spots",
+        "mint": "HjwWv1AvtUHXpWXFCo4DTQjRniwCfXD93uknpsGMTRiX"
+      },
+      {
+        "emoji": "😑",
+        "token": "DONG",
+        "symbol": "DONG",
+        "rank": 71,
+        "rarity": "RARE",
+        "pixels": 43,
+        "where": "Blonde Bob",
+        "mint": "Bj5CownyhcGFHa8f2m1W7vx7cRkUFVpxNc9HrSoBTRiX"
+      },
+      {
+        "emoji": "🐮",
+        "token": "The Rabbit Bull",
+        "symbol": "TRB",
+        "rank": 94,
+        "rarity": "RARE",
+        "pixels": 4,
+        "where": "Purple Eye Shadow",
+        "mint": "6M3kM4QAWJ2pBKkviyEq8zgdHnRS9wGHMdHA7QmWTRiX"
+      },
+      {
+        "emoji": "😦",
+        "token": "Slugworth Industries",
+        "symbol": "SLUGWORTH",
+        "rank": 95,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Purple Eye Shadow",
+        "mint": "4EpUVgR5iUg7mQNSougXq9nXfXbCaz7L99JaVEhqTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 59,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐶",
+        "token": "MICROPENIS",
+        "symbol": "SMOL",
+        "rank": 202,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Hot Lipstick",
+        "mint": "Drh3zXhawDgQJjz2KjgKgdBkhKch9GoTM3BbARbeTRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 65,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

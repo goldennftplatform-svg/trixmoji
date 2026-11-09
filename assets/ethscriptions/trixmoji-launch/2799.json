@@ -1,0 +1,139 @@
+{
+  "name": "TRIXMOJI PHUNKS #2799",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #2799. Left-facing phunk. Type Female. Skin Albino. Hair/Hat Wild Hair. Glasses Horned Rim Glasses. Jewelry Earring. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🐞 Ziggy (ZIGGY, rank 176, Horned Rim Glasses); 🥞 Pancakes on the Moon (PCAKE, rank 186, Horned Rim Glasses); 🤝 Honest Internet Money (HIM, rank 187, Horned Rim Glasses); 🐨 GUL DUKATI (DUKATI, rank 188, Horned Rim Glasses); 👮 Copzy (COPZ, rank 205, Type: Human); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "2799.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Wild Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Horned Rim Glasses"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐞 Ziggy · ZIGGY · rank 176 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥞 Pancakes on the Moon · PCAKE · rank 186 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🤝 Honest Internet Money · HIM · rank 187 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐨 GUL DUKATI · DUKATI · rank 188 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👮 Copzy · COPZ · rank 205 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 2799,
+    "files": [
+      {
+        "uri": "2799.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 176,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐞",
+        "token": "Ziggy",
+        "symbol": "ZIGGY",
+        "rank": 176,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CmMZ4RNRZZBt1bfcxkYiXB3SXAWFucdFZcP1y5MCTRiX"
+      },
+      {
+        "emoji": "🥞",
+        "token": "Pancakes on the Moon",
+        "symbol": "PCAKE",
+        "rank": 186,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Horned Rim Glasses",
+        "mint": "FWuxFtbwkstLg2wq9KCspT72jsgzozfMJTjxm7ZdTRiX"
+      },
+      {
+        "emoji": "🤝",
+        "token": "Honest Internet Money",
+        "symbol": "HIM",
+        "rank": 187,
+        "rarity": "UNCOMMON",
+        "pixels": 10,
+        "where": "Horned Rim Glasses",
+        "mint": "86ooY2KBFnwXVeUnk32Qyp1zJonZnvzx273CXzcxTRiX"
+      },
+      {
+        "emoji": "🐨",
+        "token": "GUL DUKATI",
+        "symbol": "DUKATI",
+        "rank": 188,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "6WLjDiyiDix61Smm8gjdaH9mfLDjsKF8W984p9xWTRiX"
+      },
+      {
+        "emoji": "👮",
+        "token": "Copzy",
+        "symbol": "COPZ",
+        "rank": 205,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "8YgbTPPcic2wdQEqe7vtW1wSJVi69VpSNxwnsxYgTRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 53,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

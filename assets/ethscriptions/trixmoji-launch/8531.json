@@ -1,0 +1,93 @@
+{
+  "name": "TRIXMOJI PHUNKS #8531",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #8531. Left-facing phunk. Type Zombie. Hair/Hat Stringy Hair. Glasses Regular Shades. Facial Hair Goat. Tokens: 💧 Water (WATER, rank 23, Zombie); 💰 Money (MONEY, rank 24, Zombie); 📦 Black Box (BOX, rank 129, Black tiles); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "8531.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Zombie"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Stringy Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Regular Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Goat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💧 Water · WATER · rank 23 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💰 Money · MONEY · rank 24 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 8531,
+    "files": [
+      {
+        "uri": "8531.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "💧",
+        "token": "Water",
+        "symbol": "WATER",
+        "rank": 23,
+        "rarity": "LEGENDARY",
+        "pixels": 100,
+        "where": "Zombie",
+        "mint": "HpCNsRRKs1fcsuQAsovJxyauM7Sv3PZkcHLGqUnaTRiX"
+      },
+      {
+        "emoji": "💰",
+        "token": "Money",
+        "symbol": "MONEY",
+        "rank": 24,
+        "rarity": "LEGENDARY",
+        "pixels": 2,
+        "where": "Zombie",
+        "mint": "DHdHgj875BtSkomhKimT7qEaJLNZGiqrTdYfKHLbTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 89,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 7,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

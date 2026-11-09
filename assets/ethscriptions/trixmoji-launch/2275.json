@@ -1,0 +1,125 @@
+{
+  "name": "TRIXMOJI PHUNKS #2275",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #2275. Left-facing phunk. Type Female. Skin Dark. Hair/Hat Tassle Hat. Glasses Purple Eye Shadow. Mouth Black Lipstick. Tokens: 😙 GIGA Token (GIGA, rank 81, Tassle Hat); 😚 Phunks In Control (PIC, rank 82, Tassle Hat); 😧 PAULYHOOD (PAULY, rank 96, Purple Eye Shadow); 👩 Cope Woman (JESSICA, rank 97, Purple Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "2275.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Tassle Hat"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Purple Eye Shadow"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Black Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😙 GIGA Token · GIGA · rank 81 · Tassle Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😚 Phunks In Control · PIC · rank 82 · Tassle Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😧 PAULYHOOD · PAULY · rank 96 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👩 Cope Woman · JESSICA · rank 97 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 2275,
+    "files": [
+      {
+        "uri": "2275.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😙",
+        "token": "GIGA Token",
+        "symbol": "GIGA",
+        "rank": 81,
+        "rarity": "RARE",
+        "pixels": 52,
+        "where": "Tassle Hat",
+        "mint": "H9MRNbe657p1Dk8SPRUBw96r7ZJt2PePGmtCs8bnTRiX"
+      },
+      {
+        "emoji": "😚",
+        "token": "Phunks In Control",
+        "symbol": "PIC",
+        "rank": 82,
+        "rarity": "RARE",
+        "pixels": 18,
+        "where": "Tassle Hat",
+        "mint": "DimimUjwBni1rMAx6Z7auuMQJKkdxNAJpxyQi9trTRiX"
+      },
+      {
+        "emoji": "😧",
+        "token": "PAULYHOOD",
+        "symbol": "PAULY",
+        "rank": 96,
+        "rarity": "RARE",
+        "pixels": 4,
+        "where": "Purple Eye Shadow",
+        "mint": "0xDDEa44F07C89bA63b88190FCA11B6EC709D64B70"
+      },
+      {
+        "emoji": "👩",
+        "token": "Cope Woman",
+        "symbol": "JESSICA",
+        "rank": 97,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Purple Eye Shadow",
+        "mint": "GNPiMqTA4fYLvdqfNN7kiuz2w9Ty221AetLPsCzuTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 61,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 73,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

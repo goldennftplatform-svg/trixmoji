@@ -1,0 +1,121 @@
+{
+  "name": "TRIXMOJI PHUNKS #9294",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #9294. Left-facing phunk. Type Male. Skin Albino. Hair/Hat Police Cap. Glasses Nerd Glasses. Tokens: 😜 Pauly.ai (PAULYAI, rank 84, Police Cap); 😝 ZEFCASH (ZEF, rank 85, Police Cap); 📦 Black Box (BOX, rank 129, Black tiles); 🐅 GTA MONEY (MONEY, rank 152, Headband); 🌊 The Heart of The Ocean (HOO, rank 193, Nerd Glasses); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "9294.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Police Cap"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Nerd Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😜 Pauly.ai · PAULYAI · rank 84 · Police Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😝 ZEFCASH · ZEF · rank 85 · Police Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🌊 The Heart of The Ocean · HOO · rank 193 · Nerd Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 9294,
+    "files": [
+      {
+        "uri": "9294.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😜",
+        "token": "Pauly.ai",
+        "symbol": "PAULYAI",
+        "rank": 84,
+        "rarity": "RARE",
+        "pixels": 32,
+        "where": "Police Cap",
+        "mint": "6cAiPNP4Rxdcdg9FeSNhjAkwGsHoto9QrY5t4AziTRiX"
+      },
+      {
+        "emoji": "😝",
+        "token": "ZEFCASH",
+        "symbol": "ZEF",
+        "rank": 85,
+        "rarity": "RARE",
+        "pixels": 1,
+        "where": "Police Cap",
+        "mint": "DHyGLyCVm5AURBwwSXLooZozFvimtpuMTwuUGUbBTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 98,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "🌊",
+        "token": "The Heart of The Ocean",
+        "symbol": "HOO",
+        "rank": 193,
+        "rarity": "UNCOMMON",
+        "pixels": 8,
+        "where": "Nerd Glasses",
+        "mint": "0x3Ba84f6f5427624b30D05E94D3D7390dEAE121Df"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 73,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

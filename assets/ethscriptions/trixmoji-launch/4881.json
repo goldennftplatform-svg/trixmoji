@@ -1,0 +1,139 @@
+{
+  "name": "TRIXMOJI PHUNKS #4881",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #4881. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Police Cap. Glasses Small Shades. Facial Hair Shadow Beard. Tokens: 😜 Pauly.ai (PAULYAI, rank 84, Police Cap); 😝 ZEFCASH (ZEF, rank 85, Police Cap); 📦 Black Box (BOX, rank 129, Black tiles); 🐅 GTA MONEY (MONEY, rank 152, Headband); 🐓 PEPE (PEPE, rank 166, Shadow Beard); 🐔 WW3 (WW3, rank 167, Shadow Beard); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "4881.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Police Cap"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Small Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😜 Pauly.ai · PAULYAI · rank 84 · Police Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😝 ZEFCASH · ZEF · rank 85 · Police Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐓 PEPE · PEPE · rank 166 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐔 WW3 · WW3 · rank 167 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 4881,
+    "files": [
+      {
+        "uri": "4881.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😜",
+        "token": "Pauly.ai",
+        "symbol": "PAULYAI",
+        "rank": 84,
+        "rarity": "RARE",
+        "pixels": 32,
+        "where": "Police Cap",
+        "mint": "6cAiPNP4Rxdcdg9FeSNhjAkwGsHoto9QrY5t4AziTRiX"
+      },
+      {
+        "emoji": "😝",
+        "token": "ZEFCASH",
+        "symbol": "ZEF",
+        "rank": 85,
+        "rarity": "RARE",
+        "pixels": 1,
+        "where": "Police Cap",
+        "mint": "DHyGLyCVm5AURBwwSXLooZozFvimtpuMTwuUGUbBTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 91,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "🐓",
+        "token": "PEPE",
+        "symbol": "PEPE",
+        "rank": 166,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Shadow Beard",
+        "mint": "BJj96imZGv4sTFgU8Br9soeTs22Fq5BSmpLs4dPcTRiX"
+      },
+      {
+        "emoji": "🐔",
+        "token": "WW3",
+        "symbol": "WW3",
+        "rank": 167,
+        "rarity": "UNCOMMON",
+        "pixels": 33,
+        "where": "Shadow Beard",
+        "mint": "AMhiqRWR52QhUoNUE9bbQGjjnyf2bBmkcYQrJEtDTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 52,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

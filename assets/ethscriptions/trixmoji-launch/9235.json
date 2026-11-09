@@ -1,0 +1,185 @@
+{
+  "name": "TRIXMOJI PHUNKS #9235",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #9235. Left-facing phunk. Type Male. Skin Light. Hair/Hat Hoodie. Facial Hair Normal Beard Black. In Mouth Cigarette. On Nose Clown Nose. Tokens: 🍳 Let him cook (COOK, rank 86, Clown Nose); 😡 OKOKOK (OK, rank 90, Hoodie); 📦 Black Box (BOX, rank 129, Black tiles); 🐋 Cymru (CYM, rank 158, Mohawk Thin); 🐽 PACKS (PACKS, rank 208, Cigarette); 🐾 ROOSTER (ROOSTER, rank 209, Cigarette); 👃 fiDaars (FIDAARS, rank 214, Type: Human); 🥇 D&D GP (GOLD, rank 215, Type: Human); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "9235.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Hoodie"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Normal Beard Black"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Cigarette"
+    },
+    {
+      "trait_type": "On Nose",
+      "value": "Clown Nose"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🍳 Let him cook · COOK · rank 86 · Clown Nose"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😡 OKOKOK · OK · rank 90 · Hoodie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐋 Cymru · CYM · rank 158 · Mohawk Thin"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐽 PACKS · PACKS · rank 208 · Cigarette"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐾 ROOSTER · ROOSTER · rank 209 · Cigarette"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👃 fiDaars · FIDAARS · rank 214 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥇 D&D GP · GOLD · rank 215 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 9235,
+    "files": [
+      {
+        "uri": "9235.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🍳",
+        "token": "Let him cook",
+        "symbol": "COOK",
+        "rank": 86,
+        "rarity": "RARE",
+        "pixels": 4,
+        "where": "Clown Nose",
+        "mint": "2yK1xxNVjXJ1M4B3Wtf14SXQCEZhGa2onccQXdK7TRiX"
+      },
+      {
+        "emoji": "😡",
+        "token": "OKOKOK",
+        "symbol": "OK",
+        "rank": 90,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Hoodie",
+        "mint": "4eXfWh4YybyqyoKM6sUkgLtqH4Jfz2PkWY915LtdTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 157,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐋",
+        "token": "Cymru",
+        "symbol": "CYM",
+        "rank": 158,
+        "rarity": "UNCOMMON",
+        "pixels": 65,
+        "where": "Mohawk Thin",
+        "mint": "5QaWBQwxxJDquNAoKJNyAXEDdwnt8tCcdnsP2FWRTRiX"
+      },
+      {
+        "emoji": "🐽",
+        "token": "PACKS",
+        "symbol": "PACKS",
+        "rank": 208,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Cigarette",
+        "mint": "GujHKn811bShZXNYdxW7vBJisTQNTdiC9R56hdoeTRiX"
+      },
+      {
+        "emoji": "🐾",
+        "token": "ROOSTER",
+        "symbol": "ROOSTER",
+        "rank": 209,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Cigarette",
+        "mint": "7EypRJqVAfTyeVazAbqY2JEz8rcTnheTdVxvVBbw1aTJ"
+      },
+      {
+        "emoji": "👃",
+        "token": "fiDaars",
+        "symbol": "FIDAARS",
+        "rank": 214,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "JCNh8yuohBSvkBj36FEQMCkB63zexQcUoNx55TURTRiX"
+      },
+      {
+        "emoji": "🥇",
+        "token": "D&D GP",
+        "symbol": "GOLD",
+        "rank": 215,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "FioWU8Z8DVym8MfHmK2TiTHUV2AtABWeNiSMRKR6TRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 65,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "name": "TRIXMOJI PHUNKS #6976",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6976. Left-facing phunk. Type Male. Skin Medium. Hair/Hat Headband. Glasses Small Shades. Makeup Rosy Cheeks. Tokens: 😈 Geoff (GEOFF, rank 55, Rosy Cheeks); 📦 Black Box (BOX, rank 129, Black tiles); 🐅 GTA MONEY (MONEY, rank 152, Headband); 🐆 RED (RED, rank 153, Headband); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6976.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Headband"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Small Shades"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Rosy Cheeks"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😈 Geoff · GEOFF · rank 55 · Rosy Cheeks"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐆 RED · RED · rank 153 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6976,
+    "files": [
+      {
+        "uri": "6976.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😈",
+        "token": "Geoff",
+        "symbol": "GEOFF",
+        "rank": 55,
+        "rarity": "RARE",
+        "pixels": 5,
+        "where": "Rosy Cheeks",
+        "mint": "GGLGXSgKP1FbRTj2cLCuth7JQ39RRd1zkLaKRTLDTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 74,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 9,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "🐆",
+        "token": "RED",
+        "symbol": "RED",
+        "rank": 153,
+        "rarity": "UNCOMMON",
+        "pixels": 9,
+        "where": "Headband",
+        "mint": "AKXr2DLYdjqYxnvPXNEVfoEGNXdaR7a1WxiECz7wTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 94,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

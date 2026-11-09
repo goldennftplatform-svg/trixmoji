@@ -1,0 +1,125 @@
+{
+  "name": "TRIXMOJI PHUNKS #1053",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #1053. Left-facing phunk. Type Male. Skin Albino. Hair/Hat Cap Forward. Glasses Nerd Glasses. Facial Hair Big Beard. Tokens: 😞 42 (42, rank 87, Cap Forward); 😟 GREEN (GREEN, rank 88, Cap Forward); 📦 Black Box (BOX, rank 129, Black tiles); 🌊 The Heart of The Ocean (HOO, rank 193, Nerd Glasses); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "1053.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Cap Forward"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Nerd Glasses"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Big Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😞 42 · 42 · rank 87 · Cap Forward"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😟 GREEN · GREEN · rank 88 · Cap Forward"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🌊 The Heart of The Ocean · HOO · rank 193 · Nerd Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 1053,
+    "files": [
+      {
+        "uri": "1053.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😞",
+        "token": "42",
+        "symbol": "42",
+        "rank": 87,
+        "rarity": "RARE",
+        "pixels": 19,
+        "where": "Cap Forward",
+        "mint": "2B1DwahiByTVU5fSwJ6HjWpeiZk5s66bzDb2pyHCTRiX"
+      },
+      {
+        "emoji": "😟",
+        "token": "GREEN",
+        "symbol": "GREEN",
+        "rank": 88,
+        "rarity": "RARE",
+        "pixels": 10,
+        "where": "Cap Forward",
+        "mint": "2Fr1y9199bPJoNMwsXR66nmadYdijB9aiLYErsvZTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 104,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🌊",
+        "token": "The Heart of The Ocean",
+        "symbol": "HOO",
+        "rank": 193,
+        "rarity": "UNCOMMON",
+        "pixels": 8,
+        "where": "Nerd Glasses",
+        "mint": "0x3Ba84f6f5427624b30D05E94D3D7390dEAE121Df"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 27,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 61,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

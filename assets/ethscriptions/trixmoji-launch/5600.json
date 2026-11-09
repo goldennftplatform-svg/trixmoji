@@ -1,0 +1,97 @@
+{
+  "name": "TRIXMOJI PHUNKS #5600",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5600. Left-facing phunk. Type Male. Skin Albino. Hair/Hat Frumpy Hair. Glasses Small Shades. Neck Gold Chain. Tokens: 🧠 Dopamine (DOPAMINE, rank 77, Gold Chain); 📦 Black Box (BOX, rank 129, Black tiles); 🐌 MemeKing (KING, rank 160, Frumpy Hair); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5600.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Frumpy Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Small Shades"
+    },
+    {
+      "trait_type": "Neck",
+      "value": "Gold Chain"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🧠 Dopamine · DOPAMINE · rank 77 · Gold Chain"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐌 MemeKing · KING · rank 160 · Frumpy Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 5600,
+    "files": [
+      {
+        "uri": "5600.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🧠",
+        "token": "Dopamine",
+        "symbol": "DOPAMINE",
+        "rank": 77,
+        "rarity": "RARE",
+        "pixels": 3,
+        "where": "Gold Chain",
+        "mint": "2NuKx5fw4zvAuVGn4jhM3B38PCow8DuNsyAaV1WKTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 145,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐌",
+        "token": "MemeKing",
+        "symbol": "KING",
+        "rank": 160,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Frumpy Hair",
+        "mint": "61hbpeoF4J2dJDpR3E9yxAnuvDweAVQvFHi88gnjTRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 73,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

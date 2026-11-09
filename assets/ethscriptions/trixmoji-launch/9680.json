@@ -1,0 +1,125 @@
+{
+  "name": "TRIXMOJI PHUNKS #9680",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #9680. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Cap. Glasses Regular Shades. Facial Hair Handlebars. Tokens: 😪 MOVE (MOVE, rank 100, Handlebars); 📦 Black Box (BOX, rank 129, Black tiles); 🙍 SILK ROAD (SILK, rank 144, Cap); 🤑 Mo Kings (MOKINGS, rank 145, Cap); 👄 HUSHI (HUSH, rank 217, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "9680.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Cap"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Regular Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Handlebars"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😪 MOVE · MOVE · rank 100 · Handlebars"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙍 SILK ROAD · SILK · rank 144 · Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🤑 Mo Kings · MOKINGS · rank 145 · Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 9680,
+    "files": [
+      {
+        "uri": "9680.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😪",
+        "token": "MOVE",
+        "symbol": "MOVE",
+        "rank": 100,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Handlebars",
+        "mint": "GqLqzS1F31t8H9qtXztgDqP5a5C4oju5eh8ACKnZTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 83,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙍",
+        "token": "SILK ROAD",
+        "symbol": "SILK",
+        "rank": 144,
+        "rarity": "UNCOMMON",
+        "pixels": 32,
+        "where": "Cap",
+        "mint": "3L1f5ENJqmKBZSJxYaUFxox3GtPirVF5skssdxgvTRiX"
+      },
+      {
+        "emoji": "🤑",
+        "token": "Mo Kings",
+        "symbol": "MOKINGS",
+        "rank": 145,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Cap",
+        "mint": "7AHpA6dhkkRHz54FHKP2vAdPSJc11vxomcbqxxBhTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 83,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 7,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

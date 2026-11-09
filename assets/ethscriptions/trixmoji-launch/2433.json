@@ -1,0 +1,125 @@
+{
+  "name": "TRIXMOJI PHUNKS #2433",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #2433. Left-facing phunk. Type Male. Skin Medium. Hair/Hat Stringy Hair. Glasses Classic Shades. Facial Hair Handlebars. Tokens: 😪 MOVE (MOVE, rank 100, Handlebars); 📦 Black Box (BOX, rank 129, Black tiles); 🐐 BIG DAWG (DAWG, rank 164, Classic Shades); 🐒 RootkitAlpha (RKA, rank 165, Classic Shades); 👆 MOO (COW, rank 219, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "2433.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Stringy Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Classic Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Handlebars"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😪 MOVE · MOVE · rank 100 · Handlebars"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐐 BIG DAWG · DAWG · rank 164 · Classic Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐒 RootkitAlpha · RKA · rank 165 · Classic Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 2433,
+    "files": [
+      {
+        "uri": "2433.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😪",
+        "token": "MOVE",
+        "symbol": "MOVE",
+        "rank": 100,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Handlebars",
+        "mint": "GqLqzS1F31t8H9qtXztgDqP5a5C4oju5eh8ACKnZTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 87,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐐",
+        "token": "BIG DAWG",
+        "symbol": "DAWG",
+        "rank": 164,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Classic Shades",
+        "mint": "C5armesyd7sQsgoz1DvSAea96TdYmGC7txNYG76aErp2"
+      },
+      {
+        "emoji": "🐒",
+        "token": "RootkitAlpha",
+        "symbol": "RKA",
+        "rank": 165,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Classic Shades",
+        "mint": "GDBPZNwpJqmAsXNj3F4c4HSVrSGE27QXPCK5AbC3TRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 87,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 7,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

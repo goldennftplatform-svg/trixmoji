@@ -1,0 +1,157 @@
+{
+  "name": "TRIXMOJI PHUNKS #5834",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5834. Left-facing phunk. Type Female. Skin Dark. Hair/Hat Mohawk Thin. Glasses Green Eye Shadow. Mouth Black Lipstick. In Mouth Vape. Tokens: 😴 69Eleven (69ELEVEN, rank 113, Green Eye Shadow); 😵 Sell This Your Gay (STYG, rank 114, Green Eye Shadow); 🐇 WHITE (RABBIT, rank 117, Vape); 😸 Super Intelligent Retard (SIR, rank 118, Vape); 📦 Black Box (BOX, rank 129, Black tiles); 🐋 Cymru (CYM, rank 158, Mohawk Thin); 🐹 SCAM (SCAM, rank 203, Type: Human); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5834.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Mohawk Thin"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Green Eye Shadow"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Black Lipstick"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😴 69Eleven · 69ELEVEN · rank 113 · Green Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😵 Sell This Your Gay · STYG · rank 114 · Green Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐇 WHITE · RABBIT · rank 117 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😸 Super Intelligent Retard · SIR · rank 118 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐋 Cymru · CYM · rank 158 · Mohawk Thin"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐹 SCAM · SCAM · rank 203 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 5834,
+    "files": [
+      {
+        "uri": "5834.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😴",
+        "token": "69Eleven",
+        "symbol": "69ELEVEN",
+        "rank": 113,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Green Eye Shadow",
+        "mint": "7Q5HWaVoN6HWU55dYZFBpY4eESUF2i2nm4cMTYu9TRiX"
+      },
+      {
+        "emoji": "😵",
+        "token": "Sell This Your Gay",
+        "symbol": "STYG",
+        "rank": 114,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Green Eye Shadow",
+        "mint": "F2NaY4LeoYdKjfV3kRtu2EEMwkthQYqq5DjrB8dmTRiX"
+      },
+      {
+        "emoji": "🐇",
+        "token": "WHITE",
+        "symbol": "RABBIT",
+        "rank": 117,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Vape",
+        "mint": "6BMQaSmUco7Gj7fRe5KJWGSKvVFkHX5yYjfWov8dTRiX"
+      },
+      {
+        "emoji": "😸",
+        "token": "Super Intelligent Retard",
+        "symbol": "SIR",
+        "rank": 118,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Vape",
+        "mint": "4kBTPPBxpiDrZ4jKzhrVt3n9JQCUaZ4eJmRFisciTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 71,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐋",
+        "token": "Cymru",
+        "symbol": "CYM",
+        "rank": 158,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Mohawk Thin",
+        "mint": "5QaWBQwxxJDquNAoKJNyAXEDdwnt8tCcdnsP2FWRTRiX"
+      },
+      {
+        "emoji": "🐹",
+        "token": "SCAM",
+        "symbol": "SCAM",
+        "rank": 203,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Type: Human",
+        "mint": "7jYnvBMb7Sxof6r45146Pihqak3vKmPma6722HyWTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 82,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

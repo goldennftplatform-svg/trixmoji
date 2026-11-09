@@ -1,0 +1,167 @@
+{
+  "name": "TRIXMOJI PHUNKS #7891",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #7891. Left-facing phunk. Type Female. Skin Light. Hair/Hat Cap. In Mouth Medical Mask. Jewelry Earring. Tokens: 😗 Yek (YEK, rank 78, Medical Mask); 😘 BIDEN (BIDEN, rank 79, Medical Mask); 📦 Black Box (BOX, rank 129, Black tiles); 🙍 SILK ROAD (SILK, rank 144, Cap); 🤑 Mo Kings (MOKINGS, rank 145, Cap); 👃 fiDaars (FIDAARS, rank 214, Type: Human); 💚 BOONG (BOONG, rank 216, Earring); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "7891.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Cap"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Medical Mask"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😗 Yek · YEK · rank 78 · Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😘 BIDEN · BIDEN · rank 79 · Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙍 SILK ROAD · SILK · rank 144 · Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🤑 Mo Kings · MOKINGS · rank 145 · Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👃 fiDaars · FIDAARS · rank 214 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 7891,
+    "files": [
+      {
+        "uri": "7891.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😗",
+        "token": "Yek",
+        "symbol": "YEK",
+        "rank": 78,
+        "rarity": "RARE",
+        "pixels": 36,
+        "where": "Medical Mask",
+        "mint": "CPuKRLoWjMuktTajkzySyKAVjXKL4d4vJt5SEw4aTRiX"
+      },
+      {
+        "emoji": "😘",
+        "token": "BIDEN",
+        "symbol": "BIDEN",
+        "rank": 79,
+        "rarity": "RARE",
+        "pixels": 3,
+        "where": "Medical Mask",
+        "mint": "0xa6D6399bA1B1B6b28183BA934dfBa161AE528f7e"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 57,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙍",
+        "token": "SILK ROAD",
+        "symbol": "SILK",
+        "rank": 144,
+        "rarity": "UNCOMMON",
+        "pixels": 31,
+        "where": "Cap",
+        "mint": "3L1f5ENJqmKBZSJxYaUFxox3GtPirVF5skssdxgvTRiX"
+      },
+      {
+        "emoji": "🤑",
+        "token": "Mo Kings",
+        "symbol": "MOKINGS",
+        "rank": 145,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Cap",
+        "mint": "7AHpA6dhkkRHz54FHKP2vAdPSJc11vxomcbqxxBhTRiX"
+      },
+      {
+        "emoji": "👃",
+        "token": "fiDaars",
+        "symbol": "FIDAARS",
+        "rank": 214,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "JCNh8yuohBSvkBj36FEQMCkB63zexQcUoNx55TURTRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 43,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

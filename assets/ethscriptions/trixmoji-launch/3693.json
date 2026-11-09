@@ -1,0 +1,153 @@
+{
+  "name": "TRIXMOJI PHUNKS #3693",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #3693. Left-facing phunk. Type Male. Skin Light. Hair/Hat Cap. Glasses Clown Eyes Blue. Jewelry Earring. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🙍 SILK ROAD (SILK, rank 144, Cap); 🤑 Mo Kings (MOKINGS, rank 145, Cap); 🐁 Paulizard (PZARD, rank 149, Clown Eyes Blue); 🐃 GEOFF.AI (214AM, rank 150, Clown Eyes Blue); 🐄 Did Not Fade (DNF, rank 151, Clown Eyes Blue); 💚 BOONG (BOONG, rank 216, Earring); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "3693.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Cap"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Clown Eyes Blue"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙍 SILK ROAD · SILK · rank 144 · Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🤑 Mo Kings · MOKINGS · rank 145 · Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐁 Paulizard · PZARD · rank 149 · Clown Eyes Blue"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐃 GEOFF.AI · 214AM · rank 150 · Clown Eyes Blue"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐄 Did Not Fade · DNF · rank 151 · Clown Eyes Blue"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 3693,
+    "files": [
+      {
+        "uri": "3693.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 65,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙍",
+        "token": "SILK ROAD",
+        "symbol": "SILK",
+        "rank": 144,
+        "rarity": "UNCOMMON",
+        "pixels": 32,
+        "where": "Cap",
+        "mint": "3L1f5ENJqmKBZSJxYaUFxox3GtPirVF5skssdxgvTRiX"
+      },
+      {
+        "emoji": "🤑",
+        "token": "Mo Kings",
+        "symbol": "MOKINGS",
+        "rank": 145,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Cap",
+        "mint": "7AHpA6dhkkRHz54FHKP2vAdPSJc11vxomcbqxxBhTRiX"
+      },
+      {
+        "emoji": "🐁",
+        "token": "Paulizard",
+        "symbol": "PZARD",
+        "rank": 149,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Blue",
+        "mint": "E3txwAc9UMQQo9qSnn7HtMv8XhxtpN4osKDyYRP1TRiX"
+      },
+      {
+        "emoji": "🐃",
+        "token": "GEOFF.AI",
+        "symbol": "214AM",
+        "rank": 150,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Blue",
+        "mint": "7SjHKPFhbN1ac4bq7sVyHXMnActyc2f5tzhofHL2TRiX"
+      },
+      {
+        "emoji": "🐄",
+        "token": "Did Not Fade",
+        "symbol": "DNF",
+        "rank": 151,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Clown Eyes Blue",
+        "mint": "3Zq56bAjjJufhmpdnMFxhp9mEoUuJk8Gmf43F7ryTRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 98,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

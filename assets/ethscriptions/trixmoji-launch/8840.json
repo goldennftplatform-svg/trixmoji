@@ -1,0 +1,167 @@
+{
+  "name": "TRIXMOJI PHUNKS #8840",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #8840. Left-facing phunk. Type Male. Skin Medium. Hair/Hat Beanie. Facial Hair Mustache. Mouth Frown. Tokens: ⛏️ MINE HARDER (MINE, rank 11, Beanie); 😀 POOKU (POOKU, rank 12, Beanie); 😩 COPE HARDER (COPE, rank 13, Beanie); 🐕 Doge on Sol (DOGESOL, rank 14, Beanie); 😾 Boost (BOOST, rank 124, Mustache); 📦 Black Box (BOX, rank 129, Black tiles); 👂 Imminent (NOT, rank 213, Type: Human); 🥇 D&D GP (GOLD, rank 215, Type: Human); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "8840.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Beanie"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Mustache"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Frown"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "⛏️ MINE HARDER · MINE · rank 11 · Beanie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😀 POOKU · POOKU · rank 12 · Beanie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😩 COPE HARDER · COPE · rank 13 · Beanie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐕 Doge on Sol · DOGESOL · rank 14 · Beanie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😾 Boost · BOOST · rank 124 · Mustache"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👂 Imminent · NOT · rank 213 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥇 D&D GP · GOLD · rank 215 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 8840,
+    "files": [
+      {
+        "uri": "8840.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "⛏️",
+        "token": "MINE HARDER",
+        "symbol": "MINE",
+        "rank": 11,
+        "rarity": "LEGENDARY",
+        "pixels": 5,
+        "where": "Beanie",
+        "mint": "41yaqmU5vgoTyVxe6SJEKpR3B3bSnqsc9hFkcACnTRiX"
+      },
+      {
+        "emoji": "😀",
+        "token": "POOKU",
+        "symbol": "POOKU",
+        "rank": 12,
+        "rarity": "LEGENDARY",
+        "pixels": 5,
+        "where": "Beanie",
+        "mint": "Ebv9RGybF848qVAtko1gW7u2RSs65v2kXSHUTQHCTRiX"
+      },
+      {
+        "emoji": "😩",
+        "token": "COPE HARDER",
+        "symbol": "COPE",
+        "rank": 13,
+        "rarity": "LEGENDARY",
+        "pixels": 16,
+        "where": "Beanie",
+        "mint": "pqPyJmjC8NYaecNu8dD68XqtimjAxRbSgv4NEs9TRiX"
+      },
+      {
+        "emoji": "🐕",
+        "token": "Doge on Sol",
+        "symbol": "DOGESOL",
+        "rank": 14,
+        "rarity": "LEGENDARY",
+        "pixels": 7,
+        "where": "Beanie",
+        "mint": "6T1GBn7yd6WWWMZFu2cDjoGqxvqLgF65oBKQSfraTRiX"
+      },
+      {
+        "emoji": "😾",
+        "token": "Boost",
+        "symbol": "BOOST",
+        "rank": 124,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Mustache",
+        "mint": "Gg9xsoYq7wYGW4KmZo2bTPTvMJ6ZYLU9BEGGNTtvTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 64,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👂",
+        "token": "Imminent",
+        "symbol": "NOT",
+        "rank": 213,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "9zuZLv8o3AKNFVUtLy7MYLUZk25py7H3JZz3aWYTTRiX"
+      },
+      {
+        "emoji": "🥇",
+        "token": "D&D GP",
+        "symbol": "GOLD",
+        "rank": 215,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "FioWU8Z8DVym8MfHmK2TiTHUV2AtABWeNiSMRKR6TRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 89,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

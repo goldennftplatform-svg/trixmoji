@@ -1,0 +1,125 @@
+{
+  "name": "TRIXMOJI PHUNKS #6946",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6946. Left-facing phunk. Type Female. Skin Medium. Hair/Hat Dark Hair. Glasses Purple Eye Shadow. Makeup Mole. Tokens: 😣 Nostril Giggle Seraph (SNORT, rank 92, Purple Eye Shadow); 😥 ATTENTION (ATTN, rank 93, Purple Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 🐬 BROSSAD (BROSSAD, rank 192, Type: Human); 🐭 FA&FO (FAFO, rank 194, Mole); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6946.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Dark Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Purple Eye Shadow"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Mole"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😣 Nostril Giggle Seraph · SNORT · rank 92 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😥 ATTENTION · ATTN · rank 93 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐬 BROSSAD · BROSSAD · rank 192 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐭 FA&FO · FAFO · rank 194 · Mole"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6946,
+    "files": [
+      {
+        "uri": "6946.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😣",
+        "token": "Nostril Giggle Seraph",
+        "symbol": "SNORT",
+        "rank": 92,
+        "rarity": "RARE",
+        "pixels": 4,
+        "where": "Purple Eye Shadow",
+        "mint": "7wV7AnXwXLhPzZwK1Suwm1r3viyaQ5EFnu3f7CRLTRiX"
+      },
+      {
+        "emoji": "😥",
+        "token": "ATTENTION",
+        "symbol": "ATTN",
+        "rank": 93,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Purple Eye Shadow",
+        "mint": "2iTqkrfF9D9sgW1fXb2GGP9VxyuQhvAZUXPnqQkLTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 129,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐬",
+        "token": "BROSSAD",
+        "symbol": "BROSSAD",
+        "rank": 192,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "CFJktPm2FZ7SiCLWYRbNiFrhumAgVXZvFrpTCWsRTRiX"
+      },
+      {
+        "emoji": "🐭",
+        "token": "FA&FO",
+        "symbol": "FAFO",
+        "rank": 194,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Mole",
+        "mint": "DTafpoGouGjvPsRMx6odaxGJKWg2fVG5UsHMRoofTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 62,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

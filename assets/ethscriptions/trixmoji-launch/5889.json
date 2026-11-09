@@ -1,0 +1,121 @@
+{
+  "name": "TRIXMOJI PHUNKS #5889",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5889. Left-facing phunk. Type Male. Skin Medium. Glasses Eye Patch. Neck Gold Chain. Tokens: 🧠 Dopamine (DOPAMINE, rank 77, Gold Chain); 📦 Black Box (BOX, rank 129, Black tiles); 🐺 Nickel Metal Hydride (NIMH, rank 204, Type: Human); 👂 Imminent (NOT, rank 213, Type: Human); 🥇 D&D GP (GOLD, rank 215, Type: Human); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5889.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Eye Patch"
+    },
+    {
+      "trait_type": "Neck",
+      "value": "Gold Chain"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🧠 Dopamine · DOPAMINE · rank 77 · Gold Chain"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐺 Nickel Metal Hydride · NIMH · rank 204 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👂 Imminent · NOT · rank 213 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥇 D&D GP · GOLD · rank 215 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 5889,
+    "files": [
+      {
+        "uri": "5889.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🧠",
+        "token": "Dopamine",
+        "symbol": "DOPAMINE",
+        "rank": 77,
+        "rarity": "RARE",
+        "pixels": 3,
+        "where": "Gold Chain",
+        "mint": "2NuKx5fw4zvAuVGn4jhM3B38PCow8DuNsyAaV1WKTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 76,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐺",
+        "token": "Nickel Metal Hydride",
+        "symbol": "NIMH",
+        "rank": 204,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "EGC52THyatGsVZJy3xyFEiZT7U92vz12p2KPmVzTTRiX"
+      },
+      {
+        "emoji": "👂",
+        "token": "Imminent",
+        "symbol": "NOT",
+        "rank": 213,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Type: Human",
+        "mint": "9zuZLv8o3AKNFVUtLy7MYLUZk25py7H3JZz3aWYTTRiX"
+      },
+      {
+        "emoji": "🥇",
+        "token": "D&D GP",
+        "symbol": "GOLD",
+        "rank": 215,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "FioWU8Z8DVym8MfHmK2TiTHUV2AtABWeNiSMRKR6TRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 107,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

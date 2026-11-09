@@ -1,0 +1,149 @@
+{
+  "name": "TRIXMOJI PHUNKS #3918",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #3918. Left-facing phunk. Type Female. Skin Dark. Hair/Hat Mohawk Thin. Glasses 3D Glasses. Tokens: 😹 FUNNY MONEY (MONEY, rank 119, 3D Glasses); 😺 Shit Coin (SHIT, rank 120, 3D Glasses); 😻 what (WHAT, rank 121, 3D Glasses); 📦 Black Box (BOX, rank 129, Black tiles); 🐋 Cymru (CYM, rank 158, Mohawk Thin); 🐚 HALLUCINATE (RAVE, rank 172, Type: Human); 🐹 SCAM (SCAM, rank 203, Type: Human); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "3918.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Mohawk Thin"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😹 FUNNY MONEY · MONEY · rank 119 · 3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😺 Shit Coin · SHIT · rank 120 · 3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😻 what · WHAT · rank 121 · 3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐋 Cymru · CYM · rank 158 · Mohawk Thin"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐚 HALLUCINATE · RAVE · rank 172 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐹 SCAM · SCAM · rank 203 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 3918,
+    "files": [
+      {
+        "uri": "3918.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😹",
+        "token": "FUNNY MONEY",
+        "symbol": "MONEY",
+        "rank": 119,
+        "rarity": "UNCOMMON",
+        "pixels": 21,
+        "where": "3D Glasses",
+        "mint": "HuEt5dcUpd12tCRMpFE7bjMPtS5ofvhHELbdUczeTRiX"
+      },
+      {
+        "emoji": "😺",
+        "token": "Shit Coin",
+        "symbol": "SHIT",
+        "rank": 120,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "3D Glasses",
+        "mint": "5AVhKEfbvxMUqVmcMtxT2Zn42PwYy3t9N5vUngZSTRiX"
+      },
+      {
+        "emoji": "😻",
+        "token": "what",
+        "symbol": "WHAT",
+        "rank": 121,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "3D Glasses",
+        "mint": "3ho3KkqYkANUKRUu4UxJ2ue56ZrSCzMX4XtrdC8jTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 54,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐋",
+        "token": "Cymru",
+        "symbol": "CYM",
+        "rank": 158,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Mohawk Thin",
+        "mint": "5QaWBQwxxJDquNAoKJNyAXEDdwnt8tCcdnsP2FWRTRiX"
+      },
+      {
+        "emoji": "🐚",
+        "token": "HALLUCINATE",
+        "symbol": "RAVE",
+        "rank": 172,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "D5zLvsT6HH6ywDJyg6gPhqSbHUL6njVe4T8RQnVBF61e"
+      },
+      {
+        "emoji": "🐹",
+        "token": "SCAM",
+        "symbol": "SCAM",
+        "rank": 203,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Type: Human",
+        "mint": "7jYnvBMb7Sxof6r45146Pihqak3vKmPma6722HyWTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 62,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

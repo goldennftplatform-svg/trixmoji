@@ -1,0 +1,103 @@
+{
+  "name": "TRIXMOJI PHUNKS #2140",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #2140. Left-facing phunk. Type Ape. Hair/Hat Knitted Cap. Glasses Small Shades. Tokens: ⬛ VOID (VOID, rank 4, Ape); 🕴️ MICHAEL SELLER (SELLER, rank 5, Ape); 📦 Black Box (BOX, rank 129, Black tiles); 🐉 Bitcoin (BTC, rank 156, Knitted Cap); 🐊 PORKTARDS (PTARD, rank 157, Knitted Cap). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "2140.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Ape"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Knitted Cap"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Small Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "⬛ VOID · VOID · rank 4 · Ape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🕴️ MICHAEL SELLER · SELLER · rank 5 · Ape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐉 Bitcoin · BTC · rank 156 · Knitted Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐊 PORKTARDS · PTARD · rank 157 · Knitted Cap"
+    }
+  ],
+  "properties": {
+    "edition": 2140,
+    "files": [
+      {
+        "uri": "2140.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "⬛",
+        "token": "VOID",
+        "symbol": "VOID",
+        "rank": 4,
+        "rarity": "RAREST",
+        "pixels": 55,
+        "where": "Ape",
+        "mint": "74nSAMYRsm3MZLqVXcoZoUFsjiqKZhAJCqttHVycTRiX"
+      },
+      {
+        "emoji": "🕴️",
+        "token": "MICHAEL SELLER",
+        "symbol": "SELLER",
+        "rank": 5,
+        "rarity": "RAREST",
+        "pixels": 23,
+        "where": "Ape",
+        "mint": "9mBEqBs2xMBkeTpUUeYFqRtnHGSkEmHz73zR5m74TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 79,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐉",
+        "token": "Bitcoin",
+        "symbol": "BTC",
+        "rank": 156,
+        "rarity": "UNCOMMON",
+        "pixels": 21,
+        "where": "Knitted Cap",
+        "mint": "FvsKtnUgj8yL3pSHDYWdn63QK177vAgyAvhybrTYTRiX"
+      },
+      {
+        "emoji": "🐊",
+        "token": "PORKTARDS",
+        "symbol": "PTARD",
+        "rank": 157,
+        "rarity": "UNCOMMON",
+        "pixels": 17,
+        "where": "Knitted Cap",
+        "mint": "7sjchnFFTf7e7S8xigwpUXtHvnkx5z3aQhXir4ULTRiX"
+      }
+    ]
+  }
+}

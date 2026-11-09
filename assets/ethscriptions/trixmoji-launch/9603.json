@@ -1,0 +1,167 @@
+{
+  "name": "TRIXMOJI PHUNKS #9603",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #9603. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Shaved Head. Glasses Horned Rim Glasses. On Nose Clown Nose. Tokens: 🍳 Let him cook (COOK, rank 86, Clown Nose); 📦 Black Box (BOX, rank 129, Black tiles); 🙂 0xGEOFF (0XG, rank 130, Shaved Head); 🌋 MAGMA (MAG, rank 131, Shaved Head); 🐞 Ziggy (ZIGGY, rank 176, Horned Rim Glasses); 🐢 OK (OK, rank 180, Horned Rim Glasses); 🐣 GTA IV (GTA, rank 181, Horned Rim Glasses); 🐤 ALANYA (ALANYA, rank 182, Horned Rim Glasses); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "9603.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Shaved Head"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Horned Rim Glasses"
+    },
+    {
+      "trait_type": "On Nose",
+      "value": "Clown Nose"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🍳 Let him cook · COOK · rank 86 · Clown Nose"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙂 0xGEOFF · 0XG · rank 130 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🌋 MAGMA · MAG · rank 131 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐞 Ziggy · ZIGGY · rank 176 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐢 OK · OK · rank 180 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐣 GTA IV · GTA · rank 181 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐤 ALANYA · ALANYA · rank 182 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 9603,
+    "files": [
+      {
+        "uri": "9603.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🍳",
+        "token": "Let him cook",
+        "symbol": "COOK",
+        "rank": 86,
+        "rarity": "RARE",
+        "pixels": 4,
+        "where": "Clown Nose",
+        "mint": "2yK1xxNVjXJ1M4B3Wtf14SXQCEZhGa2onccQXdK7TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 68,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙂",
+        "token": "0xGEOFF",
+        "symbol": "0XG",
+        "rank": 130,
+        "rarity": "UNCOMMON",
+        "pixels": 25,
+        "where": "Shaved Head",
+        "mint": "69fCFYE3GKfea428dNb618mKtSyoNFdT5QxvPouUkH1n"
+      },
+      {
+        "emoji": "🌋",
+        "token": "MAGMA",
+        "symbol": "MAG",
+        "rank": 131,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Shaved Head",
+        "mint": "B9Qo41JeYEoYpNUXvzSJg9EDSeJCjjzm3JK9KWrGTRiX"
+      },
+      {
+        "emoji": "🐞",
+        "token": "Ziggy",
+        "symbol": "ZIGGY",
+        "rank": 176,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CmMZ4RNRZZBt1bfcxkYiXB3SXAWFucdFZcP1y5MCTRiX"
+      },
+      {
+        "emoji": "🐢",
+        "token": "OK",
+        "symbol": "OK",
+        "rank": 180,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Horned Rim Glasses",
+        "mint": "6VEhTpHR5tssT1xg9cRcXF2ot28tspjYvTyykGQGTRiX"
+      },
+      {
+        "emoji": "🐣",
+        "token": "GTA IV",
+        "symbol": "GTA",
+        "rank": 181,
+        "rarity": "UNCOMMON",
+        "pixels": 10,
+        "where": "Horned Rim Glasses",
+        "mint": "Bfc299cLrPnFTYFUW8so99N2HHZyKwYgPXQEYrXwTRiX"
+      },
+      {
+        "emoji": "🐤",
+        "token": "ALANYA",
+        "symbol": "ALANYA",
+        "rank": 182,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "BYyaH21eR5dwnR5uh7eAWXPcn7AwmDTwxWB88wvHTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 76,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

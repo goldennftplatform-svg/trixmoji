@@ -1,0 +1,139 @@
+{
+  "name": "TRIXMOJI PHUNKS #2795",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #2795. Left-facing phunk. Type Female. Skin Medium. Hair/Hat Wild Blonde. Glasses Green Eye Shadow. Makeup Rosy Cheeks. Tokens: 📡 SIGNAL (SIGNAL, rank 60, Rosy Cheeks); 😑 DONG (DONG, rank 71, Blonde Bob); 😯 Pauly0x (HIM, rank 109, Green Eye Shadow); 😲 MEME (MEME, rank 110, Green Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 🐬 BROSSAD (BROSSAD, rank 192, Type: Human); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "2795.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Wild Blonde"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Green Eye Shadow"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Rosy Cheeks"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📡 SIGNAL · SIGNAL · rank 60 · Rosy Cheeks"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😑 DONG · DONG · rank 71 · Blonde Bob"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😯 Pauly0x · HIM · rank 109 · Green Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😲 MEME · MEME · rank 110 · Green Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐬 BROSSAD · BROSSAD · rank 192 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 2795,
+    "files": [
+      {
+        "uri": "2795.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📡",
+        "token": "SIGNAL",
+        "symbol": "SIGNAL",
+        "rank": 60,
+        "rarity": "RARE",
+        "pixels": 4,
+        "where": "Rosy Cheeks",
+        "mint": "273BVmUBdbTeq7VCSaCWzYv19NiY9c6cqCQXfX2MTRiX"
+      },
+      {
+        "emoji": "😑",
+        "token": "DONG",
+        "symbol": "DONG",
+        "rank": 71,
+        "rarity": "RARE",
+        "pixels": 62,
+        "where": "Blonde Bob",
+        "mint": "Bj5CownyhcGFHa8f2m1W7vx7cRkUFVpxNc9HrSoBTRiX"
+      },
+      {
+        "emoji": "😯",
+        "token": "Pauly0x",
+        "symbol": "HIM",
+        "rank": 109,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Green Eye Shadow",
+        "mint": "G27sh44zUagSsk9jhaKQuwWBXT33TNsdL4iVVNskTRiX"
+      },
+      {
+        "emoji": "😲",
+        "token": "MEME",
+        "symbol": "MEME",
+        "rank": 110,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Green Eye Shadow",
+        "mint": "H7HKJD9TMs8UN6B1C1jh4jxgRk1bKUZe4i5XePFQtrix"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 99,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐬",
+        "token": "BROSSAD",
+        "symbol": "BROSSAD",
+        "rank": 192,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "CFJktPm2FZ7SiCLWYRbNiFrhumAgVXZvFrpTCWsRTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 74,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "name": "TRIXMOJI PHUNKS #1746",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #1746. Left-facing phunk. Type Female. Skin Albino. Hair/Hat Dark Hair. Glasses Green Eye Shadow. Jewelry Earring. Tokens: 😶 The Last Brain Cell (CELL, rank 115, Green Eye Shadow); 😷 TUNG TUNG (TUNG, rank 116, Green Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 👮 Copzy (COPZ, rank 205, Type: Human); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "1746.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Dark Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Green Eye Shadow"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😶 The Last Brain Cell · CELL · rank 115 · Green Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😷 TUNG TUNG · TUNG · rank 116 · Green Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👮 Copzy · COPZ · rank 205 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 1746,
+    "files": [
+      {
+        "uri": "1746.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😶",
+        "token": "The Last Brain Cell",
+        "symbol": "CELL",
+        "rank": 115,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Green Eye Shadow",
+        "mint": "EEu5nXhu8cCE9HcwxQBu8e5HcwjgwKYf1qZtWBe2TRiX"
+      },
+      {
+        "emoji": "😷",
+        "token": "TUNG TUNG",
+        "symbol": "TUNG",
+        "rank": 116,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Green Eye Shadow",
+        "mint": "CFRziA42M36PGJEmNQ9QitBXAU81tuCJAtrKmT5QTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 129,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👮",
+        "token": "Copzy",
+        "symbol": "COPZ",
+        "rank": 205,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "8YgbTPPcic2wdQEqe7vtW1wSJVi69VpSNxwnsxYgTRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 63,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

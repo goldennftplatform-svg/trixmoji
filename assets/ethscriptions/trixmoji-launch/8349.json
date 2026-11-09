@@ -1,0 +1,167 @@
+{
+  "name": "TRIXMOJI PHUNKS #8349",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #8349. Left-facing phunk. Type Female. Skin Dark. Hair/Hat Crazy Hair. Glasses Welding Goggles. Mouth Purple Lipstick. Tokens: 🎧 JIMMYEDGAR (JIMMY, rank 21, Welding Goggles); 0️⃣ null (NULL, rank 22, Welding Goggles); 📦 Black Box (BOX, rank 129, Black tiles); 👀 WazzAAA (WAZZA, rank 154, Crazy Hair); 🌊 The Heart of The Ocean (HOO, rank 193, Nerd Glasses); 🐵 Trollge (TROLLGE, rank 201, Purple Lipstick); 👨 $COOK (COOK, rank 211, Type: Human); 🐿 SLOP (SLOP, rank 212, Type: Human); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "8349.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Crazy Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Welding Goggles"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Purple Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎧 JIMMYEDGAR · JIMMY · rank 21 · Welding Goggles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "0️⃣ null · NULL · rank 22 · Welding Goggles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👀 WazzAAA · WAZZA · rank 154 · Crazy Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🌊 The Heart of The Ocean · HOO · rank 193 · Nerd Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐵 Trollge · TROLLGE · rank 201 · Purple Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👨 $COOK · COOK · rank 211 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐿 SLOP · SLOP · rank 212 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 8349,
+    "files": [
+      {
+        "uri": "8349.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🎧",
+        "token": "JIMMYEDGAR",
+        "symbol": "JIMMY",
+        "rank": 21,
+        "rarity": "LEGENDARY",
+        "pixels": 14,
+        "where": "Welding Goggles",
+        "mint": "CyRF4NpJ7dsVkxTZq8AvTtGmxJFCaJCz7b1x3WD8TRiX"
+      },
+      {
+        "emoji": "0️⃣",
+        "token": "null",
+        "symbol": "NULL",
+        "rank": 22,
+        "rarity": "LEGENDARY",
+        "pixels": 15,
+        "where": "Welding Goggles",
+        "mint": "0x76a01DCDDe4c9844dCc4E9F9E10DD1477096f4A5"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 81,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👀",
+        "token": "WazzAAA",
+        "symbol": "WAZZA",
+        "rank": 154,
+        "rarity": "UNCOMMON",
+        "pixels": 22,
+        "where": "Crazy Hair",
+        "mint": "8xBRX7rK6DnxGEU41PE5rTG7huLNZtH8v1rh2bBeTRiX"
+      },
+      {
+        "emoji": "🌊",
+        "token": "The Heart of The Ocean",
+        "symbol": "HOO",
+        "rank": 193,
+        "rarity": "UNCOMMON",
+        "pixels": 8,
+        "where": "Nerd Glasses",
+        "mint": "0x3Ba84f6f5427624b30D05E94D3D7390dEAE121Df"
+      },
+      {
+        "emoji": "🐵",
+        "token": "Trollge",
+        "symbol": "TROLLGE",
+        "rank": 201,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Purple Lipstick",
+        "mint": "EgJYqs33bm76zQw7xvCMvD1YBprSSaqWXFLaxtwcTRiX"
+      },
+      {
+        "emoji": "👨",
+        "token": "$COOK",
+        "symbol": "COOK",
+        "rank": 211,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "5xbuGdFCSXpW1zkGEiK3FKFDLioZ8tzsA2WosKATRiX"
+      },
+      {
+        "emoji": "🐿",
+        "token": "SLOP",
+        "symbol": "SLOP",
+        "rank": 212,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "Gtn1kxqdPMkjjpcj2Ch3n4t2VJ2mxpBRVHHYe7WYTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 70,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

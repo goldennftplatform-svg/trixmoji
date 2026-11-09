@@ -1,0 +1,143 @@
+{
+  "name": "TRIXMOJI PHUNKS #6611",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6611. Left-facing phunk. Type Male. Skin Medium. Hair/Hat Cap Forward. Glasses Regular Shades. In Mouth Vape. Neck Silver Chain. Tokens: 😕 Pauly Exclusion Principle (PEP, rank 75, Silver Chain); 😞 42 (42, rank 87, Cap Forward); 😟 GREEN (GREEN, rank 88, Cap Forward); 🐇 WHITE (RABBIT, rank 117, Vape); 😸 Super Intelligent Retard (SIR, rank 118, Vape); 📦 Black Box (BOX, rank 129, Black tiles); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6611.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Cap Forward"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Regular Shades"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Vape"
+    },
+    {
+      "trait_type": "Neck",
+      "value": "Silver Chain"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😕 Pauly Exclusion Principle · PEP · rank 75 · Silver Chain"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😞 42 · 42 · rank 87 · Cap Forward"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😟 GREEN · GREEN · rank 88 · Cap Forward"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐇 WHITE · RABBIT · rank 117 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😸 Super Intelligent Retard · SIR · rank 118 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6611,
+    "files": [
+      {
+        "uri": "6611.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😕",
+        "token": "Pauly Exclusion Principle",
+        "symbol": "PEP",
+        "rank": 75,
+        "rarity": "RARE",
+        "pixels": 3,
+        "where": "Silver Chain",
+        "mint": "BfRvt3Tc9YNkocnJrBaERvBhirzfkLwenAvm4rRaTRiX"
+      },
+      {
+        "emoji": "😞",
+        "token": "42",
+        "symbol": "42",
+        "rank": 87,
+        "rarity": "RARE",
+        "pixels": 19,
+        "where": "Cap Forward",
+        "mint": "2B1DwahiByTVU5fSwJ6HjWpeiZk5s66bzDb2pyHCTRiX"
+      },
+      {
+        "emoji": "😟",
+        "token": "GREEN",
+        "symbol": "GREEN",
+        "rank": 88,
+        "rarity": "RARE",
+        "pixels": 10,
+        "where": "Cap Forward",
+        "mint": "2Fr1y9199bPJoNMwsXR66nmadYdijB9aiLYErsvZTRiX"
+      },
+      {
+        "emoji": "🐇",
+        "token": "WHITE",
+        "symbol": "RABBIT",
+        "rank": 117,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Vape",
+        "mint": "6BMQaSmUco7Gj7fRe5KJWGSKvVFkHX5yYjfWov8dTRiX"
+      },
+      {
+        "emoji": "😸",
+        "token": "Super Intelligent Retard",
+        "symbol": "SIR",
+        "rank": 118,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Vape",
+        "mint": "4kBTPPBxpiDrZ4jKzhrVt3n9JQCUaZ4eJmRFisciTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 110,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 74,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

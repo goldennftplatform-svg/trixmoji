@@ -1,0 +1,185 @@
+{
+  "name": "TRIXMOJI PHUNKS #2267",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #2267. Left-facing phunk. Type Male. Skin Light. Hair/Hat Knitted Cap. Glasses Clown Eyes Green. Facial Hair Handlebars. Mouth Buck Teeth. Tokens: 😪 MOVE (MOVE, rank 100, Handlebars); 📦 Black Box (BOX, rank 129, Black tiles); 🙎 AIR (AIR, rank 146, Clown Eyes Green); 🙏 Jason Lawnmoa (LAWNMOA, rank 147, Clown Eyes Green); 🐀 $8 (8, rank 148, Clown Eyes Green); 🐅 GTA MONEY (MONEY, rank 152, Headband); 🐉 Bitcoin (BTC, rank 156, Knitted Cap); 🐊 PORKTARDS (PTARD, rank 157, Knitted Cap); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "2267.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Knitted Cap"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Clown Eyes Green"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Handlebars"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Buck Teeth"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😪 MOVE · MOVE · rank 100 · Handlebars"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙎 AIR · AIR · rank 146 · Clown Eyes Green"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙏 Jason Lawnmoa · LAWNMOA · rank 147 · Clown Eyes Green"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐀 $8 · 8 · rank 148 · Clown Eyes Green"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐉 Bitcoin · BTC · rank 156 · Knitted Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐊 PORKTARDS · PTARD · rank 157 · Knitted Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 2267,
+    "files": [
+      {
+        "uri": "2267.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😪",
+        "token": "MOVE",
+        "symbol": "MOVE",
+        "rank": 100,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Handlebars",
+        "mint": "GqLqzS1F31t8H9qtXztgDqP5a5C4oju5eh8ACKnZTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 56,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙎",
+        "token": "AIR",
+        "symbol": "AIR",
+        "rank": 146,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Green",
+        "mint": "3F1CXHWcjjG2iDFyzSixoRDZqPqYCU9s82fEfh1dTRiX"
+      },
+      {
+        "emoji": "🙏",
+        "token": "Jason Lawnmoa",
+        "symbol": "LAWNMOA",
+        "rank": 147,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Green",
+        "mint": "9oDVZhKPR6qEkT3k1PMasEMVrTGAnrQfEHNv6z8MTRiX"
+      },
+      {
+        "emoji": "🐀",
+        "token": "$8",
+        "symbol": "8",
+        "rank": 148,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Clown Eyes Green",
+        "mint": "B92yrSsKDRfu1ERXk32AZYNu55GLF7ds4dSgCKPeTRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "🐉",
+        "token": "Bitcoin",
+        "symbol": "BTC",
+        "rank": 156,
+        "rarity": "UNCOMMON",
+        "pixels": 21,
+        "where": "Knitted Cap",
+        "mint": "FvsKtnUgj8yL3pSHDYWdn63QK177vAgyAvhybrTYTRiX"
+      },
+      {
+        "emoji": "🐊",
+        "token": "PORKTARDS",
+        "symbol": "PTARD",
+        "rank": 157,
+        "rarity": "UNCOMMON",
+        "pixels": 17,
+        "where": "Knitted Cap",
+        "mint": "7sjchnFFTf7e7S8xigwpUXtHvnkx5z3aQhXir4ULTRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 80,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 7,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

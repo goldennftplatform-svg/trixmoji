@@ -1,0 +1,107 @@
+{
+  "name": "TRIXMOJI PHUNKS #8986",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #8986. Left-facing phunk. Type Female. Skin Albino. Hair/Hat Straight Hair Dark. Glasses Blue Eye Shadow. Tokens: 😭 PONDWATER (WATER, rank 107, Blue Eye Shadow); 😮 APU (APU, rank 108, Blue Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 👮 Copzy (COPZ, rank 205, Type: Human); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "8986.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Straight Hair Dark"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Blue Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😭 PONDWATER · WATER · rank 107 · Blue Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😮 APU · APU · rank 108 · Blue Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👮 Copzy · COPZ · rank 205 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 8986,
+    "files": [
+      {
+        "uri": "8986.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😭",
+        "token": "PONDWATER",
+        "symbol": "WATER",
+        "rank": 107,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Blue Eye Shadow",
+        "mint": "6xXbswAypi2GBjxre6sj6cEKGMXm951SjPWRMNHiTRiX"
+      },
+      {
+        "emoji": "😮",
+        "token": "APU",
+        "symbol": "APU",
+        "rank": 108,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Blue Eye Shadow",
+        "mint": "2RwNesZTFoTFLtbmowgteiaXKBMhN8ZePNQKgXc3TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 103,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👮",
+        "token": "Copzy",
+        "symbol": "COPZ",
+        "rank": 205,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "8YgbTPPcic2wdQEqe7vtW1wSJVi69VpSNxwnsxYgTRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 69,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

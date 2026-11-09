@@ -1,0 +1,157 @@
+{
+  "name": "TRIXMOJI PHUNKS #5493",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5493. Left-facing phunk. Type Female. Skin Dark. Hair/Hat Pigtails. Glasses Classic Shades. Mouth Purple Lipstick. In Mouth Pipe. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🥛 Memetic Milk (MILK, rank 139, Pipe); 🙉 69420 (69420, rank 140, Pipe); 🙊 Lucid Purr (PURR, rank 141, Pipe); 🐐 BIG DAWG (DAWG, rank 164, Classic Shades); 🐒 RootkitAlpha (RKA, rank 165, Classic Shades); 🐵 Trollge (TROLLGE, rank 201, Purple Lipstick); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5493.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Pigtails"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Classic Shades"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Purple Lipstick"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥛 Memetic Milk · MILK · rank 139 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙉 69420 · 69420 · rank 140 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙊 Lucid Purr · PURR · rank 141 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐐 BIG DAWG · DAWG · rank 164 · Classic Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐒 RootkitAlpha · RKA · rank 165 · Classic Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐵 Trollge · TROLLGE · rank 201 · Purple Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 5493,
+    "files": [
+      {
+        "uri": "5493.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 163,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🥛",
+        "token": "Memetic Milk",
+        "symbol": "MILK",
+        "rank": 139,
+        "rarity": "UNCOMMON",
+        "pixels": 10,
+        "where": "Pipe",
+        "mint": "G4mqFjqSdexj2YLTtjtjKYSvX2mZbNLWfHV3CE3JTRiX"
+      },
+      {
+        "emoji": "🙉",
+        "token": "69420",
+        "symbol": "69420",
+        "rank": 140,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Pipe",
+        "mint": "3mvjSowJctaHr8r8pu9DhXf4nxpDyy47PHcMxqecTRiX"
+      },
+      {
+        "emoji": "🙊",
+        "token": "Lucid Purr",
+        "symbol": "PURR",
+        "rank": 141,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Pipe",
+        "mint": "CNfVzZLLchTUtx4LqmcwnDBcAJs7ptPiimtFpNrQTRiX"
+      },
+      {
+        "emoji": "🐐",
+        "token": "BIG DAWG",
+        "symbol": "DAWG",
+        "rank": 164,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Classic Shades",
+        "mint": "C5armesyd7sQsgoz1DvSAea96TdYmGC7txNYG76aErp2"
+      },
+      {
+        "emoji": "🐒",
+        "token": "RootkitAlpha",
+        "symbol": "RKA",
+        "rank": 165,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Classic Shades",
+        "mint": "GDBPZNwpJqmAsXNj3F4c4HSVrSGE27QXPCK5AbC3TRiX"
+      },
+      {
+        "emoji": "🐵",
+        "token": "Trollge",
+        "symbol": "TROLLGE",
+        "rank": 201,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Purple Lipstick",
+        "mint": "EgJYqs33bm76zQw7xvCMvD1YBprSSaqWXFLaxtwcTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 60,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

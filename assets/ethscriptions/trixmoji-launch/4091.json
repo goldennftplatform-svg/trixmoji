@@ -1,0 +1,125 @@
+{
+  "name": "TRIXMOJI PHUNKS #4091",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #4091. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Stringy Hair. Glasses Classic Shades. Facial Hair Shadow Beard. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🐐 BIG DAWG (DAWG, rank 164, Classic Shades); 🐒 RootkitAlpha (RKA, rank 165, Classic Shades); 🐓 PEPE (PEPE, rank 166, Shadow Beard); 🐔 WW3 (WW3, rank 167, Shadow Beard); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "4091.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Stringy Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Classic Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐐 BIG DAWG · DAWG · rank 164 · Classic Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐒 RootkitAlpha · RKA · rank 165 · Classic Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐓 PEPE · PEPE · rank 166 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐔 WW3 · WW3 · rank 167 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 4091,
+    "files": [
+      {
+        "uri": "4091.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 84,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐐",
+        "token": "BIG DAWG",
+        "symbol": "DAWG",
+        "rank": 164,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Classic Shades",
+        "mint": "C5armesyd7sQsgoz1DvSAea96TdYmGC7txNYG76aErp2"
+      },
+      {
+        "emoji": "🐒",
+        "token": "RootkitAlpha",
+        "symbol": "RKA",
+        "rank": 165,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Classic Shades",
+        "mint": "GDBPZNwpJqmAsXNj3F4c4HSVrSGE27QXPCK5AbC3TRiX"
+      },
+      {
+        "emoji": "🐓",
+        "token": "PEPE",
+        "symbol": "PEPE",
+        "rank": 166,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Shadow Beard",
+        "mint": "BJj96imZGv4sTFgU8Br9soeTs22Fq5BSmpLs4dPcTRiX"
+      },
+      {
+        "emoji": "🐔",
+        "token": "WW3",
+        "symbol": "WW3",
+        "rank": 167,
+        "rarity": "UNCOMMON",
+        "pixels": 33,
+        "where": "Shadow Beard",
+        "mint": "AMhiqRWR52QhUoNUE9bbQGjjnyf2bBmkcYQrJEtDTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 63,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

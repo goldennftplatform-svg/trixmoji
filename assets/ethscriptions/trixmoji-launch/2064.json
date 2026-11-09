@@ -1,0 +1,111 @@
+{
+  "name": "TRIXMOJI PHUNKS #2064",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #2064. Left-facing phunk. Type Male. Skin Albino. Hair/Hat Shaved Head. Glasses Small Shades. Facial Hair Front Beard Dark. Tokens: 😢 U Cant Do That (UCDT, rank 91, Front Beard Dark); 📦 Black Box (BOX, rank 129, Black tiles); 👁 Super intelligence (SI, rank 136, Shaved Head); 🙆 FUD (FUD, rank 137, Shaved Head); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "2064.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Shaved Head"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Small Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Front Beard Dark"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😢 U Cant Do That · UCDT · rank 91 · Front Beard Dark"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👁 Super intelligence · SI · rank 136 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙆 FUD · FUD · rank 137 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 2064,
+    "files": [
+      {
+        "uri": "2064.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😢",
+        "token": "U Cant Do That",
+        "symbol": "UCDT",
+        "rank": 91,
+        "rarity": "RARE",
+        "pixels": 18,
+        "where": "Front Beard Dark",
+        "mint": "Agrb4pzJe3Xudma1SHDszfPwspNAf5oPeXbdjpBiTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 74,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👁",
+        "token": "Super intelligence",
+        "symbol": "SI",
+        "rank": 136,
+        "rarity": "UNCOMMON",
+        "pixels": 25,
+        "where": "Shaved Head",
+        "mint": "HTz6PXaKWoALn3KnvLWuQr7EJUBdqKziMo9N7yCXTRiX"
+      },
+      {
+        "emoji": "🙆",
+        "token": "FUD",
+        "symbol": "FUD",
+        "rank": 137,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Shaved Head",
+        "mint": "BJSsfmtb4dPUg1z9QtpEMzKxe1dp7Ube8PXorNw1TRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 75,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

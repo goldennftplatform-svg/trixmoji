@@ -1,0 +1,143 @@
+{
+  "name": "TRIXMOJI PHUNKS #4307",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #4307. Left-facing phunk. Type Male. Skin Medium. Hair/Hat Knitted Cap. Glasses Regular Shades. Facial Hair Shadow Beard. Jewelry Earring. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🐉 Bitcoin (BTC, rank 156, Knitted Cap); 🐊 PORKTARDS (PTARD, rank 157, Knitted Cap); 🐓 PEPE (PEPE, rank 166, Shadow Beard); 🐗 Not a test (TEST, rank 169, Shadow Beard); 💚 BOONG (BOONG, rank 216, Earring); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "4307.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Knitted Cap"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Regular Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Shadow Beard"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐉 Bitcoin · BTC · rank 156 · Knitted Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐊 PORKTARDS · PTARD · rank 157 · Knitted Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐓 PEPE · PEPE · rank 166 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐗 Not a test · TEST · rank 169 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 4307,
+    "files": [
+      {
+        "uri": "4307.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 75,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐉",
+        "token": "Bitcoin",
+        "symbol": "BTC",
+        "rank": 156,
+        "rarity": "UNCOMMON",
+        "pixels": 21,
+        "where": "Knitted Cap",
+        "mint": "FvsKtnUgj8yL3pSHDYWdn63QK177vAgyAvhybrTYTRiX"
+      },
+      {
+        "emoji": "🐊",
+        "token": "PORKTARDS",
+        "symbol": "PTARD",
+        "rank": 157,
+        "rarity": "UNCOMMON",
+        "pixels": 17,
+        "where": "Knitted Cap",
+        "mint": "7sjchnFFTf7e7S8xigwpUXtHvnkx5z3aQhXir4ULTRiX"
+      },
+      {
+        "emoji": "🐓",
+        "token": "PEPE",
+        "symbol": "PEPE",
+        "rank": 166,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Shadow Beard",
+        "mint": "BJj96imZGv4sTFgU8Br9soeTs22Fq5BSmpLs4dPcTRiX"
+      },
+      {
+        "emoji": "🐗",
+        "token": "Not a test",
+        "symbol": "TEST",
+        "rank": 169,
+        "rarity": "UNCOMMON",
+        "pixels": 33,
+        "where": "Shadow Beard",
+        "mint": "5EDKsWw7innWhNwVWrUFo2uNUt5h1eQ2zP5FWUNuTRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 50,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

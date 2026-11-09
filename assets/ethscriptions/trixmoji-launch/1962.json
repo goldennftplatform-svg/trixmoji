@@ -1,0 +1,153 @@
+{
+  "name": "TRIXMOJI PHUNKS #1962",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #1962. Left-facing phunk. Type Female. Skin Light. Hair/Hat Headband. Glasses Green Eye Shadow. Jewelry Earring. Tokens: 😳 Amen (AMEN, rank 111, Green Eye Shadow); 🙈 You’ll See (YS, rank 112, Green Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 🐅 GTA MONEY (MONEY, rank 152, Headband); 🐆 RED (RED, rank 153, Headband); 👮 Copzy (COPZ, rank 205, Type: Human); 💚 BOONG (BOONG, rank 216, Earring); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "1962.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Headband"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Green Eye Shadow"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😳 Amen · AMEN · rank 111 · Green Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙈 You’ll See · YS · rank 112 · Green Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐆 RED · RED · rank 153 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👮 Copzy · COPZ · rank 205 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 1962,
+    "files": [
+      {
+        "uri": "1962.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😳",
+        "token": "Amen",
+        "symbol": "AMEN",
+        "rank": 111,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Green Eye Shadow",
+        "mint": "34ezrd334Chsyo5Wn72z48RqfyMkkLKqq2MHRHFLjXsL"
+      },
+      {
+        "emoji": "🙈",
+        "token": "You’ll See",
+        "symbol": "YS",
+        "rank": 112,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Green Eye Shadow",
+        "mint": "23R5UEC2UyZjAKC8v72bsnPEvysJ5rddqCkatZhGTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 121,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 8,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "🐆",
+        "token": "RED",
+        "symbol": "RED",
+        "rank": 153,
+        "rarity": "UNCOMMON",
+        "pixels": 8,
+        "where": "Headband",
+        "mint": "AKXr2DLYdjqYxnvPXNEVfoEGNXdaR7a1WxiECz7wTRiX"
+      },
+      {
+        "emoji": "👮",
+        "token": "Copzy",
+        "symbol": "COPZ",
+        "rank": 205,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "8YgbTPPcic2wdQEqe7vtW1wSJVi69VpSNxwnsxYgTRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 69,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

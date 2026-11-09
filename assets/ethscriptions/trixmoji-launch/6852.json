@@ -1,0 +1,189 @@
+{
+  "name": "TRIXMOJI PHUNKS #6852",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6852. Left-facing phunk. Type Male. Skin Light. Hair/Hat Frumpy Hair. Glasses Clown Eyes Blue. Facial Hair Shadow Beard. Makeup Mole. Jewelry Earring. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🐁 Paulizard (PZARD, rank 149, Clown Eyes Blue); 🐃 GEOFF.AI (214AM, rank 150, Clown Eyes Blue); 🐄 Did Not Fade (DNF, rank 151, Clown Eyes Blue); 🐌 MemeKing (KING, rank 160, Frumpy Hair); 🐓 PEPE (PEPE, rank 166, Shadow Beard); 🐖 Neon (NEON, rank 168, Shadow Beard); 🐳 Floppy Disk (FLOPPY, rank 198, Mole); 💚 BOONG (BOONG, rank 216, Earring); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6852.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Frumpy Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Clown Eyes Blue"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Shadow Beard"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Mole"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐁 Paulizard · PZARD · rank 149 · Clown Eyes Blue"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐃 GEOFF.AI · 214AM · rank 150 · Clown Eyes Blue"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐄 Did Not Fade · DNF · rank 151 · Clown Eyes Blue"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐌 MemeKing · KING · rank 160 · Frumpy Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐓 PEPE · PEPE · rank 166 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐖 Neon · NEON · rank 168 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐳 Floppy Disk · FLOPPY · rank 198 · Mole"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6852,
+    "files": [
+      {
+        "uri": "6852.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 130,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐁",
+        "token": "Paulizard",
+        "symbol": "PZARD",
+        "rank": 149,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Blue",
+        "mint": "E3txwAc9UMQQo9qSnn7HtMv8XhxtpN4osKDyYRP1TRiX"
+      },
+      {
+        "emoji": "🐃",
+        "token": "GEOFF.AI",
+        "symbol": "214AM",
+        "rank": 150,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Blue",
+        "mint": "7SjHKPFhbN1ac4bq7sVyHXMnActyc2f5tzhofHL2TRiX"
+      },
+      {
+        "emoji": "🐄",
+        "token": "Did Not Fade",
+        "symbol": "DNF",
+        "rank": 151,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Clown Eyes Blue",
+        "mint": "3Zq56bAjjJufhmpdnMFxhp9mEoUuJk8Gmf43F7ryTRiX"
+      },
+      {
+        "emoji": "🐌",
+        "token": "MemeKing",
+        "symbol": "KING",
+        "rank": 160,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Frumpy Hair",
+        "mint": "61hbpeoF4J2dJDpR3E9yxAnuvDweAVQvFHi88gnjTRiX"
+      },
+      {
+        "emoji": "🐓",
+        "token": "PEPE",
+        "symbol": "PEPE",
+        "rank": 166,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Shadow Beard",
+        "mint": "BJj96imZGv4sTFgU8Br9soeTs22Fq5BSmpLs4dPcTRiX"
+      },
+      {
+        "emoji": "🐖",
+        "token": "Neon",
+        "symbol": "NEON",
+        "rank": 168,
+        "rarity": "UNCOMMON",
+        "pixels": 32,
+        "where": "Shadow Beard",
+        "mint": "7BTgnvZoY94WMhRSz6JLXYanYckuAMBP5vU3X52LTRiX"
+      },
+      {
+        "emoji": "🐳",
+        "token": "Floppy Disk",
+        "symbol": "FLOPPY",
+        "rank": 198,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Mole",
+        "mint": "GGGDHGJESbuqQNzdX6KD4mk6fAuCjB757WE4Jy2XTRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 46,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

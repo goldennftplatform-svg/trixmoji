@@ -1,0 +1,167 @@
+{
+  "name": "TRIXMOJI PHUNKS #9778",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #9778. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Hoodie. Glasses Big Shades. In Mouth Cigarette. Tokens: 😡 OKOKOK (OK, rank 90, Hoodie); 📦 Black Box (BOX, rank 129, Black tiles); 🐋 Cymru (CYM, rank 158, Mohawk Thin); 🐛 TrixCat (TRIXCAT, rank 173, Big Shades); 🐜 Non Fungible Token (NFT, rank 174, Big Shades); 🐝 MASK (MASK, rank 175, Big Shades); 🐽 PACKS (PACKS, rank 208, Cigarette); 🐾 ROOSTER (ROOSTER, rank 209, Cigarette); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "9778.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Hoodie"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Big Shades"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Cigarette"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😡 OKOKOK · OK · rank 90 · Hoodie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐋 Cymru · CYM · rank 158 · Mohawk Thin"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐛 TrixCat · TRIXCAT · rank 173 · Big Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐜 Non Fungible Token · NFT · rank 174 · Big Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐝 MASK · MASK · rank 175 · Big Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐽 PACKS · PACKS · rank 208 · Cigarette"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐾 ROOSTER · ROOSTER · rank 209 · Cigarette"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 9778,
+    "files": [
+      {
+        "uri": "9778.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😡",
+        "token": "OKOKOK",
+        "symbol": "OK",
+        "rank": 90,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Hoodie",
+        "mint": "4eXfWh4YybyqyoKM6sUkgLtqH4Jfz2PkWY915LtdTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 154,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐋",
+        "token": "Cymru",
+        "symbol": "CYM",
+        "rank": 158,
+        "rarity": "UNCOMMON",
+        "pixels": 61,
+        "where": "Mohawk Thin",
+        "mint": "5QaWBQwxxJDquNAoKJNyAXEDdwnt8tCcdnsP2FWRTRiX"
+      },
+      {
+        "emoji": "🐛",
+        "token": "TrixCat",
+        "symbol": "TRIXCAT",
+        "rank": 173,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "Big Shades",
+        "mint": "jSaawPyMtQNWcgoUM49j7rxEt4HLxWES6SgZateTRiX"
+      },
+      {
+        "emoji": "🐜",
+        "token": "Non Fungible Token",
+        "symbol": "NFT",
+        "rank": 174,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "Big Shades",
+        "mint": "8WxdjYpSrR7Rbj97X5ZnfK4DSLR3CUzcCJnkEQV6TRiX"
+      },
+      {
+        "emoji": "🐝",
+        "token": "MASK",
+        "symbol": "MASK",
+        "rank": 175,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "Big Shades",
+        "mint": "23hXd1tpmh4StG3sMFwQ8cZdnj5XZD15WY9TuerWTRiX"
+      },
+      {
+        "emoji": "🐽",
+        "token": "PACKS",
+        "symbol": "PACKS",
+        "rank": 208,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Cigarette",
+        "mint": "GujHKn811bShZXNYdxW7vBJisTQNTdiC9R56hdoeTRiX"
+      },
+      {
+        "emoji": "🐾",
+        "token": "ROOSTER",
+        "symbol": "ROOSTER",
+        "rank": 209,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Cigarette",
+        "mint": "7EypRJqVAfTyeVazAbqY2JEz8rcTnheTdVxvVBbw1aTJ"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 66,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

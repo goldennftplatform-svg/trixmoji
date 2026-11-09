@@ -1,0 +1,129 @@
+{
+  "name": "TRIXMOJI PHUNKS #8323",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #8323. Left-facing phunk. Type Female. Skin Light. Hair/Hat Frumpy Hair. Glasses Nerd Glasses. Mouth Purple Lipstick. On Nose Clown Nose. Tokens: 🍳 Let him cook (COOK, rank 86, Clown Nose); 📦 Black Box (BOX, rank 129, Black tiles); 🐌 MemeKing (KING, rank 160, Frumpy Hair); 🌊 The Heart of The Ocean (HOO, rank 193, Nerd Glasses); 🐵 Trollge (TROLLGE, rank 201, Purple Lipstick); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "8323.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Frumpy Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Nerd Glasses"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Purple Lipstick"
+    },
+    {
+      "trait_type": "On Nose",
+      "value": "Clown Nose"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🍳 Let him cook · COOK · rank 86 · Clown Nose"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐌 MemeKing · KING · rank 160 · Frumpy Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🌊 The Heart of The Ocean · HOO · rank 193 · Nerd Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐵 Trollge · TROLLGE · rank 201 · Purple Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 8323,
+    "files": [
+      {
+        "uri": "8323.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🍳",
+        "token": "Let him cook",
+        "symbol": "COOK",
+        "rank": 86,
+        "rarity": "RARE",
+        "pixels": 4,
+        "where": "Clown Nose",
+        "mint": "2yK1xxNVjXJ1M4B3Wtf14SXQCEZhGa2onccQXdK7TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 157,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐌",
+        "token": "MemeKing",
+        "symbol": "KING",
+        "rank": 160,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Frumpy Hair",
+        "mint": "61hbpeoF4J2dJDpR3E9yxAnuvDweAVQvFHi88gnjTRiX"
+      },
+      {
+        "emoji": "🌊",
+        "token": "The Heart of The Ocean",
+        "symbol": "HOO",
+        "rank": 193,
+        "rarity": "UNCOMMON",
+        "pixels": 8,
+        "where": "Nerd Glasses",
+        "mint": "0x3Ba84f6f5427624b30D05E94D3D7390dEAE121Df"
+      },
+      {
+        "emoji": "🐵",
+        "token": "Trollge",
+        "symbol": "TROLLGE",
+        "rank": 201,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Purple Lipstick",
+        "mint": "EgJYqs33bm76zQw7xvCMvD1YBprSSaqWXFLaxtwcTRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 46,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

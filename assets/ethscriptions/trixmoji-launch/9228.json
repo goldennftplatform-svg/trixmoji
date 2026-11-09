@@ -1,0 +1,167 @@
+{
+  "name": "TRIXMOJI PHUNKS #9228",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #9228. Left-facing phunk. Type Female. Skin Dark. Hair/Hat Mohawk. Glasses Horned Rim Glasses. Mouth Black Lipstick. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🌙 $MoonBros (MOONBROS, rank 159, Mohawk); 🐞 Ziggy (ZIGGY, rank 176, Horned Rim Glasses); 🐢 OK (OK, rank 180, Horned Rim Glasses); 🐣 GTA IV (GTA, rank 181, Horned Rim Glasses); 🐤 ALANYA (ALANYA, rank 182, Horned Rim Glasses); 🐹 SCAM (SCAM, rank 203, Type: Human); 👄 HUSHI (HUSH, rank 217, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "9228.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Mohawk"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Horned Rim Glasses"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Black Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🌙 $MoonBros · MOONBROS · rank 159 · Mohawk"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐞 Ziggy · ZIGGY · rank 176 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐢 OK · OK · rank 180 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐣 GTA IV · GTA · rank 181 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐤 ALANYA · ALANYA · rank 182 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐹 SCAM · SCAM · rank 203 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 9228,
+    "files": [
+      {
+        "uri": "9228.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 64,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🌙",
+        "token": "$MoonBros",
+        "symbol": "MOONBROS",
+        "rank": 159,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Mohawk",
+        "mint": "CpKonNASgCLsBSozts8p4nVkQAzRQCDZXusaW38HTRiX"
+      },
+      {
+        "emoji": "🐞",
+        "token": "Ziggy",
+        "symbol": "ZIGGY",
+        "rank": 176,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CmMZ4RNRZZBt1bfcxkYiXB3SXAWFucdFZcP1y5MCTRiX"
+      },
+      {
+        "emoji": "🐢",
+        "token": "OK",
+        "symbol": "OK",
+        "rank": 180,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Horned Rim Glasses",
+        "mint": "6VEhTpHR5tssT1xg9cRcXF2ot28tspjYvTyykGQGTRiX"
+      },
+      {
+        "emoji": "🐣",
+        "token": "GTA IV",
+        "symbol": "GTA",
+        "rank": 181,
+        "rarity": "UNCOMMON",
+        "pixels": 10,
+        "where": "Horned Rim Glasses",
+        "mint": "Bfc299cLrPnFTYFUW8so99N2HHZyKwYgPXQEYrXwTRiX"
+      },
+      {
+        "emoji": "🐤",
+        "token": "ALANYA",
+        "symbol": "ALANYA",
+        "rank": 182,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "BYyaH21eR5dwnR5uh7eAWXPcn7AwmDTwxWB88wvHTRiX"
+      },
+      {
+        "emoji": "🐹",
+        "token": "SCAM",
+        "symbol": "SCAM",
+        "rank": 203,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Type: Human",
+        "mint": "7jYnvBMb7Sxof6r45146Pihqak3vKmPma6722HyWTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 66,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 11,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

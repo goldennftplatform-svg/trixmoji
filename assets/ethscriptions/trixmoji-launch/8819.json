@@ -1,0 +1,149 @@
+{
+  "name": "TRIXMOJI PHUNKS #8819",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #8819. Left-facing phunk. Type Male. Skin Medium. Hair/Hat Do-rag. In Mouth Medical Mask. Tokens: 😗 Yek (YEK, rank 78, Medical Mask); 😘 BIDEN (BIDEN, rank 79, Medical Mask); 🙁 GEO CUCK (GEOCUCK, rank 128, Do-rag); 📦 Black Box (BOX, rank 129, Black tiles); 📦 Black Box (BOX, rank 129, Do-rag); 👂 Imminent (NOT, rank 213, Type: Human); 🥇 D&D GP (GOLD, rank 215, Type: Human); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "8819.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Do-rag"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😗 Yek · YEK · rank 78 · Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😘 BIDEN · BIDEN · rank 79 · Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙁 GEO CUCK · GEOCUCK · rank 128 · Do-rag"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Do-rag"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👂 Imminent · NOT · rank 213 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥇 D&D GP · GOLD · rank 215 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 8819,
+    "files": [
+      {
+        "uri": "8819.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😗",
+        "token": "Yek",
+        "symbol": "YEK",
+        "rank": 78,
+        "rarity": "RARE",
+        "pixels": 38,
+        "where": "Medical Mask",
+        "mint": "CPuKRLoWjMuktTajkzySyKAVjXKL4d4vJt5SEw4aTRiX"
+      },
+      {
+        "emoji": "😘",
+        "token": "BIDEN",
+        "symbol": "BIDEN",
+        "rank": 79,
+        "rarity": "RARE",
+        "pixels": 3,
+        "where": "Medical Mask",
+        "mint": "0xa6D6399bA1B1B6b28183BA934dfBa161AE528f7e"
+      },
+      {
+        "emoji": "🙁",
+        "token": "GEO CUCK",
+        "symbol": "GEOCUCK",
+        "rank": 128,
+        "rarity": "UNCOMMON",
+        "pixels": 32,
+        "where": "Do-rag",
+        "mint": "BKupCCMBWR8M5ycLyRZEoAvje73uoLSQCwPZH39mTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 53,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Do-rag",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👂",
+        "token": "Imminent",
+        "symbol": "NOT",
+        "rank": 213,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "9zuZLv8o3AKNFVUtLy7MYLUZk25py7H3JZz3aWYTTRiX"
+      },
+      {
+        "emoji": "🥇",
+        "token": "D&D GP",
+        "symbol": "GOLD",
+        "rank": 215,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "FioWU8Z8DVym8MfHmK2TiTHUV2AtABWeNiSMRKR6TRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 57,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

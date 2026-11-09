@@ -1,0 +1,147 @@
+{
+  "name": "TRIXMOJI PHUNKS #5211",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5211. Left-facing phunk. Type Female. Skin Light. Hair/Hat Straight Hair Dark. Glasses Purple Eye Shadow. Mouth Purple Lipstick. In Mouth Cigarette. Jewelry Earring. Tokens: 🐮 The Rabbit Bull (TRB, rank 94, Purple Eye Shadow); 😦 Slugworth Industries (SLUGWORTH, rank 95, Purple Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 🐵 Trollge (TROLLGE, rank 201, Purple Lipstick); 🐽 PACKS (PACKS, rank 208, Cigarette); 🐾 ROOSTER (ROOSTER, rank 209, Cigarette); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5211.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Straight Hair Dark"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Purple Eye Shadow"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Purple Lipstick"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Cigarette"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐮 The Rabbit Bull · TRB · rank 94 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😦 Slugworth Industries · SLUGWORTH · rank 95 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐵 Trollge · TROLLGE · rank 201 · Purple Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐽 PACKS · PACKS · rank 208 · Cigarette"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐾 ROOSTER · ROOSTER · rank 209 · Cigarette"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 5211,
+    "files": [
+      {
+        "uri": "5211.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🐮",
+        "token": "The Rabbit Bull",
+        "symbol": "TRB",
+        "rank": 94,
+        "rarity": "RARE",
+        "pixels": 4,
+        "where": "Purple Eye Shadow",
+        "mint": "6M3kM4QAWJ2pBKkviyEq8zgdHnRS9wGHMdHA7QmWTRiX"
+      },
+      {
+        "emoji": "😦",
+        "token": "Slugworth Industries",
+        "symbol": "SLUGWORTH",
+        "rank": 95,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Purple Eye Shadow",
+        "mint": "4EpUVgR5iUg7mQNSougXq9nXfXbCaz7L99JaVEhqTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 118,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐵",
+        "token": "Trollge",
+        "symbol": "TROLLGE",
+        "rank": 201,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Purple Lipstick",
+        "mint": "EgJYqs33bm76zQw7xvCMvD1YBprSSaqWXFLaxtwcTRiX"
+      },
+      {
+        "emoji": "🐽",
+        "token": "PACKS",
+        "symbol": "PACKS",
+        "rank": 208,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Cigarette",
+        "mint": "GujHKn811bShZXNYdxW7vBJisTQNTdiC9R56hdoeTRiX"
+      },
+      {
+        "emoji": "🐾",
+        "token": "ROOSTER",
+        "symbol": "ROOSTER",
+        "rank": 209,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Cigarette",
+        "mint": "7EypRJqVAfTyeVazAbqY2JEz8rcTnheTdVxvVBbw1aTJ"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 65,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "name": "TRIXMOJI PHUNKS #3441",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #3441. Left-facing phunk. Type Female. Skin Albino. Hair/Hat Half Shaved. Glasses 3D Glasses. Mouth Hot Lipstick. Jewelry Earring. Tokens: 😹 FUNNY MONEY (MONEY, rank 119, 3D Glasses); 😺 Shit Coin (SHIT, rank 120, 3D Glasses); 😻 what (WHAT, rank 121, 3D Glasses); 📦 Black Box (BOX, rank 129, Black tiles); 🐶 MICROPENIS (SMOL, rank 202, Hot Lipstick); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "3441.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Half Shaved"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "3D Glasses"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Hot Lipstick"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😹 FUNNY MONEY · MONEY · rank 119 · 3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😺 Shit Coin · SHIT · rank 120 · 3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😻 what · WHAT · rank 121 · 3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐶 MICROPENIS · SMOL · rank 202 · Hot Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 3441,
+    "files": [
+      {
+        "uri": "3441.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😹",
+        "token": "FUNNY MONEY",
+        "symbol": "MONEY",
+        "rank": 119,
+        "rarity": "UNCOMMON",
+        "pixels": 22,
+        "where": "3D Glasses",
+        "mint": "HuEt5dcUpd12tCRMpFE7bjMPtS5ofvhHELbdUczeTRiX"
+      },
+      {
+        "emoji": "😺",
+        "token": "Shit Coin",
+        "symbol": "SHIT",
+        "rank": 120,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "3D Glasses",
+        "mint": "5AVhKEfbvxMUqVmcMtxT2Zn42PwYy3t9N5vUngZSTRiX"
+      },
+      {
+        "emoji": "😻",
+        "token": "what",
+        "symbol": "WHAT",
+        "rank": 121,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "3D Glasses",
+        "mint": "3ho3KkqYkANUKRUu4UxJ2ue56ZrSCzMX4XtrdC8jTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 107,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐶",
+        "token": "MICROPENIS",
+        "symbol": "SMOL",
+        "rank": 202,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Hot Lipstick",
+        "mint": "Drh3zXhawDgQJjz2KjgKgdBkhKch9GoTM3BbARbeTRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 59,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

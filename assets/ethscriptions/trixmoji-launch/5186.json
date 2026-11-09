@@ -1,0 +1,181 @@
+{
+  "name": "TRIXMOJI PHUNKS #5186",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5186. Left-facing phunk. Type Female. Skin Medium. Hair/Hat Pigtails. Glasses Horned Rim Glasses. In Mouth Pipe. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🥛 Memetic Milk (MILK, rank 139, Pipe); 🙉 69420 (69420, rank 140, Pipe); 🙊 Lucid Purr (PURR, rank 141, Pipe); 🐞 Ziggy (ZIGGY, rank 176, Horned Rim Glasses); 🥵 HOT NORDIC ALIEN (NORDIC, rank 183, Horned Rim Glasses); 🐥 Paulymon (PLYMN, rank 184, Horned Rim Glasses); 🐧 Deal With It (DEAL, rank 185, Horned Rim Glasses); 🐬 BROSSAD (BROSSAD, rank 192, Type: Human); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5186.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Pigtails"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Horned Rim Glasses"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥛 Memetic Milk · MILK · rank 139 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙉 69420 · 69420 · rank 140 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙊 Lucid Purr · PURR · rank 141 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐞 Ziggy · ZIGGY · rank 176 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥵 HOT NORDIC ALIEN · NORDIC · rank 183 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐥 Paulymon · PLYMN · rank 184 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐧 Deal With It · DEAL · rank 185 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐬 BROSSAD · BROSSAD · rank 192 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 5186,
+    "files": [
+      {
+        "uri": "5186.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 156,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🥛",
+        "token": "Memetic Milk",
+        "symbol": "MILK",
+        "rank": 139,
+        "rarity": "UNCOMMON",
+        "pixels": 10,
+        "where": "Pipe",
+        "mint": "G4mqFjqSdexj2YLTtjtjKYSvX2mZbNLWfHV3CE3JTRiX"
+      },
+      {
+        "emoji": "🙉",
+        "token": "69420",
+        "symbol": "69420",
+        "rank": 140,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Pipe",
+        "mint": "3mvjSowJctaHr8r8pu9DhXf4nxpDyy47PHcMxqecTRiX"
+      },
+      {
+        "emoji": "🙊",
+        "token": "Lucid Purr",
+        "symbol": "PURR",
+        "rank": 141,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Pipe",
+        "mint": "CNfVzZLLchTUtx4LqmcwnDBcAJs7ptPiimtFpNrQTRiX"
+      },
+      {
+        "emoji": "🐞",
+        "token": "Ziggy",
+        "symbol": "ZIGGY",
+        "rank": 176,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CmMZ4RNRZZBt1bfcxkYiXB3SXAWFucdFZcP1y5MCTRiX"
+      },
+      {
+        "emoji": "🥵",
+        "token": "HOT NORDIC ALIEN",
+        "symbol": "NORDIC",
+        "rank": 183,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Horned Rim Glasses",
+        "mint": "J5Lm4fZmzoaUw7V6zJWm3BPrWJsxC7NAnEsAV5j4TRiX"
+      },
+      {
+        "emoji": "🐥",
+        "token": "Paulymon",
+        "symbol": "PLYMN",
+        "rank": 184,
+        "rarity": "UNCOMMON",
+        "pixels": 10,
+        "where": "Horned Rim Glasses",
+        "mint": "8RZveZ2bUk5dAx4qqu2wdF3PTNqusxU298xzTxxWTRiX"
+      },
+      {
+        "emoji": "🐧",
+        "token": "Deal With It",
+        "symbol": "DEAL",
+        "rank": 185,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "FqNCKubbdcc8MQ4TA38Z1QokmZdKyeMKC4VqfDeTRiX"
+      },
+      {
+        "emoji": "🐬",
+        "token": "BROSSAD",
+        "symbol": "BROSSAD",
+        "rank": 192,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "CFJktPm2FZ7SiCLWYRbNiFrhumAgVXZvFrpTCWsRTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 57,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "name": "TRIXMOJI PHUNKS #5096",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5096. Left-facing phunk. Type Female. Skin Medium. Hair/Hat Blonde Bob. Glasses Clown Eyes Green. Mouth Hot Lipstick. In Mouth Pipe. Tokens: 😑 DONG (DONG, rank 71, Blonde Bob); 📦 Black Box (BOX, rank 129, Black tiles); 🙇 pond (POND, rank 138, Pipe); 🥛 Memetic Milk (MILK, rank 139, Pipe); 🙉 69420 (69420, rank 140, Pipe); 🙎 AIR (AIR, rank 146, Clown Eyes Green); 🙏 Jason Lawnmoa (LAWNMOA, rank 147, Clown Eyes Green); 🐀 $8 (8, rank 148, Clown Eyes Green); 🐶 MICROPENIS (SMOL, rank 202, Hot Lipstick); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5096.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Blonde Bob"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Clown Eyes Green"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Hot Lipstick"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😑 DONG · DONG · rank 71 · Blonde Bob"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙇 pond · POND · rank 138 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥛 Memetic Milk · MILK · rank 139 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙉 69420 · 69420 · rank 140 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙎 AIR · AIR · rank 146 · Clown Eyes Green"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙏 Jason Lawnmoa · LAWNMOA · rank 147 · Clown Eyes Green"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐀 $8 · 8 · rank 148 · Clown Eyes Green"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐶 MICROPENIS · SMOL · rank 202 · Hot Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 5096,
+    "files": [
+      {
+        "uri": "5096.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😑",
+        "token": "DONG",
+        "symbol": "DONG",
+        "rank": 71,
+        "rarity": "RARE",
+        "pixels": 57,
+        "where": "Blonde Bob",
+        "mint": "Bj5CownyhcGFHa8f2m1W7vx7cRkUFVpxNc9HrSoBTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 84,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙇",
+        "token": "pond",
+        "symbol": "POND",
+        "rank": 138,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Pipe",
+        "mint": "6vdYTi2fb11rS97JZTHRhthbckUnMpco4FP9PK8vTRiX"
+      },
+      {
+        "emoji": "🥛",
+        "token": "Memetic Milk",
+        "symbol": "MILK",
+        "rank": 139,
+        "rarity": "UNCOMMON",
+        "pixels": 10,
+        "where": "Pipe",
+        "mint": "G4mqFjqSdexj2YLTtjtjKYSvX2mZbNLWfHV3CE3JTRiX"
+      },
+      {
+        "emoji": "🙉",
+        "token": "69420",
+        "symbol": "69420",
+        "rank": 140,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Pipe",
+        "mint": "3mvjSowJctaHr8r8pu9DhXf4nxpDyy47PHcMxqecTRiX"
+      },
+      {
+        "emoji": "🙎",
+        "token": "AIR",
+        "symbol": "AIR",
+        "rank": 146,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Green",
+        "mint": "3F1CXHWcjjG2iDFyzSixoRDZqPqYCU9s82fEfh1dTRiX"
+      },
+      {
+        "emoji": "🙏",
+        "token": "Jason Lawnmoa",
+        "symbol": "LAWNMOA",
+        "rank": 147,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Green",
+        "mint": "9oDVZhKPR6qEkT3k1PMasEMVrTGAnrQfEHNv6z8MTRiX"
+      },
+      {
+        "emoji": "🐀",
+        "token": "$8",
+        "symbol": "8",
+        "rank": 148,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Clown Eyes Green",
+        "mint": "B92yrSsKDRfu1ERXk32AZYNu55GLF7ds4dSgCKPeTRiX"
+      },
+      {
+        "emoji": "🐶",
+        "token": "MICROPENIS",
+        "symbol": "SMOL",
+        "rank": 202,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Hot Lipstick",
+        "mint": "Drh3zXhawDgQJjz2KjgKgdBkhKch9GoTM3BbARbeTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 70,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

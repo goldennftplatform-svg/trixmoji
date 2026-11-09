@@ -1,0 +1,121 @@
+{
+  "name": "TRIXMOJI PHUNKS #1338",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #1338. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Shaved Head. Mouth Smile. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🙂 0xGEOFF (0XG, rank 130, Shaved Head); 🌋 MAGMA (MAG, rank 131, Shaved Head); 👨 $COOK (COOK, rank 211, Type: Human); 🐿 SLOP (SLOP, rank 212, Type: Human); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "1338.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Shaved Head"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Smile"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙂 0xGEOFF · 0XG · rank 130 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🌋 MAGMA · MAG · rank 131 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👨 $COOK · COOK · rank 211 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐿 SLOP · SLOP · rank 212 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 1338,
+    "files": [
+      {
+        "uri": "1338.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 59,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙂",
+        "token": "0xGEOFF",
+        "symbol": "0XG",
+        "rank": 130,
+        "rarity": "UNCOMMON",
+        "pixels": 25,
+        "where": "Shaved Head",
+        "mint": "69fCFYE3GKfea428dNb618mKtSyoNFdT5QxvPouUkH1n"
+      },
+      {
+        "emoji": "🌋",
+        "token": "MAGMA",
+        "symbol": "MAG",
+        "rank": 131,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Shaved Head",
+        "mint": "B9Qo41JeYEoYpNUXvzSJg9EDSeJCjjzm3JK9KWrGTRiX"
+      },
+      {
+        "emoji": "👨",
+        "token": "$COOK",
+        "symbol": "COOK",
+        "rank": 211,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "5xbuGdFCSXpW1zkGEiK3FKFDLioZ8tzsA2WosKATRiX"
+      },
+      {
+        "emoji": "🐿",
+        "token": "SLOP",
+        "symbol": "SLOP",
+        "rank": 212,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "Gtn1kxqdPMkjjpcj2Ch3n4t2VJ2mxpBRVHHYe7WYTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 99,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

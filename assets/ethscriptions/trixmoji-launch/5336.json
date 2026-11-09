@@ -1,0 +1,127 @@
+{
+  "name": "TRIXMOJI PHUNKS #5336",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5336. Left-facing phunk. Type Zombie. Hair/Hat Police Cap. Tokens: 💧 Water (WATER, rank 23, Zombie); 💰 Money (MONEY, rank 24, Zombie); 🤠 JuanSolo (JUAN, rank 25, Zombie); 😜 Pauly.ai (PAULYAI, rank 84, Police Cap); 😝 ZEFCASH (ZEF, rank 85, Police Cap); 📦 Black Box (BOX, rank 129, Black tiles); 🐅 GTA MONEY (MONEY, rank 152, Headband). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5336.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Zombie"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Police Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💧 Water · WATER · rank 23 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💰 Money · MONEY · rank 24 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🤠 JuanSolo · JUAN · rank 25 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😜 Pauly.ai · PAULYAI · rank 84 · Police Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😝 ZEFCASH · ZEF · rank 85 · Police Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    }
+  ],
+  "properties": {
+    "edition": 5336,
+    "files": [
+      {
+        "uri": "5336.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "💧",
+        "token": "Water",
+        "symbol": "WATER",
+        "rank": 23,
+        "rarity": "LEGENDARY",
+        "pixels": 92,
+        "where": "Zombie",
+        "mint": "HpCNsRRKs1fcsuQAsovJxyauM7Sv3PZkcHLGqUnaTRiX"
+      },
+      {
+        "emoji": "💰",
+        "token": "Money",
+        "symbol": "MONEY",
+        "rank": 24,
+        "rarity": "LEGENDARY",
+        "pixels": 7,
+        "where": "Zombie",
+        "mint": "DHdHgj875BtSkomhKimT7qEaJLNZGiqrTdYfKHLbTRiX"
+      },
+      {
+        "emoji": "🤠",
+        "token": "JuanSolo",
+        "symbol": "JUAN",
+        "rank": 25,
+        "rarity": "LEGENDARY",
+        "pixels": 2,
+        "where": "Zombie",
+        "mint": "2CToo39f6bVa5C6B74CzK4jbmkh8UdbuaBrJSgewTRiX"
+      },
+      {
+        "emoji": "😜",
+        "token": "Pauly.ai",
+        "symbol": "PAULYAI",
+        "rank": 84,
+        "rarity": "RARE",
+        "pixels": 32,
+        "where": "Police Cap",
+        "mint": "6cAiPNP4Rxdcdg9FeSNhjAkwGsHoto9QrY5t4AziTRiX"
+      },
+      {
+        "emoji": "😝",
+        "token": "ZEFCASH",
+        "symbol": "ZEF",
+        "rank": 85,
+        "rarity": "RARE",
+        "pixels": 1,
+        "where": "Police Cap",
+        "mint": "DHyGLyCVm5AURBwwSXLooZozFvimtpuMTwuUGUbBTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 78,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      }
+    ]
+  }
+}

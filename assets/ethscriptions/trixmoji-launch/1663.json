@@ -1,0 +1,97 @@
+{
+  "name": "TRIXMOJI PHUNKS #1663",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #1663. Left-facing phunk. Type Male. Skin Albino. Hair/Hat Purple Hair. Glasses Regular Shades. Makeup Mole. Tokens: 😖 Ick (ICK, rank 76, Purple Hair); 📦 Black Box (BOX, rank 129, Black tiles); 🤣 Poo Poo Pug (PPP, rank 197, Mole); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "1663.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Purple Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Regular Shades"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Mole"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😖 Ick · ICK · rank 76 · Purple Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🤣 Poo Poo Pug · PPP · rank 197 · Mole"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 1663,
+    "files": [
+      {
+        "uri": "1663.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😖",
+        "token": "Ick",
+        "symbol": "ICK",
+        "rank": 76,
+        "rarity": "RARE",
+        "pixels": 46,
+        "where": "Purple Hair",
+        "mint": "9T12721Y4wRinuD7vqXdSBHpQDJF3JoDDpTJxWgsTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 93,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🤣",
+        "token": "Poo Poo Pug",
+        "symbol": "PPP",
+        "rank": 197,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Mole",
+        "mint": "ChXGsL15HUySWwkXKY2CoWRchqL1SpBLRkuq2j9ETRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 96,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

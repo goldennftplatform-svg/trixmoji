@@ -1,0 +1,185 @@
+{
+  "name": "TRIXMOJI PHUNKS #3096",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #3096. Left-facing phunk. Type Female. Skin Medium. Hair/Hat Pink With Hat. Glasses Clown Eyes Blue. In Mouth Vape. Jewelry Earring. Tokens: 😄 Pauly0x (PAULY, rank 37, Pink With Hat); 🐇 WHITE (RABBIT, rank 117, Vape); 😸 Super Intelligent Retard (SIR, rank 118, Vape); 📦 Black Box (BOX, rank 129, Black tiles); 🐁 Paulizard (PZARD, rank 149, Clown Eyes Blue); 🐃 GEOFF.AI (214AM, rank 150, Clown Eyes Blue); 🐄 Did Not Fade (DNF, rank 151, Clown Eyes Blue); 🐅 GTA MONEY (MONEY, rank 152, Headband); 🐬 BROSSAD (BROSSAD, rank 192, Type: Human); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "3096.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Pink With Hat"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Clown Eyes Blue"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Vape"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😄 Pauly0x · PAULY · rank 37 · Pink With Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐇 WHITE · RABBIT · rank 117 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😸 Super Intelligent Retard · SIR · rank 118 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐁 Paulizard · PZARD · rank 149 · Clown Eyes Blue"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐃 GEOFF.AI · 214AM · rank 150 · Clown Eyes Blue"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐄 Did Not Fade · DNF · rank 151 · Clown Eyes Blue"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐬 BROSSAD · BROSSAD · rank 192 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 3096,
+    "files": [
+      {
+        "uri": "3096.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😄",
+        "token": "Pauly0x",
+        "symbol": "PAULY",
+        "rank": 37,
+        "rarity": "EPIC",
+        "pixels": 38,
+        "where": "Pink With Hat",
+        "mint": "FbsPm1ko7ASAW73puJMHdiJ1edse5W8fMis1dQhFTRiX"
+      },
+      {
+        "emoji": "🐇",
+        "token": "WHITE",
+        "symbol": "RABBIT",
+        "rank": 117,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Vape",
+        "mint": "6BMQaSmUco7Gj7fRe5KJWGSKvVFkHX5yYjfWov8dTRiX"
+      },
+      {
+        "emoji": "😸",
+        "token": "Super Intelligent Retard",
+        "symbol": "SIR",
+        "rank": 118,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Vape",
+        "mint": "4kBTPPBxpiDrZ4jKzhrVt3n9JQCUaZ4eJmRFisciTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 84,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐁",
+        "token": "Paulizard",
+        "symbol": "PZARD",
+        "rank": 149,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Blue",
+        "mint": "E3txwAc9UMQQo9qSnn7HtMv8XhxtpN4osKDyYRP1TRiX"
+      },
+      {
+        "emoji": "🐃",
+        "token": "GEOFF.AI",
+        "symbol": "214AM",
+        "rank": 150,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Blue",
+        "mint": "7SjHKPFhbN1ac4bq7sVyHXMnActyc2f5tzhofHL2TRiX"
+      },
+      {
+        "emoji": "🐄",
+        "token": "Did Not Fade",
+        "symbol": "DNF",
+        "rank": 151,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Clown Eyes Blue",
+        "mint": "3Zq56bAjjJufhmpdnMFxhp9mEoUuJk8Gmf43F7ryTRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "🐬",
+        "token": "BROSSAD",
+        "symbol": "BROSSAD",
+        "rank": 192,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "CFJktPm2FZ7SiCLWYRbNiFrhumAgVXZvFrpTCWsRTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 54,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

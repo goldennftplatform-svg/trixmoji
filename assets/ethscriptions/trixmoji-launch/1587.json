@@ -1,0 +1,149 @@
+{
+  "name": "TRIXMOJI PHUNKS #1587",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #1587. Left-facing phunk. Type Female. Skin Light. Hair/Hat Bandana. Glasses 3D Glasses. Tokens: 😹 FUNNY MONEY (MONEY, rank 119, 3D Glasses); 😺 Shit Coin (SHIT, rank 120, 3D Glasses); 😻 what (WHAT, rank 121, 3D Glasses); 📦 Black Box (BOX, rank 129, Black tiles); 🐍 Jimmy Eggar (JEGG, rank 161, Bandana); 🐎 VARIABLE-7 (UNKNOWN, rank 162, Bandana); 👮 Copzy (COPZ, rank 205, Type: Human); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "1587.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Bandana"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😹 FUNNY MONEY · MONEY · rank 119 · 3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😺 Shit Coin · SHIT · rank 120 · 3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😻 what · WHAT · rank 121 · 3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐍 Jimmy Eggar · JEGG · rank 161 · Bandana"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐎 VARIABLE-7 · UNKNOWN · rank 162 · Bandana"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👮 Copzy · COPZ · rank 205 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 1587,
+    "files": [
+      {
+        "uri": "1587.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😹",
+        "token": "FUNNY MONEY",
+        "symbol": "MONEY",
+        "rank": 119,
+        "rarity": "UNCOMMON",
+        "pixels": 21,
+        "where": "3D Glasses",
+        "mint": "HuEt5dcUpd12tCRMpFE7bjMPtS5ofvhHELbdUczeTRiX"
+      },
+      {
+        "emoji": "😺",
+        "token": "Shit Coin",
+        "symbol": "SHIT",
+        "rank": 120,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "3D Glasses",
+        "mint": "5AVhKEfbvxMUqVmcMtxT2Zn42PwYy3t9N5vUngZSTRiX"
+      },
+      {
+        "emoji": "😻",
+        "token": "what",
+        "symbol": "WHAT",
+        "rank": 121,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "3D Glasses",
+        "mint": "3ho3KkqYkANUKRUu4UxJ2ue56ZrSCzMX4XtrdC8jTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 59,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐍",
+        "token": "Jimmy Eggar",
+        "symbol": "JEGG",
+        "rank": 161,
+        "rarity": "UNCOMMON",
+        "pixels": 9,
+        "where": "Bandana",
+        "mint": "6FvBQ23eGns2BwQdMQ87uybVCBGUThWr1sNCjrZZTRiX"
+      },
+      {
+        "emoji": "🐎",
+        "token": "VARIABLE-7",
+        "symbol": "UNKNOWN",
+        "rank": 162,
+        "rarity": "UNCOMMON",
+        "pixels": 21,
+        "where": "Bandana",
+        "mint": "G5qGhS58tDT33yjp1s2rKcUjtZ4jUPfpk8Z3dhV1TRiX"
+      },
+      {
+        "emoji": "👮",
+        "token": "Copzy",
+        "symbol": "COPZ",
+        "rank": 205,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "8YgbTPPcic2wdQEqe7vtW1wSJVi69VpSNxwnsxYgTRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 49,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "name": "TRIXMOJI PHUNKS #8148",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #8148. Left-facing phunk. Type Female. Skin Medium. Hair/Hat Blonde Short. Glasses Purple Eye Shadow. Tokens: 😑 DONG (DONG, rank 71, Blonde Bob); 😣 Nostril Giggle Seraph (SNORT, rank 92, Purple Eye Shadow); 😥 ATTENTION (ATTN, rank 93, Purple Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 🐬 BROSSAD (BROSSAD, rank 192, Type: Human); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "8148.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Blonde Short"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😑 DONG · DONG · rank 71 · Blonde Bob"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😣 Nostril Giggle Seraph · SNORT · rank 92 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😥 ATTENTION · ATTN · rank 93 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐬 BROSSAD · BROSSAD · rank 192 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 8148,
+    "files": [
+      {
+        "uri": "8148.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😑",
+        "token": "DONG",
+        "symbol": "DONG",
+        "rank": 71,
+        "rarity": "RARE",
+        "pixels": 36,
+        "where": "Blonde Bob",
+        "mint": "Bj5CownyhcGFHa8f2m1W7vx7cRkUFVpxNc9HrSoBTRiX"
+      },
+      {
+        "emoji": "😣",
+        "token": "Nostril Giggle Seraph",
+        "symbol": "SNORT",
+        "rank": 92,
+        "rarity": "RARE",
+        "pixels": 4,
+        "where": "Purple Eye Shadow",
+        "mint": "7wV7AnXwXLhPzZwK1Suwm1r3viyaQ5EFnu3f7CRLTRiX"
+      },
+      {
+        "emoji": "😥",
+        "token": "ATTENTION",
+        "symbol": "ATTN",
+        "rank": 93,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Purple Eye Shadow",
+        "mint": "2iTqkrfF9D9sgW1fXb2GGP9VxyuQhvAZUXPnqQkLTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 50,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐬",
+        "token": "BROSSAD",
+        "symbol": "BROSSAD",
+        "rank": 192,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "CFJktPm2FZ7SiCLWYRbNiFrhumAgVXZvFrpTCWsRTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 73,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

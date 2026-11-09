@@ -1,0 +1,97 @@
+{
+  "name": "TRIXMOJI PHUNKS #5505",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5505. Left-facing phunk. Type Male. Skin Medium. Hair/Hat Crazy Hair. Glasses Small Shades. Makeup Mole. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 👀 WazzAAA (WAZZA, rank 154, Crazy Hair); 🐭 FA&FO (FAFO, rank 194, Mole); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5505.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Crazy Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Small Shades"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Mole"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👀 WazzAAA · WAZZA · rank 154 · Crazy Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐭 FA&FO · FAFO · rank 194 · Mole"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 5505,
+    "files": [
+      {
+        "uri": "5505.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 97,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👀",
+        "token": "WazzAAA",
+        "symbol": "WAZZA",
+        "rank": 154,
+        "rarity": "UNCOMMON",
+        "pixels": 52,
+        "where": "Crazy Hair",
+        "mint": "8xBRX7rK6DnxGEU41PE5rTG7huLNZtH8v1rh2bBeTRiX"
+      },
+      {
+        "emoji": "🐭",
+        "token": "FA&FO",
+        "symbol": "FAFO",
+        "rank": 194,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Mole",
+        "mint": "DTafpoGouGjvPsRMx6odaxGJKWg2fVG5UsHMRoofTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 94,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

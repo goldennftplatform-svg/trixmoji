@@ -1,0 +1,125 @@
+{
+  "name": "TRIXMOJI PHUNKS #3396",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #3396. Left-facing phunk. Type Male. Skin Albino. Hair/Hat Wild Hair. Glasses Clown Eyes Green. Facial Hair Mustache. Tokens: 😿 ALPHAX (ALPHAX, rank 126, Mustache); 📦 Black Box (BOX, rank 129, Black tiles); 🙎 AIR (AIR, rank 146, Clown Eyes Green); 🙏 Jason Lawnmoa (LAWNMOA, rank 147, Clown Eyes Green); 🐀 $8 (8, rank 148, Clown Eyes Green); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "3396.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Wild Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Clown Eyes Green"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Mustache"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😿 ALPHAX · ALPHAX · rank 126 · Mustache"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙎 AIR · AIR · rank 146 · Clown Eyes Green"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙏 Jason Lawnmoa · LAWNMOA · rank 147 · Clown Eyes Green"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐀 $8 · 8 · rank 148 · Clown Eyes Green"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 3396,
+    "files": [
+      {
+        "uri": "3396.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😿",
+        "token": "ALPHAX",
+        "symbol": "ALPHAX",
+        "rank": 126,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Mustache",
+        "mint": "DfuuVk6insMhPekgC7zgDaGSb32dAZrd1Ac4QXn1TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 158,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙎",
+        "token": "AIR",
+        "symbol": "AIR",
+        "rank": 146,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Green",
+        "mint": "3F1CXHWcjjG2iDFyzSixoRDZqPqYCU9s82fEfh1dTRiX"
+      },
+      {
+        "emoji": "🙏",
+        "token": "Jason Lawnmoa",
+        "symbol": "LAWNMOA",
+        "rank": 147,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Clown Eyes Green",
+        "mint": "9oDVZhKPR6qEkT3k1PMasEMVrTGAnrQfEHNv6z8MTRiX"
+      },
+      {
+        "emoji": "🐀",
+        "token": "$8",
+        "symbol": "8",
+        "rank": 148,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Clown Eyes Green",
+        "mint": "B92yrSsKDRfu1ERXk32AZYNu55GLF7ds4dSgCKPeTRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 84,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

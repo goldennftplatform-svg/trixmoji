@@ -1,0 +1,139 @@
+{
+  "name": "TRIXMOJI PHUNKS #6796",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6796. Left-facing phunk. Type Female. Skin Dark. Hair/Hat Pink With Hat. Glasses Purple Eye Shadow. Mouth Purple Lipstick. Tokens: 😄 Pauly0x (PAULY, rank 37, Pink With Hat); 😧 PAULYHOOD (PAULY, rank 96, Purple Eye Shadow); 👩 Cope Woman (JESSICA, rank 97, Purple Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 🐅 GTA MONEY (MONEY, rank 152, Headband); 🐵 Trollge (TROLLGE, rank 201, Purple Lipstick); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6796.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Pink With Hat"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Purple Eye Shadow"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Purple Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😄 Pauly0x · PAULY · rank 37 · Pink With Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😧 PAULYHOOD · PAULY · rank 96 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👩 Cope Woman · JESSICA · rank 97 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐵 Trollge · TROLLGE · rank 201 · Purple Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6796,
+    "files": [
+      {
+        "uri": "6796.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😄",
+        "token": "Pauly0x",
+        "symbol": "PAULY",
+        "rank": 37,
+        "rarity": "EPIC",
+        "pixels": 43,
+        "where": "Pink With Hat",
+        "mint": "FbsPm1ko7ASAW73puJMHdiJ1edse5W8fMis1dQhFTRiX"
+      },
+      {
+        "emoji": "😧",
+        "token": "PAULYHOOD",
+        "symbol": "PAULY",
+        "rank": 96,
+        "rarity": "RARE",
+        "pixels": 4,
+        "where": "Purple Eye Shadow",
+        "mint": "0xDDEa44F07C89bA63b88190FCA11B6EC709D64B70"
+      },
+      {
+        "emoji": "👩",
+        "token": "Cope Woman",
+        "symbol": "JESSICA",
+        "rank": 97,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Purple Eye Shadow",
+        "mint": "GNPiMqTA4fYLvdqfNN7kiuz2w9Ty221AetLPsCzuTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 71,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "🐵",
+        "token": "Trollge",
+        "symbol": "TROLLGE",
+        "rank": 201,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Purple Lipstick",
+        "mint": "EgJYqs33bm76zQw7xvCMvD1YBprSSaqWXFLaxtwcTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 63,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

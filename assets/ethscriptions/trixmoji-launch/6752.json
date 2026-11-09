@@ -1,0 +1,125 @@
+{
+  "name": "TRIXMOJI PHUNKS #6752",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6752. Left-facing phunk. Type Female. Skin Dark. Hair/Hat Straight Hair Blonde. Glasses Green Eye Shadow. Mouth Hot Lipstick. Tokens: 😑 DONG (DONG, rank 71, Blonde Bob); 😴 69Eleven (69ELEVEN, rank 113, Green Eye Shadow); 😵 Sell This Your Gay (STYG, rank 114, Green Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 🐶 MICROPENIS (SMOL, rank 202, Hot Lipstick); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6752.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Straight Hair Blonde"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Green Eye Shadow"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Hot Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😑 DONG · DONG · rank 71 · Blonde Bob"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😴 69Eleven · 69ELEVEN · rank 113 · Green Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😵 Sell This Your Gay · STYG · rank 114 · Green Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐶 MICROPENIS · SMOL · rank 202 · Hot Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6752,
+    "files": [
+      {
+        "uri": "6752.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😑",
+        "token": "DONG",
+        "symbol": "DONG",
+        "rank": 71,
+        "rarity": "RARE",
+        "pixels": 43,
+        "where": "Blonde Bob",
+        "mint": "Bj5CownyhcGFHa8f2m1W7vx7cRkUFVpxNc9HrSoBTRiX"
+      },
+      {
+        "emoji": "😴",
+        "token": "69Eleven",
+        "symbol": "69ELEVEN",
+        "rank": 113,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Green Eye Shadow",
+        "mint": "7Q5HWaVoN6HWU55dYZFBpY4eESUF2i2nm4cMTYu9TRiX"
+      },
+      {
+        "emoji": "😵",
+        "token": "Sell This Your Gay",
+        "symbol": "STYG",
+        "rank": 114,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Green Eye Shadow",
+        "mint": "F2NaY4LeoYdKjfV3kRtu2EEMwkthQYqq5DjrB8dmTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 59,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐶",
+        "token": "MICROPENIS",
+        "symbol": "SMOL",
+        "rank": 202,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Hot Lipstick",
+        "mint": "Drh3zXhawDgQJjz2KjgKgdBkhKch9GoTM3BbARbeTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 70,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

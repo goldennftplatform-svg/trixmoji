@@ -1,0 +1,135 @@
+{
+  "name": "TRIXMOJI PHUNKS #3636",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #3636. Left-facing phunk. Type Zombie. Hair/Hat Top Hat. Facial Hair Front Beard Dark. Jewelry Earring. Tokens: 💧 Water (WATER, rank 23, Zombie); 💰 Money (MONEY, rank 24, Zombie); 🤠 JuanSolo (JUAN, rank 25, Zombie); 🎛️ Techno Capitalist Era (TECHNO, rank 38, Top Hat); 😢 U Cant Do That (UCDT, rank 91, Front Beard Dark); 📦 Black Box (BOX, rank 129, Black tiles); 💚 BOONG (BOONG, rank 216, Earring). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "3636.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Zombie"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Top Hat"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Front Beard Dark"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💧 Water · WATER · rank 23 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💰 Money · MONEY · rank 24 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🤠 JuanSolo · JUAN · rank 25 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎛️ Techno Capitalist Era · TECHNO · rank 38 · Top Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😢 U Cant Do That · UCDT · rank 91 · Front Beard Dark"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    }
+  ],
+  "properties": {
+    "edition": 3636,
+    "files": [
+      {
+        "uri": "3636.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "💧",
+        "token": "Water",
+        "symbol": "WATER",
+        "rank": 23,
+        "rarity": "LEGENDARY",
+        "pixels": 85,
+        "where": "Zombie",
+        "mint": "HpCNsRRKs1fcsuQAsovJxyauM7Sv3PZkcHLGqUnaTRiX"
+      },
+      {
+        "emoji": "💰",
+        "token": "Money",
+        "symbol": "MONEY",
+        "rank": 24,
+        "rarity": "LEGENDARY",
+        "pixels": 6,
+        "where": "Zombie",
+        "mint": "DHdHgj875BtSkomhKimT7qEaJLNZGiqrTdYfKHLbTRiX"
+      },
+      {
+        "emoji": "🤠",
+        "token": "JuanSolo",
+        "symbol": "JUAN",
+        "rank": 25,
+        "rarity": "LEGENDARY",
+        "pixels": 2,
+        "where": "Zombie",
+        "mint": "2CToo39f6bVa5C6B74CzK4jbmkh8UdbuaBrJSgewTRiX"
+      },
+      {
+        "emoji": "🎛️",
+        "token": "Techno Capitalist Era",
+        "symbol": "TECHNO",
+        "rank": 38,
+        "rarity": "EPIC",
+        "pixels": 9,
+        "where": "Top Hat",
+        "mint": "DgH3qE4gPPJ3BjT8VwtxLQUeAa267QGNvNEAZG1GTRiX"
+      },
+      {
+        "emoji": "😢",
+        "token": "U Cant Do That",
+        "symbol": "UCDT",
+        "rank": 91,
+        "rarity": "RARE",
+        "pixels": 18,
+        "where": "Front Beard Dark",
+        "mint": "Agrb4pzJe3Xudma1SHDszfPwspNAf5oPeXbdjpBiTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 129,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      }
+    ]
+  }
+}

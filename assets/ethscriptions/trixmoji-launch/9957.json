@@ -1,0 +1,231 @@
+{
+  "name": "TRIXMOJI PHUNKS #9957",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #9957. Left-facing phunk. Type Female. Skin Medium. Hair/Hat Straight Hair. Glasses Horned Rim Glasses. Mouth Black Lipstick. In Mouth Medical Mask. Makeup Spots. Tokens: 🔵 BLUE (BLUE, rank 42, Spots); 🐑 BLACK SHEEP (HEEP, rank 54, Spots); 😓 Satoshi (TOSH, rank 73, Straight Hair); 😔 VOIDIUM (VOIDIUM, rank 74, Straight Hair); 😗 Yek (YEK, rank 78, Medical Mask); 😘 BIDEN (BIDEN, rank 79, Medical Mask); 🧘 ZenCat (ZEN, rank 80, Medical Mask); 📦 Black Box (BOX, rank 129, Black tiles); 🐞 Ziggy (ZIGGY, rank 176, Horned Rim Glasses); 🥵 HOT NORDIC ALIEN (NORDIC, rank 183, Horned Rim Glasses); 🐥 Paulymon (PLYMN, rank 184, Horned Rim Glasses); 🐧 Deal With It (DEAL, rank 185, Horned Rim Glasses); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "9957.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Straight Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Horned Rim Glasses"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Black Lipstick"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Medical Mask"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Spots"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🔵 BLUE · BLUE · rank 42 · Spots"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐑 BLACK SHEEP · HEEP · rank 54 · Spots"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😓 Satoshi · TOSH · rank 73 · Straight Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😔 VOIDIUM · VOIDIUM · rank 74 · Straight Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😗 Yek · YEK · rank 78 · Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😘 BIDEN · BIDEN · rank 79 · Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🧘 ZenCat · ZEN · rank 80 · Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐞 Ziggy · ZIGGY · rank 176 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥵 HOT NORDIC ALIEN · NORDIC · rank 183 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐥 Paulymon · PLYMN · rank 184 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐧 Deal With It · DEAL · rank 185 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 9957,
+    "files": [
+      {
+        "uri": "9957.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🔵",
+        "token": "BLUE",
+        "symbol": "BLUE",
+        "rank": 42,
+        "rarity": "EPIC",
+        "pixels": 2,
+        "where": "Spots",
+        "mint": "5XFNmgEiNTu7S5m6WrV2P1By7kmSrXGmirAa9yyqTRiX"
+      },
+      {
+        "emoji": "🐑",
+        "token": "BLACK SHEEP",
+        "symbol": "HEEP",
+        "rank": 54,
+        "rarity": "RARE",
+        "pixels": 1,
+        "where": "Spots",
+        "mint": "GJCw2ag29uh1aXaWPtApNihCWH6QWAm1U4yXbeKTTRiX"
+      },
+      {
+        "emoji": "😓",
+        "token": "Satoshi",
+        "symbol": "TOSH",
+        "rank": 73,
+        "rarity": "RARE",
+        "pixels": 39,
+        "where": "Straight Hair",
+        "mint": "9LAYBviTKNgvGSvBGM1ucACx6TfdetNqRmPiPb4bTRiX"
+      },
+      {
+        "emoji": "😔",
+        "token": "VOIDIUM",
+        "symbol": "VOIDIUM",
+        "rank": 74,
+        "rarity": "RARE",
+        "pixels": 1,
+        "where": "Straight Hair",
+        "mint": "9FreX2nso96fk7cKuiXT732mU9n6aA5tbS1UhzXATRiX"
+      },
+      {
+        "emoji": "😗",
+        "token": "Yek",
+        "symbol": "YEK",
+        "rank": 78,
+        "rarity": "RARE",
+        "pixels": 34,
+        "where": "Medical Mask",
+        "mint": "CPuKRLoWjMuktTajkzySyKAVjXKL4d4vJt5SEw4aTRiX"
+      },
+      {
+        "emoji": "😘",
+        "token": "BIDEN",
+        "symbol": "BIDEN",
+        "rank": 79,
+        "rarity": "RARE",
+        "pixels": 3,
+        "where": "Medical Mask",
+        "mint": "0xa6D6399bA1B1B6b28183BA934dfBa161AE528f7e"
+      },
+      {
+        "emoji": "🧘",
+        "token": "ZenCat",
+        "symbol": "ZEN",
+        "rank": 80,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Medical Mask",
+        "mint": "Ho3eSy6WrLbf2fXiuzXSpoGUZAbr54n4Qn5T5WKPTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 66,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐞",
+        "token": "Ziggy",
+        "symbol": "ZIGGY",
+        "rank": 176,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CmMZ4RNRZZBt1bfcxkYiXB3SXAWFucdFZcP1y5MCTRiX"
+      },
+      {
+        "emoji": "🥵",
+        "token": "HOT NORDIC ALIEN",
+        "symbol": "NORDIC",
+        "rank": 183,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Horned Rim Glasses",
+        "mint": "J5Lm4fZmzoaUw7V6zJWm3BPrWJsxC7NAnEsAV5j4TRiX"
+      },
+      {
+        "emoji": "🐥",
+        "token": "Paulymon",
+        "symbol": "PLYMN",
+        "rank": 184,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "Horned Rim Glasses",
+        "mint": "8RZveZ2bUk5dAx4qqu2wdF3PTNqusxU298xzTxxWTRiX"
+      },
+      {
+        "emoji": "🐧",
+        "token": "Deal With It",
+        "symbol": "DEAL",
+        "rank": 185,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "FqNCKubbdcc8MQ4TA38Z1QokmZdKyeMKC4VqfDeTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 19,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

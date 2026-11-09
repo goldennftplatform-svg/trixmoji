@@ -1,0 +1,181 @@
+{
+  "name": "TRIXMOJI PHUNKS #1690",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #1690. Left-facing phunk. Type Male. Skin Light. Hair/Hat Bandana. Glasses Horned Rim Glasses. Makeup Mole. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🐍 Jimmy Eggar (JEGG, rank 161, Bandana); 🐎 VARIABLE-7 (UNKNOWN, rank 162, Bandana); 🐏 $Pepe Jean (PEPEJEAN, rank 163, Bandana); 🐞 Ziggy (ZIGGY, rank 176, Horned Rim Glasses); 🐟 IzReal (IZATARD, rank 177, Horned Rim Glasses); 🐠 A1 (A1, rank 178, Horned Rim Glasses); 🐡 Blazed Nirvana (NIRVA, rank 179, Horned Rim Glasses); 🐲 Jesus Orbweaver (WIZJ, rank 196, Mole); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "1690.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Bandana"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Horned Rim Glasses"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Mole"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐍 Jimmy Eggar · JEGG · rank 161 · Bandana"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐎 VARIABLE-7 · UNKNOWN · rank 162 · Bandana"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐏 $Pepe Jean · PEPEJEAN · rank 163 · Bandana"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐞 Ziggy · ZIGGY · rank 176 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐟 IzReal · IZATARD · rank 177 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐠 A1 · A1 · rank 178 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐡 Blazed Nirvana · NIRVA · rank 179 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐲 Jesus Orbweaver · WIZJ · rank 196 · Mole"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 1690,
+    "files": [
+      {
+        "uri": "1690.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 79,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐍",
+        "token": "Jimmy Eggar",
+        "symbol": "JEGG",
+        "rank": 161,
+        "rarity": "UNCOMMON",
+        "pixels": 9,
+        "where": "Bandana",
+        "mint": "6FvBQ23eGns2BwQdMQ87uybVCBGUThWr1sNCjrZZTRiX"
+      },
+      {
+        "emoji": "🐎",
+        "token": "VARIABLE-7",
+        "symbol": "UNKNOWN",
+        "rank": 162,
+        "rarity": "UNCOMMON",
+        "pixels": 21,
+        "where": "Bandana",
+        "mint": "G5qGhS58tDT33yjp1s2rKcUjtZ4jUPfpk8Z3dhV1TRiX"
+      },
+      {
+        "emoji": "🐏",
+        "token": "$Pepe Jean",
+        "symbol": "PEPEJEAN",
+        "rank": 163,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Bandana",
+        "mint": "EEJ3ZBD5EEqhhWTmEMZk4XvcwdoAQEXkRanix7QYTRiX"
+      },
+      {
+        "emoji": "🐞",
+        "token": "Ziggy",
+        "symbol": "ZIGGY",
+        "rank": 176,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CmMZ4RNRZZBt1bfcxkYiXB3SXAWFucdFZcP1y5MCTRiX"
+      },
+      {
+        "emoji": "🐟",
+        "token": "IzReal",
+        "symbol": "IZATARD",
+        "rank": 177,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Horned Rim Glasses",
+        "mint": "BEEBsdF8Ez2kmoVNt22zbx3ksvWWuMoLjNSY9uTLTRiX"
+      },
+      {
+        "emoji": "🐠",
+        "token": "A1",
+        "symbol": "A1",
+        "rank": 178,
+        "rarity": "UNCOMMON",
+        "pixels": 10,
+        "where": "Horned Rim Glasses",
+        "mint": "FiWpHXKjWEKUigLWWRjRn3KdvWWmvcLDhrDTqVET5FMz"
+      },
+      {
+        "emoji": "🐡",
+        "token": "Blazed Nirvana",
+        "symbol": "NIRVA",
+        "rank": 179,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CTW5iL9nubR9r98qfRWm9jiPhfPjGPUxJCiWGTP5TRiX"
+      },
+      {
+        "emoji": "🐲",
+        "token": "Jesus Orbweaver",
+        "symbol": "WIZJ",
+        "rank": 196,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Mole",
+        "mint": "2GDib46tKf2jMHoRnbiZgcdPEWZJJvmbK4f1XdGwTRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 76,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

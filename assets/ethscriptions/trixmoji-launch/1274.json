@@ -1,0 +1,111 @@
+{
+  "name": "TRIXMOJI PHUNKS #1274",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #1274. Left-facing phunk. Type Male. Skin Medium. Hair/Hat Top Hat. Glasses Regular Shades. Facial Hair Shadow Beard. Tokens: 🎛️ Techno Capitalist Era (TECHNO, rank 38, Top Hat); 📦 Black Box (BOX, rank 129, Black tiles); 🐓 PEPE (PEPE, rank 166, Shadow Beard); 🐗 Not a test (TEST, rank 169, Shadow Beard); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "1274.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Top Hat"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Regular Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎛️ Techno Capitalist Era · TECHNO · rank 38 · Top Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐓 PEPE · PEPE · rank 166 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐗 Not a test · TEST · rank 169 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 1274,
+    "files": [
+      {
+        "uri": "1274.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🎛️",
+        "token": "Techno Capitalist Era",
+        "symbol": "TECHNO",
+        "rank": 38,
+        "rarity": "EPIC",
+        "pixels": 9,
+        "where": "Top Hat",
+        "mint": "DgH3qE4gPPJ3BjT8VwtxLQUeAa267QGNvNEAZG1GTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 144,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐓",
+        "token": "PEPE",
+        "symbol": "PEPE",
+        "rank": 166,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Shadow Beard",
+        "mint": "BJj96imZGv4sTFgU8Br9soeTs22Fq5BSmpLs4dPcTRiX"
+      },
+      {
+        "emoji": "🐗",
+        "token": "Not a test",
+        "symbol": "TEST",
+        "rank": 169,
+        "rarity": "UNCOMMON",
+        "pixels": 33,
+        "where": "Shadow Beard",
+        "mint": "5EDKsWw7innWhNwVWrUFo2uNUt5h1eQ2zP5FWUNuTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 59,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

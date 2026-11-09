@@ -1,0 +1,139 @@
+{
+  "name": "TRIXMOJI PHUNKS #7250",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #7250. Left-facing phunk. Type Female. Skin Albino. Hair/Hat Red Mohawk. Glasses Blue Eye Shadow. Mouth Hot Lipstick. Tokens: 😭 PONDWATER (WATER, rank 107, Blue Eye Shadow); 😮 APU (APU, rank 108, Blue Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 🐅 GTA MONEY (MONEY, rank 152, Headband); 👀 WazzAAA (WAZZA, rank 154, Crazy Hair); 🐶 MICROPENIS (SMOL, rank 202, Hot Lipstick); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "7250.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Red Mohawk"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Blue Eye Shadow"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Hot Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😭 PONDWATER · WATER · rank 107 · Blue Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😮 APU · APU · rank 108 · Blue Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👀 WazzAAA · WAZZA · rank 154 · Crazy Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐶 MICROPENIS · SMOL · rank 202 · Hot Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 7250,
+    "files": [
+      {
+        "uri": "7250.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😭",
+        "token": "PONDWATER",
+        "symbol": "WATER",
+        "rank": 107,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Blue Eye Shadow",
+        "mint": "6xXbswAypi2GBjxre6sj6cEKGMXm951SjPWRMNHiTRiX"
+      },
+      {
+        "emoji": "😮",
+        "token": "APU",
+        "symbol": "APU",
+        "rank": 108,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Blue Eye Shadow",
+        "mint": "2RwNesZTFoTFLtbmowgteiaXKBMhN8ZePNQKgXc3TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 51,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "👀",
+        "token": "WazzAAA",
+        "symbol": "WAZZA",
+        "rank": 154,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Crazy Hair",
+        "mint": "8xBRX7rK6DnxGEU41PE5rTG7huLNZtH8v1rh2bBeTRiX"
+      },
+      {
+        "emoji": "🐶",
+        "token": "MICROPENIS",
+        "symbol": "SMOL",
+        "rank": 202,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Hot Lipstick",
+        "mint": "Drh3zXhawDgQJjz2KjgKgdBkhKch9GoTM3BbARbeTRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 90,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "name": "TRIXMOJI PHUNKS #1526",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #1526. Left-facing phunk. Type Zombie. Hair/Hat Cap. Glasses Eye Patch. Neck Gold Chain. Tokens: 💧 Water (WATER, rank 23, Zombie); 💰 Money (MONEY, rank 24, Zombie); 🤠 JuanSolo (JUAN, rank 25, Zombie); 🧠 Dopamine (DOPAMINE, rank 77, Gold Chain); 📦 Black Box (BOX, rank 129, Black tiles); 🙍 SILK ROAD (SILK, rank 144, Cap); 🤑 Mo Kings (MOKINGS, rank 145, Cap). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "1526.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Zombie"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Cap"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Eye Patch"
+    },
+    {
+      "trait_type": "Neck",
+      "value": "Gold Chain"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💧 Water · WATER · rank 23 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💰 Money · MONEY · rank 24 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🤠 JuanSolo · JUAN · rank 25 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🧠 Dopamine · DOPAMINE · rank 77 · Gold Chain"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙍 SILK ROAD · SILK · rank 144 · Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🤑 Mo Kings · MOKINGS · rank 145 · Cap"
+    }
+  ],
+  "properties": {
+    "edition": 1526,
+    "files": [
+      {
+        "uri": "1526.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "💧",
+        "token": "Water",
+        "symbol": "WATER",
+        "rank": 23,
+        "rarity": "LEGENDARY",
+        "pixels": 82,
+        "where": "Zombie",
+        "mint": "HpCNsRRKs1fcsuQAsovJxyauM7Sv3PZkcHLGqUnaTRiX"
+      },
+      {
+        "emoji": "💰",
+        "token": "Money",
+        "symbol": "MONEY",
+        "rank": 24,
+        "rarity": "LEGENDARY",
+        "pixels": 4,
+        "where": "Zombie",
+        "mint": "DHdHgj875BtSkomhKimT7qEaJLNZGiqrTdYfKHLbTRiX"
+      },
+      {
+        "emoji": "🤠",
+        "token": "JuanSolo",
+        "symbol": "JUAN",
+        "rank": 25,
+        "rarity": "LEGENDARY",
+        "pixels": 1,
+        "where": "Zombie",
+        "mint": "2CToo39f6bVa5C6B74CzK4jbmkh8UdbuaBrJSgewTRiX"
+      },
+      {
+        "emoji": "🧠",
+        "token": "Dopamine",
+        "symbol": "DOPAMINE",
+        "rank": 77,
+        "rarity": "RARE",
+        "pixels": 3,
+        "where": "Gold Chain",
+        "mint": "2NuKx5fw4zvAuVGn4jhM3B38PCow8DuNsyAaV1WKTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 82,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙍",
+        "token": "SILK ROAD",
+        "symbol": "SILK",
+        "rank": 144,
+        "rarity": "UNCOMMON",
+        "pixels": 32,
+        "where": "Cap",
+        "mint": "3L1f5ENJqmKBZSJxYaUFxox3GtPirVF5skssdxgvTRiX"
+      },
+      {
+        "emoji": "🤑",
+        "token": "Mo Kings",
+        "symbol": "MOKINGS",
+        "rank": 145,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Cap",
+        "mint": "7AHpA6dhkkRHz54FHKP2vAdPSJc11vxomcbqxxBhTRiX"
+      }
+    ]
+  }
+}

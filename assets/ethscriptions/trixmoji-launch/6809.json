@@ -1,0 +1,153 @@
+{
+  "name": "TRIXMOJI PHUNKS #6809",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6809. Left-facing phunk. Type Male. Skin Light. Hair/Hat Peak Spike. Glasses Horned Rim Glasses. Facial Hair Big Beard. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🐞 Ziggy (ZIGGY, rank 176, Horned Rim Glasses); 🐟 IzReal (IZATARD, rank 177, Horned Rim Glasses); 🐠 A1 (A1, rank 178, Horned Rim Glasses); 🐡 Blazed Nirvana (NIRVA, rank 179, Horned Rim Glasses); 🐻 PAWN (PAWN, rank 206, Type: Human); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6809.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Peak Spike"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Horned Rim Glasses"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Big Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐞 Ziggy · ZIGGY · rank 176 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐟 IzReal · IZATARD · rank 177 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐠 A1 · A1 · rank 178 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐡 Blazed Nirvana · NIRVA · rank 179 · Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐻 PAWN · PAWN · rank 206 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6809,
+    "files": [
+      {
+        "uri": "6809.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 109,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐞",
+        "token": "Ziggy",
+        "symbol": "ZIGGY",
+        "rank": 176,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CmMZ4RNRZZBt1bfcxkYiXB3SXAWFucdFZcP1y5MCTRiX"
+      },
+      {
+        "emoji": "🐟",
+        "token": "IzReal",
+        "symbol": "IZATARD",
+        "rank": 177,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Horned Rim Glasses",
+        "mint": "BEEBsdF8Ez2kmoVNt22zbx3ksvWWuMoLjNSY9uTLTRiX"
+      },
+      {
+        "emoji": "🐠",
+        "token": "A1",
+        "symbol": "A1",
+        "rank": 178,
+        "rarity": "UNCOMMON",
+        "pixels": 10,
+        "where": "Horned Rim Glasses",
+        "mint": "FiWpHXKjWEKUigLWWRjRn3KdvWWmvcLDhrDTqVET5FMz"
+      },
+      {
+        "emoji": "🐡",
+        "token": "Blazed Nirvana",
+        "symbol": "NIRVA",
+        "rank": 179,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CTW5iL9nubR9r98qfRWm9jiPhfPjGPUxJCiWGTP5TRiX"
+      },
+      {
+        "emoji": "🐻",
+        "token": "PAWN",
+        "symbol": "PAWN",
+        "rank": 206,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "CrV4bJME2yVnnh7WypzQ33KfEJVLh56p1iBDr612TRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 55,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 61,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

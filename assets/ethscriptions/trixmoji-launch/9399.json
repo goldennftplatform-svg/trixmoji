@@ -1,0 +1,79 @@
+{
+  "name": "TRIXMOJI PHUNKS #9399",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #9399. Left-facing phunk. Type Male. Skin Albino. Hair/Hat Fedora. Glasses Regular Shades. Tokens: 😛 XELON (XELON, rank 83, Fedora); 📦 Black Box (BOX, rank 129, Black tiles); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "9399.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Fedora"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Regular Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😛 XELON · XELON · rank 83 · Fedora"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 9399,
+    "files": [
+      {
+        "uri": "9399.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😛",
+        "token": "XELON",
+        "symbol": "XELON",
+        "rank": 83,
+        "rarity": "RARE",
+        "pixels": 39,
+        "where": "Fedora",
+        "mint": "76Cf2zrKqwQEMGj7TaZ6hJ1Ja6hNsXXrK2UVBRjKTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 94,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 83,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

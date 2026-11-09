@@ -1,0 +1,135 @@
+{
+  "name": "TRIXMOJI PHUNKS #252",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #252. Left-facing phunk. Type Male. Skin Albino. Hair/Hat Cap Forward. Makeup Mole. Tokens: 😞 42 (42, rank 87, Cap Forward); 😟 GREEN (GREEN, rank 88, Cap Forward); 📦 Black Box (BOX, rank 129, Black tiles); 🐪 Dick in a Box (DIAB, rank 190, Type: Human); 🐫 Timing is Perfection (TIP, rank 191, Type: Human); 🤣 Poo Poo Pug (PPP, rank 197, Mole); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "252.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Cap Forward"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Mole"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😞 42 · 42 · rank 87 · Cap Forward"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😟 GREEN · GREEN · rank 88 · Cap Forward"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐪 Dick in a Box · DIAB · rank 190 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐫 Timing is Perfection · TIP · rank 191 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🤣 Poo Poo Pug · PPP · rank 197 · Mole"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 252,
+    "files": [
+      {
+        "uri": "252.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😞",
+        "token": "42",
+        "symbol": "42",
+        "rank": 87,
+        "rarity": "RARE",
+        "pixels": 19,
+        "where": "Cap Forward",
+        "mint": "2B1DwahiByTVU5fSwJ6HjWpeiZk5s66bzDb2pyHCTRiX"
+      },
+      {
+        "emoji": "😟",
+        "token": "GREEN",
+        "symbol": "GREEN",
+        "rank": 88,
+        "rarity": "RARE",
+        "pixels": 10,
+        "where": "Cap Forward",
+        "mint": "2Fr1y9199bPJoNMwsXR66nmadYdijB9aiLYErsvZTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 79,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐪",
+        "token": "Dick in a Box",
+        "symbol": "DIAB",
+        "rank": 190,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "26y4fu6LWD4Y1mmgTdJ58gruawXxirR86J2ojU1zTRiX"
+      },
+      {
+        "emoji": "🐫",
+        "token": "Timing is Perfection",
+        "symbol": "TIP",
+        "rank": 191,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "6QadgRGYRCB5dbCjJDbt3jwcsHQRqFB7hNbF74uJTRiX"
+      },
+      {
+        "emoji": "🤣",
+        "token": "Poo Poo Pug",
+        "symbol": "PPP",
+        "rank": 197,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Mole",
+        "mint": "ChXGsL15HUySWwkXKY2CoWRchqL1SpBLRkuq2j9ETRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 92,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

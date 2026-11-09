@@ -1,0 +1,171 @@
+{
+  "name": "TRIXMOJI PHUNKS #8658",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #8658. Left-facing phunk. Type Male. Skin Albino. Hair/Hat Wild Hair. Facial Hair Shadow Beard. Mouth Smile. In Mouth Pipe. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🙇 pond (POND, rank 138, Pipe); 🥛 Memetic Milk (MILK, rank 139, Pipe); 🙉 69420 (69420, rank 140, Pipe); 🐓 PEPE (PEPE, rank 166, Shadow Beard); 🐘 Godfather of ai (GEOFF, rank 170, Shadow Beard); 🐪 Dick in a Box (DIAB, rank 190, Type: Human); 🐫 Timing is Perfection (TIP, rank 191, Type: Human); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "8658.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Wild Hair"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Shadow Beard"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Smile"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙇 pond · POND · rank 138 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥛 Memetic Milk · MILK · rank 139 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙉 69420 · 69420 · rank 140 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐓 PEPE · PEPE · rank 166 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐘 Godfather of ai · GEOFF · rank 170 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐪 Dick in a Box · DIAB · rank 190 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐫 Timing is Perfection · TIP · rank 191 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 8658,
+    "files": [
+      {
+        "uri": "8658.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 185,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙇",
+        "token": "pond",
+        "symbol": "POND",
+        "rank": 138,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Pipe",
+        "mint": "6vdYTi2fb11rS97JZTHRhthbckUnMpco4FP9PK8vTRiX"
+      },
+      {
+        "emoji": "🥛",
+        "token": "Memetic Milk",
+        "symbol": "MILK",
+        "rank": 139,
+        "rarity": "UNCOMMON",
+        "pixels": 10,
+        "where": "Pipe",
+        "mint": "G4mqFjqSdexj2YLTtjtjKYSvX2mZbNLWfHV3CE3JTRiX"
+      },
+      {
+        "emoji": "🙉",
+        "token": "69420",
+        "symbol": "69420",
+        "rank": 140,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Pipe",
+        "mint": "3mvjSowJctaHr8r8pu9DhXf4nxpDyy47PHcMxqecTRiX"
+      },
+      {
+        "emoji": "🐓",
+        "token": "PEPE",
+        "symbol": "PEPE",
+        "rank": 166,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Shadow Beard",
+        "mint": "BJj96imZGv4sTFgU8Br9soeTs22Fq5BSmpLs4dPcTRiX"
+      },
+      {
+        "emoji": "🐘",
+        "token": "Godfather of ai",
+        "symbol": "GEOFF",
+        "rank": 170,
+        "rarity": "UNCOMMON",
+        "pixels": 27,
+        "where": "Shadow Beard",
+        "mint": "8m8VRMpY2baqXid5QxhPUC3sCYYb5EihBuqPkfDATRiX"
+      },
+      {
+        "emoji": "🐪",
+        "token": "Dick in a Box",
+        "symbol": "DIAB",
+        "rank": 190,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "26y4fu6LWD4Y1mmgTdJ58gruawXxirR86J2ojU1zTRiX"
+      },
+      {
+        "emoji": "🐫",
+        "token": "Timing is Perfection",
+        "symbol": "TIP",
+        "rank": 191,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "6QadgRGYRCB5dbCjJDbt3jwcsHQRqFB7hNbF74uJTRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 60,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

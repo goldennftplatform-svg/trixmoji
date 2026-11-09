@@ -1,0 +1,153 @@
+{
+  "name": "TRIXMOJI PHUNKS #9715",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #9715. Left-facing phunk. Type Female. Skin Light. Hair/Hat Crazy Hair. Glasses Blue Eye Shadow. In Mouth Medical Mask. Tokens: 😗 Yek (YEK, rank 78, Medical Mask); 😘 BIDEN (BIDEN, rank 79, Medical Mask); 🔑 Diamond Key (KEY, rank 103, Blue Eye Shadow); 🕳️ Victim of Immaculate Drip (VOID, rank 104, Blue Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 👀 WazzAAA (WAZZA, rank 154, Crazy Hair); 🐻 PAWN (PAWN, rank 206, Type: Human); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "9715.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Crazy Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Blue Eye Shadow"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😗 Yek · YEK · rank 78 · Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😘 BIDEN · BIDEN · rank 79 · Medical Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🔑 Diamond Key · KEY · rank 103 · Blue Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🕳️ Victim of Immaculate Drip · VOID · rank 104 · Blue Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👀 WazzAAA · WAZZA · rank 154 · Crazy Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐻 PAWN · PAWN · rank 206 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 9715,
+    "files": [
+      {
+        "uri": "9715.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😗",
+        "token": "Yek",
+        "symbol": "YEK",
+        "rank": 78,
+        "rarity": "RARE",
+        "pixels": 36,
+        "where": "Medical Mask",
+        "mint": "CPuKRLoWjMuktTajkzySyKAVjXKL4d4vJt5SEw4aTRiX"
+      },
+      {
+        "emoji": "😘",
+        "token": "BIDEN",
+        "symbol": "BIDEN",
+        "rank": 79,
+        "rarity": "RARE",
+        "pixels": 3,
+        "where": "Medical Mask",
+        "mint": "0xa6D6399bA1B1B6b28183BA934dfBa161AE528f7e"
+      },
+      {
+        "emoji": "🔑",
+        "token": "Diamond Key",
+        "symbol": "KEY",
+        "rank": 103,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Blue Eye Shadow",
+        "mint": "GcFMqkYC5VQHKEdprNd9uwHwLpDQfDjzjnzn6VWbTRiX"
+      },
+      {
+        "emoji": "🕳️",
+        "token": "Victim of Immaculate Drip",
+        "symbol": "VOID",
+        "rank": 104,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Blue Eye Shadow",
+        "mint": "S3fPK3BJprsTexEhUoYgNEMgDAUZdKy72Cbcx7fTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 80,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👀",
+        "token": "WazzAAA",
+        "symbol": "WAZZA",
+        "rank": 154,
+        "rarity": "UNCOMMON",
+        "pixels": 38,
+        "where": "Crazy Hair",
+        "mint": "8xBRX7rK6DnxGEU41PE5rTG7huLNZtH8v1rh2bBeTRiX"
+      },
+      {
+        "emoji": "🐻",
+        "token": "PAWN",
+        "symbol": "PAWN",
+        "rank": 206,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Type: Human",
+        "mint": "CrV4bJME2yVnnh7WypzQ33KfEJVLh56p1iBDr612TRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 55,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

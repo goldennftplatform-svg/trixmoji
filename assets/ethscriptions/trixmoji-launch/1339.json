@@ -1,0 +1,97 @@
+{
+  "name": "TRIXMOJI PHUNKS #1339",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #1339. Left-facing phunk. Type Female. Skin Dark. Hair/Hat Stringy Hair. Glasses Green Eye Shadow. Mouth Black Lipstick. Tokens: 😴 69Eleven (69ELEVEN, rank 113, Green Eye Shadow); 😵 Sell This Your Gay (STYG, rank 114, Green Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "1339.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Stringy Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Green Eye Shadow"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Black Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😴 69Eleven · 69ELEVEN · rank 113 · Green Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😵 Sell This Your Gay · STYG · rank 114 · Green Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 1339,
+    "files": [
+      {
+        "uri": "1339.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😴",
+        "token": "69Eleven",
+        "symbol": "69ELEVEN",
+        "rank": 113,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Green Eye Shadow",
+        "mint": "7Q5HWaVoN6HWU55dYZFBpY4eESUF2i2nm4cMTYu9TRiX"
+      },
+      {
+        "emoji": "😵",
+        "token": "Sell This Your Gay",
+        "symbol": "STYG",
+        "rank": 114,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Green Eye Shadow",
+        "mint": "F2NaY4LeoYdKjfV3kRtu2EEMwkthQYqq5DjrB8dmTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 62,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 80,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

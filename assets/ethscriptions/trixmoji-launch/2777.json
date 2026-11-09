@@ -1,0 +1,111 @@
+{
+  "name": "TRIXMOJI PHUNKS #2777",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #2777. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Shaved Head. Glasses Small Shades. Facial Hair Normal Beard. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🙂 0xGEOFF (0XG, rank 130, Shaved Head); 🌋 MAGMA (MAG, rank 131, Shaved Head); 👄 HUSHI (HUSH, rank 217, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "2777.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Shaved Head"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Small Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Normal Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙂 0xGEOFF · 0XG · rank 130 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🌋 MAGMA · MAG · rank 131 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 2777,
+    "files": [
+      {
+        "uri": "2777.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 74,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙂",
+        "token": "0xGEOFF",
+        "symbol": "0XG",
+        "rank": 130,
+        "rarity": "UNCOMMON",
+        "pixels": 25,
+        "where": "Shaved Head",
+        "mint": "69fCFYE3GKfea428dNb618mKtSyoNFdT5QxvPouUkH1n"
+      },
+      {
+        "emoji": "🌋",
+        "token": "MAGMA",
+        "symbol": "MAG",
+        "rank": 131,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Shaved Head",
+        "mint": "B9Qo41JeYEoYpNUXvzSJg9EDSeJCjjzm3JK9KWrGTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 57,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 33,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "name": "TRIXMOJI PHUNKS #9607",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #9607. Left-facing phunk. Type Female. Skin Albino. Hair/Hat Bandana. Mouth Hot Lipstick. Jewelry Earring. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🐍 Jimmy Eggar (JEGG, rank 161, Bandana); 🐎 VARIABLE-7 (UNKNOWN, rank 162, Bandana); 🐪 Dick in a Box (DIAB, rank 190, Type: Human); 🐫 Timing is Perfection (TIP, rank 191, Type: Human); 🐶 MICROPENIS (SMOL, rank 202, Hot Lipstick); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human); 💚 BOONG (BOONG, rank 216, Earring). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "9607.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Bandana"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Hot Lipstick"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐍 Jimmy Eggar · JEGG · rank 161 · Bandana"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐎 VARIABLE-7 · UNKNOWN · rank 162 · Bandana"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐪 Dick in a Box · DIAB · rank 190 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐫 Timing is Perfection · TIP · rank 191 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐶 MICROPENIS · SMOL · rank 202 · Hot Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    }
+  ],
+  "properties": {
+    "edition": 9607,
+    "files": [
+      {
+        "uri": "9607.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 62,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐍",
+        "token": "Jimmy Eggar",
+        "symbol": "JEGG",
+        "rank": 161,
+        "rarity": "UNCOMMON",
+        "pixels": 9,
+        "where": "Bandana",
+        "mint": "6FvBQ23eGns2BwQdMQ87uybVCBGUThWr1sNCjrZZTRiX"
+      },
+      {
+        "emoji": "🐎",
+        "token": "VARIABLE-7",
+        "symbol": "UNKNOWN",
+        "rank": 162,
+        "rarity": "UNCOMMON",
+        "pixels": 21,
+        "where": "Bandana",
+        "mint": "G5qGhS58tDT33yjp1s2rKcUjtZ4jUPfpk8Z3dhV1TRiX"
+      },
+      {
+        "emoji": "🐪",
+        "token": "Dick in a Box",
+        "symbol": "DIAB",
+        "rank": 190,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "26y4fu6LWD4Y1mmgTdJ58gruawXxirR86J2ojU1zTRiX"
+      },
+      {
+        "emoji": "🐫",
+        "token": "Timing is Perfection",
+        "symbol": "TIP",
+        "rank": 191,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "6QadgRGYRCB5dbCjJDbt3jwcsHQRqFB7hNbF74uJTRiX"
+      },
+      {
+        "emoji": "🐶",
+        "token": "MICROPENIS",
+        "symbol": "SMOL",
+        "rank": 202,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Hot Lipstick",
+        "mint": "Drh3zXhawDgQJjz2KjgKgdBkhKch9GoTM3BbARbeTRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 74,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      }
+    ]
+  }
+}

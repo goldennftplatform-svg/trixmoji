@@ -1,0 +1,171 @@
+{
+  "name": "TRIXMOJI PHUNKS #2866",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #2866. Left-facing phunk. Type Male. Skin Albino. Hair/Hat Bandana. Glasses Classic Shades. Facial Hair Muttonchops. Jewelry Earring. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🐍 Jimmy Eggar (JEGG, rank 161, Bandana); 🐎 VARIABLE-7 (UNKNOWN, rank 162, Bandana); 🐏 $Pepe Jean (PEPEJEAN, rank 163, Bandana); 🐐 BIG DAWG (DAWG, rank 164, Classic Shades); 🐒 RootkitAlpha (RKA, rank 165, Classic Shades); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human); 💚 BOONG (BOONG, rank 216, Earring); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "2866.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Bandana"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Classic Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Muttonchops"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐍 Jimmy Eggar · JEGG · rank 161 · Bandana"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐎 VARIABLE-7 · UNKNOWN · rank 162 · Bandana"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐏 $Pepe Jean · PEPEJEAN · rank 163 · Bandana"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐐 BIG DAWG · DAWG · rank 164 · Classic Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐒 RootkitAlpha · RKA · rank 165 · Classic Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 2866,
+    "files": [
+      {
+        "uri": "2866.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 85,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐍",
+        "token": "Jimmy Eggar",
+        "symbol": "JEGG",
+        "rank": 161,
+        "rarity": "UNCOMMON",
+        "pixels": 9,
+        "where": "Bandana",
+        "mint": "6FvBQ23eGns2BwQdMQ87uybVCBGUThWr1sNCjrZZTRiX"
+      },
+      {
+        "emoji": "🐎",
+        "token": "VARIABLE-7",
+        "symbol": "UNKNOWN",
+        "rank": 162,
+        "rarity": "UNCOMMON",
+        "pixels": 21,
+        "where": "Bandana",
+        "mint": "G5qGhS58tDT33yjp1s2rKcUjtZ4jUPfpk8Z3dhV1TRiX"
+      },
+      {
+        "emoji": "🐏",
+        "token": "$Pepe Jean",
+        "symbol": "PEPEJEAN",
+        "rank": 163,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Bandana",
+        "mint": "EEJ3ZBD5EEqhhWTmEMZk4XvcwdoAQEXkRanix7QYTRiX"
+      },
+      {
+        "emoji": "🐐",
+        "token": "BIG DAWG",
+        "symbol": "DAWG",
+        "rank": 164,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Classic Shades",
+        "mint": "C5armesyd7sQsgoz1DvSAea96TdYmGC7txNYG76aErp2"
+      },
+      {
+        "emoji": "🐒",
+        "token": "RootkitAlpha",
+        "symbol": "RKA",
+        "rank": 165,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Classic Shades",
+        "mint": "GDBPZNwpJqmAsXNj3F4c4HSVrSGE27QXPCK5AbC3TRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 69,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 11,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

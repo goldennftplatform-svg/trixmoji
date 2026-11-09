@@ -1,0 +1,139 @@
+{
+  "name": "TRIXMOJI PHUNKS #8020",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #8020. Left-facing phunk. Type Female. Skin Medium. Hair/Hat Blonde Short. Glasses Big Shades. Mouth Hot Lipstick. Tokens: 😑 DONG (DONG, rank 71, Blonde Bob); 📦 Black Box (BOX, rank 129, Black tiles); 🐛 TrixCat (TRIXCAT, rank 173, Big Shades); 🐜 Non Fungible Token (NFT, rank 174, Big Shades); 🐝 MASK (MASK, rank 175, Big Shades); 🐶 MICROPENIS (SMOL, rank 202, Hot Lipstick); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "8020.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Blonde Short"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Big Shades"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Hot Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😑 DONG · DONG · rank 71 · Blonde Bob"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐛 TrixCat · TRIXCAT · rank 173 · Big Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐜 Non Fungible Token · NFT · rank 174 · Big Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐝 MASK · MASK · rank 175 · Big Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐶 MICROPENIS · SMOL · rank 202 · Hot Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 8020,
+    "files": [
+      {
+        "uri": "8020.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😑",
+        "token": "DONG",
+        "symbol": "DONG",
+        "rank": 71,
+        "rarity": "RARE",
+        "pixels": 33,
+        "where": "Blonde Bob",
+        "mint": "Bj5CownyhcGFHa8f2m1W7vx7cRkUFVpxNc9HrSoBTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 72,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐛",
+        "token": "TrixCat",
+        "symbol": "TRIXCAT",
+        "rank": 173,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "Big Shades",
+        "mint": "jSaawPyMtQNWcgoUM49j7rxEt4HLxWES6SgZateTRiX"
+      },
+      {
+        "emoji": "🐜",
+        "token": "Non Fungible Token",
+        "symbol": "NFT",
+        "rank": 174,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "Big Shades",
+        "mint": "8WxdjYpSrR7Rbj97X5ZnfK4DSLR3CUzcCJnkEQV6TRiX"
+      },
+      {
+        "emoji": "🐝",
+        "token": "MASK",
+        "symbol": "MASK",
+        "rank": 175,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "Big Shades",
+        "mint": "23hXd1tpmh4StG3sMFwQ8cZdnj5XZD15WY9TuerWTRiX"
+      },
+      {
+        "emoji": "🐶",
+        "token": "MICROPENIS",
+        "symbol": "SMOL",
+        "rank": 202,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Hot Lipstick",
+        "mint": "Drh3zXhawDgQJjz2KjgKgdBkhKch9GoTM3BbARbeTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 46,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

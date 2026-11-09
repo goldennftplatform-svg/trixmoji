@@ -1,0 +1,115 @@
+{
+  "name": "TRIXMOJI PHUNKS #4572",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #4572. Left-facing phunk. Type Male. Skin Medium. Hair/Hat Purple Hair. Glasses Nerd Glasses. Facial Hair Mustache. Mouth Frown. Tokens: 😖 Ick (ICK, rank 76, Purple Hair); 😾 Boost (BOOST, rank 124, Mustache); 📦 Black Box (BOX, rank 129, Black tiles); 🌊 The Heart of The Ocean (HOO, rank 193, Nerd Glasses); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "4572.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Purple Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Nerd Glasses"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Mustache"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Frown"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😖 Ick · ICK · rank 76 · Purple Hair"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😾 Boost · BOOST · rank 124 · Mustache"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🌊 The Heart of The Ocean · HOO · rank 193 · Nerd Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 4572,
+    "files": [
+      {
+        "uri": "4572.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😖",
+        "token": "Ick",
+        "symbol": "ICK",
+        "rank": 76,
+        "rarity": "RARE",
+        "pixels": 48,
+        "where": "Purple Hair",
+        "mint": "9T12721Y4wRinuD7vqXdSBHpQDJF3JoDDpTJxWgsTRiX"
+      },
+      {
+        "emoji": "😾",
+        "token": "Boost",
+        "symbol": "BOOST",
+        "rank": 124,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Mustache",
+        "mint": "Gg9xsoYq7wYGW4KmZo2bTPTvMJ6ZYLU9BEGGNTtvTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 94,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🌊",
+        "token": "The Heart of The Ocean",
+        "symbol": "HOO",
+        "rank": 193,
+        "rarity": "UNCOMMON",
+        "pixels": 8,
+        "where": "Nerd Glasses",
+        "mint": "0x3Ba84f6f5427624b30D05E94D3D7390dEAE121Df"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 79,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

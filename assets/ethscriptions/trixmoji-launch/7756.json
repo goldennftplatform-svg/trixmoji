@@ -1,0 +1,191 @@
+{
+  "name": "TRIXMOJI PHUNKS #7756",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #7756. Left-facing phunk. Type Zombie. Hair/Hat Do-rag. Glasses Horned Rim Glasses. Facial Hair Shadow Beard. Tokens: 💧 Water (WATER, rank 23, Zombie); 😂 HWONDER (HWONDER, rank 27, Zombie); 🚀 TRIXI (TRIXI, rank 28, Zombie); 😃 TRIX (TRIX, rank 29, Zombie); 😐 Wojak (WOJAK, rank 30, Zombie); 🫧 Bubbles (BUBS, rank 31, Zombie); 🙁 GEO CUCK (GEOCUCK, rank 128, Do-rag); 📦 Black Box (BOX, rank 129, Black tiles); 📦 Black Box (BOX, rank 129, Do-rag); 🐓 PEPE (PEPE, rank 166, Shadow Beard); 🐞 Ziggy (ZIGGY, rank 176, Horned Rim Glasses). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "7756.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Zombie"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Do-rag"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Horned Rim Glasses"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💧 Water · WATER · rank 23 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😂 HWONDER · HWONDER · rank 27 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🚀 TRIXI · TRIXI · rank 28 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😃 TRIX · TRIX · rank 29 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😐 Wojak · WOJAK · rank 30 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🫧 Bubbles · BUBS · rank 31 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙁 GEO CUCK · GEOCUCK · rank 128 · Do-rag"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Do-rag"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐓 PEPE · PEPE · rank 166 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐞 Ziggy · ZIGGY · rank 176 · Horned Rim Glasses"
+    }
+  ],
+  "properties": {
+    "edition": 7756,
+    "files": [
+      {
+        "uri": "7756.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "💧",
+        "token": "Water",
+        "symbol": "WATER",
+        "rank": 23,
+        "rarity": "LEGENDARY",
+        "pixels": 38,
+        "where": "Zombie",
+        "mint": "HpCNsRRKs1fcsuQAsovJxyauM7Sv3PZkcHLGqUnaTRiX"
+      },
+      {
+        "emoji": "😂",
+        "token": "HWONDER",
+        "symbol": "HWONDER",
+        "rank": 27,
+        "rarity": "EPIC",
+        "pixels": 32,
+        "where": "Zombie",
+        "mint": "FMaRTyiKnS3HHqLBSzYGCbVdwZKiFBc2tGdBK9S8TRiX"
+      },
+      {
+        "emoji": "🚀",
+        "token": "TRIXI",
+        "symbol": "TRIXI",
+        "rank": 28,
+        "rarity": "EPIC",
+        "pixels": 1,
+        "where": "Zombie",
+        "mint": "BEpAZRaGwNra6aurVo97VNmm5pRwpkFtA6MeqzJATRiX"
+      },
+      {
+        "emoji": "😃",
+        "token": "TRIX",
+        "symbol": "TRIX",
+        "rank": 29,
+        "rarity": "EPIC",
+        "pixels": 6,
+        "where": "Zombie",
+        "mint": "BCYRQt1UtmUrgXmTyeedL5NAaDMje7mXq2gMsarNtrix"
+      },
+      {
+        "emoji": "😐",
+        "token": "Wojak",
+        "symbol": "WOJAK",
+        "rank": 30,
+        "rarity": "EPIC",
+        "pixels": 8,
+        "where": "Zombie",
+        "mint": "8Q7pydAvZSHYRJsDgzAVxvK8ju4sj8xb1d22Wgr1TRiX"
+      },
+      {
+        "emoji": "🫧",
+        "token": "Bubbles",
+        "symbol": "BUBS",
+        "rank": 31,
+        "rarity": "EPIC",
+        "pixels": 2,
+        "where": "Zombie",
+        "mint": "Ea97Fc17sZZrE8y8RYXjaVdXLbGJFNYRJa46tKWaTRiX"
+      },
+      {
+        "emoji": "🙁",
+        "token": "GEO CUCK",
+        "symbol": "GEOCUCK",
+        "rank": 128,
+        "rarity": "UNCOMMON",
+        "pixels": 32,
+        "where": "Do-rag",
+        "mint": "BKupCCMBWR8M5ycLyRZEoAvje73uoLSQCwPZH39mTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 67,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Do-rag",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐓",
+        "token": "PEPE",
+        "symbol": "PEPE",
+        "rank": 166,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Shadow Beard",
+        "mint": "BJj96imZGv4sTFgU8Br9soeTs22Fq5BSmpLs4dPcTRiX"
+      },
+      {
+        "emoji": "🐞",
+        "token": "Ziggy",
+        "symbol": "ZIGGY",
+        "rank": 176,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CmMZ4RNRZZBt1bfcxkYiXB3SXAWFucdFZcP1y5MCTRiX"
+      }
+    ]
+  }
+}

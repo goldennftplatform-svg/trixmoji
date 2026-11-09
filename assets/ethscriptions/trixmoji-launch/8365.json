@@ -1,0 +1,167 @@
+{
+  "name": "TRIXMOJI PHUNKS #8365",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #8365. Left-facing phunk. Type Female. Skin Dark. Hair/Hat Wild White Hair. Glasses 3D Glasses. In Mouth Cigarette. Tokens: 😹 FUNNY MONEY (MONEY, rank 119, 3D Glasses); 😺 Shit Coin (SHIT, rank 120, 3D Glasses); 😻 what (WHAT, rank 121, 3D Glasses); 📦 Black Box (BOX, rank 129, Black tiles); 🐅 GTA MONEY (MONEY, rank 152, Headband); 🐚 HALLUCINATE (RAVE, rank 172, Type: Human); 🐽 PACKS (PACKS, rank 208, Cigarette); 🐾 ROOSTER (ROOSTER, rank 209, Cigarette); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "8365.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Wild White Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "3D Glasses"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Cigarette"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😹 FUNNY MONEY · MONEY · rank 119 · 3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😺 Shit Coin · SHIT · rank 120 · 3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😻 what · WHAT · rank 121 · 3D Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐚 HALLUCINATE · RAVE · rank 172 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐽 PACKS · PACKS · rank 208 · Cigarette"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐾 ROOSTER · ROOSTER · rank 209 · Cigarette"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 8365,
+    "files": [
+      {
+        "uri": "8365.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😹",
+        "token": "FUNNY MONEY",
+        "symbol": "MONEY",
+        "rank": 119,
+        "rarity": "UNCOMMON",
+        "pixels": 26,
+        "where": "3D Glasses",
+        "mint": "HuEt5dcUpd12tCRMpFE7bjMPtS5ofvhHELbdUczeTRiX"
+      },
+      {
+        "emoji": "😺",
+        "token": "Shit Coin",
+        "symbol": "SHIT",
+        "rank": 120,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "3D Glasses",
+        "mint": "5AVhKEfbvxMUqVmcMtxT2Zn42PwYy3t9N5vUngZSTRiX"
+      },
+      {
+        "emoji": "😻",
+        "token": "what",
+        "symbol": "WHAT",
+        "rank": 121,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "3D Glasses",
+        "mint": "3ho3KkqYkANUKRUu4UxJ2ue56ZrSCzMX4XtrdC8jTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 81,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 43,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "🐚",
+        "token": "HALLUCINATE",
+        "symbol": "RAVE",
+        "rank": 172,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "D5zLvsT6HH6ywDJyg6gPhqSbHUL6njVe4T8RQnVBF61e"
+      },
+      {
+        "emoji": "🐽",
+        "token": "PACKS",
+        "symbol": "PACKS",
+        "rank": 208,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Cigarette",
+        "mint": "GujHKn811bShZXNYdxW7vBJisTQNTdiC9R56hdoeTRiX"
+      },
+      {
+        "emoji": "🐾",
+        "token": "ROOSTER",
+        "symbol": "ROOSTER",
+        "rank": 209,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Cigarette",
+        "mint": "7EypRJqVAfTyeVazAbqY2JEz8rcTnheTdVxvVBbw1aTJ"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 44,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

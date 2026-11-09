@@ -1,0 +1,143 @@
+{
+  "name": "TRIXMOJI PHUNKS #7789",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #7789. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Do-rag. Glasses Regular Shades. In Mouth Vape. Makeup Spots. Tokens: 👻 Soul (21G, rank 41, Spots); 🐇 WHITE (RABBIT, rank 117, Vape); 😸 Super Intelligent Retard (SIR, rank 118, Vape); 🙁 GEO CUCK (GEOCUCK, rank 128, Do-rag); 📦 Black Box (BOX, rank 129, Black tiles); 📦 Black Box (BOX, rank 129, Do-rag); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "7789.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Do-rag"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Regular Shades"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Vape"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Spots"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👻 Soul · 21G · rank 41 · Spots"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐇 WHITE · RABBIT · rank 117 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😸 Super Intelligent Retard · SIR · rank 118 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙁 GEO CUCK · GEOCUCK · rank 128 · Do-rag"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Do-rag"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 7789,
+    "files": [
+      {
+        "uri": "7789.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "👻",
+        "token": "Soul",
+        "symbol": "21G",
+        "rank": 41,
+        "rarity": "EPIC",
+        "pixels": 5,
+        "where": "Spots",
+        "mint": "CzxxLmNm6nBAt4nDsTuKJHnXFRr9wzxtJvRBRaZbTRiX"
+      },
+      {
+        "emoji": "🐇",
+        "token": "WHITE",
+        "symbol": "RABBIT",
+        "rank": 117,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Vape",
+        "mint": "6BMQaSmUco7Gj7fRe5KJWGSKvVFkHX5yYjfWov8dTRiX"
+      },
+      {
+        "emoji": "😸",
+        "token": "Super Intelligent Retard",
+        "symbol": "SIR",
+        "rank": 118,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Vape",
+        "mint": "4kBTPPBxpiDrZ4jKzhrVt3n9JQCUaZ4eJmRFisciTRiX"
+      },
+      {
+        "emoji": "🙁",
+        "token": "GEO CUCK",
+        "symbol": "GEOCUCK",
+        "rank": 128,
+        "rarity": "UNCOMMON",
+        "pixels": 32,
+        "where": "Do-rag",
+        "mint": "BKupCCMBWR8M5ycLyRZEoAvje73uoLSQCwPZH39mTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 89,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Do-rag",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 72,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

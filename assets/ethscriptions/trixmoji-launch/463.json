@@ -1,0 +1,163 @@
+{
+  "name": "TRIXMOJI PHUNKS #463",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #463. Left-facing phunk. Type Male. Skin Medium. Hair/Hat Bandana. In Mouth Vape. Tokens: 🐇 WHITE (RABBIT, rank 117, Vape); 😸 Super Intelligent Retard (SIR, rank 118, Vape); 📦 Black Box (BOX, rank 129, Black tiles); 🐍 Jimmy Eggar (JEGG, rank 161, Bandana); 🐎 VARIABLE-7 (UNKNOWN, rank 162, Bandana); 🐏 $Pepe Jean (PEPEJEAN, rank 163, Bandana); 👂 Imminent (NOT, rank 213, Type: Human); 🥇 D&D GP (GOLD, rank 215, Type: Human); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "463.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Bandana"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐇 WHITE · RABBIT · rank 117 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😸 Super Intelligent Retard · SIR · rank 118 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐍 Jimmy Eggar · JEGG · rank 161 · Bandana"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐎 VARIABLE-7 · UNKNOWN · rank 162 · Bandana"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐏 $Pepe Jean · PEPEJEAN · rank 163 · Bandana"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👂 Imminent · NOT · rank 213 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥇 D&D GP · GOLD · rank 215 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 463,
+    "files": [
+      {
+        "uri": "463.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🐇",
+        "token": "WHITE",
+        "symbol": "RABBIT",
+        "rank": 117,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Vape",
+        "mint": "6BMQaSmUco7Gj7fRe5KJWGSKvVFkHX5yYjfWov8dTRiX"
+      },
+      {
+        "emoji": "😸",
+        "token": "Super Intelligent Retard",
+        "symbol": "SIR",
+        "rank": 118,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Vape",
+        "mint": "4kBTPPBxpiDrZ4jKzhrVt3n9JQCUaZ4eJmRFisciTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 79,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐍",
+        "token": "Jimmy Eggar",
+        "symbol": "JEGG",
+        "rank": 161,
+        "rarity": "UNCOMMON",
+        "pixels": 9,
+        "where": "Bandana",
+        "mint": "6FvBQ23eGns2BwQdMQ87uybVCBGUThWr1sNCjrZZTRiX"
+      },
+      {
+        "emoji": "🐎",
+        "token": "VARIABLE-7",
+        "symbol": "UNKNOWN",
+        "rank": 162,
+        "rarity": "UNCOMMON",
+        "pixels": 21,
+        "where": "Bandana",
+        "mint": "G5qGhS58tDT33yjp1s2rKcUjtZ4jUPfpk8Z3dhV1TRiX"
+      },
+      {
+        "emoji": "🐏",
+        "token": "$Pepe Jean",
+        "symbol": "PEPEJEAN",
+        "rank": 163,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Bandana",
+        "mint": "EEJ3ZBD5EEqhhWTmEMZk4XvcwdoAQEXkRanix7QYTRiX"
+      },
+      {
+        "emoji": "👂",
+        "token": "Imminent",
+        "symbol": "NOT",
+        "rank": 213,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "9zuZLv8o3AKNFVUtLy7MYLUZk25py7H3JZz3aWYTTRiX"
+      },
+      {
+        "emoji": "🥇",
+        "token": "D&D GP",
+        "symbol": "GOLD",
+        "rank": 215,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "FioWU8Z8DVym8MfHmK2TiTHUV2AtABWeNiSMRKR6TRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 93,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

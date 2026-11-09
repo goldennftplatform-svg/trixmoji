@@ -1,0 +1,111 @@
+{
+  "name": "TRIXMOJI PHUNKS #6052",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6052. Left-facing phunk. Type Male. Skin Light. Hair/Hat Shaved Head. Glasses Small Shades. Jewelry Earring. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🦉 OWL (OWL, rank 132, Shaved Head); 🙃 Ray Liotta Laughing (RLL, rank 133, Shaved Head); 💚 BOONG (BOONG, rank 216, Earring); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6052.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Shaved Head"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Small Shades"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🦉 OWL · OWL · rank 132 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙃 Ray Liotta Laughing · RLL · rank 133 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💚 BOONG · BOONG · rank 216 · Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6052,
+    "files": [
+      {
+        "uri": "6052.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 75,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🦉",
+        "token": "OWL",
+        "symbol": "OWL",
+        "rank": 132,
+        "rarity": "UNCOMMON",
+        "pixels": 25,
+        "where": "Shaved Head",
+        "mint": "Amh4zw7oFxGhbCMAJw15cZDhndv2pJwFrgPgs6HbTRiX"
+      },
+      {
+        "emoji": "🙃",
+        "token": "Ray Liotta Laughing",
+        "symbol": "RLL",
+        "rank": 133,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Shaved Head",
+        "mint": "r6FMedKMD61UFFEjFK6WAwqgEUXpDTQQNXBhi8dTRiX"
+      },
+      {
+        "emoji": "💚",
+        "token": "BOONG",
+        "symbol": "BOONG",
+        "rank": 216,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Earring",
+        "mint": "7YLRX41UChaCmh1jRHuKNzkU1cXmG9wesBbDwkG6TRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 90,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

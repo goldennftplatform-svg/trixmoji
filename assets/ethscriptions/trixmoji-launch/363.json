@@ -1,0 +1,139 @@
+{
+  "name": "TRIXMOJI PHUNKS #363",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #363. Left-facing phunk. Type Male. Skin Albino. Hair/Hat Cowboy Hat. Glasses Nerd Glasses. Facial Hair Shadow Beard. Tokens: 😏 Golden Ticket (GLDN, rank 67, Cowboy Hat); 🐂 Ox Alpha (OXALPHA, rank 68, Cowboy Hat); 📦 Black Box (BOX, rank 129, Black tiles); 🐓 PEPE (PEPE, rank 166, Shadow Beard); 🐘 Godfather of ai (GEOFF, rank 170, Shadow Beard); 🌊 The Heart of The Ocean (HOO, rank 193, Nerd Glasses); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "363.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Cowboy Hat"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Nerd Glasses"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😏 Golden Ticket · GLDN · rank 67 · Cowboy Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐂 Ox Alpha · OXALPHA · rank 68 · Cowboy Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐓 PEPE · PEPE · rank 166 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐘 Godfather of ai · GEOFF · rank 170 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🌊 The Heart of The Ocean · HOO · rank 193 · Nerd Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 363,
+    "files": [
+      {
+        "uri": "363.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😏",
+        "token": "Golden Ticket",
+        "symbol": "GLDN",
+        "rank": 67,
+        "rarity": "RARE",
+        "pixels": 40,
+        "where": "Cowboy Hat",
+        "mint": "7x8JuUbckpopANamYPfoh4wz5YmW2AFYTZyQ5fscTRiX"
+      },
+      {
+        "emoji": "🐂",
+        "token": "Ox Alpha",
+        "symbol": "OXALPHA",
+        "rank": 68,
+        "rarity": "RARE",
+        "pixels": 9,
+        "where": "Cowboy Hat",
+        "mint": "8muaWVTWbJUL3c3aAZmW6vmpA1qKzcVF3hAqL8aPTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 91,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐓",
+        "token": "PEPE",
+        "symbol": "PEPE",
+        "rank": 166,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Shadow Beard",
+        "mint": "BJj96imZGv4sTFgU8Br9soeTs22Fq5BSmpLs4dPcTRiX"
+      },
+      {
+        "emoji": "🐘",
+        "token": "Godfather of ai",
+        "symbol": "GEOFF",
+        "rank": 170,
+        "rarity": "UNCOMMON",
+        "pixels": 33,
+        "where": "Shadow Beard",
+        "mint": "8m8VRMpY2baqXid5QxhPUC3sCYYb5EihBuqPkfDATRiX"
+      },
+      {
+        "emoji": "🌊",
+        "token": "The Heart of The Ocean",
+        "symbol": "HOO",
+        "rank": 193,
+        "rarity": "UNCOMMON",
+        "pixels": 8,
+        "where": "Nerd Glasses",
+        "mint": "0x3Ba84f6f5427624b30D05E94D3D7390dEAE121Df"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 38,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

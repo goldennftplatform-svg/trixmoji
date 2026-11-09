@@ -1,0 +1,135 @@
+{
+  "name": "TRIXMOJI PHUNKS #6719",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #6719. Left-facing phunk. Type Male. Skin Dark. Hair/Hat Cowboy Hat. Facial Hair Goat. Tokens: 😏 Golden Ticket (GLDN, rank 67, Cowboy Hat); 🐂 Ox Alpha (OXALPHA, rank 68, Cowboy Hat); 📦 Black Box (BOX, rank 129, Black tiles); 👨 $COOK (COOK, rank 211, Type: Human); 🐿 SLOP (SLOP, rank 212, Type: Human); 👄 HUSHI (HUSH, rank 217, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "6719.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Cowboy Hat"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Goat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😏 Golden Ticket · GLDN · rank 67 · Cowboy Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐂 Ox Alpha · OXALPHA · rank 68 · Cowboy Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👨 $COOK · COOK · rank 211 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐿 SLOP · SLOP · rank 212 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 6719,
+    "files": [
+      {
+        "uri": "6719.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😏",
+        "token": "Golden Ticket",
+        "symbol": "GLDN",
+        "rank": 67,
+        "rarity": "RARE",
+        "pixels": 40,
+        "where": "Cowboy Hat",
+        "mint": "7x8JuUbckpopANamYPfoh4wz5YmW2AFYTZyQ5fscTRiX"
+      },
+      {
+        "emoji": "🐂",
+        "token": "Ox Alpha",
+        "symbol": "OXALPHA",
+        "rank": 68,
+        "rarity": "RARE",
+        "pixels": 9,
+        "where": "Cowboy Hat",
+        "mint": "8muaWVTWbJUL3c3aAZmW6vmpA1qKzcVF3hAqL8aPTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 74,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👨",
+        "token": "$COOK",
+        "symbol": "COOK",
+        "rank": 211,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "5xbuGdFCSXpW1zkGEiK3FKFDLioZ8tzsA2WosKATRiX"
+      },
+      {
+        "emoji": "🐿",
+        "token": "SLOP",
+        "symbol": "SLOP",
+        "rank": 212,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "Gtn1kxqdPMkjjpcj2Ch3n4t2VJ2mxpBRVHHYe7WYTRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 90,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 7,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

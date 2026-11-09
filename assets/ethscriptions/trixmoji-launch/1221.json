@@ -1,0 +1,117 @@
+{
+  "name": "TRIXMOJI PHUNKS #1221",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #1221. Left-facing phunk. Type Male. Skin Light. Hair/Hat Cowboy Hat. Tokens: 😏 Golden Ticket (GLDN, rank 67, Cowboy Hat); 🐂 Ox Alpha (OXALPHA, rank 68, Cowboy Hat); 📦 Black Box (BOX, rank 129, Black tiles); 👃 fiDaars (FIDAARS, rank 214, Type: Human); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "1221.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Cowboy Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😏 Golden Ticket · GLDN · rank 67 · Cowboy Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐂 Ox Alpha · OXALPHA · rank 68 · Cowboy Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👃 fiDaars · FIDAARS · rank 214 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 1221,
+    "files": [
+      {
+        "uri": "1221.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😏",
+        "token": "Golden Ticket",
+        "symbol": "GLDN",
+        "rank": 67,
+        "rarity": "RARE",
+        "pixels": 40,
+        "where": "Cowboy Hat",
+        "mint": "7x8JuUbckpopANamYPfoh4wz5YmW2AFYTZyQ5fscTRiX"
+      },
+      {
+        "emoji": "🐂",
+        "token": "Ox Alpha",
+        "symbol": "OXALPHA",
+        "rank": 68,
+        "rarity": "RARE",
+        "pixels": 9,
+        "where": "Cowboy Hat",
+        "mint": "8muaWVTWbJUL3c3aAZmW6vmpA1qKzcVF3hAqL8aPTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 74,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👃",
+        "token": "fiDaars",
+        "symbol": "FIDAARS",
+        "rank": 214,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "JCNh8yuohBSvkBj36FEQMCkB63zexQcUoNx55TURTRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 93,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "name": "TRIXMOJI PHUNKS #5787",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5787. Left-facing phunk. Type Female. Skin Medium. Hair/Hat Tiara. Glasses Purple Eye Shadow. Mouth Black Lipstick. Neck Choker. Tokens: 😁 JANGUS (JANGUS, rank 16, Tiara); 🪙 BIT COIN (BIT, rank 17, Tiara); 😣 Nostril Giggle Seraph (SNORT, rank 92, Purple Eye Shadow); 😥 ATTENTION (ATTN, rank 93, Purple Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 🐺 Nickel Metal Hydride (NIMH, rank 204, Type: Human); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5787.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Tiara"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Purple Eye Shadow"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Black Lipstick"
+    },
+    {
+      "trait_type": "Neck",
+      "value": "Choker"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😁 JANGUS · JANGUS · rank 16 · Tiara"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🪙 BIT COIN · BIT · rank 17 · Tiara"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😣 Nostril Giggle Seraph · SNORT · rank 92 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😥 ATTENTION · ATTN · rank 93 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐺 Nickel Metal Hydride · NIMH · rank 204 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 5787,
+    "files": [
+      {
+        "uri": "5787.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😁",
+        "token": "JANGUS",
+        "symbol": "JANGUS",
+        "rank": 16,
+        "rarity": "LEGENDARY",
+        "pixels": 9,
+        "where": "Tiara",
+        "mint": "FGjRq553fHYnXy7gHf4k76UWiuAtCMHcVYRNcsyETRiX"
+      },
+      {
+        "emoji": "🪙",
+        "token": "BIT COIN",
+        "symbol": "BIT",
+        "rank": 17,
+        "rarity": "LEGENDARY",
+        "pixels": 1,
+        "where": "Tiara",
+        "mint": "LnGbUSf4JeKmWhjvuXQaAzsXb44mu8p2xEgCppsTRiX"
+      },
+      {
+        "emoji": "😣",
+        "token": "Nostril Giggle Seraph",
+        "symbol": "SNORT",
+        "rank": 92,
+        "rarity": "RARE",
+        "pixels": 4,
+        "where": "Purple Eye Shadow",
+        "mint": "7wV7AnXwXLhPzZwK1Suwm1r3viyaQ5EFnu3f7CRLTRiX"
+      },
+      {
+        "emoji": "😥",
+        "token": "ATTENTION",
+        "symbol": "ATTN",
+        "rank": 93,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Purple Eye Shadow",
+        "mint": "2iTqkrfF9D9sgW1fXb2GGP9VxyuQhvAZUXPnqQkLTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 56,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐺",
+        "token": "Nickel Metal Hydride",
+        "symbol": "NIMH",
+        "rank": 204,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Type: Human",
+        "mint": "EGC52THyatGsVZJy3xyFEiZT7U92vz12p2KPmVzTTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 75,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

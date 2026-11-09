@@ -1,0 +1,125 @@
+{
+  "name": "TRIXMOJI PHUNKS #778",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #778. Left-facing phunk. Type Female. Skin Albino. Hair/Hat Clown Hair Green. Glasses Blue Eye Shadow. Mouth Purple Lipstick. Tokens: 😭 PONDWATER (WATER, rank 107, Blue Eye Shadow); 😮 APU (APU, rank 108, Blue Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 🙎 AIR (AIR, rank 146, Clown Eyes Green); 🐵 Trollge (TROLLGE, rank 201, Purple Lipstick); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "778.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Clown Hair Green"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Blue Eye Shadow"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Purple Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😭 PONDWATER · WATER · rank 107 · Blue Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😮 APU · APU · rank 108 · Blue Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙎 AIR · AIR · rank 146 · Clown Eyes Green"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐵 Trollge · TROLLGE · rank 201 · Purple Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 778,
+    "files": [
+      {
+        "uri": "778.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😭",
+        "token": "PONDWATER",
+        "symbol": "WATER",
+        "rank": 107,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Blue Eye Shadow",
+        "mint": "6xXbswAypi2GBjxre6sj6cEKGMXm951SjPWRMNHiTRiX"
+      },
+      {
+        "emoji": "😮",
+        "token": "APU",
+        "symbol": "APU",
+        "rank": 108,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Blue Eye Shadow",
+        "mint": "2RwNesZTFoTFLtbmowgteiaXKBMhN8ZePNQKgXc3TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 68,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙎",
+        "token": "AIR",
+        "symbol": "AIR",
+        "rank": 146,
+        "rarity": "UNCOMMON",
+        "pixels": 80,
+        "where": "Clown Eyes Green",
+        "mint": "3F1CXHWcjjG2iDFyzSixoRDZqPqYCU9s82fEfh1dTRiX"
+      },
+      {
+        "emoji": "🐵",
+        "token": "Trollge",
+        "symbol": "TROLLGE",
+        "rank": 201,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Purple Lipstick",
+        "mint": "EgJYqs33bm76zQw7xvCMvD1YBprSSaqWXFLaxtwcTRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 81,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "name": "TRIXMOJI PHUNKS #7530",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #7530. Left-facing phunk. Type Female. Skin Medium. Hair/Hat Knitted Cap. Glasses Purple Eye Shadow. Neck Gold Chain. Tokens: 🧠 Dopamine (DOPAMINE, rank 77, Gold Chain); 😣 Nostril Giggle Seraph (SNORT, rank 92, Purple Eye Shadow); 😥 ATTENTION (ATTN, rank 93, Purple Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 🐉 Bitcoin (BTC, rank 156, Knitted Cap); 🐊 PORKTARDS (PTARD, rank 157, Knitted Cap); 🐬 BROSSAD (BROSSAD, rank 192, Type: Human); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "7530.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Knitted Cap"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Purple Eye Shadow"
+    },
+    {
+      "trait_type": "Neck",
+      "value": "Gold Chain"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🧠 Dopamine · DOPAMINE · rank 77 · Gold Chain"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😣 Nostril Giggle Seraph · SNORT · rank 92 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😥 ATTENTION · ATTN · rank 93 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐉 Bitcoin · BTC · rank 156 · Knitted Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐊 PORKTARDS · PTARD · rank 157 · Knitted Cap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐬 BROSSAD · BROSSAD · rank 192 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 7530,
+    "files": [
+      {
+        "uri": "7530.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🧠",
+        "token": "Dopamine",
+        "symbol": "DOPAMINE",
+        "rank": 77,
+        "rarity": "RARE",
+        "pixels": 3,
+        "where": "Gold Chain",
+        "mint": "2NuKx5fw4zvAuVGn4jhM3B38PCow8DuNsyAaV1WKTRiX"
+      },
+      {
+        "emoji": "😣",
+        "token": "Nostril Giggle Seraph",
+        "symbol": "SNORT",
+        "rank": 92,
+        "rarity": "RARE",
+        "pixels": 4,
+        "where": "Purple Eye Shadow",
+        "mint": "7wV7AnXwXLhPzZwK1Suwm1r3viyaQ5EFnu3f7CRLTRiX"
+      },
+      {
+        "emoji": "😥",
+        "token": "ATTENTION",
+        "symbol": "ATTN",
+        "rank": 93,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Purple Eye Shadow",
+        "mint": "2iTqkrfF9D9sgW1fXb2GGP9VxyuQhvAZUXPnqQkLTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 52,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐉",
+        "token": "Bitcoin",
+        "symbol": "BTC",
+        "rank": 156,
+        "rarity": "UNCOMMON",
+        "pixels": 19,
+        "where": "Knitted Cap",
+        "mint": "FvsKtnUgj8yL3pSHDYWdn63QK177vAgyAvhybrTYTRiX"
+      },
+      {
+        "emoji": "🐊",
+        "token": "PORKTARDS",
+        "symbol": "PTARD",
+        "rank": 157,
+        "rarity": "UNCOMMON",
+        "pixels": 15,
+        "where": "Knitted Cap",
+        "mint": "7sjchnFFTf7e7S8xigwpUXtHvnkx5z3aQhXir4ULTRiX"
+      },
+      {
+        "emoji": "🐬",
+        "token": "BROSSAD",
+        "symbol": "BROSSAD",
+        "rank": 192,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "CFJktPm2FZ7SiCLWYRbNiFrhumAgVXZvFrpTCWsRTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 74,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

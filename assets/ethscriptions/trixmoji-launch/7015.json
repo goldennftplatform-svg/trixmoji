@@ -1,0 +1,161 @@
+{
+  "name": "TRIXMOJI PHUNKS #7015",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #7015. Left-facing phunk. Type Female. Skin Dark. Hair/Hat Tassle Hat. Glasses Blue Eye Shadow. Mouth Black Lipstick. In Mouth Vape. Jewelry Earring. Tokens: 😙 GIGA Token (GIGA, rank 81, Tassle Hat); 😚 Phunks In Control (PIC, rank 82, Tassle Hat); 🔥 CHEF (CHEF, rank 105, Blue Eye Shadow); 🥣 Meme Mafia (ZITI, rank 106, Blue Eye Shadow); 🐇 WHITE (RABBIT, rank 117, Vape); 😸 Super Intelligent Retard (SIR, rank 118, Vape); 📦 Black Box (BOX, rank 129, Black tiles); 👄 HUSHI (HUSH, rank 217, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "7015.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Dark"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Tassle Hat"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Blue Eye Shadow"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Black Lipstick"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Vape"
+    },
+    {
+      "trait_type": "Jewelry",
+      "value": "Earring"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😙 GIGA Token · GIGA · rank 81 · Tassle Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😚 Phunks In Control · PIC · rank 82 · Tassle Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🔥 CHEF · CHEF · rank 105 · Blue Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥣 Meme Mafia · ZITI · rank 106 · Blue Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐇 WHITE · RABBIT · rank 117 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😸 Super Intelligent Retard · SIR · rank 118 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👄 HUSHI · HUSH · rank 217 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 7015,
+    "files": [
+      {
+        "uri": "7015.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😙",
+        "token": "GIGA Token",
+        "symbol": "GIGA",
+        "rank": 81,
+        "rarity": "RARE",
+        "pixels": 47,
+        "where": "Tassle Hat",
+        "mint": "H9MRNbe657p1Dk8SPRUBw96r7ZJt2PePGmtCs8bnTRiX"
+      },
+      {
+        "emoji": "😚",
+        "token": "Phunks In Control",
+        "symbol": "PIC",
+        "rank": 82,
+        "rarity": "RARE",
+        "pixels": 18,
+        "where": "Tassle Hat",
+        "mint": "DimimUjwBni1rMAx6Z7auuMQJKkdxNAJpxyQi9trTRiX"
+      },
+      {
+        "emoji": "🔥",
+        "token": "CHEF",
+        "symbol": "CHEF",
+        "rank": 105,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Blue Eye Shadow",
+        "mint": "Hvi4BUoAwdiefLde9DFseAsE8hz8ndjPQPTYrMePTRiX"
+      },
+      {
+        "emoji": "🥣",
+        "token": "Meme Mafia",
+        "symbol": "ZITI",
+        "rank": 106,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Blue Eye Shadow",
+        "mint": "F9A5v1AdWPrBfqdszaYgGiegbxD5gSPuhfvLhPYiTRiX"
+      },
+      {
+        "emoji": "🐇",
+        "token": "WHITE",
+        "symbol": "RABBIT",
+        "rank": 117,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Vape",
+        "mint": "6BMQaSmUco7Gj7fRe5KJWGSKvVFkHX5yYjfWov8dTRiX"
+      },
+      {
+        "emoji": "😸",
+        "token": "Super Intelligent Retard",
+        "symbol": "SIR",
+        "rank": 118,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Vape",
+        "mint": "4kBTPPBxpiDrZ4jKzhrVt3n9JQCUaZ4eJmRFisciTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 74,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👄",
+        "token": "HUSHI",
+        "symbol": "HUSH",
+        "rank": 217,
+        "rarity": "UNCOMMON",
+        "pixels": 68,
+        "where": "Type: Human",
+        "mint": "CRWAs5QjQp1PCMSBp42Chg1yjpdbEbZQ7pkUetbHTRiX"
+      }
+    ]
+  }
+}

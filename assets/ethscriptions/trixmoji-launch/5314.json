@@ -1,0 +1,159 @@
+{
+  "name": "TRIXMOJI PHUNKS #5314",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5314. Left-facing phunk. Type Ape. Hair/Hat Do-rag. Glasses Horned Rim Glasses. Tokens: ⬛ VOID (VOID, rank 4, Ape); 🕴️ MICHAEL SELLER (SELLER, rank 5, Ape); 😤 Copeman (COPE, rank 8, Ape); 🧑 JohnnyK (JOHN, rank 9, Ape); 🐸 Pepe (PEPE, rank 10, Ape); 🙁 GEO CUCK (GEOCUCK, rank 128, Do-rag); 📦 Black Box (BOX, rank 129, Black tiles); 📦 Black Box (BOX, rank 129, Do-rag); 🐞 Ziggy (ZIGGY, rank 176, Horned Rim Glasses). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5314.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Ape"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Do-rag"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "⬛ VOID · VOID · rank 4 · Ape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🕴️ MICHAEL SELLER · SELLER · rank 5 · Ape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😤 Copeman · COPE · rank 8 · Ape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🧑 JohnnyK · JOHN · rank 9 · Ape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐸 Pepe · PEPE · rank 10 · Ape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙁 GEO CUCK · GEOCUCK · rank 128 · Do-rag"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Do-rag"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐞 Ziggy · ZIGGY · rank 176 · Horned Rim Glasses"
+    }
+  ],
+  "properties": {
+    "edition": 5314,
+    "files": [
+      {
+        "uri": "5314.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "⬛",
+        "token": "VOID",
+        "symbol": "VOID",
+        "rank": 4,
+        "rarity": "RAREST",
+        "pixels": 43,
+        "where": "Ape",
+        "mint": "74nSAMYRsm3MZLqVXcoZoUFsjiqKZhAJCqttHVycTRiX"
+      },
+      {
+        "emoji": "🕴️",
+        "token": "MICHAEL SELLER",
+        "symbol": "SELLER",
+        "rank": 5,
+        "rarity": "RAREST",
+        "pixels": 23,
+        "where": "Ape",
+        "mint": "9mBEqBs2xMBkeTpUUeYFqRtnHGSkEmHz73zR5m74TRiX"
+      },
+      {
+        "emoji": "😤",
+        "token": "Copeman",
+        "symbol": "COPE",
+        "rank": 8,
+        "rarity": "RAREST",
+        "pixels": 4,
+        "where": "Ape",
+        "mint": "393hvaznatMETgsCn6pzzvVBFresjF1CEiYCQDdrTRiX"
+      },
+      {
+        "emoji": "🧑",
+        "token": "JohnnyK",
+        "symbol": "JOHN",
+        "rank": 9,
+        "rarity": "RAREST",
+        "pixels": 10,
+        "where": "Ape",
+        "mint": "6QRMJrsSJidbAE3quixVGRWTPKzzXUxW7kLXbyTtTRiX"
+      },
+      {
+        "emoji": "🐸",
+        "token": "Pepe",
+        "symbol": "PEPE",
+        "rank": 10,
+        "rarity": "RAREST",
+        "pixels": 2,
+        "where": "Ape",
+        "mint": "FTaTkkxXyJ9Ffr9PRYC1wYCFmYv8TG6gEqvxkV7KTRiX"
+      },
+      {
+        "emoji": "🙁",
+        "token": "GEO CUCK",
+        "symbol": "GEOCUCK",
+        "rank": 128,
+        "rarity": "UNCOMMON",
+        "pixels": 32,
+        "where": "Do-rag",
+        "mint": "BKupCCMBWR8M5ycLyRZEoAvje73uoLSQCwPZH39mTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 75,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Do-rag",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐞",
+        "token": "Ziggy",
+        "symbol": "ZIGGY",
+        "rank": 176,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CmMZ4RNRZZBt1bfcxkYiXB3SXAWFucdFZcP1y5MCTRiX"
+      }
+    ]
+  }
+}

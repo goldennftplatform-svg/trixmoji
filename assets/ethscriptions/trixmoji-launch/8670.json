@@ -1,0 +1,143 @@
+{
+  "name": "TRIXMOJI PHUNKS #8670",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #8670. Left-facing phunk. Type Female. Skin Medium. Hair/Hat Straight Hair Blonde. Glasses Green Eye Shadow. Mouth Purple Lipstick. Neck Silver Chain. Tokens: 😑 DONG (DONG, rank 71, Blonde Bob); 😕 Pauly Exclusion Principle (PEP, rank 75, Silver Chain); 😯 Pauly0x (HIM, rank 109, Green Eye Shadow); 😲 MEME (MEME, rank 110, Green Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 🐵 Trollge (TROLLGE, rank 201, Purple Lipstick); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "8670.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Straight Hair Blonde"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Green Eye Shadow"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Purple Lipstick"
+    },
+    {
+      "trait_type": "Neck",
+      "value": "Silver Chain"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😑 DONG · DONG · rank 71 · Blonde Bob"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😕 Pauly Exclusion Principle · PEP · rank 75 · Silver Chain"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😯 Pauly0x · HIM · rank 109 · Green Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😲 MEME · MEME · rank 110 · Green Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐵 Trollge · TROLLGE · rank 201 · Purple Lipstick"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 8670,
+    "files": [
+      {
+        "uri": "8670.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😑",
+        "token": "DONG",
+        "symbol": "DONG",
+        "rank": 71,
+        "rarity": "RARE",
+        "pixels": 43,
+        "where": "Blonde Bob",
+        "mint": "Bj5CownyhcGFHa8f2m1W7vx7cRkUFVpxNc9HrSoBTRiX"
+      },
+      {
+        "emoji": "😕",
+        "token": "Pauly Exclusion Principle",
+        "symbol": "PEP",
+        "rank": 75,
+        "rarity": "RARE",
+        "pixels": 3,
+        "where": "Silver Chain",
+        "mint": "BfRvt3Tc9YNkocnJrBaERvBhirzfkLwenAvm4rRaTRiX"
+      },
+      {
+        "emoji": "😯",
+        "token": "Pauly0x",
+        "symbol": "HIM",
+        "rank": 109,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Green Eye Shadow",
+        "mint": "G27sh44zUagSsk9jhaKQuwWBXT33TNsdL4iVVNskTRiX"
+      },
+      {
+        "emoji": "😲",
+        "token": "MEME",
+        "symbol": "MEME",
+        "rank": 110,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Green Eye Shadow",
+        "mint": "H7HKJD9TMs8UN6B1C1jh4jxgRk1bKUZe4i5XePFQtrix"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 59,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐵",
+        "token": "Trollge",
+        "symbol": "TROLLGE",
+        "rank": 201,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Purple Lipstick",
+        "mint": "EgJYqs33bm76zQw7xvCMvD1YBprSSaqWXFLaxtwcTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 67,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

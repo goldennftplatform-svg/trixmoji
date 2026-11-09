@@ -1,0 +1,181 @@
+{
+  "name": "TRIXMOJI PHUNKS #7798",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #7798. Left-facing phunk. Type Female. Skin Medium. Hair/Hat Tassle Hat. Glasses Blue Eye Shadow. In Mouth Pipe. Tokens: 😙 GIGA Token (GIGA, rank 81, Tassle Hat); 😚 Phunks In Control (PIC, rank 82, Tassle Hat); 😫 Cosmic Flex (CFLEX, rank 101, Blue Eye Shadow); 😬 JIMOTHY (JIM, rank 102, Blue Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 🙇 pond (POND, rank 138, Pipe); 🥛 Memetic Milk (MILK, rank 139, Pipe); 🙉 69420 (69420, rank 140, Pipe); 🐬 BROSSAD (BROSSAD, rank 192, Type: Human); 👆 MOO (COW, rank 219, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "7798.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Tassle Hat"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Blue Eye Shadow"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😙 GIGA Token · GIGA · rank 81 · Tassle Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😚 Phunks In Control · PIC · rank 82 · Tassle Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😫 Cosmic Flex · CFLEX · rank 101 · Blue Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😬 JIMOTHY · JIM · rank 102 · Blue Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙇 pond · POND · rank 138 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🥛 Memetic Milk · MILK · rank 139 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙉 69420 · 69420 · rank 140 · Pipe"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐬 BROSSAD · BROSSAD · rank 192 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 7798,
+    "files": [
+      {
+        "uri": "7798.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😙",
+        "token": "GIGA Token",
+        "symbol": "GIGA",
+        "rank": 81,
+        "rarity": "RARE",
+        "pixels": 50,
+        "where": "Tassle Hat",
+        "mint": "H9MRNbe657p1Dk8SPRUBw96r7ZJt2PePGmtCs8bnTRiX"
+      },
+      {
+        "emoji": "😚",
+        "token": "Phunks In Control",
+        "symbol": "PIC",
+        "rank": 82,
+        "rarity": "RARE",
+        "pixels": 18,
+        "where": "Tassle Hat",
+        "mint": "DimimUjwBni1rMAx6Z7auuMQJKkdxNAJpxyQi9trTRiX"
+      },
+      {
+        "emoji": "😫",
+        "token": "Cosmic Flex",
+        "symbol": "CFLEX",
+        "rank": 101,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Blue Eye Shadow",
+        "mint": "3nUDxGyHY8hkKYq69oY6T1jRc3bGVE5RUDPo1iFXTRiX"
+      },
+      {
+        "emoji": "😬",
+        "token": "JIMOTHY",
+        "symbol": "JIM",
+        "rank": 102,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Blue Eye Shadow",
+        "mint": "2RGfkLxVN8KTXVEXLoSXC21PEF8kyP8ke5UZ1KviTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 84,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🙇",
+        "token": "pond",
+        "symbol": "POND",
+        "rank": 138,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Pipe",
+        "mint": "6vdYTi2fb11rS97JZTHRhthbckUnMpco4FP9PK8vTRiX"
+      },
+      {
+        "emoji": "🥛",
+        "token": "Memetic Milk",
+        "symbol": "MILK",
+        "rank": 139,
+        "rarity": "UNCOMMON",
+        "pixels": 10,
+        "where": "Pipe",
+        "mint": "G4mqFjqSdexj2YLTtjtjKYSvX2mZbNLWfHV3CE3JTRiX"
+      },
+      {
+        "emoji": "🙉",
+        "token": "69420",
+        "symbol": "69420",
+        "rank": 140,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Pipe",
+        "mint": "3mvjSowJctaHr8r8pu9DhXf4nxpDyy47PHcMxqecTRiX"
+      },
+      {
+        "emoji": "🐬",
+        "token": "BROSSAD",
+        "symbol": "BROSSAD",
+        "rank": 192,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "CFJktPm2FZ7SiCLWYRbNiFrhumAgVXZvFrpTCWsRTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 70,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      }
+    ]
+  }
+}

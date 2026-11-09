@@ -1,0 +1,121 @@
+{
+  "name": "TRIXMOJI PHUNKS #2891",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #2891. Left-facing phunk. Type Female. Skin Albino. Hair/Hat Tiara. Glasses Regular Shades. Tokens: 😁 JANGUS (JANGUS, rank 16, Tiara); 🪙 BIT COIN (BIT, rank 17, Tiara); 📦 Black Box (BOX, rank 129, Black tiles); 🐅 GTA MONEY (MONEY, rank 152, Headband); 👮 Copzy (COPZ, rank 205, Type: Human); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "2891.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Tiara"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Regular Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😁 JANGUS · JANGUS · rank 16 · Tiara"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🪙 BIT COIN · BIT · rank 17 · Tiara"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👮 Copzy · COPZ · rank 205 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 2891,
+    "files": [
+      {
+        "uri": "2891.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😁",
+        "token": "JANGUS",
+        "symbol": "JANGUS",
+        "rank": 16,
+        "rarity": "LEGENDARY",
+        "pixels": 8,
+        "where": "Tiara",
+        "mint": "FGjRq553fHYnXy7gHf4k76UWiuAtCMHcVYRNcsyETRiX"
+      },
+      {
+        "emoji": "🪙",
+        "token": "BIT COIN",
+        "symbol": "BIT",
+        "rank": 17,
+        "rarity": "LEGENDARY",
+        "pixels": 1,
+        "where": "Tiara",
+        "mint": "LnGbUSf4JeKmWhjvuXQaAzsXb44mu8p2xEgCppsTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 66,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "👮",
+        "token": "Copzy",
+        "symbol": "COPZ",
+        "rank": 205,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "8YgbTPPcic2wdQEqe7vtW1wSJVi69VpSNxwnsxYgTRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 70,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

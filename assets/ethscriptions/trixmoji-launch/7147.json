@@ -1,0 +1,135 @@
+{
+  "name": "TRIXMOJI PHUNKS #7147",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #7147. Left-facing phunk. Type Male. Skin Albino. Hair/Hat Shaved Head. Facial Hair Mustache. Tokens: 😿 ALPHAX (ALPHAX, rank 126, Mustache); 📦 Black Box (BOX, rank 129, Black tiles); 👁 Super intelligence (SI, rank 136, Shaved Head); 🙆 FUD (FUD, rank 137, Shaved Head); 🐪 Dick in a Box (DIAB, rank 190, Type: Human); 🐫 Timing is Perfection (TIP, rank 191, Type: Human); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "7147.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Shaved Head"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Mustache"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😿 ALPHAX · ALPHAX · rank 126 · Mustache"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👁 Super intelligence · SI · rank 136 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙆 FUD · FUD · rank 137 · Shaved Head"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐪 Dick in a Box · DIAB · rank 190 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐫 Timing is Perfection · TIP · rank 191 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 7147,
+    "files": [
+      {
+        "uri": "7147.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😿",
+        "token": "ALPHAX",
+        "symbol": "ALPHAX",
+        "rank": 126,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Mustache",
+        "mint": "DfuuVk6insMhPekgC7zgDaGSb32dAZrd1Ac4QXn1TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 58,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👁",
+        "token": "Super intelligence",
+        "symbol": "SI",
+        "rank": 136,
+        "rarity": "UNCOMMON",
+        "pixels": 25,
+        "where": "Shaved Head",
+        "mint": "HTz6PXaKWoALn3KnvLWuQr7EJUBdqKziMo9N7yCXTRiX"
+      },
+      {
+        "emoji": "🙆",
+        "token": "FUD",
+        "symbol": "FUD",
+        "rank": 137,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Shaved Head",
+        "mint": "BJSsfmtb4dPUg1z9QtpEMzKxe1dp7Ube8PXorNw1TRiX"
+      },
+      {
+        "emoji": "🐪",
+        "token": "Dick in a Box",
+        "symbol": "DIAB",
+        "rank": 190,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "26y4fu6LWD4Y1mmgTdJ58gruawXxirR86J2ojU1zTRiX"
+      },
+      {
+        "emoji": "🐫",
+        "token": "Timing is Perfection",
+        "symbol": "TIP",
+        "rank": 191,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "6QadgRGYRCB5dbCjJDbt3jwcsHQRqFB7hNbF74uJTRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 95,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      }
+    ]
+  }
+}

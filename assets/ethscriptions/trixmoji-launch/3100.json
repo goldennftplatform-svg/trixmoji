@@ -1,0 +1,113 @@
+{
+  "name": "TRIXMOJI PHUNKS #3100",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #3100. Left-facing phunk. Type Alien. Hair/Hat Headband. Tokens: 🪠 Crack On Sol (CRACK, rank 1, Alien); ❤️ Your Moms (MOMS, rank 2, Alien); ♾️ Hold On Eternally (HOE, rank 3, Alien); 📦 Black Box (BOX, rank 129, Black tiles); 🐅 GTA MONEY (MONEY, rank 152, Headband); 🐆 RED (RED, rank 153, Headband). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "3100.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Alien"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🪠 Crack On Sol · CRACK · rank 1 · Alien"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "❤️ Your Moms · MOMS · rank 2 · Alien"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "♾️ Hold On Eternally · HOE · rank 3 · Alien"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐅 GTA MONEY · MONEY · rank 152 · Headband"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐆 RED · RED · rank 153 · Headband"
+    }
+  ],
+  "properties": {
+    "edition": 3100,
+    "files": [
+      {
+        "uri": "3100.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🪠",
+        "token": "Crack On Sol",
+        "symbol": "CRACK",
+        "rank": 1,
+        "rarity": "RAREST",
+        "pixels": 106,
+        "where": "Alien",
+        "mint": "9x9MKbh5pq8fsTAH6fpSi17UuBgGNAVJPwMYTyXLTRiX"
+      },
+      {
+        "emoji": "❤️",
+        "token": "Your Moms",
+        "symbol": "MOMS",
+        "rank": 2,
+        "rarity": "RAREST",
+        "pixels": 6,
+        "where": "Alien",
+        "mint": "HDYP5e1dUM3zjqw3tQvDHDxtt6CKxkgyEN3NdNcXTRiX"
+      },
+      {
+        "emoji": "♾️",
+        "token": "Hold On Eternally",
+        "symbol": "HOE",
+        "rank": 3,
+        "rarity": "RAREST",
+        "pixels": 2,
+        "where": "Alien",
+        "mint": "FYhtoxpaaRXVubqjuijhbNmTc9bUuXr7LVYeaTZQTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 61,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐅",
+        "token": "GTA MONEY",
+        "symbol": "MONEY",
+        "rank": 152,
+        "rarity": "UNCOMMON",
+        "pixels": 9,
+        "where": "Headband",
+        "mint": "0x2fb7085Ec82fa6181DD6CB7d77168b079BE64397"
+      },
+      {
+        "emoji": "🐆",
+        "token": "RED",
+        "symbol": "RED",
+        "rank": 153,
+        "rarity": "UNCOMMON",
+        "pixels": 9,
+        "where": "Headband",
+        "mint": "AKXr2DLYdjqYxnvPXNEVfoEGNXdaR7a1WxiECz7wTRiX"
+      }
+    ]
+  }
+}

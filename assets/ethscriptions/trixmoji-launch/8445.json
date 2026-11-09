@@ -1,0 +1,143 @@
+{
+  "name": "TRIXMOJI PHUNKS #8445",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #8445. Left-facing phunk. Type Male. Skin Medium. Hair/Hat Hoodie. Glasses Big Shades. Facial Hair Normal Beard. Mouth Smile. Tokens: 📦 Black Box (BOX, rank 129, Black tiles); 🐋 Cymru (CYM, rank 158, Mohawk Thin); 🐛 TrixCat (TRIXCAT, rank 173, Big Shades); 🐜 Non Fungible Token (NFT, rank 174, Big Shades); 🐝 MASK (MASK, rank 175, Big Shades); 👆 MOO (COW, rank 219, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "8445.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Medium"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Hoodie"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Big Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Normal Beard"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Smile"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐋 Cymru · CYM · rank 158 · Mohawk Thin"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐛 TrixCat · TRIXCAT · rank 173 · Big Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐜 Non Fungible Token · NFT · rank 174 · Big Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐝 MASK · MASK · rank 175 · Big Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👆 MOO · COW · rank 219 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 8445,
+    "files": [
+      {
+        "uri": "8445.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 150,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐋",
+        "token": "Cymru",
+        "symbol": "CYM",
+        "rank": 158,
+        "rarity": "UNCOMMON",
+        "pixels": 66,
+        "where": "Mohawk Thin",
+        "mint": "5QaWBQwxxJDquNAoKJNyAXEDdwnt8tCcdnsP2FWRTRiX"
+      },
+      {
+        "emoji": "🐛",
+        "token": "TrixCat",
+        "symbol": "TRIXCAT",
+        "rank": 173,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "Big Shades",
+        "mint": "jSaawPyMtQNWcgoUM49j7rxEt4HLxWES6SgZateTRiX"
+      },
+      {
+        "emoji": "🐜",
+        "token": "Non Fungible Token",
+        "symbol": "NFT",
+        "rank": 174,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "Big Shades",
+        "mint": "8WxdjYpSrR7Rbj97X5ZnfK4DSLR3CUzcCJnkEQV6TRiX"
+      },
+      {
+        "emoji": "🐝",
+        "token": "MASK",
+        "symbol": "MASK",
+        "rank": 175,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "Big Shades",
+        "mint": "23hXd1tpmh4StG3sMFwQ8cZdnj5XZD15WY9TuerWTRiX"
+      },
+      {
+        "emoji": "👆",
+        "token": "MOO",
+        "symbol": "COW",
+        "rank": 219,
+        "rarity": "UNCOMMON",
+        "pixels": 39,
+        "where": "Type: Human",
+        "mint": "EDDYSjvpA43ZdDAfn1aoM9QUsSL2fAyrQa8rKRQETRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 33,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

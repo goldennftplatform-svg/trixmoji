@@ -1,0 +1,107 @@
+{
+  "name": "TRIXMOJI PHUNKS #586",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #586. Left-facing phunk. Type Female. Skin Light. Hair/Hat Wild Hair. Glasses Purple Eye Shadow. Tokens: 🐮 The Rabbit Bull (TRB, rank 94, Purple Eye Shadow); 😦 Slugworth Industries (SLUGWORTH, rank 95, Purple Eye Shadow); 📦 Black Box (BOX, rank 129, Black tiles); 👮 Copzy (COPZ, rank 205, Type: Human); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "586.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Female"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Wild Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐮 The Rabbit Bull · TRB · rank 94 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😦 Slugworth Industries · SLUGWORTH · rank 95 · Purple Eye Shadow"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👮 Copzy · COPZ · rank 205 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 586,
+    "files": [
+      {
+        "uri": "586.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🐮",
+        "token": "The Rabbit Bull",
+        "symbol": "TRB",
+        "rank": 94,
+        "rarity": "RARE",
+        "pixels": 4,
+        "where": "Purple Eye Shadow",
+        "mint": "6M3kM4QAWJ2pBKkviyEq8zgdHnRS9wGHMdHA7QmWTRiX"
+      },
+      {
+        "emoji": "😦",
+        "token": "Slugworth Industries",
+        "symbol": "SLUGWORTH",
+        "rank": 95,
+        "rarity": "RARE",
+        "pixels": 2,
+        "where": "Purple Eye Shadow",
+        "mint": "4EpUVgR5iUg7mQNSougXq9nXfXbCaz7L99JaVEhqTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 168,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👮",
+        "token": "Copzy",
+        "symbol": "COPZ",
+        "rank": 205,
+        "rarity": "UNCOMMON",
+        "pixels": 3,
+        "where": "Type: Human",
+        "mint": "8YgbTPPcic2wdQEqe7vtW1wSJVi69VpSNxwnsxYgTRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 73,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

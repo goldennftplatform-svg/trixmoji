@@ -1,0 +1,131 @@
+{
+  "name": "TRIXMOJI PHUNKS #987",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #987. Left-facing phunk. Type Zombie. Hair/Hat Wild Hair. Glasses Horned Rim Glasses. Tokens: 💧 Water (WATER, rank 23, Zombie); 💰 Money (MONEY, rank 24, Zombie); 😃 TRIX (TRIX, rank 29, Zombie); 😐 Wojak (WOJAK, rank 30, Zombie); 🫧 Bubbles (BUBS, rank 31, Zombie); 📦 Black Box (BOX, rank 129, Black tiles); 🐞 Ziggy (ZIGGY, rank 176, Horned Rim Glasses). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "987.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Zombie"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Wild Hair"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Horned Rim Glasses"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💧 Water · WATER · rank 23 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💰 Money · MONEY · rank 24 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😃 TRIX · TRIX · rank 29 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😐 Wojak · WOJAK · rank 30 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🫧 Bubbles · BUBS · rank 31 · Zombie"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐞 Ziggy · ZIGGY · rank 176 · Horned Rim Glasses"
+    }
+  ],
+  "properties": {
+    "edition": 987,
+    "files": [
+      {
+        "uri": "987.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "💧",
+        "token": "Water",
+        "symbol": "WATER",
+        "rank": 23,
+        "rarity": "LEGENDARY",
+        "pixels": 72,
+        "where": "Zombie",
+        "mint": "HpCNsRRKs1fcsuQAsovJxyauM7Sv3PZkcHLGqUnaTRiX"
+      },
+      {
+        "emoji": "💰",
+        "token": "Money",
+        "symbol": "MONEY",
+        "rank": 24,
+        "rarity": "LEGENDARY",
+        "pixels": 1,
+        "where": "Zombie",
+        "mint": "DHdHgj875BtSkomhKimT7qEaJLNZGiqrTdYfKHLbTRiX"
+      },
+      {
+        "emoji": "😃",
+        "token": "TRIX",
+        "symbol": "TRIX",
+        "rank": 29,
+        "rarity": "EPIC",
+        "pixels": 6,
+        "where": "Zombie",
+        "mint": "BCYRQt1UtmUrgXmTyeedL5NAaDMje7mXq2gMsarNtrix"
+      },
+      {
+        "emoji": "😐",
+        "token": "Wojak",
+        "symbol": "WOJAK",
+        "rank": 30,
+        "rarity": "EPIC",
+        "pixels": 8,
+        "where": "Zombie",
+        "mint": "8Q7pydAvZSHYRJsDgzAVxvK8ju4sj8xb1d22Wgr1TRiX"
+      },
+      {
+        "emoji": "🫧",
+        "token": "Bubbles",
+        "symbol": "BUBS",
+        "rank": 31,
+        "rarity": "EPIC",
+        "pixels": 2,
+        "where": "Zombie",
+        "mint": "Ea97Fc17sZZrE8y8RYXjaVdXLbGJFNYRJa46tKWaTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 166,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐞",
+        "token": "Ziggy",
+        "symbol": "ZIGGY",
+        "rank": 176,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Horned Rim Glasses",
+        "mint": "CmMZ4RNRZZBt1bfcxkYiXB3SXAWFucdFZcP1y5MCTRiX"
+      }
+    ]
+  }
+}

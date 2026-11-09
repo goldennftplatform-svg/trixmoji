@@ -1,0 +1,185 @@
+{
+  "name": "TRIXMOJI PHUNKS #5665",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5665. Left-facing phunk. Type Male. Skin Light. Hair/Hat Top Hat. Glasses Big Shades. Facial Hair Shadow Beard. In Mouth Vape. Tokens: 🎛️ Techno Capitalist Era (TECHNO, rank 38, Top Hat); 🐇 WHITE (RABBIT, rank 117, Vape); 😸 Super Intelligent Retard (SIR, rank 118, Vape); 📦 Black Box (BOX, rank 129, Black tiles); 🐓 PEPE (PEPE, rank 166, Shadow Beard); 🐖 Neon (NEON, rank 168, Shadow Beard); 🐛 TrixCat (TRIXCAT, rank 173, Big Shades); 🐜 Non Fungible Token (NFT, rank 174, Big Shades); 🐝 MASK (MASK, rank 175, Big Shades); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5665.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Top Hat"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Big Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Shadow Beard"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎛️ Techno Capitalist Era · TECHNO · rank 38 · Top Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐇 WHITE · RABBIT · rank 117 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😸 Super Intelligent Retard · SIR · rank 118 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐓 PEPE · PEPE · rank 166 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐖 Neon · NEON · rank 168 · Shadow Beard"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐛 TrixCat · TRIXCAT · rank 173 · Big Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐜 Non Fungible Token · NFT · rank 174 · Big Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐝 MASK · MASK · rank 175 · Big Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 5665,
+    "files": [
+      {
+        "uri": "5665.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🎛️",
+        "token": "Techno Capitalist Era",
+        "symbol": "TECHNO",
+        "rank": 38,
+        "rarity": "EPIC",
+        "pixels": 9,
+        "where": "Top Hat",
+        "mint": "DgH3qE4gPPJ3BjT8VwtxLQUeAa267QGNvNEAZG1GTRiX"
+      },
+      {
+        "emoji": "🐇",
+        "token": "WHITE",
+        "symbol": "RABBIT",
+        "rank": 117,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Vape",
+        "mint": "6BMQaSmUco7Gj7fRe5KJWGSKvVFkHX5yYjfWov8dTRiX"
+      },
+      {
+        "emoji": "😸",
+        "token": "Super Intelligent Retard",
+        "symbol": "SIR",
+        "rank": 118,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Vape",
+        "mint": "4kBTPPBxpiDrZ4jKzhrVt3n9JQCUaZ4eJmRFisciTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 160,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🐓",
+        "token": "PEPE",
+        "symbol": "PEPE",
+        "rank": 166,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Shadow Beard",
+        "mint": "BJj96imZGv4sTFgU8Br9soeTs22Fq5BSmpLs4dPcTRiX"
+      },
+      {
+        "emoji": "🐖",
+        "token": "Neon",
+        "symbol": "NEON",
+        "rank": 168,
+        "rarity": "UNCOMMON",
+        "pixels": 27,
+        "where": "Shadow Beard",
+        "mint": "7BTgnvZoY94WMhRSz6JLXYanYckuAMBP5vU3X52LTRiX"
+      },
+      {
+        "emoji": "🐛",
+        "token": "TrixCat",
+        "symbol": "TRIXCAT",
+        "rank": 173,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "Big Shades",
+        "mint": "jSaawPyMtQNWcgoUM49j7rxEt4HLxWES6SgZateTRiX"
+      },
+      {
+        "emoji": "🐜",
+        "token": "Non Fungible Token",
+        "symbol": "NFT",
+        "rank": 174,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "Big Shades",
+        "mint": "8WxdjYpSrR7Rbj97X5ZnfK4DSLR3CUzcCJnkEQV6TRiX"
+      },
+      {
+        "emoji": "🐝",
+        "token": "MASK",
+        "symbol": "MASK",
+        "rank": 175,
+        "rarity": "UNCOMMON",
+        "pixels": 6,
+        "where": "Big Shades",
+        "mint": "23hXd1tpmh4StG3sMFwQ8cZdnj5XZD15WY9TuerWTRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 39,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      }
+    ]
+  }
+}

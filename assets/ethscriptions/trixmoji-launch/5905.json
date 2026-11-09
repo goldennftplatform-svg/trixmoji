@@ -1,0 +1,103 @@
+{
+  "name": "TRIXMOJI PHUNKS #5905",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #5905. Left-facing phunk. Type Alien. Hair/Hat Do-rag. Glasses Small Shades. Tokens: 🪠 Crack On Sol (CRACK, rank 1, Alien); ❤️ Your Moms (MOMS, rank 2, Alien); 🙁 GEO CUCK (GEOCUCK, rank 128, Do-rag); 📦 Black Box (BOX, rank 129, Black tiles); 📦 Black Box (BOX, rank 129, Do-rag). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "5905.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Alien"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Do-rag"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Small Shades"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🪠 Crack On Sol · CRACK · rank 1 · Alien"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "❤️ Your Moms · MOMS · rank 2 · Alien"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙁 GEO CUCK · GEOCUCK · rank 128 · Do-rag"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Do-rag"
+    }
+  ],
+  "properties": {
+    "edition": 5905,
+    "files": [
+      {
+        "uri": "5905.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "🪠",
+        "token": "Crack On Sol",
+        "symbol": "CRACK",
+        "rank": 1,
+        "rarity": "RAREST",
+        "pixels": 81,
+        "where": "Alien",
+        "mint": "9x9MKbh5pq8fsTAH6fpSi17UuBgGNAVJPwMYTyXLTRiX"
+      },
+      {
+        "emoji": "❤️",
+        "token": "Your Moms",
+        "symbol": "MOMS",
+        "rank": 2,
+        "rarity": "RAREST",
+        "pixels": 3,
+        "where": "Alien",
+        "mint": "HDYP5e1dUM3zjqw3tQvDHDxtt6CKxkgyEN3NdNcXTRiX"
+      },
+      {
+        "emoji": "🙁",
+        "token": "GEO CUCK",
+        "symbol": "GEOCUCK",
+        "rank": 128,
+        "rarity": "UNCOMMON",
+        "pixels": 32,
+        "where": "Do-rag",
+        "mint": "BKupCCMBWR8M5ycLyRZEoAvje73uoLSQCwPZH39mTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 75,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Do-rag",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      }
+    ]
+  }
+}

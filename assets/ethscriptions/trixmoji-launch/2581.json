@@ -1,0 +1,111 @@
+{
+  "name": "TRIXMOJI PHUNKS #2581",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #2581. Left-facing phunk. Type Male. Skin Albino. Hair/Hat Cowboy Hat. Glasses Regular Shades. Facial Hair Chinstrap. Tokens: 😏 Golden Ticket (GLDN, rank 67, Cowboy Hat); 🐂 Ox Alpha (OXALPHA, rank 68, Cowboy Hat); 📦 Black Box (BOX, rank 129, Black tiles); 🎈 Balloon Knot (BHOLE, rank 210, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "2581.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Albino"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Cowboy Hat"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Regular Shades"
+    },
+    {
+      "trait_type": "Facial Hair",
+      "value": "Chinstrap"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😏 Golden Ticket · GLDN · rank 67 · Cowboy Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐂 Ox Alpha · OXALPHA · rank 68 · Cowboy Hat"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🎈 Balloon Knot · BHOLE · rank 210 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 2581,
+    "files": [
+      {
+        "uri": "2581.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "😏",
+        "token": "Golden Ticket",
+        "symbol": "GLDN",
+        "rank": 67,
+        "rarity": "RARE",
+        "pixels": 40,
+        "where": "Cowboy Hat",
+        "mint": "7x8JuUbckpopANamYPfoh4wz5YmW2AFYTZyQ5fscTRiX"
+      },
+      {
+        "emoji": "🐂",
+        "token": "Ox Alpha",
+        "symbol": "OXALPHA",
+        "rank": 68,
+        "rarity": "RARE",
+        "pixels": 9,
+        "where": "Cowboy Hat",
+        "mint": "8muaWVTWbJUL3c3aAZmW6vmpA1qKzcVF3hAqL8aPTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 93,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "🎈",
+        "token": "Balloon Knot",
+        "symbol": "BHOLE",
+        "rank": 210,
+        "rarity": "UNCOMMON",
+        "pixels": 64,
+        "where": "Type: Human",
+        "mint": "7PbXf7uPJ5gVJssTLzUdAnLYv48VNzwD6DLgZBnATRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 22,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}

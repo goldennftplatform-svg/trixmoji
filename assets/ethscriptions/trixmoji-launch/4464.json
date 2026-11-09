@@ -1,0 +1,177 @@
+{
+  "name": "TRIXMOJI PHUNKS #4464",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #4464. Left-facing phunk. Type Ape. Hair/Hat Do-rag. Glasses Eye Mask. In Mouth Vape. Tokens: ⬛ VOID (VOID, rank 4, Ape); 🕴️ MICHAEL SELLER (SELLER, rank 5, Ape); 🖐️ Shocker (SHOCKER, rank 6, Ape); 🍬 Everlasting Gobstopper (UMPALUMPA, rank 7, Ape); 🐇 WHITE (RABBIT, rank 117, Vape); 😸 Super Intelligent Retard (SIR, rank 118, Vape); 🙀 THE RABBIT HOLE (HOLE, rank 127, Eye Mask); 🙁 GEO CUCK (GEOCUCK, rank 128, Do-rag); 📦 Black Box (BOX, rank 129, Black tiles); 📦 Black Box (BOX, rank 129, Do-rag). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "4464.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Ape"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Do-rag"
+    },
+    {
+      "trait_type": "Glasses",
+      "value": "Eye Mask"
+    },
+    {
+      "trait_type": "In Mouth",
+      "value": "Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "⬛ VOID · VOID · rank 4 · Ape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🕴️ MICHAEL SELLER · SELLER · rank 5 · Ape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🖐️ Shocker · SHOCKER · rank 6 · Ape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🍬 Everlasting Gobstopper · UMPALUMPA · rank 7 · Ape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🐇 WHITE · RABBIT · rank 117 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😸 Super Intelligent Retard · SIR · rank 118 · Vape"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙀 THE RABBIT HOLE · HOLE · rank 127 · Eye Mask"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "🙁 GEO CUCK · GEOCUCK · rank 128 · Do-rag"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Do-rag"
+    }
+  ],
+  "properties": {
+    "edition": 4464,
+    "files": [
+      {
+        "uri": "4464.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "⬛",
+        "token": "VOID",
+        "symbol": "VOID",
+        "rank": 4,
+        "rarity": "RAREST",
+        "pixels": 34,
+        "where": "Ape",
+        "mint": "74nSAMYRsm3MZLqVXcoZoUFsjiqKZhAJCqttHVycTRiX"
+      },
+      {
+        "emoji": "🕴️",
+        "token": "MICHAEL SELLER",
+        "symbol": "SELLER",
+        "rank": 5,
+        "rarity": "RAREST",
+        "pixels": 19,
+        "where": "Ape",
+        "mint": "9mBEqBs2xMBkeTpUUeYFqRtnHGSkEmHz73zR5m74TRiX"
+      },
+      {
+        "emoji": "🖐️",
+        "token": "Shocker",
+        "symbol": "SHOCKER",
+        "rank": 6,
+        "rarity": "RAREST",
+        "pixels": 4,
+        "where": "Ape",
+        "mint": "E6LwzUpR2NsdUzAiGzZb1K5PbffkXANagXHt1R4BTRiX"
+      },
+      {
+        "emoji": "🍬",
+        "token": "Everlasting Gobstopper",
+        "symbol": "UMPALUMPA",
+        "rank": 7,
+        "rarity": "RAREST",
+        "pixels": 2,
+        "where": "Ape",
+        "mint": "5CtD6uGSjSXj4jmGZZ3eBjymfvekinm2ksinCtaXTRiX"
+      },
+      {
+        "emoji": "🐇",
+        "token": "WHITE",
+        "symbol": "RABBIT",
+        "rank": 117,
+        "rarity": "UNCOMMON",
+        "pixels": 1,
+        "where": "Vape",
+        "mint": "6BMQaSmUco7Gj7fRe5KJWGSKvVFkHX5yYjfWov8dTRiX"
+      },
+      {
+        "emoji": "😸",
+        "token": "Super Intelligent Retard",
+        "symbol": "SIR",
+        "rank": 118,
+        "rarity": "UNCOMMON",
+        "pixels": 5,
+        "where": "Vape",
+        "mint": "4kBTPPBxpiDrZ4jKzhrVt3n9JQCUaZ4eJmRFisciTRiX"
+      },
+      {
+        "emoji": "🙀",
+        "token": "THE RABBIT HOLE",
+        "symbol": "HOLE",
+        "rank": 127,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Eye Mask",
+        "mint": "0xe018D593A352300520be604e686e4De654ff1809"
+      },
+      {
+        "emoji": "🙁",
+        "token": "GEO CUCK",
+        "symbol": "GEOCUCK",
+        "rank": 128,
+        "rarity": "UNCOMMON",
+        "pixels": 32,
+        "where": "Do-rag",
+        "mint": "BKupCCMBWR8M5ycLyRZEoAvje73uoLSQCwPZH39mTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 102,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Do-rag",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      }
+    ]
+  }
+}

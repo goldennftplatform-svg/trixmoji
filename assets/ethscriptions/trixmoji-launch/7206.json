@@ -1,0 +1,121 @@
+{
+  "name": "TRIXMOJI PHUNKS #7206",
+  "symbol": "PHUNK",
+  "description": "TRIXMOJI PHUNKS #7206. Left-facing phunk. Type Male. Skin Light. Hair/Hat Fedora. Makeup Spots. Tokens: 💵 DCA (DCA, rank 40, Spots); 😛 XELON (XELON, rank 83, Fedora); 📦 Black Box (BOX, rank 129, Black tiles); 👃 fiDaars (FIDAARS, rank 214, Type: Human); 👅 DEAL WITH IT (DEAL, rank 218, Type: Human); 👇 Copenomics (COPENOMICS, rank 220, Type: Human). Black tiles are the TRiX token Black Box.",
+  "seller_fee_basis_points": 250,
+  "image": "7206.webp",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Male"
+    },
+    {
+      "trait_type": "Skin",
+      "value": "Light"
+    },
+    {
+      "trait_type": "Hair/Hat",
+      "value": "Fedora"
+    },
+    {
+      "trait_type": "Makeup",
+      "value": "Spots"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "💵 DCA · DCA · rank 40 · Spots"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "😛 XELON · XELON · rank 83 · Fedora"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "📦 Black Box · BOX · rank 129 · Black tiles"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👃 fiDaars · FIDAARS · rank 214 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👅 DEAL WITH IT · DEAL · rank 218 · Type: Human"
+    },
+    {
+      "trait_type": "TRiX Token",
+      "value": "👇 Copenomics · COPENOMICS · rank 220 · Type: Human"
+    }
+  ],
+  "properties": {
+    "edition": 7206,
+    "files": [
+      {
+        "uri": "7206.webp",
+        "type": "image/webp"
+      }
+    ],
+    "category": "image",
+    "tokens": [
+      {
+        "emoji": "💵",
+        "token": "DCA",
+        "symbol": "DCA",
+        "rank": 40,
+        "rarity": "EPIC",
+        "pixels": 6,
+        "where": "Spots",
+        "mint": "536SDxmqEzUeZnxP8KEvdm3kyqdHh9JJsUNjnZy8TRiX"
+      },
+      {
+        "emoji": "😛",
+        "token": "XELON",
+        "symbol": "XELON",
+        "rank": 83,
+        "rarity": "RARE",
+        "pixels": 39,
+        "where": "Fedora",
+        "mint": "76Cf2zrKqwQEMGj7TaZ6hJ1Ja6hNsXXrK2UVBRjKTRiX"
+      },
+      {
+        "emoji": "📦",
+        "token": "Black Box",
+        "symbol": "BOX",
+        "rank": 129,
+        "rarity": "UNCOMMON",
+        "pixels": 75,
+        "where": "Black tiles",
+        "mint": "HR3HgYosbWkDM36trbZfQcLTNX6zMm56pE9K4nj8TRiX"
+      },
+      {
+        "emoji": "👃",
+        "token": "fiDaars",
+        "symbol": "FIDAARS",
+        "rank": 214,
+        "rarity": "UNCOMMON",
+        "pixels": 2,
+        "where": "Type: Human",
+        "mint": "JCNh8yuohBSvkBj36FEQMCkB63zexQcUoNx55TURTRiX"
+      },
+      {
+        "emoji": "👅",
+        "token": "DEAL WITH IT",
+        "symbol": "DEAL",
+        "rank": 218,
+        "rarity": "UNCOMMON",
+        "pixels": 87,
+        "where": "Type: Human",
+        "mint": "7vopcAuuYiCh9FNvufDbEy5PkA7TetrpUHQEvU9fTRiX"
+      },
+      {
+        "emoji": "👇",
+        "token": "Copenomics",
+        "symbol": "COPENOMICS",
+        "rank": 220,
+        "rarity": "UNCOMMON",
+        "pixels": 4,
+        "where": "Type: Human",
+        "mint": "EPvrsPb4qWc9HSGepzJ1C3gHWEucgKbqvfR7oRtsTRiX"
+      }
+    ]
+  }
+}
