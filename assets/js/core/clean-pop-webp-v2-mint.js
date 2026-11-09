@@ -7,6 +7,7 @@
  var expectedRoot = launch ? '0xd0ffdd061960fac4fe88ec83d80ae4387da203ee9bdac35b015fa86cd08f7bb6' : null
  var el = function (id) { return document.getElementById(id) }, client = launch ? CleanPopCheckout.createTrixMojiLaunch() : CleanPopCheckout.createWebpV2()
  var info, manifest, connection = null, paused = true, deployed = false, busy = false, page = 0, selected = {}, pageSize = 40
+ var mintedPages = {}, mintedRequest = 0
  var same = function (a, b) { return String(a || '').toLowerCase() === String(b || '').toLowerCase() }
  var say = function (message) { el('status').textContent = message }
  function pending() { return client.records().filter(function (r) { return r.state !== 'complete' && r.state !== 'failed' }) }
@@ -22,10 +23,12 @@
   var start = page * pageSize, end = Math.min(start + pageSize, 10000)
   for (var i = start; i < end; i++) {
    var card = document.createElement('button'), cover = document.createElement('span'), label = document.createElement('span')
-   card.type = 'button'; card.className = 'cover' + (selected[i] ? ' selected' : ''); card.disabled = !!completed[i] || busy
-   card.setAttribute('aria-pressed', String(!!selected[i])); cover.className = 'blank'; cover.textContent = 'UNREVEALED'
-    label.className = 'label'; label.textContent = (launch ? 'TRIXMOJI #' : 'CLEAN POP #') + i + (completed[i] ? ' · MINTED' : selected[i] ? ' · SELECTED' : ' · SELECT TO CHECK')
-   ;(function (token) { card.onclick = function () { if (selected[token]) delete selected[token]; else if (selection().length < 20) selected[token] = true; else say('Choose at most 20 pieces.'); draw() } })(i)
+    var minted = !!completed[i] || !!(launch && mintedPages[page] && mintedPages[page][i])
+    card.type = 'button'; card.className = 'cover' + (selected[i] ? ' selected' : '') + (launch && minted ? ' minted' : ''); card.disabled = busy || (!launch && minted)
+    card.setAttribute('aria-pressed', String(!!selected[i])); cover.className = 'blank'
+    if (launch && minted) { var img = document.createElement('img'), badge = document.createElement('span'); img.src = artPath + i + '.webp'; img.alt = ''; img.loading = 'lazy'; badge.className = 'minted-badge'; badge.textContent = 'MINTED'; cover.append(img, badge) } else cover.textContent = 'UNREVEALED'
+    label.className = 'label'; label.textContent = (launch ? 'TRIXMOJI #' : 'CLEAN POP #') + i + (minted ? (launch ? ' · VIEW STATS ↗' : ' · MINTED') : selected[i] ? ' · SELECTED' : ' · SELECT TO CHECK')
+    ;(function (token, isMinted) { card.onclick = function () { if (launch && isMinted) { window.location.href = '/classic/pages/trixmoji-market.html?collection=trixmoji&id=' + token; return } if (selected[token]) delete selected[token]; else if (selection().length < 20) selected[token] = true; else say('Choose at most 20 pieces.'); draw() } })(i, minted)
    card.append(cover, label); grid.appendChild(card)
   }
   el('page').textContent = (start + 1) + '–' + end + ' / 10,000'; el('previous').disabled = page === 0; el('next').disabled = end === 10000; controls()
@@ -34,6 +37,19 @@
   var response = await fetch(url, { cache: 'no-store', signal: AbortSignal.timeout(45000) }), body = await response.json()
    if (!response.ok || body.ok === false) throw Error(body.error || (launch ? 'Mint service is unavailable.' : 'WebP mint service is unavailable.'))
   return body
+ }
+ async function refreshMintedPage() {
+  if (!launch) return
+  var requestedPage = page, request = ++mintedRequest, note = el('availability')
+  note.textContent = 'Checking minted pieces…'
+  try {
+   var result = await json('/.netlify/functions/trixmoji-minted-page?page=' + requestedPage)
+   if (result.page !== requestedPage || result.pageSize !== pageSize || !same(result.contract, expectedAddress) || !Array.isArray(result.minted)) throw Error('Invalid minted-status response.')
+   var flags = {}, start = requestedPage * pageSize
+   result.minted.forEach(function (n) { if (!Number.isInteger(n) || n < start || n >= start + pageSize || flags[n]) throw Error('Invalid minted-status response.'); flags[n] = true; delete selected[n] })
+   if (request !== mintedRequest) return
+   mintedPages[requestedPage] = flags; note.textContent = 'Minted pieces are blurred. Select one to view its market details.'; draw()
+  } catch (error) { if (request === mintedRequest) note.textContent = 'Minted status is temporarily unavailable. Availability is checked again before minting.' }
  }
  async function statusOfContract() {
   await EthscriptionCheckout.ensureChain(connection.provider)
@@ -127,17 +143,17 @@
      preflight: function () { return preflight(token, image.sha) }, gasFallback: async function () { var q = await preflight(token, image.sha); return { gas: q.estimatedGas, gasPrice: q.estimatedGasPriceWei, insufficientFunds: q.insufficientFunds === true } },
      review: function (quote) { return review(token, quote) } })
     say('Mint submitted: ' + row.hash + '. Checking confirmation and indexing…'); recovery()
-    await finish(row); delete selected[token]; recovery(); draw()
+     await finish(row); delete selected[token]; if (launch) { var tokenPage = Math.floor(token / pageSize); mintedPages[tokenPage] = mintedPages[tokenPage] || {}; mintedPages[tokenPage][token] = true } recovery(); draw()
    }
    say('Selected mints confirmed and indexed.')
   } catch (error) { say(error.message); recovery() } finally { busy = false; draw() }
  }
- el('previous').onclick = function () { if (page > 0) { page--; draw() } }
- el('next').onclick = function () { if ((page + 1) * pageSize < 10000) { page++; draw() } }
- el('go').onclick = function () { var raw = el('jump').value.trim(), n = Number(raw); if (!/^\d+$/.test(raw) || n >= 10000) return say('Enter a piece number from 0 to 9999.'); page = Math.floor(n / pageSize); draw() }
+  el('previous').onclick = function () { if (page > 0) { page--; draw(); refreshMintedPage() } }
+  el('next').onclick = function () { if ((page + 1) * pageSize < 10000) { page++; draw(); refreshMintedPage() } }
+  el('go').onclick = function () { var raw = el('jump').value.trim(), n = Number(raw); if (!/^\d+$/.test(raw) || n >= 10000) return say('Enter a piece number from 0 to 9999.'); page = Math.floor(n / pageSize); draw(); refreshMintedPage() }
  Promise.all([json('/assets/data/' + service + '-candidate.json'), json(artPath + 'manifest.json')]).then(function (values) {
   info = values[0]; manifest = values[1]
   if (info.root !== manifest.root || (expectedRoot && !same(info.root, expectedRoot)) || manifest.count !== 10000 || info.mimeType !== 'image/webp' || !same(info.address, expectedAddress) || !same(ethers.utils.keccak256(info.runtime), info.runtimeHash)) throw Error('Mint configuration mismatch.')
-  recovery(); draw(); say('Connect a wallet to check the current mint status.')
+  recovery(); draw(); say('Connect a wallet to check the current mint status.'); refreshMintedPage()
  }).catch(function (error) { say(error.message) })
 })()
