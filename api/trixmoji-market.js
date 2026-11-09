@@ -9,7 +9,7 @@ const { createQuota } = require('./lib/market-approval-quota')
 const { createEthscriptionsIndexer } = require('./lib/trixmoji-market/ethscriptions-indexer.cjs')
 const { createMarketRuntime } = require('./lib/trixmoji-market/market-runtime.cjs')
 const { createHistoryReader } = require('./lib/trixmoji-market/history-reader.cjs')
-const { authenticateWalletProof } = require('./lib/trixmoji-market/wallet-proof.cjs')
+const { authenticateLaunchRequest } = require('./lib/trixmoji-market/wallet-proof.cjs')
 const marketArtifact = require('../assets/data/trixmoji-escrow-artifact.json')
 const deployment = require('../assets/data/trixmoji-escrow-deployment.json')
 const replacementArtifact = require('../assets/data/trixmoji-escrow-replacement-artifact.json')
@@ -55,7 +55,7 @@ async function runtime(readOnly, marketArtifact = require('../assets/data/trixmo
   const consume = readOnly ? async () => false : createQuota({ store: getStore({ ...storeOptions(), name: 'trixmoji-market-approval-quota', consistency: 'strong' }), perMinute: 8 })
   const quota = (actor, req) => consume(actor, walletProof && req && req.body ? req.body.walletProof : null)
  const indexer = createEthscriptionsIndexer({ baseUrl: process.env.ETHSCRIPTIONS_INDEXER_URL || 'https://api.ethscriptions.com/v2/' })
-  return createMarketRuntime({ provider, historyProvider, signer, indexer, registry: undefined, authenticate: walletProof ? req => authenticateWalletProof(req.body) : authenticatedWallet, consumeQuota: quota,
+  return createMarketRuntime({ provider, historyProvider, signer, indexer, registry: undefined, authenticate: walletProof ? req => authenticateLaunchRequest(req.body) : authenticatedWallet, consumeQuota: quota,
   chainId: 1, marketAddress, creator: marketArtifact.creator, marketRuntimeHash: runtimeHash, marketAbi: marketArtifact.abi,
   minter: selectedMinter.address, minterRuntimeHash: selectedMinter.runtimeHash, minterAbi: selectedMinter.abi, artworkRoot: selectedMinter.root, mintPriceWei: selectedMinter.priceWei, mintMimeType: mimeType, allowWrappedMints: mimeType === 'image/webp',
   marketStartBlock: Number(start), confirmations: 2, blockChunk: 2000, maxCandidates: 1000 })

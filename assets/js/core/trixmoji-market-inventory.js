@@ -37,7 +37,7 @@
    client = TrixmojiMarketWallet.create({ provider: connection.provider, storage: localStorage, storageKey: launch ? 'trixmoji.market.contract.transaction.launch' : webpV2 ? 'trixmoji.market.contract.transaction.webp-v2' : 'trixmoji.market.contract.transaction.v1', locks: navigator.locks, abi: artifact.abi, market: deployment.address, runtimeHash: deployment.runtimeHash, creator: deployment.creator, verifier: deployment.verifier, chainId: deployment.chainId, minter: launch ? '0x14F9B4a11A10A83C6A686012110Dc2bd54eFD673' : webpV2 ? '0xD085EB56d7195Bdf4a17bf3107FDC938a118B704' : '0x11019B7af0F833f5695a44584c5B31Bb1D0baabC', combinedDepositEnabled: !legacy, readAsset: asset,
    authorize: async function (body) {
     var payload = Object.assign({ action: 'authorize' }, body)
-    if (launch) {
+    if (launch && body.kind === 1) {
      await EthscriptionCheckout.identity(connection.provider, connection.address)
      var bytes = new Uint8Array(16); crypto.getRandomValues(bytes)
      var nonce = '0x' + Array.from(bytes).map(function (n) { return n.toString(16).padStart(2, '0') }).join(''), expires = Math.floor(Date.now() / 1000) + 120
@@ -194,7 +194,8 @@
   return new Promise(function (resolve, reject) {
    var host = target || reviewBox; host.hidden = false; host.textContent = ''
    var p = document.createElement('p'), approve = document.createElement('button'), cancel = document.createElement('button')
-   p.textContent = 'Review ' + q.action + (q.assetId ? ' · ' + q.assetId : '') + ' · destination ' + q.to + ' · value ' + ethers.utils.formatEther(q.valueWei) + ' ETH' + (listingPrice ? ' · ' + (q.action === 'auction' ? 'minimum bid ' : 'listing price ') + ethers.utils.formatEther(listingPrice) + ' ETH' : '') + (auctionDuration ? ' · duration ' + (auctionDuration / 3600) + ' hours' : '') + ' · estimated gas ' + q.estimatedGas + '. Confirm final network fee in your wallet.' + (q.action === 'deposit' || q.action === 'depositAndList' ? ' In your wallet, reject if the outer transaction shows redeemDelegations or a different destination. A successful receipt alone does not prove custody; the indexer must confirm it.' : '')
+   var gasEstimate = q.estimatedGasPriceWei ? ethers.utils.formatEther(ethers.BigNumber.from(q.estimatedGas).mul(q.estimatedGasPriceWei)) + ' ETH' : q.estimatedGas + ' gas units (fee unavailable)'
+   p.textContent = 'Review ' + q.action + (q.assetId ? ' · ' + q.assetId : '') + ' · destination ' + q.to + ' · value ' + ethers.utils.formatEther(q.valueWei) + ' ETH' + (listingPrice ? ' · ' + (q.action === 'auction' ? 'minimum bid ' : 'listing price ') + ethers.utils.formatEther(listingPrice) + ' ETH' : '') + (auctionDuration ? ' · duration ' + (auctionDuration / 3600) + ' hours' : '') + ' · estimated network fee ' + gasEstimate + '. Confirm the final fee in your wallet.' + (q.action === 'deposit' || q.action === 'depositAndList' ? ' In your wallet, reject if the outer transaction shows redeemDelegations or a different destination. A successful receipt alone does not prove custody; the indexer must confirm it.' : '')
    approve.type = 'button'; cancel.type = 'button'; approve.textContent = 'CONTINUE TO WALLET'; cancel.textContent = 'CANCEL'
    approve.onclick = function () { approve.disabled = true; cancel.disabled = true; say('Waiting for wallet. Do not repeat the request.'); q.approve().then(function (row) { host.hidden = true; resolve(row) }, function (e) { host.hidden = true; reject(e) }) }
    cancel.onclick = function () { host.hidden = true; reject(Error('Cancelled. No transaction was requested.')) }

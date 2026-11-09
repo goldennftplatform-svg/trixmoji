@@ -78,8 +78,10 @@
     to = market; data = iface.encodeFunctionData('withdraw', [address(args.recipient)])
    } else throw Error('Unknown market action.')
    var tx = { from: account, to: to, value: ethers.utils.hexValue(value), data: data }
-   await rpc('eth_call', [tx, 'latest'])
-   var estimate = ethers.BigNumber.from(await rpc('eth_estimateGas', [tx]))
+    await rpc('eth_call', [tx, 'latest'])
+    var estimate = ethers.BigNumber.from(await rpc('eth_estimateGas', [tx]))
+    var gasPrice = null
+    try { var suggested = ethers.BigNumber.from(await rpc('eth_gasPrice')); if (suggested.gt(0)) gasPrice = suggested.toString() } catch (_) { /* Wallet will show its own fee. */ }
    // Keep Ethscription transfer requests minimal; let the wallet fill gas/network fields.
    // This request shape alone does not guarantee the wallet's broadcast routing.
    var ethscriptionTransfer = action === 'gift' || action === 'deposit' || action === 'depositAndList'
@@ -87,7 +89,7 @@
     tx.gas = ethers.utils.hexValue(estimate.mul(12).div(10))
     tx.chainId = ethers.utils.hexValue(chainId)
    }
-   return { action: action, assetId: id || null, tx: tx, estimatedGas: estimate.toString(), preparedAt: Date.now() }
+    return { action: action, assetId: id || null, tx: tx, estimatedGas: estimate.toString(), estimatedGasPriceWei: gasPrice, preparedAt: Date.now() }
   }
   async function run(action, args, review) {
    if (typeof review !== 'function') throw Error('A wallet review is required.')
@@ -128,7 +130,7 @@
      return row
     }
     try {
-     var result = await review({ action: plan.action, assetId: plan.assetId, to: plan.tx.to, valueWei: ethers.BigNumber.from(plan.tx.value).toString(), estimatedGas: plan.estimatedGas, approve: approve })
+     var result = await review({ action: plan.action, assetId: plan.assetId, to: plan.tx.to, valueWei: ethers.BigNumber.from(plan.tx.value).toString(), estimatedGas: plan.estimatedGas, estimatedGasPriceWei: plan.estimatedGasPriceWei, approve: approve })
      if (!sent || !result || !result.hash) throw Error('No market transaction was submitted.')
      return result
     } finally {

@@ -11,4 +11,15 @@ function authenticateWalletProof(body,now=Math.floor(Date.now()/1000)) {
  if(signer.toLowerCase()!==actor)throw Error('Wallet authorization does not match the requested action.')
  return signer
 }
-module.exports={authenticateWalletProof}
+// Purchase authorizations are public, but bound by the escrow contract to the
+// named buyer (msg.sender), exact listing, price and nonce. The caller cannot
+// spend that buyer's funds or redeem an approval on the buyer's behalf.
+// Auctions still require the seller's signed proof.
+function authenticateLaunchRequest(body,now) {
+ if(body && body.kind===0) {
+  if(!ethers.utils.isAddress(body.buyer||'') || body.buyer.toLowerCase()===ethers.constants.AddressZero.toLowerCase()) throw Error('Invalid market authorization request.')
+  return ethers.utils.getAddress(body.buyer)
+ }
+ return authenticateWalletProof(body,now)
+}
+module.exports={authenticateWalletProof,authenticateLaunchRequest}
