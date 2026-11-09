@@ -20,7 +20,7 @@ function createApprovalService(config) {
    if (!ethers.utils.isAddress(actor || '')) throw Error('Wallet authentication required.')
    const buyer = body.kind === 0 ? body.buyer : ethers.constants.AddressZero
    if (!ethers.utils.isAddress(buyer || '') || (body.kind === 0 && !same(actor, buyer)) || (body.kind === 1 && !same(actor, body.seller))) throw Error('Authenticated wallet does not match the requested market action.')
-   if (!(await config.consumeQuota(actor))) throw Error('Authorization rate limit exceeded.')
+   if (!(await config.consumeQuota(actor, context))) throw Error('Authorization rate limit exceeded or wallet authorization already used.')
    let amount
    try { amount = ethers.BigNumber.from(body.amount) } catch (_) { throw Error('Invalid market amount.') }
    if (amount.lte(0)) throw Error('Market amount must be positive.')

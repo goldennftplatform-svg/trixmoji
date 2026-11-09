@@ -35,7 +35,20 @@
    if (!same(deployment.address, expectedMarket)) throw Error('Market deployment address does not match the selected market.')
   }
    client = TrixmojiMarketWallet.create({ provider: connection.provider, storage: localStorage, storageKey: launch ? 'trixmoji.market.contract.transaction.launch' : webpV2 ? 'trixmoji.market.contract.transaction.webp-v2' : 'trixmoji.market.contract.transaction.v1', locks: navigator.locks, abi: artifact.abi, market: deployment.address, runtimeHash: deployment.runtimeHash, creator: deployment.creator, verifier: deployment.verifier, chainId: deployment.chainId, minter: launch ? '0x14F9B4a11A10A83C6A686012110Dc2bd54eFD673' : webpV2 ? '0xD085EB56d7195Bdf4a17bf3107FDC938a118B704' : '0x11019B7af0F833f5695a44584c5B31Bb1D0baabC', combinedDepositEnabled: !legacy, readAsset: asset,
-   authorize: async function (body) { return json(marketUrl, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ action: 'authorize' }, body)), signal: AbortSignal.timeout(25000) }) } })
+   authorize: async function (body) {
+    var payload = Object.assign({ action: 'authorize' }, body)
+    if (launch) {
+     await EthscriptionCheckout.identity(connection.provider, connection.address)
+     var bytes = new Uint8Array(16); crypto.getRandomValues(bytes)
+     var nonce = '0x' + Array.from(bytes).map(function (n) { return n.toString(16).padStart(2, '0') }).join(''), expires = Math.floor(Date.now() / 1000) + 120
+     var message = TrixmojiMarketProof.message(Object.assign({}, body, { nonce: nonce, expires: expires }))
+     say('Confirm the market authorization message in your selected wallet. This signature does not send funds.')
+     var signature = await connection.provider.request({ method: 'personal_sign', params: [message, connection.address] })
+     await EthscriptionCheckout.identity(connection.provider, connection.address)
+     payload.walletProof = { nonce: nonce, expires: expires, signature: signature }
+    }
+    return json(marketUrl, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: AbortSignal.timeout(25000) })
+   } })
   return connection
  }
  async function verify(row, receipt) {
@@ -192,12 +205,6 @@
   if (busy) return; busy = true
   try {
     await configure(); say('Checking saved recovery records…'); await reconcileKnownRecovery(); await reconcileSubmittedActions(); recovery()
-    if (kind === 'buy' || kind === 'auction') {
-     var loginConnection = MarketWalletConnector.current()
-     say('Checking wallet sign-in…')
-     await TrixmojiMarketLogin.create({fetch:fetch,document:document,identity:EthscriptionCheckout.identity}).ensure(loginConnection, reviewTarget || reviewBox)
-     if (!MarketWalletConnector.current() || MarketWalletConnector.current().provider !== loginConnection.provider || !same(MarketWalletConnector.current().address, loginConnection.address)) throw Error('Wallet changed. Connect again before continuing.')
-    }
    if (kind === 'deposit' || kind === 'depositAndList') {
      var selectedWallet = MarketWalletConnector.current()
      var rabby = selectedWallet && (selectedWallet.provider.isRabby === true || (selectedWallet.walletInfo && selectedWallet.walletInfo.rdns === 'io.rabby'))

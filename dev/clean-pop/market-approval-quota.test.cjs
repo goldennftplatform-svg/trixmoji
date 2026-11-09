@@ -24,3 +24,9 @@ test('quota fails closed for invalid storage, wallet, or future clock state', as
  const backwards = createQuota({ store: backing, perMinute: 1, now: () => 60000 })
  await assert.rejects(backwards(wallet), /state is invalid/)
 })
+test('wallet proof nonce is accepted only once, including simultaneous submissions', async () => {
+ const consume=createQuota({store:store(),perMinute:8,now:()=>120000}),proof={nonce:'0x'+'ab'.repeat(16),expires:240}
+ const results=await Promise.all(Array.from({length:5},()=>consume(wallet,proof)))
+ assert.equal(results.filter(Boolean).length,1)
+ assert.equal(await consume(wallet,{nonce:'0x'+'cd'.repeat(16),expires:240}),true)
+})

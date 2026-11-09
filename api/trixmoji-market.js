@@ -9,6 +9,7 @@ const { createQuota } = require('./lib/market-approval-quota')
 const { createEthscriptionsIndexer } = require('./lib/trixmoji-market/ethscriptions-indexer.cjs')
 const { createMarketRuntime } = require('./lib/trixmoji-market/market-runtime.cjs')
 const { createHistoryReader } = require('./lib/trixmoji-market/history-reader.cjs')
+const { authenticateWalletProof } = require('./lib/trixmoji-market/wallet-proof.cjs')
 const marketArtifact = require('../assets/data/trixmoji-escrow-artifact.json')
 const deployment = require('../assets/data/trixmoji-escrow-deployment.json')
 const replacementArtifact = require('../assets/data/trixmoji-escrow-replacement-artifact.json')
@@ -42,7 +43,7 @@ async function authenticatedWallet(req) {
  return wallet.address
 }
 
-async function runtime(readOnly, marketArtifact = require('../assets/data/trixmoji-escrow-artifact.json'), deployment = require('../assets/data/trixmoji-escrow-deployment.json'), selectedMinter = minter, mimeType = 'image/png', collectionStartBlock = 0) {
+async function runtime(readOnly, marketArtifact = require('../assets/data/trixmoji-escrow-artifact.json'), deployment = require('../assets/data/trixmoji-escrow-deployment.json'), selectedMinter = minter, mimeType = 'image/png', collectionStartBlock = 0, walletProof = false) {
  if (process.env.TRIXMOJI_MARKET_ENABLED !== 'true') throw Error('MARKET_NOT_CONFIGURED')
  const rpc = String(process.env.ETH_RPC_URL || ''), marketAddress = deployment.address, runtimeHash = deployment.runtimeHash, start = String(Math.max(Number(deployment.deploymentBlock), Number(collectionStartBlock))), key = verifierKey()
  if (!/^https:\/\//i.test(rpc) || !ethers.utils.isAddress(marketAddress) || !/^0x[a-f0-9]{64}$/i.test(runtimeHash) || !/^\d+$/.test(start) || !Number.isSafeInteger(Number(start)) || (!readOnly && !/^0x[a-f0-9]{64}$/i.test(key))) throw Error('MARKET_NOT_CONFIGURED')
@@ -51,9 +52,10 @@ async function runtime(readOnly, marketArtifact = require('../assets/data/trixmo
  const historyProvider = createHistoryReader(provider, historyFallback, 1)
  const signer = readOnly ? { address: marketArtifact.verifier } : new ethers.Wallet(key, provider)
  if (signer.address.toLowerCase() !== marketArtifact.verifier.toLowerCase()) throw Error('MARKET_NOT_CONFIGURED')
- const quota = readOnly ? async () => false : createQuota({ store: getStore({ ...storeOptions(), name: 'trixmoji-market-approval-quota', consistency: 'strong' }), perMinute: 8 })
+  const consume = readOnly ? async () => false : createQuota({ store: getStore({ ...storeOptions(), name: 'trixmoji-market-approval-quota', consistency: 'strong' }), perMinute: 8 })
+  const quota = (actor, req) => consume(actor, walletProof && req && req.body ? req.body.walletProof : null)
  const indexer = createEthscriptionsIndexer({ baseUrl: process.env.ETHSCRIPTIONS_INDEXER_URL || 'https://api.ethscriptions.com/v2/' })
- return createMarketRuntime({ provider, historyProvider, signer, indexer, registry: undefined, authenticate: authenticatedWallet, consumeQuota: quota,
+  return createMarketRuntime({ provider, historyProvider, signer, indexer, registry: undefined, authenticate: walletProof ? req => authenticateWalletProof(req.body) : authenticatedWallet, consumeQuota: quota,
   chainId: 1, marketAddress, creator: marketArtifact.creator, marketRuntimeHash: runtimeHash, marketAbi: marketArtifact.abi,
   minter: selectedMinter.address, minterRuntimeHash: selectedMinter.runtimeHash, minterAbi: selectedMinter.abi, artworkRoot: selectedMinter.root, mintPriceWei: selectedMinter.priceWei, mintMimeType: mimeType, allowWrappedMints: mimeType === 'image/webp',
   marketStartBlock: Number(start), confirmations: 2, blockChunk: 2000, maxCandidates: 1000 })
@@ -70,7 +72,7 @@ async function handler(req, res, replacement = false, webpV2 = false, launch = f
     const chosenMinter = launch ? launchMinter : webpV2 ? webpMinter : minter
     const chosenDeployment = launch ? launchDeployment : webpV2 ? webpDeployment : null
     if (chosenDeployment && (chosenDeployment.chainId !== 1 || !Number.isSafeInteger(chosenDeployment.deploymentBlock) || chosenDeployment.deploymentBlock < 1 || chosenDeployment.address.toLowerCase() !== chosenMinter.address.toLowerCase() || chosenDeployment.runtimeHash.toLowerCase() !== chosenMinter.runtimeHash.toLowerCase() || chosenDeployment.root.toLowerCase() !== chosenMinter.root.toLowerCase())) throw Error('MARKET_NOT_CONFIGURED')
-    const service = await runtime(req.method === 'GET', selectedArtifact, selectedDeployment, chosenMinter, chosenDeployment ? 'image/webp' : 'image/png', chosenDeployment ? chosenDeployment.deploymentBlock : 0)
+    const service = await runtime(req.method === 'GET', selectedArtifact, selectedDeployment, chosenMinter, chosenDeployment ? 'image/webp' : 'image/png', chosenDeployment ? chosenDeployment.deploymentBlock : 0, launch)
   if (req.method === 'GET') {
    const key = verifierKey()
    const readiness = { sessionConfigured: !!sessionSecret(), verifierKeyPresent: !!key, verifierKeyFormatValid: /^0x[a-f0-9]{64}$/i.test(key), verifierKeyMatches: false, quotaStorageAvailable: false }
@@ -80,7 +82,7 @@ async function handler(req, res, replacement = false, webpV2 = false, launch = f
     await store.getWithMetadata('readiness-probe', { type: 'json', consistency: 'strong' })
     readiness.quotaStorageAvailable = true
    } catch (_) {}
-   const verifierConfigured = readiness.sessionConfigured && readiness.verifierKeyMatches && readiness.quotaStorageAvailable
+   const verifierConfigured = (launch || readiness.sessionConfigured) && readiness.verifierKeyMatches && readiness.quotaStorageAvailable
     const health = { ok: true, readiness, verifierConfigured, tradingReady: process.env.TRIXMOJI_MARKET_LIVE === 'true' && verifierConfigured, marketAddress: selectedDeployment.address }
    if (req.query && req.query.health === '1') return res.status(200).json(health)
    return res.status(200).json({ ...health, ...await service.list() })
@@ -90,7 +92,7 @@ async function handler(req, res, replacement = false, webpV2 = false, launch = f
   return res.status(200).json({ ok: true, ...await service.issueApproval(req, { id: body.id, seller: body.seller, buyer: body.buyer, kind: body.kind, amount: body.amount, duration: body.duration }) })
  } catch (error) {
   const message = String(error && error.message || '')
-  const safe = /^(Sign in with your Ethereum wallet|A verified Ethereum wallet login|Authenticated wallet does not match|Authorization rate limit exceeded|Invalid market authorization request|Listing price changed|Invalid market amount|Market amount must be positive|Invalid auction duration|Indexer is behind|Ethscriptions indexer is behind)/.test(message)
+   const safe = /^(Sign in with your Ethereum wallet|A verified Ethereum wallet login|Authenticated wallet does not match|Authorization rate limit exceeded|Wallet authorization|Invalid wallet authorization|Invalid market authorization request|Listing price changed|Invalid market amount|Market amount must be positive|Invalid auction duration|Indexer is behind|Ethscriptions indexer is behind)/.test(message)
    return res.status(message === 'MARKET_NOT_CONFIGURED' ? 503 : 400).json({ ok: false, error: message === 'MARKET_NOT_CONFIGURED' ? 'The forked market is not configured yet.' : safe ? message : req.method === 'GET' ? marketReadError(message) : 'Market verification is unavailable. No authorization was issued.' })
  }
 }
