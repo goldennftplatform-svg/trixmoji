@@ -1,12 +1,13 @@
 (() => {
  'use strict'
- if (new URLSearchParams(location.search).get('collection') === 'trixmoji') return
  const SIZE = document.body.dataset.pageSize === '100' ? 100 : 40, el = id => document.getElementById(id)
  let catalog, page = 0, matches = [], chosen = new Set(), currentArt = null
- const cleanPop = document.body.dataset.collection === 'clean-pop-v1'
+  const cleanPop = document.body.dataset.collection === 'clean-pop-v1'
+  const launch = cleanPop && !!document.body.dataset.marketView && new URLSearchParams(location.search).get('collection') !== 'webp-v2' && new URLSearchParams(location.search).get('market') !== 'legacy' && (new URLSearchParams(location.search).get('collection') === 'trixmoji' || document.body.dataset.defaultCollection === 'trixmoji')
  const webpV2 = cleanPop && !!document.body.dataset.marketView && new URLSearchParams(location.search).get('collection') === 'webp-v2'
- const pieceName = cleanPop ? 'CLEAN POP' : 'PHUNK'
- const mintImage = id => webpV2 ? '/assets/ethscriptions/clean-pop-webp-v2/' + id + '.webp' : (cleanPop ? '/assets/ethscriptions/clean-pop-v1/' : '/assets/ethscriptions/phunks/img/') + id + '.png'
+  const pieceName = launch ? 'TRIXMOJI' : cleanPop ? 'CLEAN POP' : 'PHUNK'
+  const mintImage = id => launch ? '/assets/ethscriptions/trixmoji-launch/' + id + '.webp' : webpV2 ? '/assets/ethscriptions/clean-pop-webp-v2/' + id + '.webp' : (cleanPop ? '/assets/ethscriptions/clean-pop-v1/' : '/assets/ethscriptions/phunks/img/') + id + '.png'
+  if (document.body.dataset.marketView) { document.querySelectorAll('.hero-art img').forEach((img, i) => { const id = [419,453][i]; img.src=mintImage(id); img.alt=pieceName+' '+id+' artwork' }); if (launch) document.title='TrixMoji · Market' }
  const image = mintImage
  const traits = item => item.t.map(index => catalog.dictionary[index])
  const visualCount = item => traits(item).filter(t => !['Token', 'Type', 'Skin'].includes(t.group)).length
@@ -83,9 +84,9 @@
  el('clear').onclick=()=>{chosen.clear();el('search').value='';el('sort').value='asc';document.querySelectorAll('[data-trait]').forEach(i=>i.checked=false);if(catalog)filter()}
  el('toggleFilters').onclick=()=>{const hidden=document.querySelector('.workspace').classList.toggle('filters-hidden');el('toggleFilters').setAttribute('aria-expanded',String(!hidden))}
  el('closeDialog').onclick=()=>el('artDialog').close()
- el('copyLink').onclick=async()=>{try{await navigator.clipboard.writeText(location.origin+location.pathname+'?id='+currentArt);el('copyLink').textContent='LINK COPIED'}catch(_){el('copyLink').textContent='COPY FROM ADDRESS BAR';history.replaceState(null,'',location.pathname+'?id='+currentArt)}}
+  el('copyLink').onclick=async()=>{const query=(launch?'?collection=trixmoji&id=':webpV2?'?collection=webp-v2&id=':'?id=')+currentArt;try{await navigator.clipboard.writeText(location.origin+location.pathname+query);el('copyLink').textContent='LINK COPIED'}catch(_){el('copyLink').textContent='COPY FROM ADDRESS BAR';history.replaceState(null,'',location.pathname+query)}}
  if (matchMedia('(max-width:760px)').matches) {document.querySelector('.workspace').classList.add('filters-hidden');el('toggleFilters').setAttribute('aria-expanded','false')}
- fetch('/assets/data/phunk-catalog.json').then(async response=>{if(!response.ok)throw new Error('Trait catalogue unavailable. Refresh or retry after deployment.');return response.json()}).then(data=>{
+  fetch(launch ? '/assets/data/trixmoji-launch-catalog.json' : '/assets/data/phunk-catalog.json').then(async response=>{if(!response.ok)throw new Error('Trait catalogue unavailable. Refresh or retry after deployment.');return response.json()}).then(data=>{
   if(data.supply!==10000 || data.items.length!==10000)throw new Error('Incomplete trait catalogue')
   catalog=data;el('traitTotal').textContent=data.dictionary.length;groups();filter()
   const id=new URLSearchParams(location.search).get('id');if(id!==null && /^\d+$/.test(id) && Number(id)<10000)open(Number(id))

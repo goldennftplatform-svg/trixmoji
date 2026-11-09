@@ -2,7 +2,7 @@
  'use strict'
  var grid = document.getElementById('walletGrid'), status = document.getElementById('marketStatus'), more = document.getElementById('moreWallet'), reviewBox = document.getElementById('marketReview'), recoveryBox = document.getElementById('marketRecovery')
  var cursor = null, generation = 0, view = 'wallet', board = null, client = null, busy = false, artifact, deployment, recoveryNotice = '', activeSubmissionKey = null
-  var params = new URLSearchParams(location.search), launch = params.get('collection') === 'trixmoji', webpV2 = params.get('collection') === 'webp-v2'
+  var params = new URLSearchParams(location.search), webpV2 = params.get('collection') === 'webp-v2', launch = !webpV2 && params.get('market') !== 'legacy' && (params.get('collection') === 'trixmoji' || !!(document.body && document.body.dataset.defaultCollection === 'trixmoji'))
   var legacy = !launch && !webpV2 && params.get('market') === 'legacy'
   var marketUrl = launch ? '/.netlify/functions/trixmoji-market-launch' : webpV2 ? '/.netlify/functions/trixmoji-market-webp-v2' : legacy ? '/.netlify/functions/trixmoji-market' : '/.netlify/functions/trixmoji-market-replacement'
   var expectedMarket = legacy ? '0xd935E162B6070C4FEAF600c67f7F729f318515a2' : '0x21c1A938d06f87A039abfC48d1cCB459f55b1685'
@@ -12,6 +12,11 @@
    if (brandLink) brandLink.href = '/classic/pages/trixmoji-market.html?collection=' + (launch ? 'trixmoji' : 'webp-v2')
    if (mintLink) mintLink.href = launch ? '/classic/pages/trixmoji-mint.html' : '/classic/pages/clean-pop-webp-v2-mint.html'
    if (brandLabel) brandLabel.textContent = launch ? 'TRIXMOJI' : 'TRIXMOJI · WEBP V2'
+   if (launch) {
+    var notice = document.querySelector('.notice'), detailLabel = document.querySelector('#artDialog .eyebrow')
+    if (notice && notice.childNodes.length > 1) notice.childNodes[1].nodeValue = ' TRIXMOJI MARKET '
+    if (detailLabel) detailLabel.textContent = 'TRIXMOJI'
+   }
   }
  var same = function (a, b) { return String(a || '').toLowerCase() === String(b || '').toLowerCase() }
  var say = function (text) { status.textContent = text }
