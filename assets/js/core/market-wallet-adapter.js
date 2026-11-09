@@ -78,8 +78,17 @@
     to = market; data = iface.encodeFunctionData('withdraw', [address(args.recipient)])
    } else throw Error('Unknown market action.')
    var tx = { from: account, to: to, value: ethers.utils.hexValue(value), data: data }
-    await rpc('eth_call', [tx, 'latest'])
-    var estimate = ethers.BigNumber.from(await rpc('eth_estimateGas', [tx]))
+    var estimate
+    try {
+     await rpc('eth_call', [tx, 'latest'])
+     estimate = ethers.BigNumber.from(await rpc('eth_estimateGas', [tx]))
+    } catch (error) {
+     if (action === 'gift' && /revert/i.test(String(error && (error.message || error)))) {
+      var recipientCode = await rpc('eth_getCode', [to, 'latest'])
+      if (recipientCode && recipientCode !== '0x' && recipientCode !== '0x0') throw Error('The recipient wallet rejected this Ethscription transfer in simulation. No transaction was requested. Ask the recipient for an address that accepts Ethscription transfers.')
+     }
+     throw error
+    }
     var gasPrice = null
     try { var suggested = ethers.BigNumber.from(await rpc('eth_gasPrice')); if (suggested.gt(0)) gasPrice = suggested.toString() } catch (_) { /* Wallet will show its own fee. */ }
    // Keep Ethscription transfer requests minimal; let the wallet fill gas/network fields.
