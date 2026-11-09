@@ -16,6 +16,8 @@ const replacementDeployment = require('../assets/data/trixmoji-escrow-replacemen
 const minter = require('../assets/data/clean-pop-minter.json')
 const webpMinter = require('../assets/data/clean-pop-webp-v2-candidate.json')
 const webpDeployment = require('../assets/data/clean-pop-webp-v2-deployment.json')
+const launchMinter = require('../assets/data/trixmoji-launch-candidate.json')
+const launchDeployment = require('../assets/data/trixmoji-launch-deployment.json')
 
 function verifierKey() {
  const value = String(process.env.TRIXMOJI_MARKET_VERIFIER_KEY || '').trim()
@@ -57,7 +59,7 @@ async function runtime(readOnly, marketArtifact = require('../assets/data/trixmo
   marketStartBlock: Number(start), confirmations: 2, blockChunk: 2000, maxCandidates: 1000 })
 }
 
-async function handler(req, res, replacement = false, webpV2 = false) {
+async function handler(req, res, replacement = false, webpV2 = false, launch = false) {
  if (req.method !== 'GET' && req.method !== 'POST') return res.status(405).json({ ok: false, error: 'GET or POST only.' })
  const limit = checkRateLimit(req, { prefix: 'trixmoji-market', perMinute: 30, perDay: 1000 })
  if (!limit.ok) return res.status(429).json({ ok: false, error: 'Please wait before retrying.' })
@@ -65,8 +67,10 @@ async function handler(req, res, replacement = false, webpV2 = false) {
   if (req.method === 'POST' && process.env.TRIXMOJI_MARKET_LIVE !== 'true') throw Error('MARKET_NOT_CONFIGURED')
   const selectedArtifact = replacement ? replacementArtifact : marketArtifact
   const selectedDeployment = replacement ? replacementDeployment : deployment
-   if (webpV2 && (webpDeployment.chainId !== 1 || !Number.isSafeInteger(webpDeployment.deploymentBlock) || webpDeployment.deploymentBlock < 1 || webpDeployment.address.toLowerCase() !== webpMinter.address.toLowerCase() || webpDeployment.runtimeHash.toLowerCase() !== webpMinter.runtimeHash.toLowerCase() || webpDeployment.root.toLowerCase() !== webpMinter.root.toLowerCase())) throw Error('MARKET_NOT_CONFIGURED')
-   const service = await runtime(req.method === 'GET', selectedArtifact, selectedDeployment, webpV2 ? webpMinter : minter, webpV2 ? 'image/webp' : 'image/png', webpV2 ? webpDeployment.deploymentBlock : 0)
+    const chosenMinter = launch ? launchMinter : webpV2 ? webpMinter : minter
+    const chosenDeployment = launch ? launchDeployment : webpV2 ? webpDeployment : null
+    if (chosenDeployment && (chosenDeployment.chainId !== 1 || !Number.isSafeInteger(chosenDeployment.deploymentBlock) || chosenDeployment.deploymentBlock < 1 || chosenDeployment.address.toLowerCase() !== chosenMinter.address.toLowerCase() || chosenDeployment.runtimeHash.toLowerCase() !== chosenMinter.runtimeHash.toLowerCase() || chosenDeployment.root.toLowerCase() !== chosenMinter.root.toLowerCase())) throw Error('MARKET_NOT_CONFIGURED')
+    const service = await runtime(req.method === 'GET', selectedArtifact, selectedDeployment, chosenMinter, chosenDeployment ? 'image/webp' : 'image/png', chosenDeployment ? chosenDeployment.deploymentBlock : 0)
   if (req.method === 'GET') {
    const key = verifierKey()
    const readiness = { sessionConfigured: !!sessionSecret(), verifierKeyPresent: !!key, verifierKeyFormatValid: /^0x[a-f0-9]{64}$/i.test(key), verifierKeyMatches: false, quotaStorageAvailable: false }
@@ -95,3 +99,4 @@ module.exports.verifierKey = verifierKey
 module.exports.marketReadError = marketReadError
 module.exports.replacement = (req, res) => handler(req, res, true)
 module.exports.webpV2 = (req, res) => handler(req, res, true, true)
+module.exports.trixmojiLaunch = (req, res) => handler(req, res, true, false, true)
