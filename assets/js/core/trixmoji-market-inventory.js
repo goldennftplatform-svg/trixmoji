@@ -190,8 +190,9 @@
    await configure(); say('Checking saved recovery records…'); await reconcileKnownRecovery(); await reconcileSubmittedActions(); recovery()
    if (kind === 'deposit' || kind === 'depositAndList') {
      var selectedWallet = MarketWalletConnector.current()
-     if (launch && selectedWallet && same(selectedWallet.address, '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E')) {
-      throw Error('This wallet recently wrapped an escrow deposit without transferring custody. Further deposits are disabled while the route is investigated. No transaction was requested.')
+     var rabby = selectedWallet && (selectedWallet.provider.isRabby === true || (selectedWallet.walletInfo && selectedWallet.walletInfo.rdns === 'io.rabby'))
+     if (launch && selectedWallet && same(selectedWallet.address, '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E') && !rabby) {
+      throw Error('This account previously sent a wrapped deposit through MetaMask. Connect the same account using Rabby, which you used for the earlier direct deposit. No transaction was requested.')
      }
      say('Checking market availability…')
     var currentBoard = await json(marketUrl)

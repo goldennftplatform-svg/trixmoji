@@ -3,6 +3,7 @@
  var KEY = 'doswapz.phunk.checkout.v1'
  var active = null
  var projectId = ''
+ var providerInfo = new WeakMap()
  function records() {
   var rows = JSON.parse(root.localStorage.getItem(KEY) || '[]')
   if (!Array.isArray(rows)) throw new Error('Saved checkout data is invalid. Keep it for recovery; do not pay again.')
@@ -50,11 +51,11 @@
   async function choose(host, report) {
    report = report || function () {}
   var rows = []
-  function add(provider, name, id) {
-   if (provider && provider.request && !rows.some(function (r) { return r.provider === provider || id && r.id === id })) rows.push({ provider: provider, name: name, id: id })
+   function add(provider, name, id, rdns) {
+    if (provider && provider.request && !rows.some(function (r) { return r.provider === provider || id && r.id === id })) { rows.push({ provider: provider, name: name, id: id }); providerInfo.set(provider, { name: name, rdns: rdns || '' }) }
   }
   function announce(event) {
-   if (event.detail) { var info = event.detail.info || {}; add(event.detail.provider, info.name || 'Ethereum wallet', info.uuid || info.rdns) }
+    if (event.detail) { var info = event.detail.info || {}; add(event.detail.provider, info.name || 'Ethereum wallet', info.uuid || info.rdns, info.rdns) }
   }
   root.addEventListener('eip6963:announceProvider', announce)
   root.dispatchEvent(new Event('eip6963:requestProvider'))
@@ -218,7 +219,7 @@
   })
  }
  var exported = { choose: choose, connect: connect, requestAccounts: requestAccounts, walletRequest: walletRequest, ensureChain: ensureChain, identity: identity, send: send, reconcile: reconcile, finish: finish, recovery: recovery, records: records, eth: eth,
-  configure: function (id) { projectId = id || '' } }
+   configure: function (id) { projectId = id || '' }, walletInfo: function (provider) { return providerInfo.get(provider) || null } }
  if (typeof module !== 'undefined' && module.exports) module.exports = exported
  else root.EthscriptionCheckout = exported
 })(typeof window !== 'undefined' ? window : globalThis)

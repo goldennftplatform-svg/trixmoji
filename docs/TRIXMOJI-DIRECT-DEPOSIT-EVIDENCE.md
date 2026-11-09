@@ -16,9 +16,13 @@ inner call, but the indexer did not transfer custody. Cancellation
 `0x99c2fda0b421b81a0eae8e70753b6acbf6844eed3bd7c08d32cbdcb78eea0627`
 cleared the false record. Indexed ownership must still be checked live.
 
-These observations prove a direct route worked once; they do not show which
-wallet approval option, wallet or configuration caused that result. The site
+The user subsequently identified Rabby as the wallet used for the successful
+prior deposit and reported that they listed, sold and bought with it. The chain
+transaction confirms the successful direct deposit, but cannot itself identify
+the wallet application or prove that all future Rabby submissions will be direct.
+The site
 already requests a direct transaction. Changing application payload fields or
 the image root is not demonstrated to prevent wallet-side rewriting. Keep
-the affected account's deposit guard until a supported way to reproduce the
-direct route is identified. Never treat the wrapped receipt as custody proof.
+the affected account's deposit guard for providers other than Rabby, and verify
+the outer transaction and indexer after any Rabby submission. Never treat the
+wrapped receipt as custody proof.

@@ -24,7 +24,7 @@
    var accounts = await provider.request({ method: 'eth_accounts' })
    if (!accounts || !accounts[0]) throw Error('No Ethereum account connected.')
    await EthscriptionCheckout.identity(provider, accounts[0])
-   return setActive({ provider: provider, address: accounts[0] })
+   return setActive({ provider: provider, address: accounts[0], walletInfo: typeof EthscriptionCheckout.walletInfo === 'function' ? EthscriptionCheckout.walletInfo(provider) : null })
  }
  var api = { connect: connect, current: function () { return active } }
  if (typeof module !== 'undefined' && module.exports) module.exports = api

@@ -10,5 +10,15 @@ test('known #2 cancellation reconciles without gas and affected wallet cannot re
  const context={document:{getElementById:id=>els[id],createElement:()=>element()},window:{addEventListener(){}},location:{search:'?collection=trixmoji',origin:'https://example.test'},URL,URLSearchParams,AbortSignal,fetch,ethers,localStorage:{},navigator:{locks:{}},MarketWalletConnector:{current:()=>({address:seller,provider:{}})},TrixmojiMarketWallet:{create:()=>client},CleanPopTransferCheckout:{records:()=>[]},setTimeout,console}
  vm.runInNewContext(fs.readFileSync(path.resolve(__dirname,'../../assets/js/core/trixmoji-market-inventory.js'),'utf8'),context)
  els.myWallet.onclick();await new Promise(r=>setTimeout(r,30));assert.equal(calls.length,1);assert.equal(calls[0][1],cancel);assert.equal(row.state,'failed')
- const card=els.walletGrid.children[0];card.children.find(x=>x.textContent==='MOVE TO ESCROW').onclick();await new Promise(r=>setTimeout(r,30));assert.match(els.marketStatus.textContent,/Further deposits are disabled/)
+ const card=els.walletGrid.children[0];card.children.find(x=>x.textContent==='MOVE TO ESCROW').onclick();await new Promise(r=>setTimeout(r,30));assert.match(els.marketStatus.textContent,/using Rabby/)
+})
+test('Rabby selection permits the verified direct-deposit preparation path',async()=>{
+ const names=['walletGrid','marketStatus','moreWallet','marketReview','marketRecovery','myWallet','myEscrow','forSale','auctions','refreshWallet','withdrawCredit']
+ function element(){return {children:[],hidden:false,textContent:'',appendChild(x){this.children.push(x);return x},append(...xs){this.children.push(...xs)},setAttribute(){},focus(){}}}
+ const els=Object.fromEntries(names.map(n=>[n,element()])),seller='0x47cf60BdD877203264921D05CE26F81f6d36Aa3E',id='0xa4bc92ffe2a00e2a46f2cd9054fd7a87a3a3dc42bd1be4d241e89a3c39b458a4';let prepared=false
+ const client={records:()=>[],run:async(kind,args)=>{assert.equal(kind,'deposit');assert.equal(args.id,id);prepared=true;throw Error('test stops before wallet approval')}}
+ const fetch=async url=>{let s=String(url),value;if(s.includes('replacement-artifact'))value=artifact;else if(s.includes('replacement-deployment'))value=deployment;else if(s.includes('market-wallet-inventory'))value={items:[{id,tokenNo:2}],nextPageKey:null};else if(s.includes('trixmoji-market-launch'))value={marketAddress:deployment.address,tradingReady:true,deposits:[],auctions:[],listings:[]};else throw Error('unexpected fetch '+s);return {ok:true,json:async()=>value}}
+ const context={document:{getElementById:id=>els[id],createElement:()=>element()},window:{addEventListener(){}},location:{search:'?collection=trixmoji',origin:'https://example.test'},URL,URLSearchParams,AbortSignal,fetch,ethers,localStorage:{},navigator:{locks:{}},MarketWalletConnector:{current:()=>({address:seller,provider:{isRabby:true}})},TrixmojiMarketWallet:{create:()=>client},CleanPopTransferCheckout:{records:()=>[]},setTimeout,console}
+ vm.runInNewContext(fs.readFileSync(path.resolve(__dirname,'../../assets/js/core/trixmoji-market-inventory.js'),'utf8'),context)
+ els.myWallet.onclick();await new Promise(r=>setTimeout(r,30));els.walletGrid.children[0].children.find(x=>x.textContent==='MOVE TO ESCROW').onclick();await new Promise(r=>setTimeout(r,30));assert.equal(prepared,true);assert.match(els.marketStatus.textContent,/test stops/)
 })
