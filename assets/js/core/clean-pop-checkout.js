@@ -121,6 +121,7 @@
  }
  var api = createCheckout('trixmoji.clean-pop.checkout.v1')
  api.createWebpV2 = function () { return createCheckout('trixmoji.clean-pop.checkout.webp-v2') }
+ api.createTrixMojiLaunch = function () { return createCheckout('trixmoji.launch.checkout') }
  if (typeof module !== 'undefined' && module.exports) module.exports = api
  else root.CleanPopCheckout = api
 })(typeof window !== 'undefined' ? window : globalThis)
