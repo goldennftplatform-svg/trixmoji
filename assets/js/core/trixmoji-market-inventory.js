@@ -61,7 +61,12 @@
    if (!same(log.address, deployment.address)) continue
    try { var parsed = iface.parseLog(log); if (parsed.name === names[row.action] && (!row.assetId || same(parsed.args.id, row.assetId)) && (!['deposit', 'depositAndList', 'list', 'cancel'].includes(row.action) || same(parsed.args.seller, row.from))) { event = parsed; break } } catch (_) {}
   }
-  if (!event) return false
+   if (!event) return false
+   if (row.action === 'buy') {
+    if (!same(event.args.buyer, row.from)) return false
+    var purchased = await asset(row.assetId)
+    return same(purchased.transaction_hash, row.assetId) && Array.isArray(purchased.ethscription_transfers) && purchased.ethscription_transfers.some(function (t) { return same(t.transaction_hash, row.hash) && same(t.from_address, deployment.address) && same(t.to_address, row.from) })
+   }
   if (row.action === 'depositAndList') {
    var marketData = await json(marketUrl)
    return (marketData.listings || []).some(function (item) { return same(item.id, row.assetId) && same(item.seller, row.from) })
@@ -78,7 +83,7 @@
   if (!client || !deployment) return
   var connection = MarketWalletConnector.current()
   if (!connection) return
-  var pending = client.records().filter(function (row) { return row && row.state === 'submitted' && ['list', 'buy', 'deposit', 'depositAndList'].includes(row.action) && /^0x[a-f0-9]{64}$/i.test(String(row.hash || '')) && same(row.to, deployment.address) && same(row.from, connection.address) })
+   var pending = client.records().filter(function (row) { return row && row.state === 'submitted' && ['list', 'buy', 'deposit', 'depositAndList'].includes(row.action) && /^0x[a-f0-9]{64}$/i.test(String(row.hash || '')) && same(row.to, deployment.address) && (row.action === 'buy' || same(row.from, connection.address)) })
   for (var row of pending) {
    try { await client.reconcile(row, verify) } catch (_) { /* Keep unresolved requests visible for manual checks. */ }
   }
