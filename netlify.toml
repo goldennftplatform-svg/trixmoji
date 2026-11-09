@@ -83,6 +83,9 @@
   external_node_modules = ["@vercel/kv", "@netlify/blobs"]
   included_files = ["api/**", "assets/data/**", "assets/data/pond-activated-rigs.json"]
 
+[functions."trixmoji-minted-page"]
+  timeout = 26
+
 # Pond dossier fans out to several upstreams — need headroom past default 10s
 [functions."pond-dossier"]
   timeout = 26
