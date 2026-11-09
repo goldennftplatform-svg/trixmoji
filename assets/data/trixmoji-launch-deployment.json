@@ -1,0 +1,12 @@
+{
+  "version": "trixmoji-launch-deployment",
+  "chainId": 1,
+  "address": "0x14F9B4a11A10A83C6A686012110Dc2bd54eFD673",
+  "factory": "0x4e59b44847b379578588920ca78fbf26c0b4956c",
+  "deployer": "0x915A3D363D0a4e4470B531f008F5142c540E5417",
+  "deploymentTx": "0x8be06d4debe8475bf5da28ae3d30abecfcfaab8ef4101fdac200f86ecac433b6",
+  "deploymentBlock": 26374149,
+  "deploymentBlockHash": "0xf81160879a0b08d991fa43cf058edd9b2e5777ac6ffdc9c3cd5e68531b8df4c7",
+  "runtimeHash": "0x1800e638009785d73a8a79552f601a14611ef7039255d06b69f4f6341a82409b",
+  "root": "0xd0ffdd061960fac4fe88ec83d80ae4387da203ee9bdac35b015fa86cd08f7bb6"
+}
