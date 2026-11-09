@@ -11,7 +11,7 @@
  function create(config) {
   if (!config || !config.provider || typeof config.provider.request !== 'function' || !config.storage || !config.locks || !config.abi || !/^0x[a-f0-9]{64}$/i.test(String(config.runtimeHash || ''))) throw Error('Incomplete market configuration.')
   var KEY = config.storageKey || 'trixmoji.market.contract.transaction.v1'
-  if (!['trixmoji.market.contract.transaction.v1', 'trixmoji.market.contract.transaction.webp-v2'].includes(KEY)) throw Error('Invalid market transaction storage key.')
+  if (!['trixmoji.market.contract.transaction.v1', 'trixmoji.market.contract.transaction.webp-v2', 'trixmoji.market.contract.transaction.launch'].includes(KEY)) throw Error('Invalid market transaction storage key.')
   var market = address(config.market), expectedCreator = address(config.creator), expectedVerifier = address(config.verifier)
   var chainId = Number(config.chainId), iface = new ethers.utils.Interface(config.abi), provider = config.provider
   if (!Number.isSafeInteger(chainId) || chainId < 1 || typeof config.readAsset !== 'function') throw Error('Invalid network or indexer configuration.')

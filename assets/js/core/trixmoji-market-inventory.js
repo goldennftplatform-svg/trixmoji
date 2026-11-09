@@ -2,16 +2,16 @@
  'use strict'
  var grid = document.getElementById('walletGrid'), status = document.getElementById('marketStatus'), more = document.getElementById('moreWallet'), reviewBox = document.getElementById('marketReview'), recoveryBox = document.getElementById('marketRecovery')
  var cursor = null, generation = 0, view = 'wallet', board = null, client = null, busy = false, artifact, deployment, recoveryNotice = '', activeSubmissionKey = null
-  var params = new URLSearchParams(location.search), webpV2 = params.get('collection') === 'webp-v2'
-  var legacy = !webpV2 && params.get('market') === 'legacy'
-  var marketUrl = webpV2 ? '/.netlify/functions/trixmoji-market-webp-v2' : legacy ? '/.netlify/functions/trixmoji-market' : '/.netlify/functions/trixmoji-market-replacement'
+  var params = new URLSearchParams(location.search), launch = params.get('collection') === 'trixmoji', webpV2 = params.get('collection') === 'webp-v2'
+  var legacy = !launch && !webpV2 && params.get('market') === 'legacy'
+  var marketUrl = launch ? '/.netlify/functions/trixmoji-market-launch' : webpV2 ? '/.netlify/functions/trixmoji-market-webp-v2' : legacy ? '/.netlify/functions/trixmoji-market' : '/.netlify/functions/trixmoji-market-replacement'
   var expectedMarket = legacy ? '0xd935E162B6070C4FEAF600c67f7F729f318515a2' : '0x21c1A938d06f87A039abfC48d1cCB459f55b1685'
-  var modeLabel = document.getElementById('marketMode'); if (modeLabel) modeLabel.textContent = webpV2 ? 'WEBP V2 · REPLACEMENT ESCROW' : legacy ? 'ORIGINAL ESCROW · ETHEREUM' : 'REPLACEMENT ESCROW · EXPERIMENTAL'
-  if (webpV2 && document.querySelector) {
+  var modeLabel = document.getElementById('marketMode'); if (modeLabel) modeLabel.textContent = launch ? 'TRIXMOJI · ETHEREUM' : webpV2 ? 'WEBP V2 · REPLACEMENT ESCROW' : legacy ? 'ORIGINAL ESCROW · ETHEREUM' : 'REPLACEMENT ESCROW · EXPERIMENTAL'
+  if ((launch || webpV2) && document.querySelector) {
    var brandLink = document.querySelector('.market-header .brand'), mintLink = document.querySelector('.market-header .mint-link'), brandLabel = document.querySelector('.market-header .brand small')
-   if (brandLink) brandLink.href = '/classic/pages/trixmoji-market.html?collection=webp-v2'
-   if (mintLink) mintLink.href = '/classic/pages/clean-pop-webp-v2-mint.html'
-   if (brandLabel) brandLabel.textContent = 'TRIXMOJI · WEBP V2'
+   if (brandLink) brandLink.href = '/classic/pages/trixmoji-market.html?collection=' + (launch ? 'trixmoji' : 'webp-v2')
+   if (mintLink) mintLink.href = launch ? '/classic/pages/trixmoji-mint.html' : '/classic/pages/clean-pop-webp-v2-mint.html'
+   if (brandLabel) brandLabel.textContent = launch ? 'TRIXMOJI' : 'TRIXMOJI · WEBP V2'
   }
  var same = function (a, b) { return String(a || '').toLowerCase() === String(b || '').toLowerCase() }
  var say = function (text) { status.textContent = text }
@@ -25,7 +25,7 @@
    var values = await Promise.all([json(legacy ? '/assets/data/trixmoji-escrow-artifact.json' : '/assets/data/trixmoji-escrow-replacement-artifact.json'), json(legacy ? '/assets/data/trixmoji-escrow-deployment.json' : '/assets/data/trixmoji-escrow-replacement-deployment.json')]); artifact = values[0]; deployment = values[1]
    if (!same(deployment.address, expectedMarket)) throw Error('Market deployment address does not match the selected market.')
   }
-   client = TrixmojiMarketWallet.create({ provider: connection.provider, storage: localStorage, storageKey: webpV2 ? 'trixmoji.market.contract.transaction.webp-v2' : 'trixmoji.market.contract.transaction.v1', locks: navigator.locks, abi: artifact.abi, market: deployment.address, runtimeHash: deployment.runtimeHash, creator: deployment.creator, verifier: deployment.verifier, chainId: deployment.chainId, minter: webpV2 ? '0xD085EB56d7195Bdf4a17bf3107FDC938a118B704' : '0x11019B7af0F833f5695a44584c5B31Bb1D0baabC', combinedDepositEnabled: !legacy, readAsset: asset,
+   client = TrixmojiMarketWallet.create({ provider: connection.provider, storage: localStorage, storageKey: launch ? 'trixmoji.market.contract.transaction.launch' : webpV2 ? 'trixmoji.market.contract.transaction.webp-v2' : 'trixmoji.market.contract.transaction.v1', locks: navigator.locks, abi: artifact.abi, market: deployment.address, runtimeHash: deployment.runtimeHash, creator: deployment.creator, verifier: deployment.verifier, chainId: deployment.chainId, minter: launch ? '0x14F9B4a11A10A83C6A686012110Dc2bd54eFD673' : webpV2 ? '0xD085EB56d7195Bdf4a17bf3107FDC938a118B704' : '0x11019B7af0F833f5695a44584c5B31Bb1D0baabC', combinedDepositEnabled: !legacy, readAsset: asset,
    authorize: async function (body) { return json(marketUrl, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ action: 'authorize' }, body)), signal: AbortSignal.timeout(25000) }) } })
   return connection
  }
@@ -72,7 +72,7 @@
   }
  }
  async function reconcileKnownRecovery() {
-  if (legacy || webpV2 || !client) return
+   if (legacy || webpV2 || launch || !client) return
   var recoveries = {
    '0x9de253efbaeb700b2947630706ce0234c19b23a8eb3ab16d1adb40db0e5a57c5': '0x430a0f0cafa463ab9d8b075b68d88ec4bc9639a9490132f164dfb08d801e93db',
    '0x939deedb5781d5895daf8127f9c72a593909b53869eb25ce40eeca62830be472': '0xf7ce6ffe0734282df2c67758b56bfdb063f2f811073c6e1dea6306cd372e2a8f',
@@ -157,7 +157,7 @@
     if (!legacy && same(row.from, '0x47cf60BdD877203264921D05CE26F81f6d36Aa3E') && same(row.assetId, '0xdf234357362b4884a50aa356f0cc6c76a52e72634c29c8e7440ca8232e285e74')) { var recoveryLink = document.createElement('a'); recoveryLink.href = '/classic/pages/replacement-6-recovery.html'; recoveryLink.textContent = 'OPEN #6 ESCROW RECORD RECOVERY ↗'; entryHost.appendChild(recoveryLink) }
    }
   })
-  if (!webpV2) CleanPopTransferCheckout.records().filter(function (r) { return r.state !== 'complete' && r.state !== 'failed' }).forEach(function (row) {
+  if (!webpV2 && !launch) CleanPopTransferCheckout.records().filter(function (r) { return r.state !== 'complete' && r.state !== 'failed' }).forEach(function (row) {
    var text = document.createElement('p'), input = document.createElement('input'), check = document.createElement('button')
    text.textContent = 'Saved transfer of CLEAN POP #' + row.tokenNo + '. Check wallet Activity before sending again.'
    input.placeholder = '0x transfer transaction hash'; input.value = row.hash || ''; input.setAttribute('aria-label', 'Saved transfer transaction hash')
@@ -205,7 +205,7 @@
    } finally { activeSubmissionKey = null; busy = false; recovery() }
  }
  async function sendPiece(item, recipient) {
-  if (webpV2) return action('gift', { id: item.id, recipient: recipient.trim() })
+  if (webpV2 || launch) return action('gift', { id: item.id, recipient: recipient.trim() })
   if (busy) return; busy = true
   try {
    var connection = MarketWalletConnector.current()
@@ -228,7 +228,7 @@
  function card(item, kind, connection) {
   var article = document.createElement('article'), image = document.createElement('img'), title = document.createElement('h2'), info = document.createElement('p')
   if (!Number.isInteger(item.tokenNo) || item.tokenNo < 0 || item.tokenNo >= 10000) return
-  image.src = webpV2 ? '/assets/ethscriptions/clean-pop-webp-v2/' + item.tokenNo + '.webp' : '/assets/ethscriptions/clean-pop-v1/' + item.tokenNo + '.png'; image.alt = 'Clean Pop #' + item.tokenNo; image.loading = 'lazy'; title.textContent = 'CLEAN POP #' + item.tokenNo
+  image.src = launch ? '/assets/ethscriptions/trixmoji-launch/' + item.tokenNo + '.webp' : webpV2 ? '/assets/ethscriptions/clean-pop-webp-v2/' + item.tokenNo + '.webp' : '/assets/ethscriptions/clean-pop-v1/' + item.tokenNo + '.png'; image.alt = (launch ? 'TrixMoji #' : 'Clean Pop #') + item.tokenNo; image.loading = 'lazy'; title.textContent = (launch ? 'TRIXMOJI #' : 'CLEAN POP #') + item.tokenNo
   article.append(image, title, info)
   if (kind === 'wallet') {
    info.textContent = 'First move this piece to escrow. Once indexed and the cooldown is complete, list it from MY ESCROW.'
@@ -294,7 +294,7 @@
    if (request !== generation) return
    if (view === 'wallet') {
     if (!connection) { say('Connect an Ethereum wallet to see your Clean Pop pieces.'); return }
-    var url = new URL(webpV2 ? '/.netlify/functions/market-wallet-inventory-webp-v2' : '/.netlify/functions/market-wallet-inventory', location.origin); url.searchParams.set('wallet', connection.address); if (cursor) url.searchParams.set('pageKey', cursor)
+    var url = new URL(launch ? '/.netlify/functions/market-wallet-inventory-launch' : webpV2 ? '/.netlify/functions/market-wallet-inventory-webp-v2' : '/.netlify/functions/market-wallet-inventory', location.origin); url.searchParams.set('wallet', connection.address); if (cursor) url.searchParams.set('pageKey', cursor)
     var data = await json(url); if (request !== generation) return
     data.items.forEach(function (item) { card(item, 'wallet', connection) }); cursor = data.nextPageKey; more.hidden = !cursor
     say((grid.children.length ? 'Verified Clean Pop pieces in ' + connection.address : 'No verified Clean Pop pieces found in this wallet.') + (!board || !board.tradingReady ? ' Market data is unavailable; MOVE TO ESCROW will recheck before requesting a wallet transaction.' : ''))

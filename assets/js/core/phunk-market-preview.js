@@ -1,5 +1,6 @@
 (() => {
  'use strict'
+ if (new URLSearchParams(location.search).get('collection') === 'trixmoji') return
  const SIZE = document.body.dataset.pageSize === '100' ? 100 : 40, el = id => document.getElementById(id)
  let catalog, page = 0, matches = [], chosen = new Set(), currentArt = null
  const cleanPop = document.body.dataset.collection === 'clean-pop-v1'

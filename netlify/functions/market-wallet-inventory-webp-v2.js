@@ -7,9 +7,9 @@ const { walletInventory } = require('../../api/lib/trixmoji-market/wallet-invent
 const { createHistoryReader } = require('../../api/lib/trixmoji-market/history-reader.cjs')
 const minter = require('../../assets/data/clean-pop-webp-v2-candidate.json')
 
-exports.handler = async event => {
+function createHandler(minter, prefix) { return async event => {
  if (event.httpMethod !== 'GET') return { statusCode: 405, body: 'Method not allowed' }
- const limit = checkRateLimit({ headers: event.headers || {} }, { prefix: 'market-wallet-inventory-webp-v2', perMinute: 15, perDay: 500 })
+ const limit = checkRateLimit({ headers: event.headers || {} }, { prefix, perMinute: 15, perDay: 500 })
  if (!limit.ok) return { statusCode: 429, body: JSON.stringify({ ok: false, error: 'Please wait before refreshing.' }) }
  const query = event.queryStringParameters || {}, wallet = query.wallet, pageKey = query.pageKey
  if (!ethers.utils.isAddress(wallet || '') || (pageKey && !/^0x[a-f0-9]{64}$/i.test(pageKey))) return { statusCode: 400, body: JSON.stringify({ ok: false, error: 'Invalid wallet or page key.' }) }
@@ -32,4 +32,6 @@ exports.handler = async event => {
   const result = await walletInventory({ wallet, minter: minter.address, registry, fetchPage, pageKey })
   return { statusCode: 200, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify({ ok: true, ...result }) }
  } catch (_) { return { statusCode: 503, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify({ ok: false, error: 'WebP wallet inventory is unavailable or its minter is not deployed.' }) } }
-}
+} }
+exports.createHandler = createHandler
+exports.handler = createHandler(minter, 'market-wallet-inventory-webp-v2')
