@@ -12,7 +12,9 @@ async function rpc(url,method,params) {
 async function inspect(query,deps={}) {
  const raw=String(query.token==null?'':query.token), tokenNo=Number(raw), buyer=String(query.buyer||'')
  if(!/^\d{1,4}$/.test(raw)||!Number.isInteger(tokenNo)||tokenNo>=10000||!ethers.utils.isAddress(buyer)||/^0x0{40}$/i.test(buyer)) throw Error('Specify a token number 0–9999 and an Ethereum buyer address.')
- const get=deps.fetch||fetch, request=deps.rpc||rpc, base=String(process.env.URL||'https://trixmoji.netlify.app').replace(/\/$/,'')
+ // The public/custom domain may only forward the homepage, not serve assets.
+ // Fetch committed artwork from the known production asset origin instead.
+ const get=deps.fetch||fetch, request=deps.rpc||rpc, base='https://trixmoji.netlify.app'
  const [manifestResponse,imageResponse]=await Promise.all([get(base+'/assets/ethscriptions/trixmoji-launch/manifest.json',{signal:AbortSignal.timeout(15000)}),get(base+'/assets/ethscriptions/trixmoji-launch/'+tokenNo+'.webp',{signal:AbortSignal.timeout(15000)})])
  if(!manifestResponse.ok||!imageResponse.ok) throw Error('Artwork or manifest unavailable.')
  const manifest=await manifestResponse.json(), entry=manifest.files&&manifest.files[tokenNo]

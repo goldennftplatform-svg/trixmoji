@@ -17,6 +17,16 @@ function mocks(options={}) {
  return {fetch,rpc,estimates:()=>estimated}
 }
 test('preflight checks real artwork proof and exact runtime',async()=>{const m=mocks(),result=await inspect({token:String(token),buyer},m);assert.equal(result.readyToRequestWallet,true);assert.equal(result.contentSha256,manifest.files[token].contentSha256);assert.equal(m.estimates(),1)})
+test('custom homepage forwarding cannot change the artwork fetch origin',async()=>{
+ const previous=process.env.URL;process.env.URL='https://tm.aisp.live'
+ try {
+  const m=mocks(),urls=[],get=m.fetch
+  m.fetch=async url=>{urls.push(url);return get(url)}
+  const result=await inspect({token:String(token),buyer},m)
+  assert.equal(result.readyToRequestWallet,true)
+  assert.deepEqual(urls.filter(u=>u.includes('/assets/')),['https://trixmoji.netlify.app/assets/ethscriptions/trixmoji-launch/manifest.json','https://trixmoji.netlify.app/assets/ethscriptions/trixmoji-launch/419.webp'])
+ } finally {if(previous===undefined)delete process.env.URL;else process.env.URL=previous}
+})
 test('preflight blocks wrong runtime, paused or minted token, wallet limit and duplicate content',async()=>{
  await assert.rejects(inspect({token:String(token),buyer},mocks({noCode:true})),/does not match/)
  for(const options of [{paused:true},{minted:true},{count:20},{exists:true}]) {const m=mocks(options),result=await inspect({token:String(token),buyer},m);assert.equal(result.readyToRequestWallet,false);assert.equal(m.estimates(),0)}
