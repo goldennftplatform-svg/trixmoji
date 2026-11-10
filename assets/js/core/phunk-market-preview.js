@@ -38,7 +38,10 @@
   el('copyLink').textContent = 'COPY ARTWORK LINK'; el('artTraits').innerHTML = ''
   for (const index of item.t) {
    const trait = catalog.dictionary[index], b = document.createElement('button'), group = document.createElement('b')
-   group.textContent = trait.group; b.append(group, document.createTextNode(trait.value + ' · ' + (trait.count / catalog.supply * 100).toFixed(2) + '%'))
+    const parts = trait.value.split(' · '), tokenTrait = trait.group === 'TRiX Token' && parts.length >= 3 && parts[1].trim()
+    group.textContent = tokenTrait ? parts[1].trim() : trait.group
+    const detail = tokenTrait ? [parts[0], ...parts.slice(2)].join(' · ') : trait.value
+    b.append(group, document.createTextNode(detail + ' · ' + (trait.count / catalog.supply * 100).toFixed(2) + '%'))
    b.onclick = () => { el('artDialog').close(); if (!chosen.has(index)) toggle(index) }
    el('artTraits').appendChild(b)
   }
