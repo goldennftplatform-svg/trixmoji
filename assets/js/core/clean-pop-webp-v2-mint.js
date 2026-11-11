@@ -40,6 +40,10 @@
    if (!response.ok || body.ok === false) throw Error(body.error || (launch ? 'Mint service is unavailable.' : 'WebP mint service is unavailable.'))
   return body
  }
+ async function refreshMintCount() {
+  if (!launch) return
+  try { var result = await json('/.netlify/functions/trixmoji-mint-count'); if (!Number.isInteger(result.count) || result.count < 0 || result.count > 10000 || result.supply !== 10000 || typeof result.complete !== 'boolean') throw Error('Invalid count.'); el('mintCount').textContent = (result.complete ? result.count.toLocaleString() : 'AT LEAST ' + result.count.toLocaleString()) + ' / 10,000 MINTED'; el('mintCount').title = 'Indexed Ethscriptions; recent mints may take time to appear.' } catch (_) { el('mintCount').textContent = 'MINT COUNT UNAVAILABLE' }
+ }
  async function refreshMintedPage() {
   if (!launch) return
   var requestedPage = page, request = ++mintedRequest, note = el('availability')
@@ -147,7 +151,7 @@
      preflight: function () { return preflight(token, image.sha) }, gasFallback: async function () { var q = await preflight(token, image.sha); return { gas: q.estimatedGas, gasPrice: q.estimatedGasPriceWei, insufficientFunds: q.insufficientFunds === true } },
      review: function (quote) { return review(token, quote) } })
     say('Mint submitted: ' + row.hash + '. Checking confirmation and indexing…'); recovery()
-     await finish(row); delete selected[token]; if (launch) { var tokenPage = Math.floor(token / pageSize); mintedPages[tokenPage] = mintedPages[tokenPage] || {}; mintedPages[tokenPage][token] = true } recovery(); draw()
+     await finish(row); delete selected[token]; if (launch) { var tokenPage = Math.floor(token / pageSize); mintedPages[tokenPage] = mintedPages[tokenPage] || {}; mintedPages[tokenPage][token] = true; refreshMintCount() } recovery(); draw()
    }
    say('Selected mints confirmed and indexed.')
   } catch (error) { say(error.message); recovery() } finally { busy = false; draw() }
@@ -158,6 +162,6 @@
  Promise.all([json('/assets/data/' + service + '-candidate.json'), json(artPath + 'manifest.json')]).then(function (values) {
   info = values[0]; manifest = values[1]
   if (info.root !== manifest.root || (expectedRoot && !same(info.root, expectedRoot)) || manifest.count !== 10000 || info.mimeType !== 'image/webp' || !same(info.address, expectedAddress) || !same(ethers.utils.keccak256(info.runtime), info.runtimeHash)) throw Error('Mint configuration mismatch.')
-  recovery(); draw(); say('Connect a wallet to check the current mint status.'); refreshMintedPage()
+  recovery(); draw(); say('Connect a wallet to check the current mint status.'); refreshMintedPage(); refreshMintCount()
  }).catch(function (error) { say(error.message) })
 })()
