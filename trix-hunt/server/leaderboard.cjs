@@ -81,7 +81,7 @@ async function createLeaderboardServer({ directory = process.env.TRIX_LEADERBOAR
       let filename, mime;
       if (pathname === '/' || pathname === '/trix-hunt/' || pathname === '/trix-hunt/index.html') {
         filename = path.join(__dirname, '..', 'index.html'); mime = 'text/html; charset=utf-8';
-      } else if (/^\/trix-hunt\/(style\.css|admin\.css|admin\.html|admin\.js|game\.js|engine\.js|inventory\.js)$/.test(pathname)) {
+      } else if (/^\/trix-hunt\/(style\.css|admin\.css|admin\.html|admin\.js|admin-wallet\.js|game\.js|engine\.js|inventory\.js)$/.test(pathname)) {
         filename = path.join(__dirname, '..', pathname.slice('/trix-hunt/'.length));
         mime = pathname.endsWith('.css') ? 'text/css; charset=utf-8' : pathname.endsWith('.html') ? 'text/html; charset=utf-8' : 'text/javascript; charset=utf-8';
       } else if (/^\/assets\/ethscriptions\/trixmoji-launch\/(?:[0-9]{1,4})\.(?:json|webp)$/.test(pathname)) {

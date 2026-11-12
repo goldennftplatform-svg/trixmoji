@@ -1,7 +1,7 @@
 (function(){
  'use strict';
  var ADMIN='0x915a3d363d0a4e4470b531f008f5142c540e5417',MARKET='0x21c1a938d06f87a039abfc48d1ccb459f55b1685';
- var token='',version=null,items=[],order=[],mode='auto',dirty=false;
+ var token='',version=null,items=[],order=[],mode='auto',dirty=false,pendingProvider=null,watchedProviders=new WeakSet();
  function $(id){return document.getElementById(id);}
  function make(tag,cls,value){var e=document.createElement(tag);if(cls)e.className=cls;if(value!==undefined)e.textContent=value;return e;}
  function signMessage(nonce,expires){return ['Trix Hunt inventory admin','Action: sign in','Chain: 1','Escrow: '+MARKET,'Admin: '+ADMIN,'Nonce: '+nonce,'Expires: '+expires].join('\n');}
@@ -31,13 +31,28 @@
   }catch(error){if(error.message==='Unauthorized')lock('Session expired. Connect the creator wallet again.');else $('escrowStatus').textContent=error.message;}
   finally{$('refreshEscrow').disabled=false;}
  }
+ async function signIn(provider,address){
+    await EthscriptionCheckout.identity(provider,address);
+    var bytes=crypto.getRandomValues(new Uint8Array(16)),nonce='0x'+Array.from(bytes,function(b){return b.toString(16).padStart(2,'0');}).join(''),expires=Math.floor(Date.now()/1000)+120;
+    $('loginStatus').textContent='Open your wallet and sign the admin login message. No transaction is requested.';
+    var signature=await provider.request({method:'personal_sign',params:[signMessage(nonce,expires),address]});
+    await EthscriptionCheckout.identity(provider,address);
+    var result=await api({action:'login',nonce:nonce,expires:expires,signature:signature});
+    await EthscriptionCheckout.identity(provider,address);
+    if(provider.on&&!watchedProviders.has(provider)){watchedProviders.add(provider);['accountsChanged','chainChanged','disconnect'].forEach(function(event){provider.on(event,function(){if(token)lock('Wallet changed. Connect the creator wallet again.');});});}
+    token=result.token;pendingProvider=null;$('selectAdmin').hidden=true;$('adminLogin').hidden=true;$('adminContent').hidden=false;await refresh();
+ }
  $('connectAdmin').onclick=async function(){
   $('connectAdmin').disabled=true;$('loginStatus').textContent='Choose the creator wallet.';
-  try{var connection=await MarketWalletConnector.connect($('walletChoices'),function(m){$('loginStatus').textContent=m;});if(connection.address.toLowerCase()!==ADMIN)throw Error('This wallet is not the configured creator wallet.');
-   var bytes=crypto.getRandomValues(new Uint8Array(16)),nonce='0x'+Array.from(bytes,function(b){return b.toString(16).padStart(2,'0');}).join(''),expires=Math.floor(Date.now()/1000)+120;
-   var signature=await connection.provider.request({method:'personal_sign',params:[signMessage(nonce,expires),connection.address]});
-   var result=await api({action:'login',nonce:nonce,expires:expires,signature:signature});token=result.token;$('adminLogin').hidden=true;$('adminContent').hidden=false;await refresh();
+  try{var connection=await MarketWalletConnector.connect($('walletChoices'),function(m){$('loginStatus').textContent=m;});
+   if(connection.address.toLowerCase()!==ADMIN){pendingProvider=connection.provider;$('selectAdmin').hidden=false;throw Error('Connected: '+connection.address+'. Required creator: '+ADMIN+'. Select the creator account in your wallet.');}
+   await signIn(connection.provider,connection.address);
   }catch(error){lock(error.message||'Wallet login failed.');}finally{$('connectAdmin').disabled=false;}
+ };
+ $('selectAdmin').onclick=async function(){
+  $('selectAdmin').disabled=true;$('loginStatus').textContent='Select the creator account in your wallet.';
+  try{var address=await TrixHuntAdminWallet.selectCreator(pendingProvider,ADMIN);await signIn(pendingProvider,address);}
+  catch(error){lock(error.message||'Could not select the creator account.');}finally{$('selectAdmin').disabled=false;}
  };
  window.addEventListener('market-wallet-change',function(){if(token&&!MarketWalletConnector.current())lock('Wallet changed. Connect the creator wallet again.');});
  $('refreshEscrow').onclick=refresh;$('bestCount').oninput=function(){dirty=true;render();};
