@@ -29,7 +29,7 @@ must not be trusted for real prizes. A separate fixed-price test contract exists
 under `contracts/`; it is not connected to the game, custody or live USD rates.
 
 The inventory admin at `/trix-hunt/admin.html` requires a server-verified
-creator-wallet signature. It shows only the creator's indexed marketplace
+creator or escrow-verifier wallet signature. It shows only the creator's indexed marketplace
 deposits and saves ordering centrally. This ranking does not change the demo
 game, authorize deposits, approve payments or transfer prizes. Marketplace
 deposits must not be treated as game prizes without a separately authorized,

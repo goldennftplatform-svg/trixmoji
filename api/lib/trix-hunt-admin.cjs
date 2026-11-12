@@ -3,6 +3,7 @@ const crypto = require('crypto')
 const { ethers } = require('ethers')
 const deployment = require('../../assets/data/trixmoji-escrow-replacement-deployment.json')
 const ADMIN = deployment.creator.toLowerCase()
+const VERIFIER = deployment.verifier.toLowerCase()
 const MARKET = deployment.address.toLowerCase()
 const ID = /^0x[a-f0-9]{64}$/i
 const TOKEN = /^[a-f0-9]{64}$/
@@ -11,22 +12,24 @@ const CONFIG = 'inventory-order-v1'
 function message(nonce, expires, admin = ADMIN) {
  return ['Trix Hunt inventory admin', 'Action: sign in', 'Chain: 1', 'Escrow: ' + MARKET, 'Admin: ' + admin, 'Nonce: ' + nonce, 'Expires: ' + expires].join('\n')
 }
-function createService({ store, snapshot, now = () => Date.now(), random = n => crypto.randomBytes(n), admin = ADMIN }) {
+function createService({ store, snapshot, now = () => Date.now(), random = n => crypto.randomBytes(n), admin = ADMIN, admins = [admin, VERIFIER] }) {
  async function authorize(token) {
   if (!TOKEN.test(String(token || ''))) throw Error('Unauthorized')
   const hash = crypto.createHash('sha256').update(token).digest('hex')
   const record = await store.getWithMetadata('session-' + hash, { type: 'json', consistency: 'strong' })
-  if (!record || !record.data || record.data.admin !== admin || record.data.expires <= now()) throw Error('Unauthorized')
+  if (!record || !record.data || !admins.includes(record.data.admin) || record.data.expires <= now()) throw Error('Unauthorized')
  }
  async function login(body) {
   const nonce = String(body.nonce || '').toLowerCase(), expires = Number(body.expires), current = Math.floor(now()/1000)
   if (!/^0x[a-f0-9]{32}$/.test(nonce) || !Number.isSafeInteger(expires) || expires < current || expires > current+180 || typeof body.signature !== 'string' || body.signature.length > 300) throw Error('Unauthorized')
-  let signer;try { signer=ethers.utils.verifyMessage(message(nonce,expires,admin),body.signature).toLowerCase() } catch (_) { throw Error('Unauthorized') }
-  if (signer !== admin) throw Error('Unauthorized')
+  const requested=String(body.wallet || admin).toLowerCase()
+  if (!admins.includes(requested)) throw Error('Unauthorized')
+  let signer;try { signer=ethers.utils.verifyMessage(message(nonce,expires,requested),body.signature).toLowerCase() } catch (_) { throw Error('Unauthorized') }
+  if (signer !== requested) throw Error('Unauthorized')
   const consumed=await store.setJSON('nonce-'+nonce.slice(2),{expires},{onlyIfNew:true})
   if (!consumed || consumed.modified !== true) throw Error('Unauthorized')
   const token=random(32).toString('hex'),hash=crypto.createHash('sha256').update(token).digest('hex')
-  const session=await store.setJSON('session-'+hash,{admin,expires:now()+15*60*1000},{onlyIfNew:true})
+  const session=await store.setJSON('session-'+hash,{admin:signer,expires:now()+15*60*1000},{onlyIfNew:true})
   if (!session || session.modified !== true) throw Error('Storage unavailable')
   return { token, expires: now()+15*60*1000 }
  }

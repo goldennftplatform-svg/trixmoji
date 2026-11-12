@@ -1,10 +1,11 @@
 (function(){
  'use strict';
- var ADMIN='0x915a3d363d0a4e4470b531f008f5142c540e5417',MARKET='0x21c1a938d06f87a039abfc48d1ccb459f55b1685';
+ var ADMIN='0x915a3d363d0a4e4470b531f008f5142c540e5417',VERIFIER='0x5f5d219c6b3f732ebdce4bfd9c4655957ff472c4',MARKET='0x21c1a938d06f87a039abfc48d1ccb459f55b1685';
+ var AUTHORIZED=[ADMIN,VERIFIER];
  var token='',version=null,items=[],order=[],mode='auto',dirty=false,pendingProvider=null,watchedProviders=new WeakSet();
  function $(id){return document.getElementById(id);}
  function make(tag,cls,value){var e=document.createElement(tag);if(cls)e.className=cls;if(value!==undefined)e.textContent=value;return e;}
- function signMessage(nonce,expires){return ['Trix Hunt inventory admin','Action: sign in','Chain: 1','Escrow: '+MARKET,'Admin: '+ADMIN,'Nonce: '+nonce,'Expires: '+expires].join('\n');}
+ function signMessage(nonce,expires,address){return ['Trix Hunt inventory admin','Action: sign in','Chain: 1','Escrow: '+MARKET,'Admin: '+address.toLowerCase(),'Nonce: '+nonce,'Expires: '+expires].join('\n');}
  async function api(body){var response=await fetch('/.netlify/functions/trix-hunt-admin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),cache:'no-store'});var data=await response.json();if(!response.ok||!data.ok)throw Error(data.error||'Admin service unavailable');return data;}
  function lock(message){token='';$('adminContent').hidden=true;$('adminLogin').hidden=false;$('loginStatus').textContent=message||'';}
  async function metadata(deposit){var response=await fetch('/assets/ethscriptions/trixmoji-launch/'+deposit.tokenNo+'.json');if(!response.ok)throw Error('Metadata unavailable for #'+deposit.tokenNo);var data=await response.json();var t=(data.properties&&data.properties.tokens||[]).filter(function(x){return Number.isInteger(x.rank)&&x.rank>0;}).sort(function(a,b){return a.rank-b.rank||(b.pixels||0)-(a.pixels||0);});if(!t.length)throw Error('Missing token metadata for #'+deposit.tokenNo);return {id:deposit.id.toLowerCase(),tokenNo:deposit.tokenNo,rank:t[0].rank,symbol:t[0].symbol,pixels:t[0].pixels||0,cooldown:deposit.cooldown};}
@@ -28,33 +29,33 @@
    $('bestCount').max=items.length;$('bestCount').value=valid&&Number.isInteger(data.config.bestCount)?Math.min(data.config.bestCount,items.length):items.length;
    $('escrowCount').textContent=items.length;$('indexedBlock').textContent=data.indexedBlock.toLocaleString();$('escrowStatus').textContent='Indexed escrow '+data.marketAddress+' · block '+data.indexedBlock.toLocaleString();
    dirty=false;$('saveStatus').textContent=valid?'Saved order loaded.':'Inventory changed or no saved order; review and save.';render();
-  }catch(error){if(error.message==='Unauthorized')lock('Session expired. Connect the creator wallet again.');else $('escrowStatus').textContent=error.message;}
+  }catch(error){if(error.message==='Unauthorized')lock('Session expired. Connect an admin wallet again.');else $('escrowStatus').textContent=error.message;}
   finally{$('refreshEscrow').disabled=false;}
  }
  async function signIn(provider,address){
     await EthscriptionCheckout.identity(provider,address);
     var bytes=crypto.getRandomValues(new Uint8Array(16)),nonce='0x'+Array.from(bytes,function(b){return b.toString(16).padStart(2,'0');}).join(''),expires=Math.floor(Date.now()/1000)+120;
     $('loginStatus').textContent='Open your wallet and sign the admin login message. No transaction is requested.';
-    var signature=await provider.request({method:'personal_sign',params:[signMessage(nonce,expires),address]});
+    var signature=await provider.request({method:'personal_sign',params:[signMessage(nonce,expires,address),address]});
     await EthscriptionCheckout.identity(provider,address);
-    var result=await api({action:'login',nonce:nonce,expires:expires,signature:signature});
+    var result=await api({action:'login',wallet:address,nonce:nonce,expires:expires,signature:signature});
     await EthscriptionCheckout.identity(provider,address);
-    if(provider.on&&!watchedProviders.has(provider)){watchedProviders.add(provider);['accountsChanged','chainChanged','disconnect'].forEach(function(event){provider.on(event,function(){if(token)lock('Wallet changed. Connect the creator wallet again.');});});}
+    if(provider.on&&!watchedProviders.has(provider)){watchedProviders.add(provider);['accountsChanged','chainChanged','disconnect'].forEach(function(event){provider.on(event,function(){if(token)lock('Wallet changed. Connect an admin wallet again.');});});}
     token=result.token;pendingProvider=null;$('selectAdmin').hidden=true;$('adminLogin').hidden=true;$('adminContent').hidden=false;await refresh();
  }
  $('connectAdmin').onclick=async function(){
-  $('connectAdmin').disabled=true;$('loginStatus').textContent='Choose the creator wallet.';
+  $('connectAdmin').disabled=true;$('loginStatus').textContent='Choose an admin wallet.';
   try{var connection=await MarketWalletConnector.connect($('walletChoices'),function(m){$('loginStatus').textContent=m;});
-   if(connection.address.toLowerCase()!==ADMIN){pendingProvider=connection.provider;$('selectAdmin').hidden=false;throw Error('Connected: '+connection.address+'. Required creator: '+ADMIN+'. Select the creator account in your wallet.');}
+   if(!AUTHORIZED.includes(connection.address.toLowerCase())){pendingProvider=connection.provider;$('selectAdmin').hidden=false;throw Error('Connected: '+connection.address+'. Select either the creator or verifier wallet in your wallet.');}
    await signIn(connection.provider,connection.address);
   }catch(error){lock(error.message||'Wallet login failed.');}finally{$('connectAdmin').disabled=false;}
  };
  $('selectAdmin').onclick=async function(){
-  $('selectAdmin').disabled=true;$('loginStatus').textContent='Select the creator account in your wallet.';
-  try{var address=await TrixHuntAdminWallet.selectCreator(pendingProvider,ADMIN);await signIn(pendingProvider,address);}
-  catch(error){lock(error.message||'Could not select the creator account.');}finally{$('selectAdmin').disabled=false;}
+  $('selectAdmin').disabled=true;$('loginStatus').textContent='Select an admin account in your wallet.';
+  try{var address=await TrixHuntAdminWallet.selectCreator(pendingProvider,AUTHORIZED);await signIn(pendingProvider,address);}
+  catch(error){lock(error.message||'Could not select an admin account.');}finally{$('selectAdmin').disabled=false;}
  };
- window.addEventListener('market-wallet-change',function(){if(token&&!MarketWalletConnector.current())lock('Wallet changed. Connect the creator wallet again.');});
+ window.addEventListener('market-wallet-change',function(){if(token&&!MarketWalletConnector.current())lock('Wallet changed. Connect an admin wallet again.');});
  $('refreshEscrow').onclick=refresh;$('bestCount').oninput=function(){dirty=true;render();};
  $('autoRank').onclick=function(){order=sorted();mode='auto';dirty=true;$('saveStatus').textContent='Metadata order calculated; save to persist.';render();};
  $('saveOrder').onclick=async function(){var n=count();if(n===null){$('saveStatus').textContent='Enter a valid best-pool size.';return;}$('saveOrder').disabled=true;try{await api({action:'save',token:token,order:order,mode:mode,bestCount:n,version:version});await refresh();$('saveStatus').textContent='Order saved for the creator’s verified escrow deposits.';}catch(error){$('saveStatus').textContent=error.message;if(error.message==='Unauthorized')lock('Session expired. Connect again.');}finally{$('saveOrder').disabled=false;}};
