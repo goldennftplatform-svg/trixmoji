@@ -3,7 +3,7 @@ pragma solidity ^0.8.24;
 
 /// @notice Local prototype. Recorded deposits and emitted transfers require indexer verification.
 contract TrixGiveawayVault {
-    enum Status { None, Deposited, Reserved, DeliveryRequested, RecoveryRequested, RescueRequested }
+    enum Status { None, Deposited, Reserved, DeliveryRequested, RecoveryRequested, RescueRequested, Closed }
     struct Entry {
         uint256 receivedBlock;
         bytes32 roundId;
@@ -24,6 +24,7 @@ contract TrixGiveawayVault {
     event RecoveryRequested(bytes32 indexed id, address indexed depositor);
     event TransferRetried(bytes32 indexed id, address indexed recipient, uint256 requestCount);
     event RescueRequested(bytes32 indexed id, address indexed recipient);
+    event ResolvedConfirmed(bytes32 indexed id, Status indexed priorStatus, address indexed curator);
     event ethscriptions_protocol_TransferEthscription(address indexed recipient, bytes32 indexed id);
     event ethscriptions_protocol_TransferEthscriptionForPreviousOwner(
         address indexed previousOwner, address indexed recipient, bytes32 indexed id
@@ -81,16 +82,31 @@ contract TrixGiveawayVault {
         emit RecoveryRequested(id, depositor);
     }
 
-    /// @notice Retry a conditional request, never changing its recipient or allocation.
+    /// @notice Curator retries a request, never changing its recipient or allocation.
     function retry(bytes32 id) external {
+        require(msg.sender == curator, "curator only");
         Entry storage entry = entries[id];
-        require(entry.status == Status.DeliveryRequested || entry.status == Status.RecoveryRequested, "no conditional request");
+        require(entry.status == Status.DeliveryRequested || entry.status == Status.RecoveryRequested || entry.status == Status.RescueRequested, "no request");
         require(block.number >= entry.lastRequestBlock + COOLDOWN_BLOCKS, "cooldown");
-        address recipient = entry.status == Status.DeliveryRequested ? entry.beneficiary : depositor;
+        address recipient = entry.status == Status.RecoveryRequested ? depositor : entry.beneficiary;
         entry.lastRequestBlock = block.number;
         entry.requestCount += 1;
-        emit ethscriptions_protocol_TransferEthscriptionForPreviousOwner(depositor, recipient, id);
+        if (entry.status == Status.RescueRequested) {
+            emit ethscriptions_protocol_TransferEthscription(recipient, id);
+        } else {
+            emit ethscriptions_protocol_TransferEthscriptionForPreviousOwner(depositor, recipient, id);
+        }
         emit TransferRetried(id, recipient, entry.requestCount);
+    }
+
+    /// @notice Curator attests to independently verified final resolution; not on-chain proof.
+    function confirmResolved(bytes32 id) external {
+        require(msg.sender == curator, "curator only");
+        Entry storage entry = entries[id];
+        Status priorStatus = entry.status;
+        require(priorStatus == Status.DeliveryRequested || priorStatus == Status.RecoveryRequested || priorStatus == Status.RescueRequested, "no request");
+        entry.status = Status.Closed;
+        emit ResolvedConfirmed(id, priorStatus, msg.sender);
     }
 
     /// @notice Privileged ESIP-1 request for IDs with no entry; depositor must verify indexed custody and last sender.

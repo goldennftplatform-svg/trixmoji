@@ -66,7 +66,8 @@ test('immutable reservation, exact cooldown boundary, permissionless claim and E
         await fails(() => vault.connect(curator).reserve(id(11), id(0), winner.address));
         await fails(() => vault.connect(curator).reserve(id(11), id(99), ethers.ZeroAddress));
         await fails(() => vault.connect(curator).reserve(id(11), id(99), address));
-        await fails(() => vault.retry(id(11)));
+        await fails(() => vault.connect(curator).retry(id(11)));
+        await fails(() => vault.connect(curator).confirmResolved(id(11)));
         await fails(() => vault.rescueUnrecorded(id(11), stranger.address));
         await (await vault.connect(curator).reserve(id(11), id(99), winner.address)).wait();
         await fails(() => vault.connect(curator).reserve(id(11), id(100), stranger.address));
@@ -90,11 +91,12 @@ test('immutable reservation, exact cooldown boundary, permissionless claim and E
         assert.equal((await vault.entries(id(11))).status, 3n);
         assert.equal((await vault.entries(id(11))).requestCount, 1n);
         await fails(() => vault.rescueUnrecorded(id(11), stranger.address));
-        await fails(() => vault.retry.staticCall(id(11)));
+        await fails(() => vault.connect(stranger).retry(id(11)));
+        await fails(() => vault.connect(curator).retry.staticCall(id(11)));
         await mine(provider, 4);
-        await fails(() => vault.retry.staticCall(id(11)));
+        await fails(() => vault.connect(curator).retry.staticCall(id(11)));
         await mine(provider, 1);
-        const retryReceipt = await (await vault.connect(stranger).retry(id(11))).wait();
+        const retryReceipt = await (await vault.connect(curator).retry(id(11))).wait();
         const retryLog = retryReceipt.logs.find(l => l.topics[0] === topic);
         assert.deepEqual([...retryLog.topics], [topic, ethers.zeroPadValue(owner.address, 32), ethers.zeroPadValue(winner.address, 32), id(11)]);
         const retryEvent = retryReceipt.logs.map(l => { try { return vault.interface.parseLog(l); } catch { return null; } }).find(l => l && l.name === 'TransferRetried');
@@ -104,7 +106,14 @@ test('immutable reservation, exact cooldown boundary, permissionless claim and E
         assert.equal(entry.lastRequestBlock, BigInt(retryReceipt.blockNumber));
         assert.equal(entry.roundId, id(99));
         assert.equal(entry.beneficiary, winner.address);
-        await fails(() => vault.retry.staticCall(id(11)));
+        await fails(() => vault.connect(curator).retry.staticCall(id(11)));
+        await fails(() => vault.connect(stranger).confirmResolved(id(11)));
+        const closed = await (await vault.connect(curator).confirmResolved(id(11))).wait();
+        const closedLog = closed.logs.find(l => l.topics[0] === ethers.id('ResolvedConfirmed(bytes32,uint8,address)'));
+        assert.deepEqual([...closedLog.topics], [ethers.id('ResolvedConfirmed(bytes32,uint8,address)'), id(11), ethers.zeroPadValue('0x03', 32), ethers.zeroPadValue(curator.address, 32)]);
+        assert.equal((await vault.entries(id(11))).status, 6n);
+        await fails(() => vault.connect(curator).retry(id(11)));
+        await fails(() => vault.connect(curator).confirmResolved(id(11)));
         await fails(() => vault.claim(id(11)));
         await fails(() => vault.connect(curator).reserve(id(11), id(101), stranger.address));
         await fails(() => deposit(owner, address, 11));
@@ -125,10 +134,13 @@ test('unreserved recovery only to depositor, once and after cooldown', async () 
         await fails(() => vault.rescueUnrecorded(id(21), stranger.address));
         await fails(() => vault.connect(stranger).retry.staticCall(id(21)));
         await mine(provider, 5);
-        const retried = await (await vault.connect(stranger).retry(id(21))).wait();
+        const retried = await (await vault.connect(curator).retry(id(21))).wait();
         const retryLog = retried.logs.find(l => l.topics[0] === ethers.id('ethscriptions_protocol_TransferEthscriptionForPreviousOwner(address,address,bytes32)'));
         assert.deepEqual([...retryLog.topics], [ethers.id('ethscriptions_protocol_TransferEthscriptionForPreviousOwner(address,address,bytes32)'), ethers.zeroPadValue(owner.address, 32), ethers.zeroPadValue(owner.address, 32), id(21)]);
         assert.equal((await vault.entries(id(21))).requestCount, 2n);
+        await (await vault.connect(curator).confirmResolved(id(21))).wait();
+        assert.equal((await vault.entries(id(21))).status, 6n);
+        await fails(() => vault.connect(curator).retry(id(21)));
         await fails(() => vault.recover(id(21)));
         await fails(() => vault.claim(id(21)));
         await fails(() => vault.connect(curator).reserve(id(21), id(22), stranger.address));
@@ -136,8 +148,8 @@ test('unreserved recovery only to depositor, once and after cooldown', async () 
     } finally { await chain.disconnect(); }
 });
 
-test('privileged ESIP-1 rescue is restricted, one-shot, and blocks later allocation', async () => {
-    const { chain, owner, curator, winner, stranger, vault, address } = await setup();
+test('privileged ESIP-1 rescue retries only to the fixed recipient and closes permanently', async () => {
+    const { chain, provider, owner, curator, winner, stranger, vault, address } = await setup();
     try {
         await fails(() => vault.connect(stranger).rescueUnrecorded(id(31), winner.address));
         await fails(() => vault.rescueUnrecorded(id(0), winner.address));
@@ -156,11 +168,38 @@ test('privileged ESIP-1 rescue is restricted, one-shot, and blocks later allocat
         assert.equal(entry.requestCount, 1n);
         assert.equal(entry.lastRequestBlock, BigInt(receipt.blockNumber));
         await fails(() => vault.rescueUnrecorded(id(31), stranger.address));
-        await fails(() => vault.retry(id(31)));
+        await fails(() => vault.connect(stranger).retry(id(31)));
+        await fails(() => vault.connect(curator).retry.staticCall(id(31)));
+        await mine(provider, 4);
+        await fails(() => vault.connect(curator).retry.staticCall(id(31)));
+        await mine(provider, 1);
+        const retried = await (await vault.connect(curator).retry(id(31))).wait();
+        const retryLog = retried.logs.find(l => l.topics[0] === topic);
+        assert.deepEqual([...retryLog.topics], [topic, ethers.zeroPadValue(winner.address, 32), id(31)]);
+        assert.equal(retryLog.data, '0x');
+        assert.equal((await vault.entries(id(31))).requestCount, 2n);
+        await fails(() => vault.connect(curator).retry.staticCall(id(31)));
+        await fails(() => vault.connect(stranger).confirmResolved(id(31)));
+        await (await vault.connect(curator).confirmResolved(id(31))).wait();
+        assert.equal((await vault.entries(id(31))).status, 6n);
+        await fails(() => vault.connect(curator).retry(id(31)));
+        await fails(() => vault.rescueUnrecorded(id(31), stranger.address));
         await fails(() => vault.recover(id(31)));
         await fails(() => vault.claim(id(31)));
         await fails(() => vault.connect(curator).reserve(id(31), id(1), stranger.address));
         await fails(() => deposit(owner, address, 31));
+    } finally { await chain.disconnect(); }
+});
+
+test('confirmation requires a requested state and is curator-only', async () => {
+    const { chain, owner, curator, stranger, vault, address } = await setup();
+    try {
+        await fails(() => vault.connect(curator).confirmResolved(id(40)));
+        await deposit(owner, address, 40);
+        await fails(() => vault.connect(curator).confirmResolved(id(40)));
+        await (await vault.connect(curator).reserve(id(40), id(41), stranger.address)).wait();
+        await fails(() => vault.connect(curator).confirmResolved(id(40)));
+        await fails(() => vault.connect(owner).confirmResolved(id(40)));
     } finally { await chain.disconnect(); }
 });
 

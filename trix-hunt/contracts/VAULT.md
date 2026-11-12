@@ -1,6 +1,6 @@
 # Trix giveaway vault — local prototype
 
-`TrixGiveawayVault.sol` is an unaudited, local-only experiment, with no network
+`TrixGiveawayVault.sol` is an unaudited, local-only experiment, not production-ready, with no network
 deployment or frontend/settlement integration. Tests use in-memory Ganache and
 test accounts only. Do not send real assets. It follows the conditional event
 and five-block delay in the existing V2_1 `EthscriptionsEscrower.sol`; the
@@ -47,18 +47,28 @@ signing access; no unattended signing or wallet-key custody is implemented.
   since its deposit. Only the fixed beneficiary is used. The depositor alone may
   instead call `recover(id)` for an unreserved ID after the same delay; its
   destination is always the depositor. Both emit the ESIP-2 conditional event
-  with the depositor as previous owner, and mark the ID terminal before emitting.
+  with the depositor as previous owner, and mark the request before emitting.
   There are no external calls or callbacks in these paths.
 * `DeliveryRequested` / `RecoveryRequested` and the protocol event are requests,
-  **not proof of delivery**. Anyone may call `retry(id)` for either kind of
-  conditional request, at least five blocks after its preceding request. The
-  ESIP-2 event always uses the original depositor and the same locked winner or
-  recovery recipient; status and allocation never change. `TransferRetried`,
-  `requestCount` and `lastRequestBlock` record attempts, not successful
-  transfers. Check indexed ownership and last sender before coordinating a
-  retry: anyone can call it, even after delivery, and if the asset later returns
-  to the vault with the required previous owner, another retry could transfer it
-  again to that same recipient. Reorgs and indexer delays complicate this.
+  **not proof of delivery**. Only the curator may call `retry(id)` for any
+  requested status, at least five blocks after its preceding request. ESIP-2
+  retries use the original depositor and locked winner or recovery recipient;
+  ESIP-1 rescue retries use the original rescue recipient. Neither can redirect.
+  Status and allocation remain unchanged. `TransferRetried`, `requestCount` and
+  `lastRequestBlock` record attempts, not successful transfers. Before retrying,
+  the curator must independently check finalized indexed ownership, last sender,
+  and prior requests. If an asset returns to the vault before closure, a retry
+  could transfer it again to the same recipient; for ESIP-2 the previous-owner
+  condition also applies. Reorgs, indexer delays and later returns remain risks.
+* Only the curator may call `confirmResolved(id)` after a delivery, recovery or
+  rescue request. After independently checking a finalized indexer result, the
+  curator should close the entry promptly. `ResolvedConfirmed` records the prior
+  requested status and curator; `Closed` permanently blocks retries, recovery,
+  reservation and rescue. This is a trusted curator attestation, **not on-chain
+  proof** of indexer resolution. A mistaken or malicious curator can falsely
+  confirm and permanently strand an asset. A later unsolicited return to a
+  closed ID cannot be handled by this API. Pending retries and reorgs must be
+  considered externally; closure cannot undo a previously emitted transfer.
 * Only the depositor can call `rescueUnrecorded(id, recipient)` for a nonzero ID
   whose status is `None`, to a nonzero recipient other than the vault. This is a
   **privileged ESIP-1 transfer request**: the depositor can redirect any
@@ -70,9 +80,10 @@ signing access; no unattended signing or wallet-key custody is implemented.
   recorded receipt block for an unknown ID, rescue has no on-chain cooldown;
   the depositor must wait independently. The event is not proof of delivery.
   Recorded, reserved, requested and rescued IDs cannot be rescued.
-* Rescue immediately and permanently records `RescueRequested`, even when the
-  ID does not exist or the indexer rejects the request. It cannot be retried or
-  redirected, and a later raw deposit of that ID is rejected: this prevents a
+* Rescue immediately records `RescueRequested`, even when the ID does not exist
+  or the indexer rejects the request. The curator can retry only to the original
+  recipient after the cooldown, until closure; it cannot be redirected, and a
+  later raw deposit of that ID is rejected even after closure: this prevents a
   rescue and a later reservation from creating conflicting allocations, but can
   permanently strand assets. An unsolicited later transfer can nevertheless
   place the ID in indexed custody without a usable deposit record; protocol
@@ -85,12 +96,13 @@ signing access; no unattended signing or wallet-key custody is implemented.
 `depositor()`, `curator()`, `COOLDOWN_BLOCKS()`, and `entries(id)` are public
 views. Entries expose `receivedBlock`, `roundId`, `beneficiary`, and `status`:
 `0 None`, `1 Deposited`, `2 Reserved`, `3 DeliveryRequested`,
-`4 RecoveryRequested`, `5 RescueRequested`; they also expose
+`4 RecoveryRequested`, `5 RescueRequested`, `6 Closed`; they also expose
 `lastRequestBlock` and `requestCount`. For rescue, `beneficiary` records the
 chosen recipient and `receivedBlock` is zero. Counts include the first request
-and subsequent conditional retries, not confirmations. Functions are nonpayable.
+and subsequent retries, not confirmations. The `ResolvedConfirmed` event retains
+the prior request type after closure. Functions are nonpayable.
 Events are `PotentialDeposit`, `Reserved`, `DeliveryRequested`,
-`RecoveryRequested`, `TransferRetried`, `RescueRequested`,
+`RecoveryRequested`, `TransferRetried`, `RescueRequested`, `ResolvedConfirmed`,
 `ethscriptions_protocol_TransferEthscriptionForPreviousOwner(address,address,bytes32)`
 with all three protocol arguments indexed, and
 `ethscriptions_protocol_TransferEthscription(address,bytes32)` with both indexed.
@@ -125,8 +137,8 @@ node --test vault.test.cjs settlement.test.cjs
 
 The vault suite checks deposit restrictions and forwarding, invalid values,
 authorization, duplicate use, irreversible reservation, exact cooldown boundary,
-permissionless delivery and retries to the locked winner, recovery, privileged
-rescue, selector collisions, and raw EVM event topics. These are EVM fixture
+permissionless initial delivery, curator-only retries and closure, recovery,
+privileged rescue, selector collisions, and raw EVM event topics. These are EVM fixture
 tests only: they do not run an Ethscriptions indexer or establish protocol
 acceptance, actual indexed custody, or successful delivery.
 
