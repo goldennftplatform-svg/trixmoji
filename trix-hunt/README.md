@@ -1,8 +1,8 @@
 # Trix Hunt local playtest
 
-Run from the repository root with `python -m http.server 8765` and open
-`http://localhost:8765/trix-hunt/`. The server must expose the repository root
-because the game loads the existing TrixMoji artwork and metadata by URL.
+Run from the repository root with `node trix-hunt/server/leaderboard.cjs` and open
+`http://127.0.0.1:8787/trix-hunt/`. The loopback-only development server supplies
+the game, collection assets, and local simulated leaderboard.
 
 This prototype runs entirely in the browser. Prices, refunds, inventory and
 prizes are simulated: it does not connect a wallet, accept payments, reserve
@@ -22,5 +22,10 @@ with independently reviewed, server- and protocol-aware settlement, custody,
 randomness, refund and Ethscription indexing systems. Never treat the current
 browser state as authoritative. The future domain is `trixhunt.aisp.live`;
 this prototype does not configure DNS or deployment.
+
+The leaderboard persists locally, automatically records completed rounds, and
+ranks hits then accuracy. Names and results are unauthenticated simulations and
+must not be trusted for real prizes. A separate fixed-price test contract exists
+under `contracts/`; it is not connected to the game, custody or live USD rates.
 
 Run the engine checks with `node --test trix-hunt/engine.test.cjs`.
