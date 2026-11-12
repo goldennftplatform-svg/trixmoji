@@ -87,6 +87,9 @@ async function createLeaderboardServer({ directory = process.env.TRIX_LEADERBOAR
       } else if (/^\/assets\/ethscriptions\/trixmoji-launch\/(?:[0-9]{1,4})\.(?:json|webp)$/.test(pathname)) {
         filename = path.join(__dirname, '..', '..', pathname.slice(1));
         mime = pathname.endsWith('.json') ? 'application/json; charset=utf-8' : 'image/webp';
+      } else if (/^\/assets\/js\/core\/(?:ethscription-checkout|market-wallet-connect)\.js$/.test(pathname)) {
+        filename = path.join(__dirname, '..', '..', pathname.slice(1));
+        mime = 'text/javascript; charset=utf-8';
       }
       if (filename) {
         try {

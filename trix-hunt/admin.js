@@ -1,41 +1,47 @@
 (function(){
-  'use strict';
-  var items=[],config=null;
-  function $(id){return document.getElementById(id);}
-  function make(tag,className,text){var node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;}
-  function count(){var n=Number($('bestCount').value);return Number.isInteger(n)&&n>=1&&n<items.length?n:null;}
-  function render(){
-    var list=$('inventoryList');list.textContent='';var best=count();
-    var byId=new Map(items.map(function(item){return[item.id,item];}));
-    config.order.forEach(function(id,index){
-      var item=byId.get(id),row=make('article','inventory-item'+(best!==null&&index<best?' best':''));
-      var image=make('img');image.src='/assets/ethscriptions/trixmoji-launch/'+id+'.webp';image.alt='TrixMoji #'+id;image.loading='lazy';
-      var copy=make('div','item-copy');copy.append(make('strong',null,'#'+id+'  ·  $'+item.symbol),make('span',null,'COIN RANK '+item.metadataRank+' / '+item.pixels+' COIN TILES'),make('small',null,(best!==null&&index<best?'BEST POOL':'STANDARD POOL')+' · POSITION '+(index+1)));
-      var controls=make('div','move-controls');
-      [-1,1].forEach(function(delta){var btn=make('button',null,delta<0?'↑':'↓');btn.type='button';btn.disabled=index+delta<0||index+delta>=config.order.length;btn.setAttribute('aria-label','Move #'+id+(delta<0?' up':' down'));btn.addEventListener('click',function(){var next=index+delta;var tmp=config.order[next];config.order[next]=config.order[index];config.order[index]=tmp;config.mode='manual';$('saveStatus').textContent='Manual order changed. Save to apply it to your next local playtest round.';render();var moved=document.querySelector('[aria-label="Move #'+id+(delta<0?' up':' down')+'"]');if(moved&&!moved.disabled)moved.focus();});controls.append(btn);});
-      row.append(image,copy,controls);list.append(row);
-    });
-    $('inventoryCount').textContent=items.length+' DEMO PIECES · '+config.mode.toUpperCase();
-  }
-  async function escrow(){
-    $('refreshEscrow').disabled=true;$('escrowStatus').textContent='Checking indexed escrow…';
-    try{
-      var url=location.hostname==='127.0.0.1'||location.hostname==='localhost'?'/escrow-snapshot':'/.netlify/functions/trixmoji-market-launch';
-      var response=await fetch(url,{cache:'no-store',signal:AbortSignal.timeout(20000)});if(!response.ok)throw Error('Market API unavailable');
-      var data=await response.json();if(!data.ok||!Array.isArray(data.deposits)||!Array.isArray(data.listings)||!Number.isSafeInteger(data.indexedBlock))throw Error('Incomplete market response');
-      $('escrowCount').textContent=data.deposits.length;$('listingCount').textContent=data.listings.length;$('indexedBlock').textContent=data.indexedBlock.toLocaleString();
-      $('escrowStatus').textContent='Read-only snapshot of '+String(data.marketAddress||'market escrow')+' · refreshed '+new Date().toLocaleTimeString();
-      var container=$('escrowItems');container.textContent='';
-      if(!data.deposits.length)container.append(make('div','escrow-item','No verified TrixMoji deposits returned in this snapshot.'));
-      data.deposits.forEach(function(item){container.append(make('div','escrow-item','#'+String(item.tokenNo)+' · '+String(item.id)+' · DEPOSITOR '+String(item.seller)+' · '+(item.cooldown?'COOLDOWN '+item.cooldown+' BLOCKS':'COOLDOWN COMPLETE')));});
-    }catch(error){$('escrowStatus').textContent='Escrow snapshot unavailable. Retry before relying on inventory.';$('escrowCount').textContent='—';$('listingCount').textContent='—';$('indexedBlock').textContent='—';$('escrowItems').textContent='';}
-    finally{$('refreshEscrow').disabled=false;}
-  }
-  $('refreshEscrow').addEventListener('click',escrow);
-  $('bestCount').addEventListener('input',function(){if(config)render();});
-  $('autoRank').addEventListener('click',function(){if(!config)return;config.order=window.TrixInventory.auto(items).map(function(item){return item.id;});config.mode='auto';$('saveStatus').textContent='Metadata order calculated. Save to apply it to the demo.';render();});
-  $('saveOrder').addEventListener('click',function(){if(!config)return;var n=count();if(n===null){$('saveStatus').textContent='Choose a best-pool size between 1 and '+(items.length-1)+'.';return;}config.bestCount=n;try{window.TrixInventory.save(config);$('saveStatus').textContent='Saved in this browser. The next playtest round uses this '+config.mode+' order.';}catch(_){$('saveStatus').textContent='Could not save: browser storage is unavailable.';}});
-  window.TrixInventory.load().then(function(loaded){items=loaded;config=window.TrixInventory.read(items);$('bestCount').max=items.length-1;$('bestCount').value=config.bestCount;render();}).catch(function(error){$('inventoryCount').textContent='UNAVAILABLE';$('saveStatus').textContent=error.message;});
-  escrow();
-  setInterval(function(){if(!document.hidden&&!$('refreshEscrow').disabled)escrow();},120000);
+ 'use strict';
+ var ADMIN='0x915a3d363d0a4e4470b531f008f5142c540e5417',MARKET='0x21c1a938d06f87a039abfc48d1ccb459f55b1685';
+ var token='',version=null,items=[],order=[],mode='auto',dirty=false;
+ function $(id){return document.getElementById(id);}
+ function make(tag,cls,value){var e=document.createElement(tag);if(cls)e.className=cls;if(value!==undefined)e.textContent=value;return e;}
+ function signMessage(nonce,expires){return ['Trix Hunt inventory admin','Action: sign in','Chain: 1','Escrow: '+MARKET,'Admin: '+ADMIN,'Nonce: '+nonce,'Expires: '+expires].join('\n');}
+ async function api(body){var response=await fetch('/.netlify/functions/trix-hunt-admin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),cache:'no-store'});var data=await response.json();if(!response.ok||!data.ok)throw Error(data.error||'Admin service unavailable');return data;}
+ function lock(message){token='';$('adminContent').hidden=true;$('adminLogin').hidden=false;$('loginStatus').textContent=message||'';}
+ async function metadata(deposit){var response=await fetch('/assets/ethscriptions/trixmoji-launch/'+deposit.tokenNo+'.json');if(!response.ok)throw Error('Metadata unavailable for #'+deposit.tokenNo);var data=await response.json();var t=(data.properties&&data.properties.tokens||[]).filter(function(x){return Number.isInteger(x.rank)&&x.rank>0;}).sort(function(a,b){return a.rank-b.rank||(b.pixels||0)-(a.pixels||0);});if(!t.length)throw Error('Missing token metadata for #'+deposit.tokenNo);return {id:deposit.id.toLowerCase(),tokenNo:deposit.tokenNo,rank:t[0].rank,symbol:t[0].symbol,pixels:t[0].pixels||0,cooldown:deposit.cooldown};}
+ function sorted(){return items.slice().sort(function(a,b){return a.rank-b.rank||b.pixels-a.pixels||a.tokenNo-b.tokenNo;}).map(function(x){return x.id;});}
+ function count(){var n=Number($('bestCount').value);return Number.isInteger(n)&&n>=0&&n<=items.length?n:null;}
+ function render(){
+  var list=$('inventoryList');list.textContent='';var lookup=new Map(items.map(function(x){return[x.id,x];})),best=count();
+  order.forEach(function(id,index){var item=lookup.get(id);if(!item)return;var row=make('article','inventory-item'+(best!==null&&index<best?' best':''));var img=make('img');img.src='/assets/ethscriptions/trixmoji-launch/'+item.tokenNo+'.webp';img.alt='TrixMoji #'+item.tokenNo;img.loading='lazy';
+   var copy=make('div','item-copy');copy.append(make('strong',null,'#'+item.tokenNo+' · $'+item.symbol),make('span',null,'COIN RANK '+item.rank+' / '+item.pixels+' COIN TILES'),make('small',null,(best!==null&&index<best?'BEST POOL':'STANDARD')+' · POSITION '+(index+1)),make('span',null,item.cooldown?'COOLDOWN '+item.cooldown+' BLOCKS':'COOLDOWN COMPLETE'));
+   var controls=make('div','move-controls');[-1,1].forEach(function(delta){var b=make('button',null,delta<0?'↑':'↓');b.type='button';b.disabled=index+delta<0||index+delta>=order.length;b.setAttribute('aria-label','Move #'+item.tokenNo+(delta<0?' up':' down'));b.onclick=function(){var next=index+delta,tmp=order[next];order[next]=order[index];order[index]=tmp;mode='manual';dirty=true;$('saveStatus').textContent='Order changed; save to persist.';render();};controls.append(b);});row.append(img,copy,controls);list.append(row);
+  });
+  if(!order.length)list.append(make('p','disclaimer','No verified creator-owned escrow deposits found.'));
+  $('inventoryCount').textContent=items.length+' CREATOR DEPOSITS';$('orderMode').textContent=mode.toUpperCase();
+ }
+ async function refresh(){
+  $('refreshEscrow').disabled=true;$('escrowStatus').textContent='Checking verified creator deposits…';
+  try{var data=await api({action:'data',token:token});items=await Promise.all(data.deposits.map(metadata));version=data.version;
+   var ids=new Set(items.map(function(x){return x.id;})),saved=data.config&&data.config.order;
+   var valid=Array.isArray(saved)&&saved.length===items.length&&new Set(saved).size===saved.length&&saved.every(function(id){return ids.has(id);});
+   mode=valid&&data.config.mode==='manual'?'manual':'auto';order=mode==='manual'?saved.slice():sorted();
+   $('bestCount').max=items.length;$('bestCount').value=valid&&Number.isInteger(data.config.bestCount)?Math.min(data.config.bestCount,items.length):items.length;
+   $('escrowCount').textContent=items.length;$('indexedBlock').textContent=data.indexedBlock.toLocaleString();$('escrowStatus').textContent='Indexed escrow '+data.marketAddress+' · block '+data.indexedBlock.toLocaleString();
+   dirty=false;$('saveStatus').textContent=valid?'Saved order loaded.':'Inventory changed or no saved order; review and save.';render();
+  }catch(error){if(error.message==='Unauthorized')lock('Session expired. Connect the creator wallet again.');else $('escrowStatus').textContent=error.message;}
+  finally{$('refreshEscrow').disabled=false;}
+ }
+ $('connectAdmin').onclick=async function(){
+  $('connectAdmin').disabled=true;$('loginStatus').textContent='Choose the creator wallet.';
+  try{var connection=await MarketWalletConnector.connect($('walletChoices'),function(m){$('loginStatus').textContent=m;});if(connection.address.toLowerCase()!==ADMIN)throw Error('This wallet is not the configured creator wallet.');
+   var bytes=crypto.getRandomValues(new Uint8Array(16)),nonce='0x'+Array.from(bytes,function(b){return b.toString(16).padStart(2,'0');}).join(''),expires=Math.floor(Date.now()/1000)+120;
+   var signature=await connection.provider.request({method:'personal_sign',params:[signMessage(nonce,expires),connection.address]});
+   var result=await api({action:'login',nonce:nonce,expires:expires,signature:signature});token=result.token;$('adminLogin').hidden=true;$('adminContent').hidden=false;await refresh();
+  }catch(error){lock(error.message||'Wallet login failed.');}finally{$('connectAdmin').disabled=false;}
+ };
+ window.addEventListener('market-wallet-change',function(){if(token&&!MarketWalletConnector.current())lock('Wallet changed. Connect the creator wallet again.');});
+ $('refreshEscrow').onclick=refresh;$('bestCount').oninput=function(){dirty=true;render();};
+ $('autoRank').onclick=function(){order=sorted();mode='auto';dirty=true;$('saveStatus').textContent='Metadata order calculated; save to persist.';render();};
+ $('saveOrder').onclick=async function(){var n=count();if(n===null){$('saveStatus').textContent='Enter a valid best-pool size.';return;}$('saveOrder').disabled=true;try{await api({action:'save',token:token,order:order,mode:mode,bestCount:n,version:version});await refresh();$('saveStatus').textContent='Order saved for the creator’s verified escrow deposits.';}catch(error){$('saveStatus').textContent=error.message;if(error.message==='Unauthorized')lock('Session expired. Connect again.');}finally{$('saveOrder').disabled=false;}};
+ setInterval(function(){if(token&&!dirty&&!document.hidden&&!$('refreshEscrow').disabled)refresh();},120000);
 }());

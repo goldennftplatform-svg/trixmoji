@@ -104,6 +104,9 @@
 [functions."trixmoji-mint-count"]
   timeout = 26
 
+[functions."trix-hunt-admin"]
+  timeout = 26
+
 # Pond dossier fans out to several upstreams — need headroom past default 10s
 [functions."pond-dossier"]
   timeout = 26

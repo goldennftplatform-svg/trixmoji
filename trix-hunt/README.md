@@ -28,13 +28,11 @@ ranks hits then accuracy. Names and results are unauthenticated simulations and
 must not be trusted for real prizes. A separate fixed-price test contract exists
 under `contracts/`; it is not connected to the game, custody or live USD rates.
 
-The inventory preview at `/trix-hunt/admin.html` shows a read-only snapshot from
-the existing marketplace API, plus a separately labelled demo pool. Metadata
-ranking uses the lowest coin rank, then the count of coin tiles. Manual order and
-the number of demo best-pool slots are saved only in that browser and apply to
-the next demo round. This page is not authenticated administration: it cannot
-authorize deposits, approve payments, transfer prizes or change a shared pool.
-Marketplace deposits must never be treated as game prizes without explicit
-owner authorization and a dedicated, independently verified allocation flow.
+The inventory admin at `/trix-hunt/admin.html` requires a server-verified
+creator-wallet signature. It shows only the creator's indexed marketplace
+deposits and saves ordering centrally. This ranking does not change the demo
+game, authorize deposits, approve payments or transfer prizes. Marketplace
+deposits must not be treated as game prizes without a separately authorized,
+independently verified allocation and transfer flow.
 
 Run the local checks with `node --test trix-hunt/engine.test.cjs trix-hunt/inventory.test.cjs trix-hunt/server/leaderboard.test.cjs`.

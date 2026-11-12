@@ -214,7 +214,7 @@
       localStorage.setItem('trix-hunt-local-player',playerId);localStorage.setItem('trix-hunt-local-name',name);
     } catch (_) {playerId=crypto.randomUUID();}
     sessionId=crypto.randomUUID();roundRecorded=false;
-    var config=window.TrixInventory.read(inventory);
+    var config={order:window.TrixInventory.auto(inventory).map(function(item){return item.id;}),bestCount:9};
     session=engine.createSession({pack:pack,inventory:window.TrixInventory.apply(inventory,config),players:1});reveal=null;pendingFinish=false;targetsSeen=0;
     $('prizes').innerHTML='<div class="empty-prizes"><span>✳</span><p>Your catches land here.<br><small>Hit a mystery card to reveal it.</small></p></div>';$('prizeCount').textContent='00 CAPTURED';
     $('welcome').hidden=true;$('cabinetState').textContent='ROUND IN PROGRESS';setControls(true);hud();makeTarget();initAudio();canvas.focus();
