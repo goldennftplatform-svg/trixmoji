@@ -1,5 +1,7 @@
 # Trix Hunt settlement — local tests only
 
+For the separate local giveaway-vault experiment, see [VAULT.md](VAULT.md).
+
 This is an unaudited accounting experiment, not deployment-ready. It does not
 connect to the browser game. No network deployment is included or intended.
 
