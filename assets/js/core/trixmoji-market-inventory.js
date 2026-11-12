@@ -54,7 +54,7 @@
  async function verify(row, receipt) {
   if (row.action === 'gift') {
    var gift = await asset(row.assetId)
-   return same(gift.current_owner, row.to) && Array.isArray(gift.ethscription_transfers) && gift.ethscription_transfers.some(function (t) { return same(t.transaction_hash, row.hash) && same(t.from_address, row.from) && same(t.to_address, row.to) })
+   return same(gift.transaction_hash, row.assetId) && Array.isArray(gift.ethscription_transfers) && gift.ethscription_transfers.some(function (t) { return same(t.transaction_hash, row.hash) && same(t.from_address, row.from) && same(t.to_address, row.to) })
   }
   var names = { deposit: 'Deposited', depositAndList: 'Deposited', list: 'Listed', cancel: 'Cancelled', buy: 'Sold', auction: 'AuctionStarted', bid: 'Bid', settle: 'AuctionSettled', withdraw: 'CreditWithdrawn' }, iface = new ethers.utils.Interface(artifact.abi), event
   for (var log of receipt.logs || []) {
@@ -83,10 +83,12 @@
   if (!client || !deployment) return
   var connection = MarketWalletConnector.current()
   if (!connection) return
-   var pending = client.records().filter(function (row) { return row && row.state === 'submitted' && ['list', 'buy', 'deposit', 'depositAndList'].includes(row.action) && /^0x[a-f0-9]{64}$/i.test(String(row.hash || '')) && same(row.to, deployment.address) && (row.action === 'buy' || same(row.from, connection.address)) })
-  for (var row of pending) {
-   try { await client.reconcile(row, verify) } catch (_) { /* Keep unresolved requests visible for manual checks. */ }
-  }
+   var pending = client.records().filter(function (row) { return row && row.state === 'submitted' && /^0x[a-f0-9]{64}$/i.test(String(row.hash || '')) && ((row.action === 'gift' && same(row.from, connection.address)) || (['list', 'buy', 'deposit', 'depositAndList'].includes(row.action) && same(row.to, deployment.address) && (row.action === 'buy' || same(row.from, connection.address)))) })
+   var clearedGifts = 0
+   for (var row of pending) {
+    try { var result = await client.reconcile(row, verify); if (row.action === 'gift' && result && result.complete) clearedGifts++ } catch (_) { /* Keep unresolved requests visible for manual checks. */ }
+   }
+   if (clearedGifts) recoveryNotice = 'Verified ' + clearedGifts + ' earlier wallet transfer(s) against the transaction and Ethscriptions indexer. Saved request cleared; no transaction or gas used.'
  }
  async function waitForDeposit(row, targetClient) {
   for (var attempt = 0; attempt < 24; attempt++) {
@@ -132,7 +134,7 @@
    if (row.key === activeSubmissionKey) return
    var text = document.createElement('p'), b = document.createElement('button'), input = document.createElement('input')
     text.textContent = row.action + ': ' + (row.hash || 'No transaction hash returned. Check wallet Activity; do not retry.')
-    if (!same(row.to, deployment.address)) { var link = document.createElement('a'); link.href = '/classic/pages/trixmoji-market.html' + (legacy ? '' : '?market=legacy'); link.textContent = 'OPEN THE OTHER ESCROW TO CHECK THIS REQUEST ↗'; recoveryBox.append(text, link); return }
+    if (row.action !== 'gift' && !same(row.to, deployment.address)) { var link = document.createElement('a'); link.href = '/classic/pages/trixmoji-market.html' + (legacy ? '' : '?market=legacy'); link.textContent = 'OPEN THE OTHER ESCROW TO CHECK THIS REQUEST ↗'; recoveryBox.append(text, link); return }
     if (!row.hash && row.state === 'awaiting-wallet' && (row.action === 'deposit' || row.action === 'depositAndList' || row.action === 'list')) {
      var details = document.createElement('details'), summary = document.createElement('summary'), instructions = document.createElement('p'), clearUnsent = document.createElement('button'), hashDetails = document.createElement('details'), hashSummary = document.createElement('summary')
      details.className = 'pending-request'; summary.textContent = 'Previous wallet request needs attention'
