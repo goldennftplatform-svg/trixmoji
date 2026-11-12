@@ -94,3 +94,54 @@ body[data-market-view] .hero .eyebrow{margin:0 0 8px}
  body[data-market-view] .wallet-grid .sale-card .sale-price strong{font-size:20px}
  body[data-market-view] .wallet-menu,body[data-market-view] .market-more-menu{max-width:calc(100vw - 32px)}
 }
+
+/* A compact collection introduction puts the artwork, not empty space, first. */
+body[data-market-view] #catalogSection .hero{
+ display:grid;grid-template-columns:minmax(0,1fr) 210px;align-items:center;
+ gap:24px;padding:16px 0;border-bottom:1px solid var(--line)
+}
+body[data-market-view] #catalogSection .hero>div:first-child{
+ display:grid;grid-template-columns:minmax(0,1fr) auto;
+ grid-template-areas:"eyebrow stats" "title stats" "subtitle stats";
+ align-items:center;column-gap:32px
+}
+body[data-market-view] #catalogSection .hero .eyebrow{grid-area:eyebrow;margin:0 0 6px}
+body[data-market-view] #catalogSection .hero h1{grid-area:title;margin:0;font-size:clamp(27px,2.7vw,40px);line-height:1.03;letter-spacing:-1.8px}
+body[data-market-view] #catalogSection .hero .subtitle{grid-area:subtitle;margin:6px 0 0;font-size:13px}
+body[data-market-view] #catalogSection .hero .stats{grid-area:stats;margin:0;gap:24px}
+body[data-market-view] #catalogSection .hero .stats strong{font-size:18px;line-height:1.2}
+body[data-market-view] #catalogSection .hero .stats span{margin-top:4px;font-size:9px}
+body[data-market-view] #catalogSection .hero-art{justify-content:flex-end;padding:0 8px 15px}
+body[data-market-view] #catalogSection .hero-art img{width:50%;max-width:92px;border-width:4px}
+body[data-market-view] #catalogSection .hero-art span{font-size:7px;letter-spacing:.08em}
+body[data-market-view] #catalogSection .toolbar{gap:10px;padding:12px 0}
+body[data-market-view] #catalogSection .workspace{padding-top:16px;gap:22px}
+body[data-market-view] #catalogSection .result-head{margin-bottom:10px}
+@media(max-width:1050px){
+ body[data-market-view] #catalogSection .hero>div:first-child{display:block}
+ body[data-market-view] #catalogSection .hero .stats{margin-top:10px}
+}
+@media(max-width:760px){
+ body[data-market-view] #catalogSection .hero{grid-template-columns:minmax(0,1fr) 100px;gap:8px;padding:14px 0}
+ body[data-market-view] #catalogSection .hero h1{font-size:clamp(24px,6vw,32px);letter-spacing:-1.3px}
+ body[data-market-view] #catalogSection .hero .eyebrow{font-size:9px;letter-spacing:1px}
+ body[data-market-view] #catalogSection .hero .subtitle,body[data-market-view] #catalogSection .hero .stats{display:none}
+ body[data-market-view] #catalogSection .hero-art{padding:0 4px}
+ body[data-market-view] #catalogSection .hero-art img{max-width:58px;border-width:3px}
+ body[data-market-view] #catalogSection .hero-art span{display:none}
+ body[data-market-view] #catalogSection .toolbar{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) minmax(0,1fr);gap:8px;padding:10px 0;align-items:end}
+ body[data-market-view] #catalogSection .toolbar .search{grid-column:1 / -1;grid-row:1}
+ body[data-market-view] #catalogSection .toolbar #toggleFilters{grid-column:1;grid-row:2}
+ body[data-market-view] #catalogSection .toolbar label:not(.search){grid-column:2;grid-row:2}
+ body[data-market-view] #catalogSection .toolbar #clear{grid-column:3;grid-row:2}
+ body[data-market-view] #catalogSection .toolbar label:not(.search){min-width:0}
+ body[data-market-view] #catalogSection .toolbar select{width:100%;min-width:0;padding-left:7px;padding-right:4px;font-size:10px}
+ body[data-market-view] #catalogSection .toolbar button{padding:9px 10px}
+ body[data-market-view] #catalogSection .workspace{padding-top:12px}
+}
+@media(max-width:360px){
+ body[data-market-view] #catalogSection .hero{grid-template-columns:minmax(0,1fr) 74px}
+ body[data-market-view] #catalogSection .hero h1{font-size:23px}
+ body[data-market-view] #catalogSection .toolbar button{padding:8px 6px;font-size:9px}
+ body[data-market-view] #catalogSection .toolbar select{padding-left:4px;font-size:9px}
+}
