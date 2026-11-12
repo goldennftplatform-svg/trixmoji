@@ -9,11 +9,13 @@ See [ESIP-2](https://docs.ethscriptions.com/esips/accepted-esips/esip-2-safe-tru
 Ethscriptions are indexed from transaction calldata and protocol events, not
 ERC-721 tokens or on-chain ownership balances.
 
-The selected future depositor is `0x47cf60BdD877203264921D05CE26F81f6d36Aa3E`.
+The selected future depositor and curator are both
+`0x47cf60BdD877203264921D05CE26F81f6d36Aa3E`.
 No giveaway-vault address has been deployed or approved. The existing market
 escrow does not have a free giveaway transfer function; a market deposit is not
-a Trix Hunt prize allocation. The curator, deployment and integration remain
-to be determined and reviewed.
+a Trix Hunt prize allocation. Deployment and integration remain to be reviewed.
+Using the depositor as curator means automated reservations need that wallet's
+signing access; no unattended signing or wallet-key custody is implemented.
 
 ## Trust and operation
 

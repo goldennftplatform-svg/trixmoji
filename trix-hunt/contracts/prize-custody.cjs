@@ -9,9 +9,10 @@ const same = (a,b) => String(a||'').toLowerCase() === String(b||'').toLowerCase(
 const iface = new ethers.utils.Interface(['event PotentialDeposit(bytes32 indexed id,address indexed depositor,uint256 blockNumber)'])
 
 function verifyPrizeDeposit(input) {
- const { deployment,chainId,runtimeCode,transaction,receipt,asset,indexedBlock,latestBlock,entry,registry,id,hash }=input
- if (!deployment || chainId!==1 || deployment.chainId!==1 || !ethers.utils.isAddress(deployment.address||'') || !same(deployment.depositor,DEPOSITOR) || !/^0x[a-f0-9]{64}$/i.test(String(deployment.runtimeHash||''))) throw Error('Giveaway deployment is not verified.')
+ const { deployment,chainId,runtimeCode,roles,transaction,receipt,asset,indexedBlock,latestBlock,entry,registry,id,hash }=input
+ if (!deployment || chainId!==1 || deployment.chainId!==1 || !ethers.utils.isAddress(deployment.address||'') || !same(deployment.depositor,DEPOSITOR) || !same(deployment.curator,DEPOSITOR) || !/^0x[a-f0-9]{64}$/i.test(String(deployment.runtimeHash||''))) throw Error('Giveaway deployment is not verified.')
  if (!runtimeCode || runtimeCode==='0x' || !same(ethers.utils.keccak256(runtimeCode),deployment.runtimeHash)) throw Error('Giveaway vault bytecode mismatch.')
+ if (!roles || !same(roles.depositor,DEPOSITOR) || !same(roles.curator,DEPOSITOR)) throw Error('Giveaway vault roles do not match.')
  if (!entry || Number(entry.status)!==1 || !Number.isSafeInteger(Number(entry.receivedBlock))) throw Error('Vault deposit is not available.')
  const proof=verifyDirectDeposit({seller:DEPOSITOR,escrow:deployment.address,id,hash,transaction,receipt,asset,indexedBlock,latestBlock,recordedBlock:Number(entry.receivedBlock)})
  const events=(receipt.logs||[]).filter(log=>{
