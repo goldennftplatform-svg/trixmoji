@@ -4,7 +4,6 @@
   var canvas = document.getElementById('game');
   var ctx = canvas.getContext('2d');
   var $ = function (id) { return document.getElementById(id); };
-  var ids = [3100,2890,5822,3443,6089,635,5905,7804,7523,372,2386,2491,2711,5314,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29];
   var artBase = '/assets/ethscriptions/trixmoji-launch/';
   var inventory = [], session = null, pack = 'bullet', target = null, reveal = null, pendingFinish = false, targetsSeen = 0;
   var aim = { x: 480, y: 240 }, soundOn = false, audio = null, messageTimer = 0;
@@ -46,15 +45,7 @@
     if (duration) messageTimer = setTimeout(function () { $('message').textContent = ''; }, duration);
   }
   async function loadInventory() {
-    var loaded = await Promise.all(ids.map(async function (id) {
-      var response = await fetch(artBase + id + '.json');
-      if (!response.ok) throw new Error('Collection metadata unavailable for #' + id);
-      var data = await response.json();
-      var tokens = (data.properties && data.properties.tokens || []).filter(function (t) { return Number.isInteger(t.rank) && t.rank > 0; });
-      tokens.sort(function (a, b) { return a.rank - b.rank; });
-      if (!tokens.length) throw new Error('Missing token metadata for #' + id);
-      return { id: id, rank: tokens[0].rank, symbol: tokens[0].symbol, tiles: tokens.map(function (t) { return { rank: t.rank, symbol: t.symbol, pixels: t.pixels }; }) };
-    }));
+    var loaded = await window.TrixInventory.load();
     if (!loaded.some(function (a) { return a.rank === 1; }) || !loaded.some(function (a) { return a.rank !== 1; })) throw new Error('Demo tiers unavailable');
     inventory = loaded;
     $('start').disabled = false; $('start').innerHTML = 'START PLAYTEST <span>↗</span>';
@@ -223,7 +214,8 @@
       localStorage.setItem('trix-hunt-local-player',playerId);localStorage.setItem('trix-hunt-local-name',name);
     } catch (_) {playerId=crypto.randomUUID();}
     sessionId=crypto.randomUUID();roundRecorded=false;
-    session=engine.createSession({pack:pack,inventory:inventory,players:1});reveal=null;pendingFinish=false;targetsSeen=0;
+    var config=window.TrixInventory.read(inventory);
+    session=engine.createSession({pack:pack,inventory:window.TrixInventory.apply(inventory,config),players:1});reveal=null;pendingFinish=false;targetsSeen=0;
     $('prizes').innerHTML='<div class="empty-prizes"><span>✳</span><p>Your catches land here.<br><small>Hit a mystery card to reveal it.</small></p></div>';$('prizeCount').textContent='00 CAPTURED';
     $('welcome').hidden=true;$('cabinetState').textContent='ROUND IN PROGRESS';setControls(true);hud();makeTarget();initAudio();canvas.focus();
   });

@@ -6,12 +6,13 @@
   <meta name="theme-color" content="#0e160e">
   <title>Trix Hunt · Arcade Preview</title>
   <link rel="icon" type="image/webp" href="/assets/ethscriptions/trixmoji-launch/444.webp">
-  <link rel="stylesheet" href="./style.css">
-  <script defer src="./engine.js"></script>
-  <script defer src="./game.js"></script>
+  <link rel="stylesheet" href="/trix-hunt/style.css?v=inventory1">
+  <script defer src="/trix-hunt/inventory.js?v=inventory1"></script>
+  <script defer src="/trix-hunt/engine.js"></script>
+  <script defer src="/trix-hunt/game.js?v=inventory1"></script>
 </head>
 <body>
-  <header class="topbar"><a class="logo" href="./" aria-label="Trix Hunt home">TRIX<span>✳</span>HUNT <small>ARCADE</small></a><div class="top-right"><span class="demo-pill"><i></i> LOCAL PLAYTEST</span><a href="/classic/pages/trixmoji-market.html">THE COLLECTION ↗</a></div></header>
+  <header class="topbar"><a class="logo" href="/trix-hunt/" aria-label="Trix Hunt home">TRIX<span>✳</span>HUNT <small>ARCADE</small></a><div class="top-right"><span class="demo-pill"><i></i> PLAYTEST</span><a class="admin-link" href="/trix-hunt/admin.html">INVENTORY ↗</a><a href="/classic/pages/trixmoji-market.html">THE COLLECTION ↗</a></div></header>
   <main>
     <section class="intro"><div><p class="kicker">THE ARCADE IS OPEN <span> / </span> TEST BUILD 01</p><h1>READY. <em>AIM.</em> <strong>TRIX.</strong></h1><p class="intro-copy">Ten shots. Mystery cards. Your kind of prize counter.</p></div><div class="intro-side"><span>01 — PICK YOUR AMMO</span><span>02 — HIT THE MYSTERY CARDS</span><span>03 — SEE WHAT YOU CAUGHT</span></div></section>
     <div class="demo-notice"><b>✳ PLAY MONEY. REAL ART.</b> This local preview uses simulated inventory and payments. No wallet, ETH or prizes move.</div>
@@ -37,7 +38,7 @@
         </div>
         <button class="start" id="start" type="button" disabled>LOADING ARTWORK <span>↗</span></button>
         <button class="cancel" id="cancel" type="button" hidden>END ROUND &amp; REFUND UNUSED SHOTS</button>
-        <p class="fine-print">Ten targets per round. Cards get smaller and escape after 3 seconds (bullet), 2.3 seconds (shotgun), or 1.6 seconds (sniper). Escaped cards don't use a shot. Best pool: CRACK rank 1; other prizes use their highest-ranked coin. Chances apply per successful hit. Unused shots are refunded in play money at round end.</p>
+        <p class="fine-print">Ten targets per round. Cards get smaller and escape after 3 seconds (bullet), 2.3 seconds (shotgun), or 1.6 seconds (sniper). Escaped cards don't use a shot. Best pool follows this browser's demo inventory order (default: CRACK rank 1). Chances apply per successful hit. Unused shots are refunded in play money at round end.</p>
       </aside>
     </section>
     <section class="prize-section"><div class="section-title"><div><p class="kicker">THE GOOD STUFF</p><h2>YOUR PRIZE TRAY<span>.</span></h2></div><span id="prizeCount">00 CAPTURED</span></div><div id="prizes" class="prizes"><div class="empty-prizes"><span>✳</span><p>Your catches land here.<br><small>Hit a mystery card to reveal it.</small></p></div></div><p class="disclaimer">Preview only · Items shown are examples from collection metadata, not verified escrow inventory. Randomness is local and not provably fair.</p></section>

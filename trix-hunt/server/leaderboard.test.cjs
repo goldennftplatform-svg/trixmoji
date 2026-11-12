@@ -73,6 +73,8 @@ test('serves the local playtest, permits same-origin scores and rejects foreign 
   assert.equal(page.status, 200);
   assert.match(await page.text(), /TRIX HUNT/);
   assert.equal((await fetch(`${base}/trix-hunt/game.js`)).status, 200);
+  assert.equal((await fetch(`${base}/trix-hunt/admin.html`)).status, 200);
+  assert.equal((await fetch(`${base}/trix-hunt/inventory.js`)).status, 200);
   assert.equal((await fetch(`${base}/assets/ethscriptions/trixmoji-launch/3100.json`)).status, 200);
   assert.equal((await post(base, round('local', 'browser', 3, 5), { origin: base, 'sec-fetch-site': 'same-origin' })).status, 201);
   assert.equal((await post(base, round('foreign', 'browser', 1, 2), { origin: 'https://example.com', 'sec-fetch-site': 'cross-site' })).status, 403);

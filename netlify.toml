@@ -5,6 +5,13 @@
   publish = "."
   command = "npm ci --omit=dev"
 
+# Serve the playtest at the custom-domain root once the domain is connected.
+[[redirects]]
+  from = "https://trixhunt.aisp.live/"
+  to = "/trix-hunt/index.html"
+  status = 200
+  force = true
+
 # Once tm.aisp.live is added to this Netlify site as a domain alias, serve the
 # market at its root without changing other domains' homepages.
 [[redirects]]

@@ -81,9 +81,9 @@ async function createLeaderboardServer({ directory = process.env.TRIX_LEADERBOAR
       let filename, mime;
       if (pathname === '/' || pathname === '/trix-hunt/' || pathname === '/trix-hunt/index.html') {
         filename = path.join(__dirname, '..', 'index.html'); mime = 'text/html; charset=utf-8';
-      } else if (/^\/trix-hunt\/(style\.css|game\.js|engine\.js)$/.test(pathname)) {
+      } else if (/^\/trix-hunt\/(style\.css|admin\.css|admin\.html|admin\.js|game\.js|engine\.js|inventory\.js)$/.test(pathname)) {
         filename = path.join(__dirname, '..', pathname.slice('/trix-hunt/'.length));
-        mime = pathname.endsWith('.css') ? 'text/css; charset=utf-8' : 'text/javascript; charset=utf-8';
+        mime = pathname.endsWith('.css') ? 'text/css; charset=utf-8' : pathname.endsWith('.html') ? 'text/html; charset=utf-8' : 'text/javascript; charset=utf-8';
       } else if (/^\/assets\/ethscriptions\/trixmoji-launch\/(?:[0-9]{1,4})\.(?:json|webp)$/.test(pathname)) {
         filename = path.join(__dirname, '..', '..', pathname.slice(1));
         mime = pathname.endsWith('.json') ? 'application/json; charset=utf-8' : 'image/webp';
@@ -95,6 +95,14 @@ async function createLeaderboardServer({ directory = process.env.TRIX_LEADERBOAR
           return res.end(body);
         } catch (error) { return send(res, error.code === 'ENOENT' ? 404 : 500, { error: 'File unavailable' }); }
       }
+    }
+    if (req.method === 'GET' && req.url === '/escrow-snapshot') {
+      try {
+        const response = await fetch('https://trixmoji.netlify.app/.netlify/functions/trixmoji-market-launch', { signal: AbortSignal.timeout(20000) });
+        if (!response.ok) throw new Error('upstream unavailable');
+        const data = await response.json();
+        return send(res, 200, data);
+      } catch (_) { return send(res, 503, { ok: false, error: 'Escrow snapshot unavailable' }); }
     }
     if (req.method === 'GET' && req.url === '/leaderboard') {
       await queue;
