@@ -6,19 +6,21 @@
   <meta name="theme-color" content="#0e160e">
   <title>Trix Hunt · Arcade Preview</title>
   <link rel="icon" type="image/webp" href="/assets/ethscriptions/trixmoji-launch/444.webp">
-  <link rel="stylesheet" href="/trix-hunt/style.css?v=leaderboard2">
+  <link rel="stylesheet" href="/trix-hunt/style.css?v=sepolia1">
+  <script defer src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js" integrity="sha384-Htz1SE4Sl5aitpvFgr2j0sfsGUIuSXI6t8hEyrlQ93zflEF3a29bH2AvkUROUw7J" crossorigin="anonymous"></script>
   <script defer src="/trix-hunt/inventory.js?v=online1"></script>
   <script defer src="/trix-hunt/engine.js"></script>
   <script defer src="/trix-hunt/player-identity.js?v=1"></script>
-  <script defer src="/trix-hunt/beta-client.js?v=online1"></script>
-  <script defer src="/trix-hunt/game.js?v=leaderboard2"></script>
+  <script defer src="/trix-hunt/beta-client.js?v=sepolia1"></script>
+  <script defer src="/trix-hunt/beta-payment.js?v=sepolia1"></script>
+  <script defer src="/trix-hunt/game.js?v=sepolia1"></script>
   <script defer src="/trix-hunt/test-quote.js"></script>
 </head>
 <body>
   <header class="topbar"><a class="logo" href="/trix-hunt/" aria-label="Trix Hunt home">TRIX<span>✳</span>HUNT <small>ARCADE</small></a><div class="top-right"><span class="demo-pill"><i></i> PLAYTEST</span><a class="admin-link" href="/trix-hunt/admin.html">INVENTORY ↗</a><a href="/classic/pages/trixmoji-market.html">THE COLLECTION ↗</a></div></header>
   <main>
     <section class="intro"><div><p class="kicker">THE ARCADE IS OPEN <span> / </span> TEST BUILD 01</p><h1>READY. <em>AIM.</em> <strong>TRIX.</strong></h1><p class="intro-copy">Ten shots. Mystery cards. Your kind of prize counter.</p></div><div class="intro-side"><span>01 — PICK YOUR AMMO</span><span>02 — HIT THE MYSTERY CARDS</span><span>03 — SEE WHAT YOU CAUGHT</span></div></section>
-    <div class="demo-notice"><b>✳ PLAY MONEY. REAL ART.</b> Online playtest: inventory, payments and refunds are simulated. No wallet, ETH or prizes move.</div>
+    <div class="demo-notice"><b>✳ SEPOLIA TEST ONLY.</b> Online rounds use test ETH. Prizes and scores are simulated; no real ETH or Ethscriptions move.</div>
     <section class="arcade-layout" aria-label="Trix Hunt game">
       <div class="cabinet">
         <div class="cabinet-top"><span>TRIX HUNT <b>✳</b> ARCADE SYSTEM</span><span id="cabinetState">INSERT A PACK TO PLAY</span></div>
@@ -39,10 +41,11 @@
           <button class="pack" type="button" role="radio" aria-checked="false" data-pack="shotgun"><span class="pack-icon pink">✦</span><span class="pack-copy"><b>SHOTGUN SLUGS</b><small>50% BEST / HIT · MEDIUM AIM</small></span><strong>$7<sup>.50</sup></strong></button>
           <button class="pack" type="button" role="radio" aria-checked="false" data-pack="sniper"><span class="pack-icon cyan">✛</span><span class="pack-copy"><b>SNIPE SHOTS</b><small>80% BEST / HIT · HARD AIM</small></span><strong>$10<sup>.00</sup></strong></button>
         </div>
+        <div id="betaPayment" class="test-quote"><b>SEPOLIA TEST WALLET</b><p id="paymentStatus" role="status">Connect a wallet on Sepolia to buy test ammo.</p><p id="walletName">Not connected</p><div id="betaWalletButtons"></div><div id="paymentReview" hidden><p id="paymentReviewText"></p><button id="paymentConfirm" type="button" class="start">APPROVE TEST AMMO ↗</button> <button id="paymentCancel" type="button" class="cancel">CANCEL</button></div><button id="paymentResume" type="button" class="cancel" hidden>RESUME PAID TEST ROUND</button><button id="paymentCheck" type="button" class="cancel" hidden>CHECK TEST TRANSACTION</button><div id="paymentPending" hidden><p>Check wallet activity before retrying. If no approval or transaction is pending, use the recovery option below.</p><label>Transaction hash, if the wallet shows one <input type="text" id="paymentHash" placeholder="0x…" autocomplete="off"></label><button id="paymentAttach" type="button" class="cancel">CHECK THIS TRANSACTION HASH</button><label><input type="checkbox" id="paymentWalletChecked"> I checked my wallet; no request is pending.</label><button id="paymentClear" type="button" class="cancel">CHECK AND CLEAR UNSENT REQUEST</button></div><button id="paymentSettle" type="button" class="cancel" hidden>REVIEW TEST REFUND</button><button id="paymentSettleConfirm" type="button" class="cancel" hidden>CONFIRM TEST SETTLEMENT</button><button id="paymentExpire" type="button" class="cancel" hidden>REVIEW EXPIRED-ROUND REFUND</button><button id="paymentExpireConfirm" type="button" class="cancel" hidden>CONFIRM EXPIRED-ROUND REFUND</button><button id="paymentWithdraw" type="button" class="cancel" hidden>REVIEW TEST ETH WITHDRAWAL</button><button id="paymentWithdrawConfirm" type="button" class="cancel" hidden>CONFIRM TEST ETH WITHDRAWAL</button></div>
         <button class="start" id="start" type="button" disabled>LOADING ARTWORK <span>↗</span></button>
         <button class="cancel" id="cancel" type="button" hidden>END ROUND &amp; REFUND UNUSED SHOTS</button>
         <button class="cancel" id="retryShot" type="button" hidden>RETRY CHECKING LAST SHOT</button>
-        <p class="fine-print">Ten targets per round. Cards get smaller and escape after 3 seconds (bullet), 2.3 seconds (shotgun), or 1.6 seconds (sniper). Escaped cards don't use a shot. Demo best pool: CRACK rank 1. Chances apply per successful hit. Unused shots are refunded in play money at round end.</p>
+        <p class="fine-print">Ten targets per round. Cards get smaller and escape after 3 seconds (bullet), 2.3 seconds (shotgun), or 1.6 seconds (sniper). Escaped cards don't use a shot. Demo best pool: CRACK rank 1. Prizes are simulated. Settle the round and withdraw unused-shot credit as Sepolia test ETH.</p>
         <div id="testQuotePanel" class="test-quote" hidden><b>SEPOLIA TEST QUOTES</b><p id="testQuoteStatus">Loading test quote…</p><div>BULLET <span data-test-quote="bullet">—</span></div><div>SHOTGUN <span data-test-quote="shotgun">—</span></div><div>SNIPER <span data-test-quote="sniper">—</span></div></div>
         <p id="testEconomyStatus" class="fine-print" role="status" hidden></p>
         <a id="testAdminLink" href="/trix-hunt/test-admin.html" class="fine-print" hidden>OPEN LOCAL TEST ADMIN ↗</a>

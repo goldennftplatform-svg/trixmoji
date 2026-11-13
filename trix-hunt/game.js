@@ -8,6 +8,7 @@
   var inventory = [], session = null, pack = 'bullet', target = null, reveal = null, pendingFinish = false, targetsSeen = 0;
   var aim = { x: 480, y: 240 }, soundOn = false, audio = null, messageTimer = 0;
   var localLeaderboard = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
+  var targetProgressKey='trix-hunt-target-progress-v1';
   var sessionId = '', playerId = '', activeName = '', roundRecorded = false, economyActive = false, shotPending = false, pendingShot = null, finishPending = false;
   var colors = { sky: '#319fe4', grass: '#06cf4f', soil: '#9d5435', lime: '#d0ff00' };
   var difficulty = { bullet: { size: 84, speed: 536.25, seconds: 3 }, shotgun: { size: 69, speed: 653.25, seconds: 2.3 }, sniper: { size: 53, speed: 540, seconds: 1.6 } };
@@ -139,6 +140,7 @@
     target.size=target.baseSize*(1-.32*Math.min(elapsed/difficulty[pack].seconds,1));
     return target;
   }
+  function rememberTargets(){if(!localLeaderboard)try{localStorage.setItem(targetProgressKey,JSON.stringify({id:session.id,count:targetsSeen}));}catch(_){}}
   async function nextTargetOrFinish() {
     if (!session || shotPending) return;
     hud();
@@ -156,7 +158,7 @@
     ctx.clearRect(0,0,960,600);scene(now);
     if (session && session.state.status === 'active' && target && !reveal) {
       var elapsed=(now-target.born)/1000;
-      if(elapsed>=difficulty[pack].seconds){target=null;targetsSeen++;announce('GOT AWAY!',650);nextTargetOrFinish();}
+      if(elapsed>=difficulty[pack].seconds){target=null;targetsSeen++;rememberTargets();announce('GOT AWAY!',650);nextTargetOrFinish();}
       else {var p=targetPosition(now);rounded(p.x-p.size/2,p.y-p.size/2,p.size,p.size,6,'#213331');rounded(p.x-p.size/2+5,p.y-p.size/2+5,p.size-10,p.size-10,3,'#f6f4df');}
     }
     if (reveal) {
@@ -190,26 +192,26 @@
     $('start').hidden=active;$('cancel').hidden=!active;if(!active){$('retryShot').hidden=true;$('cancel').disabled=false;}
   }
   function finishRound() {
-    var s=session.state; target=null;setControls(false);$('cabinetState').textContent='ROUND COMPLETE';
+    var s=session.state; target=null;setControls(false);if(!localLeaderboard)try{localStorage.removeItem(targetProgressKey);}catch(_){}$('cabinetState').textContent='ROUND COMPLETE';
     $('start').innerHTML='PLAY AGAIN <span>↗</span>'; $('welcome').hidden=false;
     $('welcome').querySelector('h2').innerHTML='NICE<br><em>SHOTS.</em>';
-    $('welcome').querySelector('p').textContent=s.results.length+' CARDS CAPTURED · '+money(s.refundCents)+' DEMO REFUND';
+    $('welcome').querySelector('p').textContent=localLeaderboard?s.results.length+' CARDS CAPTURED · '+money(s.refundCents)+' DEMO REFUND':s.results.length+' CARDS CAPTURED · REVIEW TEST REFUND';
     if(s.reason==='tier_exhausted')announce('TIER EMPTY · '+money(s.refundCents)+' DEMO REFUND',5000);
     recordRound(s);
     testRoundFinish(sessionId,s);
-    if(!localLeaderboard)refreshLeaderboard();
+    if(!localLeaderboard){window.TrixBetaPay.armSettlement(s);refreshLeaderboard();}
   }
   function prizeDetails(receipt){if(receipt&&receipt.prize){var item=inventory.find(function(x){return x.id===receipt.prize.id;});receipt.prize=item||{id:receipt.prize.id,symbol:'TRIX'};}return receipt;}
   function handleShot(receipt,hit,pos){
     receipt=prizeDetails(receipt);hud();
     if(receipt.type==='error'){finishRound();return;}
-    targetsSeen++;hud();
+    targetsSeen++;rememberTargets();hud();
     if(hit){beep('hit');addPrize(receipt);var img=new Image();img.src=imageUrl(receipt.prize.id);reveal={time:performance.now(),x:pos.x,y:pos.y,image:img,prize:receipt.prize};announce('#'+receipt.prize.id+' · $'+receipt.prize.symbol,1300);if(session.state.status!=='active'||targetsSeen>=10)pendingFinish=true;}
     else{announce('MISS!',650);nextTargetOrFinish();}
   }
   async function fire(x,y) {
     if(!session || session.state.status!=='active' || !target || reveal || shotPending || pendingShot || finishPending)return;
-    if((performance.now()-target.born)/1000>=difficulty[pack].seconds){target=null;targetsSeen++;announce('GOT AWAY!',650);nextTargetOrFinish();return;}
+    if((performance.now()-target.born)/1000>=difficulty[pack].seconds){target=null;targetsSeen++;rememberTargets();announce('GOT AWAY!',650);nextTargetOrFinish();return;}
     aim.x=x;aim.y=y;var pos=targetPosition(performance.now()),half=pos.size/2;
     var hit=Math.abs(x-pos.x)<=half && Math.abs(y-pos.y)<=half;
     target=null;shotPending=true;$('cancel').disabled=true;beep('shot');
@@ -236,15 +238,18 @@
     sessionId=crypto.randomUUID();roundRecorded=false;
     try{
       if(localLeaderboard){economyActive=await testRoundStart(sessionId,pack);var config={order:window.TrixInventory.auto(inventory).map(function(item){return item.id;}),bestCount:9};session=engine.createSession({pack:pack,inventory:window.TrixInventory.apply(inventory,config),players:1});}
-      else{economyActive=false;session=await window.TrixHuntBeta.start(pack,activeName,playerId);}
-    }catch(error){$('start').disabled=false;setControls(false);$('testEconomyStatus').hidden=false;$('testEconomyStatus').textContent='Online playtest is unavailable. Please try again.';return;}
-    $('start').disabled=false;reveal=null;pendingFinish=false;finishPending=false;shotPending=false;pendingShot=null;targetsSeen=0;
+      else{economyActive=false;var payment=await window.TrixBetaPay.prepare(pack);if(!enteredName.trim())activeName=payment.wallet.slice(0,6)+'...'+payment.wallet.slice(-4);session=await window.TrixHuntBeta.start(pack,activeName,playerId,payment);window.TrixBetaPay.markPlaying();}
+    }catch(error){$('start').disabled=false;setControls(false);$('testEconomyStatus').hidden=false;$('testEconomyStatus').textContent=error.message||'Sepolia test unavailable. Please try again.';return;}
+    $('start').disabled=false;reveal=null;pendingFinish=false;finishPending=false;shotPending=false;pendingShot=null;targetsSeen=Math.min(10,session.state.shotsTaken);
+    if(!localLeaderboard)try{var progress=JSON.parse(localStorage.getItem(targetProgressKey)||'null');if(progress&&progress.id===session.id&&Number.isInteger(progress.count))targetsSeen=Math.min(10,Math.max(targetsSeen,progress.count));rememberTargets();}catch(_){}
     $('prizes').innerHTML='<div class="empty-prizes"><span>✳</span><p>Your catches land here.<br><small>Hit a mystery card to reveal it.</small></p></div>';$('prizeCount').textContent='00 CAPTURED';
-    $('welcome').hidden=true;$('cabinetState').textContent='ROUND IN PROGRESS';setControls(true);hud();makeTarget();initAudio();canvas.focus();
+    if(session.state.results.length)session.state.results.forEach(function(item){addPrize(prizeDetails({prize:item.prize,player:item.player}));});
+    $('welcome').hidden=true;$('cabinetState').textContent='ROUND IN PROGRESS';setControls(true);hud();if(session.state.status!=='active'){finishRound();return;}if(targetsSeen>=10){nextTargetOrFinish();return;}makeTarget();initAudio();canvas.focus();
   });
   $('cancel').addEventListener('click',function(){if(!session||session.state.status!=='active'||shotPending||pendingShot)return;target=null;reveal=null;pendingFinish=false;targetsSeen=10;nextTargetOrFinish();});
   $('retryShot').addEventListener('click',async function(){if(!session||shotPending)return;if(finishPending){finishPending=false;nextTargetOrFinish();return;}if(!pendingShot||typeof session.retry!=='function')return;shotPending=true;$('retryShot').disabled=true;try{var receipt=await session.retry(),saved=pendingShot;pendingShot=null;$('retryShot').hidden=true;$('cancel').disabled=false;shotPending=false;handleShot(receipt,saved.hit,saved.pos);}catch(_){announce('CONNECTION LOST · RETRY SHOT',0);}finally{shotPending=false;$('retryShot').disabled=false;}});
   $('refreshLeaderboard').addEventListener('click',refreshLeaderboard);
+  window.addEventListener('trix-sepolia-resume',function(){var saved=window.TrixBetaPay.savedPack();if(!saved)return;var button=document.querySelector('.pack[data-pack="'+saved+'"]');if(button)button.click();$('start').click();});
   requestAnimationFrame(render);
   if(localLeaderboard)$('testAdminLink').hidden=false;
   try {var savedName=localStorage.getItem('trix-hunt-local-name')||'';$('nickname').value=savedName==='PLAYER'?'':savedName;}catch(_){}

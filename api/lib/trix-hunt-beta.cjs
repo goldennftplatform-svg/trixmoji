@@ -4,18 +4,21 @@ const crypto=require('crypto')
 const PACKS={bullet:{priceCents:500,threshold:400},shotgun:{priceCents:750,threshold:5000},sniper:{priceCents:1000,threshold:8000}}
 const BEST=[3100,2890,5822,3443,6089,635,5905,7804,7523]
 const NORMAL=[372,2386,2491,2711,5314,...Array.from({length:30},(_,i)=>i)]
-const HEX=/^[a-f0-9]{32}$/,TOKEN=/^[a-f0-9]{64}$/,REQUEST=/^[A-Za-z0-9_-]{1,64}$/
+const HEX=/^(?:[a-f0-9]{32}|[a-f0-9]{64})$/,TOKEN=/^[a-f0-9]{64}$/,REQUEST=/^[A-Za-z0-9_-]{1,64}$/
 const hash=x=>crypto.createHash('sha256').update(x).digest('hex')
 function cleanName(value){const s=String(value||'').replace(/[^A-Za-z0-9 ._-]/g,'').trim().replace(/ +/g,' ');return s.slice(0,24)||'PLAYER'}
 function publicState(s){return {pack:s.pack,shotsRemaining:10-s.shotsTaken,shotsTaken:s.shotsTaken,results:s.results,status:s.status,reason:s.reason,refundCents:s.refundCents,nextPlayer:0}}
-function createBeta({store,now=()=>Date.now(),bytes=n=>crypto.randomBytes(n),randomInt=n=>crypto.randomInt(n)}){
+function createBeta({store,now=()=>Date.now(),bytes=n=>crypto.randomBytes(n),randomInt=n=>crypto.randomInt(n),verifyPayment=null}){
  if(!store||typeof store.getWithMetadata!=='function'||typeof store.setJSON!=='function')throw Error('Playtest storage unavailable')
  async function start(body){
   if(!Object.hasOwn(PACKS,body.pack)||!REQUEST.test(String(body.playerId||'')))throw Error('Invalid pack or player')
+  let payment=null,paidId=null,paidToken=null
+  if(verifyPayment){const secret=String(body.payment&&body.payment.secret||'').toLowerCase();if(!/^0x[a-f0-9]{64}$/.test(secret))throw Error('Invalid test payment');const resumeId=require('ethers').ethers.utils.keccak256(secret).slice(2);const resumeToken=hash('trix-hunt-test-session:'+secret);const existing=await store.getWithMetadata('round-'+resumeId,{type:'json',consistency:'strong'});if(existing&&existing.data){const s=existing.data;if(s.tokenHash!==hash(resumeToken)||s.pack!==body.pack||!s.payment||!sameAddress(s.payment.wallet,body.payment.wallet)||String(s.payment.hash||'').toLowerCase()!==String(body.payment.hash||'').toLowerCase())throw Error('Invalid test payment');return {id:resumeId,token:resumeToken,state:publicState(s)}}payment=await verifyPayment({...body.payment,pack:['bullet','shotgun','sniper'].indexOf(body.pack)});paidId=payment.roundId.slice(2).toLowerCase();paidToken=resumeToken;payment.hash=String(body.payment.hash).toLowerCase()}
   for(let tries=0;tries<4;tries++){
-   const id=bytes(16).toString('hex'),token=bytes(32).toString('hex')
-   const round={id,tokenHash:hash(token),pack:body.pack,playerId:body.playerId,nickname:cleanName(body.nickname),startedAt:now(),shotsTaken:0,results:[],best:BEST.slice(),normal:NORMAL.slice(),requests:[],status:'active',reason:null,refundCents:0}
+   const id=paidId||bytes(16).toString('hex'),token=paidToken||bytes(32).toString('hex')
+   const round={id,tokenHash:hash(token),pack:body.pack,playerId:body.playerId,nickname:cleanName(body.nickname),payment,startedAt:now(),shotsTaken:0,results:[],best:BEST.slice(),normal:NORMAL.slice(),requests:[],status:'active',reason:null,refundCents:0}
    const result=await store.setJSON('round-'+id,round,{onlyIfNew:true});if(result&&result.modified)return {id,token,state:publicState(round)}
+   if(paidId){const previous=await store.getWithMetadata('round-'+id,{type:'json',consistency:'strong'});if(previous&&previous.data&&previous.data.tokenHash===hash(token)&&previous.data.pack===body.pack)return {id,token,state:publicState(previous.data)};throw Error('Invalid test payment')}
   }
   throw Error('Could not start playtest')
  }
@@ -60,4 +63,5 @@ function createBeta({store,now=()=>Date.now(),bytes=n=>crypto.randomBytes(n),ran
  async function leaderboard(){const entry=await store.getWithMetadata('leaderboard-v1',{type:'json',consistency:'strong'}),rows=entry?entry.data:[];if(!Array.isArray(rows))throw Error('Leaderboard unavailable');const players=new Map();for(const x of rows){const p=players.get(x.playerId)||{nickname:x.name,hits:0,shots:0};p.nickname=x.name;p.hits+=x.hits;p.shots+=x.shots;players.set(x.playerId,p)}return [...players.entries()].sort((a,b)=>b[1].hits-a[1].hits||(b[1].hits/(b[1].shots||1))-(a[1].hits/(a[1].shots||1))||a[0].localeCompare(b[0])).slice(0,20).map(([,x],i)=>({rank:i+1,...x,accuracy:x.shots?x.hits/x.shots:0}))}
  return {start,mutate,record,leaderboard}
 }
+function sameAddress(a,b){return String(a||'').toLowerCase()===String(b||'').toLowerCase()}
 module.exports={createBeta}

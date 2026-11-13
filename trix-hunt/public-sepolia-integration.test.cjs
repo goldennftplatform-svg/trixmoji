@@ -1,0 +1,57 @@
+'use strict'
+// npm install --prefix <temporary-directory> solc@0.8.30 ganache@7
+// TRIX_TEST_DEPS=<temporary-directory> node --test trix-hunt/public-sepolia-integration.test.cjs
+const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),crypto=require('node:crypto'),{ethers}=require('ethers')
+const deps=process.env.TRIX_TEST_DEPS?require('node:module').createRequire(path.join(process.env.TRIX_TEST_DEPS,'package.json')):require
+const solc=deps('solc'),ganache=deps('ganache')
+const {createBeta}=require('../api/lib/trix-hunt-beta.cjs'),{createSepolia}=require('../api/lib/trix-hunt-sepolia.cjs')
+const KEY='trix-hunt-public-sepolia-payment-v1'
+function memory(){let rev=0;const rows=new Map();return {async getWithMetadata(k){const v=rows.get(k);return v?structuredClone(v):null},async setJSON(k,data,o={}){const old=rows.get(k);if(o.onlyIfNew&&old||o.onlyIfMatch&&(!old||old.etag!==o.onlyIfMatch))return {modified:false};rows.set(k,{etag:String(++rev),data:structuredClone(data)});return {modified:true}}}}
+async function until(fn,label){for(let i=0;i<500;i++){if(fn())return;await new Promise(r=>setTimeout(r,10))}throw Error('Timed out: '+label)}
+async function fixture(){
+ const source=fs.readFileSync(path.join(__dirname,'contracts/TrixHuntSepoliaSettlement.sol'),'utf8')
+ const feed='pragma solidity ^0.8.24; contract Feed { function decimals() external pure returns(uint8){return 8;} function latestRoundData() external view returns(uint80,int256,uint256,uint256,uint80){return (1,200000000000,0,block.timestamp,1);} }'
+ const compiled=JSON.parse(solc.compile(JSON.stringify({language:'Solidity',sources:{'Settlement.sol':{content:source},'Feed.sol':{content:feed}},settings:{evmVersion:'shanghai',outputSelection:{'*':{'*':['abi','evm.bytecode.object']}}}})))
+ assert.deepEqual((compiled.errors||[]).filter(e=>e.severity==='error'),[])
+ const chain=ganache.provider({logging:{quiet:true},chain:{chainId:11155111,hardfork:'shanghai'},wallet:{totalAccounts:3}}),provider=new ethers.providers.Web3Provider(chain);provider.pollingInterval=20
+ const [operator,player]=Object.values(chain.getInitialAccounts()).map(x=>new ethers.Wallet(x.secretKey,provider))
+ const f=compiled.contracts['Feed.sol'].Feed,c=compiled.contracts['Settlement.sol'].TrixHuntSepoliaSettlement
+ const feedContract=await new ethers.ContractFactory(f.abi,'0x'+f.evm.bytecode.object,operator).deploy();await feedContract.deployed()
+ const vault=await new ethers.ContractFactory(c.abi,'0x'+c.evm.bytecode.object,operator).deploy(feedContract.address,operator.address);await vault.deployed()
+ const artifact={abi:c.abi,feed:feedContract.address,operator:operator.address,runtimeHash:ethers.utils.keccak256(await provider.getCode(vault.address))},store=memory()
+ await store.setJSON('sepolia-payment-config-v1',{address:vault.address,chainId:11155111,runtimeHash:artifact.runtimeHash},{onlyIfNew:true})
+ const sepolia=createSepolia({store,provider,artifact}),beta=createBeta({store,verifyPayment:sepolia.verifyPayment,randomInt:()=>0})
+ let sends=0,rejectNext=false,dropShot=false
+ const wallet={isMetaMask:true,on(){},async request(req){if(req.method==='eth_requestAccounts'||req.method==='eth_accounts')return [player.address];if(req.method==='eth_sendTransaction'){sends++;if(rejectNext){rejectNext=false;throw Object.assign(Error('User rejected'),{code:4001})}}return chain.request(req)}}
+ const storage=new Map(),localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,String(v)),removeItem:k=>storage.delete(k)}
+ async function fetch(url,options){if(url.includes('artifact.json'))return {ok:true,json:async()=>artifact};const body=JSON.parse(options.body);try{let result;if(body.action==='config')result={config:await sepolia.config()};else if(body.action==='start')result=await beta.start(body);else if(body.action==='leaderboard')result={players:await beta.leaderboard()};else {result=await beta.mutate(body,body.action);await beta.record(result.round);if(body.action==='shot'&&dropShot){dropShot=false;throw Error('simulated lost response')}}return {ok:true,json:async()=>({ok:true,...result})}}catch(e){return {ok:false,json:async()=>({ok:false,error:e.message})}}}
+  function page(){
+  const elements=new Map(),listeners={};function element(id){if(!elements.has(id))elements.set(id,{id,hidden:/Confirm$/.test(id),children:[],textContent:'',value:'',checked:false,append(x){this.children.push(x)},scrollIntoView(){},focus(){}});return elements.get(id)}
+  const window={ethereum:wallet,addEventListener(type,fn){(listeners[type]??=[]).push(fn)},dispatchEvent(e){for(const fn of listeners[e.type]||[])fn(e)}}
+  class FastProvider extends ethers.providers.Web3Provider{constructor(...args){super(...args);this.pollingInterval=20}}
+   const utils=ethers.utils
+  const context=vm.createContext({window,document:{getElementById:element,createElement:()=>({})},location:{hostname:'public.example'},localStorage,navigator:{locks:{request:async(_key,_options,fn)=>fn({})}},ethers:{...ethers,utils,providers:{...ethers.providers,Web3Provider:FastProvider}},fetch,crypto:crypto.webcrypto,AbortSignal,Event,Uint8Array,WeakSet,Promise,Date,BigInt,setTimeout})
+  for(const file of ['beta-payment.js','beta-client.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,file),'utf8'),context,{filename:file})
+  return {window,element,async connect(){await until(()=>element('betaWalletButtons').children.length,'wallet discovery');element('betaWalletButtons').children[0].onclick();await until(()=>element('walletName').textContent!=='Not connected','wallet connect')}}
+ }
+ return {chain,provider,player,vault,page,localStorage,get sends(){return sends},reject(){rejectNext=true},drop(){dropShot=true}}
+}
+test('production purchase reaches wallet transaction approval',async()=>{
+ const f=await fixture();try{const p=f.page();await p.connect();const purchase=p.window.TrixBetaPay.prepare('bullet');await until(()=>!p.element('paymentReview').hidden,'purchase review');p.element('paymentConfirm').onclick();await purchase;assert.equal(f.sends,1)}finally{await f.chain.disconnect()}
+})
+test('rejection, reload/resume, finish and partial refund withdrawal',async()=>{
+ const f=await fixture();try{
+  let p=f.page({decimalValueShim:true});await p.connect();f.reject();let purchase=p.window.TrixBetaPay.prepare('bullet');await until(()=>!p.element('paymentReview').hidden,'purchase review');assert.equal(f.sends,0);p.element('paymentConfirm').onclick();await assert.rejects(purchase,/rejected/i);assert.equal(JSON.parse(f.localStorage.getItem(KEY)).pending,null)
+  purchase=p.window.TrixBetaPay.prepare('bullet');await until(()=>!p.element('paymentReview').hidden,'second review');assert.equal(f.sends,1);p.element('paymentConfirm').onclick();const proof=await purchase;assert.equal(f.sends,2)
+  let session=await p.window.TrixHuntBeta.start('bullet','Tester','player1',proof);p.window.TrixBetaPay.markPlaying();f.drop();await assert.rejects(session.shoot(true),/lost response/);assert.equal(session.pending,true);await session.retry();assert.equal(session.state.shotsTaken,1)
+  p=f.page({decimalValueShim:true});await p.connect();assert.equal(p.window.TrixBetaPay.savedPack(),'bullet');const resumedProof=await p.window.TrixBetaPay.prepare('bullet');assert.equal(f.sends,2);const resumed=await p.window.TrixHuntBeta.start('bullet','Tester','player1',resumedProof);assert.equal(resumed.id,session.id);assert.equal(resumed.state.shotsTaken,1)
+  await resumed.cancel();assert.equal(resumed.state.status,'finished');assert.equal(resumed.state.refundCents,450);p.window.TrixBetaPay.armSettlement(resumed.state)
+  p.element('paymentSettle').onclick();await until(()=>!p.element('paymentSettleConfirm').hidden,'settlement review');p.element('paymentSettleConfirm').onclick();await until(()=>p.window.TrixBetaPay.status()==='settled','settlement confirmed');const saved=JSON.parse(f.localStorage.getItem(KEY)),round=await f.vault.rounds(saved.roundId);assert.equal(saved.refundWei,round.price.mul(9).div(10).toString());assert.equal((await f.vault.credit(f.player.address)).toString(),saved.refundWei)
+  await p.element('paymentWithdraw').onclick();assert.equal(p.element('paymentWithdrawConfirm').hidden,false);p.element('paymentWithdrawConfirm').onclick();await until(()=>p.window.TrixBetaPay.status()==='complete','withdrawal confirmed');assert((await f.vault.credit(f.player.address)).isZero());assert.equal(f.sends,4)
+ }finally{await f.chain.disconnect()}
+})
+test('expired round recovers and withdraws full credit',async()=>{
+ const f=await fixture();try{let p=f.page({decimalValueShim:true});await p.connect();const purchase=p.window.TrixBetaPay.prepare('sniper');await until(()=>!p.element('paymentReview').hidden,'purchase review');p.element('paymentConfirm').onclick();await purchase;const saved=JSON.parse(f.localStorage.getItem(KEY)),price=(await f.vault.rounds(saved.roundId)).price
+  await f.chain.request({method:'evm_increaseTime',params:[86401]});await f.chain.request({method:'evm_mine',params:[]});p=f.page({decimalValueShim:true});await p.connect();await until(()=>p.window.TrixBetaPay.status()==='expired','expired reconciliation');await p.element('paymentExpire').onclick();assert.equal(p.element('paymentExpireConfirm').hidden,false);p.element('paymentExpireConfirm').onclick();await until(()=>p.window.TrixBetaPay.status()==='settled','expiration confirmed');assert.equal((await f.vault.credit(f.player.address)).toString(),price.toString());await p.element('paymentWithdraw').onclick();p.element('paymentWithdrawConfirm').onclick();await until(()=>p.window.TrixBetaPay.status()==='complete','refund withdrawn');assert((await f.vault.credit(f.player.address)).isZero())
+ }finally{await f.chain.disconnect()}
+})
