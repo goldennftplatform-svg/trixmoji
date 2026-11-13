@@ -18,7 +18,7 @@ function normalizeRound(value) {
   if (typeof sessionId !== 'string' || !ID.test(sessionId) ||
       typeof playerId !== 'string' || !ID.test(playerId)) throw new Error('Invalid ID');
   if (typeof value.nickname !== 'string' || value.nickname.length > 128) throw new Error('Invalid nickname');
-  const nickname = value.nickname.replace(/[^A-Za-z0-9 _-]/g, '').trim().replace(/ +/g, ' ');
+  const nickname = value.nickname.replace(/[^A-Za-z0-9 ._-]/g, '').trim().replace(/ +/g, ' ');
   if (!nickname || nickname.length > 24) throw new Error('Invalid nickname');
   if (!Number.isInteger(shots) || shots < 0 || shots > 10 ||
       !Number.isInteger(hits) || hits < 0 || hits > shots) throw new Error('Invalid shots or hits');
@@ -87,7 +87,7 @@ async function createLeaderboardServer({ directory = process.env.TRIX_LEADERBOAR
       let filename, mime;
       if (pathname === '/' || pathname === '/trix-hunt/' || pathname === '/trix-hunt/index.html') {
         filename = path.join(__dirname, '..', 'index.html'); mime = 'text/html; charset=utf-8';
-      } else if (/^\/trix-hunt\/(style\.css|admin\.css|admin\.html|admin\.js|admin-wallet\.js|game\.js|engine\.js|beta-client\.js|inventory\.js|test-quote\.js|test-admin\.html|test-admin\.js)$/.test(pathname)) {
+      } else if (/^\/trix-hunt\/(style\.css|admin\.css|admin\.html|admin\.js|admin-wallet\.js|game\.js|engine\.js|beta-client\.js|player-identity\.js|inventory\.js|test-quote\.js|test-admin\.html|test-admin\.js)$/.test(pathname)) {
         filename = path.join(__dirname, '..', pathname.slice('/trix-hunt/'.length));
         mime = pathname.endsWith('.css') ? 'text/css; charset=utf-8' : pathname.endsWith('.html') ? 'text/html; charset=utf-8' : 'text/javascript; charset=utf-8';
       } else if (/^\/assets\/ethscriptions\/trixmoji-launch\/(?:[0-9]{1,4})\.(?:json|webp)$/.test(pathname)) {

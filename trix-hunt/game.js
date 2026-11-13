@@ -8,7 +8,7 @@
   var inventory = [], session = null, pack = 'bullet', target = null, reveal = null, pendingFinish = false, targetsSeen = 0;
   var aim = { x: 480, y: 240 }, soundOn = false, audio = null, messageTimer = 0;
   var localLeaderboard = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
-  var sessionId = '', playerId = '', roundRecorded = false, economyActive = false, shotPending = false, pendingShot = null, finishPending = false;
+  var sessionId = '', playerId = '', activeName = '', roundRecorded = false, economyActive = false, shotPending = false, pendingShot = null, finishPending = false;
   var colors = { sky: '#319fe4', grass: '#06cf4f', soil: '#9d5435', lime: '#d0ff00' };
   var difficulty = { bullet: { size: 84, speed: 536.25, seconds: 3 }, shotgun: { size: 69, speed: 653.25, seconds: 2.3 }, sniper: { size: 53, speed: 540, seconds: 1.6 } };
 
@@ -45,7 +45,7 @@
     if(roundRecorded||!localLeaderboard)return;
     roundRecorded=true;
     try {
-      var response=await fetch('/round',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:sessionId,playerId:playerId,nickname:$('nickname').value,shots:state.shotsTaken,hits:state.results.length})});
+      var response=await fetch('/round',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:sessionId,playerId:playerId,nickname:activeName,shots:state.shotsTaken,hits:state.results.length})});
       if(!response.ok)throw new Error('unavailable');await refreshLeaderboard();
     } catch (_) {leaderboardNotice('Round could not be saved. Start the local playtest server and try again.');}
   }
@@ -225,16 +225,18 @@
   $('start').addEventListener('click',async function(){
     $('start').disabled=true;
     document.querySelectorAll('.pack').forEach(function(button){button.disabled=true;});$('nickname').disabled=true;
-    var name=$('nickname').value.replace(/[^A-Za-z0-9 _-]/g,'').trim().replace(/ +/g,' ').slice(0,24)||'PLAYER';
-    $('nickname').value=name;
+    var enteredName=$('nickname').value;
     try {
       playerId=localStorage.getItem('trix-hunt-local-player')||crypto.randomUUID();
-      localStorage.setItem('trix-hunt-local-player',playerId);localStorage.setItem('trix-hunt-local-name',name);
+      if(!/^[A-Za-z0-9_-]{1,64}$/.test(playerId))playerId=crypto.randomUUID();
+      localStorage.setItem('trix-hunt-local-player',playerId);localStorage.setItem('trix-hunt-local-name',enteredName);
     } catch (_) {playerId=crypto.randomUUID();}
+    try{var identity=await window.TrixPlayerIdentity.resolve(enteredName,window.ethereum,playerId);playerId=identity.playerId;activeName=identity.nickname;}
+    catch(_){activeName='PLAYER-'+playerId.replace(/[^A-Za-z0-9]/g,'').slice(0,6).toUpperCase();}
     sessionId=crypto.randomUUID();roundRecorded=false;
     try{
       if(localLeaderboard){economyActive=await testRoundStart(sessionId,pack);var config={order:window.TrixInventory.auto(inventory).map(function(item){return item.id;}),bestCount:9};session=engine.createSession({pack:pack,inventory:window.TrixInventory.apply(inventory,config),players:1});}
-      else{economyActive=false;session=await window.TrixHuntBeta.start(pack,name,playerId);}
+      else{economyActive=false;session=await window.TrixHuntBeta.start(pack,activeName,playerId);}
     }catch(error){$('start').disabled=false;setControls(false);$('testEconomyStatus').hidden=false;$('testEconomyStatus').textContent='Online playtest is unavailable. Please try again.';return;}
     $('start').disabled=false;reveal=null;pendingFinish=false;finishPending=false;shotPending=false;pendingShot=null;targetsSeen=0;
     $('prizes').innerHTML='<div class="empty-prizes"><span>✳</span><p>Your catches land here.<br><small>Hit a mystery card to reveal it.</small></p></div>';$('prizeCount').textContent='00 CAPTURED';
@@ -242,9 +244,10 @@
   });
   $('cancel').addEventListener('click',function(){if(!session||session.state.status!=='active'||shotPending||pendingShot)return;target=null;reveal=null;pendingFinish=false;targetsSeen=10;nextTargetOrFinish();});
   $('retryShot').addEventListener('click',async function(){if(!session||shotPending)return;if(finishPending){finishPending=false;nextTargetOrFinish();return;}if(!pendingShot||typeof session.retry!=='function')return;shotPending=true;$('retryShot').disabled=true;try{var receipt=await session.retry(),saved=pendingShot;pendingShot=null;$('retryShot').hidden=true;$('cancel').disabled=false;shotPending=false;handleShot(receipt,saved.hit,saved.pos);}catch(_){announce('CONNECTION LOST · RETRY SHOT',0);}finally{shotPending=false;$('retryShot').disabled=false;}});
+  $('refreshLeaderboard').addEventListener('click',refreshLeaderboard);
   requestAnimationFrame(render);
   if(localLeaderboard)$('testAdminLink').hidden=false;
-  try {$('nickname').value=localStorage.getItem('trix-hunt-local-name')||'';}catch(_){}
+  try {var savedName=localStorage.getItem('trix-hunt-local-name')||'';$('nickname').value=savedName==='PLAYER'?'':savedName;}catch(_){}
   refreshLeaderboard();
   loadInventory().catch(function(error){$('start').textContent='COULD NOT LOAD COLLECTION';$('start').disabled=true;announce(error.message,0);});
 }());

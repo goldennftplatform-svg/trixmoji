@@ -6,7 +6,7 @@ const BEST=[3100,2890,5822,3443,6089,635,5905,7804,7523]
 const NORMAL=[372,2386,2491,2711,5314,...Array.from({length:30},(_,i)=>i)]
 const HEX=/^[a-f0-9]{32}$/,TOKEN=/^[a-f0-9]{64}$/,REQUEST=/^[A-Za-z0-9_-]{1,64}$/
 const hash=x=>crypto.createHash('sha256').update(x).digest('hex')
-function cleanName(value){const s=String(value||'').replace(/[^A-Za-z0-9 _-]/g,'').trim().replace(/ +/g,' ');return s.slice(0,24)||'PLAYER'}
+function cleanName(value){const s=String(value||'').replace(/[^A-Za-z0-9 ._-]/g,'').trim().replace(/ +/g,' ');return s.slice(0,24)||'PLAYER'}
 function publicState(s){return {pack:s.pack,shotsRemaining:10-s.shotsTaken,shotsTaken:s.shotsTaken,results:s.results,status:s.status,reason:s.reason,refundCents:s.refundCents,nextPlayer:0}}
 function createBeta({store,now=()=>Date.now(),bytes=n=>crypto.randomBytes(n),randomInt=n=>crypto.randomInt(n)}){
  if(!store||typeof store.getWithMetadata!=='function'||typeof store.setJSON!=='function')throw Error('Playtest storage unavailable')

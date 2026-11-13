@@ -6,11 +6,12 @@
   <meta name="theme-color" content="#0e160e">
   <title>Trix Hunt · Arcade Preview</title>
   <link rel="icon" type="image/webp" href="/assets/ethscriptions/trixmoji-launch/444.webp">
-  <link rel="stylesheet" href="/trix-hunt/style.css?v=inventory1">
+  <link rel="stylesheet" href="/trix-hunt/style.css?v=leaderboard2">
   <script defer src="/trix-hunt/inventory.js?v=online1"></script>
   <script defer src="/trix-hunt/engine.js"></script>
+  <script defer src="/trix-hunt/player-identity.js?v=1"></script>
   <script defer src="/trix-hunt/beta-client.js?v=online1"></script>
-  <script defer src="/trix-hunt/game.js?v=online1"></script>
+  <script defer src="/trix-hunt/game.js?v=leaderboard2"></script>
   <script defer src="/trix-hunt/test-quote.js"></script>
 </head>
 <body>
@@ -31,7 +32,7 @@
       <aside class="controls">
         <div class="section-title"><div><p class="kicker">YOUR GAME. YOUR RULES.</p><h2>LOAD UP<span>.</span></h2></div><span class="step">PICK YOUR SHOTS</span></div>
         <p class="mode-desc">Pick your ammo. Bigger rewards mean a tougher shot.</p>
-        <label class="player-name" for="nickname">ARCADE NAME <span>PLAYTEST LEADERBOARD</span><input id="nickname" maxlength="24" placeholder="Enter a name" autocomplete="nickname"></label>
+        <label class="player-name" for="nickname">ARCADE NAME <span>OPTIONAL</span><input id="nickname" maxlength="24" placeholder="Name, connected wallet, or anonymous" autocomplete="nickname"></label>
         <div class="pack-title"><span>CHOOSE YOUR AMMO</span><span>10 SHOTS / PACK</span></div>
         <div class="packs" role="radiogroup" aria-label="Ammo pack">
           <button class="pack active" type="button" role="radio" aria-checked="true" data-pack="bullet"><span class="pack-icon">✳</span><span class="pack-copy"><b>BULLET SHOTS</b><small>4% BEST / HIT · EASIER AIM</small></span><strong>$5<sup>.00</sup></strong></button>
@@ -48,7 +49,7 @@
       </aside>
     </section>
     <section class="prize-section"><div class="section-title"><div><p class="kicker">THE GOOD STUFF</p><h2>YOUR PRIZE TRAY<span>.</span></h2></div><span id="prizeCount">00 CAPTURED</span></div><div id="prizes" class="prizes"><div class="empty-prizes"><span>✳</span><p>Your catches land here.<br><small>Hit a mystery card to reveal it.</small></p></div></div><p class="disclaimer">Playtest only · Items shown are examples from collection metadata, not verified escrow inventory. Randomness and scores are not independently verified.</p></section>
-    <section class="prize-section leaderboard"><div class="section-title"><div><p class="kicker">THE PLAYTEST HIGH SCORES</p><h2>LEADERBOARD<span>.</span></h2></div><span>HITS / ACCURACY</span></div><p class="disclaimer">Playtest scores are unverified and have no cash or prize value.</p><div id="leaderboard" class="leaderboard-list" aria-live="polite"><p class="disclaimer">Loading scores…</p></div></section>
+    <section class="prize-section leaderboard" id="leaderboardSection"><div class="section-title"><div><p class="kicker">THE PLAYTEST HIGH SCORES</p><h2>LEADERBOARD<span>.</span></h2></div><button type="button" id="refreshLeaderboard" class="leader-refresh">↻ REFRESH</button></div><p class="disclaimer">Ranked by total hits, then accuracy. Playtest scores and wallet labels are unverified and have no cash or prize value.</p><div id="leaderboard" class="leaderboard-list" aria-live="polite"><p class="disclaimer">Loading scores…</p></div></section>
   </main>
   <footer><span>TRIX HUNT / A TRIXMOJI ARCADE EXPERIMENT</span><span>MADE FOR THE CALLDATA CROWD ✳</span></footer>
 </body>

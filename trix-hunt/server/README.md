@@ -19,7 +19,7 @@ Playtest: `http://127.0.0.1:8787/trix-hunt/`. Set `PORT` to change the port (0 c
 {"sessionId":"round-1","playerId":"player-1","nickname":"Trix Fan","shots":10,"hits":7}
 ```
 
-Exactly those five fields are required. IDs are case-sensitive, globally unique for sessions, and consist of 1–64 ASCII letters, digits, underscores or hyphens. A nickname is at most 128 characters before sanitization: characters other than ASCII letters, digits, spaces, underscores and hyphens are removed, surrounding spaces trimmed, and runs of spaces collapsed. The resulting nickname must be 1–24 characters. `shots` and `hits` are integers with `0 <= hits <= shots <= 10`. A player's most recently recorded round determines their displayed nickname.
+Exactly those five fields are required. IDs are case-sensitive, globally unique for sessions, and consist of 1–64 ASCII letters, digits, underscores or hyphens. A nickname is at most 128 characters before sanitization: characters other than ASCII letters, digits, spaces, periods, underscores and hyphens are removed, surrounding spaces trimmed, and runs of spaces collapsed. The resulting nickname must be 1–24 characters. `shots` and `hits` are integers with `0 <= hits <= shots <= 10`. A player's most recently recorded round determines their displayed nickname.
 
 An accepted round returns 201 with `{"recorded":true,"round":{...}}`. Repeating the same normalized round with the same session ID returns 200 and `recorded:false`; reusing the ID with different normalized data returns 409. Invalid JSON or fields return 400, oversized bodies 413, and the wrong content type 415. Persistence failures return 500 without recording the round.
 
