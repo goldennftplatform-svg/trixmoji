@@ -28,7 +28,7 @@
  }
  async function contract(){await identity();var loaded=await Promise.all([json('/trix-hunt/sepolia-settlement-artifact.json'),api({action:'config'})]);artifact=loaded[0];config=loaded[1].config;if(!config||config.chainId!==CHAIN||!ethers.utils.isAddress(config.address||'')||!same(config.runtimeHash,artifact.runtimeHash))throw Error('Sepolia test payment contract is not active yet.');var code=await provider.getCode(config.address);if(!code||code==='0x'||!same(ethers.utils.keccak256(code),artifact.runtimeHash))throw Error('Test payment contract does not match the reviewed code.');var c=new ethers.Contract(config.address,artifact.abi,provider),roles=await Promise.all([c.feed(),c.operator()]);if(!same(roles[0],artifact.feed)||!same(roles[1],artifact.operator))throw Error('Test payment contract settings do not match.');return c;}
  async function prepare(pack){
-  if(state.pending)throw Error('A wallet transaction needs checking before another request.');
+  if(state.pending)throw Error('A wallet transaction needs checking before another request. Use CHECK TEST TRANSACTION below.');
   await identity();
   await reconcileRound();controls();
   if(state.status==='paid'||state.status==='playing'){if(state.pack!==pack)throw Error('Finish the existing test round before choosing another pack.');return state.payment;}
