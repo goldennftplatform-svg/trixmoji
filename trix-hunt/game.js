@@ -5,7 +5,7 @@
   var ctx = canvas.getContext('2d');
   var $ = function (id) { return document.getElementById(id); };
   var artBase = '/assets/ethscriptions/trixmoji-launch/';
-  var inventory = [], session = null, pack = 'bullet', target = null, reveal = null, pendingFinish = false, targetsSeen = 0;
+  var inventory = [], session = null, pack = 'bullet', target = null, reveal = null, pendingFinish = false, targetsSeen = 0, roundReady = false;
   var aim = { x: 480, y: 240 }, soundOn = false, audio = null, messageTimer = 0;
   var localLeaderboard = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
   var targetProgressKey='trix-hunt-target-progress-v1';
@@ -192,7 +192,7 @@
     $('start').hidden=active;$('cancel').hidden=!active;if(!active){$('retryShot').hidden=true;$('cancel').disabled=false;}
   }
   function finishRound() {
-    var s=session.state; target=null;setControls(false);if(!localLeaderboard)try{localStorage.removeItem(targetProgressKey);}catch(_){}$('cabinetState').textContent='ROUND COMPLETE';
+    var s=session.state; target=null;roundReady=false;setControls(false);if(!localLeaderboard)try{localStorage.removeItem(targetProgressKey);}catch(_){}$('cabinetState').textContent='ROUND COMPLETE';
     $('start').innerHTML='PLAY AGAIN <span>↗</span>'; $('welcome').hidden=false;
     $('welcome').querySelector('h2').innerHTML='NICE<br><em>SHOTS.</em>';
     $('welcome').querySelector('p').textContent=localLeaderboard?s.results.length+' CARDS CAPTURED · '+money(s.refundCents)+' DEMO REFUND':s.results.length+' CARDS CAPTURED · REFUND AWAITS SETTLEMENT';
@@ -226,6 +226,7 @@
   $('nickname').addEventListener('input',function(){$('walletPlayer').textContent=this.value.trim()||'Anonymous';});
   $('sound').addEventListener('click',function(){soundOn=!soundOn;this.setAttribute('aria-pressed',String(soundOn));this.setAttribute('aria-label',soundOn?'Turn sound off':'Turn sound on');this.querySelector('span').textContent=soundOn?'SOUND ON':'SOUND OFF';initAudio();if(soundOn)beep('hit');});
   $('start').addEventListener('click',async function(){
+    if(roundReady){roundReady=false;$('welcome').hidden=true;$('cabinetState').textContent='ROUND IN PROGRESS';setControls(true);if(targetsSeen>=10){nextTargetOrFinish();return;}makeTarget();initAudio();canvas.focus();return;}
     $('start').disabled=true;
     document.querySelectorAll('.pack').forEach(function(button){button.disabled=true;});$('nickname').disabled=true;
     var enteredName=$('nickname').value;
@@ -245,12 +246,12 @@
     if(!localLeaderboard)try{var progress=JSON.parse(localStorage.getItem(targetProgressKey)||'null');if(progress&&progress.id===session.id&&Number.isInteger(progress.count))targetsSeen=Math.min(10,Math.max(targetsSeen,progress.count));rememberTargets();}catch(_){}
     $('prizes').innerHTML='<div class="empty-prizes"><span>✳</span><p>Your catches land here.<br><small>Hit a mystery card to reveal it.</small></p></div>';$('prizeCount').textContent='00 CAPTURED';
     if(session.state.results.length)session.state.results.forEach(function(item){addPrize(prizeDetails({prize:item.prize,player:item.player}));});
-    $('welcome').hidden=true;$('cabinetState').textContent='ROUND IN PROGRESS';setControls(true);hud();if(session.state.status!=='active'){finishRound();return;}if(targetsSeen>=10){nextTargetOrFinish();return;}makeTarget();initAudio();canvas.focus();
+    setControls(true);hud();if(session.state.status!=='active'){finishRound();return;}roundReady=true;$('start').hidden=false;$('start').innerHTML='START ROUND <span>↗</span>';$('cabinetState').textContent='READY WHEN YOU ARE';$('welcome').hidden=false;$('welcome').querySelector('h2').innerHTML='READY<br><em>TO PLAY.</em>';$('welcome').querySelector('p').textContent='PRESS START ROUND WHEN YOU ARE READY';$('start').focus({preventScroll:true});
   });
-  $('cancel').addEventListener('click',function(){if(!session||session.state.status!=='active'||shotPending||pendingShot)return;target=null;reveal=null;pendingFinish=false;targetsSeen=10;nextTargetOrFinish();});
+  $('cancel').addEventListener('click',function(){if(!session||session.state.status!=='active'||shotPending||pendingShot)return;if(roundReady){roundReady=false;$('start').hidden=true;}target=null;reveal=null;pendingFinish=false;targetsSeen=10;nextTargetOrFinish();});
   $('retryShot').addEventListener('click',async function(){if(!session||shotPending)return;if(finishPending){finishPending=false;nextTargetOrFinish();return;}if(!pendingShot||typeof session.retry!=='function')return;shotPending=true;$('retryShot').disabled=true;try{var receipt=await session.retry(),saved=pendingShot;pendingShot=null;$('retryShot').hidden=true;$('cancel').disabled=false;shotPending=false;handleShot(receipt,saved.hit,saved.pos);}catch(_){announce('CONNECTION LOST · RETRY SHOT',0);}finally{shotPending=false;$('retryShot').disabled=false;}});
   $('refreshLeaderboard').addEventListener('click',refreshLeaderboard);
-  window.addEventListener('trix-sepolia-resume',function(){var saved=window.TrixBetaPay.savedPack();if(!saved)return;var button=document.querySelector('.pack[data-pack="'+saved+'"]');if(button)button.click();$('start').click();});
+  window.addEventListener('trix-sepolia-resume',function(){if(roundReady)return;var saved=window.TrixBetaPay.savedPack();if(!saved)return;var button=document.querySelector('.pack[data-pack="'+saved+'"]');if(button)button.click();$('start').click();});
   requestAnimationFrame(render);
   if(localLeaderboard)$('testAdminLink').hidden=false;
   try {var savedName=localStorage.getItem('trix-hunt-local-name')||'';$('nickname').value=savedName==='PLAYER'?'':savedName;$('walletPlayer').textContent=$('nickname').value.trim()||'Anonymous';}catch(_){}
