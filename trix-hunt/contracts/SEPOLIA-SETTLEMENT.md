@@ -1,6 +1,6 @@
 # Sepolia settlement prototype
 
-This is a local/Sepolia-test prototype, not a deployed service. It holds Sepolia ETH temporarily for shot settlement; it has no prize or Ethscription custody, verification, or delivery. The designated operator is trusted to report shots used and an opaque result hash. Gameplay and the hash are not verified on chain and are not provably fair. The operator can claim any number of shots up to ten before the deadline.
+This is a local/Sepolia-test prototype, not a deployed service. It holds Sepolia ETH temporarily for shot settlement; it has no prize or Ethscription custody, verification, or delivery. The player or designated operator may report shots used and an opaque result hash. Gameplay and the hash are not verified on chain and are not provably fair. A player can report any number of shots up to ten. This design must never be used for real ETH or real prizes.
 
 The constructor accepts `(address priceFeed, address trustedOperator)` and rejects chains other than 11155111 and zero addresses. For Sepolia the intended Chainlink ETH/USD feed is `0x694AA1769357215DE4FAC081bf1f309aDC325306`; the immutable feed address must be supplied explicitly. Local Ganache must use chain ID 11155111 and a mock feed. Chain ID is a guard, not proof that a network or feed is authentic.
 
@@ -38,7 +38,7 @@ Pack IDs 0, 1 and 2 represent $5, $7.50 and $10 respectively, each for ten shots
 
 Generate a globally unique nonzero `bytes32` session ID. Read `quote(pack)`, choose a user-approved `maxPrice` in wei, then call `startRound` with `value` between the actual inclusion-time quote and `maxPrice` inclusive. If the price rises above the limit or payment is insufficient, the transaction reverts. Any excess payment becomes player withdrawal credit immediately. Store the `RoundStarted` event or inspect `rounds`: its `price` is the inclusion-time snapshot used for settlement even if the feed changes.
 
-Before the fixed one-day deadline, only the immutable operator can finalize once with 0–10 shots and any opaque `bytes32` result hash. The player receives `(price / 10) * (10 - shotsUsed)` as credit and the operator receives the remainder. At or after the deadline, anyone can call `expireRound` once to credit the full snapshot price to the player; finalization is no longer allowed. Credits are cumulative, including overpayments, and each recipient calls `withdraw()` to pull their ETH. Failed transfers revert and preserve credit; withdrawals are reentrancy guarded. Account for gas separately.
+Before the fixed one-day deadline, the player or immutable operator can finalize once with 0–10 shots and a nonzero opaque `bytes32` result hash. The player receives `(price / 10) * (10 - shotsUsed)` as credit and the operator receives the remainder. At or after the deadline, anyone can call `expireRound` once to credit the full snapshot price to the player; finalization is no longer allowed. Credits are cumulative, including overpayments, and each recipient calls `withdraw()` to pull their ETH. Failed transfers revert and preserve credit; withdrawals are reentrancy guarded. Account for gas separately.
 
 ## Local tests
 

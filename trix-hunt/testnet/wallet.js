@@ -18,8 +18,8 @@
  }
  function selected(accounts,expected){
   var account=Array.isArray(accounts)&&accounts[0];
-  if(!account||String(account).toLowerCase()!==expected.toLowerCase()){
-   var error=Error('Connected: '+(account||'no account')+'. Select test wallet '+expected+' in your wallet.');error.code='WRONG_ACCOUNT';throw error;
+  if(!/^0x[a-f0-9]{40}$/i.test(String(account||''))||(expected&&String(account).toLowerCase()!==expected.toLowerCase())){
+   var error=Error(expected?'Connected: '+(account||'no account')+'. Select test wallet '+expected+' in your wallet.':'No Ethereum account was selected.');error.code='WRONG_ACCOUNT';throw error;
   }
   return account;
  }

@@ -6,7 +6,7 @@ interface ISepoliaEthUsdFeed {
     function latestRoundData() external view returns (uint80, int256, uint256, uint256, uint80);
 }
 
-/// @notice Sepolia prototype: operator-reported gameplay, no prize custody or delivery.
+/// @notice Sepolia-only prototype: self-reported gameplay, no prize custody or delivery.
 contract TrixHuntSepoliaSettlement {
     uint256 public constant SHOTS = 10;
     uint256 public constant ROUND_TIMEOUT = 1 days;
@@ -63,9 +63,10 @@ contract TrixHuntSepoliaSettlement {
     }
 
     function finalizeRound(bytes32 sessionId, uint8 shotsUsed, bytes32 resultHash) external {
-        require(msg.sender == operator, "operator only");
         Round storage round = rounds[sessionId];
         require(round.player != address(0) && !round.settled, "invalid round");
+        // Test ETH only: players may settle their own unverified simulated round.
+        require(msg.sender == operator || msg.sender == round.player, "unauthorized");
         require(block.timestamp < round.deadline, "expired");
         require(shotsUsed <= SHOTS && resultHash != bytes32(0), "invalid result");
         round.settled = true;

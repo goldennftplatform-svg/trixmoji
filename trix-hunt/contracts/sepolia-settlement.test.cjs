@@ -81,7 +81,7 @@ test('payment bounds, snapshot, authorization, accounting and withdrawals', asyn
         assert.equal((await game.rounds(id(1))).price, price);
         await setFeed(c, 8, 6, 100000000000n, await timestamp(c), 6);
         assert.equal(await game.quote(1), price * 2n);
-        await fails(() => game.connect(c.player).finalizeRound(id(1), 4, id(9)));
+        await fails(() => game.connect(c.other).finalizeRound(id(1), 4, id(9)));
         await fails(() => game.finalizeRound(id(1), 11, id(9)));
         await fails(() => game.finalizeRound(id(1), 4, id(0)));
         await (await game.finalizeRound(id(1), 4, id(9))).wait();
@@ -95,6 +95,10 @@ test('payment bounds, snapshot, authorization, accounting and withdrawals', asyn
         assert.equal(BigInt(await c.provider.send('eth_getBalance', [await game.getAddress(), 'latest'])), 0n);
         await fails(() => game.withdraw());
     } finally { await c.chain.disconnect(); }
+});
+
+test('a player may settle only their own unverified Sepolia test round',async()=>{
+    const c=await setup();try{const game=await gameFor(c),price=await game.quote(0);await(await game.connect(c.player).startRound(id(50),0,price,{value:price})).wait();await fails(()=>game.connect(c.other).finalizeRound(id(50),4,id(51)));await(await game.connect(c.player).finalizeRound(id(50),4,id(51))).wait();assert.equal(await game.credit(c.player.address),price*6n/10n);}finally{await c.chain.disconnect();}
 });
 
 test('expiry refunds full snapshot and disallows finalization at deadline', async () => {
