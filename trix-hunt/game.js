@@ -195,7 +195,7 @@
     var s=session.state; target=null;setControls(false);if(!localLeaderboard)try{localStorage.removeItem(targetProgressKey);}catch(_){}$('cabinetState').textContent='ROUND COMPLETE';
     $('start').innerHTML='PLAY AGAIN <span>↗</span>'; $('welcome').hidden=false;
     $('welcome').querySelector('h2').innerHTML='NICE<br><em>SHOTS.</em>';
-    $('welcome').querySelector('p').textContent=localLeaderboard?s.results.length+' CARDS CAPTURED · '+money(s.refundCents)+' DEMO REFUND':s.results.length+' CARDS CAPTURED · REVIEW TEST REFUND';
+    $('welcome').querySelector('p').textContent=localLeaderboard?s.results.length+' CARDS CAPTURED · '+money(s.refundCents)+' DEMO REFUND':s.results.length+' CARDS CAPTURED · REFUND AWAITS SETTLEMENT';
     if(s.reason==='tier_exhausted')announce('TIER EMPTY · '+money(s.refundCents)+' DEMO REFUND',5000);
     recordRound(s);
     testRoundFinish(sessionId,s);
@@ -222,7 +222,8 @@
   canvas.addEventListener('pointermove',function(event){var p=position(event);aim.x=p.x;aim.y=p.y;});
   canvas.addEventListener('pointerdown',function(event){event.preventDefault();canvas.focus();initAudio();var p=position(event);fire(p.x,p.y);});
   canvas.addEventListener('keydown',function(event){var keys={ArrowLeft:[-24,0],ArrowRight:[24,0],ArrowUp:[0,-24],ArrowDown:[0,24]};if(keys[event.key]){event.preventDefault();aim.x=Math.max(0,Math.min(960,aim.x+keys[event.key][0]));aim.y=Math.max(0,Math.min(600,aim.y+keys[event.key][1]));}else if(event.key===' '||event.key==='Enter'){event.preventDefault();fire(aim.x,aim.y);}});
-  document.querySelectorAll('.pack').forEach(function(button){button.addEventListener('click',function(){pack=button.dataset.pack;document.querySelectorAll('.pack').forEach(function(b){var selected=b===button;b.classList.toggle('active',selected);b.setAttribute('aria-checked',String(selected));});});});
+  document.querySelectorAll('.pack').forEach(function(button){button.addEventListener('click',function(){pack=button.dataset.pack;$('walletAmmo').textContent=({bullet:'BULLET SHOTS',shotgun:'SHOTGUN SLUGS',sniper:'SNIPE SHOTS'})[pack];document.querySelectorAll('.pack').forEach(function(b){var selected=b===button;b.classList.toggle('active',selected);b.setAttribute('aria-checked',String(selected));});});});
+  $('nickname').addEventListener('input',function(){$('walletPlayer').textContent=this.value.trim()||'Anonymous';});
   $('sound').addEventListener('click',function(){soundOn=!soundOn;this.setAttribute('aria-pressed',String(soundOn));this.setAttribute('aria-label',soundOn?'Turn sound off':'Turn sound on');this.querySelector('span').textContent=soundOn?'SOUND ON':'SOUND OFF';initAudio();if(soundOn)beep('hit');});
   $('start').addEventListener('click',async function(){
     $('start').disabled=true;
@@ -239,7 +240,7 @@
     try{
       if(localLeaderboard){economyActive=await testRoundStart(sessionId,pack);var config={order:window.TrixInventory.auto(inventory).map(function(item){return item.id;}),bestCount:9};session=engine.createSession({pack:pack,inventory:window.TrixInventory.apply(inventory,config),players:1});}
       else{economyActive=false;var payment=await window.TrixBetaPay.prepare(pack);if(!enteredName.trim())activeName=payment.wallet.slice(0,6)+'...'+payment.wallet.slice(-4);session=await window.TrixHuntBeta.start(pack,activeName,playerId,payment);window.TrixBetaPay.markPlaying();}
-    }catch(error){$('start').disabled=false;setControls(false);var detail=error.message||'Sepolia test unavailable. Please try again.';$('testEconomyStatus').hidden=false;$('testEconomyStatus').textContent=detail;if(!localLeaderboard){$('paymentStatus').textContent=detail;$('betaPayment').scrollIntoView({behavior:'smooth',block:'center'});}return;}
+    }catch(error){$('start').disabled=false;setControls(false);var detail=error.message||'Sepolia test unavailable. Please try again.';$('testEconomyStatus').hidden=false;$('testEconomyStatus').textContent=detail;if(!localLeaderboard){$('paymentStatus').textContent=detail;$('betaPayment').open=true;$('betaPayment').scrollIntoView({behavior:'smooth',block:'center'});}return;}
     $('start').disabled=false;reveal=null;pendingFinish=false;finishPending=false;shotPending=false;pendingShot=null;targetsSeen=Math.min(10,session.state.shotsTaken);
     if(!localLeaderboard)try{var progress=JSON.parse(localStorage.getItem(targetProgressKey)||'null');if(progress&&progress.id===session.id&&Number.isInteger(progress.count))targetsSeen=Math.min(10,Math.max(targetsSeen,progress.count));rememberTargets();}catch(_){}
     $('prizes').innerHTML='<div class="empty-prizes"><span>✳</span><p>Your catches land here.<br><small>Hit a mystery card to reveal it.</small></p></div>';$('prizeCount').textContent='00 CAPTURED';
@@ -252,7 +253,7 @@
   window.addEventListener('trix-sepolia-resume',function(){var saved=window.TrixBetaPay.savedPack();if(!saved)return;var button=document.querySelector('.pack[data-pack="'+saved+'"]');if(button)button.click();$('start').click();});
   requestAnimationFrame(render);
   if(localLeaderboard)$('testAdminLink').hidden=false;
-  try {var savedName=localStorage.getItem('trix-hunt-local-name')||'';$('nickname').value=savedName==='PLAYER'?'':savedName;}catch(_){}
+  try {var savedName=localStorage.getItem('trix-hunt-local-name')||'';$('nickname').value=savedName==='PLAYER'?'':savedName;$('walletPlayer').textContent=$('nickname').value.trim()||'Anonymous';}catch(_){}
   refreshLeaderboard();
   loadInventory().catch(function(error){$('start').textContent='COULD NOT LOAD COLLECTION';$('start').disabled=true;announce(error.message,0);});
 }());
