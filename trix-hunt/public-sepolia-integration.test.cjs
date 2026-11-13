@@ -21,8 +21,8 @@ async function fixture(){
  const artifact={abi:c.abi,feed:feedContract.address,operator:operator.address,runtimeHash:ethers.utils.keccak256(await provider.getCode(vault.address))},store=memory()
  await store.setJSON('sepolia-payment-config-v1',{address:vault.address,chainId:11155111,runtimeHash:artifact.runtimeHash},{onlyIfNew:true})
  const sepolia=createSepolia({store,provider,artifact}),beta=createBeta({store,verifyPayment:sepolia.verifyPayment,randomInt:()=>0})
- let sends=0,rejectNext=false,dropShot=false
- const wallet={isMetaMask:true,on(){},async request(req){if(req.method==='eth_requestAccounts'||req.method==='eth_accounts')return [player.address];if(req.method==='eth_sendTransaction'){sends++;if(rejectNext){rejectNext=false;throw Object.assign(Error('User rejected'),{code:4001})}}return chain.request(req)}}
+  let sends=0,rejectNext=false,nestedReject=false,dropShot=false
+  const wallet={isMetaMask:true,on(){},async request(req){if(req.method==='eth_requestAccounts'||req.method==='eth_accounts')return [player.address];if(req.method==='eth_sendTransaction'){sends++;if(nestedReject){nestedReject=false;throw {data:{originalError:{code:4001}},message:'User rejected'}}if(rejectNext){rejectNext=false;throw Object.assign(Error('User rejected'),{code:4001})}}return chain.request(req)}}
  const storage=new Map(),localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,String(v)),removeItem:k=>storage.delete(k)}
  async function fetch(url,options){if(url.includes('artifact.json'))return {ok:true,json:async()=>artifact};const body=JSON.parse(options.body);try{let result;if(body.action==='config')result={config:await sepolia.config()};else if(body.action==='start')result=await beta.start(body);else if(body.action==='leaderboard')result={players:await beta.leaderboard()};else {result=await beta.mutate(body,body.action);await beta.record(result.round);if(body.action==='shot'&&dropShot){dropShot=false;throw Error('simulated lost response')}}return {ok:true,json:async()=>({ok:true,...result})}}catch(e){return {ok:false,json:async()=>({ok:false,error:e.message})}}}
   function page(){
@@ -34,10 +34,13 @@ async function fixture(){
   for(const file of ['beta-payment.js','beta-client.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,file),'utf8'),context,{filename:file})
   return {window,element,async connect(){await until(()=>element('betaWalletButtons').children.length,'wallet discovery');element('betaWalletButtons').children[0].onclick();await until(()=>element('walletName').textContent!=='Not connected','wallet connect')}}
  }
- return {chain,provider,player,vault,page,localStorage,get sends(){return sends},reject(){rejectNext=true},drop(){dropShot=true}}
+  return {chain,provider,player,vault,page,localStorage,get sends(){return sends},reject(){rejectNext=true},rejectNested(){nestedReject=true},drop(){dropShot=true}}
 }
 test('production purchase reaches wallet transaction approval',async()=>{
  const f=await fixture();try{const p=f.page();await p.connect();const purchase=p.window.TrixBetaPay.prepare('bullet');await until(()=>!p.element('paymentReview').hidden,'purchase review');p.element('paymentConfirm').onclick();await purchase;assert.equal(f.sends,1)}finally{await f.chain.disconnect()}
+})
+test('nested wallet rejection clears only the unsent request and permits another review',async()=>{
+ const f=await fixture();try{const p=f.page();await p.connect();f.rejectNested();let purchase=p.window.TrixBetaPay.prepare('bullet');await until(()=>!p.element('paymentReview').hidden,'review');p.element('paymentConfirm').onclick();await assert.rejects(purchase);assert.equal(JSON.parse(f.localStorage.getItem(KEY)).pending,null);purchase=p.window.TrixBetaPay.prepare('bullet');await until(()=>!p.element('paymentReview').hidden,'new review');p.element('paymentCancel').onclick();await assert.rejects(purchase,/cancelled/);assert.equal(f.sends,1)}finally{await f.chain.disconnect()}
 })
 test('rejection, reload/resume, finish and partial refund withdrawal',async()=>{
  const f=await fixture();try{
