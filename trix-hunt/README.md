@@ -36,3 +36,25 @@ deposits must not be treated as game prizes without a separately authorized,
 independently verified allocation and transfer flow.
 
 Run the local checks with `node --test trix-hunt/engine.test.cjs trix-hunt/inventory.test.cjs trix-hunt/server/leaderboard.test.cjs`.
+
+## Sepolia pricing experiment
+
+When the loopback test service on port 8790 has a configured Sepolia RPC, the
+local game shows read-only Chainlink Sepolia ETH/USD pack quotes. The local
+playtest server records the quote at round start and calculates a **simulated**
+refund at round end. `/trix-hunt/test-admin.html` displays those local totals;
+no ETH or Ethscriptions move in that simulated flow. The browser reports its
+own unverified scores, and the local ledger is not suitable for real prizes.
+
+The separate local page `http://127.0.0.1:8790/economy.html` can deploy a
+Sepolia-only settlement prototype with wallet approval and exercise a test pack,
+manual operator finalization using a local demo result, and a test withdrawal.
+This is not connected to prize custody, live play, a trusted results service or
+mainnet. In this test the player and operator are the same wallet, so the total
+credit includes both the refund and the operator share. See
+`contracts/SEPOLIA-SETTLEMENT.md` before using it.
+
+The local vault-test page can prepare another test item after verifying that the
+previous one returned. The local test admin shows indexed contents of the
+Sepolia test vault separately from simulated game prizes. It does not allocate
+or deliver those items through gameplay, and is not the shared public admin.

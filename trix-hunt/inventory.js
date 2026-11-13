@@ -4,13 +4,14 @@
   var ids=[3100,2890,5822,3443,6089,635,5905,7804,7523,372,2386,2491,2711,5314,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29];
   var base='/assets/ethscriptions/trixmoji-launch/';
   async function load() {
-    return Promise.all(ids.map(async function(id){
+    async function fetchItem(id){
       var response=await fetch(base+id+'.json');if(!response.ok)throw Error('Metadata unavailable for #'+id);
       var data=await response.json(),tokens=(data.properties&&data.properties.tokens||[]).filter(function(t){return Number.isInteger(t.rank)&&t.rank>0;});
       tokens.sort(function(a,b){return a.rank-b.rank || (b.pixels||0)-(a.pixels||0);});
       if(!tokens.length)throw Error('Missing token metadata for #'+id);
       return {id:id,rank:tokens[0].rank,metadataRank:tokens[0].rank,symbol:tokens[0].symbol,pixels:tokens[0].pixels||0,tiles:tokens.map(function(t){return {rank:t.rank,symbol:t.symbol,pixels:t.pixels};})};
-    }));
+    }
+    var result=[];for(var i=0;i<ids.length;i+=6)result.push.apply(result,await Promise.all(ids.slice(i,i+6).map(fetchItem)));return result;
   }
   function auto(items){return items.slice().sort(function(a,b){return a.metadataRank-b.metadataRank||b.pixels-a.pixels||a.id-b.id;});}
   function read(items){

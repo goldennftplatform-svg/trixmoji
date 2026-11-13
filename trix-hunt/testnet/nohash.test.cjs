@@ -1,0 +1,8 @@
+'use strict'
+const {test}=require('node:test'),assert=require('node:assert/strict'),{check}=require('./nohash.js')
+const account='0x47cf60bdd877203264921d05ce26f81f6d36aa3e',vault='0x6d2b465ce1dd7a0192f67d6d257e06444d8a0eb1',deploy='0x7803ee8ade658f013a9d95742d3df4edc955cf60c6229e86d95bcf7e8ac432dc'
+function fixture(){return {state:{stage:'deployed',vault,pending:{step:'create',to:account,data:'0x1234',hash:null}},e:{walletChecked:true,testPayload:true,deployment:{hash:deploy,from:account,to:null,nonce:0},receipt:{transactionHash:deploy,contractAddress:vault,status:1,blockNumber:100},latest:1,pending:1,indexed:110,head:110}}}
+test('accepts the exact legacy no-hash test request with unchanged nonce',()=>{const {state,e}=fixture();assert.deepEqual(check(state,e),{baseline:1})})
+test('refuses recovery if wallet was not checked, a hash exists, or the intent differs',()=>{for(const change of [x=>x.e.walletChecked=false,x=>x.state.pending.hash='0x'+'a'.repeat(64),x=>x.state.pending.step='deposit',x=>x.state.pending.to=vault,x=>x.e.testPayload=false]){const x=fixture();change(x);assert.throws(()=>check(x.state,x.e))}})
+test('refuses changed or pending nonces and stale indexer data',()=>{for(const change of [x=>x.e.latest=2,x=>x.e.pending=2,x=>x.e.indexed=99,x=>x.e.head=113,x=>x.state.pending.startingNonce=2]){const x=fixture();change(x);assert.throws(()=>check(x.state,x.e))}})
+test('refuses an incorrect or failed deployment',()=>{for(const change of [x=>x.e.deployment.from=vault,x=>x.e.deployment.hash='0x'+'a'.repeat(64),x=>x.e.deployment.to=vault,x=>x.e.receipt.status=0,x=>x.e.receipt.contractAddress=account]){const x=fixture();change(x);assert.throws(()=>check(x.state,x.e))}})

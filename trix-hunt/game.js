@@ -8,28 +8,38 @@
   var inventory = [], session = null, pack = 'bullet', target = null, reveal = null, pendingFinish = false, targetsSeen = 0;
   var aim = { x: 480, y: 240 }, soundOn = false, audio = null, messageTimer = 0;
   var localLeaderboard = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
-  var sessionId = '', playerId = '', roundRecorded = false;
+  var sessionId = '', playerId = '', roundRecorded = false, economyActive = false, shotPending = false, pendingShot = null, finishPending = false;
   var colors = { sky: '#319fe4', grass: '#06cf4f', soil: '#9d5435', lime: '#d0ff00' };
   var difficulty = { bullet: { size: 84, speed: 536.25, seconds: 3 }, shotgun: { size: 69, speed: 653.25, seconds: 2.3 }, sniper: { size: 53, speed: 540, seconds: 1.6 } };
 
   function imageUrl(id) { return artBase + encodeURIComponent(id) + '.webp'; }
   function money(cents) { return '$' + (cents / 100).toFixed(2); }
+  function testEth(wei){var s=String(wei).padStart(19,'0'),fraction=s.slice(-18).replace(/0+$/,'');return s.slice(0,-18)+(fraction?'.'+fraction:'');}
+  async function testRoundStart(id,selectedPack){
+    if(!localLeaderboard)return false;
+    try{var response=await fetch('/test-round/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:id,pack:selectedPack}),signal:AbortSignal.timeout(12000)});var data=await response.json();if(!response.ok||!data.ok)throw Error('unavailable');$('testEconomyStatus').hidden=false;$('testEconomyStatus').textContent='Simulated pack: '+testEth(data.round.priceWei)+' test ETH. No payment sent.';return true;}
+    catch(_){$('testEconomyStatus').hidden=false;$('testEconomyStatus').textContent='Test ETH accounting unavailable; this round uses play money only.';return false;}
+  }
+  async function testRoundFinish(id,s){
+    if(!economyActive)return;
+    try{var response=await fetch('/test-round/finish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:id,shots:s.shotsTaken,hits:s.results.length})});var data=await response.json();if(!response.ok||!data.ok)throw Error('unavailable');$('testEconomyStatus').textContent='Simulated refund: '+testEth(data.round.refundWei)+' test ETH · '+s.results.length+' demo prizes. No ETH or assets moved.';}
+    catch(_){$('testEconomyStatus').textContent='Test ETH round could not be recorded. No ETH or assets moved.';}
+  }
   function leaderboardNotice(message) {
     var list=$('leaderboard');list.textContent='';var p=document.createElement('p');p.className='disclaimer';p.textContent=message;list.appendChild(p);
   }
   async function refreshLeaderboard() {
-    if(!localLeaderboard){leaderboardNotice('Local scores require the local playtest server.');return;}
     try {
-      var response=await fetch('/leaderboard',{cache:'no-store'});if(!response.ok)throw new Error('unavailable');
-      var data=await response.json(),list=$('leaderboard');list.textContent='';
-      if(!Array.isArray(data.players)||!data.players.length){leaderboardNotice('No scores yet. Play a round to set the pace.');return;}
-      data.players.slice(0,10).forEach(function(player){
+      var players;if(localLeaderboard){var response=await fetch('/leaderboard',{cache:'no-store'});if(!response.ok)throw new Error('unavailable');players=(await response.json()).players;}else players=await window.TrixHuntBeta.leaderboard();
+      var list=$('leaderboard');list.textContent='';
+      if(!Array.isArray(players)||!players.length){leaderboardNotice('No scores yet. Play a round to set the pace.');return;}
+      players.slice(0,10).forEach(function(player){
         var row=document.createElement('div');row.className='leader-row';
         var rank=document.createElement('b'),name=document.createElement('span'),hits=document.createElement('span'),accuracy=document.createElement('span');
         rank.textContent=String(player.rank).padStart(2,'0');name.className='leader-name';name.textContent=player.nickname;
         hits.textContent=player.hits+' HITS';accuracy.textContent=Math.round(player.accuracy*100)+'%';row.append(rank,name,hits,accuracy);list.append(row);
       });
-    } catch (_) { leaderboardNotice('Start the local playtest server to save and view scores.'); }
+    } catch (_) { leaderboardNotice(localLeaderboard?'Start the local playtest server to save and view scores.':'Online playtest leaderboard is temporarily unavailable.'); }
   }
   async function recordRound(state) {
     if(roundRecorded||!localLeaderboard)return;
@@ -129,11 +139,16 @@
     target.size=target.baseSize*(1-.32*Math.min(elapsed/difficulty[pack].seconds,1));
     return target;
   }
-  function nextTargetOrFinish() {
-    if (!session) return;
+  async function nextTargetOrFinish() {
+    if (!session || shotPending) return;
     hud();
     if (targetsSeen>=10 || session.state.status!=='active') {
-      if (session.state.status==='active') session.cancel();
+      if (session.state.status==='active') {
+        shotPending=true;$('cancel').disabled=true;
+        try{await session.cancel();finishPending=false;$('retryShot').hidden=true;}
+        catch(_){finishPending=true;$('retryShot').textContent='RETRY FINISHING ROUND';$('retryShot').hidden=false;announce('CONNECTION LOST · RETRY FINISH',0);return;}
+        finally{shotPending=false;$('cancel').disabled=false;}
+      }
       hud();finishRound();
     } else makeTarget();
   }
@@ -172,7 +187,7 @@
   function setControls(active) {
     document.querySelectorAll('.pack').forEach(function (button) {button.disabled=active;});
     $('nickname').disabled=active;
-    $('start').hidden=active;$('cancel').hidden=!active;
+    $('start').hidden=active;$('cancel').hidden=!active;if(!active){$('retryShot').hidden=true;$('cancel').disabled=false;}
   }
   function finishRound() {
     var s=session.state; target=null;setControls(false);$('cabinetState').textContent='ROUND COMPLETE';
@@ -181,24 +196,25 @@
     $('welcome').querySelector('p').textContent=s.results.length+' CARDS CAPTURED · '+money(s.refundCents)+' DEMO REFUND';
     if(s.reason==='tier_exhausted')announce('TIER EMPTY · '+money(s.refundCents)+' DEMO REFUND',5000);
     recordRound(s);
+    testRoundFinish(sessionId,s);
+    if(!localLeaderboard)refreshLeaderboard();
   }
-  function fire(x,y) {
-    if(!session || session.state.status!=='active' || !target || reveal)return;
+  function prizeDetails(receipt){if(receipt&&receipt.prize){var item=inventory.find(function(x){return x.id===receipt.prize.id;});receipt.prize=item||{id:receipt.prize.id,symbol:'TRIX'};}return receipt;}
+  function handleShot(receipt,hit,pos){
+    receipt=prizeDetails(receipt);hud();
+    if(receipt.type==='error'){finishRound();return;}
+    targetsSeen++;hud();
+    if(hit){beep('hit');addPrize(receipt);var img=new Image();img.src=imageUrl(receipt.prize.id);reveal={time:performance.now(),x:pos.x,y:pos.y,image:img,prize:receipt.prize};announce('#'+receipt.prize.id+' · $'+receipt.prize.symbol,1300);if(session.state.status!=='active'||targetsSeen>=10)pendingFinish=true;}
+    else{announce('MISS!',650);nextTargetOrFinish();}
+  }
+  async function fire(x,y) {
+    if(!session || session.state.status!=='active' || !target || reveal || shotPending || pendingShot || finishPending)return;
     if((performance.now()-target.born)/1000>=difficulty[pack].seconds){target=null;targetsSeen++;announce('GOT AWAY!',650);nextTargetOrFinish();return;}
     aim.x=x;aim.y=y;var pos=targetPosition(performance.now()),half=pos.size/2;
     var hit=Math.abs(x-pos.x)<=half && Math.abs(y-pos.y)<=half;
-    var receipt=session.shoot(hit);beep('shot');hud();
-    if(receipt.type==='error'){finishRound();return;}
-    targetsSeen++;hud();
-    if(hit){
-      beep('hit');addPrize(receipt);var img=new Image();img.src=imageUrl(receipt.prize.id);
-      reveal={time:performance.now(),x:pos.x,y:pos.y,image:img,prize:receipt.prize};target=null;
-      announce('#'+receipt.prize.id+' · $'+receipt.prize.symbol,1300);
-      if(session.state.status!=='active'||targetsSeen>=10)pendingFinish=true;
-    }else{
-      announce('MISS!',650);
-      nextTargetOrFinish();
-    }
+    target=null;shotPending=true;$('cancel').disabled=true;beep('shot');
+    try{var receipt=await session.shoot(hit);shotPending=false;$('cancel').disabled=false;handleShot(receipt,hit,pos);}
+    catch(_){shotPending=false;pendingShot={hit:hit,pos:pos};$('retryShot').textContent='RETRY CHECKING LAST SHOT';$('retryShot').hidden=false;announce('CONNECTION LOST · RETRY SHOT',0);}
   }
   function position(event) {var rect=canvas.getBoundingClientRect();return {x:(event.clientX-rect.left)*canvas.width/rect.width,y:(event.clientY-rect.top)*canvas.height/rect.height};}
   canvas.addEventListener('pointermove',function(event){var p=position(event);aim.x=p.x;aim.y=p.y;});
@@ -206,7 +222,9 @@
   canvas.addEventListener('keydown',function(event){var keys={ArrowLeft:[-24,0],ArrowRight:[24,0],ArrowUp:[0,-24],ArrowDown:[0,24]};if(keys[event.key]){event.preventDefault();aim.x=Math.max(0,Math.min(960,aim.x+keys[event.key][0]));aim.y=Math.max(0,Math.min(600,aim.y+keys[event.key][1]));}else if(event.key===' '||event.key==='Enter'){event.preventDefault();fire(aim.x,aim.y);}});
   document.querySelectorAll('.pack').forEach(function(button){button.addEventListener('click',function(){pack=button.dataset.pack;document.querySelectorAll('.pack').forEach(function(b){var selected=b===button;b.classList.toggle('active',selected);b.setAttribute('aria-checked',String(selected));});});});
   $('sound').addEventListener('click',function(){soundOn=!soundOn;this.setAttribute('aria-pressed',String(soundOn));this.setAttribute('aria-label',soundOn?'Turn sound off':'Turn sound on');this.querySelector('span').textContent=soundOn?'SOUND ON':'SOUND OFF';initAudio();if(soundOn)beep('hit');});
-  $('start').addEventListener('click',function(){
+  $('start').addEventListener('click',async function(){
+    $('start').disabled=true;
+    document.querySelectorAll('.pack').forEach(function(button){button.disabled=true;});$('nickname').disabled=true;
     var name=$('nickname').value.replace(/[^A-Za-z0-9 _-]/g,'').trim().replace(/ +/g,' ').slice(0,24)||'PLAYER';
     $('nickname').value=name;
     try {
@@ -214,13 +232,18 @@
       localStorage.setItem('trix-hunt-local-player',playerId);localStorage.setItem('trix-hunt-local-name',name);
     } catch (_) {playerId=crypto.randomUUID();}
     sessionId=crypto.randomUUID();roundRecorded=false;
-    var config={order:window.TrixInventory.auto(inventory).map(function(item){return item.id;}),bestCount:9};
-    session=engine.createSession({pack:pack,inventory:window.TrixInventory.apply(inventory,config),players:1});reveal=null;pendingFinish=false;targetsSeen=0;
+    try{
+      if(localLeaderboard){economyActive=await testRoundStart(sessionId,pack);var config={order:window.TrixInventory.auto(inventory).map(function(item){return item.id;}),bestCount:9};session=engine.createSession({pack:pack,inventory:window.TrixInventory.apply(inventory,config),players:1});}
+      else{economyActive=false;session=await window.TrixHuntBeta.start(pack,name,playerId);}
+    }catch(error){$('start').disabled=false;setControls(false);$('testEconomyStatus').hidden=false;$('testEconomyStatus').textContent='Online playtest is unavailable. Please try again.';return;}
+    $('start').disabled=false;reveal=null;pendingFinish=false;finishPending=false;shotPending=false;pendingShot=null;targetsSeen=0;
     $('prizes').innerHTML='<div class="empty-prizes"><span>✳</span><p>Your catches land here.<br><small>Hit a mystery card to reveal it.</small></p></div>';$('prizeCount').textContent='00 CAPTURED';
     $('welcome').hidden=true;$('cabinetState').textContent='ROUND IN PROGRESS';setControls(true);hud();makeTarget();initAudio();canvas.focus();
   });
-  $('cancel').addEventListener('click',function(){if(!session||session.state.status!=='active')return;session.cancel();reveal=null;pendingFinish=false;hud();finishRound();});
+  $('cancel').addEventListener('click',function(){if(!session||session.state.status!=='active'||shotPending||pendingShot)return;target=null;reveal=null;pendingFinish=false;targetsSeen=10;nextTargetOrFinish();});
+  $('retryShot').addEventListener('click',async function(){if(!session||shotPending)return;if(finishPending){finishPending=false;nextTargetOrFinish();return;}if(!pendingShot||typeof session.retry!=='function')return;shotPending=true;$('retryShot').disabled=true;try{var receipt=await session.retry(),saved=pendingShot;pendingShot=null;$('retryShot').hidden=true;$('cancel').disabled=false;shotPending=false;handleShot(receipt,saved.hit,saved.pos);}catch(_){announce('CONNECTION LOST · RETRY SHOT',0);}finally{shotPending=false;$('retryShot').disabled=false;}});
   requestAnimationFrame(render);
+  if(localLeaderboard)$('testAdminLink').hidden=false;
   try {$('nickname').value=localStorage.getItem('trix-hunt-local-name')||'';}catch(_){}
   refreshLeaderboard();
   loadInventory().catch(function(error){$('start').textContent='COULD NOT LOAD COLLECTION';$('start').disabled=true;announce(error.message,0);});
