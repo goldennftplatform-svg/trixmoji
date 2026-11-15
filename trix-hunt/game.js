@@ -227,7 +227,7 @@
   $('sound').addEventListener('click',function(){soundOn=!soundOn;this.setAttribute('aria-pressed',String(soundOn));this.setAttribute('aria-label',soundOn?'Turn sound off':'Turn sound on');this.querySelector('span').textContent=soundOn?'SOUND ON':'SOUND OFF';initAudio();if(soundOn)beep('hit');});
   function beginCountdown(){
     roundReady=false;setControls(true);$('cabinetState').textContent='GET READY';$('welcome').hidden=false;$('welcome').querySelector('p').textContent='GET READY TO AIM';
-    if(window.matchMedia&&window.matchMedia('(max-width: 700px)').matches)canvas.scrollIntoView({behavior:'smooth',block:'center'});
+    if(window.matchMedia&&window.matchMedia('(max-width: 700px), (orientation: landscape) and (max-height: 540px)').matches)canvas.scrollIntoView({behavior:'smooth',block:'center'});
     initAudio();var count=3;
     function tick(){if(!session||session.state.status!=='active')return;$('welcome').querySelector('h2').textContent=String(count);if(count>0){count--;countdownTimer=setTimeout(tick,1000);return;}countdownTimer=null;$('welcome').hidden=true;$('cabinetState').textContent='ROUND IN PROGRESS';if(targetsSeen>=10){nextTargetOrFinish();return;}makeTarget();canvas.focus({preventScroll:true});}
     tick();
