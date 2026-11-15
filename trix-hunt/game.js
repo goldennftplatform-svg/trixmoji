@@ -5,7 +5,7 @@
   var ctx = canvas.getContext('2d');
   var $ = function (id) { return document.getElementById(id); };
   var artBase = '/assets/ethscriptions/trixmoji-launch/';
-  var inventory = [], session = null, pack = 'bullet', target = null, reveal = null, pendingFinish = false, targetsSeen = 0, roundReady = false;
+  var inventory = [], session = null, pack = 'bullet', target = null, reveal = null, pendingFinish = false, targetsSeen = 0, roundReady = false, countdownTimer = null;
   var aim = { x: 480, y: 240 }, soundOn = false, audio = null, messageTimer = 0;
   var localLeaderboard = location.hostname === '127.0.0.1' || location.hostname === 'localhost';
   var targetProgressKey='trix-hunt-target-progress-v1';
@@ -192,7 +192,7 @@
     $('start').hidden=active;$('cancel').hidden=!active;if(!active){$('retryShot').hidden=true;$('cancel').disabled=false;}
   }
   function finishRound() {
-    var s=session.state; target=null;roundReady=false;setControls(false);if(!localLeaderboard)try{localStorage.removeItem(targetProgressKey);}catch(_){}$('cabinetState').textContent='ROUND COMPLETE';
+    clearTimeout(countdownTimer);countdownTimer=null;var s=session.state; target=null;roundReady=false;setControls(false);if(!localLeaderboard)try{localStorage.removeItem(targetProgressKey);}catch(_){}$('cabinetState').textContent='ROUND COMPLETE';
     $('start').innerHTML='PLAY AGAIN <span>↗</span>'; $('welcome').hidden=false;
     $('welcome').querySelector('h2').innerHTML='NICE<br><em>SHOTS.</em>';
     $('welcome').querySelector('p').textContent=localLeaderboard?s.results.length+' CARDS CAPTURED · '+money(s.refundCents)+' DEMO REFUND':s.results.length+' CARDS CAPTURED · REFUND AWAITS SETTLEMENT';
@@ -225,8 +225,15 @@
   document.querySelectorAll('.pack').forEach(function(button){button.addEventListener('click',function(){pack=button.dataset.pack;$('walletAmmo').textContent=({bullet:'BULLET SHOTS',shotgun:'SHOTGUN SLUGS',sniper:'SNIPE SHOTS'})[pack];document.querySelectorAll('.pack').forEach(function(b){var selected=b===button;b.classList.toggle('active',selected);b.setAttribute('aria-checked',String(selected));});});});
   $('nickname').addEventListener('input',function(){$('walletPlayer').textContent=this.value.trim()||'Anonymous';});
   $('sound').addEventListener('click',function(){soundOn=!soundOn;this.setAttribute('aria-pressed',String(soundOn));this.setAttribute('aria-label',soundOn?'Turn sound off':'Turn sound on');this.querySelector('span').textContent=soundOn?'SOUND ON':'SOUND OFF';initAudio();if(soundOn)beep('hit');});
+  function beginCountdown(){
+    roundReady=false;setControls(true);$('cabinetState').textContent='GET READY';$('welcome').hidden=false;$('welcome').querySelector('p').textContent='GET READY TO AIM';
+    if(window.matchMedia&&window.matchMedia('(max-width: 700px)').matches)canvas.scrollIntoView({behavior:'smooth',block:'center'});
+    initAudio();var count=3;
+    function tick(){if(!session||session.state.status!=='active')return;$('welcome').querySelector('h2').textContent=String(count);if(count>0){count--;countdownTimer=setTimeout(tick,1000);return;}countdownTimer=null;$('welcome').hidden=true;$('cabinetState').textContent='ROUND IN PROGRESS';if(targetsSeen>=10){nextTargetOrFinish();return;}makeTarget();canvas.focus({preventScroll:true});}
+    tick();
+  }
   $('start').addEventListener('click',async function(){
-    if(roundReady){roundReady=false;$('welcome').hidden=true;$('cabinetState').textContent='ROUND IN PROGRESS';setControls(true);if(targetsSeen>=10){nextTargetOrFinish();return;}makeTarget();initAudio();canvas.focus();return;}
+    if(roundReady){beginCountdown();return;}
     $('start').disabled=true;
     document.querySelectorAll('.pack').forEach(function(button){button.disabled=true;});$('nickname').disabled=true;
     var enteredName=$('nickname').value;
@@ -238,17 +245,18 @@
     try{var identity=await window.TrixPlayerIdentity.resolve(enteredName,window.ethereum,playerId);playerId=identity.playerId;activeName=identity.nickname;}
     catch(_){activeName='PLAYER-'+playerId.replace(/[^A-Za-z0-9]/g,'').slice(0,6).toUpperCase();}
     sessionId=crypto.randomUUID();roundRecorded=false;
+    if(!localLeaderboard){$('testEconomyStatus').hidden=false;$('testEconomyStatus').textContent='On-chain confirmation can take around 30 seconds or longer. Approve in your wallet and keep this page open.';}
     try{
       if(localLeaderboard){economyActive=await testRoundStart(sessionId,pack);var config={order:window.TrixInventory.auto(inventory).map(function(item){return item.id;}),bestCount:9};session=engine.createSession({pack:pack,inventory:window.TrixInventory.apply(inventory,config),players:1});}
       else{economyActive=false;var payment=await window.TrixBetaPay.prepare(pack);if(!enteredName.trim())activeName=payment.wallet.slice(0,6)+'...'+payment.wallet.slice(-4);session=await window.TrixHuntBeta.start(pack,activeName,playerId,payment);window.TrixBetaPay.markPlaying();}
     }catch(error){$('start').disabled=false;setControls(false);var detail=error.message||'Sepolia test unavailable. Please try again.';$('testEconomyStatus').hidden=false;$('testEconomyStatus').textContent=detail;if(!localLeaderboard){$('paymentStatus').textContent=detail;$('betaPayment').open=true;}return;}
-    $('start').disabled=false;reveal=null;pendingFinish=false;finishPending=false;shotPending=false;pendingShot=null;targetsSeen=Math.min(10,session.state.shotsTaken);
+    $('testEconomyStatus').hidden=true;$('start').disabled=false;reveal=null;pendingFinish=false;finishPending=false;shotPending=false;pendingShot=null;targetsSeen=Math.min(10,session.state.shotsTaken);
     if(!localLeaderboard)try{var progress=JSON.parse(localStorage.getItem(targetProgressKey)||'null');if(progress&&progress.id===session.id&&Number.isInteger(progress.count))targetsSeen=Math.min(10,Math.max(targetsSeen,progress.count));rememberTargets();}catch(_){}
     $('prizes').innerHTML='<div class="empty-prizes"><span>✳</span><p>Your catches land here.<br><small>Hit a mystery card to reveal it.</small></p></div>';$('prizeCount').textContent='00 CAPTURED';
     if(session.state.results.length)session.state.results.forEach(function(item){addPrize(prizeDetails({prize:item.prize,player:item.player}));});
     setControls(true);hud();if(session.state.status!=='active'){finishRound();return;}roundReady=true;$('start').hidden=false;$('start').innerHTML='START ROUND <span>↗</span>';$('cabinetState').textContent='READY WHEN YOU ARE';$('welcome').hidden=false;$('welcome').querySelector('h2').innerHTML='READY<br><em>TO PLAY.</em>';$('welcome').querySelector('p').textContent='PRESS START ROUND WHEN YOU ARE READY';$('start').focus({preventScroll:true});
   });
-  $('cancel').addEventListener('click',function(){if(!session||session.state.status!=='active'||shotPending||pendingShot)return;if(roundReady){roundReady=false;$('start').hidden=true;}target=null;reveal=null;pendingFinish=false;targetsSeen=10;nextTargetOrFinish();});
+  $('cancel').addEventListener('click',function(){if(!session||session.state.status!=='active'||shotPending||pendingShot)return;clearTimeout(countdownTimer);countdownTimer=null;if(roundReady){roundReady=false;$('start').hidden=true;}target=null;reveal=null;pendingFinish=false;targetsSeen=10;nextTargetOrFinish();});
   $('retryShot').addEventListener('click',async function(){if(!session||shotPending)return;if(finishPending){finishPending=false;nextTargetOrFinish();return;}if(!pendingShot||typeof session.retry!=='function')return;shotPending=true;$('retryShot').disabled=true;try{var receipt=await session.retry(),saved=pendingShot;pendingShot=null;$('retryShot').hidden=true;$('cancel').disabled=false;shotPending=false;handleShot(receipt,saved.hit,saved.pos);}catch(_){announce('CONNECTION LOST · RETRY SHOT',0);}finally{shotPending=false;$('retryShot').disabled=false;}});
   $('refreshLeaderboard').addEventListener('click',refreshLeaderboard);
   window.addEventListener('trix-sepolia-resume',function(){if(roundReady)return;var saved=window.TrixBetaPay.savedPack();if(!saved)return;var button=document.querySelector('.pack[data-pack="'+saved+'"]');if(button)button.click();$('start').click();});
