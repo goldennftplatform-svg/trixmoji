@@ -1,9 +1,10 @@
 (function(){
  'use strict';
- var total=500,pageSize=40,page=0,grid=document.getElementById('boothGrid');
+ var ids=window.TrixTestPool.all,total=ids.length,pageSize=40,page=0,grid=document.getElementById('boothGrid');
  function render(){
   var start=page*pageSize,end=Math.min(total,start+pageSize);grid.textContent='';
-  for(var id=start;id<end;id++){
+  for(var index=start;index<end;index++){
+   var id=ids[index];
    var card=document.createElement('article');card.className='booth-card';
    var image=document.createElement('img');image.src='/assets/ethscriptions/trixmoji-launch/'+id+'.webp';image.alt='TrixMoji #'+id;image.loading='lazy';image.width=180;image.height=180;
    var label=document.createElement('div'),name=document.createElement('strong'),tag=document.createElement('span');name.textContent='TRIXMOJI #'+id;tag.textContent='PREVIEW';label.append(name,tag);card.append(image,label);grid.append(card);
